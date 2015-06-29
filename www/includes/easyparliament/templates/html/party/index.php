@@ -9,7 +9,7 @@
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php endif; ?>
+                <?php else: ?>
 
                 <?php if (count($policies) > 0): ?>
                 <div class="panel">
@@ -31,6 +31,7 @@
                     <?php endif; ?>
 
                 </div>
+                <?php endif; ?>
 
                 <div class="about-this-page">
                     <div class="about-this-page__one-of-one">

@@ -29,7 +29,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php endif; ?>
 
-                <?php if (count($positions) > 0): ?>
+                <?php if (count($sorted_diffs) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
 
