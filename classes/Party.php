@@ -91,7 +91,7 @@ class Party {
         return $data;
     }
 
-    public function policy_position($policy_id) {
+    public function policy_position($policy_id, $want_score = false) {
 
         // This could be done as a join but it turns out to be
         // much slower to do that
