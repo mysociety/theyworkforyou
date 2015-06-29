@@ -51,14 +51,13 @@ class Party {
                 JOIN member ON persondivisionvotes.person_id = member.person_id
                 WHERE
                     party = :party
+                    AND member.house = 1
                     AND division_id = :division_id
-                    AND entered_house <= :division_date
-                    AND left_house >= :division_date
+                    AND left_house = '9999-12-31'
                 GROUP BY vote",
                 array(
                     ':party' => $this->name,
-                    ':division_id' => $division_id,
-                    ':division_date' => $divisions->field($i, 'division_date')
+                    ':division_id' => $division_id
                 )
             );
 
