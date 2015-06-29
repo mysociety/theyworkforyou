@@ -22,6 +22,58 @@ class Party {
         $this->db = new \ParlDB;
     }
 
+    public function display($policy = null) {
+        $data = array();
+
+        $policies = new Policies();
+        $data['party'] = $this->name;
+
+        if ( $policy ) {
+            $members = $this->db->query(
+                "SELECT person_id
+                FROM member
+                WHERE
+                    party = :party
+                    AND house = 1
+                    AND left_house = '9999-12-31'",
+                array(
+                    ':party' => $this->name
+                )
+            );
+
+            $data['position'] = $this->policy_position($policy);
+            $data['policy'] = $policies->getPolicyDetails($policy);
+            $data['member_votes'] = array();
+            $member_count = $members->rows();
+
+            for ( $i = 0; $i < $member_count; $i++ ) {
+                $member = new Member(array('person_id' => $members->field($i, 'person_id')));
+                $member->load_extra_info(true);
+                $extra = $member->extra_info();
+                if ( isset($extra["public_whip_dreammp${policy}_distance"]) ) {
+                    $position = score_to_strongly($extra["public_whip_dreammp${policy}_distance"]);
+                } else {
+                    $position = 'never voted';
+                }
+                $data['member_votes'][$members->field($i, 'person_id')] = array(
+                    'details' => $member,
+                    'position' => $position
+                );
+            }
+
+        } else {
+            $data['policies'] = array();
+            foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
+                $data['policies'][$policy_id] = array(
+                    'position' => $this->policy_position($policy_id),
+                    'desc' => $policy_text
+                );
+            }
+        }
+
+        return $data;
+    }
+
     public function policy_position($policy_id) {
 
         // This could be done as a join but it turns out to be
