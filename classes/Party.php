@@ -92,6 +92,54 @@ class Party {
     }
 
     public function policy_position($policy_id, $want_score = false) {
+        $position = $this->db->query(
+            "SELECT score
+            FROM partypolicy
+            WHERE
+                party = :party
+                AND house = 1
+                AND policy_id = :policy_id",
+            array(
+                ':party' => $this->name,
+                ':policy_id' => $policy_id
+            )
+        );
+
+        if ( $position->rows ) {
+            $score = $position->field(0, 'score');
+            $score_desc = score_to_strongly($score);
+
+            if ( $want_score ) {
+                return array( $score_desc, $score);
+            } else {
+                return $score_desc;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function calculateAllPolicyPositions($policies) {
+        $positions = array();
+
+        foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
+            list( $position, $score ) = $this->calculate_policy_position($policy_id, true);
+            if ( $position === null ) {
+                continue;
+            }
+
+            $positions[$policy_id] = array(
+                'policy_id' => $policy_id,
+                'position' => $position,
+                'score' => $score,
+                'desc' => $policy_text
+            );
+        }
+
+        return $positions;
+    }
+
+    public function calculate_policy_position($policy_id, $want_score = false) {
 
         // This could be done as a join but it turns out to be
         // much slower to do that
@@ -109,6 +157,7 @@ class Party {
         $max_score = 0;
         $scores = array();
         $num_divs = $divisions->rows;
+        $total_votes = 0;
 
         for ( $i = 0; $i < $num_divs; $i++ ) {
             $division_id = $divisions->field($i, 'division_id');
@@ -140,7 +189,12 @@ class Party {
                 $score += ($votes->field($j, 'num_votes') * $weights[$vote_dir]);
             }
 
+            $total_votes += $num_votes;
             $max_score += $num_votes * max( array_values( $weights ) );
+        }
+
+        if ( $total_votes == 0 ) {
+            return null;
         }
 
         if ( $max_score == 0 ) {
@@ -154,6 +208,19 @@ class Party {
         } else {
             return $score_desc;
         }
+    }
+
+    public function cache_position( $position ) {
+        $q = $this->db->query(
+            "REPLACE INTO partypolicy
+                (party, house, policy_id, score)
+                VALUES (:party, 1, :policy_id, :score)",
+            array(
+                ':score' => $position['score'],
+                ':party' => $this->name,
+                ':policy_id' => $position['policy_id']
+            )
+        );
     }
 
     private function get_vote_scores($vote) {
@@ -188,4 +255,20 @@ class Party {
         return $scores;
     }
 
+    public static function getParties() {
+        $db = new \ParlDB;
+
+        $q = $db->query(
+            "SELECT DISTINCT party FROM member"
+        );
+
+        $parties = array();
+        $party_count = $q->rows;
+
+        for ( $i = 0; $i < $party_count; $i++ ) {
+            $parties[] = $q->field($i, 'party');
+        }
+
+        return $parties;
+    }
 }
