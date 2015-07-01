@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="twfy_testing">
+	<table_data name="alerts">
+	</table_data>
+	<table_data name="anonvotes">
+	</table_data>
+	<table_data name="api_key">
+	</table_data>
+	<table_data name="api_stats">
+	</table_data>
+	<table_data name="bills">
+	</table_data>
+	<table_data name="campaigners">
+	</table_data>
+	<table_data name="campaigners_sent_email">
+	</table_data>
+	<table_data name="commentreports">
+	</table_data>
+	<table_data name="comments">
+	</table_data>
+	<table_data name="consinfo">
+		<row>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="data_key">test_constituency_key</field>
+			<field name="data_value">Test Constituency Value</field>
+		</row>
+	</table_data>
+	<table_data name="constituency">
+	</table_data>
+	<table_data name="editqueue">
+	</table_data>
+	<table_data name="epobject">
+	</table_data>
+	<table_data name="future">
+	</table_data>
+	<table_data name="future_people">
+	</table_data>
+	<table_data name="gidredirect">
+	</table_data>
+	<table_data name="glossary">
+	</table_data>
+	<table_data name="hansard">
+	</table_data>
+	<table_data name="indexbatch">
+	</table_data>
+	<table_data name="member">
+		<row>
+			<field name="member_id">0</field>
+			<field name="house">0</field>
+			<field name="constituency"></field>
+			<field name="party"></field>
+			<field name="entered_house">1952-02-06</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">accession</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">1</field>
+			<field name="lastupdate">2013-08-07 11:02:49</field>
+		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">A Party</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">2</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">2</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">A Party</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">3</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+	</table_data>
+	<table_data name="person_names">
+		<row>
+			<field name="given_name">Elizabeth</field>
+			<field name="family_name">the Second, by the Grace of God, of the United Kingdom of Great Britain and Northern Ireland and of Her other Realms and Territories Queen, Head of the Commonwealth, Defender of the Faith</field>
+			<field name="start_date">1952-02-06</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">1</field>
+			<field name="title">Queen</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+		</row>
+	</table_data>
+	<table_data name="memberinfo">
+		<row>
+			<field name="member_id">15</field>
+			<field name="data_key">test_member_key</field>
+			<field name="data_value">Test Member Value</field>
+		</row>
+	</table_data>
+	<table_data name="mentions">
+	</table_data>
+	<table_data name="moffice">
+	</table_data>
+	<table_data name="pbc_members">
+	</table_data>
+	<table_data name="personinfo">
+		<row>
+			<field name="person_id">16</field>
+			<field name="data_key">test_person_key</field>
+			<field name="data_value">Test Person Value</field>
+		</row>
+	</table_data>
+  <table_data name="policydivisions">
+      <row>
+          <field name="division_id">1</field>
+          <field name="house">commons</field>
+          <field name="policy_id">810</field>
+          <field name="division_title">A division</field>
+          <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
+      </row>
+  </table_data>
+  <table_data name="persondivisionvotes">
+      <row>
+          <field name="division_id">1</field>
+          <field name="person_id">2</field>
+          <field name="vote">aye</field>
+      </row>
+      <row>
+          <field name="division_id">1</field>
+          <field name="person_id">3</field>
+          <field name="vote">no</field>
+      </row>
+  </table_data>
+  <table_data name="partypolicy">
+      <row>
+          <field name="party">A Party</field>
+          <field name="policy_id">363</field>
+          <field name="house">1</field>
+          <field name="score">0.9</field>
+      </row>
+  </table_data>
+	<table_data name="postcode_lookup">
+      <row>
+          <field name="postcode">KY16 8YG</field>
+          <field name="name">North East Fife|North East Fife|Mid Scotland and Fife</field>
+      </row>
+      <row>
+          <field name="postcode">BT17 0XD</field>
+          <field name="name">Belfast West|Belfast West</field>
+      </row>
+	</table_data>
+	<table_data name="search_query_log">
+	</table_data>
+	<table_data name="survey">
+	</table_data>
+	<table_data name="titles">
+	</table_data>
+	<table_data name="titles_ignored">
+	</table_data>
+	<table_data name="trackbacks">
+	</table_data>
+	<table_data name="users">
+	</table_data>
+	<table_data name="uservotes">
+	</table_data>
+	<table_data name="video_timestamps">
+	</table_data>
+	<table_data name="editorial">
+	</table_data>
+</database>
+</mysqldump>
