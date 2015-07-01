@@ -356,6 +356,49 @@ class Member extends \MEMBER {
         }
     }
 
+    public function getPartyPolicyDiffs($party, $policiesList, $positions, $only_diffs = false) {
+        $policy_diffs = array();
+        $party_positions = $party->getAllPolicyPositions($policiesList);
+
+        foreach ( $positions->positionsById as $policy_id => $details ) {
+            if ( $details['score'] != -1 ) {
+                $mp_score = $details['score'];
+                $party_score = $party_positions[$policy_id]['score'];
+
+                $score_diff = $this->calculatePolicyDiffScore($mp_score, $party_score);
+
+                // skip anything that isn't a yes vs no diff
+                if ( $only_diffs && $score_diff < 2 ) {
+                    continue;
+                }
+                $policy_diffs[$policy_id] = $score_diff;
+            }
+        }
+
+        arsort($policy_diffs);
+
+        return $policy_diffs;
+    }
+
+    private function calculatePolicyDiffScore( $mp_score, $party_score ) {
+        $score_diff = abs($mp_score - $party_score);
+        // if they are on opposite sides of mixture of for and against
+        if (
+            ( $mp_score < 0.4 && $party_score > 0.6 ) ||
+            ( $mp_score > 0.6 && $party_score < 0.4 )
+        ) {
+            $score_diff += 2;
+        // if on is mixture of for and against and one is for/against
+        } else if (
+            ( $mp_score > 0.4 && $mp_score < 0.6 && ( $party_score > 0.6 || $party_score < 0.4 ) ) ||
+            ( $party_score > 0.4 && $party_score < 0.6 && ( $mp_score > 0.6 || $mp_score < 0.4 ) )
+        ) {
+            $score_diff += 1;
+        }
+
+        return $score_diff;
+    }
+
     public static function getRegionalList($postcode, $house, $type) {
         $db = new \ParlDB;
 

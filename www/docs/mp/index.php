@@ -464,6 +464,17 @@ switch ($pagetype) {
         // Generate limited voting record list
         $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
 
+        // generate party policy diffs
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+        $party_positions = $party->getAllPolicyPositions($policiesList);
+        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
+
+        $data['sorted_diffs'] = $policy_diffs;
+        $data['party_positions'] = $party_positions;
+        $data['positions'] = $positions->positionsById;
+        $data['policies'] = $policiesList->getPolicies();
+
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
 

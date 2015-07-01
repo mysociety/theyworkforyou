@@ -21,11 +21,36 @@ class PartyTest extends TWFY_Database_TestCase
         $this->assertEquals( 'A Party', $party->name );
     }
 
-    public function testCalculatePositions() {
-        $party = new MySociety\TheyWorkForYou\Party('A Party');
-        $policies = new MySociety\TheyWorkForYou\Policies();
+    public function testGetPolicyPositions() {
+        $positions = $this->getAllPositions('getAllPolicyPositions');
 
-        $positions = $party->calculateAllPolicyPositions($policies);
+        $expectedPositions = array(
+            '363' => array(
+                'position' => 'almost always voted against',
+                'score' => '0.9',
+                'desc' => 'introducing <b>foundation hospitals</b>',
+                'policy_id' => 363
+            )
+        );
+
+        $this->assertEquals($expectedPositions, $positions);
+
+    }
+
+    public function testGetRestrictedPositions() {
+        $party = new MySociety\TheyWorkForYou\Party('A Party');
+        $policies = new MySociety\TheyWorkForYou\Policies(6667);
+
+        $positions = $party->getAllPolicyPositions($policies);
+
+        $expectedPositions = array();
+
+        $this->assertEquals($expectedPositions, $positions);
+
+    }
+
+    public function testCalculatePositions() {
+        $positions = $this->getAllPositions('calculateAllPolicyPositions');
 
         $expectedResults = array(
             '810' => array(
@@ -37,6 +62,14 @@ class PartyTest extends TWFY_Database_TestCase
         );
 
         $this->assertEquals($expectedResults, $positions);
+    }
+
+    private function getAllPositions($method) {
+        $party = new MySociety\TheyWorkForYou\Party('A Party');
+        $policies = new MySociety\TheyWorkForYou\Policies();
+
+        $positions = $party->$method($policies);
+        return $positions;
     }
 
 }

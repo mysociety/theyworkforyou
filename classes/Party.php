@@ -22,22 +22,43 @@ class Party {
         $this->db = new \ParlDB;
     }
 
-    public function calculateAllPolicyPositions($policies) {
-        $positions = array();
 
-        foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
-            list( $position, $score ) = $this->calculate_policy_position($policy_id, true);
-            if ( $position === null ) {
-                continue;
+    public function getAllPolicyPositions($policies) {
+        $positions = $this->fetchPolicyPositionsByMethod($policies, "policy_position");
+
+        return $positions;
+    }
+
+    public function policy_position($policy_id, $want_score = false) {
+        $position = $this->db->query(
+            "SELECT score
+            FROM partypolicy
+            WHERE
+                party = :party
+                AND house = 1
+                AND policy_id = :policy_id",
+            array(
+                ':party' => $this->name,
+                ':policy_id' => $policy_id
+            )
+        );
+
+        if ( $position->rows ) {
+            $score = $position->field(0, 'score');
+            $score_desc = score_to_strongly($score);
+
+            if ( $want_score ) {
+                return array( $score_desc, $score);
+            } else {
+                return $score_desc;
             }
-
-            $positions[$policy_id] = array(
-                'policy_id' => $policy_id,
-                'position' => $position,
-                'score' => $score,
-                'desc' => $policy_text
-            );
+        } else {
+            return null;
         }
+    }
+
+    public function calculateAllPolicyPositions($policies) {
+        $positions = $this->fetchPolicyPositionsByMethod($policies, "calculate_policy_position");
 
         return $positions;
     }
@@ -123,6 +144,26 @@ class Party {
                 ':policy_id' => $position['policy_id']
             )
         );
+    }
+
+    private function fetchPolicyPositionsByMethod($policies, $method) {
+        $positions = array();
+
+        foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
+            list( $position, $score ) = $this->$method($policy_id, true);
+            if ( $position === null ) {
+                continue;
+            }
+
+            $positions[$policy_id] = array(
+                'policy_id' => $policy_id,
+                'position' => $position,
+                'score' => $score,
+                'desc' => $policy_text
+            );
+        }
+
+        return $positions;
     }
 
     private function get_vote_scores($vote) {
