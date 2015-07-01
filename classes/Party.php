@@ -22,6 +22,50 @@ class Party {
         $this->db = new \ParlDB;
     }
 
+
+    public function getAllPolicyPositions($policies) {
+        $positions = array();
+
+        foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
+            list( $position, $score ) = $this->policy_position($policy_id, true);
+            $positions[$policy_id] = array(
+                'position' => $position,
+                'score' => $score,
+                'desc' => $policy_text
+            );
+        }
+
+        return $positions;
+    }
+
+    public function policy_position($policy_id, $want_score = false) {
+        $position = $this->db->query(
+            "SELECT score
+            FROM partypolicy
+            WHERE
+                party = :party
+                AND house = 1
+                AND policy_id = :policy_id",
+            array(
+                ':party' => $this->name,
+                ':policy_id' => $policy_id
+            )
+        );
+
+        if ( $position->rows ) {
+            $score = $position->field(0, 'score');
+            $score_desc = score_to_strongly($score);
+
+            if ( $want_score ) {
+                return array( $score_desc, $score);
+            } else {
+                return $score_desc;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public function calculateAllPolicyPositions($policies) {
         $positions = array();
 
