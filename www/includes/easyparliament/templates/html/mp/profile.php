@@ -55,11 +55,30 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php if (count($policyPositions->positions) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
-                    <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
+                    <h2 data-magellan-destination="votes"><?= $full_name ?>'s voting in Parliament</h2>
 
-                    <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
 
-                    <?php if (count($policyPositions->positions) > 0): ?>
+                    <?php if (count($sorted_diffs) > 0): ?>
+
+                        <p>
+                        <?= $full_name ?> is a <?= $party ?> MP, and so on most issues votes in alignment with colleagues. Notable exceptions to this include:
+                        </p>
+
+                        <ul class="vote-descriptions">
+                          <?php foreach ($sorted_diffs as $policy_id => $score): ?>
+                            <li>
+                                <?= ucfirst(strip_tags($policies[$policy_id])) ?>. <?= $full_name ?> voted <b><?= $positions[$policy_id]['voted'] ?></b>. Most <?= $party ?> MPs voted <b><?= $party_positions[$policy_id]['position'] ?></b>.
+                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $policy_id ?>">Details</a>
+                            </li>
+                          <?php endforeach; ?>
+                        </ul>
+
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>'s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>'s full vote analysis page</a> for more.</p>
+
+                    <?php elseif (count($policyPositions->positions) > 0 ): ?>
+                        <p>
+                        <?= $full_name ?> is a <?= $party ?> MP, and so on all issues votes in alignment with colleagues. A selection of votes is:
+                        </p>
 
                         <ul class="vote-descriptions">
                           <?php foreach ($policyPositions->positions as $key_vote): ?>
@@ -70,9 +89,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                           <?php endforeach; ?>
                         </ul>
 
-                        <p>New: more <a href="<?= $member_url ?>/votes">analysis of votes</a> on <a href="<?= $member_url ?>/votes#health">health</a>, <a href="<?= $member_url ?>/votes#welfare">welfare</a>, <a href="<?= $member_url ?>/votes#foreign">foreign policy</a>, <a href="<?= $member_url ?>/votes#social">social issues</a>, <a href="<?= $member_url ?>/votes#taxation">taxation</a> and more.</p>
-
-                    <?php else: ?>
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>'s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>'s full vote analysis page</a> for more.</p>
+                    <?php elseif (count($policyPositions->positions) == 0 ): ?>
 
                         <p>No votes to display.</p>
 

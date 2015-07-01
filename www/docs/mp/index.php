@@ -469,32 +469,7 @@ switch ($pagetype) {
 
         $party_positions = $party->getAllPolicyPositions($policiesList);
 
-        $policy_diffs = array();
-
-        foreach ( $positions->positionsById as $policy_id => $details ) {
-            if ( $details['score'] != -1 ) {
-                $mp_score = $details['score'];
-                $party_score = $party_positions[$policy_id]['score'];
-
-                $score_diff = abs($mp_score - $party_score);
-                // if they are on opposite sides of mixture of for and against
-                if (
-                    ( $mp_score < 0.4 && $party_score > 0.6 ) ||
-                    ( $mp_score > 0.6 && $party_score < 0.4 )
-                ) {
-                    $score_diff += 2;
-                // if on is mixture of for and against and one is for/against
-                } else if (
-                    ( $mp_score > 0.4 && $mp_score < 0.6 && ( $party_score > 0.6 || $party_score < 0.4 ) ) ||
-                    ( $party_score > 0.4 && $party_score < 0.6 && ( $mp_score > 0.6 || $mp_score < 0.4 ) )
-                ) {
-                    $score_diff += 1;
-                }
-                $policy_diffs[$policy_id] = $score_diff;
-            }
-        }
-
-        $score_diffs = arsort($policy_diffs);
+        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions);
         $data['sorted_diffs'] = $policy_diffs;
         $data['party_positions'] = $party_positions;
         $data['positions'] = $positions->positionsById;
@@ -511,6 +486,17 @@ switch ($pagetype) {
 
         // Generate limited voting record list
         $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, 6);
+
+        // generate party policy diffs
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+        $party_positions = $party->getAllPolicyPositions($policiesList);
+        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
+
+        $data['sorted_diffs'] = $policy_diffs;
+        $data['party_positions'] = $party_positions;
+        $data['positions'] = $positions->positionsById;
+        $data['policies'] = $policiesList->getPolicies();
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
