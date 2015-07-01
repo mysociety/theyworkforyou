@@ -61,7 +61,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php if (count($sorted_diffs) > 0): ?>
 
                         <p>
-                        <?= $full_name ?> is a <?= $party ?> MP, and so on most issues votes in alignment with colleagues. Notable exceptions to this include:
+                        <?= $full_name ?> is a <?= $party ?> MP, and so on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                        </p>
+
+                        <p>
+                        However, <?= $full_name ?> sometime <b>differs</b> from his party collegues, such as:
                         </p>
 
                         <ul class="vote-descriptions">
