@@ -91,7 +91,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                                     <?php if ( isset($party_position) ) { ?>
                                     <h3>
-                                        Other <?= $party ?> MPs voted <?= $party_position ?> this policy.
+                                        The majority of <?= $party ?> MPs voted <?= $party_position ?> this policy.
                                     </h3>
                                     <?php } ?>
                                     <?php if ( DEVSITE ) { ?>
