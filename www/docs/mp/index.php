@@ -455,6 +455,22 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
 
         break;
+    case 'partycompare':
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+
+        $party_positions = $party->getAllPolicyPositions($policiesList);
+
+        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions);
+        $data['sorted_diffs'] = $policy_diffs;
+        $data['party_positions'] = $party_positions;
+        $data['positions'] = $positions->positionsById;
+        $data['policies'] = $policiesList->getPolicies();
+
+        MySociety\TheyWorkForYou\Renderer::output('mp/party_compare', $data);
+
+        break;
     case '':
     default:
 
