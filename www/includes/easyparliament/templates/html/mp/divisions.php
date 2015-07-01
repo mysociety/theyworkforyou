@@ -95,6 +95,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <button class="button button--negative">I disagree with this MP</button>
                                     </p>
                                     <?php } ?>
+                                    <?php if ( isset($party_position) ) { ?>
+                                    <h3>
+                                        The majority of <a href="<?= $party_url ?>?policy=<?= $policy['policy_id'] ?>"><?= $party ?> MPs</a> voted <?= $party_position ?> this policy.
+                                    </h3>
+                                    <?php } ?>
 
                                     <h3 class="policy-votes-list-header"><span id="policy-votes-type">All</span> votes about <?= $policy['desc'] ?>:</h3>
 
