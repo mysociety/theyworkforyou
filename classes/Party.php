@@ -22,6 +22,28 @@ class Party {
         $this->db = new \ParlDB;
     }
 
+    public function URL() {
+        $url_name = strtolower(str_replace(' ', '_', $this->name));
+        $url_name = str_replace('/', ':', $url_name);
+
+        return "/party/$url_name/";
+    }
+
+    public function display($policy = null) {
+        $data = array();
+
+        $policies = new Policies();
+
+        if ( $policy ) {
+            $data = $this->getPolicyPosition($policy, $policies);
+        } else {
+            $data['policies'] = $this->getAllPolicyPositions($policies);
+        }
+
+        $data['party'] = utf8_decode($this->name);
+
+        return $data;
+    }
 
     public function getAllPolicyPositions($policies) {
         $positions = array();
@@ -36,6 +58,44 @@ class Party {
         }
 
         return $positions;
+    }
+
+    public function getPolicyPosition($policy, $policies) {
+        $data = array();
+
+        $members = $this->db->query(
+            "SELECT person_id
+            FROM member
+            WHERE
+                party = :party
+                AND house = 1
+                AND left_house = '9999-12-31'",
+            array(
+                ':party' => $this->name
+            )
+        );
+
+        $data['position'] = $this->policy_position($policy);
+        $data['policy'] = $policies->getPolicyDetails($policy);
+        $data['member_votes'] = array();
+        $member_count = $members->rows();
+
+        for ( $i = 0; $i < $member_count; $i++ ) {
+            $member = new Member(array('person_id' => $members->field($i, 'person_id')));
+            $member->load_extra_info(true);
+            $extra = $member->extra_info();
+            if ( isset($extra["public_whip_dreammp${policy}_distance"]) ) {
+                $position = score_to_strongly($extra["public_whip_dreammp${policy}_distance"]);
+            } else {
+                $position = 'never voted';
+            }
+            $data['member_votes'][$members->field($i, 'person_id')] = array(
+                'details' => $member,
+                'position' => $position
+            );
+        }
+
+        return $data;
     }
 
     public function policy_position($policy_id, $want_score = false) {
