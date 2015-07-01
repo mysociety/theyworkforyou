@@ -143,6 +143,7 @@ CREATE TABLE `policydivisions` (
   `no_text` text,
   `division_date` date NOT NULL default '1000-01-01',
   `division_number` int(11),
+  `policy_vote` enum('aye', 'aye3', 'no', 'no3', 'both', 'absent', '') default '',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   UNIQUE KEY `policy_division` (`division_id`, `policy_id`),
   KEY `division_id` (`division_id`)
