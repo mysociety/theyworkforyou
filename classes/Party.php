@@ -22,6 +22,13 @@ class Party {
         $this->db = new \ParlDB;
     }
 
+    public function URL() {
+        $url_name = strtolower(str_replace(' ', '_', $this->name));
+        $url_name = str_replace('/', ':', $url_name);
+
+        return "/party/$url_name/";
+    }
+
     public function display($policy = null) {
         $data = array();
 
@@ -33,7 +40,7 @@ class Party {
             $data['policies'] = $this->getAllPolicyPositions($policies);
         }
 
-        $data['party'] = $this->name;
+        $data['party'] = utf8_decode($this->name);
 
         return $data;
     }

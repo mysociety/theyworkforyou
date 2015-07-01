@@ -3,6 +3,8 @@
 include_once '../../includes/easyparliament/init.php';
 
 if ($party = get_http_var('party')) {
+    $party = ucwords(str_replace('_', ' ', $party));
+    $party = str_replace(':', '/', $party);
     $party = new MySociety\TheyWorkForYou\Party($party);
     $template = 'party/index';
 

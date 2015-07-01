@@ -444,6 +444,7 @@ switch ($pagetype) {
             if ( $this_page == 'mp' ) {
                 $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
                 $party_position = $party->policy_position($policyID);
+                $data['party_url'] = $party->URL();
                 $data['party_position'] = $party_position;
             }
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);

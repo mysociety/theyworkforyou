@@ -5,11 +5,11 @@
 
                 <h1><?= $party ?></h1>
 
-                <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')) && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if ($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')): ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php endif; ?>
+                <?php else: ?>
 
                 <div class="panel">
                     <a name="votes"></a>
@@ -28,6 +28,7 @@
                         </ul>
 
                 </div>
+                <?php endif; ?>
 
                 <div class="about-this-page">
                     <div class="about-this-page__one-of-one">
