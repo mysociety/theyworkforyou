@@ -55,7 +55,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php if (count($policyPositions->positions) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
-                    <h2 data-magellan-destination="votes"><?= $full_name ?>'s voting in Parliament</h2>
+                    <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
 
                     <?php if (count($sorted_diffs) > 0): ?>
@@ -65,7 +65,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         </p>
 
                         <p>
-                        However, <?= $full_name ?> sometime <b>differs</b> from his party collegues, such as:
+                        However, <?= $full_name ?> sometimes <b>differs</b> from his party collegues, such as:
                         </p>
 
                         <ul class="vote-descriptions">
@@ -77,11 +77,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                           <?php endforeach; ?>
                         </ul>
 
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>'s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>'s full vote analysis page</a> for more.</p>
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
                         <p>
-                        <?= $full_name ?> is a <?= $party ?> MP, and so on all issues votes in alignment with colleagues. A selection of votes is:
+                        <?= $full_name ?> is a <?= $party ?> MP, and so on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                        </p>
+
+
+                        <p>
+                        This is a selection of <?= $full_name ?>&rsquo;s votes.
                         </p>
 
                         <ul class="vote-descriptions">
@@ -93,7 +98,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                           <?php endforeach; ?>
                         </ul>
 
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>'s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>'s full vote analysis page</a> for more.</p>
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
                     <?php elseif (count($policyPositions->positions) == 0 ): ?>
 
                         <p>No votes to display.</p>
