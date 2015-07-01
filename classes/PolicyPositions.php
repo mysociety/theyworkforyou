@@ -110,11 +110,14 @@ class PolicyPositions {
                 if (!empty($dream_info)) {
                     $this->positions[] = array(
                         'policy_id' => $policy[0],
-                        'desc' => $dream_info['full_sentence']
+                        'desc' => $dream_info['full_sentence'],
+                        'position' => $dream_info['position']
                     );
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],
-                        'desc' => $dream_info['full_sentence']
+                        'desc' => $dream_info['full_sentence'],
+                        'position' => $dream_info['position'],
+                        'score' => $dream_info['score'],
                     );
                     $i++;
                 }
@@ -158,6 +161,7 @@ class PolicyPositions {
         if (isset($extra_info["public_whip_dreammp${dreamid}_distance"])) {
             if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 0) {
                 $consistency = 'has never voted on';
+                $dmpscore = -1;
             } else {
                 $dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
                 if ($inverse)
@@ -165,7 +169,7 @@ class PolicyPositions {
                 $consistency = score_to_strongly($dmpscore);
             }
             $full_sentence = $consistency . ' ' . $policy_description;
-            $out = array( 'full_sentence' => $full_sentence );
+            $out = array( 'full_sentence' => $full_sentence, 'score' => $dmpscore, 'position' => $consistency );
         }
 
         return $out;
