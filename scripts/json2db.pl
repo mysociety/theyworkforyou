@@ -35,10 +35,10 @@ my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::
 my $policycheck = $dbh->prepare("SELECT policy_id from policies where policy_id = ?");
 my $policyadd = $dbh->prepare("INSERT INTO policies (policy_id, title, description) VALUES (?, ?, ?)");
 
-my $motioncheck = $dbh->prepare("SELECT division_title, gid, direction, yes_text, no_text FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $motioncheck = $dbh->prepare("SELECT division_title, gid, direction, policy_vote, yes_text, no_text FROM policydivisions WHERE division_id = ? AND policy_id = ?");
 
-my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, direction, division_title, yes_text, no_text, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ?, yes_text = ?, no_text = ?, direction = ? WHERE division_id = ? AND policy_id = ?");
+my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, direction, policy_vote, division_title, yes_text, no_text, division_date, division_number, gid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ?, yes_text = ?, no_text = ?, direction = ?, policy_vote = ? WHERE division_id = ? AND policy_id = ?");
 
 my $votecheck = $dbh->prepare("SELECT person_id, vote FROM persondivisionvotes WHERE division_id = ?");
 my $voteadd = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?)");
@@ -107,7 +107,7 @@ foreach my $dreamid ( @policyids ) {
         }
 
         if ( !defined $curr_motion ) {
-            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{direction}, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid);
+            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{direction}, $motion->{motion}->{policy_vote}, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid);
             unless ( $r > 0 ) {
                 warn "problem creating policymotion for $dreamid, skipping motions\n";
                 next;
@@ -116,9 +116,10 @@ foreach my $dreamid ( @policyids ) {
                   $curr_motion->{gid} ne $gid ||
                   $curr_motion->{yes_text} ne $yes_text ||
                   $curr_motion->{no_text} ne $no_text ||
-                  $motion->{direction} ne $curr_motion->{direction}
+                  $motion->{direction} ne $curr_motion->{direction} ||
+                  $motion->{motion}->{policy_vote} ne $curr_motion->{policy_vote}
         ) {
-            my $r = $motionupdate->execute($gid, $text, $yes_text, $no_text, $motion->{direction}, $motion_id, $dreamid);
+            my $r = $motionupdate->execute($gid, $text, $yes_text, $no_text, $motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
             unless ( $r > 0 ) {
                 warn "problem updating division $motion_id from " . $curr_motion->{division_title} . " to $text AND " . $curr_motion->{gid} . " to $gid\n";
             }
