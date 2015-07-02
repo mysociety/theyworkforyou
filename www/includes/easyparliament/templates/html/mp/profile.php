@@ -64,8 +64,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <ul class="vote-descriptions">
                           <?php foreach ($policyPositions->positions as $key_vote): ?>
                             <li>
-                                <?= $key_vote['desc'] ?>
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Details</a>
+                                <?= ucfirst($key_vote['desc']) ?>
+                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
                             </li>
                           <?php endforeach; ?>
                         </ul>

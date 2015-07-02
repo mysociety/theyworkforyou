@@ -1083,19 +1083,19 @@ function _major_summary_title($major, $data, $LISTURL, $daytext) {
 function score_to_strongly($dmpscore) {
     $dmpdesc = "unknown about";
     if ($dmpscore > 0.95 && $dmpscore <= 1.0)
-        $dmpdesc = "very strongly against";
+        $dmpdesc = "consistently voted against";
     elseif ($dmpscore > 0.85)
-        $dmpdesc = "strongly against";
+        $dmpdesc = "almost always voted against";
     elseif ($dmpscore > 0.6)
-        $dmpdesc = "moderately against";
+        $dmpdesc = "generally voted against";
     elseif ($dmpscore > 0.4)
-        $dmpdesc = "a mixture of for and against";
+        $dmpdesc = "voted a mixture of for and against";
     elseif ($dmpscore > 0.15)
-        $dmpdesc = "moderately for";
+        $dmpdesc = "generally voted for";
     elseif ($dmpscore > 0.05)
-        $dmpdesc = "strongly for";
+        $dmpdesc = "almost always voted for";
     elseif ($dmpscore >= 0.0)
-        $dmpdesc = "very strongly for";
+        $dmpdesc = "consistently voted for";
     return $dmpdesc;
 }
 

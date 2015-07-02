@@ -142,7 +142,7 @@
 
                                 <?php foreach ($positions as $position): ?>
 
-                                <li><?= $position['desc'] ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $position['policy_id'] ?>">Details</a></li>
+                                <li><?= ucfirst($position['desc']) ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $position['policy_id'] ?>">Show votes</a></li>
 
                                 <?php endforeach; ?>
 

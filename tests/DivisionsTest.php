@@ -50,7 +50,7 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testPolicyDirection() {
         $page = $this->fetch_division_page();
-        $this->assertContains('voted strongly against introducing <b>foundation', $page);
+        $this->assertContains('almost always voted against introducing <b>foundation', $page);
     }
 
     public function testVotedAgainst() {

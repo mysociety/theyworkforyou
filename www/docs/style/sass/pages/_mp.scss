@@ -566,10 +566,16 @@
     line-height: 1.5em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    padding-right: 5em;
+    padding-right: 6.5em; // leave space for "Show votes" .vote-description__source button
 
     &:first-child {
       border-top: 1px solid $borders;
+    }
+
+    @media (min-height: 800px) {
+        // Bit of extra space around "Show votes" buttons if there's space
+        padding-top: 0.7em;
+        padding-bottom: 0.7em;
     }
   }
 
@@ -617,8 +623,8 @@
   line-height: 2em;
 
   @include radius(1em);
-  background-color: transparent;
-  color: #cfcabb; // light desaturated taupe colour
+  background-color: $body-bg;
+  color: $body-font-color;
   font-size: 14px;
   text-decoration: none;
 
@@ -631,7 +637,7 @@
     background-color: $links;
     color: #fff;
 
-    &::after {
+    &:after {
       background-image: url(/images/external-link-icon-white.png);
     }
 
