@@ -34,31 +34,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php $displayed_votes = FALSE; ?>
                 <?php if ( isset($policydivisions) && $policydivisions ) { ?>
-                    <?php if ( $answered_q ) { ?>
-                        <p class="panel panel--feedback">
-                            Thanks for the feedback.
-                        </p>
-                    <?php } else { ?>
-                        <form method="post" action="<?= OPTION_SURVEY_URL ?>" class="panel panel--feedback">
-                            <input type="hidden" name="sourceidentifier" value="divisions-suggestions">
-                            <input type="hidden" name="datetime" value="<?=time() ?>">
-                            <input type="hidden" name="subgroup" value="0">
-
-                            <input type="hidden" name="user_code" value="<?=$user_code ?>">
-                            <input type="hidden" name="auth_signature" value="<?=$auth_signature ?>">
-
-                            <input type="hidden" name="came_from" value="<?=$page_url ?>">
-                            <input type="hidden" name="return_url" value="<?=$page_url ?>">
-                            <p>
-                                <strong>This page is new!</strong>
-                                Is there anything else you&rsquo;d like to see on it?
-                            </p>
-                            <p>
-                                <input type="text" name="policy-page-suggestion" placeholder="I want to see&hellip;">
-                                <input type="submit" class="button small" value="Make it happen!">
-                            </p>
-                        </form>
-                    <?php } ?>
 
                     <?php if ($has_voting_record) { ?>
 
