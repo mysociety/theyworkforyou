@@ -4,64 +4,27 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH."easyparliament/people.php";
 
 if (get_http_var('msp')) {
-    list_reps('msps', 'MSPs', 'msp_search');
+    $type = 'msps';
+    $template = 'msp_index';
 } elseif (get_http_var('mla')) {
-    list_reps('mlas', 'MLAs', 'mla_search');
+    $type = 'mlas';
+    $template = 'mla_index';
 } elseif (get_http_var('peer')) {
-    list_reps('peers', 'Members of the House of Lords', 'peer_search');
+    $type = 'peers';
+    $template = 'peer_index';
 } else {
-    list_reps('mps', 'MPs', 'mp_search');
+    $type = 'mps';
+    $template = 'mp_index';
 }
+    $template = 'mp_index';
 
-function list_reps($type, $rep_plural, $search_sidebar) {
-    global $this_page, $PAGE, $DATA;
 
-    $this_page = $type;
-
-    $args = array();
-    if ($type == 'peers')
-        $args['order'] = 'name';
-
-    $date = get_http_var('date');
-    if ($date) {
-        $date = parse_date($date);
-        if ($date) {
-            $DATA->set_page_metadata($this_page, 'title', $rep_plural . ', as on ' . format_date($date['iso'], LONGDATEFORMAT));
-            $args['date'] = $date['iso'];
-        }
-    } elseif (get_http_var('all')) {
-        $DATA->set_page_metadata($this_page, 'title', 'All ' . $rep_plural . ', including former ones');
-        $args['all'] = true;
-    } else {
-        $DATA->set_page_metadata($this_page, 'title', 'All ' . $rep_plural);
-    }
-
-    if (get_http_var('f') != 'csv') {
-        $PAGE->page_start();
-        $PAGE->stripe_start();
-        $format = 'html';
-    } else {
-        $format = 'csv';
-    }
-
-    $order = get_http_var('o');
-    $orders = array(
-        'n' => 'name', 'f' => 'given_name', 'l' => 'family_name',
-        'c' => 'constituency', 'p' => 'party', 'd' => 'debates',
-    );
-    if (array_key_exists($order, $orders))
-        $args['order'] = $orders[$order];
-
-    $PEOPLE = new PEOPLE;
-    $PEOPLE->display($type, $args, $format);
-
-    if (get_http_var('f') != 'csv') {
-        $PAGE->stripe_end(array(
-            array('type' => 'include', 'content' => 'minisurvey'),
-            array('type' => 'include', 'content' => 'people'),
-            array('type' => 'include', 'content' => $search_sidebar),
-        ));
-        $PAGE->page_end();
-    }
-
+$people = new MySociety\TheyWorkForYou\People($type);
+$args = $people->getArgs();
+$people->setMetaData($args);
+$data = $people->getData($args);
+if ( isset($args['f']) && $args['f'] == 'csv' ) {
+    $people->sendAsCSV($data);
+} else {
+    MySociety\TheyWorkForYou\Renderer::output("people/$template", $data);
 }
