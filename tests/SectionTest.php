@@ -28,8 +28,8 @@ class SectionTest extends FetchPageTestCase
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'y' => '2014' ) );
             $this->assertContains('<div class="calendar">', $page);
-            $this->assertContains('January 2014', $page);
-            $this->assertContains('<tr><td colspan="2">&nbsp;</td><td><a href="/' . $type . '/?d=2014-01-01">1</a></td><td><span>2</span></td>', $page);
+            $this->assertContains('January', $page);
+            $this->assertRegExp('/<td colspan="2">&nbsp;<\/td><td[^>]*><a href="\/' . $type . '\/\?d=2014-01-01">1<\/a><\/td><td[^>]*><span>2<\/span><\/td>/', $page);
         }
     }
 

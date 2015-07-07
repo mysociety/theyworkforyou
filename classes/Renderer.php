@@ -197,6 +197,8 @@ class Renderer
         $b = new Model\Banner;
         $data['banner_text'] = $b->get_text();
 
+        $data = self::addCommonURLs($data);
+
         # mini survey
         // we never want to display this on the front page or any
         // other survey page we might have
@@ -217,6 +219,25 @@ class Renderer
         require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+    }
+
+    private static function addCommonURLs($data) {
+        $urls = array();
+        if ( isset($data['urls']) ) {
+            $urls = $data['urls'];
+        }
+
+        $common_urls = array('search', 'alert');
+
+        foreach ( $common_urls as $path ) {
+            if (!isset($urls[$path]) ) {
+                $url = new \URL($path);
+                $urls[$path] = $url->generate();
+            }
+        }
+
+        $data['urls'] = $urls;
+        return $data;
     }
 
 }

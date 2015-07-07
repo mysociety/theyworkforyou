@@ -16,6 +16,37 @@ class SpwransView extends WransView {
         }
     }
 
+    protected function display_front() {
+        global $this_page, $DATA;
+        $this_page = 'spwransfront';
+        $data = array();
+
+        $args = array( 'months' => 1 );
+        $WRANSLIST = new \SPWRANSLIST;
+
+        $wrans = array();
+        $wrans['data'] = $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5), 'none');
+        $wrans['calendar'] = $WRANSLIST->display('calendar', $args, 'none');
+
+        $data['content'] = $wrans;
+
+        return $data;
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('spwrans');
+        $urls['day'] = $day;
+        $urls['spwransday'] = $day;
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        return array(
+            array( 'section' => 'spwrans' )
+        );
+    }
+
     private function spwrans_redirect($spid) {
         global $PAGE;
 

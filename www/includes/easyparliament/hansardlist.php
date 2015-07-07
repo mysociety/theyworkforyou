@@ -758,7 +758,6 @@ class HANSARDLIST {
         // Where we'll put all the data we want to render.
         $data = array ();
 
-
         $date = $this->_validate_date($args);
 
         if ($date) {
@@ -2558,7 +2557,7 @@ class HANSARDLIST {
 
         twfy_debug (get_class($this), "getting data by column");
 
-        $input = array( 'amount' => array('body'=>true, 'comment'=>true),
+        $input = array( 'amount' => array('body'=>true, 'comment'=>true, 'speaker'=>true),
         'where' => array( 'hdate='=>$args['date'], 'major=' => $this->major, 'gid LIKE ' =>'%.'.$args['column'].'.%' ),
         'order' => 'hpos'
         );
@@ -3112,6 +3111,22 @@ class DEBATELIST extends HANSARDLIST {
                     array(':epobject_id' => $item_data['section_id']));
                 $debate['parent']['body'] = $r->field(0, 'body');
             }
+
+            $r = $this->db->query("SELECT e.body,
+                                    h.person_id, h.hdate, h.htime
+                            FROM    hansard h, epobject e
+                            WHERE   h.epobject_id = e.epobject_id
+                            AND     h.subsection_id = '" . $item_data['epobject_id'] . "'
+                            ORDER BY hpos
+                            LIMIT 1
+                            ");
+            $childbody = $r->field(0, 'body');
+            $speaker = $this->_get_speaker($r->field(0, 'person_id'), $r->field(0, 'hdate'), $r->field(0, 'htime'), $this->major );
+
+            $debate['child'] = array(
+                'body' => $childbody,
+                'speaker' => $speaker
+            );
 
             $data[] = $debate;
         }

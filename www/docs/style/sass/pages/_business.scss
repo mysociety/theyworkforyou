@@ -1,0 +1,408 @@
+// Styles for "Business" pages such as /debates, /wrans, etc
+
+.business-section {
+    @include grid-row(collapse);
+
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.business-section--inverted {
+    background-color: #444;
+    color: $colour_off_white;
+
+    h2, h3, label, li {
+        color: $colour_mid_grey;
+    }
+
+    a {
+        color: #fff;
+    }
+
+    .business-section__primary {
+        border-bottom: none;
+        border-right: none;
+    }
+}
+
+.business-section__header {
+    @include grid-column(12, $collapse: true);
+
+    border-radius: 3px 3px 0 0;
+    background-color: $primary-color;
+    color: white;
+    padding: 1.5em;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 3em;
+    }
+}
+
+.business-section__header__title {
+    color: inherit;
+    margin: 0 0 0.4em 0;
+    line-height: 1.1em;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.business-section__header__date {
+    color: mix($primary-color, #fff, 25%);
+    font-size: 1.4em;
+    line-height: 1.2em;
+    margin: -0.4em 0 0 0;
+}
+
+.business-section__solo {
+    @include grid-column(12, $collapse: true);
+    padding: 1.5em;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 3em;
+    }
+}
+
+.business-section__primary {
+    @include grid-column(12, $collapse: true);
+    padding: 1.5em;
+    border-bottom: 1px solid $colour_off_white;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 3em;
+    }
+
+    @media (min-width: $large-screen) {
+        @include grid-column(8, $collapse: true);
+        padding: 2.5em 3em;
+        border-bottom: none;
+        border-right: 1px solid $colour_off_white;
+    }
+}
+
+.business-section__secondary {
+    @include grid-column(12, $collapse: true);
+    padding: 1.5em;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 3em;
+    }
+
+    @media (min-width: $large-screen) {
+        @include grid-column(4, $collapse: true);
+        padding: 2.5em 3em;
+    }
+
+    .rss-feed {
+        margin-top: 2em;
+        font-size: 0.8em;
+    }
+}
+
+.business-section__what-is-this {
+    h3 {
+        color: $colour_grey;
+        margin: 0;
+    }
+
+    p {
+        margin: 0.5em 0 0 0;
+        font-size: 0.9em;
+    }
+}
+
+.business-list {
+    @include unstyled-list();
+    margin: 0;
+
+    li {
+        & + li {
+            margin-top: 2em;
+        }
+
+        & > :last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            @include unstyled-list();
+            margin-top: 1em;
+            border-left: 0.2em solid $body-bg;
+            padding-left: 1em;
+        }
+    }
+}
+
+.business-list__title {
+    display: block;
+    margin: 0 0 0.3em 0;
+
+    h3 {
+        display: inline-block; // form a single line with .business-list__meta after it
+        color: inherit;
+        margin: 0;
+        line-height: 1.2em;
+    }
+}
+
+a.business-list__title {
+    &:hover,
+    &:focus {
+        text-decoration: none;
+
+        h3 {
+            text-decoration: underline;
+        }
+    }
+}
+
+.business-list__meta {
+    display: inline-block;
+    text-decoration: none;
+    font-size: emCalc(14);
+    color: $colour_grey;
+    font-weight: normal;
+    margin-left: 0.5em;
+}
+
+.business-list__excerpt {
+    font-size: 0.9em;
+}
+
+.calendar__controls {
+    @include grid-row();
+    @extend .upcoming__controls;
+    margin-bottom: 1em;
+}
+
+.calendar__controls__previous,
+.calendar__controls__next {
+    @include grid-column(2);
+}
+
+.calendar__controls__previous {
+    @extend .controls__prev;
+}
+
+.calendar__controls__next {
+    @extend .controls__next;
+}
+
+.calendar__controls__current {
+    @include grid-column(8);
+    @extend .controls__current;
+}
+
+.calendar {
+    table {
+        margin-bottom: 0;
+        border: none;
+        background: transparent;
+        text-align: center;
+        width: 100%;
+    }
+
+    thead {
+        background: transparent;
+    }
+
+    th {
+        text-align: inherit;
+    }
+
+    td {
+        padding: 0;
+        border-bottom: 1px solid $colour_off_white;
+
+        & > * {
+            display: block;
+            padding: 0.5em 0.55556em;
+        }
+
+        &.no {
+            color: $colour_mid_grey;
+        }
+    }
+
+    tr:nth-of-type(even) {
+        background: transparent;
+    }
+
+    .on > * {
+        background: mix($colour_off_white, #fff, 50%);
+        color: $primary-color;
+    }
+}
+
+.calendar__header {
+    margin-bottom: 1em;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.calendar__footer {
+    margin-top: 1em;
+    text-align: center;
+    font-size: 0.8em;
+
+    a {
+        display: block;
+    }
+}
+
+.calendar-year {
+    .calendar {
+        margin-top: 2em;
+    }
+
+    @media (min-width: $medium-screen) {
+        @include clearfix();
+        margin: -1em -2em 0 -2em;
+
+        .calendar {
+            width: 50%;
+            float: left;
+            padding: 0 2em;
+
+            &:nth-child(2n+1) {
+                clear: left;
+            }
+        }
+    }
+
+    @media (min-width: $large-screen) {
+        .calendar {
+            width: 33.3%;
+
+            &:nth-child(2n+1) {
+                clear: none;
+            }
+
+            &:nth-child(3n+1){
+                clear: left;
+            }
+        }
+    }
+}
+
+.search-section {
+    @extend .business-section--inverted;
+}
+
+.search-section__primary {
+}
+
+.search-section__label {
+    font-size: emCalc(24);
+    margin-bottom: 0.5em;
+}
+
+input.search-section__input {
+    @extend input.homepage-search__input;
+}
+
+input.search-section__submit {
+    @extend input.homepage-search__button;
+}
+
+.search-section__filters {
+    margin-top: 1em;
+
+    label {
+        margin-right: 1em;
+        font-size: 1em;
+        margin-top: 0.5em;
+        margin-bottom: 0;
+
+        @media (min-width: $medium-screen) {
+            display: inline;
+        }
+    }
+
+    input {
+        margin-right: 0.2em;
+        margin-bottom: 0;
+        vertical-align: 0.05em;
+    }
+}
+
+.search-section__secondary {
+    padding-top: 0;
+
+    @media (min-width: $large-screen) {
+        padding-top: 2.5em
+    }
+
+    h3 {
+        font-size: emCalc(14);
+        font-weight: normal;
+    }
+}
+
+.search-section__suggestions {
+    @extend .search-suggestions__list;
+}
+
+.minisurvey {
+    color: $light-text;
+    padding: 1.5em;
+    border-radius: 3px;
+    background-color: mix($body-bg, #fff, 40%);
+    text-align: center;
+
+    p {
+        font-size: 0.9em;
+        margin-bottom: 0.5em;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0 0 1em 0;
+    }
+
+    li {
+        display: inline-block;
+
+        & + li {
+            margin-left: 1.5em;
+        }
+    }
+
+    label {
+        font-size: 1em;
+        line-height: 1.2em;
+        color: inherit;
+    }
+
+    input[type="radio"] {
+        margin-right: 0.5em;
+        margin-bottom: 0;
+        vertical-align: 0.05em;
+    }
+
+    input[type="submit"] {
+        @extend .button;
+        @extend .secondary-button;
+        margin-bottom: 0;
+    }
+
+    #minisurvey-further-details {
+        margin-bottom: 1em;
+
+        label {
+            margin-bottom: 0.5em;
+        }
+    }
+}
+
+.calendar,
+.minisurvey {
+    margin-top: 2em;
+
+    @media (min-height: 700px) {
+        margin-top: 3em;
+    }
+}

@@ -9,6 +9,7 @@ class SectionView {
     protected $list;
     private $major_data;
     private $page_base;
+    protected $index_template = '';
 
     public function __construct() {
         global $hansardmajors;
@@ -21,23 +22,108 @@ class SectionView {
     }
 
     public function display() {
-        global $PAGE;
         if ($year = get_http_var('y')) {
-            $this->display_year($year);
+            $data = $this->display_year($year);
+            $data['year'] = $year;
+            $data['template'] = 'section/year';
+            $data = $this->addCommonData($data);
         } elseif (($date = get_http_var('d')) && ($column = get_http_var('c'))) {
-            $this->display_column($date, $column);
+            $data = $this->display_column($date, $column);
+            $data = $this->addCommonData($data);
         } elseif ($date = get_http_var('d')) {
-            $this->display_day($date);
+            $data = $this->display_day($date);
+            if ( !isset($data['template']) ) {
+                $data['template'] = 'section/day';
+            }
+            $data = $this->addCommonData($data);
         } elseif (get_http_var('id')) {
             $data = $this->display_section_or_speech();
-            return $data;
         } else {
-            $skip_end = $this->display_front();
-            if ( $skip_end ) {
-                return;
+            $data = $this->display_front();
+            if ( !isset($data['template']) ) {
+                $data['template'] = 'section/recent';
             }
+            $data['search_sections'] = $this->getSearchSections();
+            $data = $this->addCommonData($data);
         }
-        $PAGE->page_end();
+
+        return $data;
+    }
+
+    protected function addCommonData($data) {
+        global $DATA, $this_page;
+
+        $common = new \MySociety\TheyWorkForYou\Common;
+        $data['urls'] = $this->getURLs($data);
+        $data['popular_searches'] = $common->getPopularSearches();
+        $data['recess_major'] = $this->getRecessMajor($data);
+
+        $nextprev = $DATA->page_metadata($this_page, 'nextprev');
+        if ( isset($nextprev['next']['url']) ) {
+            $data['next'] = $nextprev['next'];
+        }
+        if ( isset($nextprev['prev']['url']) ) {
+            $data['prev'] = $nextprev['prev'];
+        }
+
+        $parent_page = $DATA->page_metadata($this_page, 'parent');
+        $data['title'] = $DATA->page_metadata($this_page, 'title');
+        if (!isset($data['title']) && $parent_page != '') {
+            $data['title'] = $DATA->page_metadata($parent_page, 'title');
+        }
+        if ( $parent_page ) {
+            $data['parent_title'] = $DATA->page_metadata($parent_page, 'title');
+        }
+
+        $data['section'] = $this->pageToSection();
+
+        return $data;
+    }
+
+    protected function getURLs($data) {
+        global $DATA, $this_page;
+
+        $urls = array();
+
+        $urls = array_merge($urls, $this->getViewUrls());
+
+        if ( isset($data['info']['page']) ) {
+            $day = new \URL($data['info']['page']);
+            $urls['day'] = $day;
+        }
+
+        return $urls;
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('debates');
+        $urls['debatesday'] = $day;
+        $urls['day'] = $day;
+        $day = new \URL('whall');
+        $urls['whallday'] = $day;
+        $day = new \URL('lordsdebates');
+        $urls['lordsday'] = $day;
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        return array();
+    }
+
+    protected function getRecessMajor($data) {
+        global $hansardmajors;
+
+        $recess_major = 1; # For all of UK Parliament
+        if ($hansardmajors[$this->major]['location'] == 'NI') {
+            $recess_major = 5;
+        } elseif ($hansardmajors[$this->major]['location'] == 'Scotland') {
+            $recess_major = 4; # For all of Scotland
+        } elseif ($this->major == 101) {
+            $recess_major = 101; # Lords slightly different
+        }
+
+        return $recess_major;
     }
 
     protected function display_year($year) {
@@ -47,37 +133,48 @@ class SectionView {
             $DATA->set_page_metadata($this_page, 'title', $year);
         }
 
-        $PAGE->page_start();
-        $PAGE->stripe_start();
         $args = array ( 'year' => $year );
-        $this->list->display('calendar', $args);
-        $blocks = array();
-        $blocks[] = array( 'type' => 'nextprev' );
-        if ($this->major == 1) {
-            $blocks[] = array(
-                'type' => 'include',
-                'content' => 'minisurvey',
-            );
-        }
-        $blocks[] = array(
-            'type' => 'include',
-            'content' => $this->major_data['sidebar']
-        );
-        $PAGE->stripe_end($blocks);
+        $data = $this->list->display('calendar', $args, 'none');
+        return $data;
     }
 
     protected function display_column($date, $column) {
         global $this_page;
-        $this_page = $this->page_base . 'column';
+        $this_page = $this->page_base;
         $args = array( 'date' => $date, 'column' => $column );
-        $this->list->display('column', $args);
+        $content = $this->list->display('column', $args, 'none');
+
+        $data = array();
+        $data['column'] = $column;
+        $URL = new \URL($this->list->listpage);
+        $URL->insert(array('d' => $date));
+        $data['debate_day_link'] = $URL->generate();
+        $data['debate_day_human'] = format_date($date, LONGDATEFORMAT); 
+
+        $data['rows'] = $content;
+        $data['info'] = array('major' => $this->major, 'date' => $date);
+
+        list($country, $location, $assembly) = $this->getCountryDetails();
+        $data['col_country'] = $country;
+        $data['location'] = $location;
+        $data['current_assembly'] = $assembly;
+
+        $data['template'] = 'section/column';
+        return $data;
     }
 
     protected function display_day($date) {
         global $this_page;
         $this_page = $this->page_base . 'day';
         $args = array ( 'date' => get_http_var('d') );
-        $this->list->display('date', $args);
+        $data = $this->list->display('date', $args, 'none');
+        list($year, $month, $day) = explode('-', $date);
+        $args = array( 'year' => $year, 'month' => $month, 'day' => $day);
+        $calendar = $this->list->display('calendar', $args, 'none');
+        if ( isset($calendar['years']) ) {
+            $data['calendar'] = $calendar['years'];
+        }
+        return $data;
     }
 
     protected function display_section_or_speech($args = array()) {
@@ -135,6 +232,74 @@ class SectionView {
 
         # Okay, let's set up highlighting and glossarisation
 
+        list($bodies, $speeches) = $this->highlightSpeeches($data);
+
+        list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
+
+
+        list($country, $location, $assembly) = $this->getCountryDetails();
+        $data['location'] = $location;
+        $data['current_assembly'] = $assembly;
+
+        $data = $this->setTitleAndAlertText($data, $subsection_title);
+
+        $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
+        $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+
+        $URL = new \URL($this->list->listpage);
+        $URL->insert(array('d' => $first_speech['hdate']));
+        $URL->remove(array('id'));
+        $data['debate_day_link'] = $URL->generate();
+
+        $data['nextprev'] = $DATA->page_metadata($this_page, 'nextprev');
+
+        return $data;
+    }
+
+    private function setTitleAndAlertText($data, $subsection_title) {
+        if ($subsection_title) {
+            $data['heading'] = $subsection_title;
+        } else {
+            $data['heading'] = $data['section_title'];
+        }
+
+        if ($subsection_title) {
+            $data['intro'] = "$data[section_title]";
+        } else {
+            $data['intro'] = "";
+        }
+
+        if (array_key_exists('text_heading', $data['info'])) {
+            // avoid having Clause 1 etc as the alert text search string on PBC pages as it's
+            // almost certainly not what the person wants
+            if ( $this->major == 6 ) {
+                $data['email_alert_text'] = $data['section_title'];
+            } else {
+                $data['email_alert_text'] = $data['info']['text_heading'];
+            }
+        } else {
+            // The user has requested only part of a debate, so find a suitable title
+            if ($subsection_title) {
+                $data['intro'] = "Part of $data[section_title]";
+            } else {
+                $data['intro'] = "Part of the debate";
+            }
+            foreach ($data['rows'] as $row) {
+                if ($row['htype'] == 10 || $row['htype'] == 11) {
+                    $data['email_alert_text'] = $row['body'];
+                    $data['full_debate_url'] = $row['listurl'];
+                    break;
+                }
+            }
+        }
+        // strip a couple of common characters that result in encode junk in the
+        // search string
+        $data['email_alert_text'] = preg_replace('/(?:[:()\[\]]|&#\d+;)/', '', $data['email_alert_text']);
+
+        return $data;
+    }
+
+    private function highlightSpeeches($data) {
         $SEARCHENGINE = null;
         if (isset($data['info']['searchstring']) && $data['info']['searchstring'] != '') {
             $SEARCHENGINE = new \SEARCHENGINE($data['info']['searchstring']);
@@ -177,6 +342,11 @@ class SectionView {
             twfy_debug_timestamp('After glossarise');
         }
 
+        return array($bodies, $speeches);
+    }
+
+    private function annotateSpeeches($data, $bodies, $speeches) {
+        global $THEUSER;
         $first_speech = null;
         $data['section_title'] = '';
         $subsection_title = '';
@@ -230,149 +400,83 @@ class SectionView {
             }
         }
 
-        if ($subsection_title) {
-            $data['heading'] = $subsection_title;
-        } else {
-            $data['heading'] = $data['section_title'];
-        }
+        return array($data, $first_speech, $subsection_title);
+    }
 
-        if ($subsection_title) {
-            $data['intro'] = "$data[section_title]";
-        } else {
-            $data['intro'] = "";
-        }
+    private function getCountryDetails() {
+        $details = array(
+            1 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-commons',
+                'location' => '&ndash; in the House of Commons'
+            ),
+            2 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-commons',
+                'location' => '&ndash; in Westminster Hall'
+            ),
+            3 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-commons',
+                'location' => 'written question &ndash; answered'
+            ),
+            4 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-commons',
+                'location' => 'written statement &ndash; made'
+            ),
+            5 => array (
+                'country' => 'NORTHERN IRELAND',
+                'assembly' => 'ni',
+                'location' => '&ndash; in the Northern Ireland Assembly'
+            ),
+            6 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-commons',
+                'location' => '&ndash; in a Public Bill Committee'
+            ),
+            7 => array (
+                'country' => 'SCOTLAND',
+                'assembly' => 'scotland',
+                'location' => '&ndash; in the Scottish Parliament'
+            ),
+            8 => array (
+                'country' => 'SCOTLAND',
+                'assembly' => 'scotland',
+                'location' => '&ndash; Scottish Parliament written question &ndash; answered'
+            ),
+            101 => array (
+                'country' => 'UK',
+                'assembly' => 'uk-lords',
+                'location' => '&ndash; in the House of Lords'
+            )
+        );
 
-        $country = 'UK';
-        if ($this->major == 1) {
-            $data['location'] = '&ndash; in the House of Commons';
-        } elseif ($this->major == 2) {
-            $data['location'] = '&ndash; in Westminster Hall';
-        } elseif ($this->major == 3) {
-            $data['location'] = 'written question &ndash; answered';
-        } elseif ($this->major == 4) {
-            $data['location'] = 'written statement &ndash; made';
-        } elseif ($this->major == 5) {
-            $country = 'NORTHERN IRELAND';
-            $data['location'] = '&ndash; in the Northern Ireland Assembly';
-        } elseif ($this->major == 6) {
-            $data['location'] = '&ndash; in a Public Bill Committee';
-        } elseif ($this->major == 7) {
-            $country = 'SCOTLAND';
-            $data['location'] = '&ndash; in the Scottish Parliament';
-        } elseif ($this->major == 8) {
-            $country = 'SCOTLAND';
-            $data['location'] = '&ndash; Scottish Parliament written question &ndash; answered';
-        } elseif ($this->major == 101) {
-            $data['location'] = '&ndash; in the House of Lords';
-        }
-
-        $data['current_assembly'] = "uk-commons";
-        switch ($country) {
-            case "UK":
-                if ($this->major == 101){
-                    $data['current_assembly'] = "uk-lords";
-                }
-                break;
-            case "SCOTLAND":
-                $data['current_assembly'] = "scotland";
-                break;
-            case "NORTHERN IRELAND":
-                $data['current_assembly'] = "ni";
-                break;
-        }
-
-        if (array_key_exists('text_heading', $data['info'])) {
-            // avoid having Clause 1 etc as the alert text search string on PBC pages as it's
-            // almost certainly not what the person wants
-            if ( $this->major == 6 ) {
-                $data['email_alert_text'] = $data['section_title'];
-            } else {
-                $data['email_alert_text'] = $data['info']['text_heading'];
-            }
-        } else {
-            // The user has requested only part of a debate, so find a suitable title
-            if ($subsection_title) {
-                $data['intro'] = "Part of $data[section_title]";
-            } else {
-                $data['intro'] = "Part of the debate";
-            }
-            foreach ($data['rows'] as $row) {
-                if ($row['htype'] == 10 || $row['htype'] == 11) {
-                    $data['email_alert_text'] = $row['body'];
-                    $data['full_debate_url'] = $row['listurl'];
-                    break;
-                }
-            }
-        }
-        // strip a couple of common characters that result in encode junk in the
-        // search string
-        $data['email_alert_text'] = preg_replace('/(?:[:()\[\]]|&#\d+;)/', '', $data['email_alert_text']);
-
-        $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
-        $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
-
-        $URL = new \URL($this->list->listpage);
-        $URL->insert(array('d' => $first_speech['hdate']));
-        $URL->remove(array('id'));
-        $data['debate_day_link'] = $URL->generate();
-
-        $data['nextprev'] = $DATA->page_metadata($this_page, 'nextprev');
-
-        return $data;
+        $detail = $details[$this->major];
+        return array($detail['country'], $detail['location'], $detail['assembly']);
     }
 
     protected function display_front() {
-        global $this_page, $PAGE, $DATA;
+        global $DATA, $this_page;
         $this_page = $this->page_base . 'front';
-        $PAGE->page_start();
-        $PAGE->stripe_start();
-        $this->front_content();
-        $rssurl = $DATA->page_metadata($this_page, 'rss');
-        $blocks = array();
-        if ($this->major == 6) {
-            $blocks[] = array (
-                'type' => 'include',
-                'content' => 'minisurvey'
-            );
+        $data = array();
+        if ( $this->index_template ) {
+            $data['template'] = $this->index_template;
         }
-        $blocks[] = array ( 'type' => 'nextprev' );
-        if ($this->major == 6) {
-            $blocks[] = array(
-                'type' => 'html',
-                'content' => '
-    <div class="block">
-    <h4>Search bill committees</h4>
-    <div class="blockbody">
-    <form action="/search/" method="get">
-    <p><input type="text" name="q" id="search_input" value="" size="40"> <input type="submit" value="Go">
-    <input type="hidden" name="section" value="pbc">
-    </p>
-    </form>
-    </div>
-    </div>
-    ',
-            );
-        } else {
-            $blocks[] = array (
-                'type' => 'include',
-                'content' => 'calendar_' . $this->major_data['sidebar'],
-            );
+
+        $class = new $this->class;
+        $content = array();
+        $content['data'] = $this->front_content();
+
+        $content['calendar'] = $class->display('calendar', array('months' => 1), 'none');
+
+        if ( $rssurl = $DATA->page_metadata($this_page, 'rss') ) {
+            $content['rssurl'] = $rssurl;
         }
-        $blocks[] = array(
-            'type' => 'include',
-            'content' => $this->major_data['sidebar']
-        );
-        if ($rssurl) {
-            $blocks[] = array(
-                'type' => 'html',
-                'content' => '<div class="block">
-        <h4>RSS feed</h4>
-        <p><a href="' . WEBPATH . $rssurl . '"><img alt="RSS feed" border="0" align="middle" src="http://www.theyworkforyou.com/images/rss.gif"></a>
-        <a href="' . WEBPATH . $rssurl . '">RSS feed of most recent debates</a></p>
-        </div>'
-            );
-        }
-        $PAGE->stripe_end($blocks);
+
+        $data['content'] = $content;
+        return $this->addCommonData($data);
+
     }
 
     public function is_debate_section_page() {
@@ -441,6 +545,22 @@ class SectionView {
 
     protected function get_question_mentions_html($row_data) {
         throw new \Exception('get_question_mentions_html called from class with no implementation');
+    }
+
+    private function pageToSection() {
+        $sections = array(
+            1 => 'debates',
+            2 => 'whall',
+            3 => 'wrans',
+            4 => 'wms',
+            5 => 'ni',
+            6 => 'standing',
+            7 => 'sp',
+            8 => 'spwrans',
+            101 => 'lords'
+        );
+
+        return $sections[$this->major];
     }
 
 }

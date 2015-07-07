@@ -3,6 +3,7 @@
 
 include_once '../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
+include_once INCLUDESPATH . "easyparliament/recess.php";
 
 # Redirect shortcut.
 # We no longer want to use the gid parameter, it's all id.
@@ -16,7 +17,12 @@ if ($type = ucfirst(get_http_var('type'))) {
     $view = new $class_name();
     $data = $view->display();
     if ($data) {
-        MySociety\TheyWorkForYou\Renderer::output('section/section', $data);
+        if ( !empty($data['template']) ) {
+            $template = $data['template'];
+        } else {
+            $template = 'section/section';
+        }
+        MySociety\TheyWorkForYou\Renderer::output($template, $data);
     }
 } else {
     $PAGE->error_message("No type specified", true);

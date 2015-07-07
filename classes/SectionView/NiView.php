@@ -5,19 +5,35 @@ namespace MySociety\TheyWorkForYou\SectionView;
 class NiView extends SectionView {
     protected $major = 5;
     protected $class = 'NILIST';
+    protected $index_template = 'section/ni_index';
 
     protected function display_front() {
         if (get_http_var('more')) {
-            parent::display_front();
+            return parent::display_front();
         } else {
-            $this->display_front_ni();
-            return true;
+            return $this->display_front_ni();
         }
     }
 
     protected function front_content() {
-        echo '<h2>Busiest debates from the most recent month</h2>';
-        $this->list->display('biggest_debates', array('days'=>30, 'num'=>20));
+        return $this->list->display('biggest_debates', array('days'=>30, 'num'=>20), 'none');
+    }
+
+    protected function getURLs($data) {
+        $urls = array();
+
+        $day = new \URL('nidebates');
+        $urls['niday'] = $day;
+
+        $urls['day'] = $day;
+
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        return array(
+            array( 'section' => 'ni' )
+        );
     }
 
     protected function display_front_ni() {
@@ -29,13 +45,8 @@ class NiView extends SectionView {
 
         $data['popular_searches'] = NULL;
 
-        $search = new \URL('search');
-        $urls['search'] = $search->generate();
 
-        $alert = new \URL('alert');
-        $urls['alert'] = $alert->generate();
-
-        $data['urls'] = $urls;
+        $data['urls'] = $this->getURLs($data);
 
         $DEBATELIST = new \NILIST;
 
@@ -72,8 +83,9 @@ class NiView extends SectionView {
         $data['debates'] = array( 'recent' => $recent);
 
         $data['regional'] = $this->getMLAList();
+        $data['template'] = 'ni/index';
 
-        \MySociety\TheyWorkForYou\Renderer::output('ni/index', $data);
+        return $data;
     }
 
     protected function getMLAList() {

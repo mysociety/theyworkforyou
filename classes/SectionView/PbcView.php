@@ -5,6 +5,7 @@ namespace MySociety\TheyWorkForYou\SectionView;
 class PbcView extends SectionView {
     protected $major = 6;
     protected $class = 'StandingCommittee';
+    protected $index_template = 'section/pbc_index';
 
     private $bill;
     private $session;
@@ -51,7 +52,11 @@ class PbcView extends SectionView {
                 'title' => $this->bill,
                 'session' => $this->session,
             );
-            $this->list->display('bill', $args);
+            $data = array();
+            $data['content'] = $this->list->display('bill', $args, 'none');
+            $data['session'] = $this->session;
+            $data['template'] = 'section/pbc_bill';
+            return $this->addCommonData($data);
         } elseif ($this->session && $this->bill) {
             # Illegal bill title, redirect to session page
             $URL = new \URL('pbc_session');
@@ -64,16 +69,46 @@ class PbcView extends SectionView {
             $args = array (
                 'session' => $this->session,
             );
-            $this->list->display('session', $args);
+            $data = array();
+            $data['rows'] = $this->list->display('session', $args, 'none');
+            $data['template'] = 'section/pbc_session';
+            $data['session'] = $this->session;
+            return $this->addCommonData($data);
         } else {
-            $this->display_front();
+            return $this->display_front();
         }
-        $PAGE->page_end();
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('pbc_front');
+        $urls['pbcday'] = $day;
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        return array(
+            array( 'section' => 'pbc' )
+        );
     }
 
     protected function front_content() {
-        echo '<h2>Most recent Public Bill committee debates</h2>
-        <p><a href="/pbc/2014-15/">See all committees for the current session</a></p>';
-        $this->list->display( 'recent_pbc_debates', array( 'num' => 50 ) );
+        return $this->list->display( 'recent_pbc_debates', array( 'num' => 50 ), 'none' );
+    }
+
+    protected function display_front() {
+        global $DATA, $this_page;
+        $this_page = 'pbc_front';
+
+        $data = array();
+        $data['template'] = $this->index_template;
+
+        $content = array();
+        $content['data'] = $this->front_content();
+
+        $content['rssurl'] = $DATA->page_metadata($this_page, 'rss');
+
+        $data['content'] = $content;
+        return $this->addCommonData($data);
     }
 }

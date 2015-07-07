@@ -145,7 +145,50 @@ $GLOBALS['recessdates'][1] = array(
     ),
     2012 => array(
         1=>array('less'=>10),
+        2=>array('between'=>array(9,20)),
+        3=>array('more'=>27),
+        4=>array('less'=>16),
+        5=>array('more'=>24),
+        6=>array('less'=>11),
+        7=>array('more'=>17),
+        8=>array('all'=>1),
+        9=>array('less'=>3,'more'=>18),
+        10=>array('less'=>15),
+        11=>array('between'=>array(13,19)),
+        12=>array('more'=>20)
     ),
+    2013 => array(
+        1=>array('less'=>7),
+        2=>array('between'=>array(14,25)),
+        3=>array('more'=>26),
+        4=>array('less'=>15),
+        5=>array('more'=>21),
+        6=>array('less'=>3),
+        7=>array('more'=>18),
+        8=>array('all'=>1),
+        9=>array('less'=>2,'more'=>13),
+        10=>array('less'=>8),
+        11=>array('between'=>array(12,18)),
+        12=>array('more'=>19)
+    ),
+    2014 => array(
+        1=>array('less'=>6),
+        2=>array('between'=>array(13,24)),
+        4=>array('between'=>array(10,28)),
+        5=>array('between'=>array(1,6))
+    ),
+    2015 => array(
+        7=>array('more'=>21),
+        8=>array('all'=>1),
+        9=>array('less'=>7, 'more'=>17),
+        10=>array('less'=>12),
+        11=>array('between'=>array(10,16)),
+        12=>array('more'=>17)
+    ),
+    2016 => array(
+        1=>array('less'=>5),
+        2=>array('between'=>array(11,22))
+    )
 );
 # Lords differences
 $GLOBALS['recessdates'][101] = $GLOBALS['recessdates'][1];
