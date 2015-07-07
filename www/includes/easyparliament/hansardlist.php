@@ -1003,8 +1003,12 @@ class HANSARDLIST {
             // eg, by doing filter_user_input($s, 'strict');
             $searchstring = $args['s'];
         } else {
-            $PAGE->error_message("No search string");
-            return false;
+            if ( isset($args['exceptions']) ) {
+                throw new \Exception('No search string provided.');
+            } else {
+                $PAGE->error_message("No search string");
+                return false;
+            }
         }
 
         // What we'll return.
@@ -1160,8 +1164,13 @@ class HANSARDLIST {
                     AND hansard.epobject_id = epobject.epobject_id"
                 , array(':gid' => $gid));
 
-                if ($q->rows() > 1)
-                    $PAGE->error_message("Got more than one row getting data for $gid");
+                if ($q->rows() > 1) {
+                    if ( $isset($args['exceptions']) ) {
+                        throw new \Exception("Got more than one row getting data for $gid.");
+                    } else {
+                        $PAGE->error_message("Got more than one row getting data for $gid");
+                    }
+                }
                 if ($q->rows() == 0) {
                     # This error message is totally spurious, so don't show it
                     # $PAGE->error_message("Unexpected missing gid $gid while searching");

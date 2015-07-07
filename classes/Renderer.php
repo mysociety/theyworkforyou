@@ -40,231 +40,8 @@ class Renderer
         // Get the page data
         global $DATA, $this_page, $THEUSER;
 
-        ////////////////////////////////////////////////////////////
-        // Assemble the page title
-        $data['page_title'] = '';
-        $sitetitle = $DATA->page_metadata($this_page, "sitetitle");
-        $keywords_title = '';
-
-        if ($this_page == 'overview') {
-            $data['page_title'] = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
-
-        } else {
-
-            if ($page_title = $DATA->page_metadata($this_page, "title")) {
-                $data['page_title'] = $page_title;
-            }
-            // We'll put this in the meta keywords tag.
-            $keywords_title = $data['page_title'];
-
-            $parent_page = $DATA->page_metadata($this_page, 'parent');
-            if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-                if ($data['page_title']) $data['page_title'] .= ': ';
-                $data['page_title'] .= $parent_title;
-            }
-
-            if ($data['page_title'] == '') {
-                $data['page_title'] = $sitetitle;
-            } else {
-                $data['page_title'] .= ' - ' . $sitetitle;
-            }
-        }
-
-        ////////////////////////////////////////////////////////////
-        // Meta keywords
-        if (!$data['meta_keywords'] = $DATA->page_metadata($this_page, "meta_keywords")) {
-            $data['meta_keywords'] = $keywords_title;
-            if ($data['meta_keywords']) $data['meta_keywords'] .= ', ';
-            $data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs';
-        }
-
-        $data['meta_description'] = '';
-        if ($DATA->page_metadata($this_page, "meta_description")) {
-            $data['meta_description'] = $DATA->page_metadata($this_page, "meta_description");
-        }
-
-        ////////////////////////////////////////////////////////////
-        // Header <link>s
-
-        $data['header_links'] = array();
-        if ($this_page != 'overview') {
-
-            $URL = new \URL('overview');
-
-            $data['header_links'][] = array(
-                'rel'   => 'start',
-                'title' => 'Home',
-                'href'  => $URL->generate()
-            );
-
-        }
-
-        ////////////////////////////////////////////////////////////
-        // Create the next/prev/up links for navigation.
-        // Their data is put in the metadata in hansardlist.php
-
-        $nextprev = $DATA->page_metadata($this_page, "nextprev");
-
-        if ($nextprev) {
-            // Four different kinds of back/forth links we might build.
-            $links = array ("first", "prev", "up", "next", "last");
-
-            foreach ($links as $type) {
-                if (isset($nextprev[$type]) && isset($nextprev[$type]['url'])) {
-
-                    if (isset($nextprev[$type]['body'])) {
-                        $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
-                        if (isset($nextprev[$type]['speaker']) &&
-                            count($nextprev[$type]['speaker']) > 0) {
-                            $linktitle = $nextprev[$type]['speaker']['name'] . ': ' . $linktitle;
-                        }
-
-                    } elseif (isset($nextprev[$type]['hdate'])) {
-                        $linktitle = format_date($nextprev[$type]['hdate'], SHORTDATEFORMAT);
-                    }
-
-                    $data['header_links'][] = array(
-                        'rel'   => $type,
-                        'title' => $linktitle,
-                        'href'  => $nextprev[$type]['url']
-                    );
-                }
-            }
-        }
-
-        ////////////////////////////////////////////////////////////
-        // Page RSS URL
-
-        if ($DATA->page_metadata($this_page, 'rss')) {
-            // If this page has an RSS feed set.
-            $data['page_rss_url'] = 'http://' . DOMAIN . WEBPATH . $DATA->page_metadata($this_page, 'rss');
-        }
-
-        ////////////////////////////////////////////////////////////
-        // Site Navigation Links
-
-        $data['assembly_nav_links'] = array();
-        $data['section_nav_links'] = array();
-
-        // Page names mapping to those in metadata.php.
-        // Links in the top menu, and the sublinks we see if
-        // we're within that section.
-        $nav_items = array (
-            array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
-            array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home'),
-        );
-
-        // We work out which of the items in the top and bottom menus
-        // are highlighted - $top_highlight and $bottom_highlight respectively.
-        $parent = $DATA->page_metadata($this_page, 'parent');
-
-        if (!$parent) {
-
-            $top_highlight = $this_page;
-            $bottom_highlight = '';
-
-            $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            $url = new \URL('hansard');
-            $selected_top_link['link'] = $url->generate();
-
-        } else {
-
-            $parents = array($parent);
-            $p = $parent;
-            while ($p) {
-                $p = $DATA->page_metadata($p, 'parent');
-                if ($p) $parents[] = $p;
-            }
-
-            $top_highlight = array_pop($parents);
-            if (!$parents) {
-                // No grandparent - this page's parent is in the top menu.
-                // We're on one of the pages linked to by the bottom menu.
-                // So highlight it and its parent.
-                $bottom_highlight = $this_page;
-            } else {
-                // This page is not in either menu. So highlight its parent
-                // (in the bottom menu) and its grandparent (in the top).
-                $bottom_highlight = array_pop($parents);
-            }
-
-            $selected_top_link = $DATA->page_metadata($top_highlight, 'menu');
-            if (!$selected_top_link) {
-                # Just in case something's gone wrong
-                $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            }
-            $url = new \URL($top_highlight);
-            $selected_top_link['link'] = $url->generate();
-
-        }
-
-        if ($top_highlight == 'hansard') {
-            $section = 'uk';
-            $selected_top_link['text'] = 'UK';
-        } elseif ($top_highlight == 'ni_home') {
-            $section = 'ni';
-            $selected_top_link['text'] = 'NORTHERN IRELAND';
-        } elseif ($top_highlight == 'sp_home') {
-            $section = 'scotland';
-            $selected_top_link['text'] = 'SCOTLAND';
-        } else {
-            $section = '';
-        }
-
-        $nav_highlights = array(
-            'top' => $top_highlight,
-            'bottom' => $bottom_highlight,
-            'top_selected' => $selected_top_link,
-            'section' => $section,
-        );
-
-        //get the top and bottom links
-        foreach ($nav_items as $bottompages) {
-            $toppage = array_shift($bottompages);
-
-            // Generate the links for the top menu.
-
-            // What gets displayed for this page.
-            $menudata = $DATA->page_metadata($toppage, 'menu');
-                $text = $menudata['text'];
-                $title = $menudata['title'];
-            if (!$title) continue;
-
-                //get link and description for the menu ans add it to the array
-            $class = $toppage == $nav_highlights['top'] ? 'on' : '';
-                $URL = new \URL($toppage);
-                $top_link = array(
-                    'href'    => $URL->generate(),
-                    'title'   => $title,
-                    'classes' => $class,
-                    'text'    => $text
-                );
-                array_push($data['assembly_nav_links'], $top_link);
-
-            if ($toppage == $nav_highlights['top']) {
-
-                // This top menu link is highlighted, so generate its bottom menu.
-                foreach ($bottompages as $bottompage) {
-                    $menudata = $DATA->page_metadata($bottompage, 'menu');
-                    $text = $menudata['text'];
-                    $title = $menudata['title'];
-                    // Where we're linking to.
-                    $URL = new \URL($bottompage);
-                    $class = $bottompage == $nav_highlights['bottom'] ? 'on' : '';
-                    $data['section_nav_links'][] = array(
-                        'href'    => $URL->generate(),
-                        'title'   => $title,
-                        'classes' => $class,
-                        'text'    => $text
-                    );
-                }
-            }
-        }
-
-        $data['assembly_nav_current'] = $nav_highlights['top_selected']['text'];
+        $header = new Renderer\Header();
+        $data = $header->get_data($data);
 
         ////////////////////////////////////////////////////////////
         // User Navigation Links
@@ -284,7 +61,7 @@ class Renderer
             $edittext   = $menudata['text'];
             $edittitle  = $menudata['title'];
             $EDITURL    = new \URL('userviewself');
-            if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
+            if ($this_page == 'userviewself' || $this_page == 'useredit' || $header->top_highlight == 'userviewself') {
                 $editclass = 'on';
             } else {
                 $editclass = '';
@@ -413,20 +190,19 @@ class Renderer
         // Search URL
         // Footer Links
 
-        $data['footer_links']['about'] = self::get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact', 'privacy'));
-        $data['footer_links']['assemblies'] = self::get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
-        $data['footer_links']['international'] = self::get_menu_links(array ('newzealand', 'australia', 'ireland', 'mzalendo'));
-        $data['footer_links']['tech'] = self::get_menu_links(array ('code', 'api', 'data', 'pombola', 'devmailinglist', 'irc'));
+        $footer = new Renderer\Footer();
+        $data = $footer->get_data($data);
 
         # banner text
         $b = new Model\Banner;
         $data['banner_text'] = $b->get_text();
 
-        # Robots header
-        if (DEVSITE) {
-            $data['robots'] = 'noindex,nofollow';
-        } elseif ($robots = $DATA->page_metadata($this_page, 'robots')) {
-            $data['robots'] = $robots;
+        # mini survey
+        // we never want to display this on the front page or any
+        // other survey page we might have
+        if (!in_array($this_page, array('survey', 'overview'))) {
+            $mini = new MiniSurvey;
+            $data['mini_survey'] = $mini->get_values();
         }
 
         ////////////////////////////////////////////////////////////
@@ -441,6 +217,56 @@ class Renderer
         require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+    }
+
+    /**
+     * Work out what the page title and the keywords for it should be
+     */
+    private static function get_page_title_and_keywords($data) {
+        global $DATA, $this_page;
+
+        $data['page_title'] = '';
+        $sitetitle = $DATA->page_metadata($this_page, "sitetitle");
+        $keywords_title = '';
+
+        if ($this_page == 'overview') {
+            $data['page_title'] = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
+
+        } else {
+
+            if ($page_title = $DATA->page_metadata($this_page, "title")) {
+                $data['page_title'] = $page_title;
+            }
+            // We'll put this in the meta keywords tag.
+            $keywords_title = $data['page_title'];
+
+            $parent_page = $DATA->page_metadata($this_page, 'parent');
+            if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
+                if ($data['page_title']) $data['page_title'] .= ': ';
+                $data['page_title'] .= $parent_title;
+            }
+
+            if ($data['page_title'] == '') {
+                $data['page_title'] = $sitetitle;
+            } else {
+                $data['page_title'] .= ' - ' . $sitetitle;
+            }
+        }
+
+        ////////////////////////////////////////////////////////////
+        // Meta keywords
+        if (!$data['meta_keywords'] = $DATA->page_metadata($this_page, "meta_keywords")) {
+            $data['meta_keywords'] = $keywords_title;
+            if ($data['meta_keywords']) $data['meta_keywords'] .= ', ';
+            $data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs';
+        }
+
+        $data['meta_description'] = '';
+        if ($DATA->page_metadata($this_page, "meta_description")) {
+            $data['meta_description'] = $DATA->page_metadata($this_page, "meta_description");
+        }
+
+        return $data;
     }
 
     /**

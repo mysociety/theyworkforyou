@@ -31,7 +31,10 @@ class Homepage {
         $data = array();
 
         $data['debates'] = $this->getDebatesData();
-        $data['mp_data'] = $this->getMP();
+
+        $user = new User();
+        $data['mp_data'] = $user->getMP($this->mp_url, $this->cons_type, $this->mp_house);
+
         $data['regional'] = $this->getRegionalList();
         $data['popular_searches'] = $this->getPopularSearches();
         $data['urls'] = $this->getURLs();
@@ -39,55 +42,6 @@ class Homepage {
         $data['featured'] = $this->getEditorialContent();
 
         return $data;
-    }
-
-    private function getPostCodeChangeURL() {
-        global $THEUSER;
-        $CHANGEURL = new \URL('userchangepc');
-        if ($THEUSER->isloggedin()) {
-            $CHANGEURL = new \URL('useredit');
-        }
-
-        return $CHANGEURL->generate();
-    }
-
-    protected function getMP() {
-        $mp_url = new \URL($this->mp_url);
-        $mp_data = array();
-        global $THEUSER;
-
-        if ($THEUSER->has_postcode()) {
-            // User is logged in and has a postcode, or not logged in with a cookied postcode.
-
-            // (We don't allow the user to search for a postcode if they
-            // already have one set in their prefs.)
-
-            // this is for people who have e.g. an English postcode looking at the
-            // Scottish homepage
-            try {
-                $constituencies = postcode_to_constituencies($THEUSER->postcode());
-                if ( isset($constituencies[$this->cons_type]) ) {
-                    $constituency = $constituencies[$this->cons_type];
-                    $MEMBER = new Member(array('constituency'=>$constituency, 'house'=> $this->mp_house));
-                }
-            } catch ( MemberException $e ) {
-                return $mp_data;
-            }
-
-            if (isset($MEMBER) && $MEMBER->valid) {
-                $mp_data['name'] = $MEMBER->full_name();
-                $left_house = $MEMBER->left_house();
-                $mp_data['former'] = '';
-                if ($left_house[$this->mp_house]['date'] != '9999-12-31') {
-                    $mp_data['former'] = 'former';
-                }
-                $mp_data['postcode'] = $THEUSER->postcode();
-                $mp_data['mp_url'] = $mp_url->generate();
-                $mp_data['change_url'] = $this->getPostCodeChangeURL();
-            }
-        }
-
-        return $mp_data;
     }
 
     protected function getRegionalList() {

@@ -142,6 +142,48 @@ class Member extends \MEMBER {
 
     }
 
+    // TODO: some of this probably wants to go elsewhere
+    public function getMostRecentMembership() {
+        $last_cons = '';
+        $last_house = null;
+        $last_party = null;
+        if ( $this->current_member_anywhere() ) {
+            $houses = array_keys(array_filter($this->current_member(), 'strlen'));
+            $last_cons = $this->constituency;
+            $last_party = $this->party;
+            $last_house = $this->house_disp;
+        } else {
+            $max_date = null;
+            foreach ( array_keys($this->left_house) as $house ) {
+                if ($this->left_house[$house]['date'] > $max_date ) {
+                    $max_date = $this->left_house[$house]['date'];
+                    $last_cons = $this->left_house[$house]['constituency'];
+                    $last_party = $this->left_house[$house]['party'];
+                    $last_house = $house;
+                }
+            }
+        }
+        $details = array(
+            'entered_house' => '',
+            'left_house' => '',
+            'cons' => $last_cons,
+            'party' => $last_party,
+            'house' => $last_house,
+            'rep_name' => $this->getRepNameForHouse($last_house)
+        );
+
+        $entered_house = $this->entered_house($last_house);
+        $left_house = $this->left_house($last_house);
+        if ( isset($entered_house['date']) ) {
+            $details['entered_house'] = $entered_house['date'];
+        }
+        if ( isset($left_house['date']) ) {
+            $details['left_house'] = $left_house['date'];
+        }
+
+        return $details;
+    }
+
     /**
     * Offices
     *
@@ -365,6 +407,26 @@ class Member extends \MEMBER {
         }
 
         return $mreg;
+    }
+
+    public static function getRepNameForHouse($house) {
+        switch ( $house ) {
+        case 1:
+            $name = 'MP';
+            break;
+        case 2:
+            $name = 'Peer';
+            break;
+        case 3:
+            $name = 'MLA';
+            break;
+        case 4:
+            $name = 'MSP';
+            break;
+        default:
+            $name = '';
+        }
+        return $name;
     }
 
 }
