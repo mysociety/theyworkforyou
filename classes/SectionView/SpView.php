@@ -7,11 +7,24 @@ class SpView extends SectionView {
     protected $class = 'SPLIST';
 
     protected function front_content() {
-        echo '<h2>Busiest debates from the most recent week</h2>';
-        $this->list->display('biggest_debates', array('days'=>7, 'num'=>20));
+        return $this->list->display('biggest_debates', array('days'=>7, 'num'=>20), 'none');
     }
 
     protected function get_question_mentions_html($row_data) {
         return '';
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('spdebates');
+        $urls['spdebatesday'] = $day;
+        $urls['day'] = $day;
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        return array(
+            array( 'section' => 'sp' )
+        );
     }
 }

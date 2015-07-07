@@ -30,13 +30,15 @@ class Homepage {
 
         $data = array();
 
+        $common = new Common;
+
         $data['debates'] = $this->getDebatesData();
 
         $user = new User();
         $data['mp_data'] = $user->getRep($this->cons_type, $this->mp_house);
 
         $data['regional'] = $this->getRegionalList();
-        $data['popular_searches'] = $this->getPopularSearches();
+        $data['popular_searches'] = $common->getPopularSearches();
         $data['urls'] = $this->getURLs();
         $data['calendar'] = $this->getCalendarData();
         $data['featured'] = $this->getEditorialContent();
@@ -103,12 +105,6 @@ class Homepage {
     protected function getURLs() {
         $urls = array();
 
-        $search = new \URL('search');
-        $urls['search'] = $search->generate();
-
-        $alert = new \URL('alert');
-        $urls['alert'] = $alert->generate();
-
         return $urls;
     }
 
@@ -141,13 +137,6 @@ class Homepage {
         $debates['recent'] = $recent_content;
 
         return $debates;
-    }
-
-    protected function getPopularSearches() {
-        global $SEARCHLOG;
-        $popular_searches = $SEARCHLOG->popular_recent(10);
-
-        return $popular_searches;
     }
 
     private function getCalendarData() {

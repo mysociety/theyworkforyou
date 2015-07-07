@@ -7,7 +7,14 @@ class WmsView extends SectionView {
     protected $class = 'WMSLIST';
 
     protected function front_content() {
-        echo '<h2>Some recent written ministerial statements</h2>';
-        $this->list->display('recent_wms', array('days'=>7, 'num'=>20));
+        return $this->list->display('recent_wms', array('days'=>7, 'num'=>20), 'none');
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('wms');
+        $urls['day'] = $day;
+        $urls['wmsday'] = $day;
+        return $urls;
     }
 }

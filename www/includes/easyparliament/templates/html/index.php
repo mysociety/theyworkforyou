@@ -152,11 +152,18 @@
                             <?php } ?>
                                 </div>
                         <?php } ?>
-                        <?php } else { ?>
-                        <p>
-                        We don&rsquo;t have details of any upcoming events. Perhaps Parliament&rsquo;s on holiday.
-                        </p>
-                        <?php } ?>
+                        <?php } else {
+                            list($recess, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'), 1);
+                            if ( $recess ) { ?>
+                                <p>
+                                Parliament is on <?= $recess ?>. It returns on <?= format_date($to, LONGERDATEFORMAT) ?>.
+                                </p>
+                            <?php } else { ?>
+                                <p>
+                                We don&rsquo;t have details of any upcoming events.
+                                </p>
+                            <?php }
+                        } ?>
                     </div>
                 </div>
             </div>

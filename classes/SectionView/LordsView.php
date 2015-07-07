@@ -7,7 +7,6 @@ class LordsView extends SectionView {
     protected $class = 'LORDSDEBATELIST';
 
     protected function front_content() {
-        echo '<h2>Busiest debates from the most recent week</h2>';
-        $this->list->display('biggest_debates', array('days'=>7, 'num'=>20));
+        return $this->list->display('biggest_debates', array('days'=>7, 'num'=>20), 'none');
     }
 }

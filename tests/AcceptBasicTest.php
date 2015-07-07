@@ -82,7 +82,7 @@ class AcceptBasicTest extends FetchPageTestCase
         $this->assertContains('Recent House of Commons debates', $page);
         $this->assertContains('Test Hansard Section', $page);
         $this->assertContains('Test Hansard Subsection', $page);
-        $this->assertContains('(6 speeches)', $page);
+        $this->assertContains('6 speeches', $page);
         $this->assertContains('Wednesday, 1 January 2014', $page);
     }
 

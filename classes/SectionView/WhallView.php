@@ -7,7 +7,6 @@ class WhallView extends SectionView {
     protected $class = 'WHALLLIST';
 
     protected function front_content() {
-        echo '<h2>Busiest Westminster Hall debates from the most recent week</h2>';
-        $this->list->display('biggest_debates', array('days'=>7, 'num'=>20));
+        return $this->list->display('biggest_debates', array('days'=>7, 'num'=>20), 'none');
     }
 }

@@ -31,12 +31,6 @@ class SPHomepage extends Homepage {
     protected function getURLs() {
         $urls = array();
 
-        $search = new \URL('search');
-        $urls['search'] = $search->generate();
-
-        $alert = new \URL('alert');
-        $urls['alert'] = $alert->generate();
-
         $regional = new \URL('msp');
         $urls['regional'] = $regional->generate();
 

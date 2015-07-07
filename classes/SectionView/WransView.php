@@ -7,8 +7,55 @@ class WransView extends SectionView {
     protected $class = 'WRANSLIST';
 
     protected function front_content() {
-        echo '<h2>Some recent written answers</h2>';
-        $this->list->display('recent_wrans', array('days'=>7, 'num'=>20));
+        return $this->list->display('recent_wrans', array('days'=>7, 'num'=>20), 'none');
+    }
+
+    protected function display_front() {
+        global $DATA, $this_page;
+        if ( get_http_var('type') == 'wrans') {
+            return parent::display_front();
+        }
+
+        $data = array();
+
+        $args = array( 'months' => 1 );
+        $WRANSLIST = new \WRANSLIST;
+
+        $wrans = array();
+        $wrans['data'] = $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5), 'none');
+        $wrans['calendar'] = $WRANSLIST->display('calendar', $args, 'none');
+
+        $WMSLIST = new \WMSLIST;
+        $wms = array();
+        $wms['data'] = $WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20), 'none');
+        $wms['calendar'] = $WMSLIST->display('calendar', $args, 'none');
+        $wms['rssurl'] = $DATA->page_metadata('wmsfront', 'rss');
+
+        $data['wrans'] = $wrans;
+        $data['wms'] = $wms;
+
+        $data['template'] = 'section/wrans_index';
+        return $data;
+    }
+
+    protected function getViewUrls() {
+        $urls = array();
+        $day = new \URL('wrans');
+        $urls['day'] = $day;
+        $urls['wransday'] = $day;
+        $day = new \URL('wms');
+        $urls['wmsday'] = $day;
+        return $urls;
+    }
+
+    protected function getSearchSections() {
+        $sections = array(
+            array( 'section' => 'wrans', 'title' => 'Written Answers' ),
+        );
+        if ( get_http_var('type') == '') {
+            $sections[] = array( 'section' => 'wms', 'title' => 'Written Ministerial Statements' );
+        }
+        return $sections;
     }
 
     # If we don't have "q"/"r" in the GID, we use this counter to output on any
