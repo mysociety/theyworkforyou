@@ -98,6 +98,8 @@ class Homepage {
         $debatelist = new \DEBATELIST;
         $featured = new Model\Featured;
         $gid = $featured->get_gid();
+        $gidCheck = new Gid($gid);
+        $gid = $gidCheck->checkForRedirect();
         if ( $gid ) {
             $title = $featured->get_title();
             $context = $featured->get_context();
