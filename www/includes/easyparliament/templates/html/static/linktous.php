@@ -1,6 +1,10 @@
-<p><strong>Link Policy:</strong> No person or organisation needs permission to link to us. Be our guest. You can deep link to any page you like, from any page, at any time, without asking.</p>
+<div class="full-page static-page">
+    <div class="full-page__row">
+        <h1>Link To Us</h1>
 
-<p>Alternatively, if you would like to place a TheyWorkForYou search box on your site, like this one&hellip;</p>
+        <p><strong>Link Policy:</strong> No person or organisation needs permission to link to us. Be our guest. You can deep link to any page you like, from any page, at any time, without asking.</p>
+
+        <p>Alternatively, if you would like to place a TheyWorkForYou search box on your site, like this one&hellip;</p>
 
 <?php $link_to_us_form = <<<END
 <!-- TheyWorkForYou box, begin -->
@@ -23,10 +27,12 @@ END;
 print $link_to_us_form;
 ?>
 
-<p>Cut and paste the code below into your webpage:</p>
-<textarea class="sourcecode" style="width: 100%; height: 20em;">
-<?php print _htmlspecialchars($link_to_us_form); ?>
-</textarea>
+        <p>Cut and paste the code below into your webpage:</p>
+        <textarea class="sourcecode" style="width: 100%; height: 20em;">
+        <?php print _htmlspecialchars($link_to_us_form); ?>
+        </textarea>
 
-<p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>
-</p>
+        <p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>
+    </div>
+</div>
+            </p>
