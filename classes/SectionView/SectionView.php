@@ -159,6 +159,12 @@ class SectionView {
             $bodies[] = $body;
         }
 
+        if ($SEARCHENGINE) {
+            // We have some search terms to highlight.
+            twfy_debug_timestamp('Before highlight');
+            $bodies = $SEARCHENGINE->highlight($bodies);
+            twfy_debug_timestamp('After highlight');
+        }
         // Do all this unless the glossary is turned off in the URL
         if (get_http_var('ug') != 1) {
             // And glossary phrases
@@ -169,12 +175,6 @@ class SectionView {
             $bodies = $GLOSSARY->glossarise($bodies, 1);
 
             twfy_debug_timestamp('After glossarise');
-        }
-        if ($SEARCHENGINE) {
-            // We have some search terms to highlight.
-            twfy_debug_timestamp('Before highlight');
-            $bodies = $SEARCHENGINE->highlight($bodies);
-            twfy_debug_timestamp('After highlight');
         }
 
         $first_speech = null;

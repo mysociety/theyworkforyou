@@ -53,6 +53,9 @@
 	<row> <field name="epobject_id">10100</field> <field name="body">HeadingA</field> </row>
 	<row> <field name="epobject_id">10101</field> <field name="body">SubheadingA</field> </row>
 	<row> <field name="epobject_id">10102</field> <field name="body">SpeechA</field> </row>
+	<row> <field name="epobject_id">10103</field> <field name="body">HeadingA</field> </row>
+	<row> <field name="epobject_id">10104</field> <field name="body">SubheadingA</field> </row>
+	<row> <field name="epobject_id">10105</field> <field name="body">This is some text with a glossary item - constituency - that is also a search term</field> </row>
 	</table_data>
 	<table_data name="gidredirect">
 	<row>
@@ -440,6 +443,45 @@
 		<field name="hdate">2014-01-01</field>
 		<field name="htime">14:30:00</field>
 	</row>
+	<row>
+		<field name="epobject_id">10103</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-02-02b.1.1</field>
+		<field name="htype">10</field>
+		<field name="person_id">0</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">0</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">1</field>
+		<field name="hdate">2014-02-02</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">10104</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-02-02b.1.2</field>
+		<field name="htype">11</field>
+		<field name="person_id">0</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">10103</field>
+		<field name="subsection_id">0</field>
+		<field name="hpos">2</field>
+		<field name="hdate">2014-02-02</field>
+		<field name="htime">14:30:00</field>
+	</row>
+	<row>
+		<field name="epobject_id">10105</field>
+		<field name="gid">uk.org.publicwhip/lords/2014-02-02b.1.3</field>
+		<field name="htype">12</field>
+		<field name="person_id">1</field>
+		<field name="major">101</field>
+		<field name="minor">0</field>
+		<field name="section_id">10103</field>
+		<field name="subsection_id">10104</field>
+		<field name="hpos">3</field>
+		<field name="hdate">2014-02-02</field>
+		<field name="htime">14:30:00</field>
+	</row>
 	</table_data>
 	<table_data name="member">
 	<row>
@@ -493,6 +535,79 @@
 		<field name="bill_id">1</field>
 		<field name="sitting">01-0</field>
 		<field name="attending">0</field>
+	</row>
+	</table_data>
+	<table_data name="editqueue">
+	<row>
+		<field name="edit_id">1</field>
+		<field name="user_id">1</field>
+		<field name="edit_type">2</field>
+		<field name="epobject_id_l" xsi:nil="true" />
+		<field name="epobject_id_h" xsi:nil="true" />
+		<field name="glossary_id">1</field>
+		<field name="time_start" xsi:nil="true" />
+		<field name="time_end" xsi:nil="true" />
+		<field name="title">Constituency</field>
+		<field name="body">In a general election, each &lt;b&gt;Constituency&lt;/b&gt; chooses an MP to represent them. MPs have a responsibility to represnt the views of the &lt;b&gt;Constituency&lt;/b&gt; in the House of Commons. There are 659 &lt;b&gt;Constituencies&lt;/b&gt;, and thus 659 MPs.
+A citizen of a &lt;b&gt;Constituency&lt;/b&gt; is known as a Constitu&lt;i&gt;ent&lt;/i&gt;</field>
+		<field name="submitted" xsi:nil="true" />
+		<field name="editor_id">2</field>
+		<field name="approved">1</field>
+		<field name="decided" xsi:nil="true" />
+		<field name="reason" xsi:nil="true" />
+	</row>
+  </table_data>
+	<table_data name="glossary">
+	<row>
+		<field name="glossary_id">1</field>
+		<field name="title">Constituency</field>
+		<field name="body">In a general election, each &lt;b&gt;Constituency&lt;/b&gt; chooses an MP to represent them. MPs have a responsibility to represnt the views of the &lt;b&gt;Constituency&lt;/b&gt; in the House of Commons. There are 659 &lt;b&gt;Constituencies&lt;/b&gt;, and thus 659 MPs.
+A citizen of a &lt;b&gt;Constituency&lt;/b&gt; is known as a Constitu&lt;i&gt;ent&lt;/i&gt;</field>
+		<field name="wikipedia" xsi:nil="true" />
+		<field name="created" xsi:nil="true" />
+		<field name="last_modified" xsi:nil="true" />
+		<field name="type">2</field>
+		<field name="visible">1</field>
+	</row>
+  </table_data>
+	<table_data name="users">
+	<row>
+		<field name="user_id">1</field>
+		<field name="firstname">User</field>
+		<field name="lastname">Test</field>
+		<field name="email"></field>
+		<field name="password"></field>
+		<field name="lastvisit">0000-00-00 00:00:00</field>
+		<field name="registrationtime">0000-00-00 00:00:00</field>
+		<field name="registrationip" xsi:nil="true" />
+		<field name="status">User</field>
+		<field name="emailpublic">0</field>
+		<field name="optin">0</field>
+		<field name="deleted">0</field>
+		<field name="postcode"></field>
+		<field name="registrationtoken"></field>
+		<field name="confirmed">1</field>
+		<field name="url"></field>
+		<field name="api_key" xsi:nil="true" />
+	</row>
+	<row>
+		<field name="user_id">2</field>
+		<field name="firstname">Moderator</field>
+		<field name="lastname">Test</field>
+		<field name="email"></field>
+		<field name="password"></field>
+		<field name="lastvisit">0000-00-00 00:00:00</field>
+		<field name="registrationtime">0000-00-00 00:00:00</field>
+		<field name="registrationip" xsi:nil="true" />
+		<field name="status">Moderator</field>
+		<field name="emailpublic">0</field>
+		<field name="optin">0</field>
+		<field name="deleted">0</field>
+		<field name="postcode"></field>
+		<field name="registrationtoken"></field>
+		<field name="confirmed">1</field>
+		<field name="url"></field>
+		<field name="api_key" xsi:nil="true" />
 	</row>
 	</table_data>
 </database>

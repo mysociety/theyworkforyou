@@ -98,7 +98,7 @@ class SearchTest extends FetchPageTestCase
     }
 
     /**
-     * Test that glossarising a single word works as expected.
+     * Test that search term highlighting skips tag attributes
      *
      * @group xapian
      */
@@ -203,7 +203,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageSpellCorrect() {
-        $page = $this->fetch_page( array( 's' => 'plice' ) );
+        $page = $this->fetch_page( array( 'q' => 'plice' ) );
         $this->assertContains('Did you mean <a href="/search/?q=place">place', $page);
     }
 
@@ -217,4 +217,21 @@ class SearchTest extends FetchPageTestCase
         $this->assertContains('Who says splice the most', $page);
         $this->assertContains('No results', $page);
     }
+
+    /**
+     * Test that search highlighting with phrases skips words contained in link title attributes.
+     *
+     * @group xapian
+     */
+    public function testSearchPhraseHighlightingInTags() {
+        $SEARCHENGINE = new SEARCHENGINE('"Shabana"');
+
+        $expected_text = '<p pid="b.893.4/1">On a point of order, Mr <a href="/glossary/?gl=21" title="The Speaker is an MP who has been elected to act as Chairman during debates..." class="glossary">Speaker</a>. In yesterday&#8217;s Finance Bill debate, <a href="/mp/?m=40084" title="Our page on Shabana Mahmood - \'the hon. Member for Birmingham, Ladywood (Shabana Mahmood)\'"><span class="hi">Shabana</span> Mahmood</a> said that the tax gap was 32 billion when the previous Government left office and that it has now gone up to 35 billion. Official Her Majesty&#8217;s Revenue and Customs figures show the tax gap was actually 42 billion when Labour left office, so there has been a fall of 7 billion under this Government';
+        $text = '<p pid="b.893.4/1">On a point of order, Mr <a href="/glossary/?gl=21" title="The Speaker is an MP who has been elected to act as Chairman during debates..." class="glossary">Speaker</a>. In yesterday&#8217;s Finance Bill debate, <a href="/mp/?m=40084" title="Our page on Shabana Mahmood - \'the hon. Member for Birmingham, Ladywood (Shabana Mahmood)\'">Shabana Mahmood</a> said that the tax gap was 32 billion when the previous Government left office and that it has now gone up to 35 billion. Official Her Majesty&#8217;s Revenue and Customs figures show the tax gap was actually 42 billion when Labour left office, so there has been a fall of 7 billion under this Government';
+        $this->assertEquals(
+            $expected_text,
+            $SEARCHENGINE->highlight($text)
+        );
+    }
+
 }

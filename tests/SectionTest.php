@@ -116,6 +116,20 @@ class SectionTest extends FetchPageTestCase
         }
     }
 
+    /**
+     * Test that applying search highlighting and glossary linking to the same
+     * term doesn't break the layout
+     *
+     * see issue 912 for details
+     *
+     * @group xapian
+     */
+    public function testGlossaryAndSearchHighlights() {
+            $page = $this->fetch_page( array( 'type' => 'lords', 's' => 'constituency', 'id' => '2014-02-02b.1.3' ) );
+            $this->assertContains("constituency", $page);
+            $this->assertContains("<span class=\"hi\"><a href=\"/glossary/?gl=1\" title=\"In a general election, each Constituency chooses an MP to represent them....\" class=\"glossary\">constituency</a></span>", $page);
+    }
+
     public function testGidRedirect() {
         $page = $this->fetch_page( array( 'type' => 'wrans', 'id' => '2014-01-01a.187335.h' ) );
         $this->assertRegexp("#Location: .*?/wrans/\?id=2014-01-01b\.1\.2#", $page);

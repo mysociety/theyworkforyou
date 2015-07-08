@@ -532,7 +532,7 @@ class SEARCHENGINE {
 
         foreach ($this->phrases as $phrase) {
             $phrasematch = join($phrase, '[^'.$this->wordchars.']+');
-            array_push($findwords, "/\b($phrasematch)\b/i");
+            array_push($findwords, "/\b($phrasematch)\b(?!(?>[^<>]*>))/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
         }
 
