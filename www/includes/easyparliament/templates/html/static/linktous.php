@@ -1,8 +1,13 @@
-<p><strong>Link Policy:</strong> No person or organisation needs permission to link to us. Be our guest. You can deep link to any page you like, from any page, at any time, without asking.</p>
+<div class="full-page static-page">
+    <div class="full-page__row">
+        <div class="panel">
+            <h1>Link To Us</h1>
 
-<p>Alternatively, if you would like to place a TheyWorkForYou search box on your site, like this one&hellip;</p>
+            <p><strong>Link Policy:</strong> No person or organisation needs permission to link to us. Be our guest. You can deep link to any page you like, from any page, at any time, without asking.</p>
 
-<?php $link_to_us_form = <<<END
+            <p>Alternatively, if you would like to place a TheyWorkForYou search box on your site, like this one&hellip;</p>
+
+    <?php $link_to_us_form = <<<END
 <!-- TheyWorkForYou box, begin -->
 <div style="position: relative; width: 17em; color: #000000; background-color: #E8FDCB; font-family: Arial, Geneva, Sans-serif; margin-bottom: 1em; border: 1px solid #4d6c25; padding: 0 10px 2em 10px;">
     <h5 style="font-family: Arial, Geneva, Sans-serif; font-size: 1.4em; position: absolute; margin: 0; bottom: 2px; right: 10px;"  title="TheyWorkForYou.com"><a style="color: #880101; text-decoration: none; font-weight: normal;" href="http://www.TheyWorkForYou.com"><em style="font-weight: bold; font-style: normal;">TheyWorkFor</em><strong style="color: #cc0000; font-weight: bolder;">You</strong>.com</a></h5>
@@ -23,10 +28,12 @@ END;
 print $link_to_us_form;
 ?>
 
-<p>Cut and paste the code below into your webpage:</p>
-<textarea class="sourcecode" style="width: 100%; height: 20em;">
-<?php print _htmlspecialchars($link_to_us_form); ?>
-</textarea>
+            <p>Cut and paste the code below into your webpage:</p>
+            <textarea class="sourcecode" style="width: 100%; height: 20em;">
+            <?php print _htmlspecialchars($link_to_us_form); ?>
+            </textarea>
 
-<p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>
-</p>
+            <p>Please retain the link to <a href="http://www.theyworkforyou.com">theyworkforyou.com</a> (Google points mean prizes). Any questions, just drop us a line at: <a href="http://www.theyworkforyou.com/contact/">http://www.theyworkforyou.com/contact/</a>
+        </div>
+    </div>
+</div>
