@@ -194,7 +194,7 @@
         </div>
     </header>
 
-    <?php if ( isset($banner_text) ) { ?>
+    <?php if ( $banner_text ) { ?>
     <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
