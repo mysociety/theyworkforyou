@@ -438,7 +438,7 @@ table.search-results-grouped {
   }
 }
 
-.search-alert-type {
+.sidebar-item-with-icon {
   padding-left: 46px;
   min-height: 32px;
 
@@ -450,7 +450,7 @@ table.search-results-grouped {
   }
 }
 
-.search-alert-type--rss {
+.sidebar-item-with-icon--rss {
   background-image: url('../img/search-alert-icon-rss.png');
 
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
@@ -468,6 +468,7 @@ table.search-results-grouped {
 
 .sidebar-item-with-icon--date {
   background-image: url('../img/search-sidebar-icon-past.png');
+  background-position: 0 0.3em; // the date sidebar section expands vertically, so pin icon to top corner
 
   @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
       background-image: url('../img/search-sidebar-icon-past@2.png');
