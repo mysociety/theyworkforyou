@@ -202,14 +202,22 @@ class Party {
         $db = new \ParlDB;
 
         $party_list = $db->query(
-            "SELECT DISTINCT party FROM member"
+            "SELECT DISTINCT party FROM member WHERE party <> ''"
         );
 
         $parties = array();
         $party_count = $party_list->rows;
 
         for ( $i = 0; $i < $party_count; $i++ ) {
-            $parties[] = $party_list->field($i, 'party');
+            $party = $party_list->field($i, 'party');
+            if (
+                !$party
+                || $party == 'Independent'
+                || $party == 'Crossbench'
+            ) {
+                continue;
+            }
+            $parties[] = $party;
         }
 
         return $parties;

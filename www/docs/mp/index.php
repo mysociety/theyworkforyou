@@ -467,8 +467,13 @@ switch ($pagetype) {
         // generate party policy diffs
         $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
         $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
-        $party_positions = $party->getAllPolicyPositions($policiesList);
-        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
+        if ( $party ) {
+            $party_positions = $party->getAllPolicyPositions($policiesList);
+            $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
+        } else {
+            $party_positions = null;
+            $policy_diffs = null;
+        }
 
         $data['sorted_diffs'] = $policy_diffs;
         $data['party_positions'] = $party_positions;

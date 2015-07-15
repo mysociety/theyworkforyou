@@ -7,9 +7,6 @@ $policies = new MySociety\TheyWorkForYou\Policies;
 
 $party_count = 0;
 foreach ( $parties as $party ) {
-    if ( !$party ) {
-        continue;
-    }
     $party = new MySociety\TheyWorkForYou\Party($party);
 
     $positions = $party->calculateAllPolicyPositions($policies);

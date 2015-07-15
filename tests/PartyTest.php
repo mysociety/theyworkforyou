@@ -37,6 +37,11 @@ class PartyTest extends TWFY_Database_TestCase
 
     }
 
+    public function testGetPolicyPositionsForIndependents() {
+        $positions = $this->getAllPositions('getAllPolicyPositions', 'Independent');
+        $this->assertEquals(array(), $positions);
+    }
+
     public function testGetRestrictedPositions() {
         $party = new MySociety\TheyWorkForYou\Party('A Party');
         $policies = new MySociety\TheyWorkForYou\Policies(6667);
@@ -62,6 +67,14 @@ class PartyTest extends TWFY_Database_TestCase
         );
 
         $this->assertEquals($expectedResults, $positions);
+    }
+
+    public function testGetAllParties() {
+        $parties = MySociety\TheyWorkForYou\Party::getParties();
+
+        $expected = array('A Party');
+
+        $this->assertEquals($expected, $parties);
     }
 
     private function getAllPositions($method) {

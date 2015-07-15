@@ -80,9 +80,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
+                        <?php if ( $party_positions !== null ) { ?>
                         <p>
                         <?= $full_name ?> is a <?= $party ?> MP, and so on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
                         </p>
+                        <?php } ?>
 
 
                         <p>
