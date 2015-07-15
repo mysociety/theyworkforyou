@@ -69,6 +69,13 @@ class PartyTest extends TWFY_Database_TestCase
         $this->assertEquals($expectedResults, $positions);
     }
 
+    public function testCalculatePositionsPolicyAbsent() {
+        $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
+        list($desc, $score) = $party->calculate_policy_position(900, true);
+
+        $this->assertEquals(-1, $score);
+    }
+
     public function testLabourCoOp() {
         $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
 

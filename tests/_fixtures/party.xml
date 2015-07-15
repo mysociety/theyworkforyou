@@ -201,6 +201,14 @@
           <field name="direction">Majority</field>
           <field name="policy_vote">aye</field>
       </row>
+      <row>
+          <field name="division_id">2</field>
+          <field name="house">commons</field>
+          <field name="policy_id">900</field>
+          <field name="division_title">A division</field>
+          <field name="direction">Majority</field>
+          <field name="policy_vote">absent</field>
+      </row>
   </table_data>
   <table_data name="persondivisionvotes">
       <row>
@@ -220,6 +228,11 @@
       </row>
       <row>
           <field name="division_id">1</field>
+          <field name="person_id">7</field>
+          <field name="vote">no</field>
+      </row>
+      <row>
+          <field name="division_id">2</field>
           <field name="person_id">7</field>
           <field name="vote">no</field>
       </row>

@@ -137,10 +137,14 @@ class Party {
             return null;
         }
 
+        // this implies that all the divisions in the policy have a policy
+        // position of absent so we set weight to -1 to indicate we can't
+        // really say what the parties position is.
         if ( $max_score == 0 ) {
-            $max_score = 1;
+            $weight = -1;
+        } else {
+            $weight = 1 - ( $score/$max_score );
         }
-        $weight = 1 - ( $score/$max_score );
         $score_desc = score_to_strongly($weight);
 
         if ( $want_score ) {
