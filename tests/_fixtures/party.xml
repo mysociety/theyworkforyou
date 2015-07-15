@@ -105,6 +105,30 @@
 			<field name="person_id">5</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Labour</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">6</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
+		<row>
+			<field name="member_id">6</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Labour/Co-operative</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">7</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
 	</table_data>
 	<table_data name="person_names">
 		<row>
@@ -187,6 +211,16 @@
       <row>
           <field name="division_id">1</field>
           <field name="person_id">3</field>
+          <field name="vote">no</field>
+      </row>
+      <row>
+          <field name="division_id">1</field>
+          <field name="person_id">6</field>
+          <field name="vote">aye</field>
+      </row>
+      <row>
+          <field name="division_id">1</field>
+          <field name="person_id">7</field>
           <field name="vote">no</field>
       </row>
   </table_data>

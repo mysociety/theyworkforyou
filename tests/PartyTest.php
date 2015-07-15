@@ -69,16 +69,45 @@ class PartyTest extends TWFY_Database_TestCase
         $this->assertEquals($expectedResults, $positions);
     }
 
+    public function testLabourCoOp() {
+        $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
+
+        $this->assertEquals('Labour', $party->name);
+    }
+
     public function testGetAllParties() {
         $parties = MySociety\TheyWorkForYou\Party::getParties();
 
-        $expected = array('A Party');
+        $expected = array('A Party', 'Labour', 'Labour/Co-operative');
 
         $this->assertEquals($expected, $parties);
     }
 
-    private function getAllPositions($method) {
-        $party = new MySociety\TheyWorkForYou\Party('A Party');
+    public function testLabourCoOpPositionCalc() {
+        $positions = $this->getAllPositions('calculateAllPolicyPositions', 'Labour');
+
+        $expectedResults = array(
+            '810' => array(
+                'policy_id' => 810,
+                'position' => 'voted a mixture of for and against',
+                'score' => 0.5,
+                'desc' => 'greater <b>regulation of gambling</b>'
+            )
+        );
+
+        $this->assertEquals($expectedResults, $positions);
+
+        $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
+        $party->cache_position( $positions['810'] );
+
+        $position = $party->policy_position(810);
+        $expected = ('voted a mixture of for and against');
+
+        $this->assertEquals($expected, $position);
+    }
+
+    private function getAllPositions($method, $party = 'A Party') {
+        $party = new MySociety\TheyWorkForYou\Party($party);
         $policies = new MySociety\TheyWorkForYou\Policies();
 
         $positions = $party->$method($policies);

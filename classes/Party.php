@@ -18,6 +18,11 @@ class Party {
     private $db;
 
     public function __construct($name) {
+        // treat Labour and Labour/Co-operative the same as that's how
+        // people view them and it'll confuse the results otherwise
+        if ( $name == 'Labour/Co-operative' ) {
+            $name = 'Labour';
+        }
         $this->name = $name;
         $this->db = new \ParlDB;
     }
@@ -82,24 +87,36 @@ class Party {
         $num_divs = $divisions->rows;
         $total_votes = 0;
 
+        $party_where = 'party = :party';
+        $params = array(
+            ':party' => $this->name
+        );
+
+        if ( $this->name == 'Labour' ) {
+            $party_where = 'party = :party OR party = :party2';
+            $params = array(
+                ':party' => $this->name,
+                ':party2' => 'Labour/Co-operative'
+            );
+        }
+
         for ( $i = 0; $i < $num_divs; $i++ ) {
             $division_id = $divisions->field($i, 'division_id');
             $weights = $this->get_vote_scores($divisions->field($i, 'policy_vote'));
+
+            $params[':division_id'] = $division_id;
 
             $votes = $this->db->query(
                 "SELECT count(*) as num_votes, vote
                 FROM persondivisionvotes
                 JOIN member ON persondivisionvotes.person_id = member.person_id
                 WHERE
-                    party = :party
+                    $party_where
                     AND member.house = 1
                     AND division_id = :division_id
                     AND left_house = '9999-12-31'
                 GROUP BY vote",
-                array(
-                    ':party' => $this->name,
-                    ':division_id' => $division_id
-                )
+                $params
             );
 
             $num_votes = 0;
