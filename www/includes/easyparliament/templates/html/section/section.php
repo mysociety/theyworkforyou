@@ -393,8 +393,6 @@
 
 </div>
 
-<?php include INCLUDESPATH . 'easyparliament/templates/research/quant2.php'; ?>
-
 <nav class="debate-navigation debate-navigation--footer" role="navigation">
         <div class="full-page__row">
             <div class="debate-navigation__pagination">

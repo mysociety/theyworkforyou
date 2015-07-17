@@ -316,5 +316,3 @@ you can find it.</p>
         </div>
     </div>
 </div>
-
-<?php include INCLUDESPATH . 'easyparliament/templates/research/quant2.php'; ?>
