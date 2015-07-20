@@ -71,7 +71,6 @@ server:
         - python-lxml
         - python-yaml
         - python-egenix-mxdatetime
-        - subversion
         - snarf
 users_groups:
     install: '1'
@@ -208,9 +207,6 @@ ruby:
             bundler: '1'
 nodejs:
     install: '0'
-    npm_packages:
-        - bower
-        - grunt
 python:
     install: '1'
     packages: {  }
