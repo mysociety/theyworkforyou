@@ -798,6 +798,7 @@ function search_member_db_lookup_with_names($searchstring, $current_only=false) 
 
     # This is not totally accurate (e.g. minimum entered date may be from a
     # different house, or similar), but should be good enough.
+    $db = new ParlDB;
     $q = $db->query("SELECT member.person_id,
                             title, given_name, family_name, lordofname,
                             constituency, party,

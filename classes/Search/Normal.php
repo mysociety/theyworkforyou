@@ -30,6 +30,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
         $cons = null;
         $glossary = null;
 
+        $mp_types = array();
         if ($args['p'] == 1 && $args['s'] && !preg_match('#[a-z]+:[a-z0-9]+#', $args['s'])) {
             $members = $this->find_members();
             list($cons, $mp_types) = $this->find_constituency($args);
