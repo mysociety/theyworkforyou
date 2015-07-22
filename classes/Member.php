@@ -360,6 +360,10 @@ class Member extends \MEMBER {
         $policy_diffs = array();
         $party_positions = $party->getAllPolicyPositions($policiesList);
 
+        if ( !$party_positions ) {
+            return $policy_diffs;
+        }
+
         foreach ( $positions->positionsById as $policy_id => $details ) {
             if ( $details['score'] != -1 ) {
                 $mp_score = $details['score'];
