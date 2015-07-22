@@ -204,42 +204,51 @@ class Member extends \MEMBER {
             $office = $office['office'];
 
             foreach ($office as $row) {
-
-                // Reset the inclusion of this position
-                $include_office = TRUE;
-
-                // If we should only include previous offices, and the to date is in the future, suppress this office.
-                if ($include_only == 'previous' AND $row['to_date'] == '9999-12-31') {
-                    $include_office = FALSE;
-                }
-
-                // If we should only include previous offices, and the to date is in the past, suppress this office.
-                if ($include_only == 'current' AND $row['to_date'] != '9999-12-31') {
-                    $include_office = FALSE;
-                }
-
                 $office_title = prettify_office($row['position'], $row['dept']);
 
-                if (($priority_only AND in_array($office_title, $this->priority_offices))
-                    OR !$priority_only) {
-                    if ($include_office) {
-                        $officeObject = new Office;
-
-                        $officeObject->title = $office_title;
-
-                        $officeObject->from_date = $row['from_date'];
-                        $officeObject->to_date = $row['to_date'];
-
-                        $officeObject->source = $row['source'];
-
-                        $out[] = $officeObject;
-                    }
+                if ( $officeObject = $this->getOfficeObject($include_only, $priority_only, $office_title, $row) ) {
+                    $out[] = $officeObject;
                 }
             }
         }
 
         return $out;
 
+    }
+
+    private function getOfficeObject($include_only, $priority_only, $office_title, $row) {
+        $officeObject = null;
+
+        if ( $this->includeOffice($include_only, $row['to_date']) ) {
+            if (($priority_only AND in_array($office_title, $this->priority_offices)) OR !$priority_only) {
+                $officeObject = new Office;
+
+                $officeObject->title = $office_title;
+
+                $officeObject->from_date = $row['from_date'];
+                $officeObject->to_date = $row['to_date'];
+
+                $officeObject->source = $row['source'];
+            }
+        }
+
+        return $officeObject;
+    }
+
+    private function includeOffice($include_only, $to_date) {
+        $include_office = TRUE;
+
+        // If we should only include previous offices, and the to date is in the future, suppress this office.
+        if ($include_only == 'previous' AND $to_date == '9999-12-31') {
+            $include_office = FALSE;
+        }
+
+        // If we should only include previous offices, and the to date is in the past, suppress this office.
+        if ($include_only == 'current' AND $to_date != '9999-12-31') {
+            $include_office = FALSE;
+        }
+
+        return $include_office;
     }
 
     /**
