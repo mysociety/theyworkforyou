@@ -3,7 +3,7 @@
 /**
  * Test Party class
  */
-class PartyTest extends TWFY_Database_TestCase
+class PartyTest extends FetchPageTestCase
 {
 
     /**
@@ -12,6 +12,11 @@ class PartyTest extends TWFY_Database_TestCase
     public function getDataSet()
     {
         return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/party.xml');
+    }
+
+    private function fetch_page($vars)
+    {
+        return $this->base_fetch_page('', $vars, 'www/docs/mp');
     }
 
     public function testLoad() {
@@ -121,4 +126,28 @@ class PartyTest extends TWFY_Database_TestCase
         return $positions;
     }
 
+    public function testMPPartyPolicyTextWhenDiffers()
+    {
+        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
+        $this->assertContains('Test Current-MP', $page);
+        $this->assertContains('is a A Party MP', $page);
+        $this->assertContains('sometimes <b>differs</b> from their party', $page);
+    }
+
+    public function testMPPartyPolicyWherePartyMissingPositions()
+    {
+        $page = $this->fetch_page( array( 'pid' => 3, 'url' => '/mp/3/test_current-mp/test_westminster_constituency' ) );
+        $this->assertContains('Test Current-MP', $page);
+        $this->assertContains('is a A Party MP', $page);
+        $this->assertNotContains('Most A Party MPs voted </b>', $page);
+    }
+
+    public function testMPPartyPolicyTextWhenAgrees()
+    {
+        $page = $this->fetch_page( array( 'pid' => 6, 'url' => '/mp/6/test_further-mp/test_westminster_constituency' ) );
+        $this->assertContains('Test Further-MP', $page);
+        $this->assertContains('is a Labour MP', $page);
+        $this->assertContains('This is a selection of Miss Test Further-MP&rsquo;s votes', $page);
+        $this->assertNotContains('sometimes <b>differs</b> from their party', $page);
+    }
 }

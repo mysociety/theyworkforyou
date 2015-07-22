@@ -52,7 +52,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php if (count($policyPositions->positions) > 0): ?>
+                <?php if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
                     <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
