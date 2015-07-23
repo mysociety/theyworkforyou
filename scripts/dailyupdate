@@ -26,6 +26,9 @@ system './mpinfoin.pl';
 # update individual division votes
 system './json2db.pl';
 
+# update party positions
+system './generate_party_positions.php';
+
 #unless ($staging) {
 #    chdir $pwmembers;
 #    system 'svn commit -m "apply updates from twfy"';

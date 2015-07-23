@@ -122,6 +122,7 @@ class Party {
             $num_votes = 0;
             for ( $j = 0; $j < $votes->rows(); $j++ ) {
                 $vote_dir = $votes->field($j, 'vote');
+                if ( $vote_dir == '' ) continue;
                 if ( $vote_dir == 'tellno' ) $vote_dir = 'no';
                 if ( $vote_dir == 'tellaye' ) $vote_dir = 'aye';
 
