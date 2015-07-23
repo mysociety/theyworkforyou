@@ -93,7 +93,7 @@ class Party {
         );
 
         if ( $this->name == 'Labour' ) {
-            $party_where = 'party = :party OR party = :party2';
+            $party_where = '( party = :party OR party = :party2 )';
             $params = array(
                 ':party' => $this->name,
                 ':party2' => 'Labour/Co-operative'
