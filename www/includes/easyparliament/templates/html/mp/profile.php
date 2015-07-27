@@ -52,7 +52,28 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
+                <?php if ( !$current_member[HOUSE_TYPE_COMMONS] ) { ?>
+                    <?php if (count($policyPositions->positions) > 0) { ?>
+                    <div class="panel">
+                        <a name="votes"></a>
+                        <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
+
+                        <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
+
+                        <ul class="vote-descriptions">
+                          <?php foreach ($policyPositions->positions as $key_vote) { ?>
+                            <li>
+                                <?= ucfirst($key_vote['desc']) ?>
+                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
+                            </li>
+                          <?php } ?>
+                        </ul>
+
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
+
+                    </div>
+                    <?php } ?>
+                <?php } else if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
                     <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
