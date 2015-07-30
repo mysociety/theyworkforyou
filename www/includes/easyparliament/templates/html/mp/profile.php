@@ -92,7 +92,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <ul class="vote-descriptions">
                           <?php foreach ($sorted_diffs as $policy_id => $score): ?>
                             <li>
-                                <?= ucfirst(strip_tags($policies[$policy_id])) ?>. <?= $full_name ?> <b><?= $positions[$policy_id]['position'] ?></b>. Most <?= $party ?> MPs <b><?= $party_positions[$policy_id]['position'] ?></b>.
+                                <?= $full_name ?> <b><?= $positions[$policy_id]['position'] ?></b> <?= strip_tags($policies[$policy_id]) ?>, while most <?= $party ?> MPs <b><?= $party_positions[$policy_id]['position'] ?></b>.
                                 <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $policy_id ?>">Show votes</a>
                             </li>
                           <?php endforeach; ?>
