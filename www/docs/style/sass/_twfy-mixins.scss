@@ -174,7 +174,8 @@ $weight_bold: 700;
     }
 }
 
-.secondary-button {
+.secondary-button,
+.button--secondary {
     background-color: $colour_off_white;
     border: 1px solid $colour_light_grey;
     color: $colour_dark_grey;
