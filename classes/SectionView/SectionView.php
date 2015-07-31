@@ -227,7 +227,8 @@ class SectionView {
 
         if (!isset($data['info'])) {
             header("HTTP/1.0 404 Not Found");
-            exit; # XXX
+            $data['template'] = 'error';
+            return $data;
         }
 
         # Okay, let's set up highlighting and glossarisation

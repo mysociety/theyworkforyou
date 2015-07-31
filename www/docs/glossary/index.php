@@ -1,5 +1,5 @@
 <?php
-if ($term) {
+if (isset($term) && $term) {
     $this_page = 'glossary_item';
 }
 else {

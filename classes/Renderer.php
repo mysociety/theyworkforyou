@@ -24,6 +24,7 @@ class Renderer
     public static function output($template, $data = array())
     {
 
+        global $page_errors;
         // Include includes.
         // TODO: Wrap these in a class somewhere autoloadable.
         include_once INCLUDESPATH . 'postcode.inc';
@@ -43,142 +44,12 @@ class Renderer
         $header = new Renderer\Header();
         $data = array_merge($header->data, $data);
 
-        ////////////////////////////////////////////////////////////
-        // User Navigation Links
+        $user = new Renderer\User();
+        $data = array_merge($user->data, $data);
 
-        $data['user_nav_links'] = array();
-
-        // We may want to send the user back to this current page after they've
-        // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new \URL($this_page);
-        $returl = $URL->generate('none');
-
-        //user logged in
-        if ($THEUSER->isloggedin()) {
-
-            // The 'Edit details' link.
-            $menudata   = $DATA->page_metadata('userviewself', 'menu');
-            $edittext   = $menudata['text'];
-            $edittitle  = $menudata['title'];
-            $EDITURL    = new \URL('userviewself');
-            if ($this_page == 'userviewself' || $this_page == 'useredit' || $header->top_highlight == 'userviewself') {
-                $editclass = 'on';
-            } else {
-                $editclass = '';
-            }
-
-            // The 'Log out' link.
-            $menudata   = $DATA->page_metadata('userlogout', 'menu');
-            $logouttext = $menudata['text'];
-            $logouttitle= $menudata['title'];
-
-            $LOGOUTURL  = new \URL('userlogout');
-            if ($this_page != 'userlogout') {
-                $LOGOUTURL->insert(array("ret"=>$returl));
-                $logoutclass = '';
-            } else {
-                $logoutclass = 'on';
-            }
-
-            $username = $THEUSER->firstname() . ' ' . $THEUSER->lastname();
-
-            $data['user_nav_links'][] = array(
-                'href'    => $LOGOUTURL->generate(),
-                'title'   => $logouttitle,
-                'classes' => $logoutclass,
-                'text'    => $logouttext
-            );
-            $data['user_nav_links'][] = array(
-                'href'    => $EDITURL->generate(),
-                'title'   => $edittitle,
-                'classes' => $editclass,
-                'text'    => $edittext
-            );
-            $data['user_nav_links'][] = array(
-                'href'    => $EDITURL->generate(),
-                'title'   => $edittitle,
-                'classes' => $editclass,
-                'text'    => _htmlentities($username)
-            );
-
-        } else {
-        // User not logged in
-
-            // The 'Join' link.
-            $menudata   = $DATA->page_metadata('userjoin', 'menu');
-            $jointext   = $menudata['text'];
-            $jointitle  = $menudata['title'];
-
-            $JOINURL    = new \URL('userjoin');
-            if ($this_page != 'userjoin') {
-                if ($this_page != 'userlogout' && $this_page != 'userlogin') {
-                    // We don't do this on the logout page, because then the user
-                    // will return straight to the logout page and be logged out
-                    // immediately!
-                    $JOINURL->insert(array("ret"=>$returl));
-                }
-                $joinclass = '';
-            } else {
-                $joinclass = 'on';
-            }
-
-            // The 'Log in' link.
-            $menudata   = $DATA->page_metadata('userlogin', 'menu');
-            $logintext  = $menudata['text'];
-            $logintitle = $menudata['title'];
-
-            $LOGINURL   = new \URL('userlogin');
-            if ($this_page != 'userlogin') {
-                if ($this_page != "userlogout" &&
-                    $this_page != "userpassword" &&
-                    $this_page != 'userjoin') {
-                    // We don't do this on the logout page, because then the user
-                    // will return straight to the logout page and be logged out
-                    // immediately!
-                    // And it's also silly if we're sent back to Change Password.
-                    // And the join page.
-                    $LOGINURL->insert(array("ret"=>$returl));
-                }
-                $loginclass = '';
-            } else {
-                $loginclass = 'on';
-            }
-
-                $data['user_nav_links'][] = array(
-                    'href'    => $LOGINURL->generate(),
-                    'title'   => $logintitle,
-                    'classes' => $loginclass,
-                    'text'    => $logintext
-                );
-
-                $data['user_nav_links'][] = array(
-                    'href'    => $JOINURL->generate(),
-                    'title'   => $jointitle,
-                    'classes' => $joinclass,
-                    'text'    => $jointext
-                );
+        if ( isset($page_errors) ) {
+            $data['page_errors'] = $page_errors;
         }
-
-        // If the user's postcode is set, then we add a link to Your MP etc.
-        if ($THEUSER->postcode_is_set()) {
-            $items = array('yourmp');
-            if (postcode_is_scottish($THEUSER->postcode()))
-                $items[] = 'yourmsp';
-            elseif (postcode_is_ni($THEUSER->postcode()))
-                $items[] = 'yourmla';
-            foreach ($items as $item) {
-                $menudata   = $DATA->page_metadata($item, 'menu');
-                $logintext  = $menudata['text'];
-                $URL = new \URL($item);
-                $data['user_nav_links'][] = array(
-                    'href'    => $URL->generate(),
-                    'title'   => '',
-                    'classes' => '',
-                    'text'    => $logintext
-                );
-            }
-        }
-
         ////////////////////////////////////////////////////////////
         // Search URL
 

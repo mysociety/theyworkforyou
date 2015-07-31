@@ -213,3 +213,15 @@
 
         </div>
     </header>
+
+    <?php if (isset($page_errors)) { ?>
+    <div class="full-page legacy-page static-page">
+        <div class="full-page__row">
+            <div class="panel">
+            <?php foreach ( $page_errors as $error ) { ?>
+                <p><?= $error['text'] ?></p>
+            <?php } ?>
+            </div>
+        </div>
+    </div>
+    <?php } ?>

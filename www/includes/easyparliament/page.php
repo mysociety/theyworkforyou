@@ -19,58 +19,63 @@ class PAGE {
     public $within_stripe_sidebar = false;
 
     public function page_start() {
-
-      ob_start();
-      set_time_limit(0);
-        global $DATA, $this_page, $THEUSER;
-
-        if (!$this->page_started()) {
-            // Just in case something's already started this page...
-            $parent = $DATA->page_metadata($this_page, "parent");
-            if ($parent == 'admin' && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
-                // If the user tries to access the admin section when they're not
-                // allowed, then show them nothing.
-
-                if (!$THEUSER->isloggedin()) {
-                    $THISPAGE = new URL($this_page);
-
-                    $LOGINURL = new URL('userlogin');
-                    $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
-
-                    $text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
-                } else {
-                    $text = "That's all folks!";
-                }
-
-                $this_page = 'home';
-
-                $this->page_header();
-                $this->page_body();
-                $this->content_start();
-                $this->stripe_start();
-
-                print "<p>$text</p>\n";
-
-                $this->stripe_end();
-                $this->page_end();
-                exit;
-            }
-
-            $this->page_header();
-            $this->page_body();
-            $this->content_start();
-
-            $this->page_start_done = true;
-
+        if ( !$this->page_started() ) {
+            $this->checkForAdmin();
+            $this->displayHeader();
         }
     }
 
+    private function displayHeader() {
+        global $page_errors;
+        $h = new MySociety\TheyWorkForYou\Renderer\Header();
+        $u = new MySociety\TheyWorkForYou\Renderer\User();
 
-    public function page_end($extra = null) {
-        $this->content_end();
-        $this->page_footer($extra);
+        $data = $h->data;
+        $data = array_merge($u->data, $data);
+        if ( isset($page_errors) ) {
+            $data['page_errors'] = $page_errors;
+        }
+        $data['banner_text'] = '';
+        extract($data);
+        require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
+
+        echo '<div class="full-page legacy-page static-page"> <div class="full-page__row"> <div class="panel">';
+
+        $this->page_start_done = true;
     }
 
+    private function checkForAdmin() {
+        global $DATA, $this_page, $THEUSER;
+        $parent = $DATA->page_metadata($this_page, "parent");
+        if ($parent == 'admin' && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
+            if (!$THEUSER->isloggedin()) {
+                $THISPAGE = new URL($this_page);
+
+                $LOGINURL = new URL('userlogin');
+                $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
+
+                $text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
+            } else {
+                $text = "That's all folks!";
+            }
+            $this_page = 'home';
+            $this->displayHeader();
+            echo $text;
+            $this->page_end();
+            exit();
+        }
+    }
+
+    public function page_end() {
+        if ( !$this->page_started() ) {
+            $this->page_start();
+        }
+
+        echo '</div></div></div>';
+        $footer = new MySociety\TheyWorkForYou\Renderer\Footer();
+        $footer_links = $footer->data;
+        require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+    }
 
     public function page_started() {
         return $this->page_start_done == true ? true : false;
@@ -94,642 +99,6 @@ class PAGE {
         } else {
             return false;
         }
-    }
-
-
-    public function page_header() {
-        global $DATA, $this_page;
-
-        $linkshtml = "";
-
-        $title = '';
-        $sitetitle = $DATA->page_metadata($this_page, "sitetitle");
-        $keywords_title = '';
-
-        if ($this_page == 'overview') {
-            $title = $sitetitle . ': ' . $DATA->page_metadata($this_page, "title");
-
-        } else {
-
-            if ($page_title = $DATA->page_metadata($this_page, "title")) {
-                $title = $page_title;
-            }
-            // We'll put this in the meta keywords tag.
-            $keywords_title = $title;
-
-            $parent_page = $DATA->page_metadata($this_page, 'parent');
-            if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-                if ($title) $title .= ': ';
-                $title .= $parent_title;
-            }
-
-            if ($title == '') {
-                $title = $sitetitle;
-            } else {
-                $title .= ' - ' . $sitetitle;
-            }
-        }
-
-        if (!$meta_keywords = $DATA->page_metadata($this_page, "meta_keywords")) {
-            $meta_keywords = $keywords_title;
-            if ($meta_keywords) $meta_keywords .= ', ';
-            $meta_keywords .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs';
-        }
-
-        $meta_description = '';
-        if ($meta_description = $DATA->page_metadata($this_page, "meta_description")) {
-            $meta_description = '<meta name="description" content="' . _htmlentities($meta_description) . '">';
-        }
-
-        if ($this_page != 'overview') {
-            $URL = new URL('overview');
-
-            $linkshtml = "\t<link rel=\"start\" title=\"Home\" href=\"" . $URL->generate() . "\">\n";
-        }
-
-        // Create the next/prev/up links for navigation.
-        // Their data is put in the metadata in hansardlist.php
-        $nextprev = $DATA->page_metadata($this_page, "nextprev");
-
-        if ($nextprev) {
-            // Four different kinds of back/forth links we might build.
-            $links = array ("first", "prev", "up", "next", "last");
-
-            foreach ($links as $n => $type) {
-                if (isset($nextprev[$type]) && isset($nextprev[$type]['listurl'])) {
-
-                    if (isset($nextprev[$type]['body'])) {
-                        $linktitle = _htmlentities( trim_characters($nextprev[$type]['body'], 0, 40) );
-                        if (isset($nextprev[$type]['speaker']) &&
-                            count($nextprev[$type]['speaker']) > 0) {
-                            $linktitle = $nextprev[$type]['speaker']['name'] . ': ' . $linktitle;
-                        }
-
-                    } elseif (isset($nextprev[$type]['hdate'])) {
-                        $linktitle = format_date($nextprev[$type]['hdate'], SHORTDATEFORMAT);
-                    }
-
-                    $linkshtml .= "\t<link rel=\"$type\" title=\"$linktitle\" href=\"" . $nextprev[$type]['listurl'] . "\">\n";
-                }
-            }
-        }
-
-        if (!$keywords = $DATA->page_metadata($this_page, "keywords")) {
-            $keywords = "";
-        } else {
-            $keywords = ",".$DATA->page_metadata($this_page, "keywords");
-        }
-
-        $robots = '';
-        if (DEVSITE) {
-            $robots = '<meta name="robots" content="noindex,nofollow">';
-        } elseif ($robots = $DATA->page_metadata($this_page, 'robots')) {
-            $robots = '<meta name="robots" content="' . $robots . '">';
-        }
-
-        if (!headers_sent()) {
-            header('Content-Type: text/html; charset=iso-8859-1');
-            if ($this_page == 'overview') {
-                header('Vary: Cookie, X-GeoIP-Country');
-                if (!DEVSITE) {
-                    header('Cache-Control: max-age=600');
-                }
-            }
-        }
-
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <title><?php echo preg_replace('#<[^>]*>#', '', $title); ?></title>
-    <?=$meta_description ?>
-    <meta name="keywords" content="<?php echo _htmlentities($meta_keywords); ?>">
-    <?=$robots ?>
-    <link rel="author" title="Send feedback" href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">
-    <link rel="home" title="Home" href="http://<?php echo DOMAIN; ?>/">
-
-    <meta property="og:title" content="TheyWorkForYou">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://<?php echo DOMAIN; ?>">
-    <meta property="og:image" content="http://<?php echo DOMAIN; ?>/images/favicon-256.png">
-    <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
-    <meta property="fb:admins" content="143203489083755">
-
-    <script type="text/javascript" src="<?= cache_version("js/jquery.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/bar.js") ?>"></script>
-<?php
-        echo $linkshtml;
-    # XXX Below line for speed
-?>
-    <link rel="stylesheet" href="<?= cache_version("style/global.css") ?>" type="text/css">
-    <link rel="stylesheet" href="<?= cache_version("style/print.css") ?>" type="text/css" media="print">
-<?php
-
-        if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
-            // If this page has an RSS feed set.
-            echo '<link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="http://', DOMAIN, WEBPATH, $rssurl, '">';
-        }
-
-        ?>
-
-        <link rel="apple-touch-icon" href="/images/apple-touch-60.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-76.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-120.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-152.png" />
-
-        <?php
-
-        if (!DEVSITE) {
-?>
-
-<script type="text/javascript">
-
-    (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-660910-1');  // Replace with your property ID.
-    ga('set', 'anonymizeIp', true);
-    ga('send', 'pageview');
-
-  function recordWTT(link, label) {
-    ga('send', 'event', 'Links', 'WriteToThem', label);
-    setTimeout('document.location = "' + link.href + '"', 100);
-  }
-
-  function trackFormSubmit(form, category, name, value) {
-    try {
-      ga('send', 'event', category, name, value);
-    } catch (err) {}
-    setTimeout(function () {
-      form.submit();
-      }, 100);
-    }
-
-</script>
-
-<?php      } ?>
-
-</head>
-
-<?php
-    }
-
-    public function page_body() {
-        global $this_page;
-        $banner = new MySociety\TheyWorkForYou\Model\Banner;
-        $banner_text = $banner->get_text();
-
-        // Start the body, put in the page headings.
-        ?>
-<body>
-
-<?php if ( $banner_text ) { ?>
-<div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">
-<?= $banner_text ?>
-</div>
-<?php } ?>
-
-
-<div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function () {
-    FB.init({
-    appId      : '227648394066332',
-    xfbml      : true
-    });
-
-    FB.Event.subscribe('edge.create', function (targetUrl) {
-        ga('send', 'social', 'facebook', 'like', targetUrl);
-    });
-
-    FB.Event.subscribe('edge.remove', function (targetUrl) {
-        ga('send', 'social', 'facebook', 'unlike', targetUrl);
-    });
-
-};
-
-(function (d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/all.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div id="container">
-<?php
-        twfy_debug ("PAGE", "This page: $this_page");
-
-        print "\t<a name=\"top\"></a>\n\n";
-        if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
-            $country = gaze_get_country_from_ip($_SERVER["REMOTE_ADDR"]);
-            if (get_http_var('country')) $country = strtoupper(get_http_var('country'));
-            if ($country == 'NZ') {
-                print '<p class="informational banner">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
-            } elseif ($country == 'AU') {
-                print '<p class="informational banner">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
-            } elseif ($country == 'IE') {
-                print '<p class="informational banner">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-            } elseif ($country == 'CA') {
-                print '<p class="informational banner">Check out <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
-            } elseif ($this_page != 'overview') {
-                #print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
-            }
-        }
-
-# # 2009-01 interstitial
-# include INCLUDESPATH . '../docs/foiorder2009/fns.php';
-# echo '<div id="everypage" style="display:none">
-# <p style="float:right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-# <h2>Blimey. It looks like the Internets won &ndash; <small>a message from TheyWorkForYou</small></h2>
-# <p>Sorry to interrupt, but we thought you&rsquo;d like to know that <strong>you won</strong>!';
-# echo $foi2009_message;
-# echo '<p align="right"><a href="#top" onclick="$.cookie(\'seen_foi2\', 1, { expires: 7, path: \'/\' }); $(\'#everypage\').hide(\'slow\'); return false;">Close</a></p>
-# </div>';
-
-        $this->mysociety_bar();
-        $this->title_bar();
-        $this->menu();
-    }
-
-    //render the little mysociety crossell
-    public function mysociety_bar() {
-        global $this_page;
-        ?>
-            <div id="mysociety_bar">
-            <?php if (1==0 && $this_page != 'overview') { ?>
-                <div id="headercampaign"><p><a href="http://www.pledgebank.com/twfypatrons">Become a They Work For You Patron ...</p></a></div>
-            <?php } ?>
-                <ul>
-                    <li id="logo">
-                        <a href="http://www.mysociety.org/"><img src="/images/mysociety_small.png" alt="mySociety" width="72" height="15"></a>
-                    </li>
-                    <li>
-                        <a href="http://www.mysociety.org/donate/?cs=1" title="Like this website? Donate to help keep it running.">Donate</a>
-                    </li>
-                    <li id="moresites">
-                        <a id="moresiteslink" href="http://www.mysociety.org/projects/?cs=1" title="Donate to UK Citizens Online Democracy, mySociety's parent charity.">More</a>
-                    </li>
-                    <li >
-                        <noscript>
-
-                            <a href="http://www.mysociety.org/projects/?cs=1" title="View all mySociety's projects">More mySociety projects...</a>&nbsp;&nbsp;
-                            <a href="http://mysociety.us9.list-manage1.com/subscribe?u=53d0d2026dea615ed488a8834&id=287dc28511" title="mySociety newsletter - about once a month">mySociety newsletter</a>
-                        </noscript>
-                    </li>
-                </ul>
-            </div>
-
-        <?php
-    }
-
-    public function title_bar() {
-        // The title bit of the page, with possible search box.
-        global $this_page, $DATA;
-
-        $img = '<img src="' . IMAGEPATH . 'logo.png" width="423" height="80" alt="TheyWorkForYou - Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly">';
-
-        if ($this_page != 'overview') {
-            $HOMEURL = new URL('overview');
-            $HOMEURL = $HOMEURL->generate();
-            $HOMETITLE = 'To the front page of the site';
-            $heading = '<a href="' . $HOMEURL . '" title="' . $HOMETITLE . '">' . $img . '</a>';
-        } else {
-            $heading = '<h1>' . $img . '</h1>';
-        }
-?>
-    <div id="banner">
-        <div id="title">
-            <?=$heading?>
-        </div>
-<?php
-    #       if ($this_page != 'home' && $this_page != 'search' && $this_page != 'yourmp') {
-            $URL = new URL('search');
-            $URL->reset();
-            ?>
-        <div id="search">
-            <form action="<?php echo $URL->generate(); ?>" method="get">
-               <label for="header_search_input">Search</label><input id="header_search_input" name="q" size="15">
-               <input type="submit" class="submit" value="Go">
-               <?php /* <input type="hidden" name="section" value="<?=$section?>"> */ ?>
-            </form>
-            <ul>
-                <li>
-                    e.g. a <em>word</em>, <em>phrase</em>, <em>person</em>, or <em>postcode</em>
-                </li>
-                <li>
-                    |
-                </li>
-                <li>
-                    <a href="/search/">More options</a>
-                </li>
-            </ul>
-        </div>
-<?php
-    #       }
-        ?>
-    </div> <!-- end #banner -->
-<?php
-    }
-
-    // Works out which things to highlight, and which 'country' section we're in.
-    // Returns array of 'top' highlight, 'bottom' highlight, and which country section to show
-    public function menu_highlights() {
-        global $this_page, $DATA;
-
-        // We work out which of the items in the top and bottom menus
-        // are highlighted - $top_highlight and $bottom_highlight respectively.
-        $parent = $DATA->page_metadata($this_page, 'parent');
-
-        if (!$parent) {
-
-            $top_highlight = $this_page;
-            $bottom_highlight = '';
-
-            $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            $url = new URL('hansard');
-            $selected_top_link['link'] = $url->generate();
-
-        } else {
-
-            $parents = array($parent);
-            $p = $parent;
-            while ($p) {
-                $p = $DATA->page_metadata($p, 'parent');
-                if ($p) $parents[] = $p;
-            }
-
-            $top_highlight = array_pop($parents);
-            if (!$parents) {
-                // No grandparent - this page's parent is in the top menu.
-                // We're on one of the pages linked to by the bottom menu.
-                // So highlight it and its parent.
-                $bottom_highlight = $this_page;
-            } else {
-                // This page is not in either menu. So highlight its parent
-                // (in the bottom menu) and its grandparent (in the top).
-                $bottom_highlight = array_pop($parents);
-            }
-
-            $selected_top_link = $DATA->page_metadata($top_highlight, 'menu');
-            if (!$selected_top_link) {
-                # Just in case something's gone wrong
-                $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            }
-            $url = new URL($top_highlight);
-            $selected_top_link['link'] = $url->generate();
-
-        }
-
-        if ($top_highlight == 'hansard') {
-            $section = 'uk';
-        } elseif ($top_highlight == 'ni_home') {
-            $section = 'ni';
-        } elseif ($top_highlight == 'sp_home') {
-            $section = 'scotland';
-        } else {
-            $section = '';
-        }
-
-        return array(
-            'top' => $top_highlight,
-            'bottom' => $bottom_highlight,
-            'top_selected' => $selected_top_link,
-            'section' => $section,
-        );
-    }
-
-    public function menu() {
-        global $this_page, $DATA, $THEUSER;
-
-        // Page names mapping to those in metadata.php.
-        // Links in the top menu, and the sublinks we see if
-        // we're within that section.
-        $items = array (
-            array('home'),
-            array('hansard', 'overview', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
-            array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home'),
-        );
-
-        $highlights = $this->menu_highlights();
-
-        if ($highlights['section'] == 'scotland') {
-            print '<p class="informational all">Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again. Sorry for any inconvenience caused.</p>';
-        }
-
-        //get the top and bottom links
-        $top_links = array();
-        $bottom_links = array();
-        foreach ($items as $bottompages) {
-            $toppage = array_shift($bottompages);
-
-            // Generate the links for the top menu.
-
-            // What gets displayed for this page.
-            $menudata = $DATA->page_metadata($toppage, 'menu');
-                $text = $menudata['text'];
-                $title = $menudata['title'];
-            if (!$title) continue;
-
-                //get link and description for the menu ans add it to the array
-            $class = $toppage == $highlights['top'] ? ' class="on"' : '';
-                $URL = new URL($toppage);
-                $top_link = array("link" => '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>',
-                    "title" => $title);
-                array_push($top_links, $top_link);
-
-            if ($toppage == $highlights['top']) {
-
-                // This top menu link is highlighted, so generate its bottom menu.
-                foreach ($bottompages as $bottompage) {
-                    $menudata = $DATA->page_metadata($bottompage, 'menu');
-                    $text = $menudata['text'];
-                    $title = $menudata['title'];
-                    // Where we're linking to.
-                    $URL = new URL($bottompage);
-                    $class = $bottompage == $highlights['bottom'] ? ' class="on"' : '';
-                    $bottom_links[] = '<a href="' . $URL->generate() . '" title="' . $title . '"' . $class . '>' . $text . '</a>';
-                }
-            }
-        }
-        ?>
-    <div id="menu">
-        <div id="topmenu">
-            <div id="topmenuselected"><a href="<?=$highlights['top_selected']['link']?>"><?=$highlights['top_selected']['text'] ?></a> <a id="topmenu-change" href="/parliaments/" onclick="toggleVisible('site');return false;"><small>(change)</small></a></div>
-<?php
-            $this->user_bar($highlights['top']);
-            ?>
-                <dl id="site">
-                    <?php foreach ($top_links as $top_link) {?>
-                        <dt><?php print $top_link['link']; ?></dt>
-                        <dd><?php print $top_link['title']; ?></dd>
-                    <?php } ?>
-                </dl>
-
-            <br>
-        </div>
-        <div id="bottommenu">
-            <ul>
-            <li><?php print implode("</li>\n\t\t\t<li>", $bottom_links); ?></li>
-            </ul>
-        </div>
-    </div> <!-- end #menu -->
-
-<?php
-    }
-
-    public function user_bar($top_highlight='') {
-        // Called from menu(), but separated out here for clarity.
-        // Does just the bit of the menu related to login/join/etc.
-        global $this_page, $DATA, $THEUSER;
-
-        // We may want to send the user back to this current page after they've
-        // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new URL($this_page);
-        $returl = $URL->generate('none');
-
-        //user logged in
-        if ($THEUSER->isloggedin()) {
-
-            // The 'Edit details' link.
-            $menudata   = $DATA->page_metadata('userviewself', 'menu');
-            $edittext   = $menudata['text'];
-            $edittitle  = $menudata['title'];
-            $EDITURL    = new URL('userviewself');
-            if ($this_page == 'userviewself' || $this_page == 'useredit' || $top_highlight == 'userviewself') {
-                $editclass = ' class="on"';
-            } else {
-                $editclass = '';
-            }
-
-            // The 'Log out' link.
-            $menudata   = $DATA->page_metadata('userlogout', 'menu');
-            $logouttext = $menudata['text'];
-            $logouttitle= $menudata['title'];
-
-            $LOGOUTURL  = new URL('userlogout');
-            if ($this_page != 'userlogout') {
-                $LOGOUTURL->insert(array("ret"=>$returl));
-                $logoutclass = '';
-            } else {
-                $logoutclass = ' class="on"';
-            }
-
-            $username = $THEUSER->firstname() . ' ' . $THEUSER->lastname();
-
-        ?>
-
-            <ul id="user">
-            <li><a href="<?php echo $LOGOUTURL->generate(); ?>" title="<?php echo $logouttitle; ?>"<?php echo $logoutclass; ?>><?php echo $logouttext; ?></a></li>
-            <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo $edittext; ?></a></li>
-            <li><a href="<?php echo $EDITURL->generate(); ?>" title="<?php echo $edittitle; ?>"<?php echo $editclass; ?>><?php echo _htmlentities($username); ?></a></li>
-<?php
-
-        } else {
-        // User not logged in
-
-            // The 'Join' link.
-            $menudata   = $DATA->page_metadata('userjoin', 'menu');
-            $jointext   = $menudata['text'];
-            $jointitle  = $menudata['title'];
-
-            $JOINURL    = new URL('userjoin');
-            if ($this_page != 'userjoin') {
-                if ($this_page != 'userlogout' && $this_page != 'userlogin') {
-                    // We don't do this on the logout page, because then the user
-                    // will return straight to the logout page and be logged out
-                    // immediately!
-                    $JOINURL->insert(array("ret"=>$returl));
-                }
-                $joinclass = '';
-            } else {
-                $joinclass = ' class="on"';
-            }
-
-            // The 'Log in' link.
-            $menudata   = $DATA->page_metadata('userlogin', 'menu');
-            $logintext  = $menudata['text'];
-            $logintitle = $menudata['title'];
-
-            $LOGINURL   = new URL('userlogin');
-            if ($this_page != 'userlogin') {
-                if ($this_page != "userlogout" &&
-                    $this_page != "userpassword" &&
-                    $this_page != 'userjoin') {
-                    // We don't do this on the logout page, because then the user
-                    // will return straight to the logout page and be logged out
-                    // immediately!
-                    // And it's also silly if we're sent back to Change Password.
-                    // And the join page.
-                    $LOGINURL->insert(array("ret"=>$returl));
-                }
-                $loginclass = '';
-            } else {
-                $loginclass = ' class="on"';
-            }
-
-        ?>
-            <ul id="user">
-            <li><a href="<?php echo $LOGINURL->generate(); ?>" title="<?php echo $logintitle; ?>"<?php echo $loginclass; ?>><?php echo $logintext; ?></a></li>
-            <li><a href="<?php echo $JOINURL->generate(); ?>" title="<?php echo $jointitle; ?>"<?php echo $joinclass; ?>><?php echo $jointext; ?></a></li>
-<?php
-        }
-
-        // If the user's postcode is set, then we add a link to Your MP etc.
-        $divider = true;
-        if ($THEUSER->postcode_is_set()) {
-            $items = array('yourmp');
-            if (postcode_is_scottish($THEUSER->postcode()))
-                $items[] = 'yourmsp';
-            elseif (postcode_is_ni($THEUSER->postcode()))
-                $items[] = 'yourmla';
-            foreach ($items as $item) {
-                $menudata   = $DATA->page_metadata($item, 'menu');
-                $logintext  = $menudata['text'];
-                $logintitle = $menudata['title'];
-                $URL = new URL($item);
-                if ($divider) {
-                    echo '<li class="divider"><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                } else {
-                    echo '<li><a href="' . $URL->generate() . '">' . $logintext . '</a></li>';
-                }
-                $divider = false;
-            }
-        }
-        echo '</ul>';
-    }
-
-    // Where the actual meat of the page begins, after the title and menu.
-    public function content_start() {
-        global $this_page, $THEUSER;
-        echo '<div id="content">';
-
-/*
-        if ($this_page != 'overview') {
-            $bound_pc = '';
-            if (get_http_var('pc')) {
-                $bound_pc = get_http_var('pc');
-            } elseif ($THEUSER->postcode_is_set()) {
-                $bound_pc = $THEUSER->postcode();
-            }
-            print '<p class="informational all"><a href="http://election.theyworkforyou.com/quiz/';
-            if ($bound_pc) {
-                print urlencode($bound_pc);
-            }
-            print '">Find out what your candidates said on local and national issues in our quiz</a></p>';
-        }
-*/
-
-        $highlights = $this->menu_highlights();
-
     }
 
     public function stripe_start($type='side', $id='', $extra_class = '') {
@@ -980,241 +349,6 @@ window.fbAsyncInit = function () {
         $this->heading_displayed = true;
     }
 
-
-
-
-
-    public function content_end() {
-
-        print "</div> <!-- end #content -->";
-
-    }
-
-    //get <a> links for a particular set of pages defined in metadata.php
-    public function get_menu_links($pages) {
-        global $DATA, $this_page;
-        $links = array();
-
-        foreach ($pages as $page) {
-
-            //get meta data
-            $menu = $DATA->page_metadata($page, 'menu');
-            if ($menu) {
-                $title = $menu['text'];
-            } else {
-                $title = $DATA->page_metadata($page, 'title');
-            }
-            $url = $DATA->page_metadata($page, 'url');
-
-            //check for external vs internal menu links
-            if (!valid_url($url)) {
-                $URL = new URL($page);
-                $url = $URL->generate();
-            }
-
-            //make the link
-            if ($page == $this_page) {
-                $links[] = $title;
-            } else {
-                $links[] = '<a href="' . $url . '">' . $title . '</a>';
-            }
-        }
-
-        return $links;
-    }
-
-    public function page_footer($extra = null) {
-        global $DATA, $this_page;
-
-                global $DATA, $this_page;
-
-                $about_links = $this->get_menu_links(array ('help', 'about', 'linktous', 'houserules', 'blog', 'news', 'contact', 'topic', 'privacy'));
-                $assembly_links = $this->get_menu_links(array ('hansard', 'sp_home', 'ni_home', 'wales_home', 'boundaries'));
-                $international_links = $this->get_menu_links(array ('newzealand', 'australia', 'ireland'));
-                $tech_links = $this->get_menu_links(array ('code', 'api', 'data', 'devmailinglist', 'irc'));
-        $landing_links = $this->get_menu_links(array ('parliament_landing', 'hansard_landing'));
-
-        /*
-                $about_links[] = '<a href="' . WEBPATH . 'api/">API</a> / <a href="http://parser.theyworkforyou.com/">XML</a>';
-                $about_links[] = '<a href="http://github.com/mysociety/theyworkforyou">Source code</a>';
-
-                $user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
-                if (stristr($user_agent, 'Firefox/'))
-                    $about_links[] = '<a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Add search to Firefox</a>';
-
-        */
-                ?>
-
-                <div id="footer">
-                    <dl>
-                        <dt>About: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($about_links as $about_link) {
-                                        echo '<li>' . $about_link . '</li>';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Parliaments &amp; assemblies: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($assembly_links as $assembly_link) {
-                                        echo '<li>' . $assembly_link . '</li>';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>International projects: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($international_links as $international_link) {
-                                        echo '<li>' . $international_link . '</li>';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Technical: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($tech_links as $tech_link) {
-                                        echo '<li>' . $tech_link . '</li>';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                        <dt>Explanatory Pages: </dt>
-                        <dd>
-                            <ul>
-                                <?php
-                                    foreach ($landing_links as $landing_link) {
-                                        echo '<li>' . $landing_link . '</li>';
-                                    }
-                                ?>
-                            </ul>
-                        </dd>
-                  </dl>
-                  <div class="right">
-
-                      <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
-
-                      <br>
-
-                      <a href="https://twitter.com/theyworkforyou" class="twitter-follow-button" data-show-count="false">Follow @theyworkforyou</a>
-
-                    <script>
-
-                        window.twttr = (function (d,s,id) {
-                            var t, js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-                            js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-
-                            return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
-                        }(document, "script", "twitter-wjs"));
-
-                        // Used with the Google Analytics Tweet tracking
-                        function extractParamFromUri(uri, paramName) {
-                            if (!uri) {
-                                return;
-                            }
-                            var uri = uri.split('#')[0];  // Remove anchor.
-                            var parts = uri.split('?');  // Check for query params.
-                            if (parts.length == 1) {
-                                return;
-                            }
-                            var query = decodeURI(parts[1]);
-
-                            // Find url param.
-                            paramName += '=';
-                            var params = query.split('&');
-                            for (var i = 0, param; param = params[i]; ++i) {
-                                if (param.indexOf(paramName) === 0) {
-                                    return unescape(param.split('=')[1]);
-                                }
-                            }
-                        }
-
-                        function trackTwitter(intent_event) {
-                            if (intent_event) {
-                                var opt_pagePath;
-                                if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
-                                    opt_target = extractParamFromUri(intent_event.target.src, 'url');
-                                }
-                                ga('send', 'social', 'twitter', 'follow', opt_pagePath);
-                            }
-                        }
-
-                        twttr.ready(function (twttr) {
-                            twttr.events.bind('follow', trackTwitter);
-                        });
-
-                    </script>
-
-                      <h5>Donate</h5>
-                      <p>
-                          This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of
-                          a <a href="http://www.ukcod.org.uk/">registered charity</a>.
-                  If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
-                      </p>
-                      <h5>Sign up to our newsletter</h5>
-                        <form method="post" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
-                          <input type="email" placeholder="Your email address" name="EMAIL"/>
-                          <label style="position: absolute; left: -5000px;">
-                              Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
-                          </label>
-                          <input type="submit" value="Subscribe" name="subscribe"/>
-                      </form>
-                      <p>
-                          Approximately once a month, spam free.
-                      </p>
-                  </div>
-        <?php
-
-        // DAMN, this really shouldn't be in PAGE.
-        $db = new ParlDB;
-        $db->display_total_duration();
-
-        $duration = getmicrotime() - STARTTIME;
-        twfy_debug ("TIME", "Total time for page: $duration seconds.");
-        if (!isset($_SERVER['WINDIR'])) {
-            $rusage = getrusage();
-            $duration = $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec'] - STARTTIMEU;
-            twfy_debug ('TIME', "Total user time: $duration microseconds.");
-            $duration = $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec'] - STARTTIMES;
-            twfy_debug ('TIME', "Total system time: $duration microseconds.");
-        }
-
-?>
-
-</div> <!-- end #footer -->
-</div> <!-- end #container -->
-
-<script src="/js/riveted.min.js"></script>
-<script src="/js/jquery.scrolldepth.min.js"></script>
-
-<script type="text/javascript" charset="utf-8">
-    barSetup();
-    riveted.init();
-    $(function() {
-    $.scrollDepth();
-    setTimeout(function() {
-      try {
-        ga('send', 'event', 'engagement', 'timer', '7');
-      } catch(err){}
-    }, 7000);
-  });
-</script>
-
-</body>
-</html>
-<?php
-        ob_end_flush();
-    }
-
     public function postcode_form() {
         // Used on the mp (and yourmp) pages.
         // And the userchangepc page.
@@ -1241,42 +375,16 @@ window.fbAsyncInit = function () {
         $this->block_end();
     }
 
-    public function member_rss_block($urls) {
-        // Returns the html for a person's rss feeds sidebar block.
-        // Used on MP/Peer page.
-
-        $html = '
-                <div class="block">
-                <h4>RSS feeds</h4>
-                    <div class="blockbody">
-                        <ul>
-';
-        if (isset($urls['appearances'])) {
-            $html .= '<li><a href="' . $urls['appearances'] . '"><img src="' . WEBPATH . 'images/rss.gif" alt="RSS feed" border="0" align="middle"></a> <a href="' . $urls['appearances'] . '">Most recent appearances</a></li>';
-        }
-
-        $HELPURL = new URL('help');
-
-        $html .= '
-                        </ul>
-                        <p><a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for"><small>What is RSS?</small></a></p>
-                    </div>
-                </div>
-';
-
-        return $html;
-
-    }
-
     public function error_message($message, $fatal = false, $status = 500) {
         // If $fatal is true, we exit the page right here.
         // $message is like the array used in $this->message()
+        global $page_errors;
 
-        if (!$this->page_started()) {
-            if (!headers_sent()) {
-                header("HTTP/1.0 $status Internal Server Error");
-            }
-            $this->page_start();
+        // if possible send a 500 error so that google or whatever doesn't
+        // cache the page. Rely on the fact that an inpage errors will be
+        // sent after a page_start and hence the headers have been sent
+        if (!headers_sent()) {
+            header("HTTP/1.0 $status Internal Server Error");
         }
 
         if (is_string($message)) {
@@ -1287,9 +395,23 @@ window.fbAsyncInit = function () {
             );
         }
 
-        $this->message($message, 'error');
+        // if the page has started then we're most likely in an old school page
+        // so we should just print out the error, otherwise stick it in the error
+        // global which will then be displayed by the header template
+        if ( $this->page_started() ) {
+            $this->message($message, 'error');
+        } else {
+            if ( !isset($page_errors) ) {
+                $page_errors = array();
+            }
+            $page_errors[]  = $message;
+        }
 
         if ($fatal) {
+            if (!$this->page_started()) {
+                $this->page_start();
+            }
+
             if ($this->within_stripe()) {
                 $this->stripe_end();
             }
@@ -1463,55 +585,6 @@ window.fbAsyncInit = function () {
         }
     }
 
-
-    public function recess_message() {
-        // Returns a message if parliament is currently in recess.
-        include_once INCLUDESPATH."easyparliament/recess.php";
-        $message = '';
-        list($name, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'), 1);
-        if ($name) {
-            $message = 'The Houses of Parliament are in their ' . $name . ' ';
-            if ($from && $to) {
-                $from = format_date($from, SHORTDATEFORMAT);
-                $to = format_date($to, SHORTDATEFORMAT);
-                if (substr($from, -4, 4) == substr($to, -4, 4)) {
-                    $from = substr($from, 0, strlen($from) - 4);
-                }
-                $message .= "from $from until $to.";
-            } else {
-                $message .= 'at this time.';
-            }
-        }
-
-        return $message;
-    }
-
-    public function trackback_rss($trackbackdata) {
-        /*
-        Outputs Trackback Auto Discovery RSS for something.
-
-        $trackbackdata = array (
-            'itemurl'   => 'http://www.easyparliament.org/debate/?id=2003-02-28.544.2',
-            'pingurl'   => 'http://www.easyparliament.org/trackback/?e=2345',
-            'title'     => 'This item or page title',
-            'date'      => '2003-02-28T13:47:00+00:00'
-        );
-        */
-        ?>
-<!--
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:dc="http://purl.org/dc/elements/1.1/"
-         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
-<rdf:Description
-    rdf:about="<?php echo $trackbackdata['itemurl']; ?>"
-    trackback:ping="<?php echo $trackbackdata['pingurl']; ?>"
-    dc:identifier="<?php echo $trackbackdata['itemurl']; ?>"
-    dc:title="<?php echo str_replace('"', "'", $trackbackdata['title']); ?>"
-    dc:date="<?php echo $trackbackdata['date']; ?>">
-</rdf:RDF>
--->
-<?php
-    }
 
     public function search_form($value='') {
         global $SEARCHENGINE;

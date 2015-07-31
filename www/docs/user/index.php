@@ -640,7 +640,6 @@ function display_form ( $details = array(), $errors = array() ) {
 
 ?>
                 <div class="row">
-                <span class="label">&nbsp;</span>
                 <span class="formw"><input type="radio" name="emailpublic" id="emailpublictrue" value="true"<?php
     if (isset($details["emailpublic"]) && $details["emailpublic"] == true) {
         print " checked";
@@ -668,7 +667,6 @@ function display_form ( $details = array(), $errors = array() ) {
     }
 ?>
                 <div class="row">
-                <span class="label">&nbsp;</span>
                 <span class="formw"><input type="radio" name="optin" id="optintrue" value="true"<?php
     if (isset($details["optin"]) && $details["optin"] == true) {
         print " checked";
@@ -691,7 +689,6 @@ function display_form ( $details = array(), $errors = array() ) {
                 </div>
 
                 <div class="row">
-                <span class="label">&nbsp;</span>
                 <span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true"<?php
     if (isset($details["mp_alert"]) && $details["mp_alert"] == true) {
         print ' checked';
@@ -762,12 +759,10 @@ function display_form ( $details = array(), $errors = array() ) {
     $TERMSURL = new URL('houserules');
 ?>
                 <div class="row">
-                <span class="label">&nbsp;</span>
                 <span class="formw">&nbsp;<br><small>Read our <a href="<?php echo $TERMSURL->generate(); ?>" target="_blank">Terms of Use</a>.</small></span>
                 </div>
 
                 <div class="row">
-                <span class="label">&nbsp;</span>
                 <span class="formw"><input type="submit" class="submit" value="<?php echo $submittext; ?>"><!-- this space makes the submit button appear on Mac IE 5! --> </span>
                 </div>
 
