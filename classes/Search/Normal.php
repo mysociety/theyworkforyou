@@ -51,7 +51,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
 
         $pagenum = $args['p'];
 
-        $DATA->set_page_metadata($this_page, 'rss', 'search/rss/?s=' . urlencode($this->searchstring));
+        $DATA->set_page_metadata($this_page, 'rss', '/search/rss/?s=' . urlencode($this->searchstring));
         if ($pagenum == 1) {
             # Allow indexing of first page of search results
             $DATA->set_page_metadata($this_page, 'robots', '');

@@ -234,4 +234,14 @@ class SearchTest extends FetchPageTestCase
         );
     }
 
+    /**
+     * Test that search RSS links are displayed
+     *
+     * @group xapian
+     */
+    public function testSearchPageRSS() {
+        $page = $this->fetch_page( array( 'q' => 'test' ) );
+        $this->assertContains('<a href="/search/rss/?s=test">get an RSS feed', $page);
+    }
+
 }
