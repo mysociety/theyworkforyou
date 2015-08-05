@@ -117,10 +117,6 @@ if ($GLOSSARY->glossary_id != '') {
     }
 }
 
-$URL = new URL('glossary_addterm');
-$add_url = $URL->generate();
-print "<p>Think you know a phrase that should be here? Help us improve the site by <a href=\"".$add_url."\">adding it</a>.</p>";
-
 $PAGE->stripe_end(array (
     array (
         'type'		=> 'nextprev',
