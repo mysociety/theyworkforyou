@@ -61,12 +61,6 @@ $PAGE->stripe_start();
 
 $PAGE->glossary_atoz($GLOSSARY);
 
-// Hiding the search box for now...
-/*
-$args['action'] = "help_us_out";
-$PAGE->glossary_search_form($args);
-*/
-
 if ($GLOSSARY->glossary_id != '') {
 // Deal with a single instance in the form of a glossary_id
 
@@ -116,10 +110,6 @@ if ($GLOSSARY->glossary_id != '') {
         ?></ul><?php
     }
 }
-
-$URL = new URL('glossary_addterm');
-$add_url = $URL->generate();
-print "<p>Think you know a phrase that should be here? Help us improve the site by <a href=\"".$add_url."\">adding it</a>.</p>";
 
 $PAGE->stripe_end(array (
     array (
