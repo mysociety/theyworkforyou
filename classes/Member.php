@@ -383,7 +383,7 @@ class Member extends \MEMBER {
         }
 
         foreach ( $positions->positionsById as $policy_id => $details ) {
-            if ( $details['score'] != -1 && isset($party_positions[$policy_id])) {
+            if ( $details['has_strong'] && $details['score'] != -1 && isset($party_positions[$policy_id])) {
                 $mp_score = $details['score'];
                 $party_score = $party_positions[$policy_id]['score'];
 

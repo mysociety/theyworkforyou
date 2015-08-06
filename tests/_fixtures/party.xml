@@ -186,1497 +186,6 @@
 			<field name="data_key">test_member_key</field>
 			<field name="data_value">Test Member Value</field>
 		</row>
-		<row>
-			<field name="member_id">1</field>
-			<field name="data_key">public_whip_dreammp363_distance</field>
-			<field name="data_value">0.27</field>
-		</row>
-		<row>
-			<field name="member_id">1</field>
-			<field name="data_key">public_whip_dreammp363_both_voted</field>
-			<field name="data_value">1</field>
-		</row>
-
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1049_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1049_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1065_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1065_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1050_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1050_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6702_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6702_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1120_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1120_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6710_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6710_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1105_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1105_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6707_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6707_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6721_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6721_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6705_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6705_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6672_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6672_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6711_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6711_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6681_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6681_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6703_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6703_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1027_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1027_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1053_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1053_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6688_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6688_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6691_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6691_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1109_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1109_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6670_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6670_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6677_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6677_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1132_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1132_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp837_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp837_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6671_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6671_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6699_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6699_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6718_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6718_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6706_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6706_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6673_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6673_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1136_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1136_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6715_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6715_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1030_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1030_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1074_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1074_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1079_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1079_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1084_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1084_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6695_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6695_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6719_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6719_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6716_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6716_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp984_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp984_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6698_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6698_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6697_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6697_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1110_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1110_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1113_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1113_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp811_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp811_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6696_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6696_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1124_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1124_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6684_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6684_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6686_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6686_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6678_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6678_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6720_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6720_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1052_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1052_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6676_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6676_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6709_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6709_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6667_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6667_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6682_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6682_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6680_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6680_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp363_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp363_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp826_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp826_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6690_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6690_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6692_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6692_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1071_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1071_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6674_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6674_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1051_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1051_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6687_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6687_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6679_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6679_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6708_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6708_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp996_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp996_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6685_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6685_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6694_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6694_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1087_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp1087_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp975_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp975_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp810_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp810_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6683_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6683_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6693_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6693_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6704_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">2</field>
-            <field name="data_key">public_whip_dreammp6704_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1049_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1049_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1065_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1065_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1050_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1050_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6702_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6702_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1120_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1120_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6710_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6710_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1105_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1105_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6707_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6707_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6721_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6721_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6705_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6705_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6672_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6672_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6711_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6711_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6681_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6681_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6703_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6703_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1027_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1027_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1053_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1053_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6688_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6688_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6691_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6691_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1109_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1109_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6670_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6670_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6677_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6677_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1132_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1132_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp837_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp837_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6671_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6671_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6699_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6699_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6718_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6718_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6706_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6706_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6673_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6673_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1136_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1136_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6715_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6715_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1030_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1030_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1074_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1074_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1079_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1079_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1084_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1084_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6695_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6695_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6719_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6719_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6716_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6716_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp984_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp984_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6698_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6698_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6697_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6697_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1110_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1110_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1113_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1113_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp811_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp811_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6696_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6696_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1124_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1124_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6684_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6684_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6686_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6686_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6678_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6678_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6720_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6720_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1052_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1052_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6676_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6676_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6709_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6709_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6667_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6667_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6682_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6682_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6680_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6680_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp363_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp363_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp826_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp826_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6690_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6690_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6692_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6692_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1071_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1071_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6674_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6674_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1051_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1051_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6687_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6687_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6679_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6679_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6708_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6708_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp996_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp996_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6685_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6685_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6694_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6694_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1087_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp1087_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp975_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp975_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp810_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp810_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6683_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6683_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6693_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6693_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6704_distance</field>
-            <field name="data_value">0.97</field>
-        </row>
-        <row>
-            <field name="member_id">5</field>
-            <field name="data_key">public_whip_dreammp6704_both_voted</field>
-            <field name="data_value">1</field>
-        </row>
 	</table_data>
 	<table_data name="mentions">
 	</table_data>
@@ -1690,6 +199,2242 @@
 			<field name="data_key">test_person_key</field>
 			<field name="data_value">Test Person Value</field>
 		</row>
+		<row>
+			<field name="person_id">2</field>
+			<field name="data_key">public_whip_dreammp363_distance</field>
+			<field name="data_value">0.27</field>
+		</row>
+		<row>
+			<field name="person_id">2</field>
+			<field name="data_key">public_whip_dreammp363_both_voted</field>
+			<field name="data_value">1</field>
+		</row>
+		<row>
+			<field name="person_id">2</field>
+			<field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+			<field name="data_value">1</field>
+		</row>
+
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1049_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1049_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1065_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1065_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1050_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1050_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6702_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6702_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1120_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1120_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6710_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6710_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1105_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1105_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6707_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6707_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6721_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6721_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6705_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6705_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6672_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6672_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6711_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6711_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6681_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6681_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6703_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6703_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1027_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1027_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1053_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1053_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6688_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6688_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6691_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6691_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1109_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1109_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6670_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6670_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6677_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6677_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1132_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1132_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp837_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp837_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6671_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6671_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6699_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6699_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6718_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6718_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6706_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6706_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6673_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6673_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1136_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1136_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6715_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6715_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1030_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1030_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1074_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1074_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1079_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1079_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1084_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1084_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6695_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6695_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6719_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6719_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6716_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6716_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp984_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp984_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6698_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6698_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6697_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6697_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1110_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1110_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1113_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1113_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp811_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp811_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6696_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6696_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1124_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1124_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6684_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6684_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6686_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6686_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6678_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6678_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6720_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6720_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1052_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1052_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6676_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6676_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6709_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6709_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6667_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6667_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6682_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6682_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6680_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6680_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp363_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp363_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp826_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp826_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6690_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6690_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6692_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6692_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1071_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1071_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6674_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6674_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1051_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1051_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6687_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6687_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6679_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6679_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6708_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6708_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp996_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp996_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6685_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6685_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6694_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6694_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1087_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1087_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp975_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp975_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp810_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp810_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6683_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6683_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6693_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6693_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6704_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6704_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1049_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1049_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1065_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1065_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1050_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1050_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6702_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6702_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1120_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1120_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6710_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6710_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1105_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1105_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6707_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6707_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6721_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6721_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6705_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6705_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6672_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6672_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6711_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6711_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6681_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6681_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6703_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6703_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1027_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1027_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1053_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1053_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6688_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6688_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6691_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6691_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1109_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1109_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6670_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6670_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6677_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6677_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1132_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1132_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp837_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp837_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6671_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6671_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6699_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6699_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6718_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6718_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6706_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6706_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6673_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6673_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1136_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1136_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6715_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6715_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1030_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1030_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1074_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1074_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1079_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1079_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1084_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1084_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6695_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6695_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6719_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6719_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6716_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6716_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp984_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp984_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6698_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6698_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6697_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6697_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1110_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1110_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1113_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1113_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp811_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp811_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6696_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6696_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1124_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1124_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6684_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6684_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6686_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6686_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6678_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6678_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6720_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6720_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1052_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1052_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6676_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6676_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6709_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6709_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6667_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6667_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6682_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6682_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6680_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6680_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp363_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp363_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp826_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp826_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6690_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6690_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6692_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6692_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1071_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1071_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6674_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6674_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1051_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1051_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6687_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6687_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6679_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6679_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6708_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6708_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp996_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp996_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6685_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6685_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6694_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6694_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1087_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1087_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp975_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp975_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp810_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp810_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6683_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6683_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6693_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6693_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6704_distance</field>
+            <field name="data_value">0.97</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6704_both_voted</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1049_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1065_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1050_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6702_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1120_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6710_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1105_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6707_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6721_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6705_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6672_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6711_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6681_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6703_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1027_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1053_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6688_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6691_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1109_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6670_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6677_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1132_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp837_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6671_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6699_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6718_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6706_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6673_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1136_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6715_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1030_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1074_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1079_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1084_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6695_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6719_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6716_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp984_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6698_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6697_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1110_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp811_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6696_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1124_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6684_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6686_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6678_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6720_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1052_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6676_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6709_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6667_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6682_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6680_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp826_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6690_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6692_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1071_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6674_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1051_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6687_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6679_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6708_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp996_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6685_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6694_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp1087_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp975_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp810_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6683_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6693_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">3</field>
+            <field name="data_key">public_whip_dreammp6704_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1049_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1065_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1050_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6702_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1120_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6710_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1105_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6707_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6721_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6705_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6672_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6711_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6681_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6703_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1027_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1053_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6688_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6691_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1109_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6670_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6677_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1132_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp837_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6671_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6699_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6718_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6706_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6673_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1136_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6715_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1030_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1074_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1079_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1084_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6695_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6719_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6716_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp984_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6698_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6697_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1110_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp811_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6696_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1124_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6684_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6686_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6678_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6720_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1052_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6676_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6709_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6667_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6682_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6680_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp826_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6690_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6692_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1071_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6674_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1051_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6687_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6679_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6708_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp996_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6685_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6694_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp1087_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp975_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp810_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6683_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6693_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
+        <row>
+            <field name="person_id">6</field>
+            <field name="data_key">public_whip_dreammp6704_has_strong_vote</field>
+            <field name="data_value">1</field>
+        </row>
 	</table_data>
 	<table_data name="policies">
       <row>

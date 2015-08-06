@@ -60,30 +60,33 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                             <?php if ( isset($policy['position']) ) { ?>
                                 <div class="panel">
-                                    <h3 class="policy-vote-overall-stance">
-                                        <?= $full_name . ' ' . $policy['position']['desc'] ?>
-                                    </h3>
+                                    <?php if ( $policy['position']['has_strong'] ) { ?>
+                                        <h3 class="policy-vote-overall-stance">
+                                            <?= $full_name . ' ' . $policy['position']['desc'] ?>
+                                        </h3>
 
-                                    <?php $pw_url = 'http://www.publicwhip.org.uk/mp.php?mpid=' . $member_id . '&amp;dmp=' . $policy['policy_id']; ?>
-                                    <p>
-                                        TheyWorkForYou has automatically calculated this MP&rsquo;s stance based on all
-                                        of their votes on the topic. <a href="<?= $pw_url ?>">You can browse the source
-                                        data on PublicWhip.org.uk</a>.
-                                    </p>
+                                        <?php $pw_url = 'http://www.publicwhip.org.uk/mp.php?mpid=' . $member_id . '&amp;dmp=' . $policy['policy_id']; ?>
+                                        <p>
+                                            TheyWorkForYou has automatically calculated this MP&rsquo;s stance based on all
+                                            of their votes on the topic. <a href="<?= $pw_url ?>">You can browse the source
+                                            data on PublicWhip.org.uk</a>.
+                                        </p>
 
-                                    <?php if ( DEVSITE ) { ?>
-                                    <p class="policy-vote-agree-disagree">
-                                        <button class="button">I agree with this MP</button>
-                                        <button class="button button--negative">I disagree with this MP</button>
-                                    </p>
+                                        <h3 class="policy-votes-list-header"><span id="policy-votes-type">All</span> votes about <?= $policy['desc'] ?>:</h3>
+                                    <?php } else { ?>
+                                        <h3 class="policy-vote-overall-stance">
+                                            We don&rsquo;t have enough information to calculate <?= $full_name ?>&rsquo;s position on this issue
+                                        </h3>
+
+                                        <p>
+                                        However, <?= $full_name ?> has taken part in the following votes on the topic:
+                                        </p>
                                     <?php } ?>
-
-                                    <h3 class="policy-votes-list-header"><span id="policy-votes-type">All</span> votes about <?= $policy['desc'] ?>:</h3>
 
                                     <ul class="vote-descriptions policy-votes">
                                     <?php
                                         $show_all = FALSE;
-                                        if ( $policy['weak_count'] == count($policy['divisions']) ) {
+                                        if ( $policy['weak_count'] == 0 || $policy['weak_count'] == count($policy['divisions']) ) {
                                             $show_all = TRUE;
                                         }
                                     ?>

@@ -100,4 +100,9 @@ class DivisionsTest extends FetchPageTestCase
         $page = $this->fetch_division_page();
         $this->assertContains('including 5 less important votes', $page);
     }
+
+    public function testNotEnoughInfoStatement() {
+        return $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
+        $this->assertContains('we don&rsquo;t have enough information to calculate Test Current-MP&rsquo;s position', $page);
+    }
 }

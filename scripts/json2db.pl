@@ -44,6 +44,11 @@ my $votecheck = $dbh->prepare("SELECT person_id, vote FROM persondivisionvotes W
 my $voteadd = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?)");
 my $voteupdate= $dbh->prepare("UPDATE persondivisionvotes SET vote = ? WHERE person_id = ? AND division_id = ?");
 
+my $strong_vote_check = $dbh->prepare("SELECT data_value from personinfo where data_key = ? and person_id = ?");
+my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FROM persondivisionvotes JOIN policydivisions USING (division_id) WHERE policy_id = ? AND person_id = ? AND policy_vote LIKE '%3'");
+my $strong_vote_add = $dbh->prepare("INSERT into personinfo ( data_key, data_value, person_id ) VALUES ( ?, ?, ? )");
+my $strong_vote_update = $dbh->prepare("UPDATE personinfo SET data_value = ? WHERE data_key = ? AND person_id = ?");
+
 my $motionsdir = $parldata . "scrapedjson/policy-motions/";
 
 $motion_count = $policy_count = $vote_count = 0;
@@ -158,6 +163,26 @@ foreach my $dreamid ( @policyids ) {
                     warn "problem updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n"
                          . DBI->errstr . "\n";
                  }
+            }
+
+            if ( $motion->{motion}->{policy_vote} =~ /3/ ) {
+                my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
+                my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
+                if ( $strong_vote_check->rows() < 1 ) {
+                    $strong_vote_add->execute( $pw_id, 1, $mp_id_num);
+                }
+            }
+
+            if ( $curr_motion->{policy_vote} =~ /3/ && $motion->{motion}->{policy_vote} !~ /3/ ) {
+                my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
+                my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
+                if ( $strong_vote_check->rows() > 0 ) {
+                    my $has_strong_for_policy = $strong_for_policy_check->execute( $dreamid, $mp_id_num );
+                    my $row = $strong_for_policy_check->fetchrow_hashref();
+                    if ( $row->{strong_votes} == 0 ) {
+                        $strong_vote_update->execute( 0, $pw_id, $mp_id_num);
+                    }
+                }
             }
         }
     }

@@ -57,7 +57,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote): ?>
                                 <li>
+                                    <?php if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) { ?>
                                     <?= ucfirst($key_vote['desc']) ?>
+                                    <?php } else {  ?>
+                                    We don&rsquo;t have enough information to calculate <?= $full_name ?>&rsquo;s position on <?= $key_vote['policy'] ?>.
+                                    <?php } ?>
                                     <?php if ( $key_vote['position'] != 'has never voted on' ) { ?>
                                     <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
                                     <?php } ?>
