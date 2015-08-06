@@ -275,6 +275,15 @@ class Member extends \MEMBER {
 
     }
 
+    public function getShortParty() {
+        $party = $this->party();
+        if ($party == 'Labour/Co-operative') {
+            $party = 'Labour';
+        }
+        $party = str_replace(' ', '', $party);
+        return $party;
+    }
+
     /**
     * Get Other Constituencies String
     *

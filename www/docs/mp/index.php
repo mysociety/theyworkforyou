@@ -287,7 +287,7 @@ if (isset($position_former)) {
 
 $data['constituency'] = $MEMBER->constituency();
 $data['party'] = $MEMBER->party_text();
-$data['party_short'] = $MEMBER->party();
+$data['party_short'] = $MEMBER->getShortParty();
 $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
 $data['current_member'] = $MEMBER->current_member();
 $data['the_users_mp'] = $MEMBER->the_users_mp();

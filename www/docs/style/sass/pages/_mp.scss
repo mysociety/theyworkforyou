@@ -203,20 +203,20 @@
                     color: lightgrey;
                     background-color: lightgrey;
                 }
-                &.Con:before {
+                &.Conservative:before {
                     content: 'C';
                     background-color: rgb(22,111,210);
                 }
-                &.Lab:before {
+                &.Labour:before {
                     content: 'L';
                     background-color: rgb(238, 50, 36);
                 }
-                &.LDem:before {
+                &.LiberalDemocrat:before {
                     color: black;
                     content: 'L';
                     background-color: rgb(255, 187, 51);
                 }
-                &.SNP:before {
+                &.ScottishNationalParty:before {
                     color: black;
                     content: 'S';
                     background-color: rgb(255, 249, 93);
