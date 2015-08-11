@@ -19,7 +19,6 @@
             <p class="cta">
                 <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
             </p>
-            <p class="cta" hidden id="research-quant2-bucket2"><a class="button alert" href="/action/where-next">What to do with the information on this page?</a></p>
         </div>
     </div>
     <nav class="debate-navigation" role="navigation">
