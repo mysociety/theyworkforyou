@@ -707,9 +707,12 @@ function search_by_usage($search, $house = 0) {
             $speaker['pmaxdate'] = $maxdate[$pid];
             $speaker['pmindate'] = $mindate[$pid];
             $ok = 1;
-            if (!isset($party_count[$speaker['party']]))
-                $party_count[$speaker['party']] = 0;
-            $party_count[$speaker['party']] += $count;
+            if (isset($speaker['party'])) {
+                if (!isset($party_count[$speaker['party']])) {
+                    $party_count[$speaker['party']] = 0;
+                }
+                $party_count[$speaker['party']] += $count;
+            }
         }
 
         function sort_by_count($a, $b) {
