@@ -19,7 +19,7 @@ class AlertView {
 
     public function display() {
         $data = array();
-        $data['recent_election'] = True;
+        $data['recent_election'] = false;
         if ( $this->user->loggedin() ) {
             $data['user_signed_in'] = true;
         }
