@@ -6,8 +6,9 @@ $dir = RAWDATA . 'scrapedxml/regmem';
 $dh = opendir($dir);
 $files = array();
 while ($file = readdir($dh)) {
-    if (preg_match('#^regmem#', $file))
+    if (preg_match('#^regmem#', $file)) {
         $files[] = "$dir/$file";
+    }
 }
 rsort($files);
 
@@ -31,18 +32,24 @@ table#regmem h2 { margin: 0; margin-top: 0.5em; padding-top: 0.5em; border-top: 
 }
 </style>
 <?php
-$f = get_http_var('f'); if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $f)) $f='';
+$f = get_http_var('f');
+if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $f)) {
+    $f = '';
+}
 $p = (integer) get_http_var('p');
-$d = get_http_var('d'); if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $d)) $d='';
+$d = get_http_var('d');
+if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $d)) {
+    $d = '';
+}
 
 $link = '<p align="center"><a href="./"><strong>List all MPs and Register editions</strong></a></p>';
-if ($f)
+if ($f) {
     register_history($f);
-elseif ($p)
+} elseif ($p) {
     person_history($p);
-elseif ($d)
+} elseif ($d) {
     show_register($d);
-else {
+} else {
     $this_page = 'regmem';
     $PAGE->stripe_start();
     front_page();
@@ -58,8 +65,9 @@ function person_history($p) {
     $earliest = $files[0];
     foreach ($files as $_) {
         $file = file_get_contents($_);
+        $date = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
         $data[$_] = array();
-        if (preg_match('#<regmem personid="uk.org.publicwhip/person/'.$p.'" memberid="(.*?)" membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m)) {
+        if (preg_match('#<regmem personid="uk.org.publicwhip/person/'.$p.'" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m)) {
             $earliest = $_;
             if (!$name) {
                 $name = $m[2];
@@ -75,12 +83,14 @@ Please be aware that changes in typography/styling at the source might mean some
 <?php
             }
             $name = $m[2]; $ddata = $m[4];
-            if (preg_match('/Nil\./', $ddata)) $nil[$_] = true;
+            if (preg_match('/Nil\./', $ddata)) {
+                $nil[$_] = true;
+            }
             preg_match_all('#<category type="(.*?)" name="(.*?)">(.*?)</category>#s', $ddata, $mm, PREG_SET_ORDER);
             foreach ($mm as $k => $m) {
                 $cat_type = $m[1];
                 $cat_name = $m[2];
-                $cats[$cat_type] = $cat_name;
+                $cats[$date][$cat_type] = $cat_name;
                 $cat_data = canonicalise_data($m[3]);
                 $data[$_][$cat_type] = $cat_data;
             }
@@ -89,40 +99,51 @@ Please be aware that changes in typography/styling at the source might mean some
 
     $out = '';
     foreach ($files as $i => $_) {
-        if ($_ <= $earliest) break;
-        $iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
-        $pretty = format_date($iso, LONGDATEFORMAT);
+        if ($_ <= $earliest) {
+            break;
+        }
+        $date_pre = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
+        $date_post = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $files[$i+1]);
+        $pretty = format_date($date_pre, LONGDATEFORMAT);
         $oout = '';
         foreach ($data[$_] as $cat_type => $cat_data) {
             $old = array_key_exists($cat_type, $data[$files[$i+1]]) ? $data[$files[$i+1]][$cat_type] : '';
             $new = $data[$_][$cat_type];
-            if ($diff = clean_diff($old, $new))
-                $oout .= cat_heading($cat_type) . $diff;
+            if ($diff = clean_diff($old, $new)) {
+                $oout .= cat_heading($cat_type, $date_pre, $date_post) . $diff;
+            }
         }
         foreach ($data[$files[$i+1]] as $cat_type => $cat_data) {
-            if (array_key_exists($cat_type, $data[$_])) continue;
-            if ($diff = clean_diff($data[$files[$i+1]][$cat_type], ''))
-                $oout .= cat_heading($cat_type) . $diff;
+            if (array_key_exists($cat_type, $data[$_])) {
+                continue;
+            }
+            if ($diff = clean_diff($data[$files[$i+1]][$cat_type], '')) {
+                $oout .= cat_heading($cat_type, $date_pre, $date_post) . $diff;
+            }
         }
-        if ($oout)
-            $out .= span_row("<h2>$pretty - <a href=\"./?d=$iso#$p\">View full entry</a></h2>", true) . $oout;
+        if ($oout) {
+            $out .= span_row("<h2>$pretty - <a href=\"./?d=$date_pre#$p\">View full entry</a></h2>", true) . $oout;
+        }
     }
     $_ = $earliest;
-    $pretty = format_date(preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_), LONGDATEFORMAT);
+    $date = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
+    $pretty = format_date($date, LONGDATEFORMAT);
     $out .= span_row("<h2>$pretty (first entry we have)</h2>", true);
     if (array_key_exists($_, $nil)) {
         $out .= span_row('Nothing');
     }
     foreach ($data[$_] as $cat_type => $d) {
-        $out .= cat_heading($cat_type);
+        $out .= cat_heading($cat_type, '', $date);
         $out .= span_row(prettify($d));
     }
     print $out;
-    if ($name) print '</table>';
+    if ($name) {
+        print '</table>';
+    }
 }
 
 function register_history($f) {
-    global $dir, $files, $cats, $names, $DATA, $PAGE, $link, $this_page;
+    global $dir, $files, $names, $DATA, $PAGE, $link, $this_page;
     $this_page = 'regmem_diff';
     $new = 0;
     if ($f) {
@@ -148,8 +169,8 @@ function register_history($f) {
     $PAGE->stripe_start();
     print $link;
     $data = array();
-    parse_file($old, 'old', $data);
-    parse_file($new, 'new', $data);
+    parse_file($old, $old_iso, 'old', $data);
+    parse_file($new, $new_iso, 'new', $data);
 ?>
 <p>This page shows all the changes in the Register of Members' Interests between the editions of <a href="./?d=<?=$old_iso ?>"><?=$old_pretty ?></a> and <a href="./?d=<?=$new_iso ?>"><?=$new_pretty ?></a>, in alphabetical order by MP.</p>
 <table cellpadding="3" cellspacing="0" border="0" id="regmem">
@@ -160,7 +181,7 @@ function register_history($f) {
     foreach ($data as $person_id => $v) {
         $out = '';
         foreach ($v as $cat_type => $vv) {
-            $out .= cat_heading($cat_type);
+            $out .= cat_heading($cat_type, $old_iso, $new_iso);
             $old = (array_key_exists('old', $data[$person_id][$cat_type]) ? $data[$person_id][$cat_type]['old'] : '');
             $new = (array_key_exists('new', $data[$person_id][$cat_type]) ? $data[$person_id][$cat_type]['new'] : '');
             $out .= clean_diff($old, $new);
@@ -176,14 +197,17 @@ function by_name_ref($a, $b) {
     global $names;
     $a = preg_replace('/^.* /', '', $names[$a]);
     $b = preg_replace('/^.* /', '', $names[$b]);
-    if ($a > $b) return 1;
-    elseif ($a < $b) return -1;
+    if ($a > $b) {
+        return 1;
+    } elseif ($a < $b) {
+        return -1;
+    }
     return 0;
 }
 
-function parse_file($file, $type, &$out) {
+function parse_file($file, $date, $type, &$out) {
     global $cats, $names;
-    preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" memberid="(.*?)" membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $mm, PREG_SET_ORDER);
+    preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $mm, PREG_SET_ORDER);
     foreach ($mm as $k => $m) {
         $person_id = $m[1]; $name = $m[3]; $data = $m[5];
         $names[$person_id] = $name;
@@ -191,7 +215,7 @@ function parse_file($file, $type, &$out) {
         foreach ($mmm as $k => $m) {
             $cat_type = $m[1];
             $cat_name = $m[2];
-            $cats[$cat_type] = $cat_name;
+            $cats[$date][$cat_type] = $cat_name;
             $cat_data = canonicalise_data($m[3]);
             $out[$person_id][$cat_type][$type] = $cat_data;
             if ($type == 'new' && array_key_exists('old', $out[$person_id][$cat_type]) && $cat_data == $out[$person_id][$cat_type]['old']) {
@@ -205,7 +229,7 @@ function front_page() {
     global $files;
     foreach ($files as $_) {
         $file = file_get_contents($_);
-        preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" memberid="(.*?)" membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m, PREG_SET_ORDER);
+        preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m, PREG_SET_ORDER);
         foreach ($m as $k => $v) {
             $person_id = $v[1]; $name = $v[3]; $data = $v[5];
             $names[$person_id] = $name;
@@ -218,18 +242,24 @@ function front_page() {
         $y = $m[1]; $md = $m[2];
         if ($c++) {
             $view .= ' | ';
-            if ($i<count($files)-1) $compare .= ' | ';
+            if ($i<count($files)-1) {
+                $compare .= ' | ';
+            }
         }
         if ($year != $y) {
             $year = $y;
             $view .= "<em>$year</em> ";
-            if ($i<count($files)-1) $compare .= "<em>$year</em> ";
+            if ($i<count($files)-1) {
+                $compare .= "<em>$year</em> ";
+            }
         }
         $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
         preg_match('/(\d\d)-(\d\d)/', $md, $m);
         $date = ($m[2]+0) . ' '. $months[$m[1]-1];
         $view .= '<a href="./?d='.$y.'-'.$md.'">'.$date.'</a>';
-        if ($i<count($files)-1) $compare .= '<a href="?f='.$y.'-'.$md.'">'.$date.'</a>';
+        if ($i<count($files)-1) {
+            $compare .= '<a href="?f='.$y.'-'.$md.'">'.$date.'</a>';
+        }
     }
 ?>
 <p>This section of the site lets you see how MPs' entries in the Register of Members' Interests have changed over time, either by MP, or for a particular issue of the Register.</p>
@@ -251,15 +281,16 @@ function front_page() {
 }
 
 function show_register($d) {
-    global $dir, $files, $cats, $names, $PAGE, $DATA, $this_page, $link;
+    global $dir, $files, $names, $PAGE, $DATA, $this_page, $link;
     $d = "$dir/regmem$d.xml";
-    if (!in_array($d, $files))
+    if (!in_array($d, $files)) {
         $d = $files[0];
+    }
     $d_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $d);
     $d_pretty = format_date($d_iso, LONGDATEFORMAT);
     $d = file_get_contents($d);
     $data = array();
-    parse_file($d, 'only', $data);
+    parse_file($d, $d_iso, 'only', $data);
     $this_page = 'regmem_date';
     $DATA->set_page_metadata($this_page, 'heading', "The Register of Members' Interests, $d_pretty");;
     $PAGE->stripe_start();
@@ -273,7 +304,7 @@ function show_register($d) {
     foreach ($data as $person_id => $v) {
         $out = '';
         foreach ($v as $cat_type => $vv) {
-            $out .= cat_heading($cat_type, false);
+            $out .= cat_heading($cat_type, $d_iso, $d_iso, false);
             $d = (array_key_exists('only', $data[$person_id][$cat_type]) ? $data[$person_id][$cat_type]['only'] : '');
             $out .= prettify($d)."\n";
         }
@@ -293,8 +324,11 @@ function show_register($d) {
 function by_name($a, $b) {
     $a = preg_replace('/^.* /', '', $a);
     $b = preg_replace('/^.* /', '', $b);
-    if ($a > $b) return 1;
-    elseif ($a < $b) return -1;
+    if ($a > $b) {
+        return 1;
+    } elseif ($a < $b) {
+        return -1;
+    }
     return 0;
 }
 function canonicalise_data($cat_data) {
@@ -319,7 +353,9 @@ function clean_diff($old, $new) {
     $new = _clean($new);
     $r = array_diff($old, $new);
     $a = array_diff($new, $old);
-    if (!count($r) && !count($a)) return '';
+    if (!count($r) && !count($a)) {
+        return '';
+    }
     $r = join("\n", $r); $r = $r ? '<td class="r"><ul>'.$r.'</ul></td>' : '<td>&nbsp;</td>';
     $a = join("\n", $a); $a = $a ? '<td class="a"><ul>'.$a.'</ul></td>' : '<td>&nbsp;</td>';
     $diff = '<tr>' . $r . $a . '</tr>';
@@ -332,16 +368,31 @@ function prettify($s) {
     return "<ul>$s</ul>";
 }
 
-function cat_heading($cat_type, $table = true) {
+function cat_heading($cat_type, $date_pre, $date_post, $table = true) {
     global $cats;
-    $row = "<h3>$cat_type. $cats[$cat_type]</h3>";
-    if ($table)
-        return span_row($row, true);
-    return $row;
+    $cat_pre = isset($cats[$date_pre][$cat_type]) ? $cats[$date_pre][$cat_type] : '';
+    $cat_post = isset($cats[$date_post][$cat_type]) ? $cats[$date_post][$cat_type] : '';
+    if ($cat_pre == $cat_post || !$cat_post || !$cat_pre) {
+        if (!$cat_pre) {
+            $cat_pre = $cat_post;
+        }
+        $row = "<h3>$cat_type. $cat_pre</h3>";
+        if ($table) {
+            return "<tr><th colspan=\"2\">$row</th></tr>\n";
+        }
+        return $row;
+    } else {
+        if ($table) {
+            return "<tr><th><h3>$cat_type. $cat_post</h3></th><th><h3>$cat_type. $cat_pre</h3></th></tr>";
+        } else {
+            return "<h3>$cat_type. $cat_post / $cat_pre</h3>";
+        }
+    }
 }
 
 function span_row($s, $heading = false) {
-    if ($heading)
+    if ($heading) {
         return "<tr><th colspan=\"2\">$s</th></tr>\n";
+    }
     return "<tr><td colspan=\"2\">$s</td></tr>\n";
 }
