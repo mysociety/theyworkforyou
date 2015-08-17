@@ -112,6 +112,7 @@
             <ul>
                 <li>Scottish Parliament photo courtesy of Mark Longair <small><a href="https://www.flickr.com/photos/mhl20/3925817094/">https://www.flickr.com/photos/mhl20/3925817094/</a></small></li>
                 <li>Commons debate photo courtesy of UK Parliament <small><a href="https://www.flickr.com/photos/uk_parliament/8737200208/">https://www.flickr.com/photos/uk_parliament/8737200208/</a></small></li>
+                <li>Lords debate photo courtesy of UK House of Lords <small><a href="https://www.flickr.com/photos/ukhouseoflords/8643003436">https://www.flickr.com/photos/ukhouseoflords/8643003436/</a></small></li>
             </ul>
         </div>
     </div>

@@ -266,10 +266,12 @@ class SectionView {
             $data['location'] = '&ndash; in the House of Lords';
         }
 
-        $data['current_assembly'] = "westminster--debate";
+        $data['current_assembly'] = "uk-commons";
         switch ($country) {
             case "UK":
-                $data['current_assembly'] = "westminster--debate";
+                if ($this->major == 101){
+                    $data['current_assembly'] = "uk-lords";
+                }
                 break;
             case "SCOTLAND":
                 $data['current_assembly'] = "scotland";

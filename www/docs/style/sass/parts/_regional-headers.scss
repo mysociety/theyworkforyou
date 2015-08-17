@@ -29,13 +29,23 @@
     }
 }
 
-.regional-header--westminster--debate {
-    background-image: url(../img/uk-debates-mobile.jpg);
+.regional-header--uk-commons {
+    background-image: url('../img/uk-commons-mobile.jpg');
     @media (min-width: $medium-screen) {
-        background-image: url(../img/uk-debates-tablet.jpg);
+        background-image: url('../img/uk-commons-tablet.jpg');
     }
     @media (min-width: $large-screen) {
-        background-image: url(../img/uk-debates-desktop.jpg);
+        background-image: url('../img/uk-commons-desktop.jpg');
+    }
+}
+
+.regional-header--uk-lords {
+    background-image: url('../img/uk-lords-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/uk-lords-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/uk-lords-desktop.jpg');
     }
 }
 
