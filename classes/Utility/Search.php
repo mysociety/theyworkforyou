@@ -5,12 +5,11 @@ namespace MySociety\TheyWorkForYou\Utility;
 /**
  * Search Utilities
  *
- * Utility functions related to searching
+* Utility functions related to search and search strings
  */
 
 class Search
 {
-
     public static function searchByUsage($search, $house = 0) {
         $data = array();
         $SEARCHENGINE = new \SEARCHENGINE($search);
@@ -261,4 +260,42 @@ class Search
         return array( $constituencies, false );
     }
 
+    /**
+     * get list of names of speaker IDs from search string
+     *
+     * @param string      $searchstring       The search string with the speaker:NNN text
+     *
+     * @return array Array with the speaker id string as key and speaker name as value
+     */
+
+    public static function speakerNamesForIDs($searchstring) {
+        $criteria = explode(' ', $searchstring);
+        $speakers = [];
+
+        foreach ($criteria as $c) {
+            if (preg_match('#^speaker:(\d+)#',$c,$m)) {
+                $MEMBER = new \MEMBER(array('person_id'=>$m[1]));
+                $speakers[$m[1]] = $MEMBER->full_name();
+            }
+        }
+
+        return $speakers;
+    }
+
+    /**
+     * replace speaker:NNNN with speaker:Name in search string
+     *
+     * @param string      $searchstring       The search string with the speaker:NNN text
+     *
+     * @return string The search string with replaced speaker IDs
+     */
+    public static function speakerIDsToNames($searchstring) {
+        $speakers = self::speakerNamesForIDs($searchstring);
+
+        foreach ( $speakers as $id => $name ) {
+            $searchstring = str_replace('speaker:' . $id, "speaker:$name", $searchstring);
+        }
+
+        return $searchstring;
+    }
 }

@@ -247,13 +247,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         if ( $alert_criteria ) {
             $criteria = explode(' ', $alert_criteria);
             $words = array();
-            $spokenby = array();
+            $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
 
             foreach ($criteria as $c) {
-                if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                    $MEMBER = new \MEMBER(array('person_id'=>$m[1]));
-                    $spokenby[] = $MEMBER->full_name();
-                } else {
+                if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
                     $words[] = $c;
                 }
             }

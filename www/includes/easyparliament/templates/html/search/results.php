@@ -63,10 +63,10 @@
                     <?php } else { ?>
                     All <?= $info['total_results'] ?> results
                     <?php } ?>
-                    for <em class="current-search-term"><?= _htmlentities(_htmlentities($searchstring)) ?></em></h2>
+                    for <em class="current-search-term"><?= _htmlentities($searchdescription) ?></em></h2>
 
                     <?php if ( $info['spelling_correction'] ) { ?>
-                    <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction'] ) ?></a>?</p>
+                    <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction_display'] ) ?></a>?</p>
                     <?php } ?>
 
                     <?php if ( $info['total_results'] ) { ?>

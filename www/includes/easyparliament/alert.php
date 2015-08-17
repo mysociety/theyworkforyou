@@ -443,12 +443,10 @@ class ALERT {
     public function criteria() { return $this->criteria; }
     public function criteria_pretty($html = false) {
         $criteria = explode(' ',$this->criteria);
-        $words = array(); $spokenby = '';
+        $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
+        $words = array();
         foreach ($criteria as $c) {
-            if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new MEMBER(array('person_id'=>$m[1]));
-                $spokenby = $MEMBER->full_name();
-            } else {
+            if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
                 $words[] = $c;
             }
         }

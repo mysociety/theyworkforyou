@@ -46,6 +46,10 @@ class Search {
             }
         }
 
+        if ( isset($data['info']['spelling_correction']) ) {
+            $data['info']['spelling_correction_display'] = $this->prettifySearchString($data['info']['spelling_correction']);
+        }
+
         $data['searchstring'] = $this->searchstring;
         $data['urls'] = $this->get_urls();
         $data['this_url'] = $this->get_search_url();
@@ -220,5 +224,9 @@ class Search {
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
     }
 
+    private function prettifySearchString($string) {
+        $string = Utility\Search::speakerIDsToNames($string);
 
+        return $string;
+    }
 }
