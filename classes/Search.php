@@ -5,7 +5,7 @@ namespace MySociety\TheyWorkForYou;
 
 class Search {
 
-    private $searchstring;
+    protected $searchstring;
     private $searchkeyword;
 
     public function __construct() {
