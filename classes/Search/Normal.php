@@ -5,8 +5,6 @@ namespace MySociety\TheyWorkForYou\Search;
 
 class Normal extends \MySociety\TheyWorkForYou\Search {
 
-    private $searchstring;
-
     private function get_sort_args() {
         $pagenum = get_http_var('p');
         if (!is_numeric($pagenum)) {
@@ -40,10 +38,8 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
         return array($members, $cons, $mp_types, $glossary);
     }
 
-    public function search($searchstring) {
+    public function search() {
         global $DATA, $this_page, $SEARCHENGINE;
-
-        $this->searchstring = $searchstring;
 
         $SEARCHENGINE = new \SEARCHENGINE($this->searchstring);
 

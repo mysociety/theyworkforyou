@@ -5,7 +5,7 @@ namespace MySociety\TheyWorkForYou;
 
 class Search {
 
-    private $searchstring;
+    protected $searchstring;
     private $searchkeyword;
 
     public function __construct() {
@@ -41,7 +41,7 @@ class Search {
                 $data['template'] = 'search/by-person';
             } else {
                 $search = new Search\Normal();
-                $data = $search->search($this->searchstring);
+                $data = $search->search();
                 $data['template'] = 'search/results';
             }
         }
