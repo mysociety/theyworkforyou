@@ -189,6 +189,12 @@
 
             .party {
                 &:before {
+                    display: inline-block;
+                    width: 1.4em;
+                    height: 1.4em;
+                    line-height: 1.4em;
+                    vertical-align: 0.2em;
+                    text-align: center;
                     font-size: em-calc(12);
                     content: 'O';
                     margin-right: 0.5em;
@@ -196,18 +202,18 @@
                     @media (min-width: $large-screen) {
                         margin-left: auto;
                     }
-                    @include radius(1em);
-                    padding-left: 0.4em;
-                    padding-right: 0.4em;
+                    @include radius(100%);
                     font-weight: bold;
                     color: lightgrey;
                     background-color: lightgrey;
                 }
                 &.Conservative:before {
+                    color: white;
                     content: 'C';
                     background-color: rgb(22,111,210);
                 }
                 &.Labour:before {
+                    color: white;
                     content: 'L';
                     background-color: rgb(238, 50, 36);
                 }
@@ -225,6 +231,26 @@
                     color: white;
                     content: 'G';
                     background-color: rgb(106, 176, 35);
+                }
+                &.UKIP:before {
+                    color: #FEDF00;
+                    content: 'U';
+                    background-color: #70147A;
+                }
+                &.PlaidCymru:before {
+                    color: #3f8429;
+                    content: 'P';
+                    background-color: #f8bf1a;
+                }
+                &.DUP:before {
+                    color: white;
+                    content: 'D';
+                    background-color: #cc0202;
+                }
+                &.SinnFéin:before {
+                    color: white;
+                    content: 'S';
+                    background-color: #0c6a30;
                 }
             }
         }
