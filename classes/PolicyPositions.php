@@ -106,17 +106,28 @@ class PolicyPositions {
 
                 $dream_info = $this->displayDreamComparison($policy[0], $policy[1]);
 
+                // don't return votes where they haven't voted on a strong division
+                // if we're limiting the number of votes
+                if ( $limit && !empty($dream_info) && !$dream_info['has_strong'] ) {
+                    continue;
+                }
+
+
                 // Make sure the dream actually exists
                 if (!empty($dream_info)) {
                     $this->positions[] = array(
                         'policy_id' => $policy[0],
+                        'policy' => $policy[1],
                         'desc' => $dream_info['full_sentence'],
+                        'has_strong' => $dream_info['has_strong'],
                         'position' => $dream_info['position']
                     );
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],
+                        'policy' => $policy[1],
                         'desc' => $dream_info['full_sentence'],
                         'position' => $dream_info['position'],
+                        'has_strong' => $dream_info['has_strong'],
                         'score' => $dream_info['score'],
                     );
                     $i++;
@@ -168,8 +179,12 @@ class PolicyPositions {
                     $dmpscore = 1.0 - $dmpscore;
                 $consistency = score_to_strongly($dmpscore);
             }
+            $has_strong = 0;
+            if (isset($extra_info["public_whip_dreammp${dreamid}_has_strong_vote"]) && $extra_info["public_whip_dreammp${dreamid}_has_strong_vote"] == 1) {
+                $has_strong = 1;
+            }
             $full_sentence = $consistency . ' ' . $policy_description;
-            $out = array( 'full_sentence' => $full_sentence, 'score' => $dmpscore, 'position' => $consistency );
+            $out = array( 'full_sentence' => $full_sentence, 'score' => $dmpscore, 'position' => $consistency, 'has_strong' => $has_strong );
         }
 
         return $out;

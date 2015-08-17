@@ -181,6 +181,26 @@
 			<field name="data_key">public_whip_dreammp363_both_voted</field>
 			<field name="data_value">1</field>
 		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+			<field name="data_value">1</field>
+		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp810_distance</field>
+			<field name="data_value">0.87</field>
+		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp810_both_voted</field>
+			<field name="data_value">1</field>
+		</row>
+		<row>
+			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp810_has_strong_vote</field>
+			<field name="data_value">0</field>
+		</row>
 	</table_data>
 	<table_data name="mentions">
 	</table_data>
