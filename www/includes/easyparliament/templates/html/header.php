@@ -113,21 +113,33 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-<?php
-        if (isset($country)) {
-            if ($country == 'NZ') {
-                print '<p class="informational banner">You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a></p>';
-            } elseif ($country == 'AU') {
-                print '<p class="informational banner">You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under</p>';
-            } elseif ($country == 'IE') {
-                print '<p class="informational banner">Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas</p>';
-            } elseif ($country == 'CA') {
-                print '<p class="informational banner">Check out <a href="http://www.openparliament.ca/">OpenParliament.ca</a></p>';
-            } elseif ($this_page != 'overview') {
-                #print '<p class="informational banner"><a href="http://election.theyworkforyou.com/">Find out what your candidates said on local and national issues in our quiz</a></p>';
-            }
-        }
-?>
+  <?php if ( $banner_text ) { ?>
+    <div class="banner">
+        <div class="full-page__row">
+            <div class="banner__content">
+                <?= $banner_text ?>
+            </div>
+        </div>
+    </div>
+  <?php } ?>
+
+  <?php if (isset($country)) { ?>
+    <div class="banner">
+        <div class="full-page__row">
+            <div class="banner__content">
+              <?php if ($country == 'NZ') { ?>
+                You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a>
+              <?php } elseif ($country == 'AU') { ?>
+                You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under
+              <?php } elseif ($country == 'IE') { ?>
+                Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas
+              <?php } elseif ($country == 'CA') { ?>
+                Check out <a href="http://www.openparliament.ca/">OpenParliament.ca</a>
+              <?php } ?>
+            </div>
+        </div>
+    </div>
+  <?php } ?>
 
     <div class="ms-header">
         <nav class="ms-header__row">
@@ -193,13 +205,3 @@
 
         </div>
     </header>
-
-    <?php if ( $banner_text ) { ?>
-    <div class="banner">
-        <div class="full-page__row">
-            <div class="banner__content">
-                <?= $banner_text ?>
-            </div>
-        </div>
-    </div>
-    <?php } ?>

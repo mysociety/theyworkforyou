@@ -388,13 +388,23 @@ html.no-boxsizing {
 // Site announcements
 
 .banner {
-    background-color: white;
-    border-top: 1px solid $borders;
+    text-align: center;
+    background-color: mix(#fff, $mysociety-banner-background, 8%);
+    color: #fff;
+    border-bottom: 1px solid mix(#fff, $mysociety-banner-background, 16%);
 
     .banner__content {
-        color: rgb(155, 56, 149);
-        font-size: em-calc(25);
-        padding: 0.75em 0.75em;
-        text-align: center;
+        font-size: 1.2em;
+        line-height: 1.2em;
+        padding: 0.75em;
+    }
+
+    a {
+        color: lighten($links, 5%);
+
+        &:hover,
+        &:focus {
+            color: lighten($primary-color, 5%);
+        }
     }
 }
