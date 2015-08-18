@@ -123,7 +123,7 @@
     </div>
   <?php } ?>
 
-  <?php if (isset($country)) { ?>
+  <?php if (isset($country) && in_array($country, array('NZ', 'AU', 'IE', 'CA'))) { ?>
     <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
