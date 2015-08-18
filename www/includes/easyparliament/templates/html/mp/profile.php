@@ -87,7 +87,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         </p>
 
                         <p>
-                        However, <?= $full_name ?> sometimes <b>differs</b> from their party collegues, such as:
+                        However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
                         </p>
 
                         <ul class="vote-descriptions">
