@@ -3309,7 +3309,7 @@ class StandingCommittee extends DEBATELIST {
                 from pbc_members
                 where bill_id = :bill_id group by person_id',
             array(':bill_id' => $bill_id));
-        $comm = array('sittings'=>$sittings);
+        $comm = array('sittings' => $sittings, 'chairmen' => array(), 'members' => array());
         for ($i=0; $i<$q->rows(); $i++) {
             $person_id = $q->field($i, 'person_id');
             $mp = new MEMBER(array('person_id'=>$person_id));
