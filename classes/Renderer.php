@@ -25,10 +25,6 @@ class Renderer
     {
 
         global $page_errors;
-        // Include includes.
-        // TODO: Wrap these in a class somewhere autoloadable.
-        include_once INCLUDESPATH . 'postcode.inc';
-
         ////////////////////////////////////////////////////////////
         // Find the user's country. Used by header, so a safe bit to do regardless.
         if (preg_match('#^[A-Z]{2}$#i', get_http_var('country'))) {
@@ -50,6 +46,7 @@ class Renderer
         if ( isset($page_errors) ) {
             $data['page_errors'] = $page_errors;
         }
+
         ////////////////////////////////////////////////////////////
         // Search URL
 
