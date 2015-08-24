@@ -10,7 +10,7 @@ $PEOPLE->display('mps');
 
 class PEOPLE {
 
-    public function PEOPLE() {
+    public function __construct() {
         $this->db = new ParlDB;
     }
 

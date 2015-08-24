@@ -12,7 +12,7 @@
 
 class COMMENTREPORTLIST {
 
-    public function COMMENTREPORTLIST() {
+    public function __construct() {
         $this->db = new ParlDB;
     }
 

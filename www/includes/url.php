@@ -55,7 +55,7 @@ v1.3	2003-11-25
 
 class URL {
 
-    public function URL($pagename) {
+    public function __construct($pagename) {
         // Initialise.
         global $DATA;
 

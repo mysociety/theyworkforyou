@@ -37,7 +37,7 @@ class GLOSSARY {
     public $current_letter;
 
     // constructor...
-    public function GLOSSARY($args=array()) {
+    public function __construct($args=array()) {
     // We can optionally start the glossary with one of several arguments
     //		1. glossary_id - treat the glossary as a single term
     //		2. glossary_term - search within glossary for a term

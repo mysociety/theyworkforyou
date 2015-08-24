@@ -80,7 +80,7 @@ class USER {
     //      Alter THEUSER->update_self() to update with the new vars, if appropriate.
     //      Change things in the add/edit/view user page.
 
-    public function USER() {
+    public function __construct() {
         $this->db = new ParlDB;
     }
 
@@ -818,7 +818,7 @@ class THEUSER extends USER {
     public $loggedin = false;
 
 
-    public function THEUSER() {
+    public function __construct() {
         // This function is run automatically when a THEUSER
         // object is instantiated.
 

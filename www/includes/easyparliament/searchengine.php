@@ -39,7 +39,7 @@ class SEARCHENGINE {
     public $valid = false;
     public $error;
 
-    public function SEARCHENGINE($query) {
+    public function __construct($query) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 

@@ -40,7 +40,7 @@ class COMMENTREPORT {
     public $email = '';
 
 
-    public function COMMENTREPORT($report_id='') {
+    public function __construct($report_id='') {
         // Pass it a report id and it gets and sets this report's data.
 
         $this->db = new ParlDB;

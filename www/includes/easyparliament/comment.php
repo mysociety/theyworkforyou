@@ -41,7 +41,7 @@ class COMMENT {
     public $exists = false;
 
 
-    public function COMMENT($comment_id='') {
+    public function __construct($comment_id='') {
 
         $this->db = new ParlDB;
 

@@ -73,7 +73,7 @@ class DATA {
 
 
 
-    public function Data() {
+    public function __construct() {
 
         include_once METADATAPATH;	// defined in config.php
 

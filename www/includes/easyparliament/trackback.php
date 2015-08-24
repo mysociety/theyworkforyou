@@ -35,7 +35,7 @@ class TRACKBACK {
     // But switching this to true will mark all incoming trackbacks as invisible.
 
 
-    public function TRACKBACK() {
+    public function __construct() {
 
         $this->db = new ParlDB;
 
