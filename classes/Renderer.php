@@ -30,7 +30,7 @@ class Renderer
         if (preg_match('#^[A-Z]{2}$#i', get_http_var('country'))) {
             $data['country'] = strtoupper(get_http_var('country'));
         } else {
-            $data['country'] = Gaze::get_country_by_ip($_SERVER["REMOTE_ADDR"]);
+            $data['country'] = Utility\Gaze::getCountryByIp($_SERVER["REMOTE_ADDR"]);
         }
 
         ////////////////////////////////////////////////////////////
