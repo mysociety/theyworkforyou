@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing for functions in postcode.inc
+ * Testing for postcode Utility functions
  */
 
 class PostcodeTest extends TWFY_Database_TestCase
@@ -15,12 +15,6 @@ class PostcodeTest extends TWFY_Database_TestCase
         return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/postcode.xml');
     }
 
-	public function setUp()
-	{
-        parent::setUp();
-        include_once('www/includes/postcode.inc');
-    }
-
     /**
      * Test converting a postcode to a constituency
      */
@@ -28,7 +22,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     {
         $this->assertEquals(
             'Cities of London and Westminster',
-            postcode_to_constituency('SW1A 1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('SW1A 1AA')
         );
     }
 
@@ -39,7 +33,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     {
         $this->assertEquals(
             '',
-            postcode_to_constituency('ZZ00 ABC')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('ZZ00 ABC')
         );
     }
 
@@ -50,23 +44,23 @@ class PostcodeTest extends TWFY_Database_TestCase
     {
         $this->assertEquals(
             'SW1A 1AA',
-            canonicalise_postcode('SW1A 1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode('SW1A 1AA')
         );
         $this->assertEquals(
             'SW1A 1AA',
-            canonicalise_postcode('SW1A1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode('SW1A1AA')
         );
         $this->assertEquals(
             'SW1A 1AA',
-            canonicalise_postcode('sw1a 1aa')
+            MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode('sw1a 1aa')
         );
         $this->assertEquals(
             'SW1A 1AA',
-            canonicalise_postcode(' SW1A 1AA ')
+            MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode(' SW1A 1AA ')
         );
         $this->assertEquals(
             'SW1A 1AA',
-            canonicalise_postcode('SW1 A1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode('SW1 A1AA')
         );
     }
 
@@ -77,11 +71,11 @@ class PostcodeTest extends TWFY_Database_TestCase
     {
         $this->assertEquals(
             true,
-            postcode_is_scottish('EH1 0AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish('EH1 0AA')
         );
         $this->assertEquals(
             false,
-            postcode_is_scottish('SW1A 1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish('SW1A 1AA')
         );
     }
 
@@ -92,11 +86,11 @@ class PostcodeTest extends TWFY_Database_TestCase
     {
         $this->assertEquals(
             true,
-            postcode_is_ni('BT1 0AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi('BT1 0AA')
         );
         $this->assertEquals(
             false,
-            postcode_is_ni('SW1A 1AA')
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi('SW1A 1AA')
         );
     }
 

@@ -285,7 +285,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['postcode'] = $m[1];
             $this->data['scottish_text'] = '';
             $this->data['mp_display_text'] = '';
-            if (postcode_is_scottish($m[1])) {
+            if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($m[1])) {
                 $this->data['mp_display_text'] = 'your MP, ';
                 $this->data['scottish_text'] = ' or MSP';
             }
@@ -310,7 +310,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['member'] = $MEMBER;
 
                 if ( $this->data['scottish_text'] ) {
-                    $constituencies = postcode_to_constituencies($postcode);
+                    $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
                     if ( isset($constituencies['SPC']) ) {
                         $MEMBER = new \MEMBER(array('constituency' => $constituencies['SPC'], 'house' => 4));
                         $this->data['scottish_alertsearch'] = str_replace("$postcode", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);

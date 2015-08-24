@@ -3,7 +3,6 @@
 # Will need: $MEMBER = new MEMBER(array('constituency' => $constituency));
 
 require_once '../../includes/easyparliament/init.php';
-require_once '../../includes/postcode.inc';
 require_once '../../../commonlib/phplib/auth.php';
 require_once 'share.php';
 require_once 'sharethis.php';
@@ -51,7 +50,7 @@ if (!$postcode) {
 }
 
 if (!$errors) {
-    $constituency = postcode_to_constituency($postcode);
+    $constituency = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($postcode);
     if ($constituency != "connection_timed_out" && $constituency != "") {
         $token = auth_random_token();
         if (send_subscribe_email($email, $token)) {

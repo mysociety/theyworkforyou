@@ -26,7 +26,7 @@ class User {
         // this is for people who have e.g. an English postcode looking at the
         // Scottish homepage
         try {
-            $constituencies = postcode_to_constituencies($THEUSER->postcode());
+            $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($THEUSER->postcode());
             if ( isset($constituencies[$cons_type]) ) {
                 $constituency = $constituencies[$cons_type];
                 $MEMBER = new Member(array('constituency'=>$constituency, 'house'=> $mp_house));
