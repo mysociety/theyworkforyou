@@ -215,7 +215,7 @@ class MEMBER {
             $constituency = 'Orkney & Shetland';
         }
 
-        $normalised = normalise_constituency_name($constituency);
+        $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
         if ($normalised) $constituency = $normalised;
 
         $params = array();

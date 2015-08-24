@@ -46,7 +46,7 @@ function _api_getGeometry_name($name) {
     if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL)
         return null;
 
-    $name = normalise_constituency_name($name);
+    $name = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($name);
     # Names are currently in ISO-8859-1, but MapIt is in UTF-8
     $name_utf8 = iconv('iso-8859-1', 'utf-8//TRANSLIT', $name);
 

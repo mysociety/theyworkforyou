@@ -85,7 +85,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
-            ':constituency' => normalise_constituency_name($areas['WMC'])
+            ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC'])
             ));
     $mp = array();
     if ($q->rows()) {

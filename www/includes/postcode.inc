@@ -1,7 +1,5 @@
 <?php
 
-include_once INCLUDESPATH . 'constituencies.inc';
-
 function postcode_to_constituency($postcode, $api = false) {
     return _postcode_to_constituencies($postcode, true);
 }
@@ -93,7 +91,7 @@ function _postcode_fetch_from_mapit($postcode) {
     }
 
     # Normalise name - assume SP and NI are already so...
-    $normalised = normalise_constituency_name(strtolower($areas['WMC']));
+    $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName(strtolower($areas['WMC']));
     if ($normalised) {
         $areas['WMC'] = $normalised;
         if (postcode_is_scottish($postcode)) {
