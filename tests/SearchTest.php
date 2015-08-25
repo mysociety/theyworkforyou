@@ -27,11 +27,11 @@ class SearchTest extends FetchPageTestCase
     {
         $this->assertEquals(
             array( array( 'Alyn and Deeside' ), false ),
-            search_constituencies_by_query('Alyn')
+            \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery('Alyn')
         );
         $this->assertEquals(
             array( array( 'Alyn and Deeside' ), false ),
-            search_constituencies_by_query('Alyn and Deeside')
+            \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery('Alyn and Deeside')
         );
     }
 
@@ -42,13 +42,13 @@ class SearchTest extends FetchPageTestCase
     public function testSearchMemberDbLookupSingleName()
     {
         // Test a single (first) name.
-        $results = search_member_db_lookup('Joseph');
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Joseph');
 
         $this->assertEquals(1, $results->rows());
         $this->assertEquals(2, $results->field(0, 'person_id'));
 
         // Test a single (last) name.
-        $results = search_member_db_lookup('Bloggs');
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Bloggs');
 
         $this->assertEquals(1, $results->rows());
         $this->assertEquals(2, $results->field(0, 'person_id'));
@@ -63,19 +63,19 @@ class SearchTest extends FetchPageTestCase
     {
 
         // Test a full name.
-        $results = search_member_db_lookup('Mary Smith');
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mary Smith');
 
         $this->assertEquals(1, $results->rows());
         $this->assertEquals(3, $results->field(0, 'person_id'));
 
         // Test an inverse full name.
-        $results = search_member_db_lookup('Smith Mary');
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Smith Mary');
 
         $this->assertEquals(1, $results->rows());
         $this->assertEquals(3, $results->field(0, 'person_id'));
 
         // Test a name with title.
-        $results = search_member_db_lookup('Mrs Smith');
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mrs Smith');
 
         $this->assertEquals(1, $results->rows());
         $this->assertEquals(3, $results->field(0, 'person_id'));

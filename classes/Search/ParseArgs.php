@@ -76,7 +76,7 @@ class ParseArgs {
 
         # Searching from MP pages
         if ($searchspeaker = trim(get_http_var('person'))) {
-            $q = search_member_db_lookup($searchspeaker);
+            $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchspeaker);
             $pids = array();
             $row_count = $q->rows();
             for ($i=0; $i<$row_count; $i++) {
