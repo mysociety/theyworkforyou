@@ -7,15 +7,6 @@ class HousesTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * Load the definitions file.
-     */
-	public function setUp()
-	{
-        parent::setUp();
-        include_once('www/includes/dbtypes.php');
-    }
-
-    /**
      * Test that the Royal edge-case house is correctly defined.
      */
 	public function testRoyalHouseDefined()

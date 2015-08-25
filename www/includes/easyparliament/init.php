@@ -98,6 +98,7 @@ if (! isset($new_style_template) OR $new_style_template !== TRUE) {
 }
 
 include_once (INCLUDESPATH."easyparliament/hansardlist.php");
+include_once (INCLUDESPATH."dbtypes.php");
 include_once (INCLUDESPATH."easyparliament/commentlist.php");
 include_once (INCLUDESPATH."easyparliament/comment.php");
 include_once (INCLUDESPATH."easyparliament/trackback.php");
