@@ -152,8 +152,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     private function searchForConstituenciesAndMembers() {
         // Do the search
         if ($this->data['alertsearch']) {
-            $this->data['members'] = search_member_db_lookup_with_names($this->data['alertsearch'], true);
-            list ($this->data['constituencies'], $this->data['valid_postcode']) = search_constituencies_by_query($this->data['alertsearch']);
+            $this->data['members'] = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($this->data['alertsearch'], true);
+            list ($this->data['constituencies'], $this->data['valid_postcode']) = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($this->data['alertsearch']);
         }
 
         # If the above search returned one result for member or constituency search,
