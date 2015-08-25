@@ -24,7 +24,6 @@ As they are being approved/declined they can be modified (spelling etc...).
 include_once INCLUDESPATH."easyparliament/editqueue.php";
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 include_once INCLUDESPATH."url.php";
-include_once INCLUDESPATH."wikipedia.php";
 
 class GLOSSARY {
 
@@ -316,7 +315,7 @@ class GLOSSARY {
         // Replace any phrases in wikipedia
         // TODO: Merge this code into above, so our gloss and wikipedia
         // don't clash (e.g. URLs getting doubly munged etc.)
-        $body = wikipedize($body);
+        $body = \MySociety\TheyWorkForYou\Utility\Wikipedia::wikipedize($body);
 
         return ($body);
     }
