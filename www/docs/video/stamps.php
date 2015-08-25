@@ -1,10 +1,9 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 date_default_timezone_set('Europe/London');
-$videodb = video_db_connect();
+$videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
 
 $gid = get_http_var('gid');
 
@@ -17,7 +16,7 @@ $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps
 $subsection_id = $q->field(0, 'subsection_id');
 $adate = $q->field(0, 'adate');
 $atime = $q->field(0, 'atime');
-$video = video_from_timestamp($videodb, $adate, $atime);
+$video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $atime);
 if (!$video) exit;
 
 $start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
@@ -39,7 +38,7 @@ for ($i=0; $i<$q->rows(); $i++) {
     if (isset($gids[$gid])) continue;
     $timetoend = $q->field($i, 'timetoend') - $file_offset;
     if ($timetoend>0) {
-        $video = video_from_timestamp($videodb, $q->field($i, 'adate'), $q->field($i, 'atime'));
+        $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $q->field($i, 'adate'), $q->field($i, 'atime'));
         $new_start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
         $file_offset += timediff($new_start, $start);
         $start = $new_start;
