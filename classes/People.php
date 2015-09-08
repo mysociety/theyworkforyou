@@ -113,6 +113,7 @@ class People extends \PEOPLE {
     }
 
     public function sendAsCSV($data) {
+        header('Content-Disposition: attachment; filename=' . $this->type . '.csv');
         header('Content-Type: text/csv');
         $out = fopen('php://output', 'w');
 
