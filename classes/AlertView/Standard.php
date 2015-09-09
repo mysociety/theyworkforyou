@@ -349,7 +349,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     private function getUsersAlerts() {
         $q = $this->db->query('SELECT * FROM alerts WHERE email = :email
             AND deleted != 1 ORDER BY created', array(
-                ':email' => $this->user->email()
+                ':email' => $this->data['email']
             ));
 
         $alerts = array();
