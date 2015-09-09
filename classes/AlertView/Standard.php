@@ -83,7 +83,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['email'] = $this->user->email();
             $this->data['email_verified'] = true;
         } elseif ($this->data['alert']) {
-            $this->data['email'] = $alert['email'];
+            $this->data['email'] = $this->data['alert']['email'];
             $this->data['email_verified'] = true;
         } else {
             $this->data["email"] = trim(get_http_var("email"));
