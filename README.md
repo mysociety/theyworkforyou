@@ -25,7 +25,7 @@ redistribute the code or binaries made from the code. Commercial or non-
 commercial use is allowed. However, we disclaim warranty, and expect you not to
 use our name without our permission.
 
-See the file LICENSE.txt for exact legal information.
+See the file LICENSE.md for exact legal information.
 
 ## What is TheyWorkForYou.com anyway?
 
@@ -60,12 +60,11 @@ static assets after changes:
 
 ## Testing
 
-TheyWorkForYou includes a (currently *very limited*) test suite, using PHPunit.
-To run tests, ensure that the environment variables `TWFY_TEST_DB_HOST`,
-`TWFY_TEST_DB_NAME`, `TWFY_TEST_DB_USER` and `TWFY_TEST_DB_PASS` are set and
-contain relevant information for your testing database. The database will be
-stripped down and rebuilt during testing, so make sure it's not an important
-copy.
+TheyWorkForYou includes a test suite, using PHPunit. To run tests, ensure that
+the environment variables `TWFY_TEST_DB_HOST`, `TWFY_TEST_DB_NAME`,
+`TWFY_TEST_DB_USER` and `TWFY_TEST_DB_PASS` are set and contain relevant
+information for your testing database. The database will be stripped down and
+rebuilt during testing, so make sure it's not an important copy.
 
 You may find that in some versions of PHPUnit errors are thrown regarding code
 coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
