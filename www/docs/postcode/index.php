@@ -4,7 +4,6 @@
 
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'postcode.inc';
 
 $errors = array();
 
@@ -19,7 +18,7 @@ if (!validate_postcode($pc)) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
 }
 
-$constituencies = postcode_to_constituencies($pc);
+$constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
 if ($constituencies == 'CONNECTION_TIMED_OUT') {
     postcode_error("Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.");
 } elseif (!$constituencies) {
@@ -85,7 +84,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
-            ':constituency' => normalise_constituency_name($areas['WMC'])
+            ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC'])
             ));
     $mp = array();
     if ($q->rows()) {

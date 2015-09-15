@@ -96,7 +96,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
             return false;
         }
 
-        list ($constituencies, ) = search_constituencies_by_query($searchterm);
+        list ($constituencies, ) = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($searchterm);
 
         $constituency = "";
         if (count($constituencies)==1) {
@@ -144,7 +144,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
 
     private function find_members() {
         $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
-        $q = search_member_db_lookup($searchstring);
+        $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
         if (!$q) return array();
 
         $members = array();
@@ -152,7 +152,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
             $row_count = $q->rows();
             for ($n=0; $n<$row_count; $n++) {
                 $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $q->field($n, 'person_id')));
-                // search_member_db_lookup returns dups so we
+                // searchMemberDbLookup returns dups so we
                 // key by person_id to work round this
                 $members[$member->person_id] = $member;
             }

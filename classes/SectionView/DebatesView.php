@@ -91,15 +91,14 @@ class DebatesView extends SectionView {
     }
 
     private function video_sidebar($row, $heading_hpos, $count) {
-        include_once INCLUDESPATH . 'easyparliament/video.php';
         $db = new \ParlDB;
         $gid_type = $this->video_gid_type();
         $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
         $adate = $vq->field(0, 'adate');
         $time = $vq->field(0, 'atime');
-        $videodb = video_db_connect();
+        $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
         if (!$videodb) return '';
-        $video = video_from_timestamp($videodb, $adate, $time);
+        $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $time);
         $start = $video['offset'];
         $out = '';
         if ($count > 1) {
@@ -108,7 +107,7 @@ class DebatesView extends SectionView {
                 $out .= '<p class="video-instructions">This video starts around ' . ($row['hpos']-$heading_hpos) . ' speeches in (<a href="#g' . gid_to_anchor($row['gid']) . '">move there in text</a>)</p>';
             }
         }
-        $out .= video_object($video['id'], $start, "$gid_type/$row[gid]");
+        $out .= \MySociety\TheyWorkForYou\Utility\Video::object($video['id'], $start, "$gid_type/$row[gid]");
         $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
         $out .= "<strong>Embed this video</strong><p class='video-instructions'>Copy and paste this code on your website</p><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\">";
         if ($count > 1) {

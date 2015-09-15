@@ -429,7 +429,7 @@ class Member extends \MEMBER {
             4 => '2011-03-23'
         );
         $mreg = array();
-        $constituencies = postcode_to_constituencies($postcode);
+        $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
         if ( isset($constituencies[$type]) ) {
             $cons_name = $constituencies[$type];
             $query_base = "SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house

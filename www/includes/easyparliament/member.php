@@ -1,6 +1,5 @@
 <?php
 
-include_once INCLUDESPATH."postcode.inc";
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
 class MEMBER {
@@ -202,7 +201,7 @@ class MEMBER {
 
     public function postcode_to_person_id($postcode, $house=null) {
         twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
-        $constituency = strtolower(postcode_to_constituency($postcode));
+        $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($postcode));
         return $this->constituency_to_person_id($constituency, $house);
     }
 
@@ -215,7 +214,7 @@ class MEMBER {
             $constituency = 'Orkney & Shetland';
         }
 
-        $normalised = normalise_constituency_name($constituency);
+        $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
         if ($normalised) $constituency = $normalised;
 
         $params = array();
@@ -343,7 +342,7 @@ class MEMBER {
         if (is_object($THEUSER) && $THEUSER->postcode_is_set() && $this->current_member(1)) {
             $pc = $THEUSER->postcode();
             twfy_debug ('MP', "set_users_mp converting postcode to person");
-            $constituency = strtolower(postcode_to_constituency($pc));
+            $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
             if ($constituency == strtolower($this->constituency())) {
                 $this->the_users_mp = true;
             }

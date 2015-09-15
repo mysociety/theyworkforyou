@@ -149,12 +149,11 @@ class User
     // add links to your MP etc if postcode set
     private function addRepLinks() {
         if ($this->user->postcode_is_set()) {
-            include_once INCLUDESPATH . 'postcode.inc';
 
             $items = array('yourmp');
-            if (postcode_is_scottish($this->user->postcode())) {
+            if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($this->user->postcode())) {
                 $items[] = 'yourmsp';
-            } elseif (postcode_is_ni($this->user->postcode())) {
+            } elseif (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($this->user->postcode())) {
                 $items[] = 'yourmla';
             }
 

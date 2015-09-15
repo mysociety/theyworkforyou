@@ -110,11 +110,11 @@ function api_getPerson_postcode($pc, $house) {
         $types = array('SPC', 'SPE');
     }
     if (validate_postcode($pc)) {
-        $constituencies = postcode_to_constituencies($pc, true);
+        $constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
         if ($constituencies == 'CONNECTION_TIMED_OUT') {
             api_error('Connection timed out');
         } elseif ($types && isset($constituencies[$types[0]])) {
-            $constituencies = array_map(function($c) use ($constituencies) { return $constituencies[$c]; }, $types); 
+            $constituencies = array_map(function($c) use ($constituencies) { return $constituencies[$c]; }, $types);
             _api_getPerson_constituency($constituencies, $house);
         } elseif ($types && isset($constituencies['WMC'])) {
             api_error('Postcode not in correct region');

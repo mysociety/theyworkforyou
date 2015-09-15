@@ -29,7 +29,7 @@ function api_getConstituency_postcode($pc) {
         return;
     }
 
-    $constituency = postcode_to_constituency($pc, true);
+    $constituency = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc);
     if ($constituency == 'CONNECTION_TIMED_OUT') {
         api_error('Connection timed out');
 
@@ -45,7 +45,7 @@ function api_getConstituency_postcode($pc) {
 }
 
 function api_getConstituency_name($constituency) {
-    $constituency = normalise_constituency_name($constituency);
+    $constituency = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
     if (!$constituency) {
         api_error('Could not find anything with that name');
 

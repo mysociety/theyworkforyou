@@ -1,7 +1,6 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once INCLUDESPATH . 'easyparliament/video.php';
 
 $action = get_http_var('action');
 $pid = intval(get_http_var('pid'));
@@ -50,9 +49,9 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
                 order by hpos desc limit 1");
             $adate = $q->field(0, 'adate');
             $atime = $q->field(0, 'atime');
-            $videodb = video_db_connect();
+            $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
             if ($videodb) {
-                $video = video_from_timestamp($videodb, $adate, $atime);
+                $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $atime);
                 $file = $video['id'];
                 $time = $video['offset'];
             }

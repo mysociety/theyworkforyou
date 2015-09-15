@@ -17,7 +17,7 @@ class ByUsage {
         }
 
         # Fetch the results
-        $data = search_by_usage($searchstring, $q_house);
+        $data = \MySociety\TheyWorkForYou\Utility\Search::searchByUsage($searchstring, $q_house);
 
         $data['house'] = $q_house;
         $data['search_type'] = 'person';
