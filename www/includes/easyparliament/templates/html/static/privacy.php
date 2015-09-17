@@ -3,32 +3,105 @@
         <div class="panel">
             <h1>Privacy Policy</h1>
 
-            <p>Our privacy policy is very simple:
+            <p>Our privacy policy is very simple:</p>
 
             <ol>
-            <li>We guarantee we will not sell or distribute any personal information you share with us.</li>
+            <li>We guarantee we will not sell or distribute any personal
+            information you share with us.</li>
             <li>We will not send you unsolicited email.</li>
-            <li>We will gladly show you the personal data we store about you in order to run the website.</li>
+            <li>We will gladly show you the personal data we store about you in
+            order to run the website.</li>
             </ol>
 
-            <h3>How to unsubscribe to TheyWorkForYou email alerts</h3>
-            <p>There is a link at the foot of every email we send you. Please follow this link to pause or cancel your alerts. No log-in is required.</p>
+            <h3>How to unsubscribe from TheyWorkForYou email alerts</h3>
+            <p>There is a link at the foot of every email we send you. Please
+            follow this link to pause or cancel your alerts. No log-in is
+            required.</p>
 
-            <p>If you have problems unsubscribing, you can contact us on <a href="mailto:support@theyworkforyou.com">support@theyworkforyou.com</a>.</p>
+            <p>If you have problems unsubscribing, you can contact us on
+            <a href="mailto:support@theyworkforyou.com">support@theyworkforyou.com</a>.</p>
 
             <h3>What is your cookie policy?</h3>
-            <p>We use cookies to save you from having to repeatedly sign in to the site, and also to remember your postcode. We may also use them to record if you've answered one of the survey questions we ask. The site will work with cookies disabled, but it won't be as good.</p>
+            <p>We use cookies to save you from having to repeatedly sign in to
+            the site, and also to remember your postcode. We may also use them
+            to record if you've answered one of the survey questions we ask. The
+            site will work with cookies disabled, but it won't be as good.</p>
 
             <h3>What are these survey questions?</h3>
-            <p>In order to improve the site we're asking some questions to help us understand who uses the site and what they want. The answers are completely anonymous.</p>
+            <p>In order to improve the site we're asking some questions to help
+            us understand who uses the site and what they want. The answers are
+            completely anonymous.</p>
 
-            <h3>What data do you collect about me?</h3>
-            <p>We use Google Analytics to track aggregated traffic through the website. This tool tells us the answers to questions such as: Which search terms bring the most people to the site? What type of page do people spend the most time on, and from what type of page do they generally leave the site? Where might users find it difficult to understand what to click next?</p>
+            <h3>Measuring website usage (Google Analytics)</h3>
+            <p>We use Google Analytics to collect information about how people
+            use this site. We do this to make sure it&rsquo;s meeting its
+            users&rsquo; needs and to understand how we could do it better.</p>
 
-            <p>Rest assured, we only track usage data for one reason: to help us understand how we can make the site work better for you, our users.</p>
+            <p>Google Analytics stores information such as what pages you visit,
+            how long you are on the site, how you got here, what you click on,
+            and information about your web browser.</p>
+
+            <p>We have also enabled the Advertising Features of Google
+            Analytics. In particular, we use <b>Demographics and Interest
+            reporting</b> to identify trends in the types of users visiting our
+            site, which may be used for internal reporting and improvement of
+            the site content.</p>
+
+            <p>In technical speak, this allows Google to collect data about your
+            traffic via Google
+            <a href="http://www.google.com/policies/technologies/types/">advertising
+            cookies</a> and
+            <a href="https://www.google.com/policies/privacy/key-terms/#toc-terms-identifier">anonymous
+            identifiers</a>, in addition to data collected through a standard
+            Google Analytics implementation. Regardless of the source of the
+            data, we strictly adhere to
+            <a href="https://support.google.com/analytics/answer/2700409">Google&rsquo;s
+            policy requirements</a> in our treatment of your data. We do not
+            facilitate the merging of personally-identifiable information with
+            non-personally identifiable information collected through any Google
+            advertising product or feature.</p>
+
+            <h3>Google&rsquo;s Official Statement about Analytics Data</h3>
+            <p>&ldquo;This website uses Google Analytics, a web analytics
+            service provided by Google, Inc. (&ldquo;Google&rdquo;). Google
+            Analytics uses &ldquo;cookies&rdquo;, which are text files placed on
+            your computer, to help the website analyze how users use the site.
+            The information generated by the cookie about your use of the
+            website (including your IP address) will be transmitted to and
+            stored by Google on servers in the United States. Google will use
+            this information for the purpose of evaluating your use of the
+            website, compiling reports on website activity for website operators
+            and providing other services relating to website activity and
+            internet usage. Google may also transfer this information to third
+            parties where required to do so by law, or where such third parties
+            process the information on Google&rsquo;s behalf. Google will not
+            associate your IP address with any other data held by Google. You
+            may refuse the use of cookies by selecting the appropriate settings
+            on your browser, however please note that if you do this you may not
+            be able to use the full functionality of this website. By using this
+            website, you consent to the processing of data about you by Google
+            in the manner and for the purposes set out above.&rdquo;</p>
+
+            <h3>Opting out</h3>
+            <p>If you&rsquo;re unhappy with the idea of sharing the fact you
+            visited our site (and any other sites) with Google, you can
+            <a href="https://tools.google.com/dlpage/gaoptout/">install the
+            official browser plugin for blocking Google Analytics</a>.</p>
+
+            <p>If you want to disable advertising-based tracking, you can
+            <a href="https://www.google.com/settings/ads">adjust your Google Ads
+            Settings</a>, or opt out of advertising-based tracking across a
+            number of providers in one go using the
+            <a href="http://www.networkadvertising.org/choices/">Network
+            Advertising Initiative&rsquo;s opt-out form</a>.</p>
+
+            <p>Rest assured, we only track usage data for one reason: to help us
+            understand how we can make the site work better for you, our
+            users.</p>
 
             <h3>The small print</h3>
-            <p>TheyWorkForYou is run by mySociety, a UK not-for-profit social enterprise. Our registered address is:</p>
+            <p>TheyWorkForYou is run by mySociety, a UK not-for-profit social
+            enterprise. Our registered address is:</p>
 
             <p>mySociety<br>
             483 Green Lanes<br>
@@ -36,7 +109,8 @@
             N13 4BS<br>
             United Kingdom</p>
 
-            <p>&hellip;and we can also be contacted at <a href="mailto:hello@mysociety.org">hello@mysociety.org</a>.</p>
+            <p>&hellip;and we can also be contacted at
+            <a href="mailto:hello@mysociety.org">hello@mysociety.org</a>.</p>
         </div>
     </div>
 </div>
