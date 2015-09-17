@@ -165,6 +165,7 @@ foreach my $dreamid ( @policyids ) {
                  }
             }
 
+            # if it's a strong vote, i.e. yes3 or no3, then set mp has strong_vote attribute
             if ( $motion->{motion}->{policy_vote} =~ /3/ ) {
                 my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
                 my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
@@ -173,7 +174,9 @@ foreach my $dreamid ( @policyids ) {
                 }
             }
 
-            if ( $curr_motion->{policy_vote} =~ /3/ && $motion->{motion}->{policy_vote} !~ /3/ ) {
+            # if the motion has been unset from strong -> weak then check if we need to unset
+            # the MP has strong vote attribute
+            if ( $curr_motion && $curr_motion->{policy_vote} =~ /3/ && $motion->{motion}->{policy_vote} !~ /3/ ) {
                 my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
                 my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
                 if ( $strong_vote_check->rows() > 0 ) {
