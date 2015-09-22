@@ -76,7 +76,9 @@ if (!isset($_SERVER['WINDIR'])) {
     define ('STARTTIMES', $rusage['ru_stime.tv_sec']*1000000 + $rusage['ru_stime.tv_usec']);
     define ('STARTTIMEU', $rusage['ru_utime.tv_sec']*1000000 + $rusage['ru_utime.tv_usec']);
 }
-include_once (INCLUDESPATH."data.php");
+
+$DATA = new \MySociety\TheyWorkForYou\Data;
+
 include_once (INCLUDESPATH."mysql.php");
 
 Class ParlDB extends MySQL {
