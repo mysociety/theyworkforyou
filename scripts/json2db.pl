@@ -130,19 +130,9 @@ foreach my $dreamid ( @policyids ) {
             }
         }
 
-        # some divisions are in more than one policy but the votes don't change so
-        # just skip them
-        if ( $motions_seen{$motion_id} ) {
-            #print "seen $motion_id already, skipping\n";
-            next;
-        } else {
-            $motions_seen{$motion_id} = 1;
-        }
-
         my $curr_votes = $dbh->selectall_hashref($votecheck, 'person_id', {}, $motion_id);
 
         for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
-            $vote_count++;
             my $mp_id_num;
             $mp_id_num = $vote->{id};
             $mp_id_num =~ s:uk.org.publicwhip/person/::;
@@ -152,17 +142,25 @@ foreach my $dreamid ( @policyids ) {
                 next;
             }
 
-            if ( !defined $curr_votes->{$mp_id_num} ) {
-                $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
-                $curr_votes->{$mp_id_num} = { vote => $vote->{option}};
-            } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
-                # because we probably want to know if this ever happens
-                print "updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n";
-                my $r = $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
-                unless ( $r > 0 ) {
-                    warn "problem updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n"
-                         . DBI->errstr . "\n";
-                 }
+            # if we've seen this motion before then don't process it, however we want
+            # to make sure that the strong vote processing below happens so we still
+            # need to look at all the votes, just not update the details of them in
+            # the database
+            if ( !$motions_seen{$motion_id} ) {
+                $vote_count++;
+
+                if ( !defined $curr_votes->{$mp_id_num} ) {
+                    $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
+                    $curr_votes->{$mp_id_num} = { vote => $vote->{option}};
+                } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
+                    # because we probably want to know if this ever happens
+                    print "updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n";
+                    my $r = $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
+                    unless ( $r > 0 ) {
+                        warn "problem updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n"
+                             . DBI->errstr . "\n";
+                     }
+                }
             }
 
             # if it's a strong vote, i.e. yes3 or no3, then set mp has strong_vote attribute
@@ -188,6 +186,13 @@ foreach my $dreamid ( @policyids ) {
                 }
             }
         }
+
+        # some divisions are in more than one policy and we want to take note of
+        # this so we can skip processing of them
+        if ( !$motions_seen{$motion_id} ) {
+            $motions_seen{$motion_id} = 1;
+        }
+
     }
 }
 
