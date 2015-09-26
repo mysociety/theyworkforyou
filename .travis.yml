@@ -28,7 +28,8 @@ env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS=""
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
  - mysql -u root twfy_test < db/schema.sql
- - php composer.phar install --dev --no-interaction --prefer-source
+ - composer self-update
+ - composer install --dev --no-interaction --prefer-source
  - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
