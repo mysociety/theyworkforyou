@@ -5,6 +5,7 @@
 .bundle
 vendor
 www/docs/docs
+www/docs/docs-cache
 www/docs/style/*.css
 www/docs/style/stylesheets
 .vagrant

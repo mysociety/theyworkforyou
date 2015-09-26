@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
+  <title>TheyWorkForYou</title>
   <parser>
-    <target>www/docs/docs</target>
+    <target>www/docs/docs-cache</target>
   </parser>
   <transformer>
     <target>www/docs/docs</target>
   </transformer>
+  <transformations>
+    <template name="clean" />
+  </transformations>
   <files>
     <directory>.</directory>
     <ignore>vendor/</ignore>
     <ignore>commonlib/</ignore>
+    <ignore>tests/</ignore>
   </files>
 </phpdoc>

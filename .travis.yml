@@ -2,6 +2,11 @@ language: php
 
 sudo: false
 
+addons:
+  apt:
+    packages:
+    - graphviz
+
 php:
   - "5.4"
   - "5.5"
@@ -23,7 +28,10 @@ notifications:
     use_notice: true
     skip_join: true
 
-env: TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
+env:
+  global:
+    - TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
+    - secure: MhpIz8iPjYyVYzAZKzXVD1gJ44XwkM5q/ysr92e827c2VoDmDeZy4TgKA7HuKsw02ou4AwsR4mQFWhKxd21SruhAZhOQBMCqP3+5UwnXISf8vqowfFH9Ml9iLzeWI2Sdz8c0nEO4rs9ObMZa2VWzrJyd49ZPt7zex1x1JYJ8OeM=
 
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
@@ -38,3 +46,4 @@ script:
 after_script:
  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi;'
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ] && [ "$TRAVIS_BRANCH" == "master" ]; then bash build-docs.sh; fi;'
