@@ -1,6 +1,11 @@
 language: php
 
-sudo: required
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - graphviz
 
 php:
   - "5.4"

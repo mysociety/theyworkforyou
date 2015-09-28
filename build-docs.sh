@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
-# install graphviz to generate diagrams
-sudo apt-get update -qq
-sudo apt-get install -qq graphviz
-
 # clear and re-create the out directory
 rm -rf www/docs/docs || exit 0;
 mkdir www/docs/docs;
