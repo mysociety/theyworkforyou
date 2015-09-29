@@ -56,18 +56,6 @@
         <div class="homepage-panels">
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
-                    <div class="homepage-content-section">
-                        <h2>&nbsp;</h2>
-                        <p>
-                            Due to changes made to the official Scottish Parliament, our parser that used to fetch their web pages and convert them into more structured
-                            information has stopped working. We&rsquo;re afraid we cannot give a timescale as to when we will be able to cover the Scottish Parliament again.
-                            Sorry for any inconvenience caused.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel--flushtop clearfix">
-                <div class="row nested-row">
                     <div class="homepage-in-the-news homepage-content-section">
                         <?php if ( $featured ) {
                              include dirname(__FILE__) . "/../homepage/featured.php";
