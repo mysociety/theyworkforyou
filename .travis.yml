@@ -31,7 +31,7 @@ notifications:
 env:
   global:
     - TWFY_TEST_DB_HOST="127.0.0.1" TWFY_TEST_DB_USER="root" TWFY_TEST_DB_PASS="" TWFY_TEST_DB_NAME="twfy_test"
-    - secure: ch+B3ulBovVGeKCdCX7rxQmmnS9jPf6V5wQlbv/wLahbttD9zucgEfeUOFcrSwqovAoi9S57dwwFpC99FJtgTPWwkERCZ94Y68RbwZ04ocFjLL/slln+O41cEpXmElA5Cz2qo0Phi2tfAR3Tj6LLN+5CvSo9HHf9p8zB3G8rcuA=
+    - secure: MhpIz8iPjYyVYzAZKzXVD1gJ44XwkM5q/ysr92e827c2VoDmDeZy4TgKA7HuKsw02ou4AwsR4mQFWhKxd21SruhAZhOQBMCqP3+5UwnXISf8vqowfFH9Ml9iLzeWI2Sdz8c0nEO4rs9ObMZa2VWzrJyd49ZPt7zex1x1JYJ8OeM=
 
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
