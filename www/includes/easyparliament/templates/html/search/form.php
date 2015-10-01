@@ -14,6 +14,8 @@
                         <ul class="search-result-display-options">
                         <li><a href="#options" class="search-options-toggle js-toggle-search-options">Advanced search</a></li>
                         <?php if ( $is_adv ) { ?>
+                            <?= $search_phrase ? '<li>Exactly: ' . _htmlentities($search_phrase) . '</li>' : '' ?>
+                            <?= $search_exclude ? '<li>Excluding: ' . _htmlentities($search_exclude) . '</li>' : '' ?>
                             <?= $search_from ? '<li>From: ' . _htmlentities($search_from) . '</li>' : '' ?>
                             <?= $search_to ? '<li>To: ' . _htmlentities($search_to) . '</li>' : '' ?>
                             <?= $search_person ? '<li>Person: ' . _htmlentities($search_person) . '</li>' : '' ?>
@@ -29,6 +31,28 @@
                 <div class="search-page__section__primary">
                     <h2>Advanced search</h2>
 
+                    <h4>Find this exact word or phrase</h4>
+                    <div class="search-option">
+                        <div class="search-option__control">
+                            <input name="phrase" type="text" value="<?= _htmlentities($search_phrase) ?>" class="form-control">
+                        </div>
+                        <div class="search-option__hint">
+                            <p>You can also do this from the main search box by putting exact words in quotes: like <code>"cycling"</code> or <code>"hutton report"</code></p>
+                            <p>By default, we show words related to your search term, like &ldquo;cycle&rdquo; and &ldquo;cycles&rdquo; in a search for <code>cycling</code>. Putting the word in quotes, like <code>"cycling"</code>, will stop this.</p>
+                        </div>
+                    </div>
+
+                    <h4>Excluding these words</h4>
+                    <div class="search-option">
+                        <div class="search-option__control">
+                            <input name="exclude" type="text" value="<?= _htmlentities($search_exclude) ?>" class="form-control">
+                        </div>
+                        <div class="search-option__hint">
+                            <p>You can also do this from the main search box by putting a minus sign before words you don&rsquo;t want: like <code>hunting -fox</code></p>
+                            <p>We also support <a href="/help/#searching">a bunch of boolean search modifiers</a>, like <code>AND</code> and <code>NEAR</code>, for precise searching.</p>
+                        </div>
+                    </div>
+
                     <h4>Date range</h4>
                     <div class="search-option">
                         <div class="search-option__control search-option__control--date-range">
@@ -37,7 +61,7 @@
                             <input name="to" type="date" value="<?= _htmlentities($search_to) ?>" class="form-control">
                         </div>
                         <div class="search-option__hint">
-                            <p>You can give a <strong>start date, an end date, or both</strong> to restrict results to a particular date range. A missing end date implies the current date, and a missing start date implies the oldest date we have in the system. Dates can be entered in any format you wish, e.g. <strong>&ldquo;3rd March 2007&rdquo;</strong> or <strong>&ldquo;17/10/1989&rdquo;</strong></p>
+                            <p>You can give a <strong>start date, an end date, or both</strong> to restrict results to a particular date range. A missing end date implies the current date, and a missing start date implies the oldest date we have in the system. Dates can be entered in any format you wish, e.g. <code>3rd March 2007</code> or <code>17/10/1989</code></p>
                         </div>
                     </div>
 

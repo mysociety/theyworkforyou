@@ -110,6 +110,15 @@ h3 {
     font-size: 0.8125em;
 }
 
+code {
+    color: $light-text;
+    background-color: #eee;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
+    font-size: 0.9em;
+    vertical-align: 0.1em;
+}
+
 ul {
     margin-left: 1.2em;
 }
