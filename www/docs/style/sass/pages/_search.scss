@@ -238,6 +238,10 @@
     color: $light-text;
   }
 
+  p + p {
+    margin-top: 0.5em;
+  }
+
   strong {
     color: #000;
     font-weight: 600;

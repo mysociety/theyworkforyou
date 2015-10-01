@@ -268,6 +268,62 @@
                     no longer find and work out the information. Without a central list of
                     Parliamentary Private Secretaries, there isn&rsquo;t a lot we can do.</p>
                 </dd>
+
+                <dt id="searching">
+                    How can I search more smartly?
+                </dt>
+                <dd>
+                    <p>Click &lsquo;Advanced search&rsquo; under the box on the
+                    search results page, and you&rsquo;ll see a number of
+                    options for refining your results. But you can do
+                    everything that Advanced Search does, and even refine your
+                    search further, right from the search box.</p>
+
+<ul>
+    <li>To search for an <strong>exact phrase</strong>, use quotes (""). For
+    example, to find only documents which contain the exact phrase <a
+    href="/search/?q=%22Hutton+Report%22">"Hutton Report"</a>. Quotes can also
+    be used to prevent stemming, so searching for &ldquo;horse&rdquo; will omit results for
+    horses or horsing.
+    <li>To <strong>exclude</strong> a word from your search, put a minus ("-")
+    sign in front; for example to find documents containing the word
+    "representation" but not the word "taxation":
+    <a href="/search/?q=representation+-taxation">representation -taxation</a>.
+    &ldquo;NOT&rdquo; (in capitals) also works here:
+    <a href="/search/?q=representation+NOT+taxation">representation NOT taxation</a>
+    <li>If you want to search for words only when they're <strong>used near
+    each other</strong> in the text, use "NEAR". For example, to find documents
+    containing the word "elephant" near the word "room":
+    <a href="/search/?q=elephant+NEAR+room">elephant NEAR room</a>
+    <li>Find results including <strong>at least one</strong> of your search
+    terms by using &ldquo;OR&rdquo;:
+    <a href="/search/?q=education+OR+schools">education OR schools</a>
+    (we also have XOR if that&rsquo;s useful).
+    <li>Finally, you can restrict your results to specific content types by
+    using shortcuts to our <strong>filters</strong>, which you can add to your
+    search term. Here&rsquo;s a selection &ndash; they can be used alone or in
+    combination with one another:
+    <ul>
+        <li>Column: If you know the Hansard column number (perhaps you&rsquo;re
+        looking up a paper reference): column:123
+        <li>Party: To restrict results to speakers from a specific party:
+        party:Lab
+        <li>Department: To bring up only results from speakers in a specific
+        department: department:Defence
+        <li>Section: To restrict results to a particular parliament or assembly
+        (e.g. the Scottish Parliament), or a particular type of data within an
+        institution, such as UK Written Ministerial Statements:
+        section:scotland section:wms
+        <li>Date: To search only for results from a specific date:
+        <a href="/search/?q=date:20080716">date:20080716</a> (16th July 2008)
+        <li>Or to return results between two specified dates (also requires a
+        search term):
+        <a href="/search/?q=hospitals+20080101..20080131">hospitals 20080101..20080131</a>
+        (mentions of hospitals in January 2008)
+    </ul>
+</ul>
+
+                </dd>
             </dl>
 
             <h2 id="data">
