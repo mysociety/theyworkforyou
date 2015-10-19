@@ -20,17 +20,23 @@
                           </div>
                         </div>
                         <div class="row">
-                            <div class="footer_follow__column columns">
-                              <p>Sign up to our monthly newsletter</p>
-                                <form method="post" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
-                                <input type="email" placeholder="Your email address" name="EMAIL"/>
-                                <label style="position: absolute; left: -5000px;">
-                                  Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
-                                </label>
-                                <input type="submit" value="Subscribe" name="subscribe"/>
+                            <div class="footer-follow__column columns">
+                                <form method="post" class="footer-follow__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
+                                    <p>Insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
+                                    <div class="row collapse">
+                                        <div class="small-8 columns">
+                                            <input type="email" placeholder="Your email address" name="EMAIL"/>
+                                        </div>
+                                        <div class="small-4 columns">
+                                            <label style="position: absolute; left: -5000px;">
+                                              Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                                            </label>
+                                            <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
+                                        </div>
+                                    </div>
                               </form>
                             </div>
-                            <div class="footer_follow__column">
+                            <div class="footer-follow__column">
                             <p>
                             Follow us
                             </p>
@@ -87,7 +93,7 @@
                             </div>
                         </div>
                         <div id="footer-nav" class="row">
-                            <div class="footer_link__column">
+                            <div class="footer-link__column">
                                 <dl>
                                     <dt>ABOUT</dt>
                                     <dd>
@@ -99,7 +105,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="footer_link__column">
+                            <div class="footer-link__column">
                                 <dl>
                                     <dt>PARLIAMENTS &amp; ASSEMBLIES</dt>
                                     <dd>
@@ -111,7 +117,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="footer_link__column">
+                            <div class="footer-link__column">
                                 <dl>
                                     <dt>DEVELOPERS</dt>
                                     <dd>
@@ -123,7 +129,7 @@
                                     </dd>
                                 </dl>
                             </div>
-                            <div class="footer_link__column">
+                            <div class="footer-link__column">
                                 <dl>
                                     <dt>INTERNATIONAL PROJECTS</dt>
                                     <dd>
