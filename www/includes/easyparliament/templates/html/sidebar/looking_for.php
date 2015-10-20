@@ -1,6 +1,6 @@
     <?php if ( isset($mini_survey) ) {
         if ( $mini_survey['show'] ) { ?>
-                <form class="minisurvey" method="post" action="http://survey.mysociety.org">
+                <form class="minisurvey" method="post" action="<?=OPTION_SURVEY_URL?>">
                     <p>Did you find what you were looking for?</p>
                     <input type="hidden" name="sourceidentifier" value="twfy-mini-2">
                     <input type="hidden" name="datetime" value="<?= $mini_survey['datetime'] ?>">
