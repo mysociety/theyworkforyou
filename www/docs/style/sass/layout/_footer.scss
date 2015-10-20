@@ -58,39 +58,30 @@
     }
 
     input {
-        display: inline;
-        border-radius: 2px;
-        padding: 0.75em;
-        font-size: 14px;
-        border: none;
-        height: auto;
+        height: 3em;
 
-        &[type=text] {
-            border: 1px solid $borders;
-            border-right: 0px;
-            box-shadow: none;
-            width: 80%;
-            margin-right: 0px;
-            border-radius: 2px 0px 0px 2px;
+        &[type=email] {
+            border-right: none;
+            border-radius: 3px 0 0 3px;
         }
+
         &[type=submit] {
-            background-color: $primary-color;
-            border: 1px solid $primary-color;
-            border-left: 0px;
-            color: white;
-            margin-left: 0px;
-            border-radius: 0px 2px 2px 0px;
+            border-radius: 0 3px 3px 0;
         }
     }
 
-    .footer_follow__column {
+    .footer-follow__newsletter-form {
+        max-width: 16em; // Label for signup box is punchier when lines are shorter
+    }
+
+    .footer-follow__column {
         @include grid-column(12);
         @media (min-width: $medium-screen) {
             @include grid-column(6);
         }
     }
 
-    .footer_link__column {
+    .footer-link__column {
         @include grid-column(12);
         @media (min-width: $medium-screen) {
             @include grid-column(3);
