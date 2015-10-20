@@ -410,23 +410,6 @@ input.homepage-search__button {
     }
 }
 
-.button--show-all {
-    background-color: $colour_off_white;
-    color: $colour_dark_grey;
-    font-weight: normal;
-    &:hover,
-    &:active,
-    &:focus {
-        background-color: $colour_light_grey;
-        color: $colour_dark_grey;
-    }
-}
-
-.button--full-width {
-    width: 100%;
-    text-align: center;
-}
-
 .homepage-upcoming {
     border-top: 1px solid $colour_off_white;
 
