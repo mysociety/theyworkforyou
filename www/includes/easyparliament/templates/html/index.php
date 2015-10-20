@@ -139,9 +139,20 @@
                                             if ( isset( $events[$i] ) ) { ?>
                                         <li>
                                             <h4 class="upcoming__title"><a href="<?= $events[$i]['link_external'] ?>"><?= $events[$i]['title'] ?></a></h4>
-                                            <p class="meta"><?= $events[$i]['debate_type'] ?>
-                                            <?= isset($events[$i]['time_start']) && $events[$i]['time_start'] != '00:00:00' ? '; ' . format_time($events[$i]['time_start'], 'g:i a') : '' ?>
-                                            <?= isset($events[$i]['time_end']) && $events[$i]['time_end'] != '00:00:00' ? ' - ' . format_time($events[$i]['time_end'], 'g:i a') : '' ?></p>
+                                            <p class="meta"><?php
+                                                $meta_items = array();
+                                                $meta_items[] = $events[$i]['debate_type'];
+                                                if( isset($events[$i]['time_start']) && $events[$i]['time_start'] != '00:00:00' ){
+                                                    $times = format_time($events[$i]['time_start'], 'g:i a');
+
+                                                    if( isset($events[$i]['time_end']) && $events[$i]['time_end'] != '00:00:00' ){
+                                                        $times = $times . ' - ' . format_time($events[$i]['time_end'], 'g:i a');
+                                                    }
+                                                    $meta_items[] = $times;
+                                                }
+                                                // Removes "empty" items, and joins them with a semicolon
+                                                echo implode('; ', array_filter($meta_items));
+                                            ?></p>
                                         </li>
                                         <?php } ?>
                                         <?php } ?>
