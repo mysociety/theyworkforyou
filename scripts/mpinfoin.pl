@@ -346,7 +346,11 @@ sub makerankings {
         my $left_house = $row[2];
         my $person_fullid = "uk.org.publicwhip/person/$person_id";
 
-        my $q = $dbh->prepare('select gid from hansard where major=1 and person_id=? order by hdate,hpos limit 1');
+        my $q = $dbh->prepare("select gid from hansard, epobject
+            where hansard.epobject_id = epobject.epobject_id and major=1 and person_id=?
+            and (body like '%maiden speech%' or body like '%first speech%' or body like '%predecessor%'
+                or body like '%previous Member of Parliament%' or body like '%honour to have been elected%')
+            order by hdate,hpos limit 1");
         $q->execute($person_id);
         if ($q->rows > 0) {
             my @row = $q->fetchrow_array();
