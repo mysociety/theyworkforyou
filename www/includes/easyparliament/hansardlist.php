@@ -2093,6 +2093,15 @@ class HANSARDLIST {
             $hdate = '2008-08-13';
         }
 
+        # check for a person redirect
+        $q = $this->db->query("SELECT gid_to FROM gidredirect
+                WHERE gid_from = :gid_from",
+            array(':gid_from' => "uk.org.publicwhip/person/$person_id")
+        );
+        if ($q->rows > 0) {
+            $person_id = str_replace('uk.org.publicwhip/person/', '', $q->field(0, 'gid_to'));
+        }
+
         $q = $this->db->query("SELECT title, given_name, family_name, lordofname,
                                 house,
                                 constituency,
