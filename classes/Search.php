@@ -139,7 +139,7 @@ class Search {
         $data['search_keyword'] = $this->searchkeyword;
 
         $is_adv = false;
-        foreach ( array('to', 'from', 'person', 'section', 'column' ) as $var ) {
+        foreach ( array('to', 'from', 'person', 'section', 'column', 'phrase', 'exclude' ) as $var ) {
             $key = "search_$var";
             $data[$key] = get_http_var( $var );
             if ( $data[$key] ) {
