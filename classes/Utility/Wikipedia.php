@@ -32,11 +32,12 @@ class Wikipedia
         $capsword = "[A-Z][a-zA-Z'0-9,-]*"; # not starting with number, as catches too much
         $fillerwords = "of|and|in|on|under|the|for";
         $middlewordsre = "(?:\s*(?:$capsword|$fillerwords))*";
-        $endwordre = "(?:$capsword)"; # and, of etc. can't appear at ends
+        $startwordre = "(?:$capsword)"; # and, of etc. can't appear at ends
+        $endwordre = "(?:$capsword|[0-9]+)"; # We might want to catch e.g. a year at the end
         $notfiller = "(?:(?!Of|And|In|On|Under|The|For)$capsword)";
 
         # Match either "Two Endwords" or "Endword and Some Middle Words"
-        $phrasewithfiller = "$endwordre$middlewordsre\s*$endwordre";
+        $phrasewithfiller = "$startwordre$middlewordsre\s*$endwordre";
         $greedyproperre = "/\b$phrasewithfiller\b/ms";
 
         # And do a match ignoring things starting with filler words
@@ -45,7 +46,7 @@ class Wikipedia
         # Match without filler words (so if you have a phrase like
         # "Amnesty International and Human Rights Watch" you also get both parts
         # separately "Amnesty International" and "Human Rights Watch")
-        $frugalproperre = "/\b$endwordre(?:\s*$endwordre)+\b/ms";
+        $frugalproperre = "/\b$startwordre(?:\s*$endwordre)+\b/ms";
 
         # And do a greedy without the first word of a sentence
         $greedynotfirst = "/(?:\.|\?|!)\s+\S+\s+($phrasewithfiller)\b/ms";
