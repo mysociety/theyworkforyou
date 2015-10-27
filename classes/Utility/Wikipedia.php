@@ -94,6 +94,7 @@ class Wikipedia
         foreach ($phrases as $wikistring) {
             $phrase = str_replace('_', ' ', $wikistring);
             $wikistring = str_replace("'", "%27", $wikistring);
+            $phrase_re = str_replace('_', '[ ]', $wikistring);
 
             # See if already matched a string this one is contained within
             foreach ($matched as $got) {
@@ -104,7 +105,7 @@ class Wikipedia
             twfy_debug("WIKIPEDIA", "Matched '$phrase'");
             # 1 means only replace one match for phrase per paragraph
             $source = preg_replace ('{
-            \b(' . $phrase . ')\b    # Match the phrase itself
+            \b(' . $phrase_re . ')\b # Match the phrase itself
             (?!                      # Match as long as the following does *not* apply:
                 (?:                  #   Match, possessively, as many strings of:
                  [^<]+               #     non-"<" characters,
