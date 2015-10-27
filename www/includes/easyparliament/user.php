@@ -1164,13 +1164,16 @@ class THEUSER extends USER {
                             ", array(':user_id' => $user_id));
 
             if ($q->field(0, 'postcode')) {
-                $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>1));
-                $pid = $MEMBER->person_id();
-                # This should probably be in the ALERT class
-                $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
-                        ':email' => $this->email,
-                        ':criteria' => 'speaker:' . $pid
-                    ));
+                try {
+                    $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>1));
+                    $pid = $MEMBER->person_id();
+                    # This should probably be in the ALERT class
+                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
+                            ':email' => $this->email,
+                            ':criteria' => 'speaker:' . $pid
+                        ));
+                } catch (MySociety\TheyWorkForYou\MemberException $e) {
+                }
             }
 
             if ($r->success()) {

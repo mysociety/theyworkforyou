@@ -326,8 +326,19 @@ function check_input($details) {
     }
 
     // Check postcode (which is not a compulsory field).
-    if ($details["postcode"] != "" && !validate_postcode($details["postcode"])) {
-        $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
+    if ($details["postcode"] != "") {
+        if (!validate_postcode($details["postcode"])) {
+            $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
+        } else {
+            try {
+                $mp = new MySociety\TheyWorkForYou\Member(array(
+                    'postcode' => $details['postcode'],
+                    'house' => HOUSE_TYPE_COMMONS,
+                ));
+            } catch (MySociety\TheyWorkForYou\MemberException $e) {
+                $errors["postcode"] = "Sorry, we could not find an MP for that postcode.";
+            }
+        }
     }
 
     // No checking of URL.
