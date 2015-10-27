@@ -86,7 +86,7 @@
                         <h2>Recently in the Northern Ireland Assembly</h2>
                         <ul class="recently__list"><?php
                             foreach ( $debates['recent'] as $recent ) {
-                                include 'homepage/recent-debates.php';
+                                include dirname(__FILE__) . '/../homepage/recent-debates.php';
                             }
                         ?></ul>
                     </div>
