@@ -101,22 +101,11 @@
                 <div class="row nested-row">
                     <div class="homepage-recently homepage-content-section">
                         <h2>Recently in Parliament</h2>
-                        <ul class="recently__list">
-                            <?php $max_count = count($debates['recent']) > 3 ? 3 : count($debates['recent']);
-                            for ( $i = 0; $i < $max_count; $i++ ) {
-                                $recent = $debates['recent'][$i];
-                                include dirname(__FILE__) . '/../homepage/recent-debates.php';
-                            } ?>
-                        </ul>
-                        <?php if ( $max_count >= 3 ) { ?>
-                        <ul class="recently__list recently__list-more">
-                            <?php for ( $i = 3; $i < count($debates['recent']); $i++ ) {
-                                $recent = $debates['recent'][$i];
-                                include dirname(__FILE__) . '/../homepage/recent-debates.php';
-                            } ?>
-                        </ul>
-                        <a href="#" class="button button--show-all button--full-width" onclick="$('.recently__list-more').show(); return false;">Show more</a>
-                        <?php } ?>
+                        <ul class="recently__list"><?php
+                            foreach ( $debates['recent'] as $recent ) {
+                                include 'homepage/recent-debates.php';
+                            }
+                        ?></ul>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
                         <h2>What is the Scottish Parliament?</h2>

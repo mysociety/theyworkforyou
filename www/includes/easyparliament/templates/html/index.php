@@ -90,22 +90,11 @@
                 <div class="row nested-row">
                     <div class="homepage-recently homepage-content-section">
                         <h2>Recently in Parliament</h2>
-                        <ul class="recently__list">
-                            <?php $max_count = count($debates['recent']) > 3 ? 3 : count($debates['recent']);
-                            for ( $i = 0; $i < $max_count; $i++ ) {
-                                $recent = $debates['recent'][$i];
+                        <ul class="recently__list"><?php
+                            foreach ( $debates['recent'] as $recent ) {
                                 include 'homepage/recent-debates.php';
-                            } ?>
-                        </ul>
-                        <?php if ( $max_count >= 3 ) { ?>
-                        <ul class="recently__list recently__list-more">
-                            <?php for ( $i = 3; $i < count($debates['recent']); $i++ ) {
-                                $recent = $debates['recent'][$i];
-                                include 'homepage/recent-debates.php';
-                            } ?>
-                        </ul>
-                        <a href="#" class="button button--show-all button--full-width">Show more</a>
-                        <?php } ?>
+                            }
+                        ?></ul>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
                         <h2>Upcoming</h2>
@@ -139,9 +128,20 @@
                                             if ( isset( $events[$i] ) ) { ?>
                                         <li>
                                             <h4 class="upcoming__title"><a href="<?= $events[$i]['link_external'] ?>"><?= $events[$i]['title'] ?></a></h4>
-                                            <p class="meta"><?= $events[$i]['debate_type'] ?>
-                                            <?= isset($events[$i]['time_start']) && $events[$i]['time_start'] != '00:00:00' ? '; ' . format_time($events[$i]['time_start'], 'g:i a') : '' ?>
-                                            <?= isset($events[$i]['time_end']) && $events[$i]['time_end'] != '00:00:00' ? ' - ' . format_time($events[$i]['time_end'], 'g:i a') : '' ?></p>
+                                            <p class="meta"><?php
+                                                $meta_items = array();
+                                                $meta_items[] = $events[$i]['debate_type'];
+                                                if( isset($events[$i]['time_start']) && $events[$i]['time_start'] != '00:00:00' ){
+                                                    $times = format_time($events[$i]['time_start'], 'g:i a');
+
+                                                    if( isset($events[$i]['time_end']) && $events[$i]['time_end'] != '00:00:00' ){
+                                                        $times = $times . ' - ' . format_time($events[$i]['time_end'], 'g:i a');
+                                                    }
+                                                    $meta_items[] = $times;
+                                                }
+                                                // Removes "empty" items, and joins them with a semicolon
+                                                echo implode('; ', array_filter($meta_items));
+                                            ?></p>
                                         </li>
                                         <?php } ?>
                                         <?php } ?>
