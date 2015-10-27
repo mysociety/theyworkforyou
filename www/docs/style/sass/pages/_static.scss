@@ -4,4 +4,12 @@
     .panel > h1:first-child {
         margin-top: 0;
     }
+
+    .panel > * {
+        max-width: 700px; // avoids unmanageable line lengths
+    }
+
+    ol {
+        margin-left: 2em; // restore left padding on ordered list items
+    }
 }
