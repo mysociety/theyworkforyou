@@ -1,0 +1,101 @@
+// Note: TWFY already includes the HTML5 Boilerplate print
+// styles via /foundation/scss/foundation/components/_type.scss
+
+// We use !important quite a bit in here, to quickly override
+// much more specific selectors in the non-print stylesheet.
+
+@media print {
+    @page {
+      margin: 1cm;
+    }
+
+    .banner,
+    .ms-header,
+    .site-header,
+    #footer,
+    .minisurvey,
+    .hero__mp-search,
+    .debate-header .cta,
+    .debate-navigation,
+    .debate-speech__speaker a:after,
+    .debate-speech__meta__link.time:after,
+    .debate-speech__question-answered .button,
+    .person-header .person-buttons,
+    .person-header .person-search,
+    .search-page__section--search,
+    .search-result-display-options,
+    .people-list-alphabet,
+    .business-section .calendar,
+    .business-list__excerpt a[href^="/"]:after,
+    .search-section,
+    .search-result-pagination,
+    .search-result + hr,
+    .person-panels .in-page-nav,
+    .homepage-panels .panel--inverted {
+        display: none !important;
+    }
+
+    .search-page__section__primary {
+        border: none !important;
+    }
+
+    .debate-speech__speaker-and-content,
+    .debate-speech__links,
+    .homepage-content-section,
+    .hero__site-intro,
+    .search-page__section__primary,
+    .search-page__section__secondary,
+    .business-section__primary,
+    .business-section__secondary,
+    .primary-content__unit {
+        width: auto !important;
+        float: none !important;
+    }
+
+    .panel,
+    .hero__site-intro,
+    .hero__site-intro__wrap,
+    .search-page__section__primary,
+    .search-page__section__secondary,
+    .business-section__header,
+    .business-section__primary,
+    .business-section__secondary,
+    .person-header,
+    .person-panels {
+        padding: 0 !important;
+    }
+
+    input {
+        border-radius: 0.3em !important;
+    }
+
+    input.homepage-search__input,
+    input.search-section__input,
+    .button {
+        border: 1px solid #ccc;
+    }
+
+    a[href]:after,
+    abbr[title]:after {
+        display: inline-block;
+        font-weight: normal;
+        font-style: italic;
+        margin-left: 0.3em;
+    }
+
+    .search-result .hi {
+        border: 1px solid #ccc;
+        padding: 0.1em 0.4em;
+        border-radius: 0.3em;
+    }
+
+    .person-header .person-header__content {
+        .person-constituency {
+            position: static;
+        }
+
+        .person-name {
+            width: auto;
+        }
+    }
+}
