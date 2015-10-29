@@ -25,7 +25,7 @@
     <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
     <meta property="fb:admins" content="143203489083755">
 
-    <script type="text/javascript" src="<?= cache_version("js/jquery.js") ?>"></script>
+    <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
