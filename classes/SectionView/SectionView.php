@@ -318,7 +318,8 @@ class SectionView {
             }
             $body = $row['body'];
             $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
-           $body = preg_replace_callback('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', function($matches) {
+            $body = preg_replace('#<phrase class="honfriend" name="([^"]*?)" person_id="uk.org.publicwhip/person/(\d+)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?p=$2" title="Our page on $1 - \'$3\'">$4</a>', $body);
+            $body = preg_replace_callback('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', function($matches) {
                 return '<a href="/search/?pop=1&s=date:' . $matches[2] . $matches[3] . $matches[4] . '+column:' . $matches[5] . '+section:' . $matches[1] .'">' . str_replace("Official Report", "Hansard", $matches[6]) . '</a>';
             }, $body);
             #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
