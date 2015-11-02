@@ -22,7 +22,7 @@ $cronquiet = '' if $verbose;
 
 # Make sure only one copy runs at once
 unless ($ENV{LOCKFILE}) {
-        system "run-with-lockfile -n $path/morning-update.lock $0";
+        system "/usr/local/bin/run-with-lockfile -n $path/morning-update.lock $0";
         if ($? >> 8 == 100) {
                 print "Another copy of morningupdate or compactsearchdb is already running\n"
         }
