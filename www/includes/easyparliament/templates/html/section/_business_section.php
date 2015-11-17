@@ -23,7 +23,7 @@
                 ?>
                 <?php if ( isset($content['rssurl']) ) { ?>
                 <p class="rss-feed">
-                    <a href="<?= $content['rssurl'] ?>">RSS feed of <?= $title ?></a>
+                    <a href="<?= WEBPATH . $content['rssurl'] ?>">RSS feed of <?= $title ?></a>
                 </p>
                 <?php } ?>
                 </div>
