@@ -102,7 +102,8 @@
     }
 }
 
-.business-section__what-is-this {
+.business-section__what-is-this,
+.business-section__search {
     h3 {
         color: $colour_grey;
         margin: 0;
@@ -112,6 +113,29 @@
         margin: 0.5em 0 0 0;
         font-size: 0.9em;
     }
+}
+
+.business-section__search {
+  margin-top: 2em;
+
+  .row {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  input {
+      height: 3em;
+      margin-bottom: 0;
+
+      &[type=text] {
+          border-right: none;
+          border-radius: 3px 0 0 3px;
+      }
+
+      &[type=submit] {
+          border-radius: 0 3px 3px 0;
+      }
+  }
 }
 
 .business-list {
