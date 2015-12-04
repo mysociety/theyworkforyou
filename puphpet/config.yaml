@@ -93,6 +93,7 @@ apache:
         sendfile: 0
     modules:
         - rewrite
+        - expires
     vhosts:
         y9hgbpahzaxy:
             servername: twfy.mysociety
