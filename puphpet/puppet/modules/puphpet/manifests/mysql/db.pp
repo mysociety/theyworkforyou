@@ -17,8 +17,8 @@ define puphpet::mysql::db (
   if ! defined(Mysql_database[$dbname]) {
     $db_resource = {
       ensure   => present,
-      charset  => 'utf8',
-      collate  => 'utf8_general_ci',
+      charset  => 'latin1',
+      collate  => 'latin1_swedish_ci',
       provider => 'mysql',
       require  => [
         Class['::mysql::server'],

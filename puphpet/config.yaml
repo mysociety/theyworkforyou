@@ -214,7 +214,9 @@ python:
     versions: {  }
 mysql:
     install: '1'
-    override_options: {  }
+    override_options:
+        mysqld:
+            'default-storage-engine': MyISAM
     root_password: flFQ8TS53H
     adminer: 0
     databases:
