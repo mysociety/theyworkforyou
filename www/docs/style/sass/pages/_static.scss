@@ -13,3 +13,10 @@
         margin-left: 2em; // restore left padding on ordered list items
     }
 }
+
+// Reset 700px limit on legacy pages (which mostly handle their own layout)
+.legacy-page {
+    .panel > * {
+        max-width: none;
+    }
+}
