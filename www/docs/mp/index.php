@@ -1004,10 +1004,11 @@ function person_numerology($member, $has_email_alerts) {
         $when = 'in this Parliament with this affiliation';
         # Lords have one record per affiliation until they leave (ignoring name changes, sigh)
         if ($member->house_disp == HOUSE_TYPE_LORDS) {
-            $when = 'in this House with this affiliation';
+            $when = 'in this House with this affiliation up to the 2015 general election';
         }
-        if (display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info)) {
-            $out[] = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        $div_attend = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        if ($div_attend) {
+            $out[] = $div_attend;
         }
         /*
         if ($member->chairmens_panel) {
