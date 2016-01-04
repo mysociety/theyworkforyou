@@ -12,7 +12,7 @@
                     <?php } ?>
                     <p>
                         <ul class="search-result-display-options">
-                        <li><a href="#options" class="search-options-toggle js-toggle-search-options">Advanced search</a></li>
+                        <li><a href="?show_advanced_options=true" class="search-options-toggle js-toggle-search-options">Advanced search</a></li>
                         <?php if ( $is_adv ) { ?>
                             <?= $search_phrase ? '<li>Exactly: ' . _htmlentities($search_phrase) . '</li>' : '' ?>
                             <?= $search_exclude ? '<li>Excluding: ' . _htmlentities($search_exclude) . '</li>' : '' ?>
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="search-page__section search-page__section--options" id="options">
+            <div class="search-page__section search-page__section--options" id="options" style="display: <?= $show_advanced_options ? 'block' : 'none' ?>">
                 <div class="search-page__section__primary">
                     <h2>Advanced search</h2>
 
@@ -141,19 +141,21 @@ reference), you can restrict results to that; you can also use
         $(function(){
           $('.js-toggle-search-options').on('click', function(e){
             e.preventDefault();
-            var id = $(this).attr('href');
+            var id = '#options';
             if($(id).is(':visible')){
               $('.js-toggle-search-options[href="' + id + '"]').removeClass('toggled');
-              $(id).find(':input').attr('disabled', 'disabled');
-              $(id).slideUp(250);
+              $(id).slideUp(250, function(){
+                  // disable inputs after they're hidden
+                  $(id).find(':input').attr('disabled', 'disabled');
+              });
             } else {
               $('.js-toggle-search-options[href="' + id + '"]').addClass('toggled');
               $(id).find(':input:disabled').removeAttr('disabled');
               $(id).slideDown(250);
             }
           });
-          <?= $is_adv ? '' : '$("#options").find(":input").attr("disabled", "disabled");' ?>
-
-          $( $('.js-toggle-search-options').attr('href') ).hide();
+<? if( !($is_adv || $show_advanced_options) ) { ?>
+          $("#options").find(":input").attr("disabled", "disabled");
+<?php } ?>
         });
         </script>

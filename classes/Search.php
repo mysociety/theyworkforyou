@@ -152,6 +152,13 @@ class Search {
         }
 
         $data['is_adv'] = $is_adv;
+
+        $data['show_advanced_options'] = false;
+
+        if (get_http_var('show_advanced_options')) {
+            $data['show_advanced_options'] = true;
+        }
+
         return $data;
     }
 
