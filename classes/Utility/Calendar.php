@@ -30,9 +30,9 @@ class Calendar
 
         if (!$q->rows()) {
             if ($date >= date('Y-m-d')) {
-                $PAGE->error_message('There is currently no information available for that date.');
+                $PAGE->error_message('There is currently no information available for that date.', false, 404);
             } else {
-                $PAGE->error_message('There is no information available for that date.');
+                $PAGE->error_message('There is no information available for that date.', false, 404);
             }
 
             return array();

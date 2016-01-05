@@ -55,7 +55,7 @@ $parent_body = $q->field(0, 'parent_body');
 $parent_epid = $q->field(0, 'subsection_id');
 
 if (!($video_status&1) || ($video_status&8)) {
-    $PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true);
+    $PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true, 404);
     exit;
 }
 
