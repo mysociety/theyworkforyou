@@ -7,10 +7,15 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../commonlib/perllib";
+my $root;
+BEGIN {
+    $root = "$FindBin::Bin/..";
+}
+use lib "$root/commonlib/perllib";
+my $cron_log = "$root/../applogs/cron.log";
 
 use mySociety::Config;
-mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+mySociety::Config::set_file("$root/conf/general");
 
 my $staging = mySociety::Config::get('DEVSITE');
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
@@ -24,10 +29,10 @@ chdir $FindBin::Bin;
 system './mpinfoin.pl';
 
 # update individual division votes
-system './json2db.pl';
+system "./json2db.pl >> $cronlog";
 
 # update party positions
-system 'php ./generate_party_positions.php';
+system "php ./generate_party_positions.php >> $cron_log";
 
 #unless ($staging) {
 #    chdir $pwmembers;
