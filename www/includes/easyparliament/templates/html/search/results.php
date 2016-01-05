@@ -1,7 +1,9 @@
 <div class="full-page">
     <div class="full-page__row search-page <?php if ( !$searchstring ) { ?>search-page--blank<?php } ?>">
 
-        <?php include 'form.php'; ?>
+        <form class="js-search-form-without-options">
+            <?php include 'form_main.php'; ?>
+        </form>
 
         <?php if ( $searchstring && !isset($warnings) ) { ?>
         <div class="search-page__section search-page__section--results">
@@ -115,6 +117,11 @@
             <?php include 'sidebar.php' ?>
         </div>
         <?php } ?>
+
+        <form class="js-search-form-with-options">
+            <?php include 'form_main.php'; ?>
+            <?php include 'form_options.php'; ?>
+        </form>
 
     </div>
 </div>

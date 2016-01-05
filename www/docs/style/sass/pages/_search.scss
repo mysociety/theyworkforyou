@@ -61,6 +61,10 @@
 }
 
 .search-page__section--options {
+  html.js & {
+    display: none; // hide advanced options so they can be shown on-demand by javascript
+  }
+
   h4 {
     font-weight: inherit;
     font-size: 1.1em;

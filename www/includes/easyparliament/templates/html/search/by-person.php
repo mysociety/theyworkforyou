@@ -1,7 +1,9 @@
 <div class="full-page">
     <div class="full-page__row search-page">
 
-        <?php include 'form.php'; ?>
+        <form class="js-search-form-without-options">
+            <?php include 'form_main.php'; ?>
+        </form>
 
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
@@ -93,6 +95,11 @@
 
             <?php include 'sidebar.php' ?>
         </div>
+
+        <form class="js-search-form-with-options">
+            <?php include 'form_main.php'; ?>
+            <?php include 'form_options.php'; ?>
+        </form>
 
     </div>
 </div>

@@ -1,32 +1,3 @@
-        <form>
-            <div class="search-page__section search-page__section--search">
-                <div class="search-page__section__primary">
-                    <p class="search-page-main-inputs">
-                        <input type="text" name="q" value="<?= _htmlentities($search_keyword) ?>" class="form-control">
-                        <input type="submit" class="button" value="Search">
-                    </p>
-                    <?php if (isset($warnings) ) { ?>
-                    <p class="error">
-                        <?= $warnings ?>
-                    </p>
-                    <?php } ?>
-                    <p>
-                        <ul class="search-result-display-options">
-                        <li><a href="#options" class="search-options-toggle js-toggle-search-options">Advanced search</a></li>
-                        <?php if ( $is_adv ) { ?>
-                            <?= $search_phrase ? '<li>Exactly: ' . _htmlentities($search_phrase) . '</li>' : '' ?>
-                            <?= $search_exclude ? '<li>Excluding: ' . _htmlentities($search_exclude) . '</li>' : '' ?>
-                            <?= $search_from ? '<li>From: ' . _htmlentities($search_from) . '</li>' : '' ?>
-                            <?= $search_to ? '<li>To: ' . _htmlentities($search_to) . '</li>' : '' ?>
-                            <?= $search_person ? '<li>Person: ' . _htmlentities($search_person) . '</li>' : '' ?>
-                            <?= $search_section ? '<li>Section: ' . _htmlentities($search_section_pretty) . '</li>' : '' ?>
-                            <?= $search_column ? '<li>Column: ' . _htmlentities($search_column) . '</li>' : '' ?>
-                        <?php } ?>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-
             <div class="search-page__section search-page__section--options" id="options">
                 <div class="search-page__section__primary">
                     <h2>Advanced search</h2>
@@ -135,17 +106,24 @@ reference), you can restrict results to that; you can also use
                     <p><input type="submit" class="button" value="Search"></p>
                 </div>
             </div>
-        </form>
 
         <script type="text/javascript">
         $(function(){
+          // Move advanced search options to appear *before* results.
+          // (This means non-javascript users don't have to scroll past it
+          // to see their search results.)
+          $('.js-search-form-without-options').replaceWith( $('.js-search-form-with-options') );
+
+          // Show/hide advanced search options.
           $('.js-toggle-search-options').on('click', function(e){
             e.preventDefault();
-            var id = $(this).attr('href');
+            var id = $(this).attr('href'); // #options
             if($(id).is(':visible')){
               $('.js-toggle-search-options[href="' + id + '"]').removeClass('toggled');
-              $(id).find(':input').attr('disabled', 'disabled');
-              $(id).slideUp(250);
+              $(id).slideUp(250, function(){
+                // Disable the inputs *after* they're hidden (less distracting).
+                $(id).find(':input').attr('disabled', 'disabled');
+              });
             } else {
               $('.js-toggle-search-options[href="' + id + '"]').addClass('toggled');
               $(id).find(':input:disabled').removeAttr('disabled');
@@ -153,7 +131,5 @@ reference), you can restrict results to that; you can also use
             }
           });
           <?= $is_adv ? '' : '$("#options").find(":input").attr("disabled", "disabled");' ?>
-
-          $( $('.js-toggle-search-options').attr('href') ).hide();
         });
         </script>
