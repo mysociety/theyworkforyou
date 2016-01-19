@@ -98,6 +98,12 @@ class Policies {
         6719 => 'limits on success <b>fees</b> paid to lawyers in <b>no-win no fee cases</b>',
         6720 => 'a statutory <b>register of lobbyists</b>',
         6721 => 'requiring the mass <b>retention of information about communications</b>',
+        6731 => 'more restrictive <b>regulation of trade union activity</b>',
+        6732 => 'allowing <b>terminally ill people</b> to be given <b>assistance to end their life</b>',
+        6733 => 'higher <b>taxes on banks</b>',
+        6734 => 'stronger <b>enforcement of immigration rules</b>',
+        6736 => '<b>a veto for MPs</b> from England, Wales and Northern Ireland <b>over laws specifically impacting their part of the UK</b>',
+        6741 => 'greater regulation of <b>hydraulic fracturing (fracking)</b> to extract shale gas',
     );
 
     /**
@@ -134,6 +140,7 @@ class Policies {
             1050,
             6686,
             6703,
+            6732,
         ),
         'foreignpolicy' => array(
             6688,
@@ -162,8 +169,10 @@ class Policies {
             1109,
             1124,
             6685,
+            6733,
             6711,
             6716,
+            6731,
         ),
         'business' => array(
             6679,
@@ -174,7 +183,8 @@ class Policies {
             6677,
             6676,
             363,
-            811
+            811,
+            6732,
         ),
         'education' => array(
             1074,
@@ -197,6 +207,7 @@ class Policies {
             6708,
             6709,
             6695,
+            6736,
         ),
         'home' => array(
             1087,
@@ -204,6 +215,7 @@ class Policies {
             1051,
             6696,
             6721,
+            6734,
         ),
         'environment' => array(
             1030,
@@ -212,6 +224,7 @@ class Policies {
             6699,
             6704,
             6710,
+            6741,
         ),
         'misc' => array(
             810,
