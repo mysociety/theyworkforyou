@@ -81,6 +81,8 @@ class Homepage {
     public function getFeaturedDebate($gid, $title, $context, $related) {
         if (strpos($gid, 'lords') !== false) {
             $debatelist = new \LORDSDEBATELIST;
+        } elseif (strpos($gid, 'westminhall') !== false) {
+            $debatelist = new \WHALLLIST;
         } else {
             $debatelist = new \DEBATELIST;
         }
