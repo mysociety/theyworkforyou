@@ -414,6 +414,13 @@ switch ($pagetype) {
                 )
             ),
             array(
+                'key'   => 'environment',
+                'title' => 'Environmental Issues',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('environment'), $MEMBER
+                )
+            ),
+            array(
                 'key'   => 'misc',
                 'title' => 'Miscellaneous Topics',
                 'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
