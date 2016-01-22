@@ -171,6 +171,10 @@ class Party {
     private function fetchPolicyPositionsByMethod($policies, $method) {
         $positions = array();
 
+        if ($this->name == 'Independent') {
+            return $positions;
+        }
+
         foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
             list( $position, $score ) = $this->$method($policy_id, true);
             if ( $position === null ) {

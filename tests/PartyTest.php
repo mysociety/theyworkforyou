@@ -139,15 +139,13 @@ class PartyTest extends FetchPageTestCase
         $page = $this->fetch_page( array( 'pid' => 3, 'url' => '/mp/3/test_current-mp/test_westminster_constituency' ) );
         $this->assertContains('Test Current-MP', $page);
         $this->assertContains('is a A Party MP', $page);
-        $this->assertNotContains('Most A Party MPs voted </b>', $page);
+        $this->assertNotContains('while most A Party MPs voted', $page);
     }
 
     public function testMPPartyPolicyTextWhenAgrees()
     {
         $page = $this->fetch_page( array( 'pid' => 6, 'url' => '/mp/6/test_further-mp/test_westminster_constituency' ) );
         $this->assertContains('Test Further-MP', $page);
-        $this->assertContains('is a Labour MP', $page);
         $this->assertContains('This is a selection of Miss Test Further-MP&rsquo;s votes', $page);
-        $this->assertNotContains('sometimes <b>differs</b> from their party', $page);
     }
 }
