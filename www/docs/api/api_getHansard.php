@@ -7,7 +7,11 @@ function api_getHansard_front() {
 <p><big>Fetch all Hansard.</big></p>
 
 <h4>Arguments</h4>
-<p>Note you can only supply <strong>one</strong> of the following at present.</p>
+<p>Note you can only supply <strong>one</strong> of the following search terms
+at present. If you wish to search multiple things (e.g. search plus person),
+use the <kbd>search</kbd> parameter, and supply
+<a href="http://www.theyworkforyou.com/help/#searching">query arguments</a>.</p>
+
 <dl>
 <dt>search</dt>
 <dd>Fetch the data that contain this term.</dd>
