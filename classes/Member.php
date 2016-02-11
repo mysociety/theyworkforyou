@@ -13,13 +13,6 @@ namespace MySociety\TheyWorkForYou;
 
 class Member extends \MEMBER {
 
-    private $priority_offices = array(
-        'The Prime Minister',
-        'The Deputy Prime Minister ',
-        'Leader of Her Majesty\'s Official Opposition',
-        'The Chancellor of the Exchequer',
-    );
-
     /**
      * Is Dead
      *
@@ -219,12 +212,12 @@ class Member extends \MEMBER {
     * Return an array of Office objects held (or previously held) by the member.
     *
     * @param string $include_only  Restrict the list to include only "previous" or "current" offices.
-    * @param bool   $priority_only Restrict the list to include only positions in the $priority_offices list.
+    * @param bool   $ignore_committees Ignore offices that appear to be committee memberships.
     *
     * @return array An array of Office objects.
     */
 
-    public function offices($include_only = NULL, $priority_only = FALSE) {
+    public function offices($include_only = NULL, $ignore_committees = FALSE) {
 
         $out = array();
 
@@ -233,9 +226,7 @@ class Member extends \MEMBER {
             $office = $office['office'];
 
             foreach ($office as $row) {
-                $office_title = prettify_office($row['position'], $row['dept']);
-
-                if ( $officeObject = $this->getOfficeObject($include_only, $priority_only, $office_title, $row) ) {
+                if ( $officeObject = $this->getOfficeObject($include_only, $ignore_committees, $row) ) {
                     $out[] = $officeObject;
                 }
             }
@@ -245,22 +236,19 @@ class Member extends \MEMBER {
 
     }
 
-    private function getOfficeObject($include_only, $priority_only, $office_title, $row) {
-        $officeObject = null;
-
-        if ( $this->includeOffice($include_only, $row['to_date']) ) {
-            if (($priority_only AND in_array($office_title, $this->priority_offices)) OR !$priority_only) {
-                $officeObject = new Office;
-
-                $officeObject->title = $office_title;
-
-                $officeObject->from_date = $row['from_date'];
-                $officeObject->to_date = $row['to_date'];
-
-                $officeObject->source = $row['source'];
-            }
+    private function getOfficeObject($include_only, $ignore_committees, $row) {
+        if (!$this->includeOffice($include_only, $row['to_date'])) {
+            return null;
+        }
+        if ($ignore_committees && strpos($row['moffice_id'], 'Committee')) {
+            return null;
         }
 
+        $officeObject = new Office;
+        $officeObject->title = prettify_office($row['position'], $row['dept']);
+        $officeObject->from_date = $row['from_date'];
+        $officeObject->to_date = $row['to_date'];
+        $officeObject->source = $row['source'];
         return $officeObject;
     }
 

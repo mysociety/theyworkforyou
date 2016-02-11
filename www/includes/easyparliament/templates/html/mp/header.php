@@ -12,10 +12,8 @@
                           <?php } ?>
                             <div class="mp-name-and-position">
                                 <h1><?= $full_name ?></h1>
-                              <?php if ($current_position) { ?>
-                                 <p><?= $current_position ?></p>
-                              <?php } else if ($former_position) { ?>
-                                 <p><?= $former_position ?></p>
+                              <?php if ($header_position) { ?>
+                                 <p><?= $header_position ?></p>
                               <?php } ?>
                             </div>
                         </div>

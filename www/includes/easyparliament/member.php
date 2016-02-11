@@ -361,7 +361,7 @@ class MEMBER {
         }
         $this->extra_info = array();
 
-        $q = $this->db->query('SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC',
+        $q = $this->db->query('SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC, moffice_id',
                               array(':person_id' => $this->person_id));
         for ($row=0; $row<$q->rows(); $row++) {
             $this->extra_info['office'][] = $q->row($row);

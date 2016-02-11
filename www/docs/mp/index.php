@@ -219,49 +219,39 @@ if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
     $title .= ' MSP, '.$MEMBER->constituency();
 }
 
+$positions = array();
+
 // Position if this is a member of the Commons
 if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-    if (!$MEMBER->current_member(1)) {
-        $position_former = 'Former MP';
-        if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
-    } else {
-        $position_current = 'MP';
-        if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
-    }
+    $position = $MEMBER->current_member(HOUSE_TYPE_COMMONS) ? 'MP' : 'Former MP';
+    if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
+    $positions[] = $position;
 }
 
 // Position if this is a member of NIA
 if ($MEMBER->house(HOUSE_TYPE_NI)) {
-    if (!$MEMBER->current_member(HOUSE_TYPE_NI)) {
-        $position_former = 'Former MLA';
-        if ($MEMBER->constituency()) $position_former .= ', ' . $MEMBER->constituency();
-    } else {
-        $position_current = 'MLA';
-        if ($MEMBER->constituency()) $position_current .= ', ' . $MEMBER->constituency();
-    }
+    $position = $MEMBER->current_member(HOUSE_TYPE_NI) ? 'MLA' : 'Former MLA';
+    if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
+    $positions[] = $position;
 }
 
 // Position if this is a member of Scottish Parliament
 if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
-    if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
-        $position_former = 'Former MSP';
-    } else {
-        $position_current = 'MSP, '.$MEMBER->constituency();
-    }
+    $position = $MEMBER->current_member(HOUSE_TYPE_SCOTLAND) ? 'MSP' : 'Former MSP';
+    $position .= ', ' . $MEMBER->constituency();
+    $positions[] = $position;
 }
+
+$position = implode('; ', $positions);
 
 $current_offices = $MEMBER->offices('current', TRUE);
 $former_offices = $MEMBER->offices('previous', TRUE);
 
-// If this person has current named *priority* offices, they override the defaults
-
-if (count($current_offices) > 0){
-    $position_current = implode('<br>', $current_offices);
-}
-
-// If this person has former named *priority* offices, they override the defaults
-if (count($former_offices) > 0){
-    $position_former = implode('<br>', $former_offices);
+// If this person has named non-committee offices, they override the default
+if (count($current_offices) > 0) {
+    $position = $current_offices[0];
+} elseif (count($former_offices) > 0) {
+    $position = $former_offices[0];
 }
 
 // Finally, if this is a Votes page, replace the page description with
@@ -285,17 +275,7 @@ $data['full_name'] = $MEMBER->full_name();
 $data['person_id'] = $MEMBER->person_id();
 $data['member_id'] = $MEMBER->member_id();
 
-if (isset($position_current)) {
-    $data['current_position'] = $position_current;
-} else {
-    $data['current_position'] = NULL;
-}
-
-if (isset($position_former)) {
-    $data['former_position'] = $position_former;
-} else {
-    $data['former_position'] = NULL;
-}
+$data['header_position'] = $position;
 
 $data['constituency'] = $MEMBER->constituency();
 $data['party'] = $MEMBER->party_text();

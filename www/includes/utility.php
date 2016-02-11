@@ -933,15 +933,19 @@ function prettify_office($pos, $dept) {
             => 'Minister for energy, Department of Trade and Industry',
         'Minister of State (Pensions), Department for Work and Pensions'
             => 'Minister for pensions, Department for Work and Pensions',
-        'Parliamentary Secretary to the Treasury, HM Treasury'
-            => 'Chief Whip (technically Parliamentary Secretary to the Treasury)',
-        "Treasurer of Her Majesty's Household, HM Household"
-            => "Deputy Chief Whip (technically Treasurer of Her Majesty's Household)",
-        'Comptroller, HM Household' => 'Government Whip (technically Comptroller, HM Household)',
-        'Vice Chamberlain, HM Household' => 'Government Whip (technically Vice Chamberlain, HM Household)',
-        'Lords Commissioner, HM Treasury' => 'Government Whip (technically a Lords Commissioner, HM Treasury)',
-        'Assistant Whip, HM Treasury' => 'Assistant Whip (funded by HM Treasury)',
-        'Lords in Waiting, HM Household' => 'Government Whip (technically a Lord in Waiting, HM Household)',
+        'Parliamentary Secretary to the Treasury, HM Treasury' => 'Chief Whip',
+        'The Parliamentary Secretary to the Treasury' => 'Chief Whip',
+        "Treasurer of Her Majesty's Household, HM Household" => "Deputy Chief Whip",
+        "The Treasurer of Her Majesty's Household, HM Household" => "Deputy Chief Whip",
+        'Comptroller, HM Household' => 'Government Whip',
+        'Vice Chamberlain, HM Household' => 'Government Whip',
+        "The Vice-Chamberlain of Her Majesty's Household" => 'Government Whip',
+        'Lords Commissioner, HM Treasury' => 'Government Whip',
+        "The Lord Commissioner of Her Majesty's Treasury" => 'Government Whip',
+        'Assistant Whip, HM Treasury' => 'Assistant Whip',
+        'Lords in Waiting, HM Household' => 'Government Whip',
+        'Lords in Waiting (HM Household)' => 'Government Whip',
+        'Baronesses in Waiting, HM Household' => 'Government Whip',
     );
     if ($pos) { # Government post, or Chairman of Select Committee
         $pretty = $pos;
