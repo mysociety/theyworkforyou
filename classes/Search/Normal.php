@@ -141,20 +141,31 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
 
     private function find_members() {
         $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
-        $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
-        if (!$q) return array();
+        if (!$searchstring) return array();
 
         $members = array();
-        if ($q->rows() > 0) {
-            $row_count = $q->rows();
-            for ($n=0; $n<$row_count; $n++) {
-                $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $q->field($n, 'person_id')));
-                // searchMemberDbLookup returns dups so we
-                // key by person_id to work round this
-                $members[$member->person_id] = $member;
-            }
+
+        $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
+        $row_count = $q->rows();
+        for ($n=0; $n<$row_count; $n++) {
+            $members[] = $q->field($n, 'person_id');
         }
 
+        $db = new \ParlDB;
+        $q = $db->query("SELECT person FROM moffice WHERE position LIKE :pos ORDER BY from_date DESC, moffice_id",
+            array('pos' => "%$searchstring%"));
+        $row_count = $q->rows();
+        for ($n=0; $n<$row_count; $n++) {
+            $members[] = $q->field($n, 'person');
+        }
+
+        // We might have duplicates, so get rid of them
+        $members = array_unique($members);
+
+        foreach ($members as $i => $pid) {
+            $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
+            $members[$i] = $member;
+        }
         return $members;
     }
 
