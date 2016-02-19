@@ -980,26 +980,11 @@ function person_numerology($member, $has_email_alerts) {
         }
     }
 
-    $wtt_displayed = display_writetothem_numbers(2008, $extra_info);
-    if ($wtt_displayed) {
-        $out[] = $wtt_displayed;
-    }
-    if (!$wtt_displayed) {
-        $wtt_displayed = display_writetothem_numbers(2007, $extra_info);
+    foreach ( array(2014, 2013, 2008, 2007, 2006, 2005) as $year ) {
+        $wtt_displayed = display_writetothem_numbers($year, $extra_info);
         if ($wtt_displayed) {
             $out[] = $wtt_displayed;
-        }
-        if (!$wtt_displayed) {
-            $wtt_displayed = display_writetothem_numbers(2006, $extra_info);
-            if ($wtt_displayed) {
-                $out[] = $wtt_displayed;
-            }
-            if (!$wtt_displayed) {
-                $wtt_displayed = display_writetothem_numbers(2005, $extra_info);
-                if ($wtt_displayed) {
-                    $out[] = $wtt_displayed;
-                }
-            }
+            break;
         }
     }
 
