@@ -353,10 +353,8 @@ you can find it.</p>
                 <div class="about-this-page">
                     <div class="about-this-page__one-of-one">
                         <div class="panel--secondary">
-                            <p>Please feel free to use the data on this page, but if
-                                you do you must cite TheyWorkForYou.com in the body
-                                of your articles as the source of any analysis or
-                                data you get off this site.</p>
+                            <p>Note for journalists and researchers: The data on this page may be used freely,
+                               on condition that TheyWorkForYou.com is cited as the source.</p>
 
                             <p>This data was produced by TheyWorkForYou from a variety
                                 of sources. Voting information from
