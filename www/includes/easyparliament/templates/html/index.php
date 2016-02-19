@@ -156,7 +156,9 @@
                             list($recess, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'), 1);
                             if ( $recess ) { ?>
                                 <p>
-                                Parliament is on <?= $recess ?>. It returns on <?= format_date($to, LONGERDATEFORMAT) ?>.
+                                Parliament is on holiday until <?= format_date($to, LONGERDATEFORMAT) ?>.
+                                Follow us on <a href="https://twitter.com/theyworkforyou">Twitter</a> and you'll
+                                be the first to know when they're back in session.
                                 </p>
                             <?php } else { ?>
                                 <p>
