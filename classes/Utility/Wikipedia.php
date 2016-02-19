@@ -115,7 +115,7 @@ class Wikipedia
                 )*+                  #     as a word on its own (ie. "<a " or "</a>")
                 </a>                 #   Match a "</a>"
             )                        # ie. match as long as we do not find a </a> and have not found a <a>
-            }x', "<a href=\"http://en.wikipedia.org/wiki/$wikistring\">\\1</a>", $source, 1);
+            }x', "<a href=\"https://en.wikipedia.org/wiki/$wikistring\">\\1</a>", $source, 1);
             array_push($matched, $phrase);
         }
 

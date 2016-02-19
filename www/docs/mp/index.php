@@ -1026,8 +1026,8 @@ function person_numerology($member, $has_email_alerts) {
         if (display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info)) {
             $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
         }
-        if (display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
-            $out[] = display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="http://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        if (display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="https://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
+            $out[] = display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="https://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
         }
     }
 

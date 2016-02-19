@@ -76,7 +76,7 @@ class GlossaryTest extends TWFY_Database_TestCase
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
 		
-        $this->assertEquals('<a href="http://en.wikipedia.org/wiki/MP">MP</a>', $glossary->glossarise('MP'));
+        $this->assertEquals('<a href="https://en.wikipedia.org/wiki/MP">MP</a>', $glossary->glossarise('MP'));
     }
 
     /**
@@ -109,6 +109,6 @@ class GlossaryTest extends TWFY_Database_TestCase
         $args['sort'] = "regexp_replace";
 		$glossary = new GLOSSARY($args);
 		
-        $this->assertEquals('foo <a href="http://en.wikipedia.org/wiki/MP">MP</a> bar', $glossary->glossarise('foo MP bar'));
+        $this->assertEquals('foo <a href="https://en.wikipedia.org/wiki/MP">MP</a> bar', $glossary->glossarise('foo MP bar'));
     }
 }
