@@ -733,15 +733,17 @@ function person_rebellion_rate ($member) {
         $displayed_stuff = 1;
         $rebels_term = 'rebelled';
 
-        $rebellion_string = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = 'has <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {
-                $rebellion_string .= ' in their last parliament';
+                $rebellion_string .= ' in their last parliament.';
             } else {
-                $rebellion_string .= ' in this parliament';
+                $rebellion_string .= ' in the current parliament.';
             }
         }
+
+        $rebellion_string .= ' <small><a title="What do the rebellion figures mean exactly?" href="http://www.publicwhip.org.uk/faq.php#clarify">Find out more</a>.</small>';
     }
 
     return $rebellion_string;
