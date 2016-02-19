@@ -324,6 +324,21 @@
 </ul>
 
                 </dd>
+
+                <dt id="rss">
+                    What is RSS?
+                </dt>
+
+                <dd>
+                    <p>RSS is a means of fetching frequently-changing content from the
+                       web. The resulting feed can be read via a 'feed reader', or used
+                       to provide content for other websites and applications.</p>
+
+                    <p>TheyWorkForYou provides a number of feeds. For example, there are
+                       feeds for all Commons, Lords and Westminster Hall debates. There
+                       are also feeds for each representative's speeches: some MPs use
+                       these to display their latest activity on their own websites.</p>
+                </dd>
             </dl>
 
             <h2 id="data">

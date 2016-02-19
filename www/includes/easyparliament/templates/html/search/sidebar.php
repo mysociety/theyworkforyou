@@ -10,7 +10,8 @@
                 </p>
                 <p class="sidebar-item-with-icon sidebar-item-with-icon--rss">
                     Or <a href="<?= $search_sidebar['rss'] ?>">get an RSS feed</a>
-                    of new matches as they happen
+                    of new matches as they happen.<br>
+                    <small><a href="/help/#rss">What is RSS?</a></small>
                 </p>
                 <?php } ?>
 
