@@ -7,13 +7,12 @@
             <p><?= $error ?></p>
 
         <?php if ( $rep_search_url ) { ?>
-            <p>Why not&hellip;</p>
-
         </div>
 
         <div class="full-page__unit">
             <div class="mp-postcode-search">
-            <h3>Search for your <?= $rep_name ?> by postcode</h3>
+            <h3>Enter your postcode to see who your <?= $rep_name ?> is, and
+            what they've been doing in <?= $rep_name == 'MLA' ? 'the Assembly' : 'Parliament' ?>:</h3>
 
             <form action="<?= $rep_search_url ?>" method="get">
 
