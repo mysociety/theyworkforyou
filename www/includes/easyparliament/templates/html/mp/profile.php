@@ -80,7 +80,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
 
-                    <?php if (count($sorted_diffs) > 0): ?>
+                    <?php if (count($sorted_diffs) > 0 && $party_member_count > 1): ?>
 
                         <p>
                         <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
@@ -102,12 +102,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
-                        <?php if (count($party_positions)) { ?>
+                        <?php if (count($party_positions) && $party_member_count > 1) { ?>
                         <p>
                         <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
                         </p>
                         <?php } ?>
-
 
                         <p>
                         This is a selection of <?= $full_name ?>&rsquo;s votes.

@@ -27,6 +27,28 @@ class Party {
         $this->db = new \ParlDB;
     }
 
+    public function getCurrentMemberCount($house) {
+        $member_count = $this->db->query(
+            "SELECT count(*) as num_members
+            FROM member
+            WHERE
+                party = :party
+                AND house = :house
+                AND entered_house <= :date
+                AND left_house >= :date",
+            array(
+                ':party' => $this->name,
+                ':house' => $house,
+                ':date' => date('Y-m-d'),
+            )
+        );
+        if ( $member_count->rows ) {
+            $num_members = $member_count->field(0, 'num_members');
+            return $num_members;
+        } else {
+            return 0;
+        }
+    }
 
     public function getAllPolicyPositions($policies) {
         $positions = $this->fetchPolicyPositionsByMethod($policies, "policy_position");

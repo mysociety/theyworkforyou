@@ -129,6 +129,18 @@
 			<field name="person_id">7</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
+		<row>
+			<field name="member_id">7</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">A Second Party</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">7</field>
+			<field name="lastupdate">2013-08-07 15:06:19</field>
+		</row>
 	</table_data>
 	<table_data name="person_names">
 		<row>
@@ -177,6 +189,14 @@
 			<field name="start_date">2000-01-01</field>
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">6</field>
+			<field name="title">Miss</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Second-Party-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">7</field>
 			<field name="title">Miss</field>
 		</row>
 	</table_data>
@@ -2435,6 +2455,21 @@
             <field name="data_key">public_whip_dreammp6704_has_strong_vote</field>
             <field name="data_value">1</field>
         </row>
+        <row>
+          <field name="person_id">7</field>
+          <field name="data_key">public_whip_dreammp363_distance</field>
+          <field name="data_value">0.77</field>
+        </row>
+        <row>
+          <field name="person_id">7</field>
+          <field name="data_key">public_whip_dreammp363_both_voted</field>
+          <field name="data_value">1</field>
+        </row>
+        <row>
+          <field name="person_id">7</field>
+          <field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+          <field name="data_value">1</field>
+        </row>
 	</table_data>
 	<table_data name="policies">
       <row>
@@ -2496,6 +2531,12 @@
   <table_data name="partypolicy">
       <row>
           <field name="party">A Party</field>
+          <field name="policy_id">363</field>
+          <field name="house">1</field>
+          <field name="score">0.9</field>
+      </row>
+      <row>
+          <field name="party">A Second Party</field>
           <field name="policy_id">363</field>
           <field name="house">1</field>
           <field name="score">0.9</field>

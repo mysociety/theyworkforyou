@@ -26,6 +26,11 @@ class PartyTest extends FetchPageTestCase
         $this->assertEquals( 'A Party', $party->name );
     }
 
+    public function testCountMembers() {
+        $party = new MySociety\TheyWorkForYou\Party('A Party');
+        $this->assertEquals( $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS), 2 );
+    }
+
     public function testGetPolicyPositions() {
         $positions = $this->getAllPositions('getAllPolicyPositions');
 
@@ -90,7 +95,7 @@ class PartyTest extends FetchPageTestCase
     public function testGetAllParties() {
         $parties = MySociety\TheyWorkForYou\Party::getParties();
 
-        $expected = array('A Party', 'Labour', 'Labour/Co-operative');
+        $expected = array('A Party', 'Labour', 'Labour/Co-operative', 'A Second Party');
 
         $this->assertEquals($expected, $parties);
     }
@@ -132,6 +137,13 @@ class PartyTest extends FetchPageTestCase
         $this->assertContains('Test Current-MP', $page);
         $this->assertContains('is a A Party MP', $page);
         $this->assertContains('sometimes <b>differs</b> from their party', $page);
+    }
+
+    public function testSingleMemberPartyPolicyText()
+    {
+        $page = $this->fetch_page( array( 'pid' => 7, 'url' => '/mp/7/test_second-party-mp/test_westminster_constituency' ) );
+        $this->assertContains('Test Second-Party-MP', $page);
+        $this->assertNotContains('is a A Second Party MP', $page);
     }
 
     public function testMPPartyPolicyWherePartyMissingPositions()

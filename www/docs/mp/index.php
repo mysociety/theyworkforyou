@@ -477,6 +477,9 @@ switch ($pagetype) {
         $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
 
         $data['sorted_diffs'] = $policy_diffs;
+        # house hard coded as this is only used for the party position
+        # comparison which is Commons only
+        $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
         $data['party_positions'] = $party_positions;
         $data['positions'] = $positions->positionsById;
         $data['policies'] = $policiesList->getPolicies();
