@@ -104,6 +104,16 @@
                     </p>
                 </dd>
 
+                <dt id="europe">
+                    Do you cover the European Parliament?
+                </dt>
+
+                <dd>
+                    <p>
+                        No, but <a href="http://votewatch.eu/">votewatch.eu</a> do, and they might have what you're looking for.
+                    </p>
+                </dd>
+
                 <dt id="found-error">
                     What should I do if I find an error on the site?
                 </dt>
