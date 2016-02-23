@@ -349,6 +349,15 @@
                        are also feeds for each representative's speeches: some MPs use
                        these to display their latest activity on their own websites.</p>
                 </dd>
+                <dt id="wikipedia">
+                    How do you decide which Wikipedia pages to link to?
+                </dt>
+
+                <dd>
+                    <p>TheyWorkForYou automatically scans the text of debates to find phrases of more than two consecutive words which are also the title of a Wikipedia page, and then links them to those pages. Where the topic could refer to one of multiple Wikipedia entries (e.g. 'Michael Jackson' could refer to the pop star or to the once U.S. Deputy Secretary of Homeland Security), we link to the top page in Wikipedia's disambiguation list.</p>
+
+                    <p>This generally provides a useful service whereby you can look up any unknown name or phrase easily. However, the automation of this process does sometimes mean that we link to an inappropriate Wikipedia page. If you find an example of this, please do <a href="mailto:support@theyworkforyou.com">let us know</a> and we will remove the link.</p>
+                </dd> 
             </dl>
 
             <h2 id="data">
