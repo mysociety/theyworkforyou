@@ -26,6 +26,25 @@
                     be later due to issues at our or parliament.uk&rsquo;s end.
                 </p>
 
+                <!-- Google Code for TWFY Alert Signup Conversion Page -->
+                <script type="text/javascript">
+                /* <![CDATA[ */
+                var google_conversion_id = 1067468161;
+                var google_conversion_language = "en";
+                var google_conversion_format = "3";
+                var google_conversion_color = "ffffff";
+                var google_conversion_label = "HEeDCOvPjmQQgYuB_QM";
+                var google_remarketing_only = false;
+                /* ]]> */
+                </script>
+                <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+                </script>
+                <noscript>
+                <div style="display:inline;">
+                <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/1067468161/?label=HEeDCOvPjmQQgYuB_QM&amp;guid=ON&amp;script=0"/>
+                </div>
+                </noscript>
+
               <?php } elseif ( $results == 'alert-suspended' ) { ?>
                 <h3>Alert suspended</h3>
                 <p>
