@@ -125,8 +125,8 @@
                     if ($currentDay == $toDay) {
                         print '<span>' . $currentDay . '</span></td>';
                     } else {
-                        $urls['day']->insert(array('d'=>$date));
-                        print "<a href=\"" . $urls['day']->generate() . "\">$currentDay</a></td>";
+                        $urls[$section . 'day']->insert(array('d'=>$date));
+                        print "<a href=\"" . $urls[$section . 'day']->generate() . "\">$currentDay</a></td>";
                     }
 
                     // $currentDay is not a member of $dates.
