@@ -161,6 +161,27 @@
                     </p>
                 </dd>
 
+                <dt id="votingrecord">
+                    How is the voting record decided?
+                </dt>
+                <dd>
+                    <p>The voting record is not affected by what MPs and Peers have said, only how they
+                    <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
+                    "no".  Votes on each topic were examined, and strength of support determined
+                    based on these votes.  Follow the "votes" link next to each topic for details.
+                    Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
+                    parties. Since the Whip is secret, we have to assume, <a
+                    href="http://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
+                    Speaker</a>, that all votes are free.  </P>
+
+                    <p>Details of the votes on which each policy position is based are available on
+                    the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
+                    <a href="http://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
+                    more about the process we follow when researching the policy positions on our
+                    blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
+                    which needs to be updated or corrected.</p>
+                </dd>
+
                 <dt id="new-feature">
                     I have an idea for a new feature &ndash; do you want to hear it?
                 </dt>
@@ -209,27 +230,6 @@
                         If that is the case then please do <a href="mailto:support@theyworkforyou.com">forward it to us</a> and
                         we will be happy to use it.
                     </p>
-                </dd>
-
-                <dt id="votingrecord">
-                    How is the voting record decided?
-                </dt>
-                <dd>
-                    <p>The voting record is not affected by what MPs and Peers have said, only how they
-                    <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
-                    "no".  Votes on each topic were examined, and strength of support determined
-                    based on these votes.  Follow the "votes" link next to each topic for details.
-                    Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
-                    parties. Since the Whip is secret, we have to assume, <a
-                    href="http://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
-                    Speaker</a>, that all votes are free.  </P>
-
-                    <p>Details of the votes on which each policy position is based are available on
-                    the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
-                    <a href="http://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
-                    more about the process we follow when researching the policy positions on our
-                    blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
-                    which needs to be updated or corrected.</p>
                 </dd>
 
                 <dt id="numbers">
