@@ -964,8 +964,8 @@ function person_numerology($member, $has_email_alerts) {
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'SF') {
-        if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info)) {
-            $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in <a href="' . $MOREURL->generate() . '">', 'debate', '</a> ' . $since_text, '', $extra_info);
+        if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info)) {
+            $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info);
         }
 
         $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>'section:wrans', 'pop'=>1));
