@@ -310,6 +310,21 @@
                         for alerts where <strong>both</strong> horse and pony are mentioned.
                     </p>
                 </div>
+
+                <div class="alert-page-search-tips">
+
+                    <h3>Step by step guides</h3>
+                    <p>
+                        The mySociety blog has a number of posts on signing up for
+                        and managing alerts:
+                    </p>
+
+                    <ul>
+                        <li><a href="https://www.mysociety.org/2014/07/23/want-to-know-what-your-mp-is-saying-subscribe-to-a-theyworkforyou-alert/">How to sign up for alerts on what your MP is saying</a>.</li>
+                        <li><a href="https://www.mysociety.org/2014/09/01/well-send-you-an-email-every-time-your-chosen-word-is-mentioned-in-parliament/">How to sign up for alerts when your chosen word is mentioned</a>.</li>
+                        <li><a href="https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/">Managing email alerts</a>, including how to stop or suspend them.</li>
+                    <ul>
+                </div>
               <?php } ?>
             </div>
 

@@ -100,7 +100,9 @@
 
                     <p>
                     It&rsquo;s all searchable, and when you find part of a debate that interests you, you can share it, because each
-                    statement in every debate has its own URL (web address).
+                    statement in every debate has its own URL (web address). For more information have a look at our blog post on
+                    <a href="https://www.mysociety.org/2014/08/18/using-theyworkforyou-as-a-history-resource/">using TheyWorkForYou as
+                    a history resource</a>.
                     </p>
                 </dd>
 
@@ -491,7 +493,9 @@
                 <dd>
                     At the foot of every alert email, you will see a link. Click on this &ndash; no password
                     required &ndash; and to the right of the page, you will see a list of every alert you are
-                    subscribed to. For each one, you can pause the alert, or delete it altogether.
+                    subscribed to. For each one, you can pause the alert, or delete it altogether. For more
+                    information see our blog post on <a href="https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/">
+                    managing your email alerts</a>.
                 </dd>
 
                 <dt id="problem-change">
