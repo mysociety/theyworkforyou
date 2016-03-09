@@ -443,7 +443,7 @@ class ALERT {
     public function criteria() { return $this->criteria; }
     public function criteria_pretty($html = false) {
         $criteria = explode(' ',$this->criteria);
-        $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
+        $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($this->criteria));
         $words = array();
         foreach ($criteria as $c) {
             if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
@@ -451,8 +451,8 @@ class ALERT {
             }
         }
         $criteria = '';
-        if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . join(' ', $words) . ']' . ($html?'</li>':'') . "\n";
-        if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Things by $spokenby" . ($html?'</li>':'') . "\n";
+        if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . implode(' ', $words) . ']' . ($html?'</li>':'') . "\n";
+        if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Things by " . implode(' or ', $spokenby) . ($html?'</li>':'') . "\n";
         return $criteria;
     }
 
