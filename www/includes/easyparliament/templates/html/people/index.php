@@ -1,3 +1,18 @@
+<?php
+
+$dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
+if (!count($data)) {
+    if ($type == 'mps' && isset($dissolution[1])) {
+        $former = 'former';
+    } elseif ($type == 'msps' && isset($dissolution[4])) {
+        $former = 'former';
+    } elseif ($type == 'mlas' && isset($dissolution[3])) {
+        $former = 'former';
+    }
+}
+
+?>
+
 <div class="full-page">
     <div class="full-page__row search-page people-list-page">
 
@@ -27,7 +42,7 @@
                         if ( isset($mp_data) && $type != 'mlas' ) { ?>
                     <div class="people-list__your-mp__replist-header">
                         <?php } ?>
-                      <h3>Your <?= $rep_plural == 'MSPs' ? 'regional ' : '' ?><?= $rep_plural ?> are</h3>
+                      <h3>Your <?=$former ?> <?= $rep_plural == 'MSPs' ? 'regional ' : '' ?><?= $rep_plural ?> are</h3>
                     </div>
                         <?php foreach ( $reps as $rep ) { ?>
                     <a href="<?= $rep['mp_url'] ?>" class="people-list__person">
@@ -65,19 +80,28 @@
       <?php } ?>
 
         <div class="search-page__section search-page__section--results">
-        <?php if ($type == 'mps' && !count($data) && DISSOLUTION_DATE) {
-            # No MPs. Election period!
+        <?php
+        if ($former) {
+            if ($type == 'mps') {
+            # No reps. Election period!
         ?>
             <div class="search-page__section__primary">
                 During the period from the dissolution of Parliament to the general election, there are no Members of Parliament.
-                <a href="/mps/?date=<?=DISSOLUTION_DATE ?>">View list of MPs as it was when Parliament was dissolved</a>
+                <a href="/mps/?date=<?=$dissolution[1] ?>">View list of MPs as it was when Parliament was dissolved</a>
             </div>
-        <?php } elseif ($type == 'msps' && !count($data) && DISSOLUTION_DATE) { ?>
+        <?php } elseif ($type == 'msps') { ?>
             <div class="search-page__section__primary">
-                During the period from the dissolution of Scottish Parliament to the election, there are no Members of the Scottish Parliament.
-                <a href="/msps/?date=<?=DISSOLUTION_DATE ?>">View list of MSPs as it was when the Scottish Parliament was dissolved</a>
+                During the period from the dissolution of the Scottish Parliament to the election, there are no Members of the Scottish Parliament.
+                <a href="/msps/?date=<?=$dissolution[4] ?>">View list of MSPs as it was when the Scottish Parliament was dissolved</a>
             </div>
-        <?php } else { ?>
+        <?php } elseif ($type == 'mlas') { ?>
+            <div class="search-page__section__primary">
+                During the period from the dissolution of the Northern Ireland Assembly to the election, there are no Members of the Northern Ireland Assembly.
+                <a href="/mlas/?date=<?=$dissolution[3] ?>">View list of MLAs as it was when the Northern Ireland Assembly was dissolved</a>
+            </div>
+        <?php
+            }
+        } else { ?>
 
             <div class="search-page__section__primary">
             <h2>All <?= $rep_plural ?></h2>

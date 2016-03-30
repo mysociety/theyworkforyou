@@ -424,10 +424,6 @@ class Member extends \MEMBER {
     public static function getRegionalList($postcode, $house, $type) {
         $db = new \ParlDB;
 
-        $dissolution_dates = array(
-            3 => '2011-03-24',
-            4 => '2011-03-23'
-        );
         $mreg = array();
         $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
         if ( isset($constituencies[$type]) ) {
@@ -447,13 +443,12 @@ class Member extends \MEMBER {
                     ':cons_name' => $cons_name
                 )
             );
-            if ( !$q->rows() ) {
-                $q = $db->query("$query_base AND left_house = :dissolution_date",
+            if ( !$q->rows() && ($dissolution = Dissolution::db()) ) {
+                $q = $db->query("$query_base AND $dissolution[query]",
                     array(
                         ':house' => $house,
                         ':cons_name' => $cons_name,
-                        ':dissolution_date' => $dissolution_dates[$house]
-                    )
+                    ) + $dissolution['params']
                 );
             }
 

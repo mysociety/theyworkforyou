@@ -38,7 +38,8 @@ function _api_getPerson_row($row, $has_party=FALSE) {
         $row['image_width'] = $width;
     }
 
-    if ($row['house'] == 1 && ($row['left_house'] == '9999-12-31' || (DISSOLUTION_DATE && $row['left_house'] == DISSOLUTION_DATE))) {
+    $dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
+    if ($row['house'] == 1 && ($row['left_house'] == '9999-12-31' || (isset($dissolution[1]) && $row['left_house'] == $dissolution[1]))) {
         # Ministerialships and Select Committees
         $db = new ParlDB;
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
