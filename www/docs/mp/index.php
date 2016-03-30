@@ -1161,10 +1161,10 @@ function regional_list($pc, $area_type, $rep_type) {
             AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_names.person_id = member.person_id)";
     $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
     $current = true;
-    if (!$q->rows()) {
-        # XXX No results implies dissolution, fix for 2011.
+    if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
-        $q = $db->query($query_base . " AND ( (house=" . HOUSE_TYPE_NI . " AND left_house='2011-03-24') OR (house=" . HOUSE_TYPE_SCOTLAND . " AND left_house='2011-03-23') )");
+        $q = $db->query($query_base . " AND $dissolution[query]",
+            $dissolution['params']);
     }
     $mcon = array(); $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {

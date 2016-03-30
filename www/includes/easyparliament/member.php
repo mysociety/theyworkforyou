@@ -220,8 +220,9 @@ class MEMBER {
         $params = array();
 
         $left = "left_reason = 'still_in_office'";
-        if (DISSOLUTION_DATE) {
-            $left = "($left OR left_house = '" . DISSOLUTION_DATE . "')";
+        if ($dissolution = MySociety\TheyWorkForYou\Dissolution::db()) {
+            $left = "($left OR $dissolution[query])";
+            $params = $dissolution['params'];
         }
         $query = "SELECT person_id FROM member
                 WHERE constituency = :constituency
