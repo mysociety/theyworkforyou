@@ -14,7 +14,7 @@
 
                 <p>
                 There are at least 16 MPs on a Committee, and the proportion
-                of itemies reflects the House of Commons, so the government
+                of parties reflects the House of Commons, so the government
                 always has a majority.
                 </p>
             </div>
