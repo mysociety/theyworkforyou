@@ -240,10 +240,10 @@ class Header
         // we're within that section.
         $nav_items = array (
             array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
-            array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home'),
+            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary', 'contact'),
+            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront', 'contact'),
+            array('ni_home', 'nioverview', 'mlas', 'contact'),
+            array('wales_home', 'contact'),
         );
 
         $this->data['assembly_nav_links'] = array();

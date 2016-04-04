@@ -305,6 +305,10 @@ $this->page = array (
     ),
 
     'contact' => array (
+        'menu'			=> array (
+            'text'			=> 'Contact',
+            'title'			=> '',
+        ),
         'title'			=> 'Contact',
         'url'			=> 'contact/'
     ),

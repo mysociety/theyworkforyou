@@ -129,6 +129,7 @@ $site-header-height: 48px;
     &:before {
         content: "";
         display: block;
+        font-size: 18px;
         border: 0.4em solid transparent;
         border-top-color: $colour_mid_grey;
         float: right;
@@ -184,6 +185,7 @@ $site-header-height: 48px;
         display: table-cell;
         vertical-align: top;
         width: 100%; // occupy as much space as is left over after the logo
+        font-size: 16px; // slightly narrower text, now it's all lined up horizontally
 
         // Yes, even if the nav was hidden by javascript
         // in mobile mode, we want to show it again now.
