@@ -15,6 +15,12 @@ function api_getMLA_front() {
 <dd>The name of a constituency.</dd>
 <dt>id (optional)</dt>
 <dd>If you know the person ID for the member you want (returned from getMLAs or elsewhere), this will return data for that person.</dd>
+
+<dt>always_return (optional)</dt>
+<dd>For the postcode and constituency options, sets whether to always try and
+return an MLA (due to e.g. the period before an election when there are no
+MLAs).</dd>
+
 </dl>
 
 <h4>Example Response</h4>

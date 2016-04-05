@@ -77,7 +77,7 @@ function api_getPerson_id($id, $house='') {
     }
 }
 
-function _api_getPerson_output($q) {
+function _api_getPerson_output($q, $flatten=false) {
     $output = array();
     $last_mod = 0;
     for ($i=0; $i<$q->rows(); $i++) {
@@ -88,18 +88,15 @@ function _api_getPerson_output($q) {
         if ($time > $last_mod)
             $last_mod = $time;
     }
+    # Only one MP, not an array
+    if ($flatten && count($output) == 1 && $house == HOUSE_TYPE_COMMONS) {
+        $output = $output[0];
+    }
     api_output($output, $last_mod);
 }
 
 function api_getPerson_constituency($constituency, $house) {
-    if ($house == HOUSE_TYPE_COMMONS) {
-        $output = _api_getMP_constituency($constituency);
-    } else {
-        $output = _api_getPerson_constituency(array($constituency), $house);
-    }
-    if (!$output) {
-        api_error('Unknown constituency, or no results for that constituency');
-    }
+    _api_getPerson_constituency(array($constituency), $house);
 }
 
 function api_getPerson_postcode($pc, $house) {
@@ -120,7 +117,7 @@ function api_getPerson_postcode($pc, $house) {
         } elseif ($types && isset($constituencies['WMC'])) {
             api_error('Postcode not in correct region');
         } elseif (isset($constituencies['WMC'])) {
-            _api_getMP_constituency($constituencies['WMC']);
+            _api_getPerson_constituency(array($constituencies['WMC']), $house);
         } else {
             api_error('Unknown postcode');
         }
@@ -133,12 +130,19 @@ function api_getPerson_postcode($pc, $house) {
 # Should all be abstracted properly :-/
 function _api_getPerson_constituency($constituencies, $house) {
     $db = new ParlDB;
+    $dissolution = MySociety\TheyWorkForYou\Dissolution::db();
 
     $cons = array();
     foreach ($constituencies as $constituency) {
         if ($constituency == '') continue;
         if ($constituency == 'Orkney ')
             $constituency = 'Orkney & Shetland';
+
+        if ($house == HOUSE_TYPE_COMMONS) {
+            $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
+            if ($normalised) $constituency = $normalised;
+        }
+
         $cons[] = $constituency;
     }
 
@@ -149,16 +153,21 @@ function _api_getPerson_constituency($constituencies, $house) {
         $params[':constituency' . $key] = $constituency;
     }
 
-    $q = $db->query("SELECT member.*, p.title, p.given_name, p.family_name, p.lordofname
+    $query_base = "SELECT member.*, p.title, p.given_name, p.family_name, p.lordofname
         FROM member, person_names p
         WHERE constituency in (" . join(",", $cons_params) . ")
             AND member.person_id = p.person_id AND p.type = 'name'
             AND p.start_date <= left_house AND left_house <= p.end_date
-        AND left_reason = 'still_in_office' AND house=:house", $params);
-    if ($q->rows > 0) {
-        _api_getPerson_output($q);
-        return true;
+        AND house = :house";
+
+    $q = $db->query("$query_base AND left_reason = 'still_in_office'", $params);
+    if ($q->rows == 0 && get_http_var('always_return') && $dissolution) {
+        $q = $db->query("$query_base AND $dissolution[query]", $params + $dissolution['params']);
     }
 
-    return false;
+    if ($q->rows > 0) {
+        _api_getPerson_output($q, true);
+    } else {
+        api_error('Unknown constituency, or no results for that constituency');
+    }
 }

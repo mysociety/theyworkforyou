@@ -58,7 +58,7 @@ $methods = array(
         'help' => 'Returns list of Lords',
     ),
     'getMLA' => array(
-        'parameters' => array('id', 'constituency', 'postcode'),
+        'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
         'required' => true,
         'help' => 'Returns details for an MLA'
     ),
@@ -68,7 +68,7 @@ $methods = array(
         'help' => 'Returns list of MLAs',
     ),
     'getMSP' => array(
-        'parameters' => array('id', 'constituency', 'postcode'),
+        'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
         'required' => true,
         'help' => 'Returns details for an MSP'
     ),
