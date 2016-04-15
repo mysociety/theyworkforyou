@@ -1,80 +1,71 @@
-<div class="full-page static-page">
+<div class="full-page static-page about-page">
     <div class="full-page__row">
         <div class="panel">
-            <h1>About TheyWorkForYou</h1>
+            <h1>TheyWorkForYou makes Parliament easier to understand</h1>
 
-            <p>For all its faults and foibles, our democracy is a profound gift from previous generations.
-            Yet most people don't know the name of their MP, nor their constituency, let alone what their
-            MP does or says in their name.</p>
+            <p>Most people don&rsquo;t know the name of their MP, let alone
+            what they&rsquo;ve been saying in Parliament, or how they&rsquo;ve
+            voted.</p>
 
-            <p>We aim to help bridge this growing democratic disconnect, in the belief that there is
-            little wrong with Parliament that a healthy mixture of transparency and public engagement won't fix.</p>
+            <p>TheyWorkForYou aims to get that changed.</p>
 
-            <p>Hence this website.</p>
+            <hr>
+
+            <h2>Why bother? It&rsquo;s just a load of boring old politicians</h2>
+
+            <p>We know that Parliament can be dry, fusty, and even
+            intimidating. And there&rsquo;s the problem: keeping up just
+            involves too much effort.</p>
+
+            <p>Once you get past those barriers, though, you&rsquo;ll find
+            information that can entertain you, educate you and&mdash;no
+            exaggeration&mdash;give you the power to get things changed.
+            We think that should be available to everyone.</p>
+
+            <h2>That&rsquo;s where TheyWorkForYou comes in</h2>
+
+            <p>TheyWorkForYou launched in 2004, taking data and information
+            from official parliamentary sources and adding features that make
+            them easier to understand, like:</p>
+
+            <ul class="about-page__features">
+                <li>A search box, so you can find mentions of any topic, in debates as recent as yesterday or as far back as the 1930s.</li>
+                <li>Not just the name, but the party, photo and position of each person who speaks, right next to their contribution to any debate.</li>
+                <li>A unique link for every statement, so you can share precisely what someone said, by email, Twitter or Facebook.</li>
+                <li>An alert sign-up, so you don&rsquo;t have to come to the site to see what your MP is saying: it&rsquo;ll drop straight into your email inbox instead.</li>
+            </ul>
+
+            <p>And that&rsquo;s, basically, what we&rsquo;re all about: making it so easy to follow Parliament, that you, and everyone else, will know exactly what&rsquo;s going on.</p>
+
+          </div>
+
+          <div class="panel about-page__mysociety">
 
             <h2>Who runs this site?</h2>
 
-            <p>TheyWorkForYou is a website run by <a href="http://www.mysociety.org/">mySociety</a>,
-            which is itself a project of UK Citizens Online Democracy, a registered charity.
-            It was originally built almost entirely by volunteers (see <a href="#history">History</a> below),
-            but now mySociety pays Matthew to keep the site running and up-to-date as part of his
-            wider work for mySociety. However, things are still added voluntarily by anyone who wishes. If you want to volunteer to help then you can, just <a href="https://www.mysociety.org/about/get-involved/">take a look at the Volunteering page</a>.
-            </p>
+            <p>TheyWorkForYou is run by <a href="https://www.mysociety.org/">mySociety</a>, a UK charity. We build web tools that make democracy a little more accessible. mySociety is not politically-aligned, and its projects are for everyone to use.</p>
 
-            <p>The copyright of Hansard remains under
-            <a href="http://www.opsi.gov.uk/advice/parliamentary-copyright/">Parliamentary Copyright</a>,
-            used under licence.
+            <p class="about-page__donate">We are funded, in part, by donations from people like you. <a href="https://www.mysociety.org/donate/">Here&rsquo;s how to help support our projects.</a></p>
 
-            <p>If you're technically minded, we make all the
-            <a href="http://github.com/mysociety/theyworkforyou">TheyWorkForYou source code</a>
-            freely available. Do <a href="https://www.mysociety.org/about/get-involved/">let us know if you want to help</a>!
-            </p>
+            <p>Still got questions? <a href="/help">Check our FAQs.</a></p>
 
+            <hr>
 
-            <h2><a name="history"></a>History</h2>
+            <h2>I want a site like this for my country</h2>
 
-            <p>TheyWorkForYou was set up almost entirely <a href="#1">[1]</a> by a dozen or so volunteers
-            who thought it should be really easy for people to keep tabs on their elected MPs,
-            and their unelected Peers, and comment on what goes on in Parliament. They'd done this
-            sort of thing before, but never on this scale.</p>
+            <p>Excellent! Then you&rsquo;ll be glad to know that mySociety works with organisations and people all over the world to help them re-use our code and set up websites like ours.</p>
 
-            <p>(<a name="1">[1]</a> One of the key developers was kept fed for a month by a small grant
-            from UK Citizen's Online Democracy, before TheyWorkForYou became a mySociety project. This
-            money was vital. Hungry developers don't write good code. If you like
-            TheyWorkForYou, and want to support mySociety, you can <a
-            href="https://secure.mysociety.org/donate/">make a donation</a> yourself.)</p>
+            <p>Our Pombola codebase was created to make it easier to build sites that monitor parliaments &ndash; anywhere. <a href="https://www.mysociety.org/democracy/">Find out more here.</a></p>
 
-            <p>Between them, the original volunteers had developed and run a range of not-for-profit websites of a vaguely similar ilk.
-            <a href="http://www.publicwhip.org.uk/">PublicWhip.org.uk</a>,
-            <a href="http://www.pepysdiary.com/">PepysDiary.com</a>,
-            <a href="http://www.haddock.org/">Haddock.org</a>,
-            <a href="http://www.byliner.com/">Byliner.com</a>,
-            <a href="http://www.b3ta.com/">B3Ta</a>,
-            <a href="http://www.downingstreetsays.com/">DowningStreetSays.com</a>,
-            <a href="http://www.mysociety.org/">MySociety</a>,  and an accessible re-versioning of the
-            <a href="http://www.traintimes.org.uk/">National Rail Timetable</a> website.
-            They conceived and developed the original <a href="http://www.upmystreet.com/">UpMyStreet.com</a>
-            back in <a href="http://web.archive.org/web/19981202165125/http://www.upmystreet.com/">1998</a>.
-            </p>
+          </div>
 
-            <p>In early 2006 Tom and Stef decided that the overlap of people and goals with mySociety
-            was so substantial that it was best to pass the running over to mySociety, who are an actual
-            proper organisation with staff and time.</p>
+          <div class="panel">
 
-            <p>Matthew added the Northern Ireland Assembly as an early Christmas present in 2006, working
-            alone and voluntarily, perhaps as a nudge to the Scots and the Welsh to come forward and
-            work on their own versions. :)</p>
+            <h2>Credits</h2>
 
-            <p>This approach met with success as ace volunteer <a href="http://longair.net/mark/">Mark
-            Longair</a> contributed the parsing code and much front-end code for the Scottish Parliament
-            which launched in May 2008. Wales is now all alone&hellip;</p>
+            <p>Many thanks to mySociety team members and volunteers alike, past and present, for their work on TheyWorkForYou. Including:</p>
 
-            <h2>Volunteers</h2>
-
-            <p><em>They did all this in their spare time, because they thought it was worth doing.
-            And if it's worth doing, you might as well try to do it well. </em></p>
-
-            <ul>
+            <ul class="about-page__volunteers">
             <li>Richard Allan</li>
             <li>Martin Belam</li>
             <li>James Crabtree</li>
@@ -98,22 +89,17 @@
             <li>Denise Wilton</li>
             </ul>
 
-            <p>Since the site launched, a variety of people have contributed to the running
-            of the site, both paid and voluntarily. Mark Longair added the Scottish
-            Parliament, and Matthew Somerville added the Northern Ireland Assembly. Etienne
-            Pollard did much of the work to get BBC Parliament video downloaded and
-            chunked. Richard Pope made the current design, and Joe Lanman contributed the
-            red Parliament logo. Deborah Kerr uploads photos of 19th century MPs as people
-            send them in, along with other user support. Louise Crow, Francis Irving,
-            Duncan Parkes, and others have fixed bugs, get the parser running, and so
-            on.</p>
+            <h3>Image credits:</h3>
 
-            <h2>Credits</h2>
             <ul>
-                <li>Scottish Parliament photo courtesy of Mark Longair <small><a href="https://www.flickr.com/photos/mhl20/3925817094/">https://www.flickr.com/photos/mhl20/3925817094/</a></small></li>
-                <li>Commons debate photo courtesy of UK Parliament <small><a href="https://www.flickr.com/photos/uk_parliament/8737181202/">https://www.flickr.com/photos/uk_parliament/8737181202/</a></small></li>
-                <li>Lords debate photo courtesy of UK House of Lords <small><a href="https://www.flickr.com/photos/ukhouseoflords/8643003436">https://www.flickr.com/photos/ukhouseoflords/8643003436/</a></small></li>
+              <li><a href="https://www.flickr.com/photos/mhl20/3925817094/">Scottish Parliament photo</a> courtesy of Mark Longair</li>
+              <li><a href="https://www.flickr.com/photos/uk_parliament/8737181202/">Commons debate photo</a> courtesy of UK Parliament</li>
+              <li><a href="https://www.flickr.com/photos/ukhouseoflords/8643003436/">Lords debate photo</a> courtesy of UK House of Lords</li>
+              <li>Parliamentary copyright images (eg: photographs of MPs) are reproduced with the permission of Parliament.</li>
             </ul>
+
+            <p>The copyright of Hansard remains under <a href="http://www.opsi.gov.uk/advice/parliamentary-copyright/">Parliamentary Copyright</a>, used under licence.</p>
+
         </div>
     </div>
 </div>
