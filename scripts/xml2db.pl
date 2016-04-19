@@ -1378,16 +1378,22 @@ sub add_scotwrans_day {
 # Standing/Public Bill Committees
 
 sub add_bill {
-    my ($bill, $url) = @_;
+    my ($bill, $elt) = @_;
+
     my $lords = $bill =~ s/\s*\[Lords\]//;
-    my $session;
-    if ($url =~ /(\d\d\d\d)-?(\d\d)/) {
+    my $url = $elt->att('url') || '';
+    my $session = $elt->att('session') || '';
+
+    if (!$session && $url =~ /(\d\d\d\d)-?(\d\d)/) {
         $session = "$1-$2";
-    } else {
+    } elsif (!$session) {
         die "Couldn't get session out of $url, $bill, $date";
     }
+
     # Get bill ID
-    my $bill_id = $dbh->selectrow_array('select id from bills where url=?', {}, $url);
+    my $bill_id;
+    $bill_id = $dbh->selectrow_array('select id from bills where url=?', {}, $url)
+        if $url;
     if (!$bill_id) {
         $bill_id = $dbh->selectrow_array('select id from bills where title=? and session=?', {}, $bill, $session);
     }
@@ -1417,8 +1423,7 @@ sub add_standing_day {
     my $twig = XML::Twig->new(twig_handlers => { 
         'bill' => sub {
             $bill = strip_string($_->att('title'));
-            my $url = $_->att('url');
-            $bill_id = add_bill($bill, $url);
+            $bill_id = add_bill($bill, $_);
             $majorheadingstate = 1; # Got a <bill>
         },
         'committee' => sub {
@@ -1459,8 +1464,7 @@ sub add_standing_day {
                 $majorheadingstate = 2;
             } elsif ($majorheadingstate==2) {
                 $bill = strip_string($_->sprint(1));
-                my $url = $_->att('url');
-                $bill_id = add_bill($bill, $url);
+                $bill_id = add_bill($bill, $_);
                 add_standing_title($_, $bill, $bill_id, @preheadingspeech);
                 $majorheadingstate = 9;
             } elsif ($majorheadingstate==0 || $majorheadingstate==1) {
