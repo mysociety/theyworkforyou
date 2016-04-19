@@ -203,7 +203,8 @@ sub process_type {
         my $xwanted = sub {
             return unless /^$xname(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/
                 || /^(\d{4}-\d\d-\d\d)_(\d+)\.xml$/
-                || /^$xname\d{4}-\d\d-\d\d_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/;
+                || /^$xname\d{4}-\d\d-\d\d_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/
+                || /^$xname\d+_[^_]*_[^_]*_(\d{4}-\d\d-\d\d)([a-z]*)\.xml$/;
             my $xfile = $_;
             my @stat = stat($xdir . $xfile);
             my $use = ($stat[9] >= $xsince);
