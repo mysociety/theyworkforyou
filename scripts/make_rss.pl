@@ -171,7 +171,7 @@ sub pbc_rss {
     foreach (@$query) {
         my ($gid, $minor, $hdate) = @$_;
         my ($title, $session) = $dbh->selectrow_array('select title, session from bills where id=?', {}, $minor);
-        $gid =~ /standing\d\d\d\d-\d\d-\d\d_.*?_(\d\d)-\d_\d\d\d\d-\d\d-\d\d/;
+        $gid =~ /standing(?:\d\d\d\d-\d\d-\d\d|\d+)_.*?_(\d\d)-\d_\d\d\d\d-\d\d-\d\d/;
         my $sitting = ordinal($1+0);
         my $u_title = uri_escape($title);
         $u_title =~ s/%20/+/g;
