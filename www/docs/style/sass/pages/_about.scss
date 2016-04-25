@@ -1,0 +1,63 @@
+.about-page {
+    hr {
+        max-width: none !important;
+        margin: 3em 0;
+    }
+
+    h2 {
+        max-width: none !important;
+    }
+}
+
+.about-page__features {
+    @include clearfix();
+    list-style: none;
+    margin: 0;
+
+    @media (min-width: 45em) {
+        margin-top: 2em 0 1em 0;
+    }
+
+    li {
+        padding: 1em 1.5em;
+        border-left: 0.4em solid $primary-color;
+        background-color: $body-bg;
+        margin: 0 0 1em 0;
+
+        @media (min-width: 45em) {
+            float: left;
+            width: 47%;
+            margin-right: 3%;
+        }
+    }
+}
+
+.about-page__mysociety {
+    background: #fff url(../img/about-team-patchwork.jpg) 0 0 no-repeat;
+    background-size: 100%;
+    padding-top: 24%;
+}
+
+.about-page__donate {
+    display: inline-block;
+    max-width: none !important;
+    background-color: #ffffcc;
+    padding: 1em 1.5em;
+    border-left: 0.4em solid $primary-color;
+}
+
+.about-page__volunteers {
+    @include clearfix();
+
+    li {
+        @media (min-width: 30em) {
+            float: left;
+            width: 50%;
+            padding-right: 2em; // make room for the bullet on the next item
+        }
+
+        @media (min-width: 45em) {
+            width: 33%;
+        }
+    }
+}
