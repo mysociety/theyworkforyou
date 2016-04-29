@@ -1,150 +1,83 @@
-                <div id="footer">
-                    <div class="full-page__row">
-                        <div id="footer-about">
-                            <p>
-                                TheyWorkForYou lets you find out what your MP, MSP or MLA is doing in your name, read debates, written answers, see what&rsquo;s coming up in Parliament, and sign up for email alerts when there&rsquo;s past or future activity on someone or something you&rsquo;re interested in.
-                            </p>
+<div id="footer" class="mysoc-footer" role="contentinfo">
+    <div class="row">
 
-                              <p>
-                                  This website is run by <a href="http://www.mysociety.org/">mySociety</a>, the project of
-                                  a <a href="http://www.ukcod.org.uk/">registered charity</a>.
-                          If you find it useful, please <a href="http://www.mysociety.org/donate/">donate</a> to keep it running.
-                              </p>
-                        </div>
-                      <div id="footer-links">
-                        <div id="stay-up-to-date" class="row">
-                          <div class="large-12 columns">
-                                <h5>
-                                    STAY UP TO DATE
-                                </h5>
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="footer-follow__column columns">
-                                <form method="post" class="footer-follow__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
-                                    <p>Insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
-                                    <div class="row collapse">
-                                        <div class="small-8 columns">
-                                            <input type="email" placeholder="Your email address" name="EMAIL"/>
-                                        </div>
-                                        <div class="small-4 columns">
-                                            <label style="position: absolute; left: -5000px;">
-                                              Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
-                                            </label>
-                                            <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="footer-follow__column">
-                            <p>
-                            Follow us
-                            </p>
-                          <div class="fb-like" data-href="https://www.facebook.com/TheyWorkForYou" data-colorscheme="light" data-layout="button_count" data-action="like" data-show-faces="false" data-send="false"></div>
-
-                          <a href="https://twitter.com/theyworkforyou" class="twitter-follow-button" data-show-count="false">Follow @theyworkforyou</a>
-                            <script>
-
-                                window.twttr = (function (d,s,id) {
-                                    var t, js, fjs = d.getElementsByTagName(s)[0];
-                                    if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-                                    js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-
-                                    return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
-                                }(document, "script", "twitter-wjs"));
-
-                                // Used with the Google Analytics Tweet tracking
-                                function extractParamFromUri(uri, paramName) {
-                                    if (!uri) {
-                                        return;
-                                    }
-                                    var uri = uri.split('#')[0];  // Remove anchor.
-                                    var parts = uri.split('?');  // Check for query params.
-                                    if (parts.length == 1) {
-                                        return;
-                                    }
-                                    var query = decodeURI(parts[1]);
-
-                                    // Find url param.
-                                    paramName += '=';
-                                    var params = query.split('&');
-                                    for (var i = 0, param; param = params[i]; ++i) {
-                                        if (param.indexOf(paramName) === 0) {
-                                            return unescape(param.split('=')[1]);
-                                        }
-                                    }
-                                }
-
-                                function trackTwitter(intent_event) {
-                                    if (intent_event) {
-                                        var opt_pagePath;
-                                        if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
-                                            opt_target = extractParamFromUri(intent_event.target.src, 'url');
-                                        }
-                                        ga('send', 'social', 'twitter', 'follow', opt_pagePath);
-                                    }
-                                }
-
-                                twttr.ready(function (twttr) {
-                                    twttr.events.bind('follow', trackTwitter);
-                                });
-
-                            </script>
-                            </div>
-                        </div>
-                        <div id="footer-nav" class="row">
-                            <div class="footer-link__column">
-                                <dl>
-                                    <dt>ABOUT</dt>
-                                    <dd>
-                                        <ul>
-                                            <?php foreach ($footer_links['about'] as $footer_link): ?>
-                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="footer-link__column">
-                                <dl>
-                                    <dt>PARLIAMENTS &amp; ASSEMBLIES</dt>
-                                    <dd>
-                                        <ul>
-                                            <?php foreach ($footer_links['assemblies'] as $footer_link): ?>
-                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="footer-link__column">
-                                <dl>
-                                    <dt>DEVELOPERS</dt>
-                                    <dd>
-                                        <ul>
-                                            <?php foreach ($footer_links['tech'] as $footer_link): ?>
-                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                            <div class="footer-link__column">
-                                <dl>
-                                    <dt>INTERNATIONAL PROJECTS</dt>
-                                    <dd>
-                                        <ul>
-                                            <?php foreach ($footer_links['international'] as $footer_link): ?>
-                                                <li><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                  </div>
+        <div class="medium-5 columns">
+            <h2 class="mysoc-footer__site-name">TheyWorkForYou</h2>
+            <div class="mysoc-footer__site-description">
+                <p>Making it easy to keep an eye on the UK&rsquo;s parliaments. Discover who represents you, how they&rsquo;ve voted and what they&rsquo;ve said in debates &ndash; simply and clearly.</p>
             </div>
-        <?php
+            <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
+                <p>Get insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
+                <div class="row collapse">
+                    <div class="small-8 columns">
+                        <input type="email" placeholder="Your email address" name="EMAIL"/>
+                    </div>
+                    <div class="small-4 columns">
+                        <label style="position: absolute; left: -5000px;">
+                          Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                        </label>
+                        <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
+                    </div>
+                </div>
+          </form>
+        </div>
+
+        <div class="medium-4 columns">
+            <nav class="mysoc-footer__links">
+                <ul>
+                  <?php foreach ($footer_links['about'] as $footer_link): ?>
+                    <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                  <?php endforeach; ?>
+                </ul>
+                <ul>
+                  <?php foreach ($footer_links['tech'] as $footer_link): ?>
+                    <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
+                  <?php endforeach; ?>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="medium-3 columns">
+            <div class="mysoc-footer__donate">
+                <p>Your donations keep this site and others like it running</p>
+                <a href="https://www.mysociety.org/donate" class="mysoc-footer__donate__button">Donate now</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <hr class="mysoc-footer__divider" role="presentation">
+
+    </div>
+    <div class="row">
+
+        <div class="medium-5 columns">
+            <div class="mysoc-footer__orgs">
+                <p class="mysoc-footer__org">
+                    Built by
+                    <a href="https://www.mysociety.org" class="mysoc-footer__org__logo mysoc-footer__org__logo--mysociety">mySociety</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="medium-4 columns">
+            <div class="mysoc-footer__legal">
+                <p>mySociety Limited is a project of UK Citizens Online Democracy, a registered charity in England and Wales. For full details visit <a href="https://www.mysociety.org">mysociety.org</a>.</p>
+            </div>
+        </div>
+
+        <div class="medium-3 columns">
+            <ul class="mysoc-footer__badges">
+                <li role="presentation"><a href="http://github.com/mysociety/theyworkforyou" class="mysoc-footer__badge mysoc-footer__badge--github">Github</a></li>
+                <li role="presentation"><a href="https://twitter.com/theyworkforyou" class="mysoc-footer__badge mysoc-footer__badge--twitter">Twitter</a></li>
+                <li role="presentation"><a href="https://www.facebook.com/TheyWorkForYou" class="mysoc-footer__badge mysoc-footer__badge--facebook">Facebook</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <?php
 
         // DAMN, this really shouldn't be in PAGE.
         $db = new ParlDB;
@@ -202,3 +135,4 @@
 
 </script>
 </body>
+</html>
