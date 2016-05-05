@@ -21,7 +21,7 @@
                         </div>
                         <div class="row">
                             <div class="footer-follow__column columns">
-                                <form method="post" class="footer-follow__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511">
+                                <form method="post" class="footer-follow__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
                                     <p>Insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
                                     <div class="row collapse">
                                         <div class="small-8 columns">
@@ -34,7 +34,7 @@
                                             <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
                                         </div>
                                     </div>
-                              </form>
+                                </form>
                             </div>
                             <div class="footer-follow__column">
                             <p>
