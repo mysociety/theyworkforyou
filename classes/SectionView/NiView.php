@@ -62,7 +62,13 @@ class NiView extends SectionView {
 
         $recent = array();
         if ( isset($debates['data']) && count($debates['data']) ) {
-            for ( $i = 1; $i < 6; $i++ ) {
+            // at the start of a session there may be less than 6
+            // debates
+            $max = 6;
+            if ( count($debates['data']) < 6 ) {
+                $max = count($debates['data']);
+            }
+            for ( $i = 1; $i < $max; $i++ ) {
                 $debate = $debates['data'][$i];
                 $debate['desc'] = "Northern Ireland Assembly debates";
                 $debate['more_url'] = $MOREURL->generate();
