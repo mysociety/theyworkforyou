@@ -1,5 +1,11 @@
 <?php
 include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
+
+// if this is set to a year for which we have WTT responsiveness stats then
+// it'll display a banner with the MPs stats, assuming we have them for the
+// year
+$display_wtt_stats_banner = '2015';
+
 ?>
 
 <div class="full-page">
@@ -17,6 +23,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <ul data-magellan-expedition="fixed">
+                  <?php if (array_key_exists($display_wtt_stats_banner, $wtt_strings)): ?>
+                    <li data-magellan-arrival="responsiveness"><a href="#responsiveness">Responsiveness</a></li>
+                  <?php endif; ?>
                   <?php if (count($policyPositions->positions) > 0): ?>
                     <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
                   <?php endif; ?>
@@ -35,11 +44,24 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
             <div class="primary-content__unit">
 
-                <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')) && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+              <?php if (array_key_exists($display_wtt_stats_banner, $wtt_strings)): ?>
+                <div class="panel panel--responsiveness">
+                    <a name="responsiveness"></a>
+                    <h2>Does <strong><?= $full_name ?></strong> respond to constituents&rsquo; emails?</h2>
+                    <p>
+                        According to our <?= $display_wtt_stats_banner ?> survey, <?= $full_name ?> responded to a
+                        <strong><?= $wtt_strings[$display_wtt_stats_banner] ?></strong> proportion of messages
+                        sent by constituents on WriteToThem.com.
+                        <a href="https://www.writetothem.com/stats/<?= $display_wtt_stats_banner ?>/zeitgeist">See the results in context</a>
+                    </p>
+                </div>
+              <?php endif; ?>
+
+              <?php if (($party == 'Sinn Fein' || $party == utf8_decode('Sinn Féin')) && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
+              <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
                 <div class="panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP &ndash; elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
@@ -49,7 +71,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
                   <?php } ?>
                 </div>
-                <?php endif; ?>
+              <?php endif; ?>
 
                 <?php if ( !$current_member[HOUSE_TYPE_COMMONS] ) { ?>
                     <?php if (count($policyPositions->positions) > 0) { ?>

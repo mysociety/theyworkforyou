@@ -50,6 +50,12 @@ if ($pagetype == 'profile') {
     $pagetype = '';
 }
 
+// list of years for which we have WTT response stats in
+// reverse chronological order. Add new years here as we
+// get them.
+// NB: also need to update ./mpinfoin.pl to import the stats
+$wtt_stats_years = array(2015, 2014, 2013, 2008, 2007, 2006, 2005);
+
 // Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
 $name = strtolower(str_replace('_', ' ', get_http_var('n')));
@@ -331,7 +337,8 @@ if (isset($MEMBER->extra_info['expenses_url'])) {
 $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
 $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
 $data['public_bill_committees'] = person_pbc_membership($MEMBER);
-$data['numerology'] = person_numerology($MEMBER, $data['has_email_alerts']);
+$data['numerology'] = person_numerology($MEMBER, $data['has_email_alerts'], $wtt_stats_years);
+$data['wtt_strings'] = get_all_writetothem_strings($MEMBER, $wtt_stats_years);
 
 $data['this_page'] = $this_page;
 $data['current_assembly'] = 'westminster';
@@ -943,7 +950,7 @@ function person_pbc_membership($member) {
     return $out;
 }
 
-function person_numerology($member, $has_email_alerts) {
+function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
 
     $extra_info = $member->extra_info();
 
@@ -983,7 +990,7 @@ function person_numerology($member, $has_email_alerts) {
         }
     }
 
-    foreach ( array(2014, 2013, 2008, 2007, 2006, 2005) as $year ) {
+    foreach ( $wtt_stats_years as $year ) {
         $wtt_displayed = display_writetothem_numbers($year, $extra_info);
         if ($wtt_displayed) {
             $out[] = $wtt_displayed;
@@ -1125,6 +1132,20 @@ function display_writetothem_numbers($year, $extra_info) {
         return display_stats_line("writetothem_responsiveness_fuzzy_response_description_$year", 'Replied within 2 or 3 weeks to <a href="http://www.writetothem.com/stats/'.$year.'/mps" title="From WriteToThem.com">', "", "</a> <!-- Mean: " . $mean . " --> number of messages sent via WriteToThem.com during ".$year.", according to constituents", "", $extra_info);
     }
 
+}
+
+function get_all_writetothem_strings($member, $wtt_stats_years) {
+    $extra_info = $member->extra_info();
+    $strings = array();
+    foreach ( $wtt_stats_years as $year ) {
+
+        if (isset($extra_info["writetothem_responsiveness_mean_$year"])) {
+            $a = $extra_info["writetothem_responsiveness_fuzzy_response_description_$year"];
+            $strings[$year] = $a;
+        }
+    }
+
+    return $strings;
 }
 
 function person_register_interests($member, $extra_info) {
