@@ -1,0 +1,83 @@
+// White panels used primarily on the homepage and MP page.
+
+.panel {
+    border-radius: 3px;
+    background-color: white;
+    padding: 2em 1.5em;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em;
+        margin-bottom: 2.22222em;
+    }
+
+    @media (min-width: $large-screen) {
+        border-right: 1px solid $colour_off_white;
+    }
+
+    & > :last-child {
+        margin-bottom: 0;
+    }
+
+    h3 {
+        line-height: 1.4em;
+    }
+}
+
+
+.panel--secondary {
+    background-color: #f9f8f5; // slightly lighter than $colour_off_white
+    border: 1px solid #e2dfd9;
+}
+
+// Panel without vertical padding. Handy when you want vertical lines or child
+// content that stretch the entire height of the panel (as on the homepage).
+.panel--flushtop {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.panel--inverted {
+    background-color: #444;
+    color: $colour_off_white;
+
+    h2, label, h3, li {
+        color: $colour_mid_grey;
+    }
+
+    a {
+        color: #fff;
+    }
+}
+
+.panel--responsiveness {
+    background-color: $links;
+    color: #fff;
+
+    a {
+        color: inherit;
+    }
+
+    h2 {
+        color: inherit;
+        font-weight: inherit;
+        margin-top: 0;
+    }
+
+    a[href^="https://www.writetothem.com"] {
+        &:after {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: transparent url(/images/external-link-icon-white.png) 0 -20px no-repeat;
+            background-size: 20px 30px;
+            margin-left: 5px;
+            vertical-align: -1px;
+
+            @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+                background-position: 0 0;
+                background-size: 10px; // 10px width, auto height
+            }
+        }
+    }
+}

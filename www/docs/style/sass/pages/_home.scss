@@ -169,41 +169,6 @@ input.homepage-search__button {
     margin-top: emCalc(40);
 }
 
-.panel {
-    border-radius: 3px;
-    background-color: white;
-    padding: 2em 1.5em;
-    @media (min-width: $medium-screen) {
-        padding: 3em;
-        margin-bottom: 2.22222em;
-    }
-    @media (min-width: $large-screen) {
-        border-right: 1px solid $colour_off_white;
-    }
-    h3 {
-        line-height: 1.4em;
-    }
-}
-
-.panel--inverted {
-    background-color: #444;
-    color: $colour_off_white;
-    h2,
-    label,
-    h3,
-    li {
-        color: $colour_mid_grey;
-    }
-    a {
-        color: #fff;
-    }
-}
-
-.panel--flushtop {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
 .homepage-in-the-news {
     @include grid-column(12);
     padding-top: 2em;

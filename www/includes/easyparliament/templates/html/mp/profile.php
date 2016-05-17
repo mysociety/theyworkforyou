@@ -62,7 +62,7 @@ $display_wtt_stats_banner = '2015';
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
               <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
-                <div class="panel--secondary">
+                <div class="panel panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP &ndash; elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
                     <p>When <?= $full_name ?> starts to speak in debates and vote on bills, that information will appear on this page.</p>
@@ -373,7 +373,7 @@ you can find it.</p>
 
                 <div class="about-this-page">
                     <div class="about-this-page__one-of-one">
-                        <div class="panel--secondary">
+                        <div class="panel panel--secondary">
                             <p>Note for journalists and researchers: The data on this page may be used freely,
                                on condition that TheyWorkForYou.com is cited as the source.</p>
 

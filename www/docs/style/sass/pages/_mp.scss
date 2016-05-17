@@ -357,233 +357,175 @@
             }
         }
     }
-    .policy-votes-intro {
-        padding: 1em;
-        margin-bottom: 1em;
-        line-height: 1.2em;
-    }
+
     .panel {
-        @include radius;
-        background-color: white;
-        padding: em-calc(12);
-        margin-bottom: em-calc(40);
-        @media (min-width: $medium-screen) {
-            padding: em-calc(36);
-        }
         h2 {
             font-size: em-calc(30);
             font-width: 600;
+
             a.nav-anchor {
                 text-decoration: none;
             }
         }
+
         a {
             text-decoration: underline;
-
         }
+
         dt {
             font-weight: normal;
+
             .date {
                 font-size: em-calc(14);
             }
         }
+
         ul {
             @include unstyled-list();
         }
-        .policies {
-            li {
-                border-bottom: 1px solid $borders;
-                line-height: 1.5em;
-                padding-top: 0.5em;
-                padding-bottom: 0.5em;
-                padding-right: 5em;
-                &:nth-of-type(1) {
-                    border-top: 1px solid $borders;
-                }
-                .dream_details {
-                    @include radius(1em);
-                    display: none;
-                    background-color: $primary-color;
-                    color: white;
-                    font-size: 14px;
-                    float: right;
-                    margin-top: 0.25em;
-                    margin-right: -6.5em;
-                    padding: 0em 1em;
-                    text-decoration: none;
-                }
-            }
-        }
-        .appearances {
-            @include unstyled-list();
+    }
 
-            h4 {
-                font-size: 18px;
-                font-weight: normal;
-                .date {
-                    font-size: 14px;
-                    color: $light-text;
-                }
-            }
+    .policies {
+        li {
+            border-bottom: 1px solid $borders;
+            line-height: 1.5em;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            padding-right: 5em;
 
-            blockquote {
-                border: none;
-                color: $body-font-color;
-                font-size: 18px;
-                padding: 0px;
-                &:before {
-                    content: '\201C';
-                }
-                &:after {
-                    content: '\201D';
-                }
-            }
-        }
-        .comma-list{
-            @include inline-list();
-            margin-left: 0px;
-            margin-bottom: em-calc(16);
-            li {
-                margin-left: 0px;
-                &:after {
-                    content: ', ';
-                }
-                &:last-of-type:after {
-                    content: '';
-                }
-            }
-        }
-        .list-dates small {
-            color: #666;
-        }
-        .numerology {
-            li {
-                line-height: 2;
-            }
-        }
-        &.register {
-            .regmemcategory {
+            &:nth-of-type(1) {
                 border-top: 1px solid $borders;
-                font-weight: $weight_semibold;
-                margin-top: em-calc(16);
-                margin-bottom: em-calc(8);
-                padding-top: em-calc(16);
-
-                &:nth-of-type(1) {
-                    border-top: none;
-                    /*margin-top: 0px;*/
-                    /*padding-top: 0px*/
-                }
             }
 
-            .regmemitem {
-                margin-bottom: em-calc(8);
-                margin-left: 1em;
-                line-height: 1.6;
+            .dream_details {
+                @include radius(1em);
+                display: none;
+                background-color: $primary-color;
+                color: white;
+                font-size: 14px;
+                float: right;
+                margin-top: 0.25em;
+                margin-right: -6.5em;
+                padding: 0em 1em;
+                text-decoration: none;
             }
         }
     }
-    .panel--secondary {
-        @include radius;
-        @include secondary-panel;
-        :last-child {
-            margin-bottom: 0;
+
+    .appearances {
+        @include unstyled-list();
+
+        h4 {
+            font-size: 18px;
+            font-weight: normal;
+
+            .date {
+                font-size: 14px;
+                color: $light-text;
+            }
+        }
+
+        blockquote {
+            border: none;
+            color: $body-font-color;
+            font-size: 18px;
+            padding: 0px;
+
+            &:before {
+                content: '\201C';
+            }
+
+            &:after {
+                content: '\201D';
+            }
         }
     }
-    .panel--feedback {
-        background-color: #ffc;
-        margin-bottom: 1em;
 
-        p {
-          margin-bottom: 0.5em;
+    .comma-list {
+        @include inline-list();
+        margin-left: 0px;
+        margin-bottom: em-calc(16);
+
+        li {
+            margin-left: 0px;
+
+            &:after {
+                content: ', ';
+            }
+
+            &:last-of-type:after {
+                content: '';
+            }
+        }
+    }
+
+    .list-dates small {
+        color: #666;
+    }
+
+    .numerology {
+        li {
+            line-height: 2;
+        }
+    }
+
+    .register {
+        .regmemcategory {
+            border-top: 1px solid $borders;
+            font-weight: $weight_semibold;
+            margin-top: em-calc(16);
+            margin-bottom: em-calc(8);
+            padding-top: em-calc(16);
+
+            &:nth-of-type(1) {
+                border-top: none;
+            }
         }
 
-        p:last-child {
-          margin-bottom: 0.2em;
+        .regmemitem {
+            margin-bottom: em-calc(8);
+            margin-left: 1em;
+            line-height: 1.6;
         }
+    }
+}
+
+// Displayed at the top of the .in-page-nav on Vote detail pages
+.policy-votes-intro {
+    padding: 1em;
+    margin-bottom: 1em;
+    line-height: 1.2em;
+}
+
+.policy-votes-hero {
+    position: relative;
+    margin-bottom: 0;
+    border-radius: $global-radius $global-radius 0 0;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+    background: #666 url('../img/topics/generic.jpg') 50% 50% no-repeat;
+    background-size: cover;
+
+    h2 {
+        color: inherit;
+        margin-top: 0;
+    }
+
+    p {
+        line-height: 1.3em;
+        max-width: 24em; // avoid long lines
 
         @media (min-width: $medium-screen) {
-          padding: em-calc(24); // up from em-calc(12) on mobile, em-calc(60) default desktop padding
-
-          input {
+            font-size: 1.2em;
             margin-bottom: 0;
-          }
-
-          input[type="text"] {
-            display: inline;
-            margin-right: 1em;
-            width: 75%;
-          }
         }
     }
 
-    .panel--responsiveness {
-        background-color: $links;
-        color: #fff;
+    & + .panel {
+        border-radius: 0 0 $global-radius $global-radius;
 
-        a {
-          color: inherit;
-        }
-
-        h2 {
-            color: inherit;
-            font-weight: inherit;
-            margin-top: 0;
-        }
-
-        a[href^="https://www.writetothem.com"] {
-          &:after {
-              content: "";
-              display: inline-block;
-              width: 10px;
-              height: 10px;
-              background: transparent url(/images/external-link-icon-white.png) 0 -20px no-repeat;
-              background-size: 20px 30px;
-              margin-left: 5px;
-              vertical-align: -1px;
-
-              @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-                  background-position: 0 0;
-                  background-size: 10px; // 10px width, auto height
-              }
-          }
-        }
-
-        & > :last-child {
-          margin-bottom: 0;
-        }
-    }
-
-    .policy-votes-hero {
-        position: relative;
-        margin-bottom: 0;
-        border-radius: $global-radius $global-radius 0 0;
-        color: #fff;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.6);
-        background: #666 url('../img/topics/generic.jpg') 50% 50% no-repeat;
-        background-size: cover;
-
-        h2 {
-            color: inherit;
-            margin-top: 0;
-        }
-
-        p {
-            line-height: 1.3em;
-            max-width: 24em; // avoid long lines
-
-            @media (min-width: $medium-screen) {
-                font-size: 1.2em;
-                margin-bottom: 0;
-            }
-        }
-
-        & + .panel {
-            border-radius: 0 0 $global-radius $global-radius;
-
-            @media (min-width: $medium-screen) {
-                padding-top: em-calc(40);
-            }
+        @media (min-width: $medium-screen) {
+            padding-top: em-calc(40);
         }
     }
 }
