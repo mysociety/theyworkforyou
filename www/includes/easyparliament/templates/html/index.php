@@ -42,6 +42,17 @@
     </div>
     <div class="full-page__row">
         <div class="homepage-panels">
+            <div class="panel panel--responsiveness">
+                <h2>
+                    See how responsive
+                    <strong><?= count($mp_data) ? $mp_data['name'] : 'your MP' ?></strong>
+                    was in <strong>2015</strong>
+                </h2>
+                <p>
+                    We&rsquo;ve published our 2015&ndash;2016 MP responsiveness statistics.
+                    <a href="https://www.writetothem.com/stats/2015/zeitgeist">See the full stats on WriteToThem.com</a>
+                </p>
+            </div>
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-in-the-news homepage-content-section">
