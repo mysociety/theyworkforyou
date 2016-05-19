@@ -91,7 +91,7 @@ class SEARCHLOG {
                     continue;
                 }
                 $lentotal += $len;
-                array_push($correct_amount);
+                array_push($correct_amount, $popular_search);
             }
             $popular_searches = $correct_amount;
         }
