@@ -898,7 +898,7 @@ sub last_id
 
 sub person_id {
     my ($item, $member_id_attr) = @_;
-    my $person_id = $item->att('person_id') || $membertoperson{$item->att($member_id_attr)} || 'unknown';
+    my $person_id = $item->att('person_id') || $membertoperson{$item->att($member_id_attr) || ""} || 'unknown';
     $person_id =~ s/.*\///;
     $person_id = $personredirect{$person_id} || $person_id;
     return $person_id;
@@ -1681,7 +1681,7 @@ sub do_load_speech
     my $type;
     my $speaker = 0;
     my $pretext = "";
-    if ($speech->att('person_id') || $speech->att('speakerid')) {
+    if ($speech->att('person_id') || $speech->att('speakerid') || $speech->att('speakername')) {
         $type = 12;
         $speaker = person_id($speech, 'speakerid');
         if ($speaker eq "unknown") {
