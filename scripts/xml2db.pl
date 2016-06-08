@@ -1447,6 +1447,8 @@ sub add_standing_day {
             }
         },
         'major-heading' => sub {
+            return if defined $ignorehistorygids{$_->att('id')};
+
             my $commhead = $_->sprint(1) =~ /(Standing Committee [A-H]|Special Standing Committee|Second Reading Committee)\s*$/;
             if ($_->sprint(1) =~ /^\s*Public Bill Commit?tee\s*$/) {
                 # All PBCs have a <bill>
