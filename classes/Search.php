@@ -122,7 +122,6 @@ class Search {
         $urls = array();
 
         $url = new \URL($this_page);
-        $url->insert(array('q' => $this->searchstring));
         $url->insert(array('o' => 'r'));
         $urls['relevance'] = $url->generate();
         $url->insert(array('o' => 'o'));
