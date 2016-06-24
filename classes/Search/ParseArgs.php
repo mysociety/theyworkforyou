@@ -7,6 +7,7 @@ class ParseArgs {
 
     private $searchstring;
     public $searchkeyword;
+    public $person_id;
 
     private function parse_advanced_params() {
         $searchstring = '';
@@ -72,6 +73,7 @@ class ParseArgs {
         # Searching from MP pages
         if ($searchspeaker = trim(get_http_var('pid'))) {
             $searchstring .= " speaker:$searchspeaker";
+            $this->person_id = $searchspeaker;
         }
 
         # Searching from MP pages

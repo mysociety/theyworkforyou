@@ -46,6 +46,12 @@ class Search {
             }
         }
 
+        $data['person_id'] = $argparser->person_id;
+        if ($argparser->person_id) {
+            $MEMBER = new \MEMBER(array('person_id'=>$argparser->person_id));
+            $data['person_name'] = $MEMBER->full_name();
+        }
+
         if ( isset($data['info']['spelling_correction']) ) {
             $data['info']['spelling_correction_display'] = $this->prettifySearchString($data['info']['spelling_correction']);
         }

@@ -288,6 +288,20 @@
   }
 }
 
+.search-result-person-options {
+  font-size: 0.8em;
+  color: $light-text;
+  margin-left: 1em;
+
+  input {
+    margin-left: 1em;
+  }
+  label {
+    display: inline-block;
+    margin-left: 0.5em;
+  }
+}
+
 .search-result-display-options {
   font-size: 0.8em;
   color: $light-text;
