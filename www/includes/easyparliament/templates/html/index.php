@@ -74,7 +74,7 @@
                 <div class="row nested-row">
                     <div class="home__search">
                         <form action="<?= $urls['search'] ?>" method="GET" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
-                            <label for="q">Search debates, written questions and hansard</label>
+                            <label for="q">Search debates, written questions and Hansard</label>
                             <div class="row collapse">
                                 <div class="medium-9 columns">
                                     <input name="q" id="q" class="homepage-search__input" type="text" placeholder="Enter a keyword, phrase, or person" />
