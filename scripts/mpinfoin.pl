@@ -129,6 +129,7 @@ if ($action{'wtt'}) {
     $twig->parseurl("http://www.writetothem.com/stats/2008/mps?xml=1");
     $twig->parseurl("http://www.writetothem.com/stats/2013/mps?xml=1");
     $twig->parseurl("http://www.writetothem.com/stats/2014/mps?xml=1");
+    $twig->parseurl("http://www.writetothem.com/stats/2015/mps?xml=1");
 }
 
 
