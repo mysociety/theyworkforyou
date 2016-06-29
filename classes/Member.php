@@ -110,6 +110,15 @@ class Member extends \MEMBER {
         return $date_entered;
     }
 
+
+    public function getEUStance() {
+        if (array_key_exists('eu_ref_stance', $this->extra_info())) {
+            return $this->extra_info()['eu_ref_stance'];
+        }
+
+        return FALSE;
+    }
+
     /**
     * Image
     *

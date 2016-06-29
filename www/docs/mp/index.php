@@ -319,6 +319,7 @@ $data['topics_of_interest'] = person_topics($MEMBER);
 $data['current_offices'] = $MEMBER->offices('current');
 $data['previous_offices'] = $MEMBER->offices('previous');
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
+$data['eu_stance'] = $MEMBER->getEUStance();
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
 $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );

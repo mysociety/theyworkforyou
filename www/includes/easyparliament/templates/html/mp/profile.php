@@ -44,15 +44,21 @@ $display_wtt_stats_banner = '2015';
             </div>
             <div class="primary-content__unit">
 
-              <?php if (array_key_exists($display_wtt_stats_banner, $wtt_strings)): ?>
+              <?php if ($eu_stance): ?>
                 <div class="panel panel--responsiveness">
                     <a name="responsiveness"></a>
-                    <h2>Does <strong><?= $full_name ?></strong> respond to constituents&rsquo; emails?</h2>
+                    <h2>
+                        <? if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
+                        <strong><?= $full_name ?></strong> campaigned to <?= $eu_stance == 'Leave' ? 'leave' : 'remain in' ?> the European Union
+                        <? } else { ?>
+                        We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
+                        <? } ?>
+                    </h2>
                     <p>
-                        According to our <?= $display_wtt_stats_banner ?> survey, <?= $full_name ?> responded to a
-                        <strong><?= $wtt_strings[$display_wtt_stats_banner] ?></strong> proportion of messages
-                        sent by constituents on WriteToThem.com.
-                        <a href="https://www.writetothem.com/stats/<?= $display_wtt_stats_banner ?>/zeitgeist">See the results in context</a>
+                        Let your MP know how <em>you</em> feel - <a href="https://www.writetothem.com/<?php
+                                if ($the_users_mp) {
+                                    echo "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
+                                } ?>" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">email them now</a>.
                     </p>
                 </div>
               <?php endif; ?>
