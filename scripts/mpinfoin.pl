@@ -20,6 +20,8 @@ use LWP::UserAgent;
 use HTML::Entities;
 use Data::Dumper;
 use Syllable;
+use JSON;
+use File::Slurp;
 
 use vars qw(@policyids);
 
@@ -42,6 +44,8 @@ foreach (@ARGV) {
         $action{'rankings'} = 1;
     } elsif ($_ eq 'speaker_candidates') {
         $action{'speaker_candidates'} = 1;
+    } elsif ($_ eq 'eu_ref_position') {
+        $action{'eu_ref_position'} = 1;
     } elsif ($_ eq 'verbose') {
         $verbose = 1;
     } else {
@@ -57,6 +61,7 @@ if (scalar(@ARGV) == 0) {
     $action{'wtt'} = 1;
     $action{'rankings'} = 1;
     $action{'speaker_candidates'} = 1;
+    $action{'eu_ref_position'} = 1;
 }
 
 # Fat old hashes intotwixt all the XML is loaded and colated before being squirted to the DB
@@ -162,6 +167,13 @@ if ($action{'expenses'}) {
     $twig->parsefile($pwmembers . "expenses200203.xml", ErrorContext => 2);
     $twig->parsefile($pwmembers . "expenses200102.xml", ErrorContext => 2);
     makerankings_expenses();
+}
+
+if ($action{'eu_ref_position'}) {
+    my $positions = decode_json(read_file($pwmembers . 'eu_ref_positions.json'));
+    foreach my $id (keys(%{$positions})) {
+        $personinfohash->{$id}->{'eu_ref_stance'} = $positions->{$id};
+    }
 }
 
 # Get any data from the database
