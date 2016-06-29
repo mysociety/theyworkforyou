@@ -29,7 +29,6 @@
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/bar.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/custom.modernizr.js") ?>"></script>
 
     <?php foreach ($header_links as $link): ?>
