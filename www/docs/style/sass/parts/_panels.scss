@@ -65,6 +65,10 @@
     }
 
     a[href^="https://www.writetothem.com"] {
+        img {
+          margin: 0 0.2em
+        }
+
         &:after {
             content: "";
             display: inline-block;
