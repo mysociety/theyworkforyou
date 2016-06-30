@@ -48,11 +48,11 @@ $display_wtt_stats_banner = '2015';
                 <div class="panel panel--responsiveness">
                     <a name="responsiveness"></a>
                     <h2>
-                        <? if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
+                        <?php if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
                         <strong><?= $full_name ?></strong> campaigned to <?= $eu_stance == 'Leave' ? 'leave' : 'remain in' ?> the European Union
-                        <? } else { ?>
+                        <?php } else { ?>
                         We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
-                        <? } ?>
+                        <?php } ?>
                     </h2>
                     <p>
                         Let your MP know how <em>you</em> feel - <a href="https://www.writetothem.com/<?php
