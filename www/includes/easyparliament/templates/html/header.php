@@ -18,11 +18,12 @@
     <link rel="author" title="Send feedback" href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">
     <link rel="home" title="Home" href="http://<?= DOMAIN ?>/">
 
-    <meta property="og:title" content="TheyWorkForYou">
+    <meta property="og:site_name" content="TheyWorkForYou">
+    <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="http://<?= DOMAIN ?>">
     <meta property="og:image" content="http://<?= DOMAIN ?>/images/favicon-256.png">
-    <meta property="og:description" content="TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.">
+    <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
     <meta property="fb:admins" content="143203489083755">
 
     <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
