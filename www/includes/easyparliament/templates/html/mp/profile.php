@@ -48,17 +48,23 @@ $display_wtt_stats_banner = '2015';
                 <div class="panel panel--responsiveness">
                     <a name="responsiveness"></a>
                     <h2>
-                        <?php if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
+                        <?php if ($eu_stance == 'Leave' || $eu_stance == 'Remain') {
+                          $tweet_text = "I've just seen that " . $full_name . " campaigned to " . ( $eu_stance == 'Leave' ? 'leave' : 'remain in' ) . " the EU on TheyWorkForYou"; ?>
                         <strong><?= $full_name ?></strong> campaigned to <?= $eu_stance == 'Leave' ? 'leave' : 'remain in' ?> the European Union
-                        <?php } else { ?>
+                        <?php } else {
+                          $tweet_text = "TheyWorkForYou doesn't know whether " . $full_name . " campaigned to stay in the EU or leave"; ?>
                         We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
                         <?php } ?>
                     </h2>
                     <p>
-                        Let your MP know how <em>you</em> feel - <a href="https://www.writetothem.com/<?php
+                        Let your MP know how <em>you</em> feel &ndash; <a href="https://www.writetothem.com/<?php
                                 if ($the_users_mp) {
                                     echo "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
                                 } ?>" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">email them now</a>.
+                    </p>
+                    <p>
+                      <div class="fb-share-button" data-href="<?= $member_url ?>" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?=urlencode($member_url)?>&amp;src=sdkpreparse">Share</a></div>
+                      <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?=$member_url?>" data-size="small" data-text="<?= $tweet_text ?>" data-count="none" data-dnt="true">Tweet</a>
                     </p>
                     <p class="panel--responsiveness--source">
                       Source: <a href="http://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a>
