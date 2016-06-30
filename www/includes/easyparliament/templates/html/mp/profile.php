@@ -60,6 +60,9 @@ $display_wtt_stats_banner = '2015';
                                     echo "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
                                 } ?>" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">email them now</a>.
                     </p>
+                    <p class="panel--responsiveness--source">
+                      Source: <a href="http://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a>
+                    </p>
                 </div>
               <?php endif; ?>
 
