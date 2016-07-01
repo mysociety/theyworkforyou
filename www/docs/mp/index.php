@@ -264,6 +264,13 @@ if (count($former_offices) > 0){
     $position_former = implode('<br>', $former_offices);
 }
 
+// Finally, if this is a Votes page, replace the page description with
+// something more descriptive of the actual data on the page.
+if ($pagetype == 'votes') {
+  $title = "Voting record - " . $title;
+  $desc = 'See how ' . $member_name . ' voted on topics like Employment, Social Issues, Foreign Policy, and more.';
+}
+
 // Set page metadata
 $DATA->set_page_metadata($this_page, 'title', $title);
 $DATA->set_page_metadata($this_page, 'meta_description', $desc);
