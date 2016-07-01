@@ -81,7 +81,7 @@ if (!count($data)) {
 
         <div class="search-page__section search-page__section--results">
         <?php
-        if ($former) {
+        if (isset($former)) {
             if ($type == 'mps') {
             # No reps. Election period!
         ?>
