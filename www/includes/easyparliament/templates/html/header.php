@@ -19,12 +19,14 @@
     <link rel="home" title="Home" href="http://<?= DOMAIN ?>/">
 
     <meta property="og:site_name" content="TheyWorkForYou">
+    <meta property="og:url" content="http://<?= DOMAIN ?><?= $_SERVER['REQUEST_URI'] ?>">
     <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://<?= DOMAIN ?>">
-    <meta property="og:image" content="http://<?= DOMAIN ?>/images/favicon-256.png">
+    <meta property="og:image" content="http://<?= DOMAIN ?>/images/facebook-avatar.png">
+    <meta property="og:image:width" content="200">
+    <meta property="og:image:height" content="200">
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
-    <meta property="fb:admins" content="143203489083755">
+    <meta property="fb:app_id" content="734726803296567">
 
     <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
@@ -90,7 +92,7 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-            appId      : '227648394066332',
+            appId      : '734726803296567',
             xfbml      : true
             });
 
