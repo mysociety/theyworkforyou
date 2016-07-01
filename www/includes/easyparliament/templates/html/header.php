@@ -19,7 +19,7 @@
     <link rel="home" title="Home" href="http://<?= DOMAIN ?>/">
 
     <meta property="og:site_name" content="TheyWorkForYou">
-    <meta property="og:url" content="http://<?= DOMAIN ?><?= $_SERVER['REQUEST_URI'] ?>">
+    <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
     <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
     <meta property="og:type" content="website">
     <meta property="og:image" content="http://<?= DOMAIN ?>/images/facebook-avatar.png">
