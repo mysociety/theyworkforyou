@@ -345,8 +345,9 @@ sub get_person {
 
     # Special exemptions for people 'speaking' after they have died
     # Note identical code to this in hansardlist.php
-    $hdate = '2014-09-07' if $person_id == 10170 && $hdate == '2014-09-08';
-    $hdate = '2008-08-13' if $person_id == 11068 && substr($hdate, 0, 7) == '2008-09';
+    $hdate = '20140907' if $person_id == 10170 && $hdate eq '20140908';
+    $hdate = '20080813' if $person_id == 11068 && substr($hdate, 0, 6) eq '200809';
+    $hdate = '20160616' if $person_id == 25394 && $hdate eq '20160701';
 
     my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {

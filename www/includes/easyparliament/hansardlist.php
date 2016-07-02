@@ -2088,9 +2088,10 @@ class HANSARDLIST {
         # Note identical code to this in search/index.pl
         if ($person_id == 10170 && $hdate == '2014-09-08') {
             $hdate = '2014-09-07';
-        }
-        if ($person_id == 11068 && substr($hdate, 0, 7) == '2008-09') {
+        } elseif ($person_id == 11068 && substr($hdate, 0, 7) == '2008-09') {
             $hdate = '2008-08-13';
+        } elseif ($person_id == 25394 && $hdate == '2016-07-01') {
+            $hdate = '2016-06-16';
         }
 
         # check for a person redirect
