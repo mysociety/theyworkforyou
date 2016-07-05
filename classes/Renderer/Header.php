@@ -21,6 +21,7 @@ class Header
     public function __construct() {
         $this->data = array();
 
+        $this->get_page_url();
         $this->get_page_title();
         $this->get_page_keywords();
         $this->get_header_links();
@@ -40,6 +41,15 @@ class Header
         } elseif ($robots = $DATA->page_metadata($this_page, 'robots')) {
             $this->data['robots'] = $robots;
         }
+    }
+
+    /**
+     * Work out what the page url
+     */
+    private function get_page_url() {
+        $ssl = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' );
+        $url = ( $ssl ? 'https://' : 'http://' ) . DOMAIN . $_SERVER['REQUEST_URI'];
+        $this->data['page_url'] = $url;
     }
 
     /**

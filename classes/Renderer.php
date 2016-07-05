@@ -75,10 +75,6 @@ class Renderer
             $data['mini_survey'] = $mini->get_values();
         }
 
-        $ssl = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' );
-        $url = ( $ssl ? 'https://' : 'http://' ) . DOMAIN . $_SERVER['REQUEST_URI'];
-        $data['page_url'] = $url;
-
         ////////////////////////////////////////////////////////////
         // Unpack the data we've been passed so it's available for use in the templates.
 
