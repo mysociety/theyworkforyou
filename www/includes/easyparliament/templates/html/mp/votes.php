@@ -55,18 +55,27 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             </h2>
 
                             <ul class="vote-descriptions">
-                              <?php foreach ($segment['votes']->positions as $key_vote): ?>
-                                <li>
-                                    <?php if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) { ?>
-                                    <?= ucfirst($key_vote['desc']) ?>
-                                    <?php } else {  ?>
-                                    We don&rsquo;t have enough information to calculate <?= $full_name ?>&rsquo;s position on <?= $key_vote['policy'] ?>.
-                                    <?php } ?>
-                                    <?php if ( $key_vote['position'] != 'has never voted on' ) { ?>
-                                    <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
-                                    <?php } ?>
-                                </li>
-                              <?php endforeach; ?>
+                              <?php foreach ($segment['votes']->positions as $key_vote) {
+
+                                if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
+                                    $description = ucfirst($key_vote['desc']);
+                                } else {
+                                    $description = sprintf(
+                                        'We don&rsquo;t have enough information to calculate %s&rsquo;s position on %s.',
+                                        $full_name,
+                                        $key_vote['policy']
+                                    );
+                                }
+                                $link = sprintf(
+                                    '%s/divisions?policy=%s',
+                                    $member_url,
+                                    $key_vote['policy_id']
+                                );
+                                $show_link = $key_vote['position'] != 'has never voted on';
+
+                                include '_vote_description.php';
+
+                              } ?>
                             </ul>
 
                             </div>

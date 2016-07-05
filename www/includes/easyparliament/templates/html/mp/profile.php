@@ -97,14 +97,19 @@ $display_wtt_stats_banner = '2015';
                         <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
 
                         <ul class="vote-descriptions">
-                          <?php foreach ($policyPositions->positions as $key_vote) { ?>
-                            <li>
-                                <?= ucfirst($key_vote['desc']) ?>
-                                <?php if ( $key_vote['position'] != 'has never voted on' ) { ?>
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
-                                <?php } ?>
-                            </li>
-                          <?php } ?>
+                          <?php foreach ($policyPositions->positions as $key_vote) {
+
+                            $description = ucfirst($key_vote['desc']);
+                            $link = sprintf(
+                                '%s/divisions?policy=%s',
+                                $member_url,
+                                $key_vote['policy_id']
+                            );
+                            $show_link = $key_vote['position'] != 'has never voted on';
+
+                            include '_vote_description.php';
+
+                          } ?>
                         </ul>
 
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
@@ -128,12 +133,22 @@ $display_wtt_stats_banner = '2015';
                         </p>
 
                         <ul class="vote-descriptions">
-                          <?php foreach ($sorted_diffs as $policy_id => $score): ?>
-                            <li>
-                                <?= $full_name ?> <b><?= $positions[$policy_id]['position'] ?></b> <?= strip_tags($policies[$policy_id]) ?>, while most <?= $party ?> MPs <b><?= $party_positions[$policy_id]['position'] ?></b>.
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $policy_id ?>">Show votes</a>
-                            </li>
-                          <?php endforeach; ?>
+                          <?php foreach ($sorted_diffs as $policy_id => $score) {
+
+                            $description = sprintf(
+                                '%s <b>%s</b> %s, while most %s MPs <b>%s</b>.',
+                                $full_name,
+                                $positions[$policy_id]['position'],
+                                strip_tags($policies[$policy_id]),
+                                $party,
+                                $party_positions[$policy_id]['position']
+                            );
+                            $link = $member_url . '/divisions?policy=' . $policy_id;
+                            $show_link = true;
+
+                            include '_vote_description.php';
+
+                          } ?>
                         </ul>
 
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
@@ -150,14 +165,19 @@ $display_wtt_stats_banner = '2015';
                         </p>
 
                         <ul class="vote-descriptions">
-                          <?php foreach ($policyPositions->positions as $key_vote): ?>
-                            <li>
-                                <?= ucfirst($key_vote['desc']) ?>
-                                <?php if ( $key_vote['position'] != 'has never voted on' ) { ?>
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
-                                <?php } ?>
-                            </li>
-                          <?php endforeach; ?>
+                          <?php foreach ($policyPositions->positions as $key_vote) {
+
+                            $description = ucfirst($key_vote['desc']);
+                            $link = sprintf(
+                                '%s/divisions?policy=%s',
+                                $member_url,
+                                $key_vote['policy_id']
+                            );
+                            $show_link = $key_vote['position'] != 'has never voted on';
+
+                            include '_vote_description.php';
+
+                          } ?>
                         </ul>
 
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
