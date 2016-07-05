@@ -236,6 +236,7 @@ function api_header($o, $last_mod=null) {
     } elseif ($o == 'rabx') {
         $type = 'application/octet-stream';
     } else {
+        header('Access-Control-Allow-Origin: *');
         $type = 'text/javascript';
     }
     #$type = 'text/plain';
