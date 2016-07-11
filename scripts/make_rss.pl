@@ -45,8 +45,8 @@ sub debates_rss {
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
         title => $title,
-        link => "http://www.theyworkforyou.com/$url",
-        description => "$title via TheyWorkForYou.com - http://www.theyworkforyou.com/",
+        link => "https://www.theyworkforyou.com/$url",
+        description => "$title via TheyWorkForYou.com - https://www.theyworkforyou.com/",
         dc => $dc,
         syn => $syn,
     );
@@ -62,11 +62,11 @@ sub debates_rss {
         my $body = '';
         while (my $result = $q->fetchrow_hashref) {
             my ($id) = $result->{gid} =~ m#\/([^/]+)$#;
-            $body .= "<li><a href=\"http://www.theyworkforyou.com/$url?id=$id\">$result->{body}</a></li>\n";
+            $body .= "<li><a href=\"https://www.theyworkforyou.com/$url?id=$id\">$result->{body}</a></li>\n";
         }
         $rss->add_item(
             title => "$title for $date",
-            link => "http://www.theyworkforyou.com/$url?d=$date",
+            link => "https://www.theyworkforyou.com/$url?d=$date",
             description => "<ul>\n\n$body\n\n</ul>\n"
         );
 
@@ -92,8 +92,8 @@ sub wms_rss {
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
         title => "Written Ministerial Statements",
-        link => "http://www.theyworkforyou.com/wms/",
-        description => "Written Ministerial Statements via TheyWorkForYou.com - http://www.theyworkforyou.com/",
+        link => "https://www.theyworkforyou.com/wms/",
+        description => "Written Ministerial Statements via TheyWorkForYou.com - https://www.theyworkforyou.com/",
         dc => $dc,
         syn => $syn,
     );
@@ -112,7 +112,7 @@ sub wms_rss {
         my ($id) = $result->{gid} =~ m#\/([^/]+)$#;
         $rss->add_item(
             title => $title,
-            link => 'http://www.theyworkforyou.com/wms/?id=' . $id,
+            link => 'https://www.theyworkforyou.com/wms/?id=' . $id,
             description => $result->{body},
         );
     }
@@ -131,8 +131,8 @@ sub wrans_rss {
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
         title => "Written Answers",
-        link => "http://www.theyworkforyou.com/wrans/",
-        description => "Written Answers via TheyWorkForYou.com- http://www.theyworkforyou.com/ .",
+        link => "https://www.theyworkforyou.com/wrans/",
+        description => "Written Answers via TheyWorkForYou.com- https://www.theyworkforyou.com/ .",
         dc => $dc,
         syn => $syn,
     );
@@ -147,7 +147,7 @@ sub wrans_rss {
 
         $rss->add_item(
             title => $title,
-            link => 'http://www.theyworkforyou.com/wrans/?id=' . $id,
+            link => 'https://www.theyworkforyou.com/wrans/?id=' . $id,
             description => $result->{body}
         );
     }
@@ -163,8 +163,8 @@ sub pbc_rss {
     my $rss = new XML::RSS (version => '1.0');
     $rss->channel(
         title => "Bill Committee debates",
-        link => "http://www.theyworkforyou.com/pbc/",
-        description => "Bill Committee debates via TheyWorkForYou - http://www.theyworkforyou.com/",
+        link => "https://www.theyworkforyou.com/pbc/",
+        description => "Bill Committee debates via TheyWorkForYou - https://www.theyworkforyou.com/",
         dc => $dc,
         syn => $syn,
     );
@@ -177,7 +177,7 @@ sub pbc_rss {
         $u_title =~ s/%20/+/g;
         $rss->add_item(
                 title => "$title, $sitting sitting",
-                link => "http://www.theyworkforyou.com/pbc/$session/$u_title",
+                link => "https://www.theyworkforyou.com/pbc/$session/$u_title",
                 #description => $result->{body
         );
     }

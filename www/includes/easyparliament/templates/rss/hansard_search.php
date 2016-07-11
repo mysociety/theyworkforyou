@@ -3,7 +3,7 @@
 <rss version="2.0" xmlns:openSearch="http://a9.com/-/spec/opensearchrss/1.0/">
 <channel>
 <title>TheyWorkForYou.com Search: <?=$SEARCHENGINE->query_description_short() ?></title>
-<link>http://www.theyworkforyou.com<?=_htmlentities(str_replace('rss/', '', $_SERVER['REQUEST_URI'])) ?></link>
+<link>https://www.theyworkforyou.com<?=_htmlentities(str_replace('rss/', '', $_SERVER['REQUEST_URI'])) ?></link>
 <description>Search results for <?=$SEARCHENGINE->query_description_short() ?> at TheyWorkForYou.com</description>
 <language>en-gb</language>
 <copyright>Parliamentary Copyright.</copyright>
@@ -39,7 +39,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         }
         echo (' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ')');
 ?></title>
-<link>http://www.theyworkforyou.com<?=$row['listurl'] ?></link>
+<link>https://www.theyworkforyou.com<?=$row['listurl'] ?></link>
 <pubDate><?=$date ?></pubDate>
 <description><?php
         if (isset($row['speaker']) && count($row['speaker'])) {

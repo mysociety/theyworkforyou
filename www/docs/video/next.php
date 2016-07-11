@@ -18,7 +18,7 @@ if ($action == 'next' || $action=='nextneeded') {
         ));
     if (!$q->rows()) {
         # Shouldn't happen, but means a bot has got the URL somehow or similar
-        header('Location: http://www.theyworkforyou.com/video/');
+        header('Location: /video/');
         exit;
     }
     $hdate = $q->field(0, 'hdate');

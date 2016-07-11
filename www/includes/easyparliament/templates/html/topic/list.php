@@ -13,7 +13,7 @@
 
             <?php $URL = new URL($page); ?>
 
-            <li><a href="http://<?= DOMAIN ?><?= $URL->generate(); ?>">
+            <li><a href="<?= $URL->generate(); ?>">
                 <img src="/images/<?= $page ?>.jpg">
                 <?= _htmlspecialchars($topic); ?>
             </a></li>

@@ -33,7 +33,7 @@ if (get_http_var("submitcomment") != '') {
         // is required.
         $URL->insert(array('id'=>get_http_var('gid'), 'c'=>$success));
 
-        header("Location: http://" . DOMAIN . $URL->generate('none') . "#c" . $success);
+        header("Location: " . $URL->generate('none') . "#c" . $success);
         exit;
 
     } else {

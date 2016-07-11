@@ -30,7 +30,7 @@ class CommentTest extends TWFY_Database_TestCase
     public function testHTMLCleaningGetBody()
     {
         $comment = new COMMENT(1);
-        $this->assertEquals($comment->body(), "This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, email addresses like test@theyworkforyou.com, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.
+        $this->assertEquals($comment->body(), "This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, email addresses like test@theyworkforyou.com, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.
 
 It also spans multiple lines.");
     }
@@ -41,7 +41,7 @@ It also spans multiple lines.");
     public function testHTMLCleaningPrepareCommentForDisplay()
     {
         $comment = new COMMENT(1);
-        $this->assertEquals(prepare_comment_for_display($comment->body()), "This is a test comment, including <a href=\"http://theyworkforyou.com\" rel=\"nofollow\">http://theyworkforyou.com</a> <a href=\"http://theyworkforyou.com\">links</a>, email addresses like <a href=\"mailto:test@theyworkforyou.com\">test@theyworkforyou.com</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.<br>
+        $this->assertEquals(prepare_comment_for_display($comment->body()), "This is a test comment, including <a href=\"https://www.theyworkforyou.com\" rel=\"nofollow\">https://www.theyworkforyou.com</a> <a href=\"https://www.theyworkforyou.com\">links</a>, email addresses like <a href=\"mailto:test@theyworkforyou.com\">test@theyworkforyou.com</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.<br>
 <br>
 It also spans multiple lines.");
     }
@@ -50,7 +50,7 @@ It also spans multiple lines.");
     {
         $comment = new COMMENT(2);
         $this->assertEquals(prepare_comment_for_display($comment->body()),
-            '<a href="http://theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive" rel="nofollow">http://theyworkforyou.example.org/this/is/a/coment/with/a/ve...</a>');
+            '<a href="https://www.theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive" rel="nofollow">https://www.theyworkforyou.example.org/this/is/a/coment/with...</a>');
     }
 
     /**
@@ -69,7 +69,7 @@ It also spans multiple lines.");
 
         $data = array(
             'epobject_id' => 1,
-            'body' => "This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray < brackets to ensure they're not stripped.
+            'body' => "This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray < brackets to ensure they're not stripped.
 
 It also includes <script>alert('malicious!');</script> script tags, to ensure they are stripped correctly.
 
@@ -84,7 +84,7 @@ It also spans multiple lines.",
 
         $comment = new COMMENT($commentId);
 
-        $this->assertEquals("This is a test comment, including http://theyworkforyou.com <a href=\"http://theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're not stripped.
+        $this->assertEquals("This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're not stripped.
 
 It also includes alert('malicious!'); script tags, to ensure they are stripped correctly.
 

@@ -233,7 +233,7 @@ foreach ($alertdata as $alertitem) {
 				if (isset($row['speaker']) && count($row['speaker'])) $body = $row['speaker']['name'] . ': ' . $body;
 
 				$body = wordwrap($body, 72);
-				$o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttp://www.theyworkforyou.com" . $row['listurl'] . "\n";
+				$o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttps://www.theyworkforyou.com" . $row['listurl'] . "\n";
 				$o[$major] .= $body . "\n\n";
 			}
 			$total++;
@@ -249,7 +249,7 @@ foreach ($alertdata as $alertitem) {
 					$heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major]!=1?'s':'');
 					$email_text .= "$heading\n".str_repeat('=',strlen($heading))."\n\n";
 					if ($count[$major] > 3) {
-						$email_text .= "There are more results than we have shown here. See more:\nhttp://www.theyworkforyou.com/search/?s=".urlencode($criteria_raw)."+section:".$sects_search[$major]."&o=d\n\n";
+						$email_text .= "There are more results than we have shown here. See more:\nhttps://www.theyworkforyou.com/search/?s=".urlencode($criteria_raw)."+section:".$sects_search[$major]."&o=d\n\n";
 					}
 					$email_text .= $body;
 				}
@@ -311,7 +311,7 @@ function write_and_send_email($current, $data, $template) {
 	$d = array('to' => $current['email'], 'template' => $template);
 	$m = array(
 		'DATA' => $data,
-		'MANAGE' => 'http://www.theyworkforyou.com/D/' . $current['token'],
+		'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
 	);
 	if (!$nomail) {
 		$success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces

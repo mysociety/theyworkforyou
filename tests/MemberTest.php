@@ -110,7 +110,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 2));
 
-        $this->assertEquals('http://' . DOMAIN . '/mp/2/test_current-mp/test_westminster_constituency', $MEMBER->url());
+        $this->assertEquals('/mp/2/test_current-mp/test_westminster_constituency', $MEMBER->url());
     }
 
     /**
@@ -122,7 +122,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 12));
 
-        $this->assertEquals('http://' . DOMAIN . '/mp/12/test_special-character-constituency/test_constituency%2C_comma', $MEMBER->url());
+        $this->assertEquals('/mp/12/test_special-character-constituency/test_constituency%2C_comma', $MEMBER->url());
     }
 
     /**
@@ -132,7 +132,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 3));
 
-        $this->assertEquals('http://' . DOMAIN . '/peer/3/mr_current-lord', $MEMBER->url());
+        $this->assertEquals('/peer/3/mr_current-lord', $MEMBER->url());
     }
 
     /**
@@ -142,7 +142,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 8));
 
-        $this->assertEquals('http://' . DOMAIN . '/mla/8/test_previous-mla', $MEMBER->url());
+        $this->assertEquals('/mla/8/test_previous-mla', $MEMBER->url());
     }
 
     /**
@@ -152,7 +152,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 5));
 
-        $this->assertEquals('http://' . DOMAIN . '/msp/5/test_current-msp', $MEMBER->url());
+        $this->assertEquals('/msp/5/test_current-msp', $MEMBER->url());
     }
 
     /**
@@ -162,7 +162,7 @@ class MemberTest extends TWFY_Database_TestCase
     {
         $MEMBER = new MEMBER(array('person_id' => 1));
 
-        $this->assertEquals('http://' . DOMAIN . '/royal/elizabeth_the_second', $MEMBER->url());
+        $this->assertEquals('/royal/elizabeth_the_second', $MEMBER->url());
     }
 
     /**

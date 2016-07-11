@@ -16,13 +16,13 @@
     ?>
 
     <link rel="author" title="Send feedback" href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">
-    <link rel="home" title="Home" href="http://<?= DOMAIN ?>/">
+    <link rel="home" title="Home" href="https://<?= DOMAIN ?>/">
 
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
     <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="http://<?= DOMAIN ?>/images/facebook-avatar.png">
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
@@ -163,7 +163,7 @@
     <div class="ms-header">
         <nav class="ms-header__row">
             <div class="ms-header__logo">
-                <a href="http://www.mysociety.org">mySociety</a>
+                <a href="https://www.mysociety.org">mySociety</a>
             </div>
         </nav>
     </div>

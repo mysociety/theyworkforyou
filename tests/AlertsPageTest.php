@@ -16,7 +16,7 @@ class AlertsPageTest extends FetchPageTestCase
 
     private function fetch_page($vars)
     {
-        return $this->base_fetch_page('', $vars, 'www/docs/alert');
+        return $this->base_fetch_page($vars, 'alert');
     }
 
     public function testFetchPage()

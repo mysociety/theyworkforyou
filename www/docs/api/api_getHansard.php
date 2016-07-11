@@ -10,7 +10,7 @@ function api_getHansard_front() {
 <p>Note you can only supply <strong>one</strong> of the following search terms
 at present. If you wish to search multiple things (e.g. search plus person),
 use the <kbd>search</kbd> parameter, and supply
-<a href="http://www.theyworkforyou.com/help/#searching">query arguments</a>.</p>
+<a href="/help/#searching">query arguments</a>.</p>
 
 <dl>
 <dt>search</dt>
@@ -111,7 +111,7 @@ function _api_getHansard_gid($type, $gid) {
     } catch (RedirectException $e) {
         $url = $_SERVER['REQUEST_URI'];
         $url = str_replace($gid, $e->getMessage(), $url);
-        header('Location: http://' . DOMAIN . $url);
+        header('Location: ' . $url);
         exit;
     }
 }

@@ -231,7 +231,7 @@
             <field name="postcode">SE17 3HE</field>
             <field name="registrationtoken">348rudfaslf89</field>
             <field name="confirmed">1</field>
-            <field name="url">http://theyworkforyou.com</field>
+            <field name="url">https://www.theyworkforyou.com</field>
         </row>
 	</table_data>
 	<table_data name="uservotes">

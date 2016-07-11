@@ -44,8 +44,8 @@ foreach my $area (keys %oral) {
 my $rss = new XML::RSS (version => '1.0');
 $rss->channel(
 	title => "$area",
-	link => "http://www.theyworkforyou.com/debates/",
-	description => "$area via TheyWorkForYou.com - http://www.theyworkforyou.com/ .",
+	link => "https://www.theyworkforyou.com/debates/",
+	description => "$area via TheyWorkForYou.com - https://www.theyworkforyou.com/ .",
 	dc => {
 		subject => '',
 		creator => 'TheyWorkForYou.com',
@@ -67,7 +67,7 @@ $rss->channel(
 
 		$rss->add_item(
 			title=>"$dept_name &mdash; $topic->[3]",
-			link=>'http://www.theyworkforyou.com/debates/?id=' . $topic->[2],
+			link=>'https://www.theyworkforyou.com/debates/?id=' . $topic->[2],
  			description=>"$area - $topic->[3]"
  		);
 	}

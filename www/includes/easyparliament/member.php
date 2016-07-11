@@ -582,7 +582,7 @@ class MEMBER {
 
     public function the_users_mp() { return $this->the_users_mp; }
 
-    public function url($absolute = true) {
+    public function url($absolute = false) {
         $house = $this->house_disp;
         if ($house == HOUSE_TYPE_COMMONS) {
             $URL = new URL('mp');
@@ -597,7 +597,7 @@ class MEMBER {
         }
         $member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
         if ($absolute)
-            return 'http://' . DOMAIN . $URL->generate('none') . $member_url;
+            return 'https://' . DOMAIN . $URL->generate('none') . $member_url;
         else
             return $URL->generate('none') . $member_url;
     }

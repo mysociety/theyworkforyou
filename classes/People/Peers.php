@@ -28,7 +28,7 @@ class Peers extends \MySociety\TheyWorkForYou\People {
             $details['person_id'],
             $details['name'],
             $details['party'],
-            'http://www.theyworkforyou.com/mp/' . $details['url']
+            'https://www.theyworkforyou.com/peer/' . $details['url']
         );
     }
 }

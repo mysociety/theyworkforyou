@@ -298,7 +298,7 @@ class USER {
 
         $urltoken = $this->user_id . '-' . $details['token'];
 
-        $confirmurl = 'http://' . DOMAIN . '/E/' . $urltoken;
+        $confirmurl = 'https://' . DOMAIN . '/E/' . $urltoken;
 
         // Arrays we need to send a templated email.
         $data = array (
@@ -340,7 +340,7 @@ class USER {
 
         $urltoken = $this->user_id . '-' . $this->registrationtoken;
 
-        $confirmurl = 'http://' . DOMAIN . '/U/' . $urltoken;
+        $confirmurl = 'https://' . DOMAIN . '/U/' . $urltoken;
 
         // Arrays we need to send a templated email.
         $data = array (
@@ -481,7 +481,7 @@ class USER {
 
         $merge = array (
             'EMAIL'         => $this->email(),
-            'LOGINURL'      => "http://" . DOMAIN . $URL->generate(),
+            'LOGINURL'      => "https://" . DOMAIN . $URL->generate(),
             'PASSWORD'      => $this->password()
         );
 

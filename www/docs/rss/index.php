@@ -22,7 +22,7 @@ if (validate_postcode($pc)) {
             }
 
             if ($MEMBER->person_id()) {
-                header('Location: http://' . DOMAIN . '/rss/mp/' . $MEMBER->person_id() . '.rdf');
+                header('Location: /rss/mp/' . $MEMBER->person_id() . '.rdf');
             }
         }
     } else {

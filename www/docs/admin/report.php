@@ -284,7 +284,7 @@ function resolve($REPORT, $COMMENT) {
 
             } else {
                 $data['template'] = 'report_declined';
-                $merge['COMMENTURL'] = 'http://' . DOMAIN . $COMMENT->url();
+                $merge['COMMENTURL'] = 'https://' . DOMAIN . $COMMENT->url();
                 $merge['REASON'] = get_http_var('declinedreason');
             }
 
@@ -306,7 +306,7 @@ function resolve($REPORT, $COMMENT) {
 
             // Create the URL for if a user wants to return and post another comment.
             // Remove the anchor for their now deleted comment.
-            $addcommentsurl = 'http://' . DOMAIN . preg_replace("/#.*$/", '#addcomment', $COMMENT->url());
+            $addcommentsurl = 'https://' . DOMAIN . preg_replace("/#.*$/", '#addcomment', $COMMENT->url());
 
             $data = array (
                 'to' => $USER->email(),

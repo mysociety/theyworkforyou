@@ -13,7 +13,7 @@ class DivisionsTest extends FetchPageTestCase
 
     private function fetch_page($vars)
     {
-        return $this->base_fetch_page('', $vars, 'www/docs/mp', 'index.php', 'REQUEST_URI=mp/divisions.php');
+        return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/divisions.php');
     }
 
     private function fetch_division_page() {

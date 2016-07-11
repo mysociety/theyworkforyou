@@ -108,7 +108,7 @@ class People extends \PEOPLE {
             $details['name'],
             $details['party'],
             $details['constituency'],
-            'http://www.theyworkforyou.com/mp/' . $details['url']
+            'https://www.theyworkforyou.com/mp/' . $details['url']
         );
     }
 

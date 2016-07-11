@@ -109,7 +109,7 @@ class DebatesView extends SectionView {
         }
         $out .= \MySociety\TheyWorkForYou\Utility\Video::object($video['id'], $start, "$gid_type/$row[gid]");
         $flashvars = 'gid=' . "$gid_type/$row[gid]" . '&amp;file=' . $video['id'] . '&amp;start=' . $start;
-        $out .= "<strong>Embed this video</strong><p class='video-instructions'>Copy and paste this code on your website</p><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='http://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\">";
+        $out .= "<strong>Embed this video</strong><p class='video-instructions'>Copy and paste this code on your website</p><input readonly onclick='this.focus();this.select();' type='text' name='embed' size='40' value=\"<embed src='https://www.theyworkforyou.com/video/parlvid.swf' width='320' height='230' allowfullscreen='true' allowscriptaccess='always' flashvars='$flashvars'></embed>\">";
         if ($count > 1) {
             $out .= '<p class="hide-video"><a href="" onclick="return showVideo();">Hide</a></p>';
             $out .= '</div></div>';

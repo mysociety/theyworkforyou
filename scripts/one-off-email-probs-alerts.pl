@@ -37,7 +37,7 @@ foreach (@$alerts) {
 		my $name = $dbh->selectrow_array("select concat(given_name,' ',family_name) from person_names where type='name' and person_id=? order by end_date desc limit 1", {}, $1);
 		$criteria =~ s/speaker:\d+/spoken by $name/;
 	}
-	my $url = "http://theyworkforyou.com/alert/confirm/?t=$id"."::$token";
+	my $url = "https://www.theyworkforyou.com/alert/confirm/?t=$id"."::$token";
 	$out{$email}{$criteria} = $url;
 }
 

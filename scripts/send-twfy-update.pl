@@ -76,7 +76,7 @@ knew your MP, you may be in for a few surprises.
 
 Just type in your postcode:
 
-    http://www.theyworkforyou.com/mp/
+    https://www.theyworkforyou.com/mp/
 
 == Not voting this year? Tell the world why at 
 http://www.notapathetic.com/ ==
@@ -132,7 +132,7 @@ Pledge, Print and Post
 ======================
 
 All of us here have pledged to load up our own MP's 
-report card from http://www.theyworkforyou.com/mp, 
+report card from https://www.theyworkforyou.com/mp, 
 print it out ten times on our bubblejet printers, and 
 deliver a copy to ten other houses in our neighbourhood.
 As we're mild cowards, we'll only do this if 100 other
@@ -220,7 +220,7 @@ Unsubscribe?
 If you never want to hear from us again then it's fine, we
 won't cry - you can shut us up by logging in and setting the
 \"occasional update emails\" setting to \"no\" at:
-http://www.theyworkforyou.com/user/login/?ret=/user/?pg=edit
+https://www.theyworkforyou.com/user/login/?ret=/user/?pg=edit
 But then you're *so* off our Christmas card list.
 
 

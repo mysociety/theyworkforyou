@@ -4,7 +4,7 @@
  * Ask and store questionnaire for research.
  *
  * Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
- * Email: matthew@mysociety.org. WWW: http://www.mysociety.org
+ * Email: matthew@mysociety.org. WWW: https://www.mysociety.org
  *
  * $Id: index.php,v 1.4 2010-01-20 10:48:58 matthew Exp $
  *
@@ -51,15 +51,15 @@ if ($show_survey_qn < $current_question && !$has_answered_question) {
     $hide_url = '';
     if ( in_array( $this_page, array('mp', 'peer', 'msp', 'mla', 'royal') ) ) {
         global $MEMBER;
-        $page_url = $MEMBER->url() . "?answered_survey=$current_question";
+        $page_url = $MEMBER->url(true) . "?answered_survey=$current_question";
         $hide_url = $MEMBER->url() . "?hide_survey=$current_question";
     } else {
         $URL = new URL($this_page);
         $URL->insert(array('answered_survey' => $current_question ));
-        $page_url = 'http://' . DOMAIN . $URL->generate();
+        $page_url = 'https://' . DOMAIN . $URL->generate();
         $URL = new URL($this_page);
         $URL->insert(array('hide_survey' => $current_question ));
-        $hide_url = 'http://' . DOMAIN . $URL->generate();
+        $hide_url = $URL->generate();
     }
 
     $user_code = bin2hex(urandom_bytes(16));

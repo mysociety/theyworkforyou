@@ -33,8 +33,7 @@ function gid_to_url($gid) {
     $url_gid = fix_gid_from_db($gid);
     $url = new \URL($hansardmajors[$q->field(0, 'major')]['page']);
     $url->insert(array('id' => $url_gid));
-    $url = 'http://' . DOMAIN . $url->generate();
-    return $url;
+    return $url->generate();
 }
 
 function edit_featured_form() {

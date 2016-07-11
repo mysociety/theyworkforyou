@@ -91,7 +91,7 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
 
     $err = '';
     if (isset($_SERVER['REQUEST_URI'])) {
-        $err .= "URL:\t\thttp://" . DOMAIN . $_SERVER['REQUEST_URI'] . "\n";
+        $err .= "URL:\t\thttps://" . DOMAIN . $_SERVER['REQUEST_URI'] . "\n";
     } else {
         $err .= "URL:\t\tNone - running from command line?\n";
     }
@@ -1108,7 +1108,6 @@ function valid_url($url) {
 }
 
 function redirect($url) {
-    $url = 'http://' . DOMAIN . $url;
     if (defined('TESTING')) {
         print "Location: $url";
     } else {

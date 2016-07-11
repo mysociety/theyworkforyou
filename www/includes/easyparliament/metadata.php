@@ -314,7 +314,7 @@ $this->page = array (
     ),
     'news' => array(
         'title' => 'News',
-        'url' => 'http://www.mysociety.org/category/projects/theyworkforyou/'
+        'url' => 'https://www.mysociety.org/category/projects/theyworkforyou/'
     ),
     'debate'  => array (
         'parent'		=> 'debatesfront',
@@ -440,7 +440,7 @@ $this->page = array (
     'code' => array (
         'title'			=> 'Source code',
         'heading'		=> 'TheyWorkForYou Source code',
-        'url'			=> 'http://github.com/mysociety/theyworkforyou'
+        'url'			=> 'https://github.com/mysociety/theyworkforyou'
     ),
     'irc' => array (
         'title'			=> 'IRC chat channel',

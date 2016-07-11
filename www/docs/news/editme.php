@@ -27,23 +27,23 @@ EOT
 In order to monitor the service for abuse, help with support and maintenance,
 locate large volume/ commercial users to ask them to contribute to our costs,
 and provide users with usage statistics of their application, we're adding API
-keys to our <a href="http://www.theyworkforyou.com/api/">API</a>. Apologies to
+keys to our <a href="https://www.theyworkforyou.com/api/">API</a>. Apologies to
 current API users who will be inconvenienced; the API will allow key-less calls
 for a short time, during which current users can get a key and update their
 code.
 
 In front end news, we now locate whenever an old version of Hansard is
 referenced (which they do by date and column number, e.g. <a
-href="http://www.theyworkforyou.com/search/?pop=1&s=date:20080229+column:1425"><i>Official
+href="https://www.theyworkforyou.com/search/?pop=1&s=date:20080229+column:1425"><i>Official
 Report</i>, 29 February 2008, column 1425</a>) and turn the citation into a
 link to a search for the speeches in that column on that date. This only really
 became feasible when we moved server, upgraded <a
 href="http://www.xapian.org/">Xapian</a>, and added date and column number
 metadata (among others), allowing much more advanced and focussed searching -
-the <a href="http://www.theyworkforyou.com/search/">advanced search form</a>
+the <a href="https://www.theyworkforyou.com/search/">advanced search form</a>
 gives some other ideas. Perhaps in future we'll be able to add some
 crowd-sourcing game to match the reference to the exact speech, much like our
-<a href="http://www.theyworkforyou.com/video/">video matching</a> (nearly 80%
+<a href="https://www.theyworkforyou.com/video/">video matching</a> (nearly 80%
 of our archive done!). :)
 EOT
 , '2008-07-18 14:01:00', 'Matthew'),
@@ -51,9 +51,9 @@ EOT
 47 => array('Video on TheyWorkForYou', <<<EOT
 <p>We&#8217;re very excited to announce that TheyWorkForYou now includes <a href="/video/">video</a> of <a href="/debates/">debates in the House of Commons</a> - but <a href="/video/">we need your help</a> to match up each speech with the video footage.</p>
 
-<p>It&#8217;s really easy to help out.  We&#8217;ve built a <a href="http://www.theyworkforyou.com/video/">really simple, rather addictive system</a> that lets anyone with a few spare minutes match up a randomly-selected speech from Hansard against the correct snippet of video.  You just listen out for a certain speech, and when you hear it you hit the big red &#8216;Now&#8217; button. Your clip will then immediately go live on TheyWorkForYou next to the relevent speech, improving the site for everyone. Yay!</p>
+<p>It&#8217;s really easy to help out.  We&#8217;ve built a <a href="https://www.theyworkforyou.com/video/">really simple, rather addictive system</a> that lets anyone with a few spare minutes match up a randomly-selected speech from Hansard against the correct snippet of video.  You just listen out for a certain speech, and when you hear it you hit the big red &#8216;Now&#8217; button. Your clip will then immediately go live on TheyWorkForYou next to the relevent speech, improving the site for everyone. Yay!</p>
 
-<p>You can start matching up speeches with video snippets right away, but if you take 30 seconds to <a href="http://www.theyworkforyou.com/user/?pg=join&#038;ret=/video/">register a username</a> then we&#8217;ll log every speech that you match up and recognise your contribution on our <a href="http://www.theyworkforyou.com/video/">&#8220;top timestampers&#8221; league table</a>.  We&#8217;ll send out mySociety hoodies to the top timestampers - they&#8217;re reserved exclusively for our volunteers as a badge of honour.</p>
+<p>You can start matching up speeches with video snippets right away, but if you take 30 seconds to <a href="https://www.theyworkforyou.com/user/?pg=join&#038;ret=/video/">register a username</a> then we&#8217;ll log every speech that you match up and recognise your contribution on our <a href="https://www.theyworkforyou.com/video/">&#8220;top timestampers&#8221; league table</a>.  We&#8217;ll send out mySociety hoodies to the top timestampers - they&#8217;re reserved exclusively for our volunteers as a badge of honour.</p>
 
 <a href="http://www.mysociety.org/2008/06/01/video-recordings-of-the-house-of-commons-on-theyworkforyoucom/">Etienne's post on the mySociety blog</a>
 has some background information on the project.
@@ -102,7 +102,7 @@ EOT
 , '2008-04-30 08:25:00', 'Matthew'),
 
 44 => array('Please donate to help us expand TheyWorkForYou', <<<EOT
-We&#8217;ve been working on Public Bill (n&#233;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="http://theyworkforyou.com">TheyWorkForYou</a>. Yay!
+We&#8217;ve been working on Public Bill (n&#233;e Standing) Committees, and some lovely new volunteers have been working their socks off on the Scottish Parliament, to be added to <a href="https://www.theyworkforyou.com">TheyWorkForYou</a>. Yay!
 
 Unfortunately, the server that TheyWorkForYou sits on is almost full, so we can&#8217;t launch their hard work. Boo!
 
@@ -113,13 +113,13 @@ EOT
 43 => array('The Queen in Parliament', <<<EOT
 Whilst we cover MPs and Lords, there's always been one other individual who speaks in
 Parliament whom we missed. That anomaly has now been fixed, and so you can now view
-<a href="http://www.theyworkforyou.com/royal/elizabeth_the_second">the Queen's
+<a href="https://www.theyworkforyou.com/royal/elizabeth_the_second">the Queen's
 page</a> on TheyWorkForYou. :)
 This means you can sign up for an email alert whenever she speaks
 in Parliament, subscribe to the
-<a href="http://www.theyworkforyou.com/rss/mp/13935.rdf">RSS feed</a> of the same,
+<a href="https://www.theyworkforyou.com/rss/mp/13935.rdf">RSS feed</a> of the same,
 or just look at past
-<a href="http://www.theyworkforyou.com/search/?pid=13935&pop=1">prorogation and Queen's speeches</a>
+<a href="https://www.theyworkforyou.com/search/?pid=13935&pop=1">prorogation and Queen's speeches</a>
 more easily than anywhere else I've found.
 EOT
 , '2007-09-11 15:34:47', 'Matthew'),
@@ -202,13 +202,13 @@ We've added MPs' membership of select committees, taken from
 official list</a>, including membership history where we can work it out.
 
 Our rankings for various numbers have been removed, to be replaced by
-woolly text &ndash; we have <a href="http://www.theyworkforyou.com/help/#numbers">more
+woolly text &ndash; we have <a href="https://www.theyworkforyou.com/help/#numbers">more
 information on this</a>. To make up for it, we've done a bit more text
 analysis, and added which departments and subjects an MP asks most
 written questions about, so you can see that
-<a href="http://www.theyworkforyou.com/mp/alan_williams/swansea_west">Alan Williams</a>
+<a href="https://www.theyworkforyou.com/mp/alan_williams/swansea_west">Alan Williams</a>
 has asked more questions about Royal Residences than anything else, or that
-<a href="http://www.theyworkforyou.com/mp/anne_main/st_albans">Anne Main</a> has asked
+<a href="https://www.theyworkforyou.com/mp/anne_main/st_albans">Anne Main</a> has asked
 more questions on Flag Flying.
 
 Firefox users can download a
@@ -241,9 +241,9 @@ EOT
 , "2006-06-01 12:34:56"),
 
 36 => array("Changes to the Register of Members' Interests", <<<EOT
-One of the many things our site does, probably without you realising, is to track the Register of Members' Interests, in which MPs are "to provide information of any pecuniary interest or other material benefit which a Member receives which might reasonably be thought by others to influence his or her actions, speeches or votes in Parliament, or actions taken in the capacity of a Member of Parliament". The latest entry published on the official site has always been shown on MP pages (<a href="http://www.theyworkforyou.com/mp/tony_blair/sedgefield#register">here's Tony Blair's</a>), however we kept all previous editions of the Register safe and sound. And now, after a bit of coding, you can view a history of the Register, either <a href="http://www.theyworkforyou.com/regmem/?f=2005-12-14">comparing particular editions</a>, or for particular MPs (<a href="http://www.theyworkforyou.com/regmem/?p=10001">Diane Abbott</a>, for example). Entries only have to stay on the Register for a year, so this can make for some interesting reading.
+One of the many things our site does, probably without you realising, is to track the Register of Members' Interests, in which MPs are "to provide information of any pecuniary interest or other material benefit which a Member receives which might reasonably be thought by others to influence his or her actions, speeches or votes in Parliament, or actions taken in the capacity of a Member of Parliament". The latest entry published on the official site has always been shown on MP pages (<a href="https://www.theyworkforyou.com/mp/tony_blair/sedgefield#register">here's Tony Blair's</a>), however we kept all previous editions of the Register safe and sound. And now, after a bit of coding, you can view a history of the Register, either <a href="https://www.theyworkforyou.com/regmem/?f=2005-12-14">comparing particular editions</a>, or for particular MPs (<a href="https://www.theyworkforyou.com/regmem/?p=10001">Diane Abbott</a>, for example). Entries only have to stay on the Register for a year, so this can make for some interesting reading.
 
-Happy New Year! :) <a href="http://www.theyworkforyou.com/regmem/">Changes to the Register of Members' Interests</a>
+Happy New Year! :) <a href="https://www.theyworkforyou.com/regmem/">Changes to the Register of Members' Interests</a>
 EOT
 , "2006-01-01 12:36:00"),
 
@@ -281,7 +281,7 @@ We've added a smashing new feature to all our <a href="/mps/">MP pages</a>, cour
 
 You can now check out which way MPs tended vote on half a dozen key issues from the last Parliament (Iraq, Fox Hunting, ID cards. Top Up Fees etc) via a nice, easy to understand panel.
 
-For example, mining the <a href="http://www.theyworkforyou.com/mp/graham_allen/nottingham_north#votingrecord">voting record of Graham Allen</a>, Labour MP for Nottingham North, shows that he was pretty dubious about the Iraq war, but very strongly in favour of a ban on fox hunting.
+For example, mining the <a href="https://www.theyworkforyou.com/mp/graham_allen/nottingham_north#votingrecord">voting record of Graham Allen</a>, Labour MP for Nottingham North, shows that he was pretty dubious about the Iraq war, but very strongly in favour of a ban on fox hunting.
 
 This information is the result sophisticated mining of PublicWhip's detailed vote data covering hundreds of Parliamentary divisions.
 
@@ -292,7 +292,7 @@ EOT
 31 => array("Channel 4 linking to TheyWorkForYou.com", <<<EOT
 We're happy to announce that the Channel 4 website is directing people to TheyWorkForYou.com's MP pages via a <a href="http://www.channel4.com/news/microsites/E/election2005/yourmp.html">postcode box</a> on their <a href="http://www.channel4.com/news/microsites/E/election2005/">Election 2005 website</a>.
 
-We've done a special paint job for users coming from the Channel 4 site, just to make them feel welcome. You can see an example <a href="http://www.theyworkforyou.com/mp/c4/paul_keetch/hereford">here</a>.
+We've done a special paint job for users coming from the Channel 4 site, just to make them feel welcome. You can see an example <a href="https://www.theyworkforyou.com/mp/c4/paul_keetch/hereford">here</a>.
 
 We'd love to know what you think of this paint job, as we're planning a redesign. As ever, <a href="/contact/">get in touch</a>.
 EOT
@@ -310,14 +310,14 @@ EOT
      You all *so* wanted this. Near the top of every MP's page,
      and on every search results page, you'll see a link starting
      with 'Email me when...' Just click and go, or sign up by
-     hand using <a href="http://theyworkforyou.com/alert/">http://theyworkforyou.com/alert/</a>
+     hand using <a href="https://www.theyworkforyou.com/alert/">https://www.theyworkforyou.com/alert/</a>
 
     <i> "Can I see when an issue was last raised in Parliament?"</i>
 
      Yes. At the top of every search results page you'll see a
      link that sorts the most recent result at the top. Ideal for
      keeping tabs on topical concerns such as
-     <a href="http://theyworkforyou.com/search/?o=d&s=%22identity+card%22">http://theyworkforyou.com/search/?o=d&s=%22identity+card%22</a>
+     <a href="https://www.theyworkforyou.com/search/?o=d&s=%22identity+card%22">https://www.theyworkforyou.com/search/?o=d&s=%22identity+card%22</a>
 
      <i>"Can I just search the stuff my MP has said?"</i>
 
@@ -328,8 +328,8 @@ EOT
      <i>"What about Westminster Hall, Written Ministerial
        Statements & House of Commons' Committees?"</i>
 
-     We're two-thirds done. See <a href="http://theyworkforyou.com/whall/">http://theyworkforyou.com/whall/</a> and
-     <a href="http://theyworkforyou.com/wms/">http://theyworkforyou.com/wms/</a> We're busy tacking Committee
+     We're two-thirds done. See <a href="https://www.theyworkforyou.com/whall/">https://www.theyworkforyou.com/whall/</a> and
+     <a href="https://www.theyworkforyou.com/wms/">https://www.theyworkforyou.com/wms/</a> We're busy tacking Committee
      proceedings, but these be hard.
 
      <i>"Is what you're doing legal?"</i>
@@ -356,7 +356,7 @@ EOT
 
     - Tom, on behalf of the TheyWorkForYou.com volunteers
 
-     <a href="http://theyworkforyou.com/about/">http://theyworkforyou.com/about/</a>  - New volunteers welcome!
+     <a href="https://www.theyworkforyou.com/about/">https://www.theyworkforyou.com/about/</a>  - New volunteers welcome!
 EOT
 , "2005-02-24 22:02:44"),
 
@@ -373,12 +373,12 @@ The update contains new code for:
 
 Feel free to download it and have a play.
 
-Whilst you're at it, don't forget we also publish a full <a href="http://www.theyworkforyou.com/raw/">XML version of the Hansard data</a>.
+Whilst you're at it, don't forget we also publish a full <a href="https://www.theyworkforyou.com/raw/">XML version of the Hansard data</a>.
 EOT
 , "2005-01-25 00:15:19"),
 
 25 => array("Search by Date", <<<EOT
-Thanks to the sterling efforts of a fine new volunteer (thanks David!), you can now sort any search results either by listing the <a href="http://www.theyworkforyou.com/search/?s=Uzbekistan&o=r">most relevant results first</a>, or <a href="http://www.theyworkforyou.com/search/?s=Uzbekistan&o=d">most recent results first</a>.
+Thanks to the sterling efforts of a fine new volunteer (thanks David!), you can now sort any search results either by listing the <a href="https://www.theyworkforyou.com/search/?s=Uzbekistan&o=r">most relevant results first</a>, or <a href="https://www.theyworkforyou.com/search/?s=Uzbekistan&o=d">most recent results first</a>.
 
 
 This is good news for those wanting to keep up to date with issues as they pop up in the Commons.
@@ -390,11 +390,11 @@ EOT
 , "2005-01-25 00:16:09"),
 
 20 => array("New! Ministerial Statements now included", <<<EOT
-The <a href="http://www.theyworkforyou.com/">TheyWorkForYou.com</a> volunteers are busily crunching their way through the more esoteric corners of Hansard. By way of example, we've just incorporated <a href="http://www.theyworkforyou.com/wms/">Written Ministerial Statements</a> into the site.
+The <a href="https://www.theyworkforyou.com/">TheyWorkForYou.com</a> volunteers are busily crunching their way through the more esoteric corners of Hansard. By way of example, we've just incorporated <a href="https://www.theyworkforyou.com/wms/">Written Ministerial Statements</a> into the site.
 
 Nope, most of us had never heard of them either, but apparently:
 
-<i><a href="http://www.theyworkforyou.com/wms/">Written Ministerial Statements</a> were introducted in late 2002 to stop the practice of having "planted" or "inspired" questions designed to elicit Government statements.
+<i><a href="https://www.theyworkforyou.com/wms/">Written Ministerial Statements</a> were introducted in late 2002 to stop the practice of having "planted" or "inspired" questions designed to elicit Government statements.
 
 They are just that - statements on a particular topic by a Government Minister.
 </i>
@@ -408,11 +408,11 @@ EOT
 , "2005-01-17 17:44:47"),
 
 19 => array("NEW! Westminster Hall debates now available.", <<<EOT
-The volunteers have been busy over the past few days, and we are now one stage closer towards <a href="http://www.theyworkforyou.com/">TheyWorkForYou.com</a> becoming a truly comprehensive record of Parliamentary activity.
+The volunteers have been busy over the past few days, and we are now one stage closer towards <a href="https://www.theyworkforyou.com/">TheyWorkForYou.com</a> becoming a truly comprehensive record of Parliamentary activity.
 
-We've included <a href="http://www.theyworkforyou.com/whall/">debates from Westminster Hall</a>, which is a new-ish forum sitting in parallel to the main Commons Chamber. Learn more about it <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10416&glossary=true">here</a>.
+We've included <a href="https://www.theyworkforyou.com/whall/">debates from Westminster Hall</a>, which is a new-ish forum sitting in parallel to the main Commons Chamber. Learn more about it <a href="http://www.explore.parliament.uk/Parliament.aspx?id=10416&glossary=true">here</a>.
 
-<a href="http://www.theyworkforyou.com/whall/">Westminster Hall Debates</a> were introduced in 1999 with the aim of encouraging constructive rather than confrontational debate between MPs.
+<a href="https://www.theyworkforyou.com/whall/">Westminster Hall Debates</a> were introduced in 1999 with the aim of encouraging constructive rather than confrontational debate between MPs.
 
 As ever, we'll let you be the judge.
 
@@ -428,9 +428,9 @@ EOT
 18 => array("RSS feed of your MP's recent appearances", <<<EOT
 Don't forget you can keep track of any MP's recent House of Commons appearances via an RSS newsfeed. You'll find the link in the right-hand column of each individual MP's page.
 
-For example, the RSS feed of <a href="http://www.theyworkforyou.com/mp/?pid=10508">Barabara Roche's</a> recent appearances in the House of Commons can be found at the following web address:
+For example, the RSS feed of <a href="https://www.theyworkforyou.com/mp/?pid=10508">Barabara Roche's</a> recent appearances in the House of Commons can be found at the following web address:
 
-<blockquote><a href="http://www.theyworkforyou.com/rss/mp/10508.rdf">http://www.theyworkforyou.com/rss/mp/10508.rdf</a>
+<blockquote><a href="https://www.theyworkforyou.com/rss/mp/10508.rdf">https://www.theyworkforyou.com/rss/mp/10508.rdf</a>
 </blockquote>
 
 RSS is a simple way to publish & distribute content which is frequently updated  (<a href="http://news.bbc.co.uk/1/hi/help/3223484.stm">learn more here</a>.)
@@ -440,9 +440,9 @@ EOT
 , "2004-11-27 16:38:41"),
 
 16 => array("NEW! MPs' Expenses", <<<EOT
-At the bottom of <a href="http://www.theyworkforyou.com/mps/">each MP's page</a>, you can now see how much money your MP has claimed in allowances over the past three years.
+At the bottom of <a href="https://www.theyworkforyou.com/mps/">each MP's page</a>, you can now see how much money your MP has claimed in allowances over the past three years.
 
-For example, it is good to note that <a href="http://www.theyworkforyou.com/mp/?pid=10508#expenses">Barbara Roche</a>, a North London MP, does not claim excessive travel expenses.
+For example, it is good to note that <a href="https://www.theyworkforyou.com/mp/?pid=10508#expenses">Barbara Roche</a>, a North London MP, does not claim excessive travel expenses.
 
 Bear in mind that proper democracy does cost money, so please think twice before using these data as a stick with which to beat your MP. An "expensive" MP might be providing excellent value for money. And vice versa.
 EOT
@@ -451,9 +451,9 @@ EOT
 11 => array("TheyWorkForYou.com Development Wiki now public", <<<EOT
 Shortly after we launched our beta test in June we decided we should also open up access to the wiki we use to help develop TheyWorkForYou.com so that anyone can also have a go, muck in, or just laugh at us.
 
-Of course, that took far longer than we planned, but having <a href="http://www.theyworkforyou.com/news/archives/2004/07/18/new_full_source_.php">published the source code</a>, we should open up the wiki too.
+Of course, that took far longer than we planned, but having <a href="https://www.theyworkforyou.com/news/archives/2004/07/18/new_full_source_.php">published the source code</a>, we should open up the wiki too.
 
-We don't like wiki spam, so it will remain passworded, but anyone who wants a browse can tuck in at the <a href="http://www.theyworkforyou.com/wiki/moin.cgi">TheyWorkForYou.com wiki</a>
+We don't like wiki spam, so it will remain passworded, but anyone who wants a browse can tuck in at the <a href="https://www.theyworkforyou.com/wiki/moin.cgi">TheyWorkForYou.com wiki</a>
 
 username: theyworkforyou
 password: n0vemb3r (n-zero-vemb-three-r)
@@ -479,7 +479,7 @@ Most notably, we've published the source code for the front and back end of They
 
 <a href="http://www.publicwhip.org.uk/project/data.php">http://www.publicwhip.org.uk/project/data.php</a> - MP performance data; voting record matrices.
 
-<a href="http://theyworkforyou.com/rss/mp/10508.rdf">http://theyworkforyou.com/rss/mp/10508.rdf</a>
+<a href="https://www.theyworkforyou.com/rss/mp/10508.rdf">https://www.theyworkforyou.com/rss/mp/10508.rdf</a>
     - Typical MP 'recent appearances' RSS feed, uses person id.
 EOT
 , "2004-07-18 22:58:23"),
@@ -501,7 +501,7 @@ Finally, a big 'thank you' to everyone who helped test the site during the priva
 
 More than the usuals,
 
-- <i><a href="http://www.theyworkforyou.com/about/" title="link to About Us page">The TheyWorkForYou.com Volunteers</a></i>
+- <i><a href="https://www.theyworkforyou.com/about/" title="link to About Us page">The TheyWorkForYou.com Volunteers</a></i>
 EOT
 , "2004-06-06 03:02:53"),
 

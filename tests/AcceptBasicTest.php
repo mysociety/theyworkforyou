@@ -16,7 +16,7 @@ class AcceptBasicTest extends FetchPageTestCase
 
     private function fetch_page($path, $file = 'index.php', $vars = array())
     {
-        return $this->base_fetch_page('', $vars, "www/docs/$path", $file);
+        return $this->base_fetch_page($vars, $path, $file);
     }
 
     /**

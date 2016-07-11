@@ -55,8 +55,8 @@ people hanging around willing to help or point you in the right direction.
 
     http://wiki.theyworkforyou.com/cgi-bin/moin.cgi
 
-3. Also look out for announcements on http://www.theyworkforyou.com/
-   or http://www.mysociety.org/
+3. Also look out for announcements on https://www.theyworkforyou.com/
+   or https://www.mysociety.org/
 
 ## Installation
 
@@ -68,7 +68,7 @@ that here.
 ### Installation Section 1: The Basics
 
 1. Download the latest version of the TheyWorkForYou code from
-http://github.com/mysociety/theyworkforyou.
+https://github.com/mysociety/theyworkforyou.
 
 2. Create a new MySQL database:  
   
@@ -121,7 +121,7 @@ specify have the trailing `/`, unless otherwise specified.
 In this section we'll populate your mysql database with lots of nice data about
 MPs. This will be based on XML format data published by theyworkforyou.com.
 
-1. Download various data from http://www.theyworkforyou.com/pwdata/
+1. Download various data from https://www.theyworkforyou.com/pwdata/
 
     You need to preserve the directory structure which exists under pwdata, but
     you don't need to get *everything*. Most of the useful stuff is under

@@ -20,7 +20,7 @@ class SearchTest extends FetchPageTestCase
 
     private function fetch_page($vars)
     {
-        return $this->base_fetch_page('', $vars, 'www/docs/search');
+        return $this->base_fetch_page($vars, 'search');
     }
 
     public function testConstituencySearch()

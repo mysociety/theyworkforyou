@@ -2,7 +2,7 @@ Hello everyone,
 
 If you're looking to set up a new Parliamentary monitoring site then you
 should look at our Pombola probject at
-http://www.mysociety.org/international/pombola/ which takes the lessons
+https://www.mysociety.org/international/pombola/ which takes the lessons
 we've learned from writing and running TheyWorkForYou and uses them to
 create a modern, flexible and more easily adaptable platform for
 creating your own Parliamentary monitoring site. We strongly encourage

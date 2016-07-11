@@ -12,9 +12,9 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
   xmlns:cc="http://web.resource.org/cc/"
   xmlns="http://purl.org/rss/1.0/">
 
-<channel rdf:about="http://www.theyworkforyou.com/news/">
+<channel rdf:about="https://www.theyworkforyou.com/news/">
 <title>TheyWorkForYou News</title>
-<link>http://www.theyworkforyou.com/news/</link>
+<link>https://www.theyworkforyou.com/news/</link>
 <description>The weblog for news about site updates, etc.</description>
 <dc:language>en-us</dc:language>
 <dc:creator></dc:creator>
@@ -27,7 +27,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
     foreach ($all_news as $id => $news_row) {
         if ($c++ == 10) break;
         list($title, $content, $date) = $news_row;
-        $url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
+        $url = "https://www.theyworkforyou.com".news_individual_link($date, $title);
         print "<rdf:li rdf:resource=\"$url\" />\n";
     }
 ?>
@@ -41,7 +41,7 @@ print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
     foreach ($all_news as $id => $news_row) {
         if ($c++ == 10) break;
         list($title, $content, $date) = $news_row;
-        $url = "http://www.theyworkforyou.com".news_individual_link($date, $title);
+        $url = "https://www.theyworkforyou.com".news_individual_link($date, $title);
         $excerpt = trim_characters(news_format_body($content), 0, 250);
         $date = str_replace(" ", "T", $date) . "+00:00";
 ?>

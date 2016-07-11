@@ -173,12 +173,12 @@
                     based on these votes.  Follow the "votes" link next to each topic for details.
                     Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
                     parties. Since the Whip is secret, we have to assume, <a
-                    href="http://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
+                    href="https://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
                     Speaker</a>, that all votes are free.  </P>
 
                     <p>Details of the votes on which each policy position is based are available on
                     the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
-                    <a href="http://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
+                    <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
                     more about the process we follow when researching the policy positions on our
                     blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
                     which needs to be updated or corrected.</p>
@@ -372,7 +372,7 @@
 
                 <dd>
                     <p>
-                        <a href="http://www.theyworkforyou.com/api/">The API</a> queries the TheyWorkForYou database
+                        <a href="https://www.theyworkforyou.com/api/">The API</a> queries the TheyWorkForYou database
                         to return data on MPs or debates. It&rsquo;s free for use that is both low-volume AND charitable,
                         and there&rsquo;s a small fee attached for any usage outside that.
                     </p>
@@ -442,7 +442,7 @@
                         </p>
                     </blockquote>
 
-                    <p><a href="http://www.theyworkforyou.com/mp/robert_goodwill/scarborough_and_whitby">Robert Goodwill</a>, MP for Scarborough &amp; Whitby:</p>
+                    <p><a href="https://www.theyworkforyou.com/mp/robert_goodwill/scarborough_and_whitby">Robert Goodwill</a>, MP for Scarborough &amp; Whitby:</p>
 
                     <blockquote>"Use the site all the time and print off bits to send to
                     constituents.  My local newspapers are registered so they often
@@ -532,7 +532,7 @@
                 </dt>
                 <dd>
                     <p>
-                        Our postcode-to-constituency mapping is handled by <a href="http://mapit.mysociety.org/">MapIt</a>,
+                        Our postcode-to-constituency mapping is handled by <a href="https://mapit.mysociety.org/">MapIt</a>,
                         a piece of software which takes the centre point of a postcode and returns the constituency that point
                         is in. In rare cases where postcodes straddle boundaries, this method delivers the wrong results for
                         a handful of people.

@@ -10,7 +10,7 @@ function api_getWMS_front() {
 <p>Note you can only supply <strong>one</strong> of the following search terms
 at present. If you wish to search multiple things (e.g. date plus person), use
 the <kbd>search</kbd> parameter, and supply
-<a href="http://www.theyworkforyou.com/help/#searching">query arguments</a>.</p>
+<a href="/help/#searching">query arguments</a>.</p>
 
 <dl>
 <dt>date</dt>

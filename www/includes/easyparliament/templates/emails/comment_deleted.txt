@@ -3,7 +3,7 @@ Hi {FIRSTNAME},
 
 Thanks for taking the time to contribute to TheyWorkForYou.com. 
 
-Unfortunately, another user has indicated that the annotation copied at the bottom of this email might be in breach of the House Rules listed here http://www.theyworkforyou.com/houserules/ 
+Unfortunately, another user has indicated that the annotation copied at the bottom of this email might be in breach of the House Rules listed here https://www.theyworkforyou.com/houserules/ 
 
 We have removed your annotation from TheyWorkForYou for the following reason: 
 

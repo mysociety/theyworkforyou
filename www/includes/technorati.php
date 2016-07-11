@@ -5,7 +5,7 @@
   */
 function technorati_pretty() {
     global $arItems;
-    technorati('http://www.theyworkforyou.com' . $_SERVER['REQUEST_URI']);
+    technorati('https://www.theyworkforyou.com' . $_SERVER['REQUEST_URI']);
     $body = '';
     foreach ($arItems as $item) {
         $created = strtotime($item->xCreated);

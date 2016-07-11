@@ -22,7 +22,7 @@
 		<field name="comment_id">1</field>
 		<field name="user_id">1</field>
 		<field name="epobject_id">1</field>
-		<field name="body">This is a test comment, including http://theyworkforyou.com &lt;a href=&quot;http://theyworkforyou.com&quot;&gt;links&lt;/a&gt;, email addresses like test@theyworkforyou.com, &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italics&lt;/i&gt;, and stray &amp;lt; brackets to ensure they're rendered correctly.
+		<field name="body">This is a test comment, including https://www.theyworkforyou.com &lt;a href=&quot;https://www.theyworkforyou.com&quot;&gt;links&lt;/a&gt;, email addresses like test@theyworkforyou.com, &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italics&lt;/i&gt;, and stray &amp;lt; brackets to ensure they're rendered correctly.
 
 It also spans multiple lines.</field>
 		<field name="posted" xsi:nil="true" />
@@ -34,7 +34,7 @@ It also spans multiple lines.</field>
 		<field name="comment_id">2</field>
 		<field name="user_id">1</field>
 		<field name="epobject_id">1</field>
-		<field name="body">http://theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive</field>
+		<field name="body">https://www.theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive</field>
 		<field name="posted" xsi:nil="true" />
 		<field name="modflagged" xsi:nil="true" />
 		<field name="visible">1</field>

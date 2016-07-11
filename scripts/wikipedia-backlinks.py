@@ -10,7 +10,7 @@ import sys
 import re
 
 def process_page(text):
-    links = re.findall("http://(?:www.)?theyworkforyou.com/[^\s[\]]+", text)
+    links = re.findall("https?://(?:www.)?theyworkforyou.com/[^\s[\]]+", text)
     return links
 
 class WikipediaReader(xml.sax.handler.ContentHandler):
@@ -50,7 +50,7 @@ page = '''
     * [http://www.epolitix.com/EN/MPWebsites/Ann+Widdecombe/ ePolitix.com <E2><80><94> Ann Widdecombe]
     * [http://politics.guardian.co.uk/person/0,9290,-5516,00.html Guardian Unlimited Politics <E2><80><94> Ask Aristotle: Ann Wid
     decombe MP]
-    * [http://www.theyworkforyou.com/mp/ann_widdecombe/maidstone_and_the_weald TheyWorkForYou.com <E2><80><94> Ann Widdecombe MP]
+    * [https://www.theyworkforyou.com/mp/ann_widdecombe/maidstone_and_the_weald TheyWorkForYou.com <E2><80><94> Ann Widdecombe MP]
     * [http://publicwhip.org.uk/mp.php?mpn=Ann_Widdecombe&amp;mpc=Maidstone+%26amp%3B+The+Weald The Public Whip <E2><80><94> Ann 
     Widdecombe MP] voting record
     * [http://news.bbc.co.uk/1/shared/mpdb/html/275.stm BBC News <E2><80><94> Ann Widdecombe] profile 10 February, 2005

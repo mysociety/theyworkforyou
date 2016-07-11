@@ -60,7 +60,7 @@ if ($help) {
 # Configure test harness class
 print "Set up web test harness...\n" if $verbose > 0;
 our $wth = new mySociety::WebTestHarness();
-our $base_url = 'http://' . mySociety::Config::get('DOMAIN');
+our $base_url = 'https://' . mySociety::Config::get('DOMAIN');
 our $email_domain = mySociety::Config::get('EMAILDOMAIN');
 our $alert_command = 'php5 ./alertmailer.php --nomail 2>&1';
 our $alerts_ok = 'Everything went swimmingly';
@@ -558,7 +558,7 @@ speaker:Julia Goldsworthy : 2 Written Answers
 =============================================
 
 Written Answers - Work and Pensions: Council Tax Benefit (7 May 2009)
-http://www.theyworkforyou.com/wrans/?id=2009-05-07a.273284.h&s=speaker%3A11581#g273284.q0
+https://www.theyworkforyou.com/wrans/?id=2009-05-07a.273284.h&s=speaker%3A11581#g273284.q0
 Julia Goldsworthy: To ask the Secretary of State for Work and Pensions
 if he will estimate the expenditure required from the public purse to
 raise personal allowances for council tax benefit to £193 per week for
@@ -567,7 +567,7 @@ aged 65 years or over, in circumstances where the current level of
 capital allowance is  (a) maintained and  (b) abolished;...
 
 Written Answers - Work and Pensions: Council Tax Benefit (7 May 2009)
-http://www.theyworkforyou.com/wrans/?id=2009-05-07a.268179.h&s=speaker%3A11581#g268179.q0
+https://www.theyworkforyou.com/wrans/?id=2009-05-07a.268179.h&s=speaker%3A11581#g268179.q0
 Julia Goldsworthy: To ask the Secretary of State for Work and Pensions
 what the effect on the public purse would be of increasing personal
 allowances for the purposes of calculating council tax benefits to £193

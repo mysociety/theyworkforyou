@@ -261,7 +261,7 @@ class COMMENTREPORT {
             $emailbody = "A new comment report has been filed by " . $this->user_name() . ".\n\n";
             $emailbody .= "COMMENT:\n" . $COMMENT->body() . "\n\n";
             $emailbody .= "REPORT:\n" . $this->body . "\n\n";
-            $emailbody .= "To manage this report follow this link: http://" . DOMAIN . $URL->generate('none') . "\n";
+            $emailbody .= "To manage this report follow this link: https://" . DOMAIN . $URL->generate('none') . "\n";
 
             send_email(REPORTLIST, 'New comment report', $emailbody);
 
@@ -281,7 +281,7 @@ class COMMENTREPORT {
             $merge = array (
                 'FIRSTNAME' 	=> $this->firstname(),
                 'LASTNAME' 		=> $this->lastname(),
-                'COMMENTURL' 	=> "http://" . DOMAIN . $COMMENT->url(),
+                'COMMENTURL' 	=> "https://" . DOMAIN . $COMMENT->url(),
                 'REPORTBODY' 	=> strip_tags($this->body())
             );
 

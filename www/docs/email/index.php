@@ -52,7 +52,7 @@ if (sizeof($errors)) {
         'to'            => $recipient_email,
         'subject'       => 'Find out all about ' . $rep_name
     );
-    $url = $MEMBER->url();
+    $url = $MEMBER->url(true);
     $merge = array (
         'NAME' => $sender_name,
         'EMAIL' => $sender_email,

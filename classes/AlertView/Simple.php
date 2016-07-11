@@ -80,7 +80,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
             'email' => $email,
             'pid' => $person->person_id,
             'pc' => $postcode,
-            'confirm_base' => 'http://' . DOMAIN . '/alert/by-postcode?confirmed=',
+            'confirm_base' => 'https://' . DOMAIN . '/alert/by-postcode?confirmed=',
         );
 
         $data = array();

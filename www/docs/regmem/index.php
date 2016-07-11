@@ -187,7 +187,7 @@ function register_history($f) {
             $out .= clean_diff($old, $new);
         }
         if ($out) {
-            print span_row('<h2>'.$names[$person_id].' - <a href="?p='.$person_id.'">Register history</a> | <a href="http://www.theyworkforyou.com/mp/?pid='.$person_id.'">MP\'s page</a></h2>', true) . $out;
+            print span_row('<h2>'.$names[$person_id].' - <a href="?p='.$person_id.'">Register history</a> | <a href="/mp/?pid='.$person_id.'">MP&rsquo;s page</a></h2>', true) . $out;
         }
     }
     print '</table>';
@@ -312,7 +312,7 @@ function show_register($d) {
             print '<div class="block">';
             print '<h2><a name="' . $person_id . '"></a>' . $names[$person_id] . ' - ';
             print '<a href="?p=' . $person_id . '">Register history</a> | ';
-            print '<a href="http://www.theyworkforyou.com/mp/?pid=' . $person_id . '">MP\'s page</a>';
+            print '<a href="/mp/?pid=' . $person_id . '">MP&rsquo;s page</a>';
             print '</h2> <div class="blockbody">';
             print "\n$out";
             print '</div></div>';

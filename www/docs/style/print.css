@@ -75,7 +75,7 @@ span.hi {
     content: " ( " attr(href) " )";
 }
 #hansard #moreappear a:after {
-    content: " ( http://www.theyworkforyou.com" attr(href) " )";
+    content: " ( https://www.theyworkforyou.com" attr(href) " )";
 }
 .printonly {
     display: block;

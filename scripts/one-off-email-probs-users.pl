@@ -31,7 +31,7 @@ foreach (@$alerts) {
 	my $email = $_->[1];
 	my $name = $_->[2];
 	my $token = $_->[3];
-	my $url = "http://theyworkforyou.com/user/confirm/?t=$id"."::$token";
+	my $url = "https://www.theyworkforyou.com/user/confirm/?t=$id"."::$token";
 	my $out = "Hi $name,
 
 In the last few weeks, you tried to join TheyWorkForYou. We've just

@@ -100,7 +100,7 @@ define ('FRONT_END_SEARCH', 1);
 
 // Location of the parliamentary recess data file. You can access this remotely 
 // from the main theyworkforyou site if you use
-define ("RECESSFILE","http://www.theyworkforyou.com/pwdata/parl-recesses.txt");
+define ("RECESSFILE","https://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 // AND amend your global php.ini to 'allow_url_fopen = On'
 //define ("RECESSFILE", RAWDATA . "/parl-recesses.txt");
 

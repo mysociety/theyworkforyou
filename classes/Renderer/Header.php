@@ -47,8 +47,7 @@ class Header
      * Work out what the page url
      */
     private function get_page_url() {
-        $ssl = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' );
-        $url = ( $ssl ? 'https://' : 'http://' ) . DOMAIN;
+        $url = 'https://' . DOMAIN;
         if (array_key_exists('REQUEST_URI', $_SERVER)) {
             $url = $url . $_SERVER['REQUEST_URI'];
         }
@@ -171,7 +170,7 @@ class Header
 
         if ($DATA->page_metadata($this_page, 'rss')) {
             // If this page has an RSS feed set.
-            $this->data['page_rss_url'] = 'http://' . DOMAIN . WEBPATH . $DATA->page_metadata($this_page, 'rss');
+            $this->data['page_rss_url'] = 'https://' . DOMAIN . WEBPATH . $DATA->page_metadata($this_page, 'rss');
         }
     }
 

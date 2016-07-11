@@ -16,7 +16,7 @@ class PageTest extends FetchPageTestCase
 
     private function fetch_page($vars)
     {
-        return $this->base_fetch_page('', $vars, 'www/docs/mp');
+        return $this->base_fetch_page($vars, 'mp');
     }
 
     public function testQueenie()

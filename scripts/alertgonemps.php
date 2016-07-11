@@ -143,7 +143,7 @@ function write_and_send_email($current, $data, $template) {
 	$d = array('to' => $current['email'], 'template' => $template);
 	$m = array(
 		'DATA' => join("\n", $data),
-		'MANAGE' => 'http://www.theyworkforyou.com/D/' . $current['token'],
+		'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
         'ALERT_IS' => count($data)==1 ? 'alert is' : 'alerts are',
         'ALERTS' => count($data)==1 ? 'an alert' : 'some alerts',
 	);

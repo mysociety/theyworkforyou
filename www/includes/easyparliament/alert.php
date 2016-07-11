@@ -258,7 +258,7 @@ class ALERT {
         if ( isset($details['confirm_base']) && $details['confirm_base'] !== '' ) {
             $confirmurl = $details['confirm_base'] . $urltoken;
         } else {
-            $confirmurl = 'http://' . DOMAIN . '/A/' . $urltoken;
+            $confirmurl = 'https://' . DOMAIN . '/A/' . $urltoken;
         }
 
         // Arrays we need to send a templated email.

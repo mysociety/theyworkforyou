@@ -2342,13 +2342,13 @@ class HANSARDLIST {
         } else {
             $url = $itemdata['commentsurl'];
         }
-        $trackback['itemurl'] = 'http://' . DOMAIN . $url;
+        $trackback['itemurl'] = 'https://' . DOMAIN . $url;
 
         // Getting the URL the user needs to ping for this item.
         $URL = new URL('trackback');
         $URL->insert(array('e'=>$itemdata['epobject_id']));
 
-        $trackback['pingurl'] = 'http://' . DOMAIN . $URL->generate('html');
+        $trackback['pingurl'] = 'https://' . DOMAIN . $URL->generate('html');
 
 
         return $trackback;

@@ -30,7 +30,7 @@ class MPs extends \MySociety\TheyWorkForYou\People {
             $details['family_name'],
             $details['party'],
             $details['constituency'],
-            'http://www.theyworkforyou.com/mp/' . $details['url']
+            'https://www.theyworkforyou.com/mp/' . $details['url']
         );
     }
 }

@@ -31,7 +31,7 @@ $topics = array(
             array(
                 'title' => 'Universal Credit Regulations',
                 'icon'  => 'debate',
-                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-02-13a.664.3',
+                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-02-13a.664.3',
                 'blurb' => 'Lords debate, and approve, the consolidation of all benefits into the
                              Universal Credit system.'
             ),
@@ -39,21 +39,21 @@ $topics = array(
             array(
                 'title' => 'Welfare Benefits Up-rating Bill',
                 'icon'  => 'bill',
-                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-02-11a.457.8',
+                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-02-11a.457.8',
                 'blurb' => 'Lords debate a cap on annual increases to working-age benefits.'
             ),
 
             array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
-                'href'  => 'http://www.theyworkforyou.com/search/?s=%22benefits%22',
+                'href'  => 'https://www.theyworkforyou.com/search/?s=%22benefits%22',
                 'blurb' => 'Search TheyWorkForYou to find mentions of benefits. You may also filter your results by time, speaker and section.'
             ),
 
             array(
                 'title' => 'Sign up for email alerts',
                 'icon'  => 'alert',
-                'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%22benefits%22',
+                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22benefits%22',
                 'blurb' => 'We&rsquo;ll let you know every time benefits are mentioned in Parliament.'
             )
 
@@ -70,28 +70,28 @@ $topics = array(
             array(
                 'title' => 'Anti-social Behaviour Crime and Policing Bill (second reading)',
                 'icon'  => 'bill',
-                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5',
+                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5',
                 'blurb' => 'The House of Lords debate a proposed law, making many references to crime statistics.'
             ),
 
             array(
                 'title' => 'Police and Public trust',
                 'icon'  => 'debate',
-                'href'  => 'http://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0',
+                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0',
                 'blurb' => 'A debate on police misconduct and how much the general public trust the police not to cover up crime statistics, mistakes and misbehaviour.'
             ),
 
             array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
-                'href'  => 'http://www.theyworkforyou.com/search/?s=%22crime+statistics%22',
+                'href'  => 'https://www.theyworkforyou.com/search/?s=%22crime+statistics%22',
                 'blurb' => 'Search TheyWorkForYou to find mentions of crime statistics. You may also filter your results by time, speaker and section.'
             ),
 
             array(
                 'title' => 'Sign up for email alerts',
                 'icon'  => 'alert',
-                'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%22crime+statistics%22',
+                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22crime+statistics%22',
                 'blurb' => 'We&rsquo;ll let you know every time crime statistics are mentioned in Parliament.'
             )
 
@@ -111,28 +111,28 @@ $topics = array(
             array(
                 'title' => 'Health and Social Care Bill',
                 'icon'  => 'debate',
-                'href'  => 'http://www.theyworkforyou.com/debates/?id=2011-01-31b.605.0',
+                'href'  => 'https://www.theyworkforyou.com/debates/?id=2011-01-31b.605.0',
                 'blurb' => 'Andrew Lansley, Secretary of State for Health, sets out plans for a reorganisation of the NHS, which MPs then debate and vote on.'
             ),
 
             array(
                 'title' => 'NHS (Private Sector)',
                 'icon'  => 'debate',
-                'href'  => 'http://www.theyworkforyou.com/debates/?id=2012-01-16a.536.0',
+                'href'  => 'https://www.theyworkforyou.com/debates/?id=2012-01-16a.536.0',
                 'blurb' => 'A year later, the opposition puts forward its concerns with the model, ending in a further vote.'
             ),
 
             array(
                 'title' => 'Search the whole site',
                 'icon'  => 'search',
-                'href'  => 'http://www.theyworkforyou.com/search/?s=%22nhs%22',
+                'href'  => 'https://www.theyworkforyou.com/search/?s=%22nhs%22',
                 'blurb' => 'Search TheyWorkForYou to find mentions of the NHS. You may also filter your results by time, speaker and section.'
             ),
 
             array(
                 'title' => 'Sign up for email alerts',
                 'icon'  => 'alert',
-                'href'  => 'http://www.theyworkforyou.com/alert/?alertsearch=%nhs%22',
+                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%nhs%22',
                 'blurb' => 'We&rsquo;ll let you know every time the NHS is mentioned in Parliament.'
             )
 

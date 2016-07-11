@@ -6,7 +6,7 @@
 # This script should be invoked through the .forward mechanism.
 #
 # Copyright (c) 2009 UK Citizens Online Democracy. All rights reserved.
-# Email: louise@mysociety.org; WWW: http://www.mysociety.org/
+# Email: louise@mysociety.org; WWW: https://www.mysociety.org/
 
 my $rcsid = ''; $rcsid .= '$Id: handlearfmail,v 1.9 2009-05-19 11:45:15 louise Exp $';
 
@@ -31,7 +31,7 @@ mySociety::SystemMisc::log_to_stderr(0);
 #----------------------
 sub unsubscribe($){
     my ($original_message) = @_;
-    my $twfy_unsub_pattern = 'http://'. mySociety::Config::get('DOMAIN') . '/D/\S+';
+    my $twfy_unsub_pattern = 'https://'. mySociety::Config::get('DOMAIN') . '/D/\S+';
     my $unsublink;
     return unless $original_message =~ /Subject: Your TheyWorkForYou email alert/;
     if ($original_message =~ m#($twfy_unsub_pattern)$#m){
