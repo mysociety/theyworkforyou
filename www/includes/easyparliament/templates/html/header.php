@@ -151,9 +151,9 @@
               <?php } elseif ($country == 'AU') { ?>
                 You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under
               <?php } elseif ($country == 'IE') { ?>
-                Check out <a href="http://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas
+                Check out <a href="https://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas
               <?php } elseif ($country == 'CA') { ?>
-                Check out <a href="http://www.openparliament.ca/">OpenParliament.ca</a>
+                Check out <a href="https://openparliament.ca/">OpenParliament.ca</a>
               <?php } ?>
             </div>
         </div>
