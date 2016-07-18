@@ -60,7 +60,6 @@ server {
     rewrite ^/D/(.*)$     /alert/index.php?t=$1;
     rewrite ^/U/(.*)$     /user/confirm/index.php?t=$1;
     rewrite ^/E/(.*)$     /user/confirm/index.php?c=email&t=$1;
-    rewrite ^/B/(.*)$     /freeourbills/subscribe.php?t=$1;
 
     rewrite ^/termsofuse http://www.theyworkforyou.com/about permanent;
     rewrite ^/raw http://parser.theyworkforyou.com permanent;
