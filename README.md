@@ -79,3 +79,8 @@ and located at `/vendor/bin/phpunit` should run correctly.
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/mysociety/theyworkforyou.svg)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
 
 [![mySociety Installability](http://img.shields.io/badge/installability-bronze-8c7853.svg)](http://mysociety.github.io/installation-standards.html)
+
+## Acknowledgements
+
+Thanks to [Browserstack](https://www.browserstack.com/) who let us use their
+web-based cross-browser testing tools for this project.
