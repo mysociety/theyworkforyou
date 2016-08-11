@@ -436,6 +436,13 @@ switch ($pagetype) {
                 )
             ),
             array(
+                'key'   => 'transport',
+                'title' => 'Transport',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('transport'), $MEMBER
+                )
+            ),
+            array(
                 'key'   => 'misc',
                 'title' => 'Miscellaneous Topics',
                 'votes' => new MySociety\TheyWorkForYou\PolicyPositions(

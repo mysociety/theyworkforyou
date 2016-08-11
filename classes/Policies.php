@@ -110,6 +110,7 @@ class Policies {
         6761 => '<b>UK membership of the EU</b>',
         6758 => '<b>merging police and fire services</b> under Police and Crime Commissioners',
         6756 => 'reducing <b>capital gains tax</b>',
+        6747 => 'greater public control of <b>bus services</b>',
     );
 
     /**
@@ -239,9 +240,14 @@ class Policies {
             6741,
             6753,
         ),
+        'transport' => array(
+            6747,
+            6692,
+            6693,
+            6699,
+        ),
         'misc' => array(
             810,
-            6692,
             1120,
             1053,
             1105,
