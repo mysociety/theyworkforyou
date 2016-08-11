@@ -113,6 +113,7 @@ class Policies {
         6747 => 'greater public control of <b>bus services</b>',
         6746 => '<b>publicly owned railway system</b>',
         6744 => 'phasing out <b>secure tenancies for life</b>',
+        6743 => 'charging a <b>market rent to high earners renting a council home</b>',
     );
 
     /**
@@ -251,6 +252,7 @@ class Policies {
         ),
         'housing' => array(
             6744,
+            6743,
         ),
         'misc' => array(
             810,
