@@ -49,6 +49,7 @@ $count = 0;
 while ( ( $policy = fgetcsv($file) ) !== FALSE ) {
     if ( intval($policy[0]) ) {
         $policy_id = $policy[0];
+        $img_id = $policy[1] ? $policy[1] : $policy_id;
         $title = $policy[2];
         $description = $policy[3];
         $attribution = $policy[6];
@@ -63,7 +64,7 @@ while ( ( $policy = fgetcsv($file) ) !== FALSE ) {
                 ':policy_id' => $policy_id,
                 ':title' => $title,
                 ':description' => $description,
-                ':image' => "/images/policies/" . $policy_id . ".jpg",
+                ':image' => "/images/policies/" . $img_id . ".jpg",
                 ':image_source' => $source,
                 ':image_attribution' => $attribution,
                 ':license_url' => $licence_url)
