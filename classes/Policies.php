@@ -111,6 +111,7 @@ class Policies {
         6758 => '<b>merging police and fire services</b> under Police and Crime Commissioners',
         6756 => 'reducing <b>capital gains tax</b>',
         6747 => 'greater public control of <b>bus services</b>',
+        6746 => '<b>publicly owned railway system</b>',
     );
 
     /**
@@ -245,6 +246,7 @@ class Policies {
             6692,
             6693,
             6699,
+            6746,
         ),
         'misc' => array(
             810,
