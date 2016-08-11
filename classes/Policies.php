@@ -105,6 +105,7 @@ class Policies {
         6736 => '<b>a veto for MPs</b> from England, Wales and Northern Ireland <b>over laws specifically impacting their part of the UK</b>',
         6741 => 'greater regulation of <b>hydraulic fracturing (fracking)</b> to extract shale gas',
         6753 => 'new <b>high speed rail</b> infrastructure',
+        6751 => '<b>mass surveillance</b> of people&rsquo;s communications and activities',
     );
 
     /**
@@ -218,6 +219,7 @@ class Policies {
             6696,
             6721,
             6734,
+            6751,
         ),
         'environment' => array(
             1030,
