@@ -104,6 +104,7 @@ class Policies {
         6734 => 'stronger <b>enforcement of immigration rules</b>',
         6736 => '<b>a veto for MPs</b> from England, Wales and Northern Ireland <b>over laws specifically impacting their part of the UK</b>',
         6741 => 'greater regulation of <b>hydraulic fracturing (fracking)</b> to extract shale gas',
+        6753 => 'new <b>high speed rail</b> infrastructure',
     );
 
     /**
@@ -177,7 +178,8 @@ class Policies {
         'business' => array(
             6679,
             6690,
-            6691
+            6691,
+            6753,
         ),
         'health' => array(
             6677,
@@ -225,6 +227,7 @@ class Policies {
             6704,
             6710,
             6741,
+            6753,
         ),
         'misc' => array(
             810,
