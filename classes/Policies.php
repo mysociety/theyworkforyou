@@ -108,6 +108,7 @@ class Policies {
         6751 => '<b>mass surveillance</b> of people&rsquo;s communications and activities',
         6764 => 'a <b>right to remain for EU nationals</b> already in living in the UK',
         6761 => '<b>UK membership of the EU</b>',
+        6758 => '<b>merging police and fire services</b> under Police and Crime Commissioners',
     );
 
     /**
@@ -224,6 +225,7 @@ class Policies {
             6721,
             6734,
             6751,
+            6758,
         ),
         'environment' => array(
             1030,
