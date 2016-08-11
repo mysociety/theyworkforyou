@@ -107,6 +107,7 @@ class Policies {
         6753 => 'new <b>high speed rail</b> infrastructure',
         6751 => '<b>mass surveillance</b> of people&rsquo;s communications and activities',
         6764 => 'a <b>right to remain for EU nationals</b> already in living in the UK',
+        6761 => '<b>UK membership of the EU</b>',
     );
 
     /**
@@ -154,6 +155,7 @@ class Policies {
             1027,
             6706,
             6764,
+            6761,
         ),
         'welfare' => array(
             6672,
