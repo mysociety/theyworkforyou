@@ -114,6 +114,7 @@ class Policies {
         6746 => '<b>publicly owned railway system</b>',
         6744 => 'phasing out <b>secure tenancies for life</b>',
         6743 => 'charging a <b>market rent to high earners renting a council home</b>',
+        6757 => '<b>military action against <a href="https://en.wikipedia.org/wiki/Islamic_State_of_Iraq_and_the_Levant">ISIL (Daesh)</a></b>',
     );
 
     /**
@@ -162,6 +163,7 @@ class Policies {
             6706,
             6764,
             6761,
+            6757,
         ),
         'welfare' => array(
             6672,
