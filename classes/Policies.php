@@ -112,6 +112,7 @@ class Policies {
         6756 => 'reducing <b>capital gains tax</b>',
         6747 => 'greater public control of <b>bus services</b>',
         6746 => '<b>publicly owned railway system</b>',
+        6744 => 'phasing out <b>secure tenancies for life</b>',
     );
 
     /**
@@ -247,6 +248,9 @@ class Policies {
             6693,
             6699,
             6746,
+        ),
+        'housing' => array(
+            6744,
         ),
         'misc' => array(
             810,

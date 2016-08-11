@@ -443,6 +443,13 @@ switch ($pagetype) {
                 )
             ),
             array(
+                'key'   => 'housing',
+                'title' => 'Housing',
+                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+                    $policiesList->limitToSet('housing'), $MEMBER
+                )
+            ),
+            array(
                 'key'   => 'misc',
                 'title' => 'Miscellaneous Topics',
                 'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
