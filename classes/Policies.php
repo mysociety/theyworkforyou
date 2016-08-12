@@ -111,7 +111,7 @@ class Policies {
         6758 => '<b>merging police and fire services</b> under Police and Crime Commissioners',
         6756 => 'reducing <b>capital gains tax</b>',
         6747 => 'greater public control of <b>bus services</b>',
-        6746 => '<b>publicly owned railway system</b>',
+        6746 => 'a <b>publicly owned railway system</b>',
         6744 => 'phasing out <b>secure tenancies for life</b>',
         6743 => 'charging a <b>market rent to high earners renting a council home</b>',
         6757 => '<b>military action against <a href="https://en.wikipedia.org/wiki/Islamic_State_of_Iraq_and_the_Levant">ISIL (Daesh)</a></b>',
