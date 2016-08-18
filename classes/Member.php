@@ -110,6 +110,26 @@ class Member extends \MEMBER {
         return $date_entered;
     }
 
+    /*
+     * Get the date the person last left the house.
+     *
+     * @param int house - identifier for the house, defaults to 1 for westminster
+     *
+     * @return string - 9999-12-31 if they are still in that house otherwise in YYYY-MM-DD format
+     */
+
+    public function getLeftDate($house = 1) {
+        $date_left = '';
+
+        $left_house = $this->left_house($house);
+
+        if ( $left_house ) {
+            $date_left = $left_house['date'];
+        }
+
+        return $date_left;
+    }
+
 
     public function getEUStance() {
         if (array_key_exists('eu_ref_stance', $this->extra_info())) {

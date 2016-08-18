@@ -242,14 +242,13 @@ $display_wtt_stats_banner = '2015';
                     <?php if ($has_expenses): ?>
                     <h3>Expenses</h3>
 
-                    <p>Expenses data for MPs is available from 2004 onwards
-split over several locations. At the moment we don't have the time to convert
-it to a format we can display on the site so we just have to point you to where
-you can find it.</p>
-
                     <ul>
+                        <?php if ($pre_2010_expenses): ?>
                         <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
+                        <?php endif; ?>
+                        <?php if ($post_2010_expenses): ?>
                         <li><a href="http://www.parliamentary-standards.org.uk/AnnualisedData.aspx">Expenses from 2010 onwards</a></li>
+                        <?php endif; ?>
                     </ul>
                     <?php endif; ?>
 

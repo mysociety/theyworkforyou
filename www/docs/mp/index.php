@@ -316,6 +316,7 @@ $data['image'] = $MEMBER->image();
 $data['member_summary'] = person_summary_description($MEMBER);
 $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
 $data['entry_date'] = $MEMBER->getEntryDate();
+$data['leave_date'] = $MEMBER->getLeftDate();
 $data['is_new_mp'] = $MEMBER->isNew();
 $data['other_parties'] = $MEMBER->getOtherPartiesString();
 $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
@@ -332,14 +333,19 @@ $data['eu_stance'] = $MEMBER->getEUStance();
 $data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
 # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
 $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
-# XXX This is current behaviour, but should probably now just be any recent MP
-$data['has_expenses'] = isset($MEMBER->extra_info['expenses2004_col1']) || isset($MEMBER->extra_info['expenses2006_col1']) || isset($MEMBER->extra_info['expenses2007_col1']) || isset($MEMBER->extra_info['expenses2008_col1']);
+$data['has_expenses'] = $data['leave_date'] > '2004-01-01';
 
-// Set the expenses URL if we know it
-if (isset($MEMBER->extra_info['expenses_url'])) {
-    $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
-} else {
-    $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+$data['pre_2010_expenses'] = False;
+$data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05';
+
+if ($data['entry_date'] < '2010-05-05') {
+    $data['pre_2010_expenses'] = True;
+    // Set the expenses URL if we know it
+    if (isset($MEMBER->extra_info['expenses_url'])) {
+        $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
+    } else {
+        $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+    }
 }
 
 $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
