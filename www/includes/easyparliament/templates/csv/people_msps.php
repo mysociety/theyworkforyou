@@ -2,6 +2,7 @@
 
 twfy_debug("TEMPLATE", "people_msps.php");
 
+header('Content-Disposition: attachment; filename=MSPs.csv');
 header('Content-Type: text/csv');
 print "Person ID,Name,Party,Constituency,URI";
 print "\r\n";

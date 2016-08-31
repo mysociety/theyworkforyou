@@ -2,6 +2,7 @@
 
 twfy_debug("TEMPLATE", "people_peers.php");
 
+header('Content-Disposition: attachment; filename=Peers.csv');
 header('Content-Type: text/csv');
 print "Person ID,Name,Party,URI";
 print "\r\n";
