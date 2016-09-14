@@ -48,7 +48,10 @@ class Header
      */
     private function get_page_url() {
         $ssl = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' );
-        $url = ( $ssl ? 'https://' : 'http://' ) . DOMAIN . $_SERVER['REQUEST_URI'];
+        $url = ( $ssl ? 'https://' : 'http://' ) . DOMAIN;
+        if (array_key_exists('REQUEST_URI', $_SERVER)) {
+            $url = $url . $_SERVER['REQUEST_URI'];
+        }
         $this->data['page_url'] = $url;
     }
 
