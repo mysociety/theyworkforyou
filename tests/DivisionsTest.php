@@ -22,7 +22,7 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testSinglePolicy() {
         $p = new MySociety\TheyWorkForYou\Policies;
-        $this->assertEquals(count($p->getArray()), 80);
+        $this->assertEquals(count($p->getArray()), 92);
 
         $p = $p->limitToSet('health');
         $this->assertEquals(count($p->getArray()), 5);
