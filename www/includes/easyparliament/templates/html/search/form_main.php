@@ -9,7 +9,7 @@
             <?= $warnings ?>
         </p>
       <?php } ?>
-      <?php if ($person_id) { ?>
+      <?php if (isset($person_id)) { ?>
         <p class="search-result-person-options">
           <input id="pid_only" type="radio" name="pid" value="<?= _htmlentities($person_id) ?>" checked><label for="pid_only">Search only speeches by <?= _htmlentities($person_name) ?></label>
           <input id="pid_all" type="radio" name="pid" value=""><label for="pid_all">Search all speeches</label>
