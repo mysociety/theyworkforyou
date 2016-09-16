@@ -241,7 +241,7 @@
             } ?>
             </div>
 
-            <ul class="debate-speech__meta debate-speech__links">
+            <ul class="debate-speech__meta debate-speech__links rs_skip">
                 <?php if (!$section || !$individual_item) { # XXX ?>
                 <li class="link-to-speech">
                     <span class="link-to-speech__label">Link to this speech</span>
@@ -262,6 +262,12 @@
                     echo $speech['mentions'];
                 }
 ?>
+                <div id="readspeaker_button1" class="rs_skip rsbtn rs_preserve">
+                <a rel="nofollow" class="rsbtn_play" accesskey="L" title="Listen to this page using ReadSpeaker" href="//app-eu.readspeaker.com/cgi-bin/rsent?customerid=5&lang=en_uk&amp;voice=Alice&readid=g<?= gid_to_anchor($speech['gid']) ?>&url=<?= urlencode($page_url) ?>">
+                        <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>Listen</span></span></span>
+                        <span class="rsbtn_right rsimg rsplay rspart"></span>
+                    </a>
+                </div>
             </ul>
 
         </div>

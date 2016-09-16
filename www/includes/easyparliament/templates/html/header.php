@@ -101,6 +101,7 @@
       return t;
     }(document, "script", "twitter-wjs"));</script>
 
+    <script src="//f1-eu.readspeaker.com/script/5/ReadSpeaker.js?pids=embhl" type="text/javascript"></script>
 </head>
 
 <body>
