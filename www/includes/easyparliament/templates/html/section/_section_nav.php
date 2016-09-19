@@ -1,4 +1,4 @@
-    <nav class="debate-navigation" role="navigation">
+    <nav class="debate-navigation rs_skip" role="navigation">
         <div class="full-page__row">
             <div class="full-page__unit">
                 <div class="debate-navigation__pagination">

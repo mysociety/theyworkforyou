@@ -150,7 +150,7 @@
                       <?php if ($speech['htime']) { ?>
                         <?= format_time($speech['htime'], 'g:i a') ?>,
                       <?php } ?>
-                        <?= format_date($speech['hdate'], 'jS F Y') ?>
+                        <span class="rs_skip"><?= format_date($speech['hdate'], 'jS F Y') ?></span>
                     </a>
               <?php } ?>
 
