@@ -1,9 +1,16 @@
 <div class="full-page static-page">
     <div class="full-page__row">
-        <div class="panel">
+        <div class="panel" id="help-content">
             <h1>Frequently Asked Questions</h1>
 
-            <ul>
+            <div id="readspeaker_button1" class="rs_skip rsbtn rs_preserve">
+                <a rel="nofollow" class="rsbtn_play" accesskey="L" title="Listen to this page using ReadSpeaker" href="//app-eu.readspeaker.com/cgi-bin/rsent?customerid=5&lang=en_uk&amp;voice=Alice&readid=help-content&url=<?= urlencode($page_url) ?>">
+                        <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>Listen</span></span></span>
+                        <span class="rsbtn_right rsimg rsplay rspart"></span>
+                    </a>
+                </div>
+
+            <ul class="rs_skip">
                 <li><a href="#first">First things first</a></li>
                 <li><a href="#content">Content</a></li>
                 <li><a href="#data">Data and code</a></li>
