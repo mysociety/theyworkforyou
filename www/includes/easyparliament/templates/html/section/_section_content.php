@@ -141,9 +141,9 @@
 
                 ?>
                 <a href="<?= $speech['speaker']['url'] ?>">
-                    <img src="<?= $image_url ?>" alt="Photo of <?= $speaker_name ?>">
+                    <img src="<?= $image_url ?>" alt="Photo of <?= $speaker_name ?>" class="rs_skip">
                     <strong class="debate-speech__speaker__name"><?= $speaker_name ?></strong>
-                    <small class="debate-speech__speaker__position"><?= $speaker_position ?></small>
+                    <small class="debate-speech__speaker__position rs_skip"><?= $speaker_position ?></small>
                 </a>
                 <?php if ($previous_speech_time != $speech['htime']) { ?>
                     <a href="<?= $speech['listurl'] ?>" class="debate-speech__meta__link time">
@@ -169,7 +169,7 @@
             <?php if ( $section ) {
                 if ($speech['voting_data']) { ?>
 
-                <div class="debate-speech__question-answered">
+                <div class="debate-speech__question-answered rs_skip">
                     <div class="debate-speech__question-answered-content">
                         <h3>Does this answer the above question?</h3>
                         <p class="debate-speech__question-answered-result">
