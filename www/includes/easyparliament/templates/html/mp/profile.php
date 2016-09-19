@@ -90,9 +90,16 @@ $display_wtt_stats_banner = '2015';
 
                 <?php if ( !$current_member[HOUSE_TYPE_COMMONS] ) { ?>
                     <?php if (count($policyPositions->positions) > 0) { ?>
-                    <div class="panel">
+                    <div class="panel" id="mp-votes">
                         <a name="votes"></a>
                         <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
+
+                        <div id="readspeaker_button1" class="rs_skip rsbtn rs_preserve">
+                        <a rel="nofollow" class="rsbtn_play" accesskey="L" title="Listen to this page using ReadSpeaker" href="//app-eu.readspeaker.com/cgi-bin/rsent?customerid=5&lang=en_uk&amp;voice=Alice&readid=mp-votes&url=<?= urlencode($page_url) ?>">
+                            <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>Listen</span></span></span>
+                            <span class="rsbtn_right rsimg rsplay rspart"></span>
+                        </a>
+                        </div>
 
                         <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
 
@@ -112,10 +119,16 @@ $display_wtt_stats_banner = '2015';
                     </div>
                     <?php } ?>
                 <?php } else if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
-                <div class="panel">
+                <div class="panel" id="mp-votes">
                     <a name="votes"></a>
                     <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
+                    <div id="readspeaker_button1" class="rs_skip rsbtn rs_preserve">
+                    <a rel="nofollow" class="rsbtn_play" accesskey="L" title="Listen to this page using ReadSpeaker" href="//app-eu.readspeaker.com/cgi-bin/rsent?customerid=5&lang=en_uk&amp;voice=Alice&readid=mp-votes&url=<?= urlencode($page_url) ?>">
+                        <span class="rsbtn_left rsimg rspart"><span class="rsbtn_text"><span>Listen</span></span></span>
+                        <span class="rsbtn_right rsimg rsplay rspart"></span>
+                    </a>
+                    </div>
 
                     <?php if (count($sorted_diffs) > 0 && $party_member_count > 1): ?>
 
@@ -131,7 +144,7 @@ $display_wtt_stats_banner = '2015';
                           <?php foreach ($sorted_diffs as $policy_id => $score): ?>
                             <li>
                                 <?= $full_name ?> <b><?= $positions[$policy_id]['position'] ?></b> <?= strip_tags($policies[$policy_id]) ?>, while most <?= $party ?> MPs <b><?= $party_positions[$policy_id]['position'] ?></b>.
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $policy_id ?>">Show votes</a>
+                                <a class="vote-description__source rs_skip" href="<?= $member_url?>/divisions?policy=<?= $policy_id ?>">Show votes</a>
                             </li>
                           <?php endforeach; ?>
                         </ul>
@@ -154,7 +167,7 @@ $display_wtt_stats_banner = '2015';
                             <li>
                                 <?= ucfirst($key_vote['desc']) ?>
                                 <?php if ( $key_vote['position'] != 'has never voted on' ) { ?>
-                                <a class="vote-description__source" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
+                                <a class="vote-description__source rs_skip" href="<?= $member_url?>/divisions?policy=<?= $key_vote['policy_id'] ?>">Show votes</a>
                                 <?php } ?>
                             </li>
                           <?php endforeach; ?>
