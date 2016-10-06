@@ -1060,7 +1060,7 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
             $name =~ s/^(.*), (.*)$/$2 $1/;
             $name =~ s/^(rh|Mr|Sir|Ms|Mrs|Dr) //;
             $text .= "<li><a href='/mp/?p=$person_id'>$name</a>";
-            $text .= ' (teller)' if $teller;
+            $text .= '&nbsp;(teller)' if $teller;
             $text .= "</li>\n";
         }
         $text .= "</ul>";
