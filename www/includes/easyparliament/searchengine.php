@@ -337,7 +337,9 @@ class SEARCHENGINE {
          if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
-            return $this->queryparser->get_corrected_query_string();
+        $qd = $this->queryparser->get_corrected_query_string();
+        $qd = iconv('utf-8', 'iso-8859-1//TRANSLIT', $qd); # Xapian is UTF-8, site is ISO8859-1
+        return $qd;
     }
 
     // Perform partial query to get a count of number of matches
