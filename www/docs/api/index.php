@@ -166,6 +166,12 @@ $em = join('&#64;', array('enquiries', 'mysociety.org'));
     needing an API key or to write any code.
 </p>
 
+<p>
+    <strong>Important note:</strong> Politicians' contact details can't be
+    obtained via this API. If that's what you're looking for, see
+    <a href="http://everypolitician.org/">EveryPolitician</a> instead.
+</p>
+
 <h3>Terms of usage</h3>
 <p>
     Low volume, charitable use of the API is free. This means direct use by
