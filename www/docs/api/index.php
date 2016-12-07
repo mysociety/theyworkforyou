@@ -69,9 +69,14 @@ if ($q_method = get_http_var('method')) {
     }
     if (!$match) {
         api_log_call($key);
-        api_front_page('Unknown function "' . _htmlspecialchars($q_method) .
+        $msg = 'Unknown function "' . _htmlspecialchars($q_method) .
             '". Possible functions are: ' .
-            join(', ', array_keys($methods)) );
+            join(', ', array_keys($methods));
+        if (get_http_var('output')) {
+          api_error($msg);
+        } else {
+          api_front_page($msg);
+        }
     } else {
         if (get_http_var('docs')) {
             $explorer = ob_get_clean();
