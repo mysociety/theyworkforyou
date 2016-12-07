@@ -211,6 +211,7 @@ function api_output($arr, $last_mod=null) {
     } elseif ($output == 'rabx') {
         $out = api_output_rabx($arr);
     } else { # JS
+        header('Access-Control-Allow-Origin: *');
         $out = api_output_js($arr);
         $callback = get_http_var('callback');
         if (preg_match('#^[A-Za-z0-9._[\]]+$#', $callback)) {
