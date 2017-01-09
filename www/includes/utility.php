@@ -880,9 +880,9 @@ function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid =
         return 'elizabeth_the_second';
     }
 
-    $s   = array(' ', '&amp;', '&ocirc;', '&Ouml;', '&ouml;', '&acirc;', '&iacute;', '&aacute;', '&uacute;', '&eacute;', '&oacute;', '&Oacute;');
-    $s2  = array(" ", "&",     "\xf4",    "\xd6",   "\xf6",   "\xe2",    "\xed",     "\xe1",     "\xfa",     "\xe9",     "\xf3",     "\xd3");
-    $r   = array('_', 'and',   'o',       'o',      'o',      'a',       'i',        'a',        'u',        'e',        'o',        'o');
+    $s   = array(' ', '&amp;', '&ocirc;',  '&Ouml;',  '&ouml;',   '&acirc;',  '&iacute;', '&aacute;', '&uacute;', '&eacute;', '&oacute;', '&Oacute;');
+    $s2  = array(" ", "&",     "\xc3\xb4", "\xc3\96", "\xc3\xb6", "\xc3\xa5", "\xc3\xad", "\xc3\xa1", "\xc3\xba", "\xc3\xa9", "\xc3\xb3", "\xc3\x93");
+    $r   = array('_', 'and',   'o',        'o',       'o',        'a',        'i',        'a',        'u',        'e',        'o',        'o');
     $name = preg_replace('#^the #', '', strtolower($name));
 
     $out = '';
