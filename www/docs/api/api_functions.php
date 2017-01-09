@@ -204,7 +204,7 @@ function api_output($arr, $last_mod=null) {
         if ($cond) return;
     }
     if ($output == 'xml') {
-        $out = '<?xml version="1.0" encoding="iso-8859-1"?>'."\n";
+        $out = '<?xml version="1.0" encoding="utf-8"?>'."\n";
         $out .= '<twfy>' . api_output_xml($arr) . '</twfy>';
     } elseif ($output == 'php') {
         $out = api_output_php($arr);

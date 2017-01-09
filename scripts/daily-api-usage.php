@@ -56,7 +56,7 @@ if (!$out) exit;
 
 $headers =
     "From: TheyWorkForYou <" . CONTACTEMAIL . ">\r\n" .
-    "Content-Type: text/html; charset=iso-8859-1\r\n" .
+    "Content-Type: text/html; charset=utf-8\r\n" .
     "MIME-Version: 1.0\r\n" .
     "Content-Transfer-Encoding: 8bit\r\n";
 $subject = 'Daily TheyWorkForYou API usage';

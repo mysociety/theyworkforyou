@@ -83,7 +83,7 @@ class Renderer
         ////////////////////////////////////////////////////////////
         // Require the templates and output
 
-        header('Content-Type: text/html; charset=iso-8859-1');
+        header('Content-Type: text/html; charset=utf-8');
         require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
         require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';

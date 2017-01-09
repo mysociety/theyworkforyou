@@ -2,7 +2,7 @@
 header('Content-type: application/rss+xml');
 include ($_SERVER['DOCUMENT_ROOT'] . '/../includes/easyparliament/init.php');
 require_once 'editme.php';
-print '<?xml version="1.0" encoding="iso-8859-1"?>' ?>
+print '<?xml version="1.0" encoding="utf-8"?>' ?>
 
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
