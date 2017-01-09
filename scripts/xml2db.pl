@@ -437,7 +437,7 @@ sub db_connect
 {
     # Connect to database, and prepare queries
     my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, , mysql_enable_utf8 => 1 });
 
     # epobject queries
     $epadd = $dbh->prepare("insert into epobject (title, body, type, created, modified)
@@ -1481,7 +1481,7 @@ sub add_standing_day {
             if ($currsection==0) {
                 push @preheadingspeech, $_;
             } else {
-                do_load_speech($_, 6, $bill_id, Encode::encode('iso-8859-1', $_->sprint(1)))
+                do_load_speech($_, 6, $bill_id, $_->sprint(1))
             }
         },
         'publicwhip' => sub {
@@ -1533,8 +1533,7 @@ sub load_standing_division {
 <p class=\"divisionbody_yes\">Voting yes: $out{aye}</p>
 <p class=\"divisionbody_no\">Voting no: $out{no}</p>
 ";
-    # Standing XML is UTF-8, so transcode
-    do_load_speech($division, 6, $id, Encode::encode('iso-8859-1', $text));
+    do_load_speech($division, 6, $id, $text);
 }
 
 sub loadspq {

@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use utf8;
 
 # Loads JSON member files into TheyWorkForYou.
 # The JSON files are stored in files here:
@@ -56,7 +57,7 @@ my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefe
 sub db_connect {
     #DBI->trace(1);
     my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, mysql_enable_utf8 => 1 });
 
     $memberadd = $dbh->prepare("replace into member (member_id, person_id, house,
         constituency, party, entered_house, left_house, entered_reason, left_reason)
@@ -125,7 +126,7 @@ sub load_constituencies {
             next if $seen{$Collator->getSortKey($name)};
             $constituencyadd->execute(
                 $consid,
-                Encode::encode('iso-8859-1', $name),
+                $name,
                 $main_name,
                 $start_date,
                 $end_date,
@@ -226,9 +227,9 @@ sub load_names {
         push @names, [
             $id,
             $name->{honorific_prefix} || '',
-            Encode::encode('iso-8859-1', $name->{given_name}),
-            Encode::encode('iso-8859-1', $name->{lordname} // $name->{family_name}),
-            Encode::encode('iso-8859-1', $name->{lordofname} // ''),
+            $name->{given_name},
+            $name->{lordname} // $name->{family_name},
+            $name->{lordofname} // '',
             $start_date, $end_date,
         ];
     }
@@ -254,10 +255,6 @@ sub db_memberadd {
 
     my $q = $memberexist->execute($id);
     die "More than one existing member of same id $id" if $q > 1;
-
-    for (3..4) {
-        $params[$_] = Encode::encode('iso-8859-1', $params[$_]);
-    }
 
     if ($q == 1) {
         # Member already exists, check they are the same

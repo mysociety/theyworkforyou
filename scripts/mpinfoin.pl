@@ -178,7 +178,7 @@ if ($action{'eu_ref_position'}) {
 
 # Get any data from the database
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, , mysql_enable_utf8 => 1 });
 #DBI->trace(2);
 if ($action{'rankings'}) {
     print "Making rankings\n" if $verbose;
@@ -229,7 +229,6 @@ foreach my $person_id (keys %$personinfohash) {
 # Write to database - cons
 foreach my $constituency (keys %$consinfohash) {
     my $data = $consinfohash->{$constituency};
-    $constituency = Encode::encode('iso-8859-1', $constituency);
     foreach my $key (keys %$data) {
         my $value = $data->{$key};
         $consinfoadd->execute($constituency, $key, $value, $value);
