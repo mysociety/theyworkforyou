@@ -127,14 +127,6 @@ class ParseArgs {
             $searchstring = $search_main;
         }
 
-        $searchstring_conv = @iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $searchstring);
-        if (!$searchstring_conv) {
-            $searchstring_conv = @iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $searchstring);
-        }
-        if ($searchstring_conv) {
-            $searchstring = $searchstring_conv;
-        }
-
         return $searchstring;
     }
 

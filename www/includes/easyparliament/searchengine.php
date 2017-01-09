@@ -272,7 +272,7 @@ class SEARCHENGINE {
         preg_match_all('#S(\d+)#', $qd, $m);
         foreach ($m[1] as $mm) {
             $member = new MEMBER(array('person_id' => $mm));
-            $name = iconv('iso-8859-1', 'utf-8//TRANSLIT', $member->full_name()); # Names are currently in ISO-8859-1
+            $name = $member->full_name();
             $qd = str_replace("S$mm", "speaker:$name", $qd);
         }
 
@@ -296,7 +296,6 @@ class SEARCHENGINE {
             }
         }
 
-        $qd = iconv('utf-8', 'iso-8859-1//TRANSLIT', $qd); # Xapian is UTF-8, site is ISO8859-1
         $this->query_desc = trim($qd);
 
         #print 'DEBUG: ' . $query->get_description();
@@ -338,7 +337,6 @@ class SEARCHENGINE {
             return null;
 
         $qd = $this->queryparser->get_corrected_query_string();
-        $qd = iconv('utf-8', 'iso-8859-1//TRANSLIT', $qd); # Xapian is UTF-8, site is ISO8859-1
         return $qd;
     }
 
