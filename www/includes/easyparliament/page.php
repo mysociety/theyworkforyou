@@ -1078,7 +1078,7 @@ Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rul
 Annotations should be information that adds value to the contribution, not opinion, rants, or messages to a politician.
 </small></p>
 
-                <form accept-charset="iso-8859-1" action="<?php echo $ADDURL->generate(); ?>" method="post">
+                <form accept-charset="utf-8" action="<?php echo $ADDURL->generate(); ?>" method="post">
                     <p><textarea name="body" rows="15" cols="55"><?php
         if (isset($commentdata['body'])) {
             echo _htmlentities($commentdata['body']);
