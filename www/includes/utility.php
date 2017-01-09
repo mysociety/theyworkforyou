@@ -557,17 +557,7 @@ function htmlentities_notags($text) {
     // If you want to do htmlentities() on some text that has HTML tags
     // in it, then you need this function.
 
-    $tbl = array();
-    if ( version_compare( phpversion(), '5.3.4', '<' ) ) {
-        // the third argument was only added in php 5.3.4 but our current production
-        // boxes run on 5.3.3
-        $tbl = get_html_translation_table(HTML_ENTITIES);
-    } else {
-    // we need to specify the encoding here because PHP 5.4 defaults to UTF-8
-    // Windows-1252 is uses because it contains the ISO-8859-1 table in PHP 5.4
-    // contains all of 4 characters, despite 5.3 containing 100 odd.
-        $tbl = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES, 'Windows-1252');
-    }
+    $tbl = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES, 'UTF-8');
 
     // You could encode extra stuff...
     //$tbl["“"] = "&quot;";
@@ -595,28 +585,19 @@ function htmlentities_notags($text) {
     # strtr "will *NOT* try to replace stuff that it has already worked on."
     $text = strtr($text, $tbl);
 
-    // This turns any out of bounds characters like fancy quotes
-    // into the ISO-8859-1 equivalent if possible.
-    $text = iconv('Windows-1252', 'ISO-8859-1//TRANSLIT', $text);
-
-    # Remove all illegal HTML characters (damn you, Windows-1252)
-    $text = preg_replace('/[\x80-\x9f]/', '', $text);
-
     return $text;
-
 }
 
 /*
  * PHP 5.4 changes the default encoding for htmlentities and htmlspecialchars
  * to be UTF-8, not using the php.ini character encoding until PHP 5.6. So
- * we have to wrap all uses of these two functions. Windows-1252 is used
- * because, as above, ISO-8859-1 is empty in PHP 5.4.
+ * we have to wrap all uses of these two functions.
  */
 function _htmlentities($s) {
-    return htmlentities($s, ENT_COMPAT, 'Windows-1252');
+    return htmlentities($s, ENT_COMPAT, 'UTF-8');
 }
 function _htmlspecialchars($s) {
-    return htmlspecialchars($s, ENT_COMPAT, 'Windows-1252');
+    return htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 }
 
 
