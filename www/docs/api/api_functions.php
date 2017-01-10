@@ -230,6 +230,7 @@ function api_header($o, $last_mod=null) {
             return true;
         }
     }
+    $charset = 'utf-8';
     if ($o == 'xml') {
         $type = 'text/xml';
     } elseif ($o == 'php') {
@@ -238,10 +239,11 @@ function api_header($o, $last_mod=null) {
         $type = 'application/octet-stream';
     } else {
         header('Access-Control-Allow-Origin: *');
+        $charset = 'iso-8859-1';
         $type = 'text/javascript';
     }
     #$type = 'text/plain';
-    header("Content-Type: $type; charset=iso-8859-1");
+    header("Content-Type: $type; charset=$charset");
     if ($last_mod>0)
         header('Last-Modified: ' . date('r', $last_mod));
     return false;
@@ -292,37 +294,52 @@ function api_output_xml($v, $k=null) {
 
 function api_output_js($v, $level=0) {
     $verbose = get_http_var('verbose') ? "\n" : '';
+    $out = '';
     if (is_array($v)) {
         # PHP arrays are both JS arrays and objects
-        if (count($v) && array_keys($v) === range(0, count($v)-1))
-            return '[' . join(",$verbose" , array_map('api_output_js', $v)) . ']';
-        $out = '{' . $verbose;
-        $b = false;
-        foreach ($v as $k => $vv) {
-            if ($b) $out .= ",$verbose";
-            if ($verbose) {
-                $out .= str_repeat(' ', ($level+1)*2);
-                $out .= '"' . $k . '" : ';
-            } else {
-                $out .= '"' . $k . '":';
+        if (count($v) && array_keys($v) === range(0, count($v)-1)) {
+            $out = '[' . join(",$verbose" , array_map('api_output_js', $v)) . ']';
+        } else {
+            $out = '{' . $verbose;
+            $b = false;
+            foreach ($v as $k => $vv) {
+                if ($b) $out .= ",$verbose";
+                if ($verbose) {
+                    $out .= str_repeat(' ', ($level+1)*2);
+                    $out .= '"' . $k . '" : ';
+                } else {
+                    $out .= '"' . $k . '":';
+                }
+                $out .= api_output_js($vv, $level+1);
+                $b = true;
             }
-            $out .= api_output_js($vv, $level+1);
-            $b = true;
+            if ($verbose) $out .= "\n" . str_repeat(' ', $level*2);
+            $out .= '}';
         }
-        if ($verbose) $out .= "\n" . str_repeat(' ', $level*2);
-        $out .= '}';
-        return $out;
     } elseif (is_null($v)) {
-        return "null";
+        $out = "null";
     } elseif (is_string($v)) {
-        return '"' . str_replace(
+        $out = '"' . str_replace(
             array("\\",'"',"\n","\t","\r"),
             array("\\\\",'\"','\n','\t','\r'), $v) . '"';
     } elseif (is_bool($v)) {
-        return $v ? 'true' : 'false';
+        $out = $v ? 'true' : 'false';
     } elseif (is_int($v) || is_float($v)) {
-        return $v;
+        $out = $v;
     }
+
+    // we only want to convert to iso if it's an actual API call
+    // so skip this if it's a documentation page
+    if (!get_http_var('docs')) {
+      // and then catch any errors in the conversion and just ignore
+      // them and return the unconverted results
+      $converted_out = @iconv('utf-8', 'iso-8859-1//TRANSLIT', $out);
+      if ($converted_out !== FALSE) {
+        $out = $converted_out;
+      }
+    }
+
+    return $out;
 }
 
 # Call an API function
