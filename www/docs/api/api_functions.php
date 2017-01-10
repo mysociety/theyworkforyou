@@ -210,6 +210,8 @@ function api_output($arr, $last_mod=null) {
         $out = api_output_php($arr);
     } elseif ($output == 'rabx') {
         $out = api_output_rabx($arr);
+    } elseif ($output == 'json') {
+        $out = json_encode($arr, JSON_PRETTY_PRINT);
     } else { # JS
         header('Access-Control-Allow-Origin: *');
         $out = api_output_js($arr);
@@ -237,6 +239,9 @@ function api_header($o, $last_mod=null) {
         $type = 'text/php';
     } elseif ($o == 'rabx') {
         $type = 'application/octet-stream';
+    } elseif ($o == 'json') {
+        header('Access-Control-Allow-Origin: *');
+        $type = 'application/json';
     } else {
         header('Access-Control-Allow-Origin: *');
         $charset = 'iso-8859-1';
