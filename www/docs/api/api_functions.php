@@ -213,7 +213,6 @@ function api_output($arr, $last_mod=null) {
     } elseif ($output == 'json') {
         $out = json_encode($arr, JSON_PRETTY_PRINT);
     } else { # JS
-        header('Access-Control-Allow-Origin: *');
         $out = api_output_js($arr);
         $callback = get_http_var('callback');
         if (preg_match('#^[A-Za-z0-9._[\]]+$#', $callback)) {
