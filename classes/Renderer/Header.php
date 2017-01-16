@@ -87,6 +87,10 @@ class Header
                 $this->data['page_title'] .= ' - ' . $sitetitle;
             }
         }
+
+        # for overriding the OpenGraph image
+        $this->data['og_image'] = '';
+
     }
 
     private function get_page_keywords() {

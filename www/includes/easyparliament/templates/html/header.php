@@ -21,10 +21,16 @@
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
     <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
+    <?php if ($og_image) { ?>
+      <meta property="og:image" content="<?= $og_image ?>">
+    <meta property="og:image:width" content="700">
+    <meta property="og:type" content="profile">
+    <?php } else { ?>
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
-    <meta property="og:image:width" content="200">
-    <meta property="og:image:height" content="200">
+      <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
+        <meta property="og:image:width" content="200">
+        <meta property="og:image:height" content="200">
+    <?php } ?>
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
     <meta property="fb:app_id" content="734726803296567">
 
