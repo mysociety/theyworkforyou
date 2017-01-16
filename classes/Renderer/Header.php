@@ -47,7 +47,11 @@ class Header
      * Work out what the page url
      */
     private function get_page_url() {
-        $url = 'https://' . DOMAIN;
+        $protocol = 'https://';
+        if (DEVSITE) {
+          $protocol = 'http://';
+        }
+        $url = $protocol . DOMAIN;
         if (array_key_exists('REQUEST_URI', $_SERVER)) {
             $url = $url . $_SERVER['REQUEST_URI'];
         }

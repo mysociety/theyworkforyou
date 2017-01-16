@@ -596,10 +596,15 @@ class MEMBER {
             $URL = new URL('royal');
         }
         $member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
-        if ($absolute)
-            return 'https://' . DOMAIN . $URL->generate('none') . $member_url;
-        else
+        if ($absolute) {
+            $protocol = 'https://';
+            if (DEVSITE) {
+                $protocol = 'http://';
+            }
+            return $protocol . DOMAIN . $URL->generate('none') . $member_url;
+        } else {
             return $URL->generate('none') . $member_url;
+        }
     }
 
     private function _previous_future_mps_query($direction) {
