@@ -493,6 +493,22 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
 
         break;
+
+    case 'policy_set_svg':
+        $policy_set = get_http_var('policy_set');
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+
+        // Generate voting segments
+        $data['segment'] = array(
+          'key'   => $policy_set,
+          'title' => $policiesList->getSetDescriptions()[$policy_set],
+          'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+              $policiesList->limitToSet($policy_set), $MEMBER
+          )
+        );
+
+        MySociety\TheyWorkForYou\Renderer::output('mp/votes_svg', $data, true);
+        break;
     case '':
     default:
 

@@ -21,7 +21,7 @@ class Renderer
      * @param array  $data     An associative array of data to be made available to the template.
      */
 
-    public static function output($template, $data = array())
+    public static function output($template, $data = array(), $template_only = false)
     {
 
         global $page_errors;
@@ -83,10 +83,14 @@ class Renderer
         ////////////////////////////////////////////////////////////
         // Require the templates and output
 
-        header('Content-Type: text/html; charset=utf-8');
-        require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
-        require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
-        require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+        if ($template_only) {
+          require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
+        } else {
+          header('Content-Type: text/html; charset=utf-8');
+          require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
+          require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
+          require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+        }
     }
 
     private static function addCommonURLs($data) {
