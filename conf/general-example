@@ -29,12 +29,12 @@ define ('OPTION_BBC_DB_PASS', '');
 
 // *******************************************************************************
 // Domains.
-// Set this to the domain you are hosting on. If you're running locally, this will be "localhost" 
+// Set this to the domain you are hosting on. If you're running locally, this will be "localhost"
 // You can include a port number by putting ":N" at the end of DOMAIN
 define ("DOMAIN", "www.example.org");
 define ("COOKIEDOMAIN", "www.example.org");
 
-// General 'Contact us' type email address. Point this at a real address if you 
+// General 'Contact us' type email address. Point this at a real address if you
 // want the site generated email to come to you. Can be overridden for other mails below.
 
 define ('EMAILDOMAIN', 'example.org');
@@ -46,12 +46,12 @@ if (!defined('BASEDIR')) {
 }
 
 // Webserver path to 'top' directory of the site (possibly just "/"). For example,
-// if the site is at 'http://www.yourdomain.com/public/theyworkforyou', 
+// if the site is at 'http://www.yourdomain.com/public/theyworkforyou',
 // this would be '/public/theyworkforyou'
 define ("WEBPATH", "/");
 
 // *******************************************************************************
-// Stop Here. In a basic developer configuration you shouldn't need to edit 
+// Stop Here. In a basic developer configuration you shouldn't need to edit
 // anything below this point.
 // Feel free to have an explore if you wish though.
 // *******************************************************************************
@@ -78,7 +78,7 @@ define('DISSOLUTION_DATE', '');
 define ("OPTION_MAIL_LOG_PREFIX", '/var/mail/twfy-');
 
 // *******************************************************************************
-// If you've unpacked the tar file normally, and set the paths correctly above, 
+// If you've unpacked the tar file normally, and set the paths correctly above,
 // you shouldn't change these.
 
 // File system path to where all the include files live.
@@ -91,6 +91,7 @@ define ("IMAGEPATH", WEBPATH . "images/");
 // This will be included in data.php. It's an array of page/section metadata.
 define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 
+// Xapian Configuration.
 // Location of the directory that is the Xapian search database.
 // To use the Xapian remote backend, specify server:port.
 // If non-empty will use XAPIAN search.
@@ -98,10 +99,28 @@ define ("XAPIANDB", "");
 // To keep changesets when the indexer runs, set a value here.
 // See https://xapian.org/docs/replication.html
 define ("XAPIAN_MAX_CHANGESETS", "");
+// Set values here to activate one-shot replication. To disable, leave all undefined.
+// Location of the replication script (required):
+define ("XAPIAN_REPLICATION_SCRIPT", "");
+// Port to listen on (required):
+define ("XAPIAN_REPLICATION_PORT", "");
+// Backup hostname (required):
+define ("XAPIAN_REMOTE_HOST", "");
+// Username on backup host (required):
+define ("XAPIAN_REMOTE_USER", "");
+// Backup location on remote host (required):
+define ("XAPIAN_REMOTE_PATH", "");
+// SSH key file to use (required):
+define ("XAPIAN_SSH_IDENTITY_FILE", "");
+// Lockfile to use on remote host (optional):
+define ("XAPIAN_REMOTE_LOCKFILE", "");
+// Path to run-with-lockfile on remote host if not in PATH (optional):
+define ("XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH, "");
+
 // To allow back end to still index/send alerts, but turn off front end.
 define ('FRONT_END_SEARCH', 1);
 
-// Location of the parliamentary recess data file. You can access this remotely 
+// Location of the parliamentary recess data file. You can access this remotely
 // from the main theyworkforyou site if you use
 define ("RECESSFILE","https://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 // AND amend your global php.ini to 'allow_url_fopen = On'

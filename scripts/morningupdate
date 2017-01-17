@@ -50,10 +50,63 @@ system "./xml2db.pl $cronquiet --recent --standing --quiet";
 system "python ./future-fetch.py";
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
-# Update Xapan index
+
+## Xapian Stuff.
+# If there's a value for XAPIAN_MAX_CHANGESETS in the config file,
+# make sure it's in our environment.
+my $changesets = mySociety::Config::get('XAPIAN_MAX_CHANGESETS');
+$ENV{XAPIAN_MAX_CHANGESETS} = $changesets if $changesets;
+
+# Update xapian index
 print "Xapian indexing\n" if $verbose;
 chdir "$FindBin::Bin/../search";
 system "./index.pl sincefile $cronquiet";
+
+# Trigger Xapian Replication if the required settings are in place.
+my $xapiandb = mySociety::Config::get('XAPIANDB');
+# Only replicate if Xapian is local.
+if ( $xapiandb !~ /:/ ) {
+    my $missing_options = "";
+    my %xapian_options;
+    my @required_options = ( "replication_port",
+                            "remote_host",
+                            "remote_user",
+                            "remote_path",
+                            "ssh_identity_file",
+                            "replication_script" );
+    foreach my $option ( @required_options ) {
+        my $config =  "XAPIAN_" . uc $option;
+        $xapian_options{$option} = mySociety::Config::get("$config");
+        $missing_options += "$config " unless $xapian_options{$option};
+    }
+
+    if ( $missing_options ) {
+        print "Skipping replication due to missing options: ${missing_options}\n" if $verbose;
+    } else {
+        # Extract the script name.
+        my $replication_script = $xapian_options{'replication_script'};
+        delete $xapian_options{'replication_script'};
+        # Optional arguments:
+        $xapian_options{"remote_lockfile"} = mySociety::Config::get('XAPIAN_REMOTE_LOCKFILE');
+        $xapian_options{"remote_bin_path"} = mySociety::Config::get('XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH');
+
+        # Build a command line:
+        my @replication_options = ( "$xapiandb",
+                                  "$xapian_options{'replication_port'}",
+                                  "$xapian_options{'remote_host'}",
+                                  "$xapian_options{'remote_user'}",
+                                  "$xapian_options{'remote_path'}",
+                                  "$xapian_options{'ssh_identity_file'}" );
+        if ( $xapian_options{'remote_lockfile'} ) {
+            push @replication_options, "$xapian_options{'remote_lockfile'}";
+            push @replication_options, "$xapian_options{'remote_bin_path'}" if $xapian_options{'remote_bin_path'};
+        }
+
+        # Attempt replication:
+        print "Triggering Xapian Replication\n" if $verbose;
+        system $replication_script, @replication_options;
+    }
+}
 
 # Video - updating GIDs that have video available according to parlvid database
 system "php5 $path/theyworkforyou/scripts/video-availability.php";
@@ -77,4 +130,3 @@ if ($verbose) {
 
 #print "Whole thing done time: ";
 #date +"%Y-%m-%d %H:%M:%S"
-
