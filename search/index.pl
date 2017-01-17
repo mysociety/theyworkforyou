@@ -31,6 +31,11 @@ die "As first parameter, specify:
     'checkfull' to check everything is indexed by fetching entire dbs and comparing
 " if !$action or ($action ne "all" and $action ne "lastweek" and $action ne "lastmonth" and $action ne "sincefile" and $action ne "check" and $action ne 'checkfull' and $action ne "daterange");
 
+# If there's a value for XAPIAN_MAX_CHANGESETS in the config file,
+# make sure it's in our environment.
+my $changesets = mySociety::Config::get('XAPIAN_MAX_CHANGESETS');
+$ENV{XAPIAN_MAX_CHANGESETS} = $changesets if $changesets;
+
 # Open MySQL
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
 my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });

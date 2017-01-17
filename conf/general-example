@@ -95,6 +95,9 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 // To use the Xapian remote backend, specify server:port.
 // If non-empty will use XAPIAN search.
 define ("XAPIANDB", "");
+// To keep changesets when the indexer runs, set a value here.
+// See https://xapian.org/docs/replication.html
+define ("XAPIAN_MAX_CHANGESETS", "");
 // To allow back end to still index/send alerts, but turn off front end.
 define ('FRONT_END_SEARCH', 1);
 
