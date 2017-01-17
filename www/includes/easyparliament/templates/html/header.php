@@ -22,8 +22,13 @@
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
     <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
     <?php if ($og_image) { ?>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@theyworkforyou">
+    <meta name="twitter:creator" content="@theyworkforyou">
       <meta property="og:image" content="<?= $og_image ?>">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="700">
+    <meta property="og:image:height" content="700">
     <meta property="og:type" content="profile">
     <?php } else { ?>
     <meta property="og:type" content="website">
