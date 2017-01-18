@@ -27,8 +27,8 @@
     <meta name="twitter:creator" content="@theyworkforyou">
       <meta property="og:image" content="<?= $og_image ?>">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="700">
-    <meta property="og:image:height" content="700">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="500">
     <meta property="og:type" content="profile">
     <?php } else { ?>
     <meta property="og:type" content="website">
