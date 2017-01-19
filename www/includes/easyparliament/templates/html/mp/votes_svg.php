@@ -4,18 +4,25 @@
 
     foreach ($segment['votes']->positions as $key_vote) {
         if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
-            $stances[] = ucfirst(
-                preg_replace(
-                    '#<b>([^<]+)</b>#i',
-                    '<tspan font-weight="bold">$1</tspan>',
-                    strip_tags($key_vote['desc'], '<b>')
-                )
-            );
+            $stance = strip_tags($key_vote['desc'], '<b>');
+            $stance = ucfirst($stance);
+            $stance = preg_replace('#</?b>#i', '*', $stance);
+            $lines = explode("\n", wordwrap($stance, 84));
+
+            $stances[] = $lines;
         }
     }
 
     $color_cream = '#F3F1EB';
     $color_green = '#62B356';
+
+    $stance_lineheight = 30;
+    $stance_baseline_offset = 20; // because ImageMagick doesn't support `alignment-baseline`
+    $stance_padding_top = 14;
+    $stance_padding_bottom = 8;
+
+    $tspan_bold_open = '<tspan font-family="SourceSansPro-Bold, Source Sans Pro, Trebuchet" font-weight="bold">';
+    $tspan_bold_close = '</tspan>';
 
     header("Content-type: image/svg+xml");
 
@@ -39,15 +46,26 @@
         <tspan x="40" y="113">on <?= $segment['title'] ?></tspan>
     </text>
 
-  <?php foreach ($stances as $i=>$text) { ?>
-    <?php
-        $stances_y = 140;
-        $stance_height = 57;
-        $divider_y = $stances_y + ($stance_height * $i);
-        $textbaseline_y = $divider_y + 35;
-    ?>
-    <path d="M40,<?= $divider_y ?> L1000,<?= $divider_y ?>" stroke="#DDD8C9" stroke-width="2"></path>
-    <text x="40" y="<?= $textbaseline_y ?>" font-family="SourceSansPro-Regular, Source Sans Pro, Trebuchet" font-size="24" font-weight="normal" fill="#000000"><?= $text ?></text>
+  <?php $stance_y = 140; ?>
+
+  <?php foreach ($stances as $i=>$lines) { ?>
+    <path d="M40,<?= $stance_y ?> L1000,<?= $stance_y ?>" stroke="#DDD8C9" stroke-width="2"></path>
+    <text font-family="SourceSansPro-Regular, Source Sans Pro, Trebuchet" font-size="24" font-weight="normal" fill="#000000">
+        <?php foreach ($lines as $j=>$line) { ?>
+            <tspan x="40" y="<?= $stance_y + $stance_padding_top + $stance_baseline_offset + ($stance_lineheight * $j) ?>"><?php
+                if (strpos($line, '*') !== False) {
+                    echo preg_replace(
+                        '#(?:^|[*])([^\r\n *][^*\n]*[^\r\n *])(?:$|[*])#i',
+                        $tspan_bold_open . '$1' . $tspan_bold_close,
+                        $line
+                    );
+                } else {
+                    echo $line;
+                }
+            ?></tspan>
+        <?php } ?>
+    </text>
+    <?php $stance_y = $stance_y + $stance_padding_top + ($stance_lineheight * count($lines)) + $stance_padding_bottom ?>
   <?php } ?>
 
     <rect fill="url(#grad)" x="0" y="360" width="1000" height="70"></rect>
