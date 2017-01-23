@@ -135,6 +135,7 @@ $display_wtt_stats_banner = '2015';
                         <ul class="vote-descriptions">
                           <?php foreach ($sorted_diffs as $policy_id => $score) {
 
+                            $key_vote = NULL;
                             $description = sprintf(
                                 '%s <b>%s</b> %s, while most %s MPs <b>%s</b>.',
                                 $full_name,

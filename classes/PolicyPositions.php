@@ -60,6 +60,7 @@ class PolicyPositions {
     {
         $this->policies = $policies;
         $this->member = $member;
+        $this->divisions = new \MySociety\TheyWorkForYou\Divisions($member, $this, $policies);
 
         // Do the actual getting of positions
         $this->getMemberPolicyPositions($limit);
@@ -120,7 +121,8 @@ class PolicyPositions {
                         'policy' => $policy[1],
                         'desc' => $dream_info['full_sentence'],
                         'has_strong' => $dream_info['has_strong'],
-                        'position' => $dream_info['position']
+                        'position' => $dream_info['position'],
+                        'summary' => '' $this->divisions->getMemberDivsionSummaryForPolicy($policy[0])
                     );
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],

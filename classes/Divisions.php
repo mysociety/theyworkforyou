@@ -69,6 +69,76 @@ class Divisions {
         return $this->divisionsByPolicy($q);
     }
 
+    public function getMemberDivsionSummaryForPolicy($policyID) {
+        $args = array(':person_id' => $this->member->person_id);
+        $args[':policy_id'] = $policyID;
+
+        $q = $this->db->query(
+            "SELECT count(division_id) as total, max(year(division_date)) as latest, min(year(division_date)) as earliest
+            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            WHERE person_id = :person_id AND direction <> 'abstention' AND policy_id = :policy_id",
+            $args
+        );
+
+        $max = $q->field(0, 'latest');
+        $min = $q->field(0, 'earliest');
+        $total = $q->field(0, 'total');
+
+        $q = $this->db->query(
+            "SELECT policy_vote, vote, count(division_id) as total
+            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            WHERE person_id = :person_id AND direction <> 'abstention' AND policy_id = :policy_id
+            GROUP BY policy_vote, vote",
+            $args
+        );
+
+        $votes = array('for' => 0, 'against' => 0, 'absent' => 0, 'both' => 0, 'tell' => 0);
+
+        $row_count = $q->rows();
+        for ($n = 0; $n < $row_count; $n++) {
+          $vote = $q->field($n, 'vote');
+          $policy_vote = str_replace('3', '', $q->field($n, 'policy_vote'));
+          if ( $vote == 'absent' ) {
+              $votes['absent'] += $q->field($n, 'total');
+          } else if ( $vote == 'both' ) {
+              $votes['both'] += $q->field($n, 'total');
+          } else if ( strpos($vote, 'tell') !== FALSE ) {
+              $votes['tell'] += $q->field($n, 'total');
+          } else if ( $policy_vote == $vote ) {
+              $votes['for'] += $q->field($n, 'total');
+          } else if ( $policy_vote != $vote ) {
+              $votes['against'] += $q->field($n, 'total');
+          }
+        }
+
+        $vote_summary = $votes['for'] . " for, " . $votes['against'] . " against";
+        if ( $votes['both'] ) {
+          $vote_summary .= ', ' . $votes['both'] . ' abstention';
+        }
+        $extras = array();
+        if ( $votes['absent'] ) {
+          $extras[] = "was absent for " . $votes['absent'] . ' ' . $this->votePluralise($votes['absent']);
+          $total -= $votes['absent'];
+        }
+        if ( $votes['tell'] ) {
+          $extras[] = "was a teller for " . $votes['tell'] . ' ' . $this->votePluralise($votes['tell']);
+          $total -= $votes['tell'];
+        }
+        if ($extras) {
+          $vote_summary .= ( count($extras) == 2 ? ', ' : ' and ' ) . implode(' and ', $extras );
+        }
+        $vote_str = $this->votePluralise($total);
+        if ($max == $min) {
+          return "$total $vote_str in $min - " . $vote_summary;
+        } else {
+          return "$total $vote_str between $min and $max - " . $vote_summary;
+        }
+    }
+
+    private function votePluralise($count) {
+      return $count == 1 ? 'vote' : 'votes';
+    }
+
     /**
      *
      * Get all the divisions a member has voted in keyed by policy
