@@ -56,11 +56,14 @@ class PolicyPositions {
      * @param int      $limit    The number of policies to limit the list to.
      */
 
-    public function __construct(Policies $policies, Member $member, $limit = NULL)
+    public function __construct(Policies $policies, Member $member, $options = array())
     {
         $this->policies = $policies;
         $this->member = $member;
-        $this->divisions = new \MySociety\TheyWorkForYou\Divisions($member, $this, $policies);
+        $this->summaries = isset($options['summaries']) ? $options['summaries'] : array();
+        $this->divisions = new \MySociety\TheyWorkForYou\Divisions($member);
+
+        $limit = isset($options['limit']) ? $options['limit'] : NULL;
 
         // Do the actual getting of positions
         $this->getMemberPolicyPositions($limit);
@@ -116,13 +119,17 @@ class PolicyPositions {
 
                 // Make sure the dream actually exists
                 if (!empty($dream_info)) {
+                    $summary = '';
+                    if (array_key_exists($policy[0], $this->summaries)) {
+                      $summary = $this->divisions->generateSummary($this->summaries[$policy[0]]);
+                    }
                     $this->positions[] = array(
                         'policy_id' => $policy[0],
                         'policy' => $policy[1],
                         'desc' => $dream_info['full_sentence'],
                         'has_strong' => $dream_info['has_strong'],
                         'position' => $dream_info['position'],
-                        'summary' => '' $this->divisions->getMemberDivsionSummaryForPolicy($policy[0])
+                        'summary' => $summary
                     );
                     $this->positionsById[$policy[0]] = array(
                         'policy_id' => $policy[0],
@@ -131,6 +138,7 @@ class PolicyPositions {
                         'position' => $dream_info['position'],
                         'has_strong' => $dream_info['has_strong'],
                         'score' => $dream_info['score'],
+                        'summary' => $summary
                     );
                     $i++;
                 }
