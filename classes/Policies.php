@@ -273,6 +273,22 @@ class Policies {
         )
     );
 
+    protected $set_descs = array(
+        'social' => 'Social Issues',
+        'foreignpolicy' => 'Foreign Policy and Defence',
+        'welfare' => 'Welfare and Benefits',
+        'taxation' => 'Taxation and Employment',
+        'business' => 'Business and the Economy',
+        'health' => 'Health',
+        'education' => 'Education',
+        'reform' => 'Constitutional Reform',
+        'home' => 'Home Affairs',
+        'environment' => 'Environmental Issues',
+        'transport' => 'Transport',
+        'housing' => 'Housing',
+        'misc' => 'Miscellaneous Topics',
+    );
+
     private $db;
 
     private $policy_id;
@@ -290,6 +306,10 @@ class Policies {
 
     public function getPolicies() {
         return $this->policies;
+    }
+
+    public function getSetDescriptions() {
+      return $this->set_descs;
     }
 
     /**
