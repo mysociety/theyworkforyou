@@ -133,27 +133,21 @@ class Divisions {
         $min = $votes['min'];
         $total = $votes['total'];
 
-        $vote_summary = $votes['for'] . " for, " . $votes['against'] . " against";
+        $vote_summary =  " For: " . $votes['for'] . " Against: " . $votes['against'];
         if ( $votes['both'] ) {
-          $vote_summary .= ', ' . $votes['both'] . ' abstention';
+          $vote_summary .= " Abstained: " . $votes['both'];
         }
-        $extras = array();
         if ( $votes['absent'] ) {
-          $extras[] = "was absent for " . $votes['absent'] . ' ' . $this->votePluralise($votes['absent']);
-          $total -= $votes['absent'];
+          $vote_summary .= " Absent: " . $votes['absent'];
         }
         if ( $votes['tell'] ) {
-          $extras[] = "was a teller for " . $votes['tell'] . ' ' . $this->votePluralise($votes['tell']);
-          $total -= $votes['tell'];
-        }
-        if ($extras) {
-          $vote_summary .= ( count($extras) == 2 ? ', ' : ' and ' ) . implode(' and ', $extras );
+          $vote_summary .= " Teller: " . $votes['tell'];
         }
         $vote_str = $this->votePluralise($total);
         if ($max == $min) {
-          return "$total $vote_str in $min - " . $vote_summary;
+          return "<b>This MP&rsquo;s $vote_str</b> [$min] " . $vote_summary;
         } else {
-          return "$total $vote_str between $min and $max - " . $vote_summary;
+          return "<b>This MP&rsquo;s $vote_str</b> [$min&ndash;$max] " . $vote_summary;
         }
     }
 
