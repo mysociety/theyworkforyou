@@ -21,7 +21,7 @@
     $stance_padding_top = 14;
     $stance_padding_bottom = 8;
 
-    $tspan_bold_open = '<tspan font-family="SourceSansPro-Bold, Source Sans Pro, Trebuchet" font-weight="bold">';
+    $tspan_bold_open = '<tspan font-family="Droid Sans, Trebuchet" font-weight="bold">';
     $tspan_bold_close = '</tspan>';
 
     header("Content-type: image/svg+xml");
@@ -41,7 +41,7 @@
 
     <rect fill="<?= $color_cream; ?>" x="0" y="0" width="1000" height="500"></rect>
 
-    <text font-family="SourceSansPro-Bold, Source Sans Pro, Trebuchet" font-size="40" font-weight="bold" fill="#000000">
+    <text font-family="Droid Sans, Trebuchet" font-size="40" font-weight="bold" fill="#000000">
         <tspan x="40" y="73">How <?= $full_name ?> voted</tspan>
         <tspan x="40" y="113">on <?= $segment['title'] ?></tspan>
     </text>
@@ -50,7 +50,7 @@
 
   <?php foreach ($stances as $i=>$lines) { ?>
     <path d="M40,<?= $stance_y ?> L1000,<?= $stance_y ?>" stroke="#DDD8C9" stroke-width="2"></path>
-    <text font-family="SourceSansPro-Regular, Source Sans Pro, Trebuchet" font-size="24" font-weight="normal" fill="#000000">
+    <text font-family="Droid Sans, Trebuchet" font-size="24" font-weight="normal" fill="#000000">
         <?php foreach ($lines as $j=>$line) { ?>
             <tspan x="40" y="<?= $stance_y + $stance_padding_top + $stance_baseline_offset + ($stance_lineheight * $j) ?>"><?php
                 if (strpos($line, '*') !== False) {
@@ -71,7 +71,7 @@
     <rect fill="url(#grad)" x="0" y="360" width="1000" height="70"></rect>
     <rect fill="<?= $color_cream ?>" x="0" y="430" width="1000" height="70"></rect>
 
-    <text x="960" y="476" text-anchor="end" font-family="SourceSansPro-Regular, Source Sans Pro, Trebuchet" font-size="20" fill="#6A6A6A">
+    <text x="960" y="476" text-anchor="end" font-family="Droid Sans, Trebuchet" font-size="20" fill="#6A6A6A">
       Source: theyworkforyou.com
     </text>
 
