@@ -112,6 +112,17 @@
       return t;
     }(document, "script", "twitter-wjs"));</script>
 
+    <script>
+      twttr.ready(function() {
+        twttr.events.bind('tweet', function() {
+            ga('send', 'social', 'twitter', 'tweet', window.location.href);
+        });
+        twttr.events.bind('follow', function() {
+            ga('send', 'social', 'twitter', 'follow', window.location.href);
+        });
+      });
+    </script>
+
 </head>
 
 <body>
