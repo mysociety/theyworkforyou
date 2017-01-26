@@ -78,9 +78,13 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                               } ?>
                             </ul>
 
-                            <div class="fb-share-button" data-href="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode( $abs_member_url . "/votes?policy=" . $segment['key'] ) ?>&amp;src=sdkpreparse">Share</a></div>
+                            <div class="share-vote-descriptions">
+                                <p>Share a screenshot of these votes:</p>
 
-                            <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
+                                <div class="fb-share-button" data-href="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode( $abs_member_url . "/votes?policy=" . $segment['key'] ) ?>&amp;src=sdkpreparse">Share</a></div>
+
+                                <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
+                                </div>
                             </div>
 
                             <?php $displayed_votes = TRUE; ?>
