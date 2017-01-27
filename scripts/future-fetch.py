@@ -188,6 +188,7 @@ db_connection = MySQLdb.connect(
     db=config.get('TWFY_DB_NAME'),
     user=config.get('TWFY_DB_USER'),
     passwd=config.get('TWFY_DB_PASS'),
+    charset='utf8',
     )
 
 db_cursor = db_connection.cursor()
