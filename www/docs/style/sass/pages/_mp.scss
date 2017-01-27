@@ -654,6 +654,21 @@
   }
 }
 
+.vote-description__evidence {
+  display: block;
+  color: #757470;
+  text-decoration: none !important; // override .person-panels .panel a
+  font-size: 0.7em;
+  line-height: 1.5em;
+  margin-top: 0.2em;
+
+  &:hover,
+  &:focus {
+    color: darken(#757470, 10%);
+    text-decoration: underline !important; // override .person-panels .panel a
+  }
+}
+
 .policy-votes-list-footer {
     p {
         margin-bottom: 0.5em;

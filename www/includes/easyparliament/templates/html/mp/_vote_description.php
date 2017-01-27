@@ -3,7 +3,7 @@
     <?php if ( $show_link ) { ?>
         <a class="vote-description__source" href="<?= $link ?>">Show votes</a>
         <?php if (isset($key_vote)) { ?>
-        <br><small><?= $key_vote['summary'] ?></small>
+        <a class="vote-description__evidence" href="<?= $link ?>"><?= $key_vote['summary'] ?></a>
         <?php } ?>
     <?php } ?>
 </li>

@@ -131,28 +131,23 @@ class Divisions {
     public function generateSummary($votes) {
         $max = $votes['max'];
         $min = $votes['min'];
-        $total = $votes['total'];
 
-        $vote_summary =  " For: " . $votes['for'] . " Against: " . $votes['against'];
+        $actions = array(
+            $votes['for'] . ' ' . make_plural('vote', $votes['for']) . ' for',
+            $votes['against'] . ' ' . make_plural('vote', $votes['against']) . ' against'
+        );
+
         if ( $votes['both'] ) {
-          $vote_summary .= " Abstained: " . $votes['both'];
+            $actions[] = $votes['both'] . ' ' . make_plural('abstention', $votes['both']);
         }
         if ( $votes['absent'] ) {
-          $vote_summary .= " Absent: " . $votes['absent'];
+            $actions[] = $votes['absent'] . ' ' . make_plural('absence', $votes['absent']);
         }
-        if ( $votes['tell'] ) {
-          $vote_summary .= " Teller: " . $votes['tell'];
-        }
-        $vote_str = $this->votePluralise($total);
         if ($max == $min) {
-          return "<b>This MP&rsquo;s $vote_str</b> [$min] " . $vote_summary;
+            return join(', ', $actions) . ', in ' . $max;
         } else {
-          return "<b>This MP&rsquo;s $vote_str</b> [$min&ndash;$max] " . $vote_summary;
+            return join(', ', $actions) . ', between ' . $min . '&ndash;' . $max;
         }
-    }
-
-    private function votePluralise($count) {
-      return $count == 1 ? 'vote' : 'votes';
     }
 
     /**
