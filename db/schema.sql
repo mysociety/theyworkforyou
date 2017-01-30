@@ -353,7 +353,7 @@ CREATE TABLE `editqueue` (
 
 CREATE TABLE `glossary` (
   `glossary_id` int(11) NOT NULL auto_increment,
-  `title` varchar(255) default NULL,
+  `title` varchar(255) collate utf8_general_ci default NULL,
   `body` text,
   `wikipedia` varchar(255) default NULL,
   `created` datetime default NULL,
