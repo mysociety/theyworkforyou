@@ -83,8 +83,8 @@ class SEARCHENGINE {
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
         // The colon is in here for prefixes speaker:10043 and so on.
-        $this->wordchars = "A-Za-z0-9,.'&:_\xc0-\xff";
-        $this->wordcharsnodigit = "A-Za-z0-9'&_\xc0-\xff";
+        $this->wordchars = "A-Za-z0-9,.'&:_\x80-\xbf\xc2-\xf4";
+        $this->wordcharsnodigit = "A-Za-z0-9'&_\x80-\xbf\xc2-\xf4";
 
         // An array of normal words.
         $this->words = array();
@@ -477,12 +477,17 @@ class SEARCHENGINE {
         }
     }
 
+    private $specialchars = array('&lt;', '&gt;', '&quot;', '&amp;');
+    private $specialchars_upper = array('&LT;', '&GT;', '&QUOT;', '&AMP;');
+
     public function highlight_internal($body, $stemmed_words) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
         # Does html_entity_decode without the htmlspecialchars
-        $body = preg_replace('/&#(\d\d\d);/e', 'chr($1)', $body);
+        $body = str_replace($specialchars, $specialchars_upper, $body);
+        $body = mb_convert_encoding($body, "UTF-8", "HTML-ENTITIES");
+        $body = str_replace($specialchars_upper, $specialchars, $body);
         $splitextract = preg_split('/(<[^>]*>|[0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
         $hlextract = "";
         foreach ($splitextract as $extractword) {
