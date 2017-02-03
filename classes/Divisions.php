@@ -179,6 +179,32 @@ class Divisions {
     }
 
 
+    /**
+     * Get the last n votes for a member
+     *
+     * Returns an array of divisions
+     */
+    public function getRecentMemberDivisions($number = 20) {
+        $args = array(':person_id' => $this->member->person_id, ':number' => $number);
+        $q = $this->db->query(
+            "SELECT division_id, division_title, yes_text, no_text, division_date, vote, gid, direction
+            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            WHERE person_id = :person_id
+            GROUP BY division_id
+            ORDER by division_date DESC LIMIT :number",
+            $args
+        );
+
+        $divisions = array();
+        $row_count = $q->rows();
+        for ($n = 0; $n < $row_count; $n++) {
+          $divisions[] = $this->getDivisionDetails($q->row($n));
+        }
+
+        return $divisions;
+    }
+
+
     private function constructYesNoVoteDescription($direction, $title, $short_text) {
         $text = ' voted ';
         if ( $short_text ) {
@@ -225,6 +251,31 @@ class Divisions {
         return $description;
     }
 
+    private function getDivisionDetails($row) {
+        $division = array();
+
+        $direction = $row['direction'];
+        if ( strpos( $direction, 'strong') !== FALSE ) {
+            $division['strong'] = TRUE;
+        } else {
+            $division['strong'] = FALSE;
+        }
+
+        $vote = $row['vote'];
+        $yes_text = $row['yes_text'];
+        $no_text = $row['no_text'];
+        $division_title = $row['division_title'];
+
+        $division['text'] = $this->constructVoteDescription($vote, $yes_text, $no_text, $division_title);
+        $division['division_id'] = $row['division_id'];
+        $division['date'] = $row['division_date'];
+        $division['vote'] = $vote;
+        $division['gid'] = fix_gid_from_db($row['gid']);
+        $division['url'] = $this->divisionUrlFromGid($row['gid']);
+
+        return $division;
+    }
+
     private function divisionsByPolicy($q) {
         $policies = array();
 
@@ -246,26 +297,8 @@ class Divisions {
                     $policies[$policy_id]['position'] = $this->positions->positionsById[$policy_id];
                 }
             }
-            $division = array();
 
-            $direction = $q->field($n, 'direction');
-            if ( strpos( $direction, 'strong') !== FALSE ) {
-                $division['strong'] = TRUE;
-            } else {
-                $division['strong'] = FALSE;
-            }
-
-            $vote = $q->field($n, 'vote');
-            $yes_text = $q->field($n, 'yes_text');
-            $no_text = $q->field($n, 'no_text');
-            $division_title = $q->field($n, 'division_title');
-
-            $division['text'] = $this->constructVoteDescription($vote, $yes_text, $no_text, $division_title);
-            $division['division_id'] = $q->field($n, 'division_id');
-            $division['date'] = $q->field($n, 'division_date');
-            $division['vote'] = $vote;
-            $division['gid'] = fix_gid_from_db($q->field($n, 'gid'));
-            $division['url'] = $this->divisionUrlFromGid($q->field($n, 'gid'));
+            $division = $this->getDivisionDetails($q->row($n));
 
             if ( !$division['strong'] ) {
                 $policies[$policy_id]['weak_count']++;
