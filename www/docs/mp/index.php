@@ -472,6 +472,17 @@ switch ($pagetype) {
 
         break;
 
+    case 'recent':
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
+
+        $data['divisions'] = $divisions->getRecentMemberDivisions();
+
+        MySociety\TheyWorkForYou\Renderer::output('mp/recent', $data);
+
+        break;
+
     case 'divisions':
         $policyID = get_http_var('policy');
         if ( $policyID ) {
