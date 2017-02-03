@@ -9,6 +9,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <ul>
                     <li><a href="<?= $member_url ?>">Overview</a></li>
                     <li class="active"><a href="<?= $member_url ?>/votes">Voting Record</a></li>
+                    <li><a href="<?= $member_url ?>/recent">Recent Votes</a></li>
                 </ul>
             </div>
         </div>

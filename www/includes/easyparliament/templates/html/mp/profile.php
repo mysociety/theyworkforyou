@@ -16,6 +16,7 @@ $display_wtt_stats_banner = '2015';
                 <ul>
                     <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
                     <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
+                    <li><a href="<?= $member_url ?>/recent">Recent Votes</a></li>
                 </ul>
             </div>
             <?php endif; ?>
