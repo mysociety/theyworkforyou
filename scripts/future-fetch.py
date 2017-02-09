@@ -112,11 +112,11 @@ class Entry(object):
             self.link_calendar, self.link_external,
             self.body, self.chamber,
             self.event_date, self.time_start, self.time_end,
-            self.committee_name.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.debate_type.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.title.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.witnesses_str.encode('iso-8859-1', 'xmlcharrefreplace'),
-            self.location.encode('iso-8859-1', 'xmlcharrefreplace'),
+            self.committee_name,
+            self.debate_type,
+            self.title,
+            self.witnesses_str,
+            self.location,
             )
 
     def add(self):
@@ -188,6 +188,7 @@ db_connection = MySQLdb.connect(
     db=config.get('TWFY_DB_NAME'),
     user=config.get('TWFY_DB_USER'),
     passwd=config.get('TWFY_DB_PASS'),
+    charset='utf8',
     )
 
 db_cursor = db_connection.cursor()

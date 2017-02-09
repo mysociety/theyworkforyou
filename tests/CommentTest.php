@@ -102,7 +102,7 @@ It also spans multiple lines.", $comment->body());
     {
         // this file is UTF-8 but odd comments are sent up looking like Windows-1252 so we need the
         // input text to be encoded thus otherwise the output is different
-        $text = iconv('UTF-8', 'Windows-1252', "This is a curly  ’ apostrophe. Is 2 &lt; 3 ø ø €  ’ « ö à");
+        $text = "This is a curly  ’ apostrophe. Is 2 &lt; 3 ø ø €  ’ « ö à";
 
         $this->assertEquals("This is a curly  &rsquo; apostrophe. Is 2 &lt; 3 &oslash; &oslash; &euro;  &rsquo; &laquo; &ouml; &agrave;", prepare_comment_for_display($text));
     }

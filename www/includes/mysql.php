@@ -262,7 +262,7 @@ Class MySQL {
         // These vars come from config.php.
 
         if (!$global_connection) {
-            $dsn = 'mysql:dbname=' . $db_name . ';host=' . $db_host;
+            $dsn = 'mysql:charset=utf8;dbname=' . $db_name . ';host=' . $db_host;
 
             try {
                 $conn = new PDO($dsn, $db_user, $db_pass);

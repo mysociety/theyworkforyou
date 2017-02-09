@@ -30,7 +30,7 @@ require 'policyids.pl';
 my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, , mysql_enable_utf8 => 1 });
 
 my $policycheck = $dbh->prepare("SELECT policy_id from policies where policy_id = ?");
 my $policyadd = $dbh->prepare("INSERT INTO policies (policy_id, title, description) VALUES (?, ?, ?)");
@@ -94,8 +94,7 @@ foreach my $dreamid ( @policyids ) {
             next;
         }
 
-        # JSON is UTF-8, the database and TWFY are not
-        my $text = Encode::encode( 'iso-8859-1', $motion->{motion}->{text} );
+        my $text = $motion->{motion}->{text};
         my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
 
         if ( $curr_motion ) {
@@ -107,8 +106,8 @@ foreach my $dreamid ( @policyids ) {
         my $yes_text = '';
         my $no_text = '';
         if ( $motion->{motion}->{actions} ) {
-            $yes_text = Encode::encode( 'iso-8859-1', $motion->{motion}->{actions}->{yes} );
-            $no_text = Encode::encode( 'iso-8859-1', $motion->{motion}->{actions}->{no} );
+            $yes_text = $motion->{motion}->{actions}->{yes};
+            $no_text = $motion->{motion}->{actions}->{no};
         }
 
         if ( !defined $curr_motion ) {

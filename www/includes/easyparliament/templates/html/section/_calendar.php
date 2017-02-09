@@ -125,8 +125,12 @@
                     if ($currentDay == $toDay) {
                         print '<span>' . $currentDay . '</span></td>';
                     } else {
-                        $urls['day']->insert(array('d'=>$date));
-                        print "<a href=\"" . $urls['day']->generate() . "\">$currentDay</a></td>";
+                        $day_section = $section;
+                        if ($section == 'sp') {
+                          $day_section = 'spdebates';
+                        }
+                        $urls[$day_section . 'day']->insert(array('d'=>$date));
+                        print "<a href=\"" . $urls[$day_section . 'day']->generate() . "\">$currentDay</a></td>";
                     }
 
                     // $currentDay is not a member of $dates.

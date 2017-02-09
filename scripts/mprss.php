@@ -75,7 +75,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 	}
 		
 	// Prepare the whole text of the RSS file.
-	$rsstext = '<?xml version="1.0" encoding="iso-8859-1"?>
+	$rsstext = '<?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
