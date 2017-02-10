@@ -83,13 +83,6 @@ if ( $xapiandb !~ /:/ ) {
     if ( $missing_options ) {
         print "Skipping replication due to missing options: ${missing_options}\n" if $verbose;
     } else {
-        # Extract the script name.
-        my $replication_script = $xapian_options{'replication_script'};
-        delete $xapian_options{'replication_script'};
-        # Optional arguments:
-        $xapian_options{"remote_lockfile"} = mySociety::Config::get('XAPIAN_REMOTE_LOCKFILE');
-        $xapian_options{"remote_bin_path"} = mySociety::Config::get('XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH');
-
         # Build a command line:
         my @replication_options = ( "$xapiandb",
                                   "$xapian_options{'replication_port'}",
@@ -97,14 +90,14 @@ if ( $xapiandb !~ /:/ ) {
                                   "$xapian_options{'remote_user'}",
                                   "$xapian_options{'remote_path'}",
                                   "$xapian_options{'ssh_identity_file'}" );
-        if ( $xapian_options{'remote_lockfile'} ) {
-            push @replication_options, "$xapian_options{'remote_lockfile'}";
-            push @replication_options, "$xapian_options{'remote_bin_path'}" if $xapian_options{'remote_bin_path'};
-        }
+
+        # Optional arguments:
+        $xapian_options{"remote_bin_path"} = mySociety::Config::get('XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH');
+        push @replication_options, "$xapian_options{'remote_bin_path'}" if $xapian_options{'remote_bin_path'};
 
         # Attempt replication:
         print "Triggering Xapian Replication\n" if $verbose;
-        system $replication_script, @replication_options;
+        system $xapian_options{'replication_script'}, @replication_options;
     }
 }
 

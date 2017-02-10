@@ -112,10 +112,8 @@ define ("XAPIAN_REMOTE_USER", "");
 define ("XAPIAN_REMOTE_PATH", "");
 // SSH key file to use (required):
 define ("XAPIAN_SSH_IDENTITY_FILE", "");
-// Lockfile to use on remote host (optional):
-define ("XAPIAN_REMOTE_LOCKFILE", "");
 // Path to run-with-lockfile on remote host if not in PATH (optional):
-define ("XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH, "");
+define ("XAPIAN_REMOTE_RUN_WITH_LOCKFILE_PATH", "");
 
 // To allow back end to still index/send alerts, but turn off front end.
 define ('FRONT_END_SEARCH', 1);
