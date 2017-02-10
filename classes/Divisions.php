@@ -37,6 +37,21 @@ class Divisions {
         $this->db = new \ParlDB;
     }
 
+    public static function getMostRecentDivisionDate() {
+      $db = new \ParlDB;
+      $q = $db->query(
+        "SELECT policy_id, max(division_date) as recent from policydivisions GROUP BY policy_id"
+      );
+
+      $policy_maxes = array();
+      $row_count = $q->rows();
+      for ($n = 0; $n < $row_count; $n++) {
+        $policy_maxes[$q->field($n, 'policy_id')] = $q->field( $n, 'recent' );
+      }
+      $policy_maxes['latest'] = max(array_values($policy_maxes));
+      return $policy_maxes;
+    }
+
     /**
      *
      * Get a list of division votes related to a policy

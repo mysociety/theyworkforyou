@@ -24,4 +24,9 @@ class VotesTest extends FetchPageTestCase
         $page = $this->fetch_votes_page();
         $this->assertContains('policy=363">0 votes for, 4 votes against, 1 abstention, 1 absence, in 2013', $page);
     }
+
+    public function testLastUpdate() {
+        $page = $this->fetch_votes_page();
+        $this->assertContains('Last updated: 1 January 2013', $page);
+    }
 }

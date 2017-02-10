@@ -363,6 +363,8 @@ if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
     $data['current_assembly'] = 'ni';
 }
 
+$data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate();
+
 // Do any necessary extra work based on the page type, and send for rendering.
 switch ($pagetype) {
 

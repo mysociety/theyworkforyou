@@ -189,6 +189,7 @@ $display_wtt_stats_banner = '2015';
                     <?php endif; ?>
 
                     <p><?= $full_name ?> <?= $rebellion_rate ?></p>
+                    <small>Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?></small>
 
                 </div>
                 <?php endif; ?>

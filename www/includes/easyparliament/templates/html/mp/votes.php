@@ -46,6 +46,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php foreach ($key_votes_segments as $segment): ?>
 
                         <?php if (count($segment['votes']->positions) > 0): ?>
+                        <?php $most_recent = ''; ?>
 
                             <div class="panel">
 
@@ -56,6 +57,10 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
+
+                                if (isset($policy_last_update[$key_vote['policy_id']]) && $policy_last_update[$key_vote['policy_id']] > $most_recent) {
+                                  $most_recent = $policy_last_update[$key_vote['policy_id']];
+                                }
 
                                 if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
                                     $description = ucfirst($key_vote['desc']);
@@ -85,6 +90,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                                 <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
                                 </div>
+                                <small>Last updated: <?= format_date($most_recent, LONGDATEFORMAT) ?></small>
                             </div>
 
                             <?php $displayed_votes = TRUE; ?>
