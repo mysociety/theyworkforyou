@@ -513,8 +513,15 @@ switch ($pagetype) {
         break;
 
     case 'policy_set_svg':
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $set_descriptions = $policiesList->getSetDescriptions();
         $policy_set = get_http_var('policy_set');
         $policiesList = new MySociety\TheyWorkForYou\Policies;
+
+        if (!array_key_exists($policy_set, $set_descriptions)) {
+            header('HTTP/1.0 404 Not Found');
+            exit();
+        }
 
         // Generate voting segments
         $data['segment'] = array(
@@ -529,7 +536,15 @@ switch ($pagetype) {
         break;
 
     case 'policy_set_png':
+        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $set_descriptions = $policiesList->getSetDescriptions();
         $policy_set = get_http_var('policy_set');
+
+        if (!array_key_exists($policy_set, $set_descriptions)) {
+            header('HTTP/1.0 404 Not Found');
+            exit();
+        }
+
         $im = new Imagick();
         $policiesList = new MySociety\TheyWorkForYou\Policies;
 
