@@ -390,6 +390,7 @@ switch ($pagetype) {
           $data['page_title'] = $policiesList->getSetDescriptions()[$policy_set] . ' ' . $title . ' - TheyWorkForYou';
           $data['meta_description'] = 'See how ' . $data['full_name'] . ' voted on ' . $policiesList->getSetDescriptions()[$policy_set];
         } else {
+            $set_descriptions = $policiesList->getSetDescriptions();
             $data['key_votes_segments'] = array(
                 array(
                     'key'   => 'social',
