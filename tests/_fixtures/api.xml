@@ -63,6 +63,13 @@
 		<field name="to_date">9999-12-31</field>
 		<field name="cons_id">11</field>
 	</row>
+	<row>
+		<field name="name">Cities of ‶London″ and Westminster</field>
+		<field name="main_name">1</field>
+		<field name="from_date">1983-00-00</field>
+		<field name="to_date">9999-12-31</field>
+		<field name="cons_id">13</field>
+	</row>
 	</table_data>
 	<table_data name="editqueue">
 	</table_data>

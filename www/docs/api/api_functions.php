@@ -324,8 +324,8 @@ function api_output_js($v, $level=0) {
         $out = "null";
     } elseif (is_string($v)) {
         $out = '"' . str_replace(
-            array("\\",'"',"\n","\t","\r"),
-            array("\\\\",'\"','\n','\t','\r'), $v) . '"';
+            array("\\",'"',"\n","\t","\r", "‶", "″", "“", "”"),
+            array("\\\\",'\"','\n','\t','\r', '\"', '\"', '\"', '\"'), $v) . '"';
     } elseif (is_bool($v)) {
         $out = $v ? 'true' : 'false';
     } elseif (is_int($v) || is_float($v)) {
