@@ -382,7 +382,7 @@ switch ($pagetype) {
                   'key' => $policy_set,
                   'title' => $policiesList->getSetDescriptions()[$policy_set],
                   'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                      $policiesList->limitToSet($policy), $MEMBER, $policyOptions
+                      $policiesList->limitToSet($policy_set), $MEMBER, $policyOptions
                   )
               )
           );
