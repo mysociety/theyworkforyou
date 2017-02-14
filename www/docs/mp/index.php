@@ -324,6 +324,7 @@ $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
 $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
+$data['social_links'] = person_social_links($MEMBER);
 $data['topics_of_interest'] = person_topics($MEMBER);
 $data['current_offices'] = $MEMBER->offices('current');
 $data['previous_offices'] = $MEMBER->offices('previous');
@@ -938,13 +939,6 @@ function person_useful_links($member) {
         );
     }
 
-    if (isset($links['twitter_username'])) {
-        $out[] = array(
-                'href' => 'https://twitter.com/' . $links['twitter_username'],
-                'text' => 'Twitter feed'
-        );
-    }
-
     if (isset($links['sp_url'])) {
         $out[] = array(
                 'href' => $links['sp_url'],
@@ -984,6 +978,31 @@ function person_useful_links($member) {
         $out[] = array(
                 'href' => $links['journa_list_link'],
                 'text' => 'Newspaper articles written by this MP'
+        );
+    }
+
+    return $out;
+}
+
+function person_social_links($member) {
+
+    $links = $member->extra_info();
+
+    $out = array();
+
+    if (isset($links['twitter_username'])) {
+        $out[] = array(
+                'href' => 'https://twitter.com/' . _htmlentities($links['twitter_username']),
+                'text' => '@' . _htmlentities($links['twitter_username']),
+                'type' => 'twitter'
+        );
+    }
+
+    if (isset($links['facebook_page'])) {
+        $out[] = array(
+                'href' => _htmlentities($links['facebook_page']),
+                'text' => _htmlentities($links['facebook_page']),
+                'type' => 'facebook'
         );
     }
 

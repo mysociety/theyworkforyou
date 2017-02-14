@@ -261,6 +261,16 @@ $display_wtt_stats_banner = '2015';
 
                     <?php endif; ?>
 
+                    <?php if (count($social_links) > 0): ?>
+                    <h3>Social Media</h3>
+                    <ul>
+                        <?php foreach ($social_links as $link): ?>
+                        <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+
+
                     <?php if ($has_expenses): ?>
                     <h3>Expenses</h3>
 

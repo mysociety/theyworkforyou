@@ -117,8 +117,11 @@ if ($action{'links'}) {
     $twig->parsefile($pwmembers . 'websites.xml', ErrorContext => 2);
     print "  MSP websites\n" if $verbose;
     $twig->parsefile($pwmembers . 'websites-sp.xml', ErrorContext => 2);
-    print "  MSP Twitter username\n" if $verbose;
+    print "  Twitter usernames and facebook pages\n" if $verbose;
     $twig->parsefile($pwmembers . 'twitter.xml', ErrorContext => 2);
+    $twig->parsefile($pwmembers . 'social-media-commons.xml', ErrorContext => 2);
+    $twig->parsefile($pwmembers . 'social-media-sp.xml', ErrorContext => 2);
+    $twig->parsefile($pwmembers . 'social-media-ni.xml', ErrorContext => 2);
     chdir $FindBin::Bin;
     print "  Lords biographies\n" if $verbose;
     $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
