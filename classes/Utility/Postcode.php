@@ -94,10 +94,14 @@ class Postcode
      */
 
     private static function postcodeFetchFromMapit($postcode) {
-        $filename = '/postcode/' . rawurlencode($postcode);
-        $ch = curl_init('http://mapit.mysociety.org' . $filename);
+        if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL) {
+            return '';
+        }
+        $filename = 'postcode/' . rawurlencode($postcode);
+        $ch = curl_init(OPTION_MAPIT_URL . $filename);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         $file = curl_exec($ch);
         if (curl_errno($ch)) {
