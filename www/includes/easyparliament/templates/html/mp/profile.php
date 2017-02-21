@@ -23,9 +23,6 @@ $display_wtt_stats_banner = '2015';
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <ul data-magellan-expedition="fixed">
-                  <?php if (array_key_exists($display_wtt_stats_banner, $wtt_strings)): ?>
-                    <li data-magellan-arrival="responsiveness"><a href="#responsiveness">Responsiveness</a></li>
-                  <?php endif; ?>
                   <?php if (count($policyPositions->positions) > 0): ?>
                     <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
                   <?php endif; ?>
