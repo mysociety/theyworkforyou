@@ -53,8 +53,8 @@ class AcceptApiTest extends FetchPageTestCase
             {"name":"Alyn and Deeside"},
             {"name":"Amber Valley"},
             {"name":"Belfast West"},
-            {"name":"Cities of London and Westminster"}
-            {"name":"Cities of \"London\" and Westminster"}
+            {"name":"Cities of London and Westminster"},
+            {"name":"Cities of "London" and Westminster"}
             ]');
     }
 
