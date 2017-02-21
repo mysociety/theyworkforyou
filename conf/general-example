@@ -134,7 +134,9 @@ define('OPTION_AUTH_SHARED_SECRET', '');
 define('OPTION_HEARFROMYOURMP_BASE_URL', '');
 
 // For API getGeometry call.
-define('OPTION_MAPIT_URL', '');
+if (!defined('OPTION_MAPIT_URL')) {
+  define('OPTION_MAPIT_URL', '');
+}
 
 // For seeing if someone is in New Zealand.
 define('OPTION_GAZE_URL', '');

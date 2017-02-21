@@ -23,6 +23,9 @@ if (
     // Define the base directory
     define ("BASEDIR", dirname(__FILE__) . '/../www/docs'); 
 
+    # point to the default mapit
+    define('OPTION_MAPIT_URL', 'https://mapit.mysociety.org/');
+
     // If there isn't a config file (most likely this is running an automated test) copy one in.
     if ( ! file_exists(dirname(__FILE__) . '/../conf/general')) {
         copy(dirname(__FILE__) . '/../conf/general-example', dirname(__FILE__) . '/../conf/general');
