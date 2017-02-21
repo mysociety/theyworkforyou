@@ -722,6 +722,16 @@ $this->page = array (
         'url'           => 'royal/',
     ),
 
+    'topic' => array (
+        'parent'        => 'topics',
+        'url'           => 'topic/topic.php',
+    ),
+
+    'topics' => array (
+        'title'        => 'Topics',
+        'url'          => 'topic/',
+    ),
+
     'search'		=> array (
         'sidebar'		=> 'search',
         'url'			=> 'search/',

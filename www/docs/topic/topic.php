@@ -17,146 +17,28 @@ $new_style_template = TRUE;
 include_once '../../includes/easyparliament/init.php';
 
 // Topics
-$topics = array(
-
-    'benefits' => array(
-        'title'       => 'Benefits',
-        'blurb'       => 'Benefits are a major political issue right now - they
-            are mentioned a lot in Parliament, so it can be hard to know exactly
-            where to find the important debates.',
-        'policyset'   => 'welfare',
-        'policytitle' => 'Welfare and Benefits',
-        'actions'     => array(
-
-            array(
-                'title' => 'Universal Credit Regulations',
-                'icon'  => 'debate',
-                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-02-13a.664.3',
-                'blurb' => 'Lords debate, and approve, the consolidation of all benefits into the
-                             Universal Credit system.'
-            ),
-
-            array(
-                'title' => 'Welfare Benefits Up-rating Bill',
-                'icon'  => 'bill',
-                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-02-11a.457.8',
-                'blurb' => 'Lords debate a cap on annual increases to working-age benefits.'
-            ),
-
-            array(
-                'title' => 'Search the whole site',
-                'icon'  => 'search',
-                'href'  => 'https://www.theyworkforyou.com/search/?s=%22benefits%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of benefits. You may also filter your results by time, speaker and section.'
-            ),
-
-            array(
-                'title' => 'Sign up for email alerts',
-                'icon'  => 'alert',
-                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22benefits%22',
-                'blurb' => 'We&rsquo;ll let you know every time benefits are mentioned in Parliament.'
-            )
-
-        )
-
-    ),
-
-    'crime-stats' => array(
-        'title' => 'Crime Statistics',
-        'blurb' => 'MPs and Lords often talk about Crime Statistics, because
-            they&rsquo;re a major political issue.',
-        'actions' => array(
-
-            array(
-                'title' => 'Anti-social Behaviour Crime and Policing Bill (second reading)',
-                'icon'  => 'bill',
-                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-10-29a.1482.5',
-                'blurb' => 'The House of Lords debate a proposed law, making many references to crime statistics.'
-            ),
-
-            array(
-                'title' => 'Police and Public trust',
-                'icon'  => 'debate',
-                'href'  => 'https://www.theyworkforyou.com/lords/?id=2013-11-28a.1576.0',
-                'blurb' => 'A debate on police misconduct and how much the general public trust the police not to cover up crime statistics, mistakes and misbehaviour.'
-            ),
-
-            array(
-                'title' => 'Search the whole site',
-                'icon'  => 'search',
-                'href'  => 'https://www.theyworkforyou.com/search/?s=%22crime+statistics%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of crime statistics. You may also filter your results by time, speaker and section.'
-            ),
-
-            array(
-                'title' => 'Sign up for email alerts',
-                'icon'  => 'alert',
-                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22crime+statistics%22',
-                'blurb' => 'We&rsquo;ll let you know every time crime statistics are mentioned in Parliament.'
-            )
-
-        )
-
-    ),
-
-    'nhs' => array(
-        'title'       => 'The NHS',
-        'blurb'       => 'The NHS is a major political issue right now &mdash;
-            it&rsquo;s mentioned a lot in Parliament, so it can be hard to know
-            exactly where to find the important debates.',
-        'policyset'   => 'health',
-        'policytitle' => 'Healthcare',
-        'actions'     => array(
-
-            array(
-                'title' => 'Health and Social Care Bill',
-                'icon'  => 'debate',
-                'href'  => 'https://www.theyworkforyou.com/debates/?id=2011-01-31b.605.0',
-                'blurb' => 'Andrew Lansley, Secretary of State for Health, sets out plans for a reorganisation of the NHS, which MPs then debate and vote on.'
-            ),
-
-            array(
-                'title' => 'NHS (Private Sector)',
-                'icon'  => 'debate',
-                'href'  => 'https://www.theyworkforyou.com/debates/?id=2012-01-16a.536.0',
-                'blurb' => 'A year later, the opposition puts forward its concerns with the model, ending in a further vote.'
-            ),
-
-            array(
-                'title' => 'Search the whole site',
-                'icon'  => 'search',
-                'href'  => 'https://www.theyworkforyou.com/search/?s=%22nhs%22',
-                'blurb' => 'Search TheyWorkForYou to find mentions of the NHS. You may also filter your results by time, speaker and section.'
-            ),
-
-            array(
-                'title' => 'Sign up for email alerts',
-                'icon'  => 'alert',
-                'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%nhs%22',
-                'blurb' => 'We&rsquo;ll let you know every time the NHS is mentioned in Parliament.'
-            )
-
-        )
-
-    )
-
-);
+$topics = new Topics();
 
 // Grab the topic name from the variable
 $topicname = get_http_var('topic');
 
+global $this_page, $DATA;
+
+$this_page = 'topic';
+
 // Make sure the requested topic actually exists, otherwise throw a 404.
-if (isset ($topics[$topicname]))
+if ($topic = $topics->getTopic($topicname))
 {
 
-    // Set the actual topic data.
-    $data = $topics[$topicname];
-
+    $data = $topic->data();
+    $policySets = $topic->getPolicySets();
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
+    $data['actions'] = $topic->getContent();
+    $DATA->set_page_metadata('topic', 'title', $topic->title());
 
     // Is there a specified set of policy positions to worry about?
-    if (isset ($data['policyset'])) {
+    if ($policySets) {
 
         include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -218,20 +100,28 @@ if (isset ($topics[$topicname]))
         $data['member_image'] = $member->image();
         $data['member_constituency'] = $member->constituency();
 
-        // Build the policy set
-        $policies = new Policies;
-        $policies = $policies->limitToSet($data['policyset']);
-
         // Grab extra member info
         // TODO: Shouldn't this be loaded on request?
         $member->load_extra_info();
 
-        // Get their position on relevant policies!
-        $policyPositions = new PolicyPositions($policies, $member);
+        $policies = new Policies;
+        $set_descriptions = $policies->getSetDescriptions();
+        $sets = array();
+        $total = 0;
+        foreach ($topic->getPolicySets() as $set) {
+          $votes = new \MySociety\TheyWorkForYou\PolicyPositions(
+              $policies->limitToSet($set), $member
+          );
+          $total += count($votes->positions);
+          $sets[] = array(
+              'key'   => $set,
+              'title' => $set_descriptions[$set],
+              'votes' => $votes
+          );
+        }
 
-        $data['positions'] = $policyPositions->positions;
-        $data['sinceString'] = $policyPositions->sinceString;
-
+        $data['sets'] = $sets;
+        $data['total_votes'] = $total;
     }
 
     // Send for rendering!

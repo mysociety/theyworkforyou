@@ -9,13 +9,11 @@
 
         <ul class="topic-list">
 
-        <?php foreach ($topics as $page => $topic): ?>
+        <?php foreach ($topics as $topic): ?>
 
-            <?php $URL = new URL($page); ?>
-
-            <li><a href="<?= $URL->generate(); ?>">
-                <img src="/images/<?= $page ?>.jpg">
-                <?= _htmlspecialchars($topic); ?>
+            <li><a href="<?= $topic->url(); ?>">
+              <img src="<?= $topic->image() ?>">
+                <?= _htmlspecialchars($topic->title()); ?>
             </a></li>
 
         <?php endforeach; ?>

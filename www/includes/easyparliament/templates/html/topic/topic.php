@@ -5,10 +5,10 @@
             <div class="topic-name">
                 <h1><?= $title ?></h1>
                 <h1 class="subheader">&amp; the UK Parliament</h1>
-                <p class="lead"><?= $blurb ?> Here are some places you might want to start.</p>
+                <p class="lead"><?= $description ?> Here are some places you might want to start.</p>
             </div>
 
-          <?php if (isset($policytitle) AND $display_postcode_form): ?>
+          <?php if ($display_postcode_form): ?>
             <div class="topic-postcode-search">
                 <h3>What does your MP think?</h3>
 
@@ -33,6 +33,7 @@
     <div class="full-page__row">
         <div class="topic-content">
 
+            <?php if (count($actions) > 0) { ?>
             <div class="topic-block">
 
 
@@ -56,7 +57,7 @@
 
                                     <h3><a href="<?= $action['href'] ?>"><?= $action['title'] ?></a></h3>
 
-                                    <p><?= $action['blurb'] ?></p>
+                                    <p><?= $action['description'] ?></p>
 
                                 </div>
 
@@ -71,8 +72,9 @@
                 </ul>
 
             </div>
+            <?php } ?>
 
-            <?php if (isset($policytitle)): ?>
+            <?php if (isset($sets)): ?>
 
                 <div class="topic-block policies">
 
@@ -110,15 +112,6 @@
 
                             <?php if (isset($member_name)): ?>
 
-                            <?php if (count($positions) > 0): ?>
-
-                            <p>How they voted on <?= $policytitle ?><?= $sinceString ?>.</p>
-
-                            <?php else: ?>
-
-                            <p><a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't voted on any of the key issues on <?= $policytitle ?>. You may want to <a href="<?= $member_url ?>/votes">see all their votes</a>.</p>
-
-                            <?php endif; ?>
 
                         </div>
 
@@ -136,27 +129,37 @@
 
                     </div>
 
-                            <?php if (count($positions) > 0): ?>
+                    <div class="row">
+                        <div class="medium-12 columns unpad-left">
+                            <?php if ($total_votes == 0): ?>
 
+                            <p><a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't voted on any of the key issues on <?= $title ?>. You may want to <a href="<?= $member_url ?>/votes">see all their votes</a>.</p>
+                            <?php else: ?>
                             <ul class="policies-list">
+                            <?php $policy_ids = array(); ?>
+                            <?php foreach ($sets as $set) { ?>
 
-                                <?php foreach ($positions as $position): ?>
+                                <?php foreach ($set['votes']->positions as $position): ?>
 
+                                <?php if (!in_array($position['policy_id'], $policy_ids)) { ?>
                                 <li><?= ucfirst($position['desc']) ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $position['policy_id'] ?>">Show votes</a></li>
 
+                                <?php $policy_ids[] = $position['policy_id']; ?>
+                                <?php } ?>
                                 <?php endforeach; ?>
 
+                            <?php } ?>
                             </ul>
 
                             <?php endif; ?>
 
+                            <?php endif; ?>
                             <?php endif; ?>
 
                     </div>
 
                 </div>
 
-            <?php endif; ?>
 
         </div>
     </div>
