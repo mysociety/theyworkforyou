@@ -45,6 +45,8 @@ class AcceptApiTest extends FetchPageTestCase
             'key' => 'test_key',
             $key => $value
         ));
+        $this->assertNotNull(json_decode($page));
+        $this->assertNotNull(json_decode($result));
         $this->assertEquals(json_decode($result), json_decode($page));
     }
 
