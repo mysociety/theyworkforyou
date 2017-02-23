@@ -1311,7 +1311,7 @@ class PAGE {
                 'admin_comments','admin_trackbacks', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
                 'alert_stats', 'admin_statistics', 'admin_reportstats',
                 'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
-                'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner', 'admin_featured'
+                'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner', 'admin_featured', 'admin_topics'
                 );
 
         $links = array();

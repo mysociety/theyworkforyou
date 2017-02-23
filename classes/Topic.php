@@ -25,9 +25,13 @@ class Topic {
      *
      */
 
-    public function __construct($data)
+    public function __construct($data = NULL)
     {
         $this->db = new \ParlDB;
+
+        if (is_null($data)) {
+          return;
+        }
 
         $this->raw = $data;
         $this->id = $data['id'];
@@ -54,6 +58,10 @@ class Topic {
         return $this->slug;
     }
 
+    function set_slug($slug) {
+        $this->slug = $slug;
+    }
+
     function url() {
         $url = new \URL('topic');
         return $url->generate() . $this->slug;
@@ -74,7 +82,7 @@ class Topic {
 
     function getContent() {
         $q = $this->db->query(
-          "SELECT body, gid FROM epobject ep JOIN hansard h on ep.epobject_id = h.epobject_id 
+          "SELECT body, gid, ep.epobject_id FROM epobject ep JOIN hansard h on ep.epobject_id = h.epobject_id 
           WHERE ep.epobject_id in (
             SELECT epobject_id from topic_epobjects WHERE topic_key = :topic_key
           )",
@@ -89,6 +97,7 @@ class Topic {
             $content[] = array(
                 'title' => $q->field($i, 'body'),
                 'href'  => Utility\Hansard::gid_to_url($q->field($i, 'gid')),
+                'id'    => $q->field($i, 'epobject_id'),
             );
         }
 
@@ -120,6 +129,18 @@ class Topic {
         return $q->success();
     }
 
+    function deleteContent($id) {
+        $q = $this->db->query(
+          "DELETE FROM topic_epobjects WHERE topic_key = :topic AND epobject_id = :ep_id",
+          array(
+            ":topic" => $this->id,
+            ":ep_id" => $id
+          )
+        );
+
+        return $q->success();
+    }
+
     function getPolicySets() {
       $q = $this->db->query(
         "SELECT policyset FROM topic_policysets WHERE topic_key = :key",
@@ -135,6 +156,29 @@ class Topic {
       }
 
       return $sets;
+    }
+
+    function addPolicySets($sets) {
+        if ($sets === '' or count($sets) == 0) {
+            $q = $this->db->query(
+                "DELETE FROM topic_policiessets WHERE topic_key = :topic_key",
+                array(
+                    ":topic_key" => $this->id
+                )
+            );
+        } else {
+            foreach ($sets as $set) {
+                $q = $this->db->query(
+                    "REPLACE INTO topic_policysets (policyset, topic_key) VALUES (:policyset, :topic_key)",
+                    array(
+                        ':topic_key' => $this->id,
+                        ':policyset' => $set
+                    )
+                );
+            }
+        }
+
+        return $q->success();
     }
 
     function save() {

@@ -183,6 +183,16 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/featured.php',
     ),
+    'admin_topics' => array (
+        'title'			=> 'Topics',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/topics.php',
+    ),
+    'admin_edittopics' => array (
+        'title'			=> 'Edit Topic',
+        'parent'		=> 'admin_topics',
+        'url'			=> 'admin/edittopic.php',
+    ),
 
 // Added by Richard Allan for email alert functions
 
