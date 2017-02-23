@@ -524,6 +524,7 @@ CREATE TABLE `topics` (
     `slug` varchar(100) NOT NULL,
     `title` text NOT NULL,
     `description` text,
+    `search_string` text,
     PRIMARY KEY (`id`),
     UNIQUE KEY `slug` (`slug`)
 );

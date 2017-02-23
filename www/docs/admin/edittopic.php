@@ -58,6 +58,10 @@ if (!is_null($success)) {
           </p>
 
           <p>
+          <label for="search_string">Search string:</label> <input id="search_string" name="search_string" value="<?= $topic->search_string() ?>">
+          </p>
+
+          <p>
           <label for="description">Description</label><br>
           <textarea id="description" rows="5" name="description"><?= $topic->description() ?></textarea>
           </p>
@@ -116,6 +120,7 @@ function update_topic($topic) {
     $topic->set_title(get_http_var('title'));
     $topic->set_description(get_http_var('description'));
     $topic->set_front_page(get_http_var('front_page'));
+    $topic->set_search_string(get_http_var('search_string'));
     return $topic->save();
 }
 

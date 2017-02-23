@@ -19,6 +19,7 @@ class Topic {
     private $title;
     private $slug;
     private $description;
+    private $search_string;
 
     /**
      * Constructor
@@ -38,6 +39,7 @@ class Topic {
         $this->title = $data['title'];
         $this->slug = $data['slug'];
         $this->description = $data['description'];
+        $this->search_string = $data['search_string'];
 
     }
 
@@ -78,6 +80,14 @@ class Topic {
 
     function set_description($description) {
         $this->description = $description;
+    }
+
+    function search_string() {
+        return $this->search_string;
+    }
+
+    function set_search_string($search_string) {
+        $this->search_string = $search_string;
     }
 
     function getContent() {
@@ -183,12 +193,16 @@ class Topic {
 
     function save() {
         $q = $this->db->query(
-            "REPLACE INTO topics (id, title, slug, description) VALUES(:id, :title, :slug, :description)",
+          "REPLACE INTO topics
+          (id, title, slug, description, search_string)
+          VALUES
+          (:id, :title, :slug, :description, :search_string)",
             array(
                 ':id' => $this->id,
                 ':slug' => $this->slug(),
                 ':title' => $this->title(),
-                ':description' => $this->description()
+                ':description' => $this->description(),
+                ':search_string' => $this->search_string()
             )
         );
 

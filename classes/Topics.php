@@ -25,7 +25,7 @@ class Topics {
     }
 
     public function getTopics() {
-      $q = $this->db->query("SELECT id, slug, title, description FROM topics");
+      $q = $this->db->query("SELECT id, slug, title, description, search_string FROM topics");
 
       $topics = array();
       $count = $q->rows();
@@ -39,7 +39,7 @@ class Topics {
 
     public function getTopic($topic_name) {
       $q = $this->db->query(
-          "SELECT id, slug, title, description FROM topics WHERE slug = :slug",
+          "SELECT id, slug, title, description, search_string FROM topics WHERE slug = :slug",
           array(':slug' => $topic_name)
       );
       if ($q->rows) {

@@ -37,6 +37,23 @@ if ($topic = $topics->getTopic($topicname))
     $data['actions'] = $topic->getContent();
     $DATA->set_page_metadata('topic', 'title', $topic->title());
 
+    if ($topic->search_string()) {
+      $search = urlencode($topic->search_string());
+      $data['actions'][] = array(
+          'title' => 'Search the whole site',
+          'icon'  => 'search',
+          'href'  => 'https://www.theyworkforyou.com/search/?s=%22' . $search . '%22',
+          'description' => 'Search TheyWorkForYou to find mentions of ' . $topic->search_string() . '. You may also filter your results by time, speaker and section.'
+      );
+
+      $data['actions'][] = array(
+          'title' => 'Sign up for email alerts',
+          'icon'  => 'alert',
+          'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22' . $search . '%22',
+          'description' => 'We&rsquo;ll let you know every time ' . $topic->search_string() . ' are mentioned in Parliament.'
+      );
+    }
+
     // Is there a specified set of policy positions to worry about?
     if ($policySets) {
 
