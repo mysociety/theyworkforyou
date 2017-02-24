@@ -525,6 +525,7 @@ CREATE TABLE `topics` (
     `title` text NOT NULL,
     `description` text,
     `search_string` text,
+    `front_page` bool DEFAULT FALSE,
     PRIMARY KEY (`id`),
     UNIQUE KEY `slug` (`slug`)
 );

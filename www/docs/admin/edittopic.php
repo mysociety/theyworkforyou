@@ -62,6 +62,10 @@ if (!is_null($success)) {
           </p>
 
           <p>
+          <label for="front_page">Show on Front Page:</label> <input type="checkbox" value="1" id="front_page" name="front_page" <?= $topic->onFrontPage() ? 'checked' : '' ?>>
+          </p>
+
+          <p>
           <label for="description">Description</label><br>
           <textarea id="description" rows="5" name="description"><?= $topic->description() ?></textarea>
           </p>

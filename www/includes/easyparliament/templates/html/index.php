@@ -50,6 +50,17 @@
                         } else { ?>
                             No debates found.
                         <?php } ?>
+
+                        <?php if (count($topics) > 0) { ?>
+                          <ul class="key-events__list">
+                            <li>
+                                <h4>Topics in the news</h4>
+                            </li>
+                            <?php foreach ($topics as $topic) { ?>
+                                <li><a href="<?= $topic->url() ?>"><?= $topic->title() ?></a></li>
+                            <?php } ?>
+                          </ul>
+                        <?php } ?>
                     </div>
                     <div class="homepage-create-alert homepage-content-section">
                         <h2>Create an alert</h2>

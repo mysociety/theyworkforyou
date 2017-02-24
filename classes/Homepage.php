@@ -42,6 +42,7 @@ class Homepage {
         $data['urls'] = $this->getURLs();
         $data['calendar'] = $this->getCalendarData();
         $data['featured'] = $this->getEditorialContent();
+        $data['topics'] = $this->getFrontPageTopics();
 
         return $data;
     }
@@ -102,6 +103,11 @@ class Homepage {
         }
         $item['related'] = $related_debates;
         return $item;
+    }
+
+    protected function getFrontPageTopics() {
+        $topics = new Topics();
+        return $topics->getFrontPageTopics();
     }
 
     protected function getURLs() {

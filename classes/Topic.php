@@ -20,6 +20,7 @@ class Topic {
     private $slug;
     private $description;
     private $search_string;
+    private $front_page;
 
     /**
      * Constructor
@@ -40,6 +41,7 @@ class Topic {
         $this->slug = $data['slug'];
         $this->description = $data['description'];
         $this->search_string = $data['search_string'];
+        $this->front_page = $data['front_page'];
 
     }
 
@@ -88,6 +90,14 @@ class Topic {
 
     function set_search_string($search_string) {
         $this->search_string = $search_string;
+    }
+
+    function set_front_page($on) {
+        $this->front_page = $on;
+    }
+
+    function onFrontPage() {
+        return $this->front_page == 1;
     }
 
     function getContent() {
@@ -194,15 +204,16 @@ class Topic {
     function save() {
         $q = $this->db->query(
           "REPLACE INTO topics
-          (id, title, slug, description, search_string)
+          (id, title, slug, description, search_string, front_page)
           VALUES
-          (:id, :title, :slug, :description, :search_string)",
+          (:id, :title, :slug, :description, :search_string, :front_page)",
             array(
                 ':id' => $this->id,
                 ':slug' => $this->slug(),
                 ':title' => $this->title(),
                 ':description' => $this->description(),
-                ':search_string' => $this->search_string()
+                ':search_string' => $this->search_string(),
+                ':front_page' => $this->onFrontPage()
             )
         );
 

@@ -25,7 +25,7 @@ class Topics {
     }
 
     public function getTopics() {
-      $q = $this->db->query("SELECT id, slug, title, description, search_string FROM topics");
+      $q = $this->db->query("SELECT id, slug, title, description, search_string, front_page FROM topics");
 
       $topics = array();
       $count = $q->rows();
@@ -39,7 +39,7 @@ class Topics {
 
     public function getTopic($topic_name) {
       $q = $this->db->query(
-          "SELECT id, slug, title, description, search_string FROM topics WHERE slug = :slug",
+          "SELECT id, slug, title, description, search_string, front_page FROM topics WHERE slug = :slug",
           array(':slug' => $topic_name)
       );
       if ($q->rows) {
@@ -47,5 +47,35 @@ class Topics {
       }
 
       return NULL;
+    }
+
+    public function getFrontPageTopics() {
+      $q = $this->db->query(
+          "SELECT id, slug, title, description, search_string, front_page FROM topics WHERE front_page = TRUE"
+      );
+
+      $topics = array();
+      $count = $q->rows();
+
+      for ($i = 0; $i < $count; $i++ ) {
+          $topic = $q->row($i);
+          $topics[$topic['slug']] = new Topic($topic);
+      }
+      return $topics;
+    }
+
+    public function updateFrontPageTopics($topics) {
+        // PDO doesn't cope with arrays so we have to do this by hand :|
+        $quoted = array();
+        foreach ($topics as $topic) {
+            $quoted[] = $this->db->quote($topic);
+        }
+        $topics_str = implode(',', $quoted);
+
+        $q = $this->db->query("UPDATE topics SET front_page = TRUE WHERE slug IN ($topics_str)");
+
+        $q = $this->db->query("UPDATE topics SET front_page = FALSE WHERE slug NOT IN ($topics_str)");
+
+        return true;
     }
 }
