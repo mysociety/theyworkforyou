@@ -585,6 +585,10 @@
     }
   }
 
+  .panel > &:last-child > li:last-child {
+    border-bottom: none; // no need for line if last item of last element in a panel
+  }
+
   &.policy-votes > li {
       padding-top: 1em;
       padding-bottom: 1em;

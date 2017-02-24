@@ -14,13 +14,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
         </div>
         <div class="person-panels">
-            <div class="sidebar__unit in-page-nav">
-                <p class="policy-votes-intro">
-                    Recent votes by <?= $full_name ?>.
-                </p>
-            </div>
-
-            <div class="primary-content__unit">
+            <div class="primary-content__unit" style="float: right">
 
                 <?php if ($party == 'Sinn Fein' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
@@ -28,9 +22,14 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php $displayed_votes = FALSE; $show_all = TRUE; $current_date = ''; ?>
+                <?php
 
-                <?php if ( isset($divisions) && $divisions ) {
+                $displayed_votes = FALSE;
+                $show_all = TRUE;
+                $current_date = '';
+                $sidebar_links = array();
+
+                if ( isset($divisions) && $divisions ) {
                     if ($has_voting_record) {
                         foreach ($divisions as $division) {
                           $displayed_votes = TRUE;
@@ -39,10 +38,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             if ($current_date != '' ) {
                               print('</ul></div>');
                             }
-                            $current_date = $division['date']; ?>
-                          <div class="panel">
-                            <span class="policy-vote__date">On <?= strftime('%e %b %Y', strtotime($division['date'])) ?>:</span>
-                             <ul class="vote-descriptions policy-votes"> 
+                            $current_date = $division['date'];
+                            $sidebar_links[] = $division['date'];
+                            ?>
+                          <div class="panel" id="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>" data-magellan-destination="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>">
+                            <h2><?= strftime('%e %b %Y', strtotime($division['date'])) ?></h2>
+                             <ul class="vote-descriptions policy-votes">
                           <?php } ?>
                           <li id="<?= $division['division_id'] ?>" class="<?= $division['strong'] || $show_all ? 'policy-vote--major' : 'policy-vote--minor' ?>">
                               <span class="policy-vote__text"><?= $full_name ?><?= $division['text'] ?></span>
@@ -55,16 +56,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     }
                 } ?>
 
-
                 <?php if (!$displayed_votes) { ?>
-
                     <div class="panel">
                         <p>This person has not voted recently.</p>
                     </div>
-
                 <?php } ?>
-
-
 
                 <div class="panel">
                     <p>Note for journalists and researchers: The data on this page may be used freely,
@@ -75,6 +71,19 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <a href="/help/#votingrecord">how the voting record is decided</a></p>
                 </div>
 
+            </div>
+
+            <div class="sidebar__unit in-page-nav">
+                <ul data-magellan-expedition="fixed">
+                  <?php foreach($sidebar_links as $date) { ?>
+                    <li data-magellan-arrival="<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
+                        <a href="#<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
+                            <?= strftime('%e %b %Y', strtotime($date)) ?>
+                        </a>
+                    </li>
+                  <?php } ?>
+                </ul>
+                <div class="magellan-placeholder">&nbsp;</div>
             </div>
         </div>
     </div>
