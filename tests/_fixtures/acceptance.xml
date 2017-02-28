@@ -254,6 +254,14 @@
 	</table_data>
 	<table_data name="titles_ignored">
 	</table_data>
+	<table_data name="topics">
+	</table_data>
+	<table_data name="topic_policysets">
+	</table_data>
+	<table_data name="topic_policies">
+	</table_data>
+	<table_data name="topic_epobjects">
+	</table_data>
 	<table_data name="trackbacks">
 	</table_data>
 	<table_data name="users">
