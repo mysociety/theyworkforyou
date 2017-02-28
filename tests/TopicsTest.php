@@ -61,4 +61,11 @@ class TopicsTest extends FetchPageTestCase
         $this->assertContains('Test Hansard Section', $page);
         $this->assertContains('foundation hospitals', $page);
     }
+
+    public function testTopicPageWithMPAndPolicy() {
+        $page = $this->fetch_topic_page(array('pc' => 'SW1 1AA', 'topic' => 'welfare', 'url' => '/topic/welfare'));
+        $this->assertContains('Welfare', $page);
+        $this->assertContains('Test Current-MP', $page);
+        $this->assertContains('foundation hospitals', $page);
+    }
 }

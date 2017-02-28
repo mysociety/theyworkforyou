@@ -31,7 +31,7 @@ if ($topic = $topics->getTopic($topicname))
 {
 
     $data = $topic->data();
-    $policySets = $topic->getPolicySets();
+    $topic_policies = $topic->getAllPolicies();
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
     $data['actions'] = $topic->getContent();
@@ -55,7 +55,7 @@ if ($topic = $topics->getTopic($topicname))
     }
 
     // Is there a specified set of policy positions to worry about?
-    if ($policySets) {
+    if ($topic_policies) {
 
         include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -121,24 +121,17 @@ if ($topic = $topics->getTopic($topicname))
         // TODO: Shouldn't this be loaded on request?
         $member->load_extra_info();
 
+        $divisions = new Divisions($member);
+        $policySummaries = $divisions->getMemberDivisionDetails();
         $policies = new Policies;
-        $set_descriptions = $policies->getSetDescriptions();
-        $sets = array();
-        $total = 0;
-        foreach ($topic->getPolicySets() as $set) {
-          $votes = new \MySociety\TheyWorkForYou\PolicyPositions(
-              $policies->limitToSet($set), $member
-          );
-          $total += count($votes->positions);
-          $sets[] = array(
-              'key'   => $set,
-              'title' => $set_descriptions[$set],
-              'votes' => $votes
-          );
-        }
+        $positions = new \MySociety\TheyWorkForYou\PolicyPositions(
+            $policies->limitToArray($topic_policies),
+            $member,
+            array('summaries' => $policySummaries)
+        );
 
-        $data['sets'] = $sets;
-        $data['total_votes'] = $total;
+        $data['positions'] = $positions->positions;
+        $data['total_votes'] = count($positions->positions);
     }
 
     // Send for rendering!

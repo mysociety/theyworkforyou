@@ -396,6 +396,21 @@ class Policies {
         }
     }
 
+    public function limitToArray($policies) {
+          $out = array();
+          // Reassemble the new policies list based on the set.
+          foreach ($policies as $policy) {
+              if (isset($this->policies[$policy])) {
+                  $out[$policy] = $this->policies[$policy];
+              }
+          }
+
+          $new_policies = new self();
+          $new_policies->policies = $out;
+
+          return $new_policies;
+    }
+
     public function getPolicyDetails($policyID) {
         $q = $this->db->query(
             "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source

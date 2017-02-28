@@ -375,6 +375,10 @@
     </row>
 	</table_data>
 	<table_data name="topic_policies">
+    <row>
+      <field name="topic_key">2</field>
+      <field name="policy_id">363</field>
+    </row>
 	</table_data>
 	<table_data name="topic_epobjects">
     <row>

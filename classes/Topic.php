@@ -201,6 +201,59 @@ class Topic {
         return $q->success();
     }
 
+    function getPolicies() {
+      $q = $this->db->query(
+        'SELECT policy_id FROM topic_policies WHERE topic_key = :key',
+        array(
+          ':key' => $this->id
+        )
+      );
+
+      $policies = array();
+      $count = $q->rows;
+      for ($i = 0; $i < $count; $i++) {
+        $policies[] = $q->field($i, 'policy_id');
+      }
+
+      return $policies;
+    }
+
+    function addPolicies($policies) {
+        if ($policies === '' or count($policies) == 0) {
+            $q = $this->db->query(
+                "DELETE FROM topic_policies WHERE topic_key = :topic_key",
+                array(
+                    ":topic_key" => $this->id
+                )
+            );
+        } else {
+            foreach ($policies as $policy) {
+                $q = $this->db->query(
+                    "REPLACE INTO topic_policies (policy_id, topic_key) VALUES (:policy, :topic_key)",
+                    array(
+                        ':topic_key' => $this->id,
+                        ':policy' => $policy
+                    )
+                );
+            }
+        }
+
+        return $q->success();
+    }
+
+    function getAllPolicies() {
+        $policy_sets = $this->getPolicySets();
+        $all_policies = array();
+        $policies = new Policies();
+        foreach ($policy_sets as $set) {
+            $all_policies = array_merge($all_policies, array_keys($policies->limitToSet($set)->getPolicies()));
+        }
+        $topic_policies = $this->getPolicies();
+        $all_policies = array_merge($all_policies, $topic_policies);
+
+        return array_unique($all_policies);
+    }
+
     function save() {
         $q = $this->db->query(
           "REPLACE INTO topics

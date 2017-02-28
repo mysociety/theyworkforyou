@@ -33,6 +33,9 @@ switch ($action) {
     case 'addpolicysets':
       $success = add_policy_sets($topic);
       break;
+    case 'addpolicies':
+      $success = add_policies($topic);
+      break;
     default:
       $success = NULL;
 }
@@ -107,6 +110,24 @@ if (!is_null($success)) {
             <input type="submit" value="Update">
             </select>
         </form>
+
+        <h3>Related Policies</h3>
+
+        <form action="edittopic.php" method="post">
+            <input type="hidden" name="action" value="addpolicies">
+            <input type="hidden" name="id" value="<?= $topic->slug() ?>">
+            <select name="policies[]" multiple>
+            <?php
+              $policies = new \MySociety\TheyWorkForYou\Policies;
+              $all_policies = $policies->getPolicies();
+              $related_policies = $topic->getPolicies();
+              foreach ($all_policies as $number => $description) { ?>
+              <option value="<?= $number ?>" <?= in_array($number, $related_policies) ? 'selected' : '' ?>><?= $description ?></option>
+            <?php } ?>
+
+            </select>
+            <input type="submit" value="Update">
+        </form>
     </div>
 <?php
 
@@ -144,6 +165,12 @@ function add_policy_sets($topic) {
     $sets = get_http_var('sets');
 
     return $topic->addPolicySets($sets);
+}
+
+function add_policies($topic) {
+    $policies = get_http_var('policies');
+
+    return $topic->addPolicies($policies);
 }
 
 $menu = $PAGE->admin_menu();

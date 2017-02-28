@@ -74,7 +74,7 @@
             </div>
             <?php } ?>
 
-            <?php if (isset($sets)): ?>
+            <?php if (isset($positions)): ?>
 
                 <div class="topic-block policies">
 
@@ -137,16 +137,13 @@
                             <?php else: ?>
                             <ul class="policies-list">
                             <?php $policy_ids = array(); ?>
-                            <?php foreach ($sets as $set) { ?>
-
-                                <?php foreach ($set['votes']->positions as $position): ?>
+                            <?php foreach ($positions as $position) { ?>
 
                                 <?php if (!in_array($position['policy_id'], $policy_ids)) { ?>
                                 <li><?= ucfirst($position['desc']) ?><a class="dream_details" href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&dmp=<?= $position['policy_id'] ?>">Show votes</a></li>
 
                                 <?php $policy_ids[] = $position['policy_id']; ?>
                                 <?php } ?>
-                                <?php endforeach; ?>
 
                             <?php } ?>
                             </ul>
