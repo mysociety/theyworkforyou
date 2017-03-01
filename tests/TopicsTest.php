@@ -68,4 +68,9 @@ class TopicsTest extends FetchPageTestCase
         $this->assertContains('Test Current-MP', $page);
         $this->assertContains('foundation hospitals', $page);
     }
+
+    public function testTopicPageRecentVotes() {
+        $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
+        $this->assertContains('pw-2013-01-01-1-commons">The majority of MPs  voted Agreed', $page);
+    }
 }

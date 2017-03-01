@@ -74,6 +74,24 @@
             </div>
             <?php } ?>
 
+            <?php if (isset($recent_divisions)): ?>
+                <div class="topic-block policies">
+                    <div class="row">
+                        <div class="medium-12 columns unpad-left">
+                            <h2>Recent Votes</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ul class="policies-list">
+                        <?php foreach ($recent_divisions as $position) { ?>
+                        <li id="<?= $position['division_id'] ?>">The majority of MPs <?= $position['text'] ?> <small>(<?= format_date($position['date'], SHORTDATEFORMAT) ?>)</small> <a class="dream_details" href="<?= $position['url'] ?>">Show debate</a></li>
+                        <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+
             <?php if (isset($positions)): ?>
 
                 <div class="topic-block policies">

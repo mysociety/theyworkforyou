@@ -72,6 +72,34 @@ class Divisions {
         return array('divisions' => $divisions);
     }
 
+    public function getRecentDivisionsForPolicies($policies, $number = 20) {
+        $args = array(':number' => $number);
+
+        $quoted = array();
+        foreach ($policies as $policy) {
+            $quoted[] = $this->db->quote($policy);
+        }
+        $policies_str = implode(',', $quoted);
+
+        $q = $this->db->query(
+            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, direction, majority_vote,
+            yes_total, no_total, absent_total, both_total
+            FROM policydivisions
+            WHERE policy_id in ($policies_str)
+            GROUP BY division_id
+            ORDER by division_date DESC LIMIT :number",
+            $args
+        );
+
+        $divisions = array();
+        $row_count = $q->rows();
+        for ($n = 0; $n < $row_count; $n++) {
+          $divisions[] = $this->getParliamentDivisionDetails($q->row($n));
+        }
+
+        return $divisions;
+    }
+
     /**
      *
      * Get a list of division votes related to a policy

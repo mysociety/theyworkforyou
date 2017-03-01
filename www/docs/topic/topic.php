@@ -57,6 +57,9 @@ if ($topic = $topics->getTopic($topicname))
     // Is there a specified set of policy positions to worry about?
     if ($topic_policies) {
 
+        $divisions = new Divisions();
+        $data['recent_divisions'] = $divisions->getRecentDivisionsForPolicies($topic_policies, 10);
+
         include_once INCLUDESPATH . 'easyparliament/member.php';
 
         // Check to see if there's a submitted postcode to try determine policy positions.
