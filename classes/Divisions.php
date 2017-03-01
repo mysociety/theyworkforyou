@@ -29,7 +29,7 @@ class Divisions {
      * @param Member   $member   The member to get positions for.
      */
 
-    public function __construct(Member $member, PolicyPositions $positions = NULL, Policies $policies = NULL)
+    public function __construct(Member $member = NULL, PolicyPositions $positions = NULL, Policies $policies = NULL)
     {
         $this->member = $member;
         $this->positions = $positions;
@@ -50,6 +50,26 @@ class Divisions {
       }
       $policy_maxes['latest'] = max(array_values($policy_maxes));
       return $policy_maxes;
+    }
+
+    public function getRecentDivisions($number = 20) {
+        // Grab distinct divisions as sometimes we have the same division for more than one policy
+        // and we don't want to display it twice
+        $q = $this->db->query(
+          "SELECT distinct division_id, division_title, yes_text, no_text, division_date, division_number, gid, direction, majority_vote,
+          yes_total, no_total, absent_total, both_total
+          FROM policydivisions ORDER BY division_date DESC, division_number DESC LIMIT :count",
+            array(
+                ':count' => $number
+            )
+        );
+
+        $divisions = array();
+        foreach ($q->data as $division) {
+            $divisions[] = $this->getParliamentDivisionDetails($division);
+        }
+
+        return array('divisions' => $divisions);
     }
 
     /**
@@ -182,23 +202,35 @@ class Divisions {
     /**
      * Get the last n votes for a member
      *
+     * @param $number int - How many divisions to return. Defaults to 20
+     * @param $context string - The context of the page the results are being presented in.
+     *    This affects the summary details and can either be 'Parliament' in which case the
+     *    overall vote for all MPs is returned, plus additional information on how the MP passed
+     *    in to the constructor voted, or the default of 'MP' which is just the vote of the
+     *    MP passed in to the constructor.
+     *
      * Returns an array of divisions
      */
-    public function getRecentMemberDivisions($number = 20) {
+    public function getRecentMemberDivisions($number = 20, $context = 'MP') {
         $args = array(':person_id' => $this->member->person_id, ':number' => $number);
         $q = $this->db->query(
-            "SELECT division_id, division_title, yes_text, no_text, division_date, vote, gid, direction
+            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, direction,
+            yes_total, no_total, absent_total, both_total, majority_vote
             FROM policydivisions JOIN persondivisionvotes USING(division_id)
             WHERE person_id = :person_id
             GROUP BY division_id
-            ORDER by division_date DESC LIMIT :number",
+            ORDER by division_date DESC, division_id DESC LIMIT :number",
             $args
         );
 
         $divisions = array();
         $row_count = $q->rows();
         for ($n = 0; $n < $row_count; $n++) {
-          $divisions[] = $this->getDivisionDetails($q->row($n));
+          if ($context == 'Parliament') {
+              $divisions[] = $this->getParliamentDivisionDetails($q->row($n));
+          } else {
+              $divisions[] = $this->getDivisionDetails($q->row($n));
+          }
         }
 
         return $divisions;
@@ -251,7 +283,7 @@ class Divisions {
         return $description;
     }
 
-    private function getDivisionDetails($row) {
+    private function getBasicDivisionDetails($row, $vote) {
         $division = array();
 
         $direction = $row['direction'];
@@ -261,17 +293,56 @@ class Divisions {
             $division['strong'] = FALSE;
         }
 
-        $vote = $row['vote'];
+        $division['division_id'] = $row['division_id'];
+        $division['date'] = $row['division_date'];
+        $division['gid'] = fix_gid_from_db($row['gid']);
+        $division['url'] = $this->divisionUrlFromGid($row['gid']);
+        $division['direction'] = $direction;
+        $division['number'] = $row['division_number'];
+
         $yes_text = $row['yes_text'];
         $no_text = $row['no_text'];
         $division_title = $row['division_title'];
-
         $division['text'] = $this->constructVoteDescription($vote, $yes_text, $no_text, $division_title);
-        $division['division_id'] = $row['division_id'];
-        $division['date'] = $row['division_date'];
+
+        if ($row['gid']) {
+            $division['debate_url'] = $this->divisionUrlFromGid($row['gid']);
+        }
+
+        return $division;
+    }
+
+    private function getDivisionDetails($row) {
+        $vote = $row['vote'];
+        $division = $this->getBasicDivisionDetails($row, $vote);
+
         $division['vote'] = $vote;
-        $division['gid'] = fix_gid_from_db($row['gid']);
-        $division['url'] = $this->divisionUrlFromGid($row['gid']);
+
+        return $division;
+    }
+
+    private function getParliamentDivisionDetails($row) {
+        $vote = $row['majority_vote'];
+        $division = $this->getBasicDivisionDetails($row, $vote);
+
+        $division['mp_vote'] = '';
+        if (array_key_exists('vote', $row)) {
+          $mp_vote = ' was absent';
+          if ($row['vote'] == 'aye') {
+              $mp_vote = 'voted in favour';
+          } else if ($row['vote'] == 'no') {
+              $mp_vote = 'voted against';
+          }
+          $division['mp_vote'] = $mp_vote;
+        }
+        $division['division_title'] = $row['division_title'];
+        $division['vote'] = $vote;
+
+        $division['summary'] = $row['yes_total'] . ' for, ' . $row['no_total'] . ' against, ' . $row['absent_total'] . ' absent';
+        $division['for'] = $row['yes_total'];
+        $division['against'] = $row['no_total'];
+        $division['both'] = $row['both_total'];
+        $division['absent'] = $row['absent_total'];
 
         return $division;
     }
@@ -312,6 +383,8 @@ class Divisions {
 
     private function divisionUrlFromGid($gid) {
         global $hansardmajors;
+
+        $gid = get_canonical_gid($gid);
 
         $q = $this->db->query("SELECT gid, major FROM hansard WHERE epobject_id = ( SELECT subsection_id FROM hansard WHERE gid = :gid )", array( ':gid' => $gid ));
         $parent_gid = $q->field(0, 'gid');

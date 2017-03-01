@@ -352,6 +352,15 @@ $this->page = array (
         'parent'		=> 'debatesfront',
         'url'			=> 'debates/'
     ),
+    'divisions_recent' => array (
+        'menu'			=> array (
+            'text'			=> 'Recent Votes',
+            'title'			=> ''
+        ),
+        'parent'		=> 'hansard',
+        'title'			=> 'Recent Votes',
+        'url'			=> 'divisions/'
+    ),
     'epvote' => array (
         'url'			=> 'vote/'
     ),

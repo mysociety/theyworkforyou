@@ -260,7 +260,7 @@ class Header
         // we're within that section.
         $nav_items = array (
             array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'calendar_summary', 'contact'),
+            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary', 'contact'),
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront', 'contact'),
             array('ni_home', 'nioverview', 'mlas', 'contact'),
             array('wales_home', 'contact'),
