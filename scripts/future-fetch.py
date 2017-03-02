@@ -10,14 +10,14 @@ import datetime
 
 # Set up commonlib pylib
 package_dir = os.path.abspath(os.path.split(__file__)[0])
-sys.path.append( os.path.normpath(package_dir + "/../commonlib/pylib") )
+sys.path.append(os.path.normpath(package_dir + "/../commonlib/pylib"))
 
 # And from that, get the config
 from mysociety import config
 config.set_file(os.path.abspath(package_dir + "/../conf/general"))
 
 # And now we have config, find parlparse
-sys.path.append( os.path.normpath(config.get('PWMEMBERS') + '../pyscraper') )
+sys.path.append(os.path.normpath(config.get('PWMEMBERS') + '../pyscraper'))
 # This name matching could be done a lot better
 from resolvemembernames import memberList
 from lords.resolvenames import lordsList
@@ -26,7 +26,8 @@ CALENDAR_URL = 'http://services.parliament.uk/calendar/all.rss'
 
 positions = {}
 
-class Entry(object):                                                                                                                                                          
+
+class Entry(object):
     id = None
     modified = None
     deleted = 0
@@ -72,14 +73,20 @@ class Entry(object):
                 person_texts = [x.strip() for x in m.group(1).split('/')]
 
                 for person_text in person_texts:
-                    id, name, cons = memberList.matchfullnamecons(person_text, None, self.event_date)
+                    id, name, cons = memberList.matchfullnamecons(
+                        person_text, None, self.event_date
+                        )
                     if not id:
                         try:
-                            id = lordsList.GetLordIDfname(person_text, None, self.event_date)
+                            id = lordsList.GetLordIDfname(
+                                person_text, None, self.event_date
+                                )
                         except:
                             pass
                     if id:
-                        self.people.append(int(id.replace('uk.org.publicwhip/person/', '')))
+                        self.people.append(
+                            int(id.replace('uk.org.publicwhip/person/', ''))
+                            )
 
                 if len(self.people) == len(person_texts):
                     title_text = title_text.replace(' - ' + m.group(1), '')
@@ -96,15 +103,19 @@ class Entry(object):
             self.witnesses_str = witness_text.strip()
             m = re.findall(r'\b(\w+ \w+ MP)', self.witnesses_str)
             for mp in m:
-                id, name, cons = memberList.matchfullnamecons(mp, None, self.event_date)
-                if not id: continue
+                id, name, cons = memberList.matchfullnamecons(
+                    mp, None, self.event_date
+                )
+                if not id:
+                    continue
                 pid = int(id.replace('uk.org.publicwhip/person/', ''))
                 mp_link = '<a href="/mp/?p=%d">%s</a>' % (pid, mp)
                 self.witnesses.append(pid)
                 self.witnesses_str = self.witnesses_str.replace(mp, mp_link)
 
         location_text = entry.event.location.text
-        if location_text: self.location = location_text.strip()
+        if location_text:
+            self.location = location_text.strip()
 
     def get_tuple(self):
         return (
@@ -120,20 +131,21 @@ class Entry(object):
             )
 
     def add(self):
-        # TODO This function needs to insert into Xapian as well, or store to insert in one go at the end
+        # TODO This function needs to insert into Xapian as well, or store to
+        # insert in one go at the end
         db_cursor.execute("""INSERT INTO future (
             id, modified, deleted,
-            link_calendar, link_external, 
-            body, chamber, 
-            event_date, time_start, time_end, 
-            committee_name, debate_type, 
+            link_calendar, link_external,
+            body, chamber,
+            event_date, time_start, time_end,
+            committee_name, debate_type,
             title, witnesses, location
         ) VALUES (
-            %s, now(), %s, 
-            %s, %s, 
-            %s, %s, 
-            %s, %s, %s, 
-            %s, %s, 
+            %s, now(), %s,
+            %s, %s,
+            %s, %s,
+            %s, %s, %s,
+            %s, %s,
             %s, %s, %s
         )""", self.get_tuple()
                           )
@@ -148,7 +160,7 @@ class Entry(object):
             db_cursor.execute(
                 'DELETE FROM future_people where calendar_id = %s',
                 (self.id,))
-            
+
         db_cursor.executemany(
             '''INSERT INTO future_people(calendar_id, person_id, witness)
                   VALUES (%s, %s, %s)''',
@@ -164,16 +176,16 @@ class Entry(object):
             modified = now(),
             deleted = %s,
             link_calendar = %s,
-            link_external = %s, 
+            link_external = %s,
             body = %s,
-            chamber = %s, 
-            event_date = %s, 
-            time_start = %s, 
-            time_end = %s, 
-            committee_name = %s, 
-            debate_type = %s, 
-            title = %s, 
-            witnesses = %s, 
+            chamber = %s,
+            event_date = %s,
+            time_start = %s,
+            time_end = %s,
+            committee_name = %s,
+            debate_type = %s,
+            title = %s,
+            witnesses = %s,
             location = %s
           WHERE
             id = %s
@@ -211,14 +223,14 @@ for entry in entries:
     positions[event_date] = positions.setdefault(event_date, 0) + 1
 
     row_count = db_cursor.execute(
-        '''SELECT id, deleted, 
+        '''SELECT id, deleted,
            link_calendar, link_external,
-           body, chamber, 
-           event_date, time_start, time_end, 
-           committee_name, debate_type, 
+           body, chamber,
+           event_date, time_start, time_end,
+           committee_name, debate_type,
            title, witnesses, location
-         FROM future 
-         WHERE id=%s''', 
+         FROM future
+         WHERE id=%s''',
         id,
         )
 
@@ -227,23 +239,28 @@ for entry in entries:
         # update db and Xapian if so
         old_row = db_cursor.fetchone()
 
-        # For some reason the time fields come out as timedelta rather that time, so need converting.
+        # For some reason the time fields come out as timedelta rather that
+        # time, so need converting.
         old_tuple = (str(old_row[0]),) + \
             old_row[1:6] + \
             (old_row[6].isoformat(), ) + \
             ((datetime.datetime.min + old_row[7]).time().isoformat() if old_row[7] is not None else None,) + \
             ((datetime.datetime.min + old_row[8]).time().isoformat() if old_row[8] is not None else None,) + \
             old_row[9:]
-        
+
         new_tuple = new_entry.get_tuple()
 
         if old_tuple != new_entry.get_tuple():
             new_entry.update()
 
-        old_entries.discard( (long(id),) )
+        old_entries.discard((long(id),))
     else:
         new_entry.add()
 
-    db_cursor.execute('UPDATE future SET pos=%s WHERE id=%s', (positions[event_date], id))
+    db_cursor.execute(
+        'UPDATE future SET pos=%s WHERE id=%s', (positions[event_date], id)
+        )
 
-db_cursor.executemany('UPDATE future SET deleted=1 WHERE id=%s', tuple(old_entries))
+db_cursor.executemany(
+    'UPDATE future SET deleted=1 WHERE id=%s', tuple(old_entries)
+    )
