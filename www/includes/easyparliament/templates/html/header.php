@@ -143,6 +143,10 @@
                 ga('send', 'social', 'facebook', 'unlike', targetUrl);
             });
 
+            FB.Event.subscribe('message.send', function (targetUrl) {
+                ga('send', 'social', 'facebook', 'share', targetUrl);
+            });
+
         };
 
         (function (d, s, id) {
