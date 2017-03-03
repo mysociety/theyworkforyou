@@ -133,6 +133,7 @@ if (!count($data)) {
                 </ul>
                 <?php } ?>
 
+                <?php if ($order != 'party') { ?>
                 <div class="people-list-alphabet">
                     <a href="#A">A</a>
                     <a href="#B">B</a>
@@ -161,6 +162,7 @@ if (!count($data)) {
                     <a href="#Y">Y</a>
                     <a href="#Z">Z</a>
                 </div>
+                <?php } ?>
 
                 <div class="people-list">
                 <?php $current_initial = ''; ?>
