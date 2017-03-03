@@ -165,9 +165,14 @@ if (!count($data)) {
                 <?php } ?>
 
                 <div class="people-list">
-                <?php $current_initial = ''; ?>
-                <?php foreach ( $data as $person ) {
-                    $initial = substr( strtoupper($person['family_name']), 0, 1);
+                <?php
+                $current_initial = '';
+                $a_to_z_key = 'family_name';
+                if ($order == 'given_name') {
+                    $a_to_z_key = 'given_name';
+                }
+                foreach ( $data as $person ) {
+                    $initial = substr( strtoupper($person[$a_to_z_key]), 0, 1);
                     if ( $initial != $current_initial ) {
                         $current_initial = $initial;
                         $initial_link = "name=\"$initial\" ";
