@@ -370,7 +370,7 @@ $data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentD
 switch ($pagetype) {
 
     case 'votes':
-        $policy_set = get_http_var('policy_set');
+        $policy_set = get_http_var('policy');
 
         $policiesList = new MySociety\TheyWorkForYou\Policies;
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
