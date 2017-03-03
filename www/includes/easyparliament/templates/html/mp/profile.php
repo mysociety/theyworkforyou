@@ -234,7 +234,7 @@ $display_wtt_stats_banner = '2015';
                     <h3>Social Media</h3>
                     <ul>
                         <?php foreach ($social_links as $link): ?>
-                        <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
+                        <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'Social-Link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                     <?php endif; ?>
