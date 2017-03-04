@@ -369,7 +369,6 @@ class PAGE {
 
                         <input type="text" name="pc" value="<?php echo _htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
                         </p>
-                        <input type="hidden" name="ch" value="t">
                         </form>
 <?php
         $this->block_end();

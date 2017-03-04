@@ -61,16 +61,18 @@ if (!count($data)) {
 
       <?php } else { ?>
 
-        <form action="/search/">
+        <form action="/<?= ($type == 'mlas' || $type == 'msps') ? 'postcode' : 'search' ?>/">
             <div class="search-page__section search-page__section--search">
                 <div class="search-page__section__primary">
                     <p class="search-page-main-inputs">
                     <?php if ( $type == 'peers' ) { ?>
                         <label for="find-mp-by-name-or-postcode">Find <?= $rep_plural ?> by name:</label>
+                    <?php } elseif ( $type == 'mlas' || $type == 'msps' ) { ?>
+                        <label for="find-mp-by-name-or-postcode">Find your <?= $rep_name ?> by postcode:</label>
                     <?php } else { ?>
                         <label for="find-mp-by-name-or-postcode">Find your <?= $rep_name ?> by name or postcode:</label>
                     <?php } ?>
-                        <input type="text" class="form-control" name="q" id="find-mp-by-name-or-postcode">
+                        <input type="text" class="form-control" name="<?= ($type == 'mlas' || $type == 'msps') ? 'pc' : 'q' ?>" id="find-mp-by-name-or-postcode">
                         <button type="submit" class="button">Find</button>
                     </p>
                 </div>
