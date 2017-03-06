@@ -264,7 +264,7 @@ CREATE TABLE `future` (
   PRIMARY KEY  (`id`),
   KEY `event_date` (`event_date`),
   KEY `modified` (`modified`)
-);
+) CHARACTER SET 'utf8';
 
 CREATE TABLE `future_people` (
   `calendar_id` int(11) NOT NULL,
