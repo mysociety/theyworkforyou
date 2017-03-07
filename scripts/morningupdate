@@ -77,7 +77,7 @@ if ( $xapiandb !~ /:/ ) {
     foreach my $option ( @required_options ) {
         my $config =  "XAPIAN_" . uc $option;
         $xapian_options{$option} = mySociety::Config::get("$config");
-        $missing_options += "$config " unless $xapian_options{$option};
+        $missing_options .= "$config " unless $xapian_options{$option};
     }
 
     if ( $missing_options ) {
