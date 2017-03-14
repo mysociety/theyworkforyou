@@ -17,7 +17,7 @@ if (!defined('OPTION_TWFY_DB_PASS')) {
 }
 
 if (!defined('OPTION_TWFY_DB_NAME')) {
-    define ("OPTION_TWFY_DB_NAME", 'twfy');
+    define ("OPTION_TWFY_DB_NAME", "twfy");
 }
 
 // Parliamentary video database (we use PostgreSQL for this)

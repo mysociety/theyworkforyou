@@ -3,7 +3,7 @@
 set -e
 DONE_MSG=$(printf "\033[32mdone\033[0m")
 
-if [ $# -ne 3 ]
+if [ $# -ne 3 -a $# -ne 4 ]
 then
     cat >&2 <<EOUSAGE
 Usage: $0 <UNIX-USER> <HOST> <INSTALLATION-DIRECTORY>
@@ -14,13 +14,14 @@ fi
 UNIX_USER="$1"
 HOST="$2"
 DIRECTORY="$3"
+HOST_IS_IP="$4"
 DB_NAME="theyworkforyou"
 
 # Check that the arguments we've been passed are sensible:
 
 IP_ADDRESS_FOR_HOST="$(dig +short $HOST)"
 
-if [ x = x"$IP_ADDRESS_FOR_HOST" ]
+if [ $HOST_IS_IP != 'yes' -a x = x"$IP_ADDRESS_FOR_HOST" ]
 then
     echo "The hostname $HOST didn't resolve to an IP address"
     exit 1
@@ -61,8 +62,8 @@ echo $DONE_MSG
 
 # Create the database if it doesn't exist:
 echo -n "Loading schema into database... "
-if ! mysql -u twfy theyworkforyou -e "DESCRIBE consinfo" 2>/dev/null | grep -q Field; then
-    mysql -u twfy theyworkforyou < db/schema.sql
+if ! mysql -u $UNIX_USER theyworkforyou -e "DESCRIBE consinfo" 2>/dev/null | grep -q Field; then
+    mysql -u $UNIX_USER theyworkforyou < db/schema.sql
 else
     printf "\033[33malready\033[0m "
 fi

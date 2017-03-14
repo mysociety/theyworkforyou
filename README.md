@@ -44,10 +44,9 @@ If you have questions, the best place to ask is the mySociety TheyWorkForYou ema
 
 You will need the latest versions of VirtualBox and Vagrant, then:
 
-* Stick an entry in your `hosts` file to point `twfy.mysociety` at `192.168.88.10` (Apache doesn't like IP addresses).
 * Run `vagrant up`.
 * Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
-* Point your web browser at `http://twfy.mysociety` and marvel at modern technology.
+* Point your web browser at `http://10.11.12.13` and marvel at modern technology.
 
 #### Compiling Static Assets
 
@@ -55,7 +54,7 @@ If you're working on a page which uses the redesign, you will need to compile
 static assets after changes:
 
 * `vagrant ssh`
-* `cd /data/twfy/www/docs/style`
+* `cd /vagrant/theyworkforyou/www/docs/style`
 * `compass compile` for a one-off compilation or `compass watch` to recompile on changes
 
 ## Testing
