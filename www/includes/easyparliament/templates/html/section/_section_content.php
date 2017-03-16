@@ -51,7 +51,7 @@
         $body = preg_replace('#<p>\s*</p>#', '', $body);
 
         # Assume a paragraph starting with a lowercase character should be run on
-        $body = preg_replace('#(?<!:)</p>\s*<p[^>]*>(?=[a-z])(?![ivx]+\.)#', ' ', $body);
+        $body = preg_replace('#(?<!:|\])</p>\s*<p[^>]*>(?=[a-z])(?![ivx]+\.)#', ' ', $body);
 
         $body = str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
     }
