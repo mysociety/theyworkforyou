@@ -29,7 +29,7 @@ class Policies {
         811 => '<b>smoking bans</b>',
         826 => 'equal <b>gay rights</b>',
         837 => 'a <strong>wholly elected</strong> House of Lords',
-        975 => 'an <strong>investigation</strong> into the Iraq war',
+        975 => '<strong>investigations</strong> into the Iraq war',
         984 => 'replacing <b>Trident</b> with a new nuclear weapons system',
         996 => 'a <b>transparent Parliament</b>',
         1027 => 'a referendum on the UK\'s membership of the <b>EU</b>',
