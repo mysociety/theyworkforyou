@@ -222,9 +222,12 @@ $display_wtt_stats_banner = '2015';
 
                     <ul class="comma-list">
 
-                        <?php foreach ($useful_links as $link): ?>
-                        <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php foreach ($useful_links as $link) {
+                            // make an attempt at checking the link is valid
+                            if (strpos($link['href'], 'http') === 0) {?>
+                                <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
+                        <?php }
+                        } ?>
 
                     </ul>
 
