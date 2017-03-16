@@ -86,9 +86,6 @@ $this->page = array (
         'title' 	=> 'Parliaments and assemblies',
         'url'       => 'parliaments/'
     ),
-    'addcomment'  => array (
-        'url'			=> 'addcomment/',
-    ),
 
     'alert_stats' => array (
         'title'			=> 'Email alerts statistics',

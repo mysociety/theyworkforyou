@@ -552,16 +552,6 @@ class USER {
             // You can add more below as they're needed...
             // But keep them in alphabetical order!
 
-            case "addcomment":  // Post comments.
-
-                switch ($status) {
-                    case "User":            return true;
-                    case "Moderator":       return true;
-                    case "Administrator":   return true;
-                    case "Superuser":       return true;
-                    default: /* Viewer */   return false;
-                }
-
             case "deletecomment": // Delete comments.
 
                 switch ($status) {

@@ -318,7 +318,6 @@
                     # XXX
                     global $PAGE;
                     $comments['object']->display('ep', $comments['args']);
-                    $PAGE->comment_form($comments['commentdata']);
                     # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
                 ?>
                 </div>

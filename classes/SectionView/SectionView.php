@@ -380,15 +380,6 @@ class SectionView {
 
                 # Annotation link
                 if ($this->is_debate_section_page()) {
-                    // Build the 'Add an annotation' link.
-                    if (!$THEUSER->isloggedin()) {
-                        $URL = new \URL('userprompt');
-                        $URL->insert(array('ret'=>$row['commentsurl']));
-                        $data['rows'][$i]['annotation_url'] = $URL->generate();
-                    } else {
-                        $data['rows'][$i]['annotation_url'] = $row['commentsurl'];
-                    }
-
                     $data['rows'][$i]['commentteaser'] = $this->generate_commentteaser($row);
                 }
 
