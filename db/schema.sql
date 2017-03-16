@@ -257,8 +257,8 @@ CREATE TABLE `future` (
   -- One of the following two will be blank, possibly both
   `committee_name` varchar(255) NOT NULL,
   `debate_type` varchar(255) NOT NULL,
-  `title` text NOT NULL,
-  `witnesses` text NOT NULL,
+  `title` mediumtext NOT NULL,
+  `witnesses` mediumtext NOT NULL,
   `location` varchar(255) NOT NULL,
   `pos` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
