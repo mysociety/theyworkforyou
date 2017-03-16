@@ -43,13 +43,6 @@ if (get_http_var('welcome') == 't') {
 you logged in, so please make sure they're enabled for this site.");
         }
 
-        $PAGE->stripe_end(array(
-            array (
-                'type'		=> 'include',
-                'content'	=> 'userconfirmed'
-            )
-        ));
-
         $PAGE->page_end();
 
 
