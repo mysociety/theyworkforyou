@@ -250,12 +250,6 @@ $former_offices = $MEMBER->offices('previous', TRUE);
 // If this person has named non-committee offices, they override the default
 if (count($current_offices) > 0) {
     $position = $current_offices[0];
-} elseif (count($former_offices) > 0) {
-    # only use the position if it's current, i.e.
-    # it does not have an end date
-    if (!$former_offices[0]->to_date) {
-        $position = $former_offices[0];
-    }
 }
 
 // Finally, if this is a Votes page, replace the page description with
