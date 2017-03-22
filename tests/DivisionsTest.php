@@ -20,11 +20,16 @@ class DivisionsTest extends FetchPageTestCase
         return $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
     }
 
-    private function fetch_recent_page()
+    private function fetch_mp_recent_page()
     {
         $vars = array( 'pagetype' => 'recent', 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/recent' );
         return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/recent.php');
     }
+
+    private function fetch_recent_page() {
+        return $this->base_fetch_page( array('url' => '/divisions' ), 'divisions', 'index.php', '/divisions/index.php' );
+    }
+
 
     public function testSinglePolicy() {
         $p = new MySociety\TheyWorkForYou\Policies;
@@ -112,9 +117,24 @@ class DivisionsTest extends FetchPageTestCase
         $this->assertContains('we don&rsquo;t have enough information to calculate Test Current-MP&rsquo;s position', $page);
     }
 
-    public function testRecentDivisions() {
-        $page = $this->fetch_recent_page();
+    public function testRecentDivisionsForMP() {
+        $page = $this->fetch_mp_recent_page();
         $this->assertContains('<li id="pw-2013-01-01-3-commons" class="policy-vote--major', $page);
         $this->assertNotContains('<li id="pw-2012-01-01-13-commons" class="policy-vote--major', $page);
+    }
+
+    public function testSingleDivision() {
+        $page = $this->base_fetch_page( array('url' => '/divisions/division.php', 'vote' => 'pw-3012-01-01-1-commons' ), 'divisions', 'division.php', '/divisions/division.php' );
+        $this->assertContains('A majority of MPs  <b>voted in favour</b> of a thing', $page);
+        $this->assertContains('198 for', $page);
+        $this->assertContains('98 against', $page);
+        $this->assertContains('0 abstained', $page);
+        $this->assertContains('300 absent', $page);
+    }
+
+    public function testRecentDivisions() {
+        $page = $this->fetch_recent_page();
+        $this->assertContains('<li id="pw-2013-01-01-1-commons"', $page);
+        $this->assertNotContains('<li id="pw-3012-01-01-2-commons"', $page);
     }
 }
