@@ -1,10 +1,12 @@
 .topic-header {
-
-    padding-top: 10px;
+    padding-top: em-calc(10);
+    padding-bottom: em-calc(40);
+    margin-bottom: em-calc(-20);
 
     @media (min-width: $medium-screen) {
         padding-top: em-calc(20);
         padding-bottom: em-calc(120);
+        margin-bottom: em-calc(-80);
     }
 
     @media (min-width: $large-screen) {
@@ -19,10 +21,6 @@
     background-position: center center;
     background-size: cover;
 
-    .full-page__row {
-        position: relative; // for .topic-postcode-search absolute position
-    }
-
     .topic-name {
         color: #fff;
         @include grid-column(12);
@@ -33,58 +31,53 @@
 
         h1 {
             color: inherit;
-            margin: 0px;
-            padding: 0px;
+            margin: 0 0 0.2em 0;
+            padding: 0;
         }
-    }
 
-    .topic-postcode-search {
-        background: rgb(243, 241, 235);
-        @include grid-column(12);
-        @media (min-width: $medium-screen) {
-            @include grid-column(4);
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            margin-bottom: em-calc(30);
+        & > :last-child {
+            margin-bottom: 0;
         }
     }
 }
 
-.topic-content {
-    @include grid-column(12);
-    margin-top: em-calc(40);
-    @media (min-width: $medium-screen) {
-        margin-top: em-calc(-80);
-    }
-    @media (min-width: $large-screen) {
-        @include grid-column(10);
-    }
-}
+$topic-block-margin: em-calc(34);
 
 .topic-block {
     background-color: white;
-    margin-bottom: em-calc(10);
+    margin-bottom: $topic-block-margin;
+    padding: em-calc(20);
 
-    padding: em-calc(60);
+    @media (min-width: $medium-screen) {
+        padding: em-calc(40);
+    }
 
-    &.policies {
+    @media (min-width: $large-screen) {
+        padding: em-calc(60);
+    }
 
-        .topic-postcode-search {
-            background: rgb(243, 241, 235);
-            @media (min-width: $medium-screen) {
-                margin-top: em-calc(20);
-            }
-        }
+    .vote-descriptions {
+        margin-left: 0;
+        list-style: none outside none;
+    }
+}
 
-        .topic-mp-info {
-            padding-top: em-calc(10);
-            background: rgb(243, 241, 235);
-            @media (min-width: $medium-screen) {
-                margin-top: em-calc(20);
-                margin-bottom: em-calc(20);
-            }
-        }
+.topic-sidebar {
+    background-color: #e2dfd4; // slightly darker, desaturated version of $body-bg
+    margin-bottom: $topic-block-margin;
+    padding: em-calc(20);
+
+    h3, input {
+        font-size: 1em;
+    }
+
+    label {
+        margin: 1em 0 0.5em 0;
+        font-size: 0.9em;
+    }
+
+    .button:last-child {
+        margin-bottom: 0;
     }
 }
 
