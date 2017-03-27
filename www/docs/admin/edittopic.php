@@ -52,26 +52,20 @@ if (!is_null($success)) {
 ?>
 
   <h2><?= $topic->title() ?></h2>
-    <div id="adminbody">
+    <div id="adminbody" class="topic">
         <form action="edittopic.php" method="post">
           <input type="hidden" name="action" value="update">
           <input type="hidden" name="id" value="<?= $topic->slug() ?>">
-          <p>
-          <label for="title">Title:</label> <input id="title" name="title" value="<?= $topic->title() ?>">
-          </p>
+          <label for="title">Title</label> <input id="title" name="title" value="<?= $topic->title() ?>">
+
+          <label for="search_string">Search string</label> <input id="search_string" name="search_string" value="<?= $topic->search_string() ?>">
 
           <p>
-          <label for="search_string">Search string:</label> <input id="search_string" name="search_string" value="<?= $topic->search_string() ?>">
+           <input type="checkbox" value="1" id="front_page" name="front_page" <?= $topic->onFrontPage() ? 'checked' : '' ?>> <label class="inline" for="front_page">Show on Front Page</label>
           </p>
 
-          <p>
-          <label for="front_page">Show on Front Page:</label> <input type="checkbox" value="1" id="front_page" name="front_page" <?= $topic->onFrontPage() ? 'checked' : '' ?>>
-          </p>
-
-          <p>
-          <label for="description">Description</label><br>
+          <label for="description">Description</label>
           <textarea id="description" rows="5" name="description"><?= $topic->description() ?></textarea>
-          </p>
 
           <p>
           <input type="submit" value="Save">
@@ -82,7 +76,7 @@ if (!is_null($success)) {
         <h3>Related Content</h3>
         <ul>
           <?php foreach ($topic->getContent() as $content) { ?>
-          <li><a href="<?= $content['href'] ?>"><?= $content['title'] ?></a> <a href="edittopic.php?action=deletecontent&id=<?= $topic->slug() ?>&content=<?= $content['id'] ?>">X</a></li>
+          <li><a href="<?= $content['href'] ?>"><?= $content['title'] ?></a> <a class="delete" title="Remove" href="edittopic.php?action=deletecontent&id=<?= $topic->slug() ?>&content=<?= $content['id'] ?>">X</a></li>
           <?php } ?>
         </ul>
 
@@ -90,7 +84,7 @@ if (!is_null($success)) {
             <input type="hidden" name="action" value="addcontent">
             <input type="hidden" name="id" value="<?= $topic->slug() ?>">
             <p>
-            <label for="content_url">URL</label>: <input id="content_url" name="content_url">
+            <label for="content_url">URL</label> <input id="content_url" name="content_url">
             <input type="submit" value="Add">
             </p>
         </form>

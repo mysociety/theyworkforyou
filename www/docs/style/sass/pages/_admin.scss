@@ -1,0 +1,31 @@
+#adminbody.topic {
+  form{
+    border-bottom: 1px solid #e4e2dc;
+    padding-bottom: 0.5em;
+  }
+  label {
+    display: block;
+    margin-top: 1.25em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    &.inline {
+      display: inline;
+      padding: 0 2em 0 1em;
+      font-weight: normal;
+    }
+  }
+  input {
+    display: block;
+    margin-bottom: 0.5em;
+    &[type="checkbox"] {
+      display: inline;
+    }
+  }
+  h3 {
+    padding-top: 0.5em;
+  }
+  a.delete {
+    padding-left: 2em;
+    color: red;
+  }
+}
