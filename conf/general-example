@@ -87,6 +87,9 @@ define ("INCLUDESPATH", BASEDIR . "/../includes/");
 // Web path to the directory where the site's images are kept.
 define ("IMAGEPATH", WEBPATH . "images/");
 
+// location for topic image uploads. ideally outside webtree
+define ("TOPICIMAGEPATH", BASEDIR . "/../../topic_images");
+
 
 // This will be included in data.php. It's an array of page/section metadata.
 define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");

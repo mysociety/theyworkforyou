@@ -24,6 +24,9 @@ switch ($action) {
     case 'update':
       $success = update_topic($topic);
       break;
+    case 'setimage':
+      $success = add_image($topic);
+      break;
     case 'addcontent':
       $success = add_content($topic);
       break;
@@ -69,6 +72,25 @@ if (!is_null($success)) {
 
           <p>
           <input type="submit" value="Save">
+          </p>
+        </form>
+
+        <h3>Set Image</h3>
+        <form enctype="multipart/form-data" action="edittopic.php" method="post">
+          <input type="hidden" name="action" value="setimage">
+          <input type="hidden" name="id" value="<?= $topic->slug() ?>">
+          <?php if ($topic->image()) { ?>
+            <p>
+              <img src="<?= $topic->image_url() ?>" height="100">
+            </p>
+
+            <p>
+              <input type="submit" value="Delete">
+            </p>
+          <?php } ?>
+          <input type="file" value="Image" name="topic_image" id="image">
+          <p>
+          <input type="submit" value="Update">
           </p>
         </form>
 
@@ -147,6 +169,49 @@ function add_content($topic) {
     $gid = \MySociety\TheyWorkForYou\Utility\Hansard::get_gid_from_url(get_http_var('content_url'));
 
     return $topic->addContent($gid);
+}
+
+function add_image($topic) {
+    // do some sanity checks on the file
+    $file_info = $_FILES['topic_image'];
+
+    if (
+        !isset($file_info['error']) ||
+        is_array($file_info['error']) ||
+        $file_info['error'] != UPLOAD_ERR_OK
+    ) {
+        return false;
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime_info = $finfo->file($file_info['tmp_name']);
+    $ext = array_search(
+        $mime_info,
+        array(
+            'jpg' => 'image/jpeg',
+            'png' => 'image/png'
+        ),
+        true
+    );
+
+    if ($ext === false) {
+        return false;
+    }
+
+    $outfile = sprintf('%s.%s', $topic->slug(), $ext);
+    $topic->set_image($outfile);
+    try {
+        $image_saved = move_uploaded_file(
+            $file_info['tmp_name'],
+            $topic->image_path()
+        );
+     } catch (ErrorException $e) {
+        return false;
+     }
+
+    if ($image_saved) {
+        return $topic->save();
+    }
 }
 
 function delete_content($topic) {

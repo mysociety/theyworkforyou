@@ -19,6 +19,7 @@ class Topic {
     private $title;
     private $slug;
     private $description;
+    private $image;
     private $search_string;
     private $front_page;
 
@@ -42,6 +43,7 @@ class Topic {
         $this->description = $data['description'];
         $this->search_string = $data['search_string'];
         $this->front_page = $data['front_page'];
+        $this->image = $data['image'];
 
     }
 
@@ -72,9 +74,25 @@ class Topic {
     }
 
     function image() {
-        $image_name = preg_replace('/-/', '', $this->slug);
-        return "/images/topic" . $image_name . ".jpg";
+        return $this->image;
     }
+
+    function image_url() {
+        return "/topic/image.php?id=" . $this->slug();
+    }
+
+    function image_path() {
+        if ($this->image) {
+            return sprintf('%s%s%s', TOPICIMAGEPATH, DIRECTORY_SEPARATOR, $this->image);
+        }
+
+        return false;
+    }
+
+    function set_image($image) {
+        $this->image = $image;
+    }
+
 
     function description() {
         return $this->description;
@@ -289,16 +307,17 @@ class Topic {
     function save() {
         $q = $this->db->query(
           "REPLACE INTO topics
-          (id, title, slug, description, search_string, front_page)
+          (id, title, slug, description, search_string, front_page, image)
           VALUES
-          (:id, :title, :slug, :description, :search_string, :front_page)",
+          (:id, :title, :slug, :description, :search_string, :front_page, :image)",
             array(
                 ':id' => $this->id,
                 ':slug' => $this->slug(),
                 ':title' => $this->title(),
                 ':description' => $this->description(),
                 ':search_string' => $this->search_string(),
-                ':front_page' => $this->onFrontPage()
+                ':front_page' => $this->onFrontPage(),
+                ':image' => $this->image()
             )
         );
 

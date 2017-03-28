@@ -25,7 +25,7 @@ class Topics {
     }
 
     public function getTopics() {
-      $q = $this->db->query("SELECT id, slug, title, description, search_string, front_page FROM topics");
+      $q = $this->db->query("SELECT id, slug, title, description, search_string, front_page, image FROM topics");
 
       $topics = array();
       $count = $q->rows();
@@ -39,7 +39,7 @@ class Topics {
 
     public function getTopic($topic_name) {
       $q = $this->db->query(
-          "SELECT id, slug, title, description, search_string, front_page FROM topics WHERE slug = :slug",
+          "SELECT id, slug, title, description, search_string, front_page, image FROM topics WHERE slug = :slug",
           array(':slug' => $topic_name)
       );
       if ($q->rows) {
@@ -51,7 +51,7 @@ class Topics {
 
     public function getFrontPageTopics() {
       $q = $this->db->query(
-          "SELECT id, slug, title, description, search_string, front_page FROM topics WHERE front_page = TRUE"
+          "SELECT id, slug, title, description, search_string, front_page, image FROM topics WHERE front_page = TRUE"
       );
 
       $topics = array();

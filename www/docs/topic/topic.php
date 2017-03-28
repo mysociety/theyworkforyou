@@ -34,6 +34,7 @@ if ($topic = $topics->getTopic($topicname))
     $topic_policies = $topic->getAllPolicies();
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
+    $data['image'] = $topic->image_url();
     $DATA->set_page_metadata('topic', 'title', $topic->title());
     $data['business'] = $topic->getFullContent();
 
