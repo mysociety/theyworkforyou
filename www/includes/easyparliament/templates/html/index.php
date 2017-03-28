@@ -52,12 +52,10 @@
                         <?php } ?>
 
                         <?php if (count($topics) > 0) { ?>
-                          <ul class="key-events__list">
-                            <li>
-                                <h4>Topics in the news</h4>
-                            </li>
+                          <h2>Topics in the news</h2>
+                          <ul class="inline-list">
                             <?php foreach ($topics as $topic) { ?>
-                                <li><a href="<?= $topic->url() ?>"><?= $topic->title() ?></a></li>
+                              <li><a href="<?= $topic->url() ?>" class="button tertiary"><?= $topic->title() ?></a></li>
                             <?php } ?>
                           </ul>
                         <?php } ?>

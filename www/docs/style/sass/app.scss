@@ -155,6 +155,10 @@ a:focus {
         // for .button elements!!
         vertical-align: -0.4em;
     }
+
+    &.tertiary {
+        @include button-style($bg: $links);
+    }
 }
 
 /* forms */
@@ -216,10 +220,6 @@ form {
 
 .unpad-left {
     padding-left: 0;
-}
-
-.button.tertiary {
-    background-color: transparent;
 }
 
 @import "parts/policies";

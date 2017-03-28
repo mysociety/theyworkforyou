@@ -283,6 +283,11 @@ input.homepage-search__button {
         font-size: 1em;
         color: $colour_dark_grey;
         font-weight: normal;
+
+        // Extra space above when not first child
+        * + & {
+            margin-top: 2em;
+        }
     }
 }
 
