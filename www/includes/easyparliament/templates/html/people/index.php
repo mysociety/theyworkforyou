@@ -165,19 +165,23 @@ if (!count($data)) {
                 <?php } ?>
 
                 <div class="people-list">
-                <?php
-                $current_initial = '';
-                $a_to_z_key = 'family_name';
-                if ($order == 'given_name') {
-                    $a_to_z_key = 'given_name';
+                <?php if ($order != 'party') {
+                    $current_initial = '';
+                    $a_to_z_key = 'family_name';
+                    if ($order == 'given_name') {
+                        $a_to_z_key = 'given_name';
+                    }
                 }
+                $initial_link = '';
                 foreach ( $data as $person ) {
-                    $initial = substr( strtoupper($person[$a_to_z_key]), 0, 1);
-                    if ( $initial != $current_initial ) {
-                        $current_initial = $initial;
-                        $initial_link = "name=\"$initial\" ";
-                    } else {
-                        $initial_link = "";
+                    if ($order != 'party') {
+                        $initial = substr( strtoupper($person[$a_to_z_key]), 0, 1);
+                        if ( $initial != $current_initial ) {
+                            $current_initial = $initial;
+                            $initial_link = "name=\"$initial\" ";
+                        } else {
+                            $initial_link = "";
+                        }
                     }
                 ?>
                 <a <?= $initial_link ?>href="/mp/<?= $person['url'] ?>" class="people-list__person">
