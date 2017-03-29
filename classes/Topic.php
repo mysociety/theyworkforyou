@@ -100,7 +100,7 @@ class Topic {
         return $this->front_page == 1;
     }
 
-    function getContent() {
+    private function _getContentIDs() {
         $q = $this->db->query(
           "SELECT body, gid, ep.epobject_id FROM epobject ep JOIN hansard h on ep.epobject_id = h.epobject_id 
           WHERE ep.epobject_id in (
@@ -111,6 +111,12 @@ class Topic {
             )
         );
 
+        return $q;
+    }
+
+    function getContent() {
+        $q = $this->_getContentIDs();
+
         $content = array();
         $rows = $q->rows;
         for ($i = 0; $i < $rows; $i++) {
@@ -119,6 +125,32 @@ class Topic {
                 'href'  => Utility\Hansard::gid_to_url($q->field($i, 'gid')),
                 'id'    => $q->field($i, 'epobject_id'),
             );
+        }
+
+        return $content;
+    }
+
+    function getFullContent() {
+        $q = $this->_getContentIDs();
+
+        $content = array();
+        $rows = $q->rows;
+        for ($i = 0; $i < $rows; $i++) {
+            $gid = $q->field($i, 'gid');
+            if (strpos($gid, 'lords') !== false) {
+                $debatelist = new \LORDSDEBATELIST;
+            } elseif (strpos($gid, 'westminhall') !== false) {
+                $debatelist = new \WHALLLIST;
+            } else {
+                $debatelist = new \DEBATELIST;
+            }
+            $data = $debatelist->display('featured_gid', array('gid' => $gid), 'none');
+
+            $item = $data['data'];
+            if (isset($item['parent']) && $item['body'] == $item['parent']['body']) {
+                unset($item['parent']);
+            }
+            $content[] = $item;
         }
 
         return $content;

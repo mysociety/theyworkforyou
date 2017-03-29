@@ -34,9 +34,10 @@ if ($topic = $topics->getTopic($topicname))
     $topic_policies = $topic->getAllPolicies();
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
-    $data['actions'] = $topic->getContent();
     $DATA->set_page_metadata('topic', 'title', $topic->title());
+    $data['business'] = $topic->getFullContent();
 
+    $data['actions'] = array();
     if ($topic->search_string()) {
       $search = urlencode($topic->search_string());
       $data['actions'][] = array(
