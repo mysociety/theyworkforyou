@@ -2871,10 +2871,23 @@ class DEBATELIST extends HANSARDLIST {
                 $speaker = $this->_get_speaker($r->field(0, 'person_id'), $r->field(0, 'hdate'), $r->field(0, 'htime'), $this->major );
             }
 
+            $contentcount = 0;
+            $r = $this->db->query("SELECT COUNT(*) AS count
+                            FROM hansard
+                            WHERE subsection_id = :object_id
+                            AND htype = 12",
+                            array(':object_id' => $item_data['epobject_id'])
+                );
+
+            if ($r->rows() > 0) {
+                $contentcount = $r->field(0, 'count');
+            }
+
             global $hansardmajors;
             $more_url = new \URL( $hansardmajors[$this->major]['page_all'] );
             $details = array(
                 'body'          => $body,
+                'contentcount'  => $contentcount,
                 'hdate'         => $hdate,
                 'htime'         => $htime,
                 'list_url'      => $list_url,
