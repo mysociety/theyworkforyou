@@ -71,6 +71,12 @@ class TopicsTest extends FetchPageTestCase
 
     public function testTopicPageRecentVotes() {
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('pw-2013-01-01-1-commons">The majority of MPs  voted Agreed', $page);
+        $this->assertContains('pw-2013-01-01-1-commons">', $page);
+        $this->assertContains('The majority of MPs  voted Agreed', $page);
+    }
+
+    public function testTopicPageContent() {
+        $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
+        $this->assertContains('Test Hansard Section', $page);
     }
 }
