@@ -30,6 +30,7 @@ class Header
         $this->get_menu_highlights();
         $this->get_top_and_bottom_links();
         $this->add_robots_metadata();
+        $this->get_other_links();
     }
 
     private function add_robots_metadata() {
@@ -128,6 +129,11 @@ class Header
             );
 
         }
+    }
+
+    private function get_other_links() {
+        $URL = new \URL('contact');
+        $this->data['contact_link'] = $URL->generate();
     }
 
     private function generate_next_prev_link($nextprev, $linktype) {
