@@ -22,11 +22,6 @@ services:
 
 notifications:
   email: false
-  irc:
-    channels:
-      - "irc.mysociety.org#activity"
-    use_notice: true
-    skip_join: true
 
 env:
   global:
