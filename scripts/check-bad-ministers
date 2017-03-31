@@ -1,0 +1,79 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use utf8;
+
+# Check for mismatches between moffice table and ministers JSON files
+
+use FindBin;
+chdir $FindBin::Bin;
+use lib "$FindBin::Bin";
+use lib "$FindBin::Bin/../commonlib/perllib";
+
+use mySociety::Config;
+mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+
+use DBI;
+use Encode;
+use File::Slurp;
+use Getopt::Long;
+use JSON;
+
+my $verbose;
+my $from = '';
+GetOptions ("verbose!" => \$verbose, "from=s" => \$from) or die $!;
+my $start_time = time();
+verbose("Start");
+db_connect();
+
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+verbose("Checking Offices");
+check_moffices();
+verbose("End");
+
+# ---
+
+my $dbh;
+
+sub db_connect {
+    my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
+    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, mysql_enable_utf8 => 1 });
+}
+
+my %organizations;
+
+sub check_moffices {
+    my %positions = ();
+    my $mofffetch= $dbh->prepare("select moffice_id, dept, position, from_date, to_date, person, source from moffice");
+    foreach ('ministers.json', 'ministers-2010.json') {
+        my $j = decode_json(read_file($pwmembers . $_));
+        foreach (@{$j->{organizations}}) {
+            $organizations{$_->{id}} = $_->{name};
+        }
+        foreach (@{$j->{memberships}}) {
+            (my $person = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
+            my $pos = $_->{role} || 'Member';
+            my $dept = $organizations{$_->{organization_id}} || die $!;
+            $dept = '' if $dept eq 'House of Commons';
+            my $end_date = $_->{end_date} || '9999-12-31';
+            next unless $end_date ge $from;
+            my $pos_id = sprintf("%s_%s_%s", $_->{id}, $pos, $person);
+            $positions{$pos_id} = {start_date => $_->{start_date}, end_date => $end_date, dept => $dept};
+        }
+    }
+    $mofffetch->execute();
+    while (my $row = $mofffetch->fetchrow_hashref) {
+        my $pos_id = sprintf("%s_%s_%s", $row->{moffice_id}, $row->{position}, $row->{person});
+        unless ($positions{$pos_id}) {
+            printf("%s has bad position %s (%s)\n", $row->{person}, $row->{moffice_id}, $row->{dept})
+        }
+    }
+}
+
+sub verbose {
+    my $s = shift;
+    return unless $verbose;
+    my $duration = time() - $start_time;
+    print "$duration $s\n";
+}
