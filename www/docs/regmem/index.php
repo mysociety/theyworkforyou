@@ -344,6 +344,7 @@ function canonicalise_data($cat_data) {
 function _clean($s) {
     $s = preg_replace("/&(pound|#163);/", "\xa3", $s);
     $s = preg_replace("#</?(span|i|em)( [^>]*)?" . ">#i", '', $s);
+    $s = utf8_encode($s);
     $s = preg_split("/\s*\n\s*/", $s);
     return $s;
 }
