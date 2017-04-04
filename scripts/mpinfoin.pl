@@ -71,8 +71,8 @@ my $consinfohash;
 
 # Find latest register of members interests file
 chdir mySociety::Config::get('RAWDATA');
-my $regmemfile = "";
-find sub { $regmemfile = $_ if /^regmem.*\.xml$/ and $_ ge $regmemfile}, 'scrapedxml/regmem/';
+my @regmemfiles = ();
+find sub { push(@regmemfiles, $_) if /^regmem.*\.xml$/ }, 'scrapedxml/regmem/';
 
 # Read in all the files
 my $twig = XML::Twig->new(
@@ -85,9 +85,10 @@ my $twig = XML::Twig->new(
     }, output_filter => 'safe' );
 
 if ($action{'regmem'}) {
-    # TODO: Parse ALL regmem in forwards chronological order, so each MP (even ones left parl) gets their most recent one
-    print "Parsing register of members' interests\n" if $verbose;
-    $twig->parsefile(mySociety::Config::get('RAWDATA') . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
+    foreach my $regmemfile (sort @regmemfiles) {
+        print "Parsing register of members' interests from $regmemfile\n" if $verbose;
+        $twig->parsefile(mySociety::Config::get('RAWDATA') . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
+    }
 }
 
 if ($action{'links'}) {
