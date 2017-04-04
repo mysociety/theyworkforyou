@@ -1,3 +1,7 @@
+<?php if ($image) { ?>
+<div class="topic-header-wrapper" style="background-image: url(<?= $image ?>)">
+<?php } ?>
+
 <div class="topic-header">
     <div class="full-page">
         <div class="full-page__row">
@@ -10,6 +14,10 @@
         </div>
     </div>
 </div>
+
+<?php if ($image) { ?>
+</div>
+<?php } ?>
 
 <div class="full-page">
     <div class="full-page__row">

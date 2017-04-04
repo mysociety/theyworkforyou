@@ -41,6 +41,16 @@
     }
 }
 
+.topic-header-wrapper {
+    // background-image will be overridden by inline `style` attribute
+    background: rgb(28, 28, 28) url('../img/topics/generic.jpg') no-repeat center center;
+    background-size: cover;
+
+    .topic-header {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
+
 $topic-block-margin: em-calc(34);
 
 .topic-block {
