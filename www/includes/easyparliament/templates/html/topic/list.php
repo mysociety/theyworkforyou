@@ -8,16 +8,15 @@
         bring together information about a specific subject.</p>
 
         <ul class="topic-list">
-
-        <?php foreach ($topics as $topic): ?>
-
-            <li><a href="<?= $topic->url(); ?>">
-              <img src="<?= $topic->image() ?>">
-                <?= _htmlspecialchars($topic->title()); ?>
-            </a></li>
-
-        <?php endforeach; ?>
-
+          <?php foreach ($topics as $topic): ?>
+            <li>
+                <a href="<?= $topic->url(); ?>">
+                    <img src="<?= $topic->image_url(); ?>">
+                    <?= _htmlspecialchars($topic->title()); ?>
+                </a>
+                <p><?= _htmlspecialchars($topic->description()); ?></p>
+            </li>
+          <?php endforeach; ?>
         </ul>
 
     </div>
