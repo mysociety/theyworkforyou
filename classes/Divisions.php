@@ -163,6 +163,84 @@ class Divisions {
         return $policy_divisions;
     }
 
+    public function getDivisionResults($division_id) {
+        $args = array(
+            ':division_id' => $division_id
+        );
+        $q = $this->db->query(
+            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, direction,
+            yes_total, no_total, absent_total, both_total, majority_vote
+            FROM policydivisions
+            WHERE division_id = :division_id",
+            $args
+        );
+
+        if ($q->rows == 0) {
+            return false;
+        }
+
+        $details = $this->getParliamentDivisionDetails($q->row(0));
+        $details['division_title'] = $q->row(0)['division_title'];
+
+        $q = $this->db->query(
+            "SELECT person_id, vote, given_name, family_name
+            FROM persondivisionvotes JOIN person_names USING(person_id)
+            WHERE division_id = :division_id
+            ORDER by family_name",
+            $args
+        );
+
+        $votes = array(
+          'yes_votes' => array(),
+          'no_votes' => array(),
+          'absent_votes' => array(),
+          'both_votes' => array()
+        );
+
+        foreach ($q->data as $vote) {
+            $detail = array(
+              'person_id' => $vote['person_id'],
+              'name' => $vote['given_name'] . ' ' . $vote['family_name'],
+              'teller' => false
+            );
+
+            if (strpos($vote['vote'], 'tell') !== FALSE) {
+                $detail['teller'] = true;
+            }
+
+            if ($vote['vote'] == 'aye' or $vote['vote'] == 'tellaye') {
+              $votes['yes_votes'][] = $detail;
+            } else if ($vote['vote'] == 'no' or $vote['vote'] == 'tellno') {
+              $votes['no_votes'][] = $detail;
+            } else if ($vote['vote'] == 'absent') {
+              $votes['absent_votes'][] = $detail;
+            } else if ($vote['vote'] == 'both') {
+              $votes['both_votes'][] = $detail;
+            }
+
+        }
+
+        $details = array_merge($details, $votes);
+
+        return $details;
+    }
+
+    public function getDivisionResultsForMember($division_id, $person_id) {
+        $args = array(
+            ':division_id' => $division_id,
+            ':person_id' => $person_id
+        );
+        $q = $this->db->query(
+            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, direction, vote
+            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            WHERE division_id = :division_id AND person_id = :person_id",
+            $args
+        );
+
+        $details = $this->getDivisionDetails($q->row(0));
+        return $details;
+    }
+
     public function generateSummary($votes) {
         $max = $votes['max'];
         $min = $votes['min'];

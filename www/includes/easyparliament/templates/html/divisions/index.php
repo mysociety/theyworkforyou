@@ -20,12 +20,12 @@
                         <?php
                           $current_date = $division['date'];
                         } ?>
-                        <a href="<?= $division['debate_url'] ?>" class="business-list__title">
+                        <a href="/divisions/division.php?vote=<?= $division['division_id'] ?>" class="business-list__title">
                             <h3><?= $division['division_title'] ?></h3>
                             <span class="business-list__meta">Division number <?= $division['number'] ?></span>
                         </a>
                         <p class="business-list__excerpt">
-                            A majority of MPs <?= preg_replace('/(voted\s+(?:for|against|not to|to|in favour))/', '<b>\1</b>', $division['text']) ?>
+                            <?php include('_vote_description.php'); ?>
                             <br>
                             <span class="business-list__meta">
                                 <?= $division['summary'] ?>

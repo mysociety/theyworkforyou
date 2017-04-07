@@ -361,6 +361,11 @@ $this->page = array (
         'title'			=> 'Recent Votes',
         'url'			=> 'divisions/'
     ),
+    'divisions_vote' => array (
+        'parent'		=> 'divisions_recent',
+        'title'			=> 'Vote',
+        'url'			=> 'divisions/division.php'
+    ),
     'epvote' => array (
         'url'			=> 'vote/'
     ),
