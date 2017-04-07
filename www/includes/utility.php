@@ -600,6 +600,21 @@ function _htmlspecialchars($s) {
     return htmlspecialchars($s, ENT_COMPAT, 'UTF-8');
 }
 
+function get_canonical_gid($gid) {
+    $db = new ParlDB;
+    $might_be_redirected = true;
+    while ($might_be_redirected) {
+        $q = $db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid", array(':gid' => $gid));
+        if ($q->rows() > 0) {
+            $gid = $q->field(0, 'gid_to');
+        } else {
+            $might_be_redirected = false;
+        }
+    }
+
+    return $gid;
+}
+
 
 function fix_gid_from_db($gid, $keepmajor = false) {
     // The gids in the database are longer than we use in the site.
