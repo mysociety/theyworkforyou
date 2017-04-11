@@ -170,6 +170,34 @@ $(function(){
       function() { $(this).children('.moreinfo-text').show(); },
       function() { $(this).children('.moreinfo-text').hide(); }
   );
+
+  $('.fb-share-button-tracked').on('click', function(e) {
+    $a = $(e.target);
+    name = $a.data('title');
+    link = $a.data('href');
+    picture = $a.data('picture');
+    caption = $a.data('caption');
+    desc = $a.data('desc');
+    console.log(link);
+    FB.ui(
+      {
+        method: 'feed',
+        name: name,
+        link: link,
+        picture: picture,
+        caption: caption,
+        description: desc
+      },
+      function(response) {
+        // only try this if GA is actually loaded and they shared
+        // the post.
+        if (response && window._gat && window._gat._getTracker) {
+          ga('send', 'social', 'facebook', 'share', link);
+        }
+      }
+    );
+    return false;
+  });
   if( $('.about-this-page__one-of-two').length ) {
     // these are usually .panel--secondary elements
     var $elements = $('.about-this-page__one-of-two').children();

@@ -370,7 +370,9 @@ switch ($pagetype) {
           $data['og_image'] = $MEMBER->url(true) . "/policy_set_png?policy_set=" . $policy_set;
           $data['page_title'] = $policiesList->getSetDescriptions()[$policy_set] . ' ' . $title . ' - TheyWorkForYou';
           $data['meta_description'] = 'See how ' . $data['full_name'] . ' voted on ' . $policiesList->getSetDescriptions()[$policy_set];
+          $data['single_policy_page'] = true;
         } else {
+            $data['single_policy_page'] = false;
             $set_descriptions = $policiesList->getSetDescriptions();
             $data['key_votes_segments'] = array(
                 array(

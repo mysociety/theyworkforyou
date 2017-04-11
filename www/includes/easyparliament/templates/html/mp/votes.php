@@ -87,7 +87,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <div class="share-vote-descriptions">
                                 <p>Share a screenshot of these votes:</p>
 
-                                <div class="fb-share-button" data-href="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode( $abs_member_url . "/votes?policy=" . $segment['key'] ) ?>&amp;src=sdkpreparse">Share</a></div>
+                                <a href="#" class="fb-share-button-tracked" data-title="<?= $single_policy_page ? '' : $segment['title'] . ' ' ?><?= $page_title ?>" data-href="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>" data-image="<?= $abs_member_url ?>/policy_set_png?policy_set=<?= $segment['key'] ?>" "See how <?= $full_name ?> voted on <?= $segment["title"] ?>">Share</a>
 
                                 <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
                                 </div>

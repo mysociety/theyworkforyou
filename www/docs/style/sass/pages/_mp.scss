@@ -722,6 +722,44 @@
     }
 }
 
+// style for our custom FB share button that uses FB.ui
+// so we can track shares
+.fb-share-button-tracked {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    padding: 0px 4px;
+    vertical-align: middle;
+
+    background: #4c69ba;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 20px;
+    text-decoration: none !important;
+
+    &:hover, &:focus {
+        background-color: darken(#4c69ba, 15%);
+        color: #fff;
+    }
+
+    &:before {
+        content: "";
+        display: inline-block;
+        background: transparent url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 216 216'%3E%3Cpath fill='%23fff' d='M204.1 0H11.9C5.3 0 0 5.3 0 11.9v192.2c0 6.6 5.3 11.9 11.9 11.9h103.5v-83.6H87.2V99.8h28.1v-24c0-27.9 17-43.1 41.9-43.1 11.9 0 22.2.9 25.2 1.3v29.2h-17.3c-13.5 0-16.2 6.4-16.2 15.9v20.8h32.3l-4.2 32.6h-28V216h55c6.6 0 11.9-5.3 11.9-11.9V11.9C216 5.3 210.7 0 204.1 0z'/%3E%3C/svg%3E") 0 0 no-repeat;
+        background-size: 14px 14px;
+        width: 14px;
+        height: 14px;
+        vertical-align: -3px;
+        margin-right: 0.5em;
+    }
+}
+
 .about-this-page {
     .about-this-page__one-of-two {
         @include grid-column(12);
