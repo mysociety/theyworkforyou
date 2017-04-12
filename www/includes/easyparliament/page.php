@@ -349,7 +349,7 @@ class PAGE {
         $this->heading_displayed = true;
     }
 
-    public function postcode_form() {
+    public function postcode_form($hidden = array()) {
         // Used on the mp (and yourmp) pages.
         // And the userchangepc page.
         global $THEUSER;
