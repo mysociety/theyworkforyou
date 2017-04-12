@@ -357,6 +357,11 @@ class PAGE {
         echo '<br>';
         $this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
         echo '<form action="/postcode/" method="get">';
+        if (count($hidden) > 0) {
+            foreach ($hidden as $field => $value) {
+                echo('<input type="hidden" name="' . $field . '" value="' . _htmlentities($value) . '">');
+            }
+        }
         if ($THEUSER->postcode_is_set()) {
             $FORGETURL = new URL('userchangepc');
             $FORGETURL->insert(array('forget'=>'t'));
