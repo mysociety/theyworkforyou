@@ -349,13 +349,17 @@ class PAGE {
         $this->heading_displayed = true;
     }
 
-    public function postcode_form($hidden = array()) {
+    public function postcode_form($hidden = array(), $title = '') {
         // Used on the mp (and yourmp) pages.
         // And the userchangepc page.
         global $THEUSER;
 
+        if ($title == '') {
+            $title = 'Find out about your MP/MSPs/MLAs';
+        }
+
         echo '<br>';
-        $this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
+        $this->block_start(array('id'=>'mp', 'title'=>$title));
         echo '<form action="/postcode/" method="get">';
         if (count($hidden) > 0) {
             foreach ($hidden as $field => $value) {
