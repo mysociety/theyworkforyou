@@ -52,10 +52,26 @@ $PAGE->page_end();
 function postcode_error($error) {
     global $PAGE;
     $hidden = get_policy_array();
+    $title = '';
+    if (count($hidden) > 0 ) {
+        $policies = new \MySociety\TheyWorkForYou\Policies();
+
+        if (isset($hidden['policy_number'])) {
+            $policies = $policies->getPolicies();
+            if (isset($policies[$hidden['policy_number']])) {
+                $title = "Find out how your MP voted on " . $policies[$hidden['policy_number']] . ".";
+            }
+        } else if (isset($hidden['policy_set'])) {
+            $sets = $policies->getSetDescriptions();
+            if (isset($sets[$hidden['policy_set']])) {
+                $title = "Find out how your MP voted on " . $sets[$hidden['policy_set']] . ".";
+            }
+        }
+    }
     $PAGE->page_start();
     $PAGE->stripe_start();
     $PAGE->error_message($error);
-    $PAGE->postcode_form($hidden);
+    $PAGE->postcode_form($hidden, $title);
     $PAGE->stripe_end();
     $PAGE->page_end();
     exit;
