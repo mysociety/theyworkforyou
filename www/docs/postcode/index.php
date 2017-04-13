@@ -187,7 +187,14 @@ function member_redirect(&$MEMBER, $options = array()) {
         } else {
             $url = $MEMBER->url();
         }
-        header("Location: $url");
+        // awfulness so we can test this works becuase we use the CLI
+        // in our test framework for page requests and the CLI doesn't
+        // print out headers
+        if (php_sapi_name() === 'cli') {
+            print("Location: $url");
+        } else {
+            header("Location: $url");
+        }
         exit;
     }
 }
