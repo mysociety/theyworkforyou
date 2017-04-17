@@ -59,6 +59,10 @@
 	<table_data name="personinfo">
 	</table_data>
 	<table_data name="postcode_lookup">
+      <row>
+          <field name="postcode">SW1A 1AA</field>
+          <field name="name">Cities of London and Westminster</field>
+      </row>
 	</table_data>
 	<table_data name="search_query_log">
 	</table_data>
