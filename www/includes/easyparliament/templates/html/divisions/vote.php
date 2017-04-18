@@ -59,12 +59,18 @@
                     </p>
                     <?php } ?>
                     <p>
+                    <?php if (!$division['has_description'] || !isset($mp_vote) || !in_array($mp_vote['vote'], array('aye', 'no'))) { ?>
+                        <span class="policy-vote__text">
+                            <?php include('_vote_description.php'); ?>
+                        </span><br>
+                    <?php } else { ?>
                         A majority of MPs
                         <?php if ($division['vote'] == 'aye') { ?>
                             voted for.
                         <?php } else if ($division['vote'] == 'no') { ?>
                             voted against.
                         <?php } ?>
+                    <?php } ?>
                     </p>
 
                     <?php include('_vote_summary.php'); ?>

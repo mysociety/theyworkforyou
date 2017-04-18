@@ -389,6 +389,11 @@ class Divisions {
         $division_title = $row['division_title'];
         $division['text'] = $this->constructVoteDescription($vote, $yes_text, $no_text, $division_title);
 
+        $division['has_description'] = false;
+        if ($yes_text && $no_text) {
+            $division['has_description'] = true;
+        }
+
         if ($row['gid']) {
             $division['debate_url'] = $this->divisionUrlFromGid($row['gid']);
         }
