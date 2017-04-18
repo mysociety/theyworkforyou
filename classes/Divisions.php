@@ -237,6 +237,12 @@ class Divisions {
             $args
         );
 
+        // if the vote was before or after the MP was in Parliament
+        // then there won't be a row
+        if ($q->rows == 0) {
+            return false;
+        }
+
         $details = $this->getDivisionDetails($q->row(0));
         return $details;
     }

@@ -70,6 +70,14 @@
                             was a teller for the Nos.
                         <?php } ?>
                     </p>
+                    <?php } else if (isset($before_mp)) { ?>
+                    <p>
+                        This vote happened before your MP, <a href="/mp/?p=<?= $member->person_id() ?>"><?= $member->full_name() ?></a>, was elected.
+                    </p>
+                    <?php } else if (isset($after_mp)) { ?>
+                    <p>
+                        This vote happened after your MP, <a href="/mp/?p=<?= $member->person_id() ?>"><?= $member->full_name() ?></a>, left the House of Commons.
+                    </p>
                     <?php } ?>
                 </div>
             </div>

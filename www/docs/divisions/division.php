@@ -20,7 +20,16 @@ if ($vote) {
 
     if (isset($MEMBER)) {
         $data['member'] = $MEMBER;
-        $data['mp_vote'] = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
+        $mp_vote = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
+        if ($mp_vote) {
+            $data['mp_vote'] = $mp_vote;
+        } else {
+          if ($data['division']['date'] < $MEMBER->entered_house(1)['date']) {
+              $data['before_mp'] = true;
+          } else if ($data['division']['date'] > $MEMBER->left_house(1)['date']) {
+              $data['after_mp'] = true;
+          }
+        }
     }
 
     if ($data) {
