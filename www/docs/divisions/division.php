@@ -5,7 +5,11 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $this_page = 'divisions_vote';
 
-if ($THEUSER->postcode_is_set()) {
+$main_vote_mp = false;
+if ($mp = get_http_var('p')) {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $mp, 'house' => HOUSE_TYPE_COMMONS));
+    $main_vote_mp = true;
+} else if ($THEUSER->postcode_is_set()) {
     $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
 }
 
@@ -17,6 +21,8 @@ if ($vote) {
   if ($data['division']) {
     $template = 'divisions/vote';
     $DATA->set_page_metadata($this_page, 'title', $data['division']['division_title']);
+
+    $data['main_vote_mp'] = $main_vote_mp;
 
     if (isset($MEMBER)) {
         $data['member'] = $MEMBER;

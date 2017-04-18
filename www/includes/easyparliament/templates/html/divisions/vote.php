@@ -42,16 +42,40 @@
         <div class="full-page__unit">
             <div class="debate-speech__speaker-and-content">
                 <div class="debate-speech__content">
+                <?php if ($main_vote_mp) { ?>
+                    <?php if (isset($mp_vote)) { ?>
+                    <p>
+                        <span class="policy-vote__text">
+                        <a href="/mp/?p=<?=  $member->person_id() ?>"><?= $member->full_name() ?></a> <?= preg_replace('/(voted\s+(?:for|against|not to|to|in favour))/', '<b>\1</b>', $mp_vote['text']) ?>
+                        </span><br>
+                    </p>
+                    <?php } else if (isset($before_mp)) { ?>
+                    <p>
+                        This vote happened before <a href="/mp/?p=<?= $member->person_id() ?>"><?= $member->full_name() ?></a> was elected.
+                    </p>
+                    <?php } else if (isset($after_mp)) { ?>
+                    <p>
+                        This vote happened after <a href="/mp/?p=<?= $member->person_id() ?>"><?= $member->full_name() ?></a> left the House of Commons.
+                    </p>
+                    <?php } ?>
+                    <p>
+                        A majority of MPs
+                        <?php if ($division['vote'] == 'aye') { ?>
+                            voted for.
+                        <?php } else if ($division['vote'] == 'no') { ?>
+                            voted against.
+                        <?php } ?>
+                    </p>
 
+                    <?php include('_vote_summary.php'); ?>
+                <?php } else { ?>
                     <p>
                         <span class="policy-vote__text">
                             <?php include('_vote_description.php'); ?>
                         </span><br>
                     </p>
 
-                    <p>
-                        <a href="#for"><?= $division['for'] - 2 ?> for</a>, <a href="#against"><?= $division['against'] - 2 ?> against</a>, <a href="#both"><?= $division['both'] ?> abstained</a>, <a href="#absent"><?= $division['absent'] ?> absent</a>.
-                    </p>
+                    <?php include('_vote_summary.php'); ?>
 
                     <?php if (isset($mp_vote)) { ?>
                     <p>
@@ -79,6 +103,7 @@
                         This vote happened after your MP, <a href="/mp/?p=<?= $member->person_id() ?>"><?= $member->full_name() ?></a>, left the House of Commons.
                     </p>
                     <?php } ?>
+                <?php } ?>
                 </div>
             </div>
 
