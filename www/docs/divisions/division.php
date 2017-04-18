@@ -29,6 +29,10 @@ if ($vote) {
         $mp_vote = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
         if ($mp_vote) {
             $data['mp_vote'] = $mp_vote;
+            $data['mp_vote']['with_majority'] = false;
+            if ($data['mp_vote']['vote'] == $data['division']['vote']) {
+                $data['mp_vote']['with_majority'] = true;
+            }
         } else {
           if ($data['division']['date'] < $MEMBER->entered_house(1)['date']) {
               $data['before_mp'] = true;

@@ -64,11 +64,10 @@
                             <?php include('_vote_description.php'); ?>
                         </span><br>
                     <?php } else { ?>
-                        A majority of MPs
-                        <?php if ($division['vote'] == 'aye') { ?>
-                            voted for.
-                        <?php } else if ($division['vote'] == 'no') { ?>
-                            voted against.
+                        <?php if ($mp_vote['with_majority']) { ?>
+                            A majority of MPs voted the same.
+                        <?php } else { ?>
+                            <?php $vote_prefix = 'A majority of MPs <b>disagreed</b> and'; include('_vote_description.php'); ?>
                         <?php } ?>
                     <?php } ?>
                     </p>
