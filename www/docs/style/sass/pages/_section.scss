@@ -310,6 +310,12 @@ span.hi {
     margin-left: 0.5em;
   }
 
+  &.internal-link {
+    &:before {
+      display: none;
+    }
+  }
+
   &.watch {
     &:before {
       background-position: -40px -1px;

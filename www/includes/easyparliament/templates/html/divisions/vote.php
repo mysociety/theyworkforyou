@@ -112,13 +112,18 @@
                 </div>
             </div>
 
-            <?php if ( $division['debate_url'] ) { ?>
              <ul class="debate-speech__meta debate-speech__links">
+             <?php if ( $division['debate_url'] ) { ?>
                   <li class="link-to-speech">
                       <a class="link debate-speech__meta__link" href="<?= $division['debate_url'] ?>">Show full debate</a>
                   </li>
-            </ul>
             <?php } ?>
+            <?php if (isset($member) && isset($mp_vote)) { ?>
+                <li>
+                    <a class="internal-link debate-speech__meta__link" href="<?= $member->url() ?>/votes"><?= $member->full_name() ?>&rsquo;s full voting record</a>
+                </li>
+            <?php } ?>
+            </ul>
 
         </div>
     </div>
