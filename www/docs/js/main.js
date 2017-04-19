@@ -191,7 +191,7 @@ $(function(){
       function(response) {
         // only try this if GA is actually loaded and they shared
         // the post.
-        if (response && window._gat && window._gat._getTracker) {
+        if (response && window.ga && window.ga.create) {
           ga('send', 'social', 'facebook', 'share', link);
         }
       }
