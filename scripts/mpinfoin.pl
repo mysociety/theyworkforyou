@@ -337,6 +337,15 @@ sub loadregmeminfo
     $personinfohash->{$id}->{"register_member_interests_date"} = $regmem->att('date');
 }
 
+sub commons_dissolved {
+    return unless mySociety::Config::get('DISSOLUTION_DATE');
+    my @houses = split /,/, mySociety::Config::get('DISSOLUTION_DATE');
+    foreach (@houses) {
+        my ($house, $date) = split /:/;
+        return $date if $house == 1;
+    }
+}
+
 # Generate rankings of number of times spoken
 sub makerankings {
     my $dbh = shift;
@@ -347,10 +356,10 @@ sub makerankings {
         #"( 10001 )");
             '(select person_id from member where house=1 AND curdate() <= left_house) order by person_id, entered_house');
     $sth->execute();
-    if ($sth->rows == 0 && mySociety::Config::get('DISSOLUTION_DATE')) {
+    if ($sth->rows == 0 && commons_dissolved()) {
         $sth = $dbh->prepare($query .
             '(select person_id from member where left_house = ?)');
-        $sth->execute(mySociety::Config::get('DISSOLUTION_DATE'));
+        $sth->execute(commons_dissolved());
         if ($sth->rows == 0) {
             print "Failed to find any MPs for rankings, change dissolution date if you are near one";
             return;
