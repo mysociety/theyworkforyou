@@ -20,7 +20,7 @@
                         <?php
                           $current_date = $division['date'];
                         } ?>
-                        <a href="/divisions/division.php?vote=<?= $division['division_id'] ?>" class="business-list__title">
+                        <a href="/divisions/<?= $division['division_id'] ?>" class="business-list__title">
                             <h3><?= $division['division_title'] ?></h3>
                             <span class="business-list__meta">Division number <?= $division['number'] ?></span>
                         </a>
