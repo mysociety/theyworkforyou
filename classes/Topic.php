@@ -36,7 +36,6 @@ class Topic {
           return;
         }
 
-        $this->raw = $data;
         $this->id = $data['id'];
         $this->title = $data['title'];
         $this->slug = $data['slug'];
@@ -47,10 +46,6 @@ class Topic {
 
     }
 
-
-    function data() {
-        return $this->raw;
-    }
 
     function title() {
         return $this->title;

@@ -30,34 +30,14 @@ $this_page = 'topic';
 if ($topic = $topics->getTopic($topicname))
 {
 
-    $data = $topic->data();
-    $topic_policies = $topic->getAllPolicies();
+    $data = array();
+    $data['topic'] = $topic;
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
-    $data['image'] = $topic->image_url();
     $DATA->set_page_metadata('topic', 'title', $topic->title());
-    $data['business'] = $topic->getFullContent();
-
-    $data['actions'] = array();
-    if ($topic->search_string()) {
-      $search = urlencode($topic->search_string());
-      $data['actions'][] = array(
-          'title' => 'Search the whole site',
-          'icon'  => 'search',
-          'href'  => 'https://www.theyworkforyou.com/search/?s=%22' . $search . '%22',
-          'description' => 'Search TheyWorkForYou to find mentions of ' . $topic->search_string() . '. You may also filter your results by time, speaker and section.'
-      );
-
-      $data['actions'][] = array(
-          'title' => 'Sign up for email alerts',
-          'icon'  => 'alert',
-          'href'  => 'https://www.theyworkforyou.com/alert/?alertsearch=%22' . $search . '%22',
-          'description' => 'We&rsquo;ll let you know every time ' . $topic->search_string() . ' are mentioned in Parliament.'
-      );
-    }
 
     // Is there a specified set of policy positions to worry about?
-    if ($topic_policies) {
+    if ($topic_policies = $topic->getAllPolicies()) {
 
         $divisions = new Divisions();
         $data['recent_divisions'] = $divisions->getRecentDivisionsForPolicies($topic_policies, 10);

@@ -1,5 +1,5 @@
-<?php if ($image) { ?>
-<div class="topic-header-wrapper" style="background-image: url(<?= $image ?>)">
+<?php if ($topic->image_url()) { ?>
+<div class="topic-header-wrapper" style="background-image: url(<?= $topic->image_url() ?>)">
 <?php } ?>
 
 <div class="topic-header">
@@ -7,15 +7,15 @@
         <div class="full-page__row">
 
             <div class="topic-name">
-                <h1><?= _htmlspecialchars($title) ?></h1>
-                <p class="lead"><?= _htmlspecialchars($description) ?></p>
+                <h1><?= _htmlspecialchars($topic->title()) ?></h1>
+                <p class="lead"><?= _htmlspecialchars($topic->description()) ?></p>
             </div>
 
         </div>
     </div>
 </div>
 
-<?php if ($image) { ?>
+<?php if ($topic->image_url()) { ?>
 </div>
 <?php } ?>
 
@@ -34,25 +34,27 @@
             </div>
           <?php endif; ?>
 
+          <?php if ($topic->search_string()) { ?>
             <div class="topic-sidebar">
               <h3>
                   Get notifications about
-                  <strong><?= _htmlspecialchars($title) ?></strong>
+                  <strong><?= _htmlspecialchars($topic->title()) ?></strong>
               </h3>
-              <a href="#" class="button expand">Set up an alert</a>
+              <a href="/alert/?alertsearch=<?= _htmlspecialchars($topic->search_string()) ?>" class="button expand">Set up an alert</a>
             </div>
+          <?php } ?>
         </div>
 
         <div class="topic-content small-12 large-9 large-pull-3 columns">
 
           <?php if (isset($positions)): ?>
             <div class="topic-block policies">
-                <h2 id="yourrep">How <?= $member_name ?> voted on <?= $title ?></h2>
+                <h2 id="yourrep">How <?= $member_name ?> voted on <?= $topic->title() ?></h2>
 
               <?php if ($total_votes == 0): ?>
                 <p>
                     <a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't
-                    voted on any of the key issues on <?= _htmlspecialchars($title) ?>. You may want
+                    voted on any of the key issues on <?= _htmlspecialchars($topic->title()) ?>. You may want
                     to <a href="<?= $member_url ?>/votes">see all their votes</a>.
                 </p>
 
@@ -84,7 +86,7 @@
 
           <?php if (isset($recent_divisions)): ?>
             <div class="topic-block policies">
-                <h2>Recent votes on <?= _htmlspecialchars($title) ?></h2>
+                <h2>Recent votes on <?= _htmlspecialchars($topic->title()) ?></h2>
                 <ul class="vote-descriptions">
                   <?php foreach ($recent_divisions as $position) { ?>
                     <li id="<?= $position['division_id'] ?>">
@@ -101,9 +103,9 @@
             </div>
           <?php endif; ?>
 
-          <?php if (count($business) > 0): ?>
+          <?php if ($business = $topic->getFullContent()): ?>
             <div class="topic-block policies">
-                <h2>Parliamentary business about <?= _htmlspecialchars($title) ?></h2>
+                <h2>Parliamentary business about <?= _htmlspecialchars($topic->title()) ?></h2>
                 <ul class="business-list">
                   <?php foreach ($business as $item): ?>
                     <li>
