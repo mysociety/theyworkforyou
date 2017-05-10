@@ -2,6 +2,13 @@
   form{
     border-bottom: 1px solid #e4e2dc;
     padding-bottom: 0.5em;
+    &.inline {
+      display: inline;
+      border-bottom: 0px;
+      input {
+        display: inline;
+      }
+    }
   }
   label {
     display: block;

@@ -98,7 +98,14 @@ if (!is_null($success)) {
         <h3>Related Content</h3>
         <ul>
           <?php foreach ($topic->getContent() as $content) { ?>
-          <li><a href="<?= $content['href'] ?>"><?= $content['title'] ?></a> <a class="delete" title="Remove" href="edittopic.php?action=deletecontent&id=<?= $topic->slug() ?>&content=<?= $content['id'] ?>">X</a></li>
+          <li><a href="<?= $content['href'] ?>"><?= $content['title'] ?></a>
+              <form class="inline" action="edittopic.php" method="post">
+                  <input type="hidden" name="action" value="deletecontent">
+                  <input type="hidden" name="id" value="<?= $topic->slug() ?>">
+                  <input type="hidden" name="content" value="<?= $content['id'] ?>">
+                  <input type="submit" value="Delete">
+              </form>
+          </li>
           <?php } ?>
         </ul>
 
