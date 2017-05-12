@@ -357,11 +357,12 @@ switch ($pagetype) {
         $policyOptions = array( 'summaries' => $policySummaries);
 
         // Generate voting segments
-        if ( $policy_set ) {
+        $set_descriptions = $policiesList->getSetDescriptions();
+        if ( $policy_set && array_key_exists($policy_set, $set_descriptions) ) {
           $data['key_votes_segments'] = array(
               array(
                   'key' => $policy_set,
-                  'title' => $policiesList->getSetDescriptions()[$policy_set],
+                  'title' => $set_descriptions[$policy_set],
                   'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
                       $policiesList->limitToSet($policy_set), $MEMBER, $policyOptions
                   )
@@ -373,7 +374,6 @@ switch ($pagetype) {
           $data['single_policy_page'] = true;
         } else {
             $data['single_policy_page'] = false;
-            $set_descriptions = $policiesList->getSetDescriptions();
             $data['key_votes_segments'] = array(
                 array(
                     'key'   => 'social',
