@@ -115,10 +115,10 @@ class Topic {
 
     private function _getContentIDs() {
         $q = $this->db->query(
-          "SELECT body, gid, ep.epobject_id FROM epobject ep JOIN hansard h on ep.epobject_id = h.epobject_id 
-          WHERE ep.epobject_id in (
-            SELECT epobject_id from topic_epobjects WHERE topic_key = :topic_key
-          )",
+          "SELECT body, gid, ep.epobject_id FROM epobject ep
+           JOIN hansard h on ep.epobject_id = h.epobject_id
+           JOIN topic_epobjects te on te.epobject_id = ep.epobject_id
+           WHERE topic_key = :topic_key",
             array(
                 ':topic_key' => $this->id
             )
