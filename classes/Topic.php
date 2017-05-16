@@ -51,6 +51,15 @@ class Topic {
         return $this->title;
     }
 
+    function sctitle() {
+        $title = $this->title;
+        if (strpos($title, 'The ') === 0 ) {
+            $title = lcfirst($title);
+        }
+
+        return $title;
+    }
+
     function set_title($title) {
         $this->title = $title;
     }

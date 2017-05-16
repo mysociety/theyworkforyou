@@ -38,7 +38,7 @@
             <div class="topic-sidebar">
               <h3>
                   Get notifications about
-                  <strong><?= _htmlspecialchars($topic->title()) ?></strong>
+                  <strong><?= _htmlspecialchars($topic->sctitle()) ?></strong>
               </h3>
               <a href="/alert/?alertsearch=<?= _htmlspecialchars($topic->search_string()) ?>" class="button expand">Set up an alert</a>
             </div>
@@ -49,12 +49,12 @@
 
           <?php if (isset($positions)): ?>
             <div class="topic-block policies">
-                <h2 id="yourrep">How <?= $member_name ?> voted on <?= $topic->title() ?></h2>
+                <h2 id="yourrep">How <?= $member_name ?> voted on <?= $topic->sctitle() ?></h2>
 
               <?php if ($total_votes == 0): ?>
                 <p>
                     <a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't
-                    voted on any of the key issues on <?= _htmlspecialchars($topic->title()) ?>. You may want
+                    voted on any of the key issues on <?= _htmlspecialchars($topic->sctitle()) ?>. You may want
                     to <a href="<?= $member_url ?>/votes">see all their votes</a>.
                 </p>
 
@@ -86,7 +86,7 @@
 
           <?php if (isset($recent_divisions)): ?>
             <div class="topic-block policies">
-                <h2>Recent votes on <?= _htmlspecialchars($topic->title()) ?></h2>
+                <h2>Recent votes on <?= _htmlspecialchars($topic->sctitle()) ?></h2>
                 <ul class="vote-descriptions">
                   <?php foreach ($recent_divisions as $position) { ?>
                     <li id="<?= $position['division_id'] ?>">
@@ -105,7 +105,7 @@
 
           <?php if ($business = $topic->getFullContent()): ?>
             <div class="topic-block policies">
-                <h2>Parliamentary business about <?= _htmlspecialchars($topic->title()) ?></h2>
+                <h2>Parliamentary business about <?= _htmlspecialchars($topic->sctitle()) ?></h2>
                 <ul class="business-list">
                   <?php foreach ($business as $item): ?>
                     <li>
