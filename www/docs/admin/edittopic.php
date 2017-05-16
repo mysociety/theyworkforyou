@@ -123,6 +123,7 @@ if (!is_null($success)) {
             <input type="hidden" name="action" value="addpolicysets">
             <input type="hidden" name="id" value="<?= $topic->slug() ?>">
             <select name="sets[]" multiple>
+              <option value="">None</option>
             <?php
               $policies = new \MySociety\TheyWorkForYou\Policies;
               $set_descriptions = $policies->getSetDescriptions();
@@ -140,6 +141,7 @@ if (!is_null($success)) {
             <input type="hidden" name="action" value="addpolicies">
             <input type="hidden" name="id" value="<?= $topic->slug() ?>">
             <select name="policies[]" multiple>
+              <option value="">None</option>
             <?php
               $policies = new \MySociety\TheyWorkForYou\Policies;
               $all_policies = $policies->getPolicies();
@@ -230,11 +232,19 @@ function delete_content($topic) {
 function add_policy_sets($topic) {
     $sets = get_http_var('sets');
 
+    if ($sets[0] == '' && count($sets) == 1) {
+        $sets = array();
+    }
+
     return $topic->addPolicySets($sets);
 }
 
 function add_policies($topic) {
     $policies = get_http_var('policies');
+
+    if ($sets[0] == '' && count($sets) == 1) {
+        $sets = array();
+    }
 
     return $topic->addPolicies($policies);
 }

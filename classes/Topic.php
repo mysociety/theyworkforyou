@@ -226,13 +226,16 @@ class Topic {
     function addPolicySets($sets) {
         if ($sets === '' or count($sets) == 0) {
             $q = $this->db->query(
-                "DELETE FROM topic_policiessets WHERE topic_key = :topic_key",
+                "DELETE FROM topic_policysets WHERE topic_key = :topic_key",
                 array(
                     ":topic_key" => $this->id
                 )
             );
         } else {
             foreach ($sets as $set) {
+                if ($set == '' ) {
+                    continue;
+                }
                 $q = $this->db->query(
                     "REPLACE INTO topic_policysets (policyset, topic_key) VALUES (:policyset, :topic_key)",
                     array(
@@ -273,6 +276,9 @@ class Topic {
             );
         } else {
             foreach ($policies as $policy) {
+                if ($policy == '' ) {
+                    continue;
+                }
                 $q = $this->db->query(
                     "REPLACE INTO topic_policies (policy_id, topic_key) VALUES (:policy, :topic_key)",
                     array(
