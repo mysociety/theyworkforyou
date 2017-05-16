@@ -117,8 +117,18 @@ $topic-block-margin: em-calc(34);
     @include grid-column(6);
     margin-top: 1.5%; // to match margin-left and margin-right;
 
+    @media (max-width: $medium-screen) {
+      &:nth-child(2n+1) {
+        clear: both;
+      }
+    }
+
     @media (min-width: $medium-screen) {
       @include grid-column(3);
+
+      &:nth-child(4n+1) {
+        clear: both;
+      }
     }
 
     &:last-child {
