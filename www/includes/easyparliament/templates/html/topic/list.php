@@ -3,9 +3,10 @@
 
         <h1>Topics</h1>
 
-        <p class="topic-home__intro">TheyWorkForYou brings together information from a lot of different places,
-        and can be hard to get started with or find what you're looking for. Topics
-        bring together information about a specific subject.</p>
+        <p class="topic-home__intro">
+        Need to know more about a particular area? Here's where to find debates
+       and votes on the most popular topics covered in Parliament.
+        </p>
 
         <ul class="topic-list">
           <?php foreach ($topics as $topic): ?>
