@@ -186,10 +186,10 @@
     </div>
   <?php } ?>
 
-    <div class="banner" id="ms_srv_wrapper" style="display:none">
+    <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
-                <a href="https://www.surveygizmo.com/s3/3539768/TheyWorkForYou-Survey" id="ms_srv_link" data-transaction="report" target="_blank">We're running a survey to help make this site better; to take it click here.</a>
+                <a href="https://whocanivotefor.co.uk/<?php if ($user_postcode) { echo "elections/" . _htmlentities(urlencode($user_postcode)); } ?>" target="_blank">New! See your 2017 General Election candidates <?php if ($user_postcode) { echo " in " . $user_postcode; } ?></a>
             </div>
         </div>
     </div>
