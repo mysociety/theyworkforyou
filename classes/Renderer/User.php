@@ -22,7 +22,6 @@ class User
         $this->pagedata = $DATA;
         $this->page = $this_page;
         $this->data = array();
-        $this->data['user_postcode'] = \MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode($this->user->postcode());
         $this->setupNavLinks();
         $this->addRepLinks();
     }
