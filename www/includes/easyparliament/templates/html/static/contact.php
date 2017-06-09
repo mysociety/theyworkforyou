@@ -37,6 +37,10 @@
             If you are a journalist you might find what you need <a href="https://www.mysociety.org/press/">in our press area</a>. Or you can
             get in touch with our press contact via <a href="mailto:press@mysociety.org">press@mysociety.org</a>.
             </p>
+
+            <p>
+            TheyWorkForYou is run by <a href="https://www.mysociety.org/">mySociety</a>, a UK charity.
+            </p>
         </div>
     </div>
 </div>

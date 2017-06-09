@@ -197,7 +197,7 @@
     <div class="ms-header">
         <nav class="ms-header__row">
             <div class="ms-header__logo">
-                <a href="https://www.mysociety.org">mySociety</a>
+                <a href="<?= $contact_link ?>">mySociety</a>
             </div>
         </nav>
     </div>
