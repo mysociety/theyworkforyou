@@ -391,9 +391,8 @@ html.no-boxsizing {
 
 .banner {
     text-align: center;
-    background-color: mix(#fff, $mysociety-banner-background, 8%);
+    background-color: #333;
     color: #fff;
-    border-bottom: 1px solid mix(#fff, $mysociety-banner-background, 16%);
 
     .banner__content {
         font-size: 1.2em;

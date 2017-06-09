@@ -194,14 +194,6 @@
         </div>
     </div>
 
-    <div class="ms-header">
-        <nav class="ms-header__row">
-            <div class="ms-header__logo">
-                <a href="https://www.mysociety.org">mySociety</a>
-            </div>
-        </nav>
-    </div>
-
     <header class="site-header">
         <div class="site-header__row">
 
