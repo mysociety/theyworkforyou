@@ -32,13 +32,11 @@ for ($k=1; $k<$argc; $k++) {
 		$toemail = $m[1];
 }
 
-#if (DEVSITE)
-#	$nomail = true;
+if (DEVSITE)
+  $nomail = true;
 
-if (!defined('DISSOLUTION_DATE') ) {
-    mlog('Need to set DISSOLUTION_DATE in config');
-    exit;
-}
+# Change this to the end date
+$END_DATE = '2017-05-03';
 
 if ($nomail) mlog("NOT SENDING EMAIL\n");
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
@@ -56,6 +54,7 @@ $LIVEALERTS = new ALERT;
 
 $current = array('email' => '', 'token' => '');
 $email_text = array();
+$change_text = array();
 $globalsuccess = 1;
 
 # Fetch all confirmed, non-deleted alerts
@@ -90,7 +89,7 @@ foreach ($alertdata as $alertitem) {
     if ($member->current_member_anywhere()) continue;
 
     // skip if they didn't lose their westminster seat in the most recent election
-    if ($member->left_house[1]['date'] != '2015-03-30') continue;
+    if ($member->left_house(1)['date'] != $END_DATE) continue;
 
     if ( !isset($cons[$member->constituency]) ) {
         $cons_member = new MEMBER(array('constituency' => $member->constituency, 'house' => 1));
