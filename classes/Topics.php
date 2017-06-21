@@ -67,14 +67,18 @@ class Topics {
     public function updateFrontPageTopics($topics) {
         // PDO doesn't cope with arrays so we have to do this by hand :|
         $quoted = array();
-        foreach ($topics as $topic) {
-            $quoted[] = $this->db->quote($topic);
+        if ($topics) {
+          foreach ($topics as $topic) {
+              $quoted[] = $this->db->quote($topic);
+          }
+          $topics_str = implode(',', $quoted);
+
+          $q = $this->db->query("UPDATE topics SET front_page = TRUE WHERE slug IN ($topics_str)");
+
+          $q = $this->db->query("UPDATE topics SET front_page = FALSE WHERE slug NOT IN ($topics_str)");
+        } else {
+          $q = $this->db->query("UPDATE topics SET front_page = FALSE");
         }
-        $topics_str = implode(',', $quoted);
-
-        $q = $this->db->query("UPDATE topics SET front_page = TRUE WHERE slug IN ($topics_str)");
-
-        $q = $this->db->query("UPDATE topics SET front_page = FALSE WHERE slug NOT IN ($topics_str)");
 
         return true;
     }
