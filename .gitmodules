@@ -4,3 +4,6 @@
 [submodule "foundation"]
 	path = foundation
 	url = https://github.com/zurb/foundation.git
+[submodule "php-graph-sdk"]
+	path = php-graph-sdk
+	url = https://github.com/facebook/php-graph-sdk

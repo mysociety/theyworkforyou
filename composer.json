@@ -1,8 +1,10 @@
 {
     "autoload": {
         "psr-4": {
-            "MySociety\\TheyWorkForYou\\": "classes/"
-        }
+            "MySociety\\TheyWorkForYou\\": "classes/",
+            "Facebook\\": "php-graph-sdk/src/Facebook/"
+        },
+        "files": ["php-graph-sdk/src/Facebook/polyfills.php"]
     },
     "require": {
         "php": ">=5.4",
