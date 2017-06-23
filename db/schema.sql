@@ -412,6 +412,8 @@ CREATE TABLE `users` (
   `confirmed` tinyint(1) NOT NULL default '0',
   `url` varchar(255) NOT NULL default '',
   `api_key` char(24) default NULL,
+  `facebook_id` char(24) default NULL,
+  `facebook_token` char(200) default NULL,
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `api_key` (`api_key`),
   KEY `email` (`email`)
