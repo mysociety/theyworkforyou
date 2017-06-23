@@ -60,13 +60,5 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
     $PAGE->stripe_start();
     $PAGE->page_links($data);
     $PAGE->stripe_end();
-
-} else {
-
-    $PAGE->stripe_start();
-    ?>
-    <p>This user hasn't posted any annotations.</p>
-<?php
-    $PAGE->stripe_end();
 }
 ?>

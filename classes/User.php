@@ -12,6 +12,283 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class User {
+    public function getUserDetails($user_id = False) {
+        global $THEUSER;
+
+        $user = $THEUSER;
+        if ($user_id && $user_id != $THEUSER->user_id()) {
+            $user = new \USER;
+            $valid = $user->init($user_id);
+
+            if (!$valid || !$user->confirmed || $user->deleted()) {
+                return array('error' => 'User does not exist');
+            }
+        }
+
+        $data = array();
+        $data['firstname'] = $user->firstname();
+        $data['lastname'] = $user->lastname();
+        $data['name'] = $user->firstname() . " " . $user->lastname();
+        $data['url'] = $user->url();
+        $data['email'] = $user->email();
+        $data['emailpublic'] = $user->emailpublic() == true ? "Yes" : "No";
+        $data['optin'] = $user->optin() == true ? "Yes" : "No";
+        $data['postcode']	= $user->postcode();
+        $data['website']	= $user->url();
+        $data['registrationtime']	= $user->registrationtime();
+        $data['status']= $user->status();
+        $data["deleted"] = $user->deleted();
+        $data["confirmed"] = $user->confirmed();
+        $data["status"] = $user->status();
+        $data["facebook_id"] = $user->facebook_id();
+        $data['facebook_user'] = $user->facebook_user();
+
+        $db = new \ParlDB;
+        $q = $db->query(
+            'select count(*) as c from video_timestamps where deleted=0 and user_id = :user_id',
+            array(
+                ':user_id' => $user->user_id()
+            )
+        );
+        $data['video'] = $q->field(0, 'c');
+
+        return $data;
+    }
+
+    public function getUpdateDetails($this_page, $is_facebook_user = False) {
+        $details = array();
+
+        if ($is_facebook_user) {
+            $details = $this->getUserDetails();
+            $details["password"] = '';
+            $details["emailpublic"] = false;
+        } else {
+            $details["firstname"] = trim(get_http_var("firstname"));
+            $details["lastname"] = trim(get_http_var("lastname"));
+
+            $details["password"] = trim(get_http_var("password"));
+            $details["password2"] = trim(get_http_var("password2"));
+
+            $details["emailpublic"] = get_http_var("emailpublic") == "true" ? true : false;
+            $details["email"] = trim(get_http_var("em"));
+
+            $details["url"] = trim(get_http_var("url"));
+
+            $details["optin"] = get_http_var("optin") == "true" ? true : false;
+
+            if (get_http_var("remember") != "") {
+                $remember = get_http_var("remember");
+                $details["remember"] = $remember[0] == "true" ? true : false;
+            }
+
+            if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
+                $details['url'] = 'http://' . $details['url'];
+            }
+        }
+
+        $details['mp_alert'] = get_http_var('mp_alert') == 'true' ? true : false;
+        $details["postcode"] = trim(get_http_var("postcode"));
+
+        if ($this_page == "otheruseredit") {
+            $details["user_id"] = trim(get_http_var("u"));
+            $details["status"] = trim(get_http_var("status"));
+
+            if (get_http_var("deleted") != "") {
+                $deleted = get_http_var("deleted");
+                $details["deleted"] = $deleted[0] == "true" ? true : false;
+            } else {
+                $details['deleted'] = false;
+            }
+
+            if (get_http_var("confirmed") != "") {
+                $confirmed = get_http_var("confirmed");
+                $details["confirmed"] = $confirmed[0] == "true" ? true : false;
+            } else {
+                $details['confirmed'] = false;
+            }
+        }
+
+        return $details;
+    }
+
+    public function checkUpdateDetails($details) {
+        global $THEUSER, $this_page;
+
+        // This may be a URL that will send the user back to where they were before they
+        // wanted to join.
+        $ret = get_http_var("ret");
+
+        $errors = array();
+
+        // Check each of the things the user has input.
+        // If there is a problem with any of them, set an entry in the $errors array.
+        // This will then be used to (a) indicate there were errors and (b) display
+        // error messages when we show the form again.
+
+        // facebook user's can only change their postcode so skip all this
+        if (!$details['facebook_user']) {
+            // Check first name.
+            if ($details["firstname"] == "") {
+                $errors["firstname"] = "Please enter a first name";
+            }
+
+            // They don't need a last name. In case Madonna joins.
+
+            // Check email address is valid and unique.
+            if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
+                if ($details["email"] == "") {
+                    $errors["email"] = "Please enter an email address";
+
+                } elseif (!validate_email($details["email"])) {
+                    // validate_email() is in includes/utilities.php
+                    $errors["email"] = "Please enter a valid email address";
+
+                } else {
+
+                    $USER = new \USER;
+                    $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
+
+                    if ($this_page == "useredit" &&
+                        get_http_var("u") == "" &&
+                        $THEUSER->isloggedin()) {
+                        // User is updating their own info.
+                        // Check no one else has this email.
+
+                        if ($id_of_user_with_this_addresss &&
+                            $id_of_user_with_this_addresss != $THEUSER->user_id()) {
+                            $errors["email"] = "Someone else has already joined with this email address";
+                        }
+
+                    } else {
+                        // User is joining. Check no one is already here with this email.
+                        if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
+                            $errors["email"] = "There is already a user with this email address";
+                        }
+                    }
+                }
+            }
+
+            // Check passwords.
+            if ($this_page == "userjoin") {
+
+                // Only *must* enter a password if they're joining.
+                if ($details["password"] == "") {
+                    $errors["password"] = "Please enter a password";
+
+                } elseif (strlen($details["password"]) < 6) {
+                    $errors["password"] = "Please enter at least six characters";
+                }
+
+                if ($details["password2"] == "") {
+                    $errors["password2"] = "Please enter a password again";
+                }
+
+                if ($details["password"] != "" && $details["password2"] != "" && $details["password"] != $details["password2"]) {
+                    $errors["password"] = "The passwords did not match. Please try again.";
+                }
+
+            } else {
+
+                // Update details pages.
+
+                if ($details["password"] != "" && strlen($details["password"]) < 6) {
+                    $errors["password"] = "Please enter at least six characters";
+                }
+
+                if ($details["password"] != $details["password2"]) {
+                    $errors["password"] = "The passwords did not match. Please try again.";
+                }
+            }
+        }
+
+        // Check postcode (which is not a compulsory field).
+        if ($details["postcode"] != "") {
+            if (!validate_postcode($details["postcode"])) {
+                $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
+            } else {
+                try {
+                    $mp = new \MySociety\TheyWorkForYou\Member(array(
+                        'postcode' => $details['postcode'],
+                        'house' => HOUSE_TYPE_COMMONS,
+                    ));
+                } catch (MemberException $e) {
+                    $errors["postcode"] = "Sorry, we could not find an MP for that postcode.";
+                }
+            }
+        }
+
+        // No checking of URL.
+
+
+        if ($this_page == "otheruseredit") {
+
+            // We're editing another user's info.
+
+            // Could check status here...?
+
+
+        }
+
+        // Send the array of any errors back...
+        return $errors;
+    }
+
+    public function update($details) {
+        global $THEUSER, $this_page, $PAGE;
+
+        $results = array();
+        // There were no errors when the edit user form was submitted,
+        // so make the changes in the DB.
+
+        // Who are we updating? $THEUSER or someone else?
+        if ($this_page == "otheruseredit") {
+            $who = 'the user&rsquo;s';
+            $success = $THEUSER->update_other_user ( $details );
+        } else {
+            $who = 'your';
+            $success = $THEUSER->update_self ( $details );
+        }
+
+
+        if ($success) {
+            // No errors, all updated, show results.
+
+            if ($this_page == 'otheruseredit') {
+                $this_page = "userview";
+            } else {
+                $this_page = "userviewself";
+            }
+
+            if ($details['email'] != $THEUSER->email()) {
+                $results['email_changed'] = True;
+            }
+
+
+        } else {
+            $results['errors'] = array("db" => "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks.");
+        }
+
+        return $results;
+    }
+
+    public function add($details) {
+        global $THEUSER, $PAGE, $this_page;
+
+
+        // If this goes well, the user will have their data
+        // added to the database and a confirmation email
+        // will be sent to them.
+        $success = $THEUSER->add ( $details );
+
+        $errors = array();
+
+        if (!$success) {
+            $errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:". str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks.";
+        }
+
+        return $errors;
+    }
+
     public function getRep($cons_type, $mp_house) {
         global $THEUSER;
         if ( !$THEUSER->has_postcode() ) {

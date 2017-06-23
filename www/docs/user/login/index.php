@@ -11,6 +11,9 @@
 
 include_once '../../../includes/easyparliament/init.php';
 
+# we need this for the facebook login code to work as it stores
+# some CSFR tokens in the session
+session_start();
 $this_page = "userlogin";
 
 if (get_http_var("submitted") == "true") {
@@ -117,6 +120,11 @@ function display_page( $errors=array() ) {
 <?php
 
     $PAGE->login_form($errors);
+
+
+    $login = new \MySociety\TheyWorkForYou\FacebookLogin();
+
+    echo '<a href="' . htmlspecialchars($login->getloginURL()) . '">Log in with Facebook!</a>';
 
 
     $PAGE->stripe_end(array(

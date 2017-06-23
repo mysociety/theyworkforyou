@@ -68,7 +68,7 @@ class Alert
         if ($out) {
             print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
         } else {
-            print '<p>You currently have no email alerts set up.</p>';
+            print '<p>You currently have no email alerts set up. You can create alerts <a href="/alert/">here</a>.</p>';
         }
     }
 
