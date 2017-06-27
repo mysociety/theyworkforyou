@@ -6,5 +6,6 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq -y install mysql-server >/dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -qq -y install git >/dev/null
 
 DB_NAME="theyworkforyou"
+DB_USER="$1"
 echo -n "Creating $DB_NAME database... "
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL ON $DB_NAME.* TO 'twfy'@'localhost'; FLUSH PRIVILEGES;"
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'localhost'; FLUSH PRIVILEGES;"
