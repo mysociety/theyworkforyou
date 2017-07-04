@@ -40,7 +40,7 @@ if ($topic = $topics->getTopic($topicname))
     if ($topic_policies = $topic->getAllPolicies()) {
 
         $divisions = new Divisions();
-        $data['recent_divisions'] = $divisions->getRecentDivisionsForPolicies($topic_policies, 10);
+        $data['recent_divisions'] = $divisions->getRecentDivisionsForPolicies($topic_policies, 5);
 
         include_once INCLUDESPATH . 'easyparliament/member.php';
 
