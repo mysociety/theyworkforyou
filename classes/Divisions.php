@@ -48,7 +48,7 @@ class Divisions {
       for ($n = 0; $n < $row_count; $n++) {
         $policy_maxes[$q->field($n, 'policy_id')] = $q->field( $n, 'recent' );
       }
-      $policy_maxes['latest'] = max(array_values($policy_maxes));
+      $policy_maxes['latest'] = $policy_maxes ? max(array_values($policy_maxes)) : '';
       return $policy_maxes;
     }
 
