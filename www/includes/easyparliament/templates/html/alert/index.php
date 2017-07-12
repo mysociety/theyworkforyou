@@ -387,7 +387,7 @@
                     </ul>
                   <?php } ?>
 
-              <? } else { ?>
+              <?php } else { ?>
                 <p>
                     If you <a href="/user/?pg=join">join</a> or
                     <a href="/user/login/?ret=%2Falert%2F">sign in</a>,
