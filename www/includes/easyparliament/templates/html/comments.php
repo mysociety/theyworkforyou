@@ -49,6 +49,7 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
     $subheading = 'Annotations';
 }
 
+if (isset($data['comments']) && count($data['comments']) > 0) {
 ?>
                 <a name="comments"></a>
 <?php
@@ -58,7 +59,6 @@ if ($subheading != '') {
 
 
 
-if (isset($data['comments']) && count($data['comments']) > 0) {
 
     foreach ($data['comments'] as $n => $comment) {
         $style = $n % 2 != 0 ? '1' : '2';
@@ -147,12 +147,5 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 <?php
     }
 
-} else {
-
-    ?>
-                <div class="comment">
-                    <p>No annotations</p>
-                </div>
-<?php
 }
 ?>
