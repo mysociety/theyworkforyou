@@ -122,7 +122,7 @@ class Postcode
         $areas = array();
         foreach ($r['areas'] as $row) {
             if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE')))
-                $areas[$row['type']] = utf8_decode($row['name']);
+                $areas[$row['type']] = $row['name'];
         }
 
         if (!isset($areas['WMC'])) {

@@ -141,7 +141,6 @@ $parties = array (
     'PC'    => 'Plaid Cymru',
     'Res'   => 'Respect',
     'SDLP'  => 'Social Democratic and Labour Party',
-    'SF'    => 'Sinn Fein',
     'SNP'   => 'Scottish National Party',
     'SPK'   => 'Speaker',
     'UKU'   => 'United Kingdom Unionist',

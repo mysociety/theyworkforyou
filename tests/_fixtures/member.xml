@@ -94,7 +94,7 @@
 			<field name="member_id">3</field>
 			<field name="house">3</field>
 			<field name="constituency">Test Northern Ireland Constituency</field>
-			<field name="party">SF</field>
+			<field name="party">Sinn Féin</field>
 			<field name="entered_house">2000-01-01</field>
 			<field name="left_house">9999-12-31</field>
 			<field name="entered_reason">general_election</field>
@@ -214,7 +214,7 @@
 			<field name="member_id">13</field>
 			<field name="house">1</field>
 			<field name="constituency">Test Northern Ireland Constituency</field>
-			<field name="party">SF</field>
+			<field name="party">Sinn Féin</field>
 			<field name="entered_house">2000-01-01</field>
 			<field name="left_house">9999-12-31</field>
 			<field name="entered_reason">general_election</field>
@@ -226,7 +226,7 @@
 			<field name="member_id">14</field>
 			<field name="house">1</field>
 			<field name="constituency">Test Westminster Constituency</field>
-			<field name="party">SF</field>
+			<field name="party">Sinn Féin</field>
 			<field name="entered_house">2000-01-01</field>
 			<field name="left_house">9999-12-31</field>
 			<field name="entered_reason">general_election</field>

@@ -77,7 +77,7 @@ class PeopleTest extends TWFY_Database_TestCase
             'name' => 'Miss Test Current-MLA',
             'url' => '4/miss_test_current-mla',
             'constituency' => 'Test Northern Ireland Constituency',
-            'party' => 'SF',
+            'party' => 'Sinn Féin',
             'left_reason' => 'still_in_office',
             'dept' => null,
             'pos' => null,

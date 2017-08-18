@@ -138,7 +138,7 @@ All broken
 <option>SG
 <!--
 Sinn Fein is broken
-<option value="SF,Sinn F&eacute;in">Sinn F&eacute;in
+<option value="Sinn F&eacute;in">Sinn F&eacute;in
 -->
 <option>SNP
 <option>SSCUP

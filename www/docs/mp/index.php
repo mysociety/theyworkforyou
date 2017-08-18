@@ -310,9 +310,9 @@ $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_
 $data['eu_stance'] = $MEMBER->getEUStance();
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
-$data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'SF') || $MEMBER->house(HOUSE_TYPE_LORDS) );
+$data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS) );
 # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
-$data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'SF' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
+$data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'Sinn Féin' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
 $data['has_expenses'] = $data['leave_date'] > '2004-01-01';
 
 $data['pre_2010_expenses'] = False;
@@ -1081,7 +1081,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     $MOREURL = new \URL('search');
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
-    if ($member->party() != 'SF') {
+    if ($member->party() != 'Sinn Féin') {
         if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info)) {
             $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info);
         }
@@ -1115,7 +1115,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     } elseif ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
         $after_stuff .= '<br><em>Speakers and deputy speakers cannot vote except to break a tie.</em>';
     }
-    if ($member->party() != 'SF') {
+    if ($member->party() != 'Sinn Féin') {
         $when = 'in this Parliament with this affiliation';
         # Lords have one record per affiliation until they leave (ignoring name changes, sigh)
         if ($member->house_disp == HOUSE_TYPE_LORDS) {
@@ -1153,7 +1153,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
         $out[] = $line;
     }
 
-    if ($member->party() != 'SF') {
+    if ($member->party() != 'Sinn Féin') {
         if (display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info)) {
             $line = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
             if (isset($extra_info['three_word_alliteration_content'])) {

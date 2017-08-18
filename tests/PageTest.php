@@ -39,7 +39,7 @@ class PageTest extends FetchPageTestCase
         $page = $this->fetch_page( array( 'pid' => 4, 'url' => '/mp/4/test_current-mla/test_northern_ireland_constituency' ) );
         $this->assertContains('Test Current-MLA', $page);
         $this->assertContains('<span class="constituency">Test Northern Ireland Constituency</span>', $page);
-        $this->assertContains('<span class="party SF">Sinn Fein</span>', $page);
+        $this->assertContains('<span class="party SinnFéin">Sinn Féin</span>', $page);
     }
 
     /**
