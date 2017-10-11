@@ -329,7 +329,7 @@ input.homepage-search__button {
     margin-bottom: 0.1em;
     max-width: 21em;
     font-size: 1.125em;
-    @meda (min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
         font-size: 1em;
     }
 }
