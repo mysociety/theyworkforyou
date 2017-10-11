@@ -29,7 +29,7 @@
 // @import "foundation/components/button-groups"; // *requires components/buttons
 @import "foundation/components/dropdown-buttons"; // *requires components/buttons
 // @import "foundation/components/split-buttons"; // *requires components/buttons
-// @import "foundation/components/flex-video";
+@import "foundation/components/flex-video";
 // @import "foundation/components/section";
 // @import "foundation/components/top-bar";  // *requires components/grid
 // @import "foundation/components/orbit";
@@ -174,6 +174,13 @@ form {
 .alert-box--header {
     margin-bottom: 0;
     border: none;
+}
+
+// Fix for Foundation 4, which sizes `flex-video` containers based on
+// the old-style YouTube embeds, rather than the new chromeless ones.
+.flex-video {
+    padding-top: 0;
+    padding-bottom: (9/16) * 100%;
 }
 
 @import "layout/header";
