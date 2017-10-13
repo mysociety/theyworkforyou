@@ -61,6 +61,8 @@ $em-base: 18px !default;
 
 // Various global styles
 
+$high-dpi-screen: '-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi';
+
 $body-font-family: "Source Sans Pro", "Helvetica Neue", Arial, "Helvetica", Helvetica, sans-serif;
 $header-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 

@@ -691,8 +691,7 @@ class PAGE {
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
         ?>
-                <form method="post" action="<?php $URL = new URL('userlogin'); $URL->reset(); echo $URL->generate(); ?>">
-
+        <form method="post" action="<?php $URL = new URL('userlogin'); $URL->reset(); echo $URL->generate(); ?>" class="login-form">
 
 <?php
         if (isset($errors["email"])) {
@@ -702,10 +701,10 @@ class PAGE {
             $this->error_message($errors['invalidemail']);
         }
 ?>
-                <div class="row">
-                <span class="label"><label for="email">Email address:</label></span>
-                <span class="formw"><input type="text" name="email" id="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></span>
-                </div>
+            <p>
+                <label for="email">Email address:</label></span>
+                <input type="text" name="email" id="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" class="form-control"></span>
+            </p>
 
 <?php
         if (isset($errors["password"])) {
@@ -715,35 +714,26 @@ class PAGE {
             $this->error_message($errors['invalidpassword']);
         }
 ?>
-                <div class="row">
-                <span class="label"><label for="password">Password:</label></span>
-                <span class="formw"><input type="password" name="password" id="password" maxlength="30" size="20" class="form"></span>
-                </div>
+            <p>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" maxlength="30" class="form-control">
+            </p>
 
-                <div class="row">
-                <span class="label">&nbsp;</span>
-                <span class="formw"><input type="checkbox" name="remember" id="remember" value="true"<?php
+            <p>
+                <input type="checkbox" name="remember" id="remember" value="true"<?php
         $remember = get_http_var("remember");
         if (get_http_var("submitted") != "true" || $remember == "true") {
             print " checked";
         }
-        ?>> <label for="remember">Remember login details.*</label></span>
-                </div>
+        ?>>
+                <label for="remember">Keep me signed in on this device</label>
+            </p>
 
-                <div class="row">
-                <span class="label">&nbsp;</span>
-                <span class="formw"><input type="submit" value="Login" class="submit"> <small><a href="<?php
-        $URL = new URL("userpassword");
-        $URL->insert(array("email"=>get_http_var("email")));
-        echo $URL->generate();
-?>">Forgotten your password?</a></small></span>
-                </div>
+            <p>
+                <input type="submit" value="Sign in" class="button">
+            </p>
 
-                <div class="row">
-                <small></small>
-                </div>
-
-                <input type="hidden" name="submitted" value="true">
+            <input type="hidden" name="submitted" value="true">
 <?php
         // I had to havk about with this a bit to cover glossary login.
         // Glossary returl can't be properly formatted until the "add" form
@@ -758,11 +748,26 @@ class PAGE {
                 $returl = $glossary_returl;
             }
             ?>
-                <input type="hidden" name="ret" value="<?php echo _htmlentities($returl); ?>">
+            <input type="hidden" name="ret" value="<?php echo _htmlentities($returl); ?>">
 <?php
         }
         ?>
-                </form>
+
+            <p>
+                Forgotten your password?
+                <a href="<?php
+                    $URL = new URL("userpassword");
+                    $URL->insert(array("email"=>get_http_var("email")));
+                    echo $URL->generate();
+                ?>">Set a new one!</a>
+            </p>
+
+            <p>
+                Not yet a member?
+                <a href="<?php $URL = new URL("userjoin"); echo $URL->generate(); ?>">Join now!</a>
+            </p>
+
+        </form>
 <?php
     }
 

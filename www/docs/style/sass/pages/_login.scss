@@ -1,0 +1,17 @@
+.login-form {
+    .form-control {
+        display: block;
+        margin-top: 0.2em;
+        width: 100%;
+        max-width: 30em;
+    }
+
+    input[type="checkbox"] + label {
+        margin-left: 0.5em;
+        vertical-align: middle;
+    }
+
+    label {
+        font-size: 1em;
+    }
+}

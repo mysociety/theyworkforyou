@@ -107,34 +107,33 @@ function display_page( $errors=array() ) {
         // Shouldn't really get here, but you never know.
         $URL = new URL('userlogout');
         ?>
-    <p><strong>You are already logged in. <a href="<?php echo $URL->generate(); ?>">Log out?</a></strong></p>
-<?php
+    <p><strong>You are already signed in. <a href="<?php echo $URL->generate(); ?>">Sign out?</a></strong></p>
+    <?php
         $PAGE->stripe_end();
         $PAGE->page_end();
         return;
     }
-    ?>
-
-                <p>Not yet a member? <a href="<?php $URL = new URL("userjoin"); echo $URL->generate(); ?>">Join now</a>!</p>
-
-<?php
-
-    $PAGE->login_form($errors);
-
 
     $login = new \MySociety\TheyWorkForYou\FacebookLogin();
 
-    echo '<a href="' . htmlspecialchars($login->getloginURL()) . '">Log in with Facebook!</a>';
+    ?>
 
+    <p><a href="<?php echo htmlspecialchars($login->getloginURL()); ?>" class="button button--facebook">Sign in with Facebook</a></p>
 
-    $PAGE->stripe_end(array(
-        array (
-            'type' => 'include',
-            'content' => 'userlogin'
-        )
-    ));
+    <p>Or sign in by email:</p>
 
-    $PAGE->page_end();
+    <?php $PAGE->login_form($errors); ?>
+
+    <?php
+
+        $PAGE->stripe_end(array(
+            array (
+                'type' => 'include',
+                'content' => 'userlogin'
+            )
+        ));
+
+        $PAGE->page_end();
 
 } // End display_page()
 
