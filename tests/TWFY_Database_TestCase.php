@@ -23,4 +23,10 @@ abstract class TWFY_Database_TestCase extends PHPUnit_Extensions_Database_TestCa
         return $this->createDefaultDBConnection($pdo, OPTION_TWFY_DB_NAME);
     }
 
+    public function tearDown()
+    {
+        $this->db = NULL;
+
+        parent::tearDown();
+    }
 }
