@@ -26,7 +26,7 @@ class FacebookLogin {
     public function getLoginURL() {
         $helper = $this->getFacebookObject()->getRedirectLoginHelper();
         $permissions = ['email'];
-        return $helper->getLoginUrl('http://' . DOMAIN . '/user/login/fb.php', $permissions);
+        return $helper->getLoginUrl('https://' . DOMAIN . '/user/login/fb.php', $permissions);
     }
 
     public function handleFacebookRedirect() {
