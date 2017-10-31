@@ -109,7 +109,7 @@ class Policies {
         6764 => 'a <b>right to remain for EU nationals</b> already in living in the UK',
         6761 => '<b>UK membership of the EU</b>',
         6758 => '<b>merging police and fire services</b> under Police and Crime Commissioners',
-        6756 => 'reducing <b>capital gains tax</b>',
+        6754 => 'reducing <b>capital gains tax</b>',
         6747 => 'greater public control of <b>bus services</b>',
         6746 => 'a <b>publicly owned railway system</b>',
         6744 => 'phasing out <b>secure tenancies for life</b>',
@@ -188,7 +188,7 @@ class Policies {
             6711,
             6716,
             6731,
-            6756,
+            6754,
         ),
         'business' => array(
             6679,
