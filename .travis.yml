@@ -12,10 +12,11 @@ php:
   - "5.5"
   - "5.6"
   - "7.0"
+  - "7.1"
 
 matrix:
   allow_failures:
-    - php: "7.0"
+    - php: "7.1"
 
 services:
   - memcached
@@ -32,7 +33,7 @@ before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
  - mysql -u root twfy_test < db/schema.sql
  - php composer.phar install --no-interaction --prefer-source
- - echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+ - bash -c 'if [ $(echo "$TRAVIS_PHP_VERSION>=7.0" | bc -l) == 1 ]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; else echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
 
 script:
  - mkdir -p build/logs
