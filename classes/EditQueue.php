@@ -1,4 +1,15 @@
 <?php
+/**
+ * EditQueue Class
+ *
+ * @package TheyWorkForYou
+ */
+
+namespace MySociety\TheyWorkForYou;
+
+/**
+ * Edit Queue
+ */
 
 /*
 
@@ -32,17 +43,17 @@ Specifying which of the above is happening is down to the edit_type field.
 
     Functions:
 
-    add()			- pop one on the queue (should then alert moderators somehow)
-    approve()		- say "yes!" and forward onwards
-    decline()		- an outright "no!", in the bin you go
-    refer()			- pass back to the user with suggested alterations
-    get_pending()	- fetch a list of all TODOs
+    add()           - pop one on the queue (should then alert moderators somehow)
+    approve()       - say "yes!" and forward onwards
+    decline()       - an outright "no!", in the bin you go
+    refer()         - pass back to the user with suggested alterations
+    get_pending()   - fetch a list of all TODOs
     etc...
 */
 
 // [TODO] what happens when two things with the same name are in the editqueue?
 
-class EDITQUEUE {
+class EditQueue {
 
     public $pending_count = '';
 
@@ -62,12 +73,12 @@ class EDITQUEUE {
         */
 
         // For editqueue in this instance we need:
-        //		user_id INTEGER,
-        //		edit_type INTEGER,
-        //		(epobject_id_l),
-        //		title VARCHAR(255),
-        //		body TEXT,
-        //		submitted DATETIME,
+        //      user_id INTEGER,
+        //      edit_type INTEGER,
+        //      (epobject_id_l),
+        //      title VARCHAR(255),
+        //      body TEXT,
+        //      submitted DATETIME,
 
         global $THEUSER;
 
@@ -84,10 +95,10 @@ class EDITQUEUE {
 
         if ($q->success()) {
             // Set the object variables up.
-            $this->editqueue_id 	= $q->insert_id();
-            $this->title			= $data['title'];
-            $this->body				= $data['body'];
-            $this->posted			= $data['posted'];
+            $this->editqueue_id     = $q->insert_id();
+            $this->title            = $data['title'];
+            $this->body             = $data['body'];
+            $this->posted           = $data['posted'];
 
             return $this->editqueue_id;
 
@@ -111,11 +122,11 @@ class EDITQUEUE {
 
         foreach ($data['approvals'] as $approval_id) {
             // create a new epobject
-            // 		title VARCHAR(255),
-            // 		body TEXT,
-            // 		type INTEGER,
-            // 		created DATETIME,
-            // 		modified DATETIME,
+            //      title VARCHAR(255),
+            //      body TEXT,
+            //      type INTEGER,
+            //      created DATETIME,
+            //      modified DATETIME,
             /*print "<pre>";
             print_r($data);
             print "</pre>";*/
@@ -249,7 +260,7 @@ class EDITQUEUE {
         $q = $this->db->query("SELECT eq.edit_id, eq.user_id, u.firstname, u.lastname, eq.glossary_id, eq.title, eq.body, eq.submitted FROM editqueue AS eq, users AS u WHERE eq.user_id = u.user_id AND eq.approved IS NULL ORDER BY eq.submitted DESC;");
         if ($q->success() && $q->rows()) {
             for ($i = 0; $i < ($q->rows()); $i++) {
-                $this->pending[	$q->field($i,"edit_id") ] = $q->row($i);
+                $this->pending[ $q->field($i,"edit_id") ] = $q->row($i);
             }
 
             $this->update_pending_count();
@@ -266,22 +277,22 @@ class EDITQUEUE {
     // Add links later for "approve, decline, refer"
     // Just get the fucker working for now
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->reset();
             $form_link = $URL->generate('url');
 
         ?><form action="<?php echo $form_link ?>" method="post"><?php
         foreach ($this->pending as $editqueue_id => $pender) {
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('approve' => $editqueue_id));
             $approve_link = $URL->generate('url');
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('modify' => $editqueue_id));
             $modify_link = $URL->generate('url');
 
-            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
+            $URL = new Url('admin_glossary_pending');
             $URL->insert(array('decline' => $editqueue_id));
             $decline_link = $URL->generate('url');
 
@@ -301,85 +312,9 @@ class EDITQUEUE {
         </form><?php
     }
 
-///////////////////
-// PRIVATE FUNCTIONS
-
-    public function update_pending_count() {
-    // Just makes sure we're showing the right number of pending items
+    protected function update_pending_count() {
+        // Just makes sure we're showing the right number of pending items
         $this->pending_count = count($this->pending);
     }
 
 }
-
-// Glossary overrides
-class GLOSSEDITQUEUE extends EDITQUEUE {
-
-    public function approve($data) {
-    // Approve items for inclusion
-    // Create new epobject and update the editqueue
-
-        global $THEUSER;
-
-        // We need a list of editqueue items to play with
-        $this->get_pending();
-        if (!isset($this->pending)) {
-            return false;
-        }
-        $timestamp = date('Y-m-d H:i:s', time());
-
-        foreach ($data['approvals'] as $approval_id) {
-            // create a new epobject
-            // 		title VARCHAR(255),
-            // 		body TEXT,
-            // 		type INTEGER,
-            // 		created DATETIME,
-            // 		modified DATETIME,
-            /*print "<pre>";
-            print_r($data);
-            print "</pre>";*/
-            // Check to see that we actually have something to approve
-            if (!isset($this->pending[$approval_id])) {
-                break;
-            }
-            $q = $this->db->query("INSERT INTO glossary
-                            (title, body, type, created, visible)
-                            VALUES
-                            ('" . addslashes($this->pending[$approval_id]['title']) . "',
-                            '" . addslashes($this->pending[$approval_id]['body']) . "',
-                            '" . $data['epobject_type'] . "',
-                            '" . $timestamp . "',
-                            1);");
-
-            // If that didn't work we can't go any further...
-            if (!$q->success()) {
-                print "glossary trouble";
-                return false;
-            }
-            $this->current_epobject_id = $q->insert_id();
-
-            // Then finally update the editqueue with
-            // the new epobject id and approval details.
-            $q = $this->db->query("UPDATE editqueue
-                            SET
-                            glossary_id='" .  $this->current_epobject_id. "',
-                            editor_id='" . addslashes($THEUSER->user_id()) . "',
-                            approved='1',
-                            decided='" . $timestamp . "'
-                            WHERE edit_id=" . $approval_id . ";");
-            if (!$q->success()) {
-                break;
-            }
-            else {
-                // Scrub that one from the list of pending items
-                unset ($this->pending[$approval_id]);
-            }
-        }
-
-        $this->update_pending_count();
-
-        return true;
-    }
-
-}
-
-?>

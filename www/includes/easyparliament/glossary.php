@@ -21,7 +21,6 @@ As they are being approved/declined they can be modified (spelling etc...).
 */
 
 // This handles basic insertion and approval functions for all epobjects
-include_once INCLUDESPATH."easyparliament/editqueue.php";
 include_once INCLUDESPATH."easyparliament/searchengine.php";
 
 class GLOSSARY {
@@ -167,7 +166,7 @@ class GLOSSARY {
         // For this we need to start up an epobject of type 2 and then an editqueue item
         // where editqueue.epobject_id_l = epobject.epobject_id
 
-        $EDITQUEUE = new GLOSSEDITQUEUE();
+        $EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue;
 
         // Assuming that everything is ok, we will need:
         // For epobject:
