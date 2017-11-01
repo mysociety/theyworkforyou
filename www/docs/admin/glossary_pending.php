@@ -2,12 +2,11 @@
 // Some sketchy crap for displaying pending glossary additions
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/editqueue.php");
 include_once (INCLUDESPATH."easyparliament/glossary.php");
 
 $this_page = "admin_glossary_pending";
 
-$EDITQUEUE = new GLOSSEDITQUEUE();
+$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue;
 
 $args = array (
     'sort' => "regexp_replace"
