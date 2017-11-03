@@ -11,7 +11,7 @@
         <p>Joining TheyWorkForYou makes it easier to manage your email alerts.</p>
         <p>Already joined? <a href="/user/login/">Then sign in!</a></p>
 
-                <form method="post" action="/user/new_index.php">
+                <form method="post" action="/user/index.php">
                 <div class="row">
                 <span class="label">Status:</span>
                 <span class="formw"></span>
