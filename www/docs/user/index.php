@@ -112,7 +112,7 @@ if (
     // Put all the user-submitted data in an array.
     $data = $user->getUpdateDetails($this_page, $THEUSER->facebook_user);
 
-    if ($this_page = 'useredit') {
+    if ($this_page == 'useredit') {
         $data['facebook_user'] = $THEUSER->facebook_user();
     }
 
