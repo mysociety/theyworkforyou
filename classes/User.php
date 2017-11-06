@@ -126,7 +126,7 @@ class User {
         // error messages when we show the form again.
 
         // facebook user's can only change their postcode so skip all this
-        if (!isset($data['facebook_user'])) {
+        if (!isset($details['facebook_user'])) {
             // Check first name.
             if ($details["firstname"] == "") {
                 $errors["firstname"] = "Please enter a first name";
