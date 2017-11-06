@@ -686,6 +686,7 @@ class USER {
     public function lastvisit() { return $this->lastvisit; }
     public function facebook_id() { return $this->facebook_id; }
     public function facebook_token() { return $this->facebook_token; }
+    public function facebook_user() { return $this->facebook_user; }
 
     public function registrationtime() { return $this->registrationtime; }
     public function registrationip() { return $this->registrationip; }
@@ -975,7 +976,6 @@ class THEUSER extends USER {
     // if you want to check the log in status.
     public function loggedin() { return $this->loggedin; }
 
-    public function facebook_user() { return $this->facebook_user; }
 
 
     public function isloggedin() {

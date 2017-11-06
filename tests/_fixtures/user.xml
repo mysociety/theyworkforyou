@@ -87,7 +87,7 @@
         <field name="firstname">Test</field>
         <field name="lastname">User</field>
         <field name="email">user@example.org</field>
-        <field name="password">$6$r2zIBaKj$fMxUwrKbPl1NajTwTy3zCDOlqWmxSxfyMENtnLGIgagJcHPHmkdL8NWK3bUyF.UbW2UBDee9S3xEj5anQKehR</field>
+        <field name="password">$2y$10$UNelQZqpPpO1jT.f7DLgeOdp.WBT81c5ECvOeTMFeQTBTyq3aCh8q</field>
         <field name="confirmed">1</field>
       </row>
 	</table_data>

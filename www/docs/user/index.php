@@ -70,6 +70,7 @@ switch (get_http_var("pg")) {
                 $template = 'user/index';
                 $this_page = 'userviewself';
             }
+            $data['pg'] = 'edit';
         } else {
             // Unlikely to get to this page without being logged in,
             // but just in case, show them the blank form.
@@ -110,7 +111,7 @@ if (
       )
    ) {
     // Put all the user-submitted data in an array.
-    $data = $user->getUpdateDetails($this_page, $THEUSER->facebook_user);
+     $data = $user->getUpdateDetails($this_page, $THEUSER);
 
     if ($this_page == 'useredit') {
         $data['facebook_user'] = $THEUSER->facebook_user();

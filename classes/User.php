@@ -55,10 +55,10 @@ class User {
         return $data;
     }
 
-    public function getUpdateDetails($this_page, $is_facebook_user = False) {
+    public function getUpdateDetails($this_page, $user) {
         $details = array();
 
-        if ($is_facebook_user) {
+        if ($user->facebook_user) {
             $details = $this->getUserDetails();
             $details["password"] = '';
             $details["emailpublic"] = false;
@@ -84,6 +84,12 @@ class User {
             if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
                 $details['url'] = 'http://' . $details['url'];
             }
+
+            # these are used when displaying user details
+            $details['name'] = $details["firstname"] . " " . $details["lastname"];
+            $details["website"] = $details["url"];
+            $details['registrationtime'] = $user->registrationtime();
+            $details['status'] = $user->status();
         }
 
         $details['mp_alert'] = get_http_var('mp_alert') == 'true' ? true : false;
