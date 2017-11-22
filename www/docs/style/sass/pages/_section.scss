@@ -274,8 +274,13 @@ span.hi {
   color: #9d9195;
   line-height: 18px;
   font-size: 14px;
+
   @media (min-width: $medium-screen) {
     font-size: 16px;
+  }
+
+  & + & {
+    margin-left: 0.5em;
   }
 
   &:before {
@@ -285,29 +290,79 @@ span.hi {
     height: 11px;
     background: transparent url(/images/icons/debate-meta-icons.png) 0 0 no-repeat;
     margin-right: 5px;
+
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-size: 69px 17px;
+    }
   }
 
   &.time {
     margin-bottom: 0.5em;
     margin-top: 0.25em;
     font-weight: normal;
+
     @media (min-width: $medium-screen) {
       margin-left: 0.5em;
     }
+
     &:before {
-      background-position: -1px -1px;
+      background-position: 0 0;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-position: 0 -6px;
+      }
     }
   }
 
   &.link {
     &:before {
-      background-position: -13px -1px;
+      background-position: -11px 0;
       width: 14px;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-position: -11px -6px;
+      }
     }
   }
 
-  &.link {
-    margin-left: 0.5em;
+  &.watch {
+    &:before {
+      background-position: -36px 0;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-position: -36px -6px;
+      }
+    }
+  }
+
+  &.twitter {
+    &:before {
+      background-position: -47px 0;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-position: -47px -6px;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      color: #1da1f2;
+    }
+  }
+
+  &.facebook {
+    &:before {
+      background-position: -58px 0;
+
+      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+        background-position: -58px -6px;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      color: #3b5998;
+    }
   }
 
   &.internal-link {
@@ -315,51 +370,14 @@ span.hi {
       display: none;
     }
   }
-
-  &.watch {
-    &:before {
-      background-position: -40px -1px;
-    }
-  }
-
-  @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-
-    &:before {
-      background-size: 49px; // 49px width, auto height
-      width: 12px;
-      height: 12px;
-    }
-
-    &.time {
-      &:before {
-        background-position: -0.5px -6px;
-      }
-    }
-
-    &.link {
-      &:before {
-        background-position: -12px -6px;
-      }
-    }
-
-    &.watch {
-      &:before {
-        background-position: -38px -6px;
-      }
-    }
-  }
 }
 
 .link-to-hansard {
   a:before {
-    background-position: -28px -1px;
-  }
-}
+    background-position: -25px 0;
 
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  .link-to-hansard {
-    a:before {
-      background-position: -26px -5px;
+    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+      background-position: -25px -6px;
     }
   }
 }
@@ -398,20 +416,9 @@ span.hi {
 
   @media (min-width: $medium-screen) {
     float: right;
-    width: 35%;
+    width: 30%;
     text-align: right;
     margin-top: 0;
-  }
-
-  @media (min-width: $medium-screen) {
-    width: 30%;
-  }
-}
-
-.speech-link-in-context {
-  /* Only appears on individual speech pages */
-  @media (min-width: $medium-screen) {
-    padding-left: 70px;
   }
 }
 

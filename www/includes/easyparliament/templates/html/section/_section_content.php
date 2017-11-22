@@ -211,20 +211,6 @@
                     <?php
                 }
 
-                # XXX
-                if ($hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) {
-                    if ($speech['htype'] == '12') {
-                        $thing = 'speech';
-                    } elseif ($speech['htype'] == '13') {
-                        $thing = 'item';
-                    } else {
-                        $thing = 'item';
-                    }
-                ?>
-                <p class="speech-link-in-context"><a href="<?= $speech['listurl'] ?>" class="permalink link debate-speech__meta__link">See this <?= $thing ?> in context</a></p>
-                <?php
-                } # End in context link
-
                 if (isset($speech['commentteaser'])) { ?>
                 <div class="comment-teaser">
                     <div class="comment-teaser__avatar">
@@ -242,26 +228,43 @@
             </div>
 
             <ul class="debate-speech__meta debate-speech__links">
-                <?php if (!$section || !$individual_item) { # XXX ?>
+                <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) {
+                    if ($speech['htype'] == '12') {
+                        $thing = 'speech';
+                    } elseif ($speech['htype'] == '13') {
+                        $thing = 'item';
+                    } else {
+                        $thing = 'item';
+                    }
+                ?>
+                <li class="link-to-speech">
+                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">See this <?= $thing ?> in context</a>
+                </li>
+                <?php
+                }
+                if (!$section || !$individual_item) { # XXX ?>
                 <li class="link-to-speech">
                     <span class="link-to-speech__label">Link to this speech</span>
-
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">In context</a>
-
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link">Individually</a>
                 </li>
-                <?php } ?>
-<?php
-                if ($source != null) {
-?>
-                <li class="link-to-hansard "><a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
-                <?php if ($source['title']) { ?><span> (<?=$source['title'] ?>)</span><?php } ?></li>
-<?php
+                <?php
+                } ?>
+                <li class="link-to-speech">
+                    <a href="#" class="twitter debate-speech__meta__link">Tweet</a>
+                    <a href="#" class="facebook debate-speech__meta__link">Share</a>
+                </li>
+                <?php
+                if ($source != null) { ?>
+                <li class="link-to-hansard ">
+                    <a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
+                    <?php if ($source['title']) { ?><span> (<?=$source['title'] ?>)</span><?php } ?>
+                </li>
+                <?php
                 }
                 if (isset($speech['mentions'])) {
                     echo $speech['mentions'];
-                }
-?>
+                } ?>
             </ul>
 
         </div>
