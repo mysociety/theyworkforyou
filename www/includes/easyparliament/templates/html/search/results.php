@@ -8,6 +8,12 @@
       <?php if ( $searchstring && !isset($warnings) ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
+              <?php
+              # XXX Hack
+              if (preg_match('#budget#', $searchstring)) { ?>
+                <h3 class="search-result__title"><a href="https://www.theyworkforyou.com/debates/?id=2017-11-22a.1045.3">Read the Budget speech and debate</a></h3>
+              <?php } ?>
+
               <?php if ( $cons ) { ?>
                 <?php if ( count($cons) > 1 ) {
                     $types = array();
