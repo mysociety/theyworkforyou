@@ -722,9 +722,9 @@
     }
 }
 
-// style for our custom FB share button that uses FB.ui
-// so we can track shares
-.fb-share-button-tracked {
+// A button styled to match the (iframed) button that the Twitter JavaScript
+// API creates out of elements with a `.twitter-share-button` class.
+.facebook-share-button {
     display: inline-block;
     position: relative;
     height: 20px;
