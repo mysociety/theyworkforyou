@@ -8,6 +8,12 @@
       <?php if ( $searchstring && !isset($warnings) ) { ?>
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
+              <?php
+              # XXX Hack
+              if (preg_match('#winter\s+f[eu]el#i', $searchstring)) { ?>
+                <h3 style="margin-bottom: 1em;" class="search-result__title"><a href="https://www.theyworkforyou.com/debates/?id=2024-09-10a.712.0">⭐️ Read the debate on the winter fuel regulations</a></h3>
+              <?php } ?>
+
               <?php if ( $cons ) { ?>
                 <?php if ( count($cons) > 1 ) {
                     if ( $mp_types['mp'] > 0 && $mp_types['former'] > 0 ) {
