@@ -390,6 +390,24 @@ class SectionView {
                 if ($this->major == 1) {
                     $data['rows'][$i]['video'] = $this->get_video_html($row, $heading_hpos, $speeches);
                 }
+
+                if (array_key_exists('name', $data['rows'][$i]['speaker'])) {
+                    $data['rows'][$i]['socialteaser'] = sprintf(
+                        '%s on %s, at TheyWorkForYou',
+                        ucfirst($data['rows'][$i]['speaker']['name']),
+                        $data['section_title']
+                    );
+                } else {
+                    $data['rows'][$i]['socialteaser'] = sprintf(
+                        '%s on TheyWorkForYou',
+                        $data['section_title']
+                    );
+                }
+
+                $data['rows'][$i]['socialurl'] = sprintf(
+                    'https://www.theyworkforyou.com%s',
+                    $row['commentsurl']
+                );
             }
         }
 

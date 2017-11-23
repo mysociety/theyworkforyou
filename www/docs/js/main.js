@@ -171,6 +171,42 @@ $(function(){
       function() { $(this).children('.moreinfo-text').hide(); }
   );
 
+  $('.js-facebook-share').on('click', function(e){
+    e.preventDefault();
+    FB.ui({
+      method: 'share',
+      href: $(this).attr('data-url'),
+      quote: $(this).attr('data-text')
+    }, function(response){
+        if (response && window.ga && window.ga.create) {
+            window.ga('send', 'social', 'facebook', 'share', window.location.href);
+        }
+    });
+  });
+
+  // https://dev.twitter.com/web/intents#tweet-intent
+  $('.js-twitter-share').on('click', function(e){
+    e.preventDefault();
+    var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes';
+    var width = 550;
+    var height = 420;
+    var winHeight = screen.height;
+    var winWidth = screen.width;
+    var left = Math.round((winWidth / 2) - (width / 2));
+    var top = 0;
+    if (winHeight > height) {
+      top = Math.round((winHeight / 2) - (height / 2));
+    }
+    window.open(
+        $(this).attr('href'),
+        'intent',
+        windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top
+    );
+    if (window.ga && window.ga.create) {
+        window.ga('send', 'social', 'twitter', 'tweet', window.location.href);
+    }
+  });
+
   $('.fb-share-button-tracked').on('click', function(e) {
     $a = $(e.target);
     name = $a.data('title');

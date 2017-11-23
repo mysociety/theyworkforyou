@@ -249,12 +249,26 @@
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link">Individually</a>
                 </li>
                 <?php
-                } ?>
+                }
+                if ($speech['socialteaser'] && $speech['socialurl']) {
+                    $twitter_href = sprintf(
+                        'https://twitter.com/share?url=%s&text=%s&amp;related=%s',
+                        urlencode($speech['socialurl']),
+                        urlencode($speech['socialteaser']),
+                        urlencode('theyworkforyou,mysociety')
+                    );
+                    $facebook_href = sprintf(
+                        'https://www.facebook.com/dialog/share?app_id=%s&display=popup&href=%s&quote=%s',
+                        urlencode(FACEBOOK_APP_ID),
+                        urlencode($speech['socialurl']),
+                        urlencode($speech['socialteaser'])
+                    ); ?>
                 <li class="link-to-speech">
-                    <a href="#" class="twitter debate-speech__meta__link">Tweet</a>
-                    <a href="#" class="facebook debate-speech__meta__link">Share</a>
+                    <a href="<?=htmlspecialchars($twitter_href)?>" class="twitter debate-speech__meta__link js-twitter-share" target="_blank">Tweet</a>
+                    <a href="<?=htmlspecialchars($facebook_href)?>" data-url="<?=htmlspecialchars($speech['socialurl'])?>" data-text="<?=htmlspecialchars($speech['socialteaser'])?>" class="facebook debate-speech__meta__link js-facebook-share">Share</a>
                 </li>
                 <?php
+                }
                 if ($source != null) { ?>
                 <li class="link-to-hansard ">
                     <a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
@@ -265,6 +279,7 @@
                 if (isset($speech['mentions'])) {
                     echo $speech['mentions'];
                 } ?>
+
             </ul>
 
         </div>

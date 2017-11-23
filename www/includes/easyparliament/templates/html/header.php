@@ -37,7 +37,7 @@
         <meta property="og:image:height" content="200">
     <?php } ?>
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
-    <meta property="fb:app_id" content="734726803296567">
+    <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 
     <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
@@ -131,7 +131,7 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-            appId      : '734726803296567',
+            appId      : <?= json_encode(FACEBOOK_APP_ID) ?>,
             xfbml      : true
             });
 
@@ -146,7 +146,6 @@
             FB.Event.subscribe('message.send', function (targetUrl) {
                 ga('send', 'social', 'facebook', 'share', targetUrl);
             });
-
         };
 
         (function (d, s, id) {
