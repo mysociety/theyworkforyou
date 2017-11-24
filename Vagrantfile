@@ -19,9 +19,6 @@ Vagrant.configure(2) do |config|
   # network
   config.vm.network :private_network, ip: "10.11.12.13"
 
-  # Django dev server
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-
   # Give the VM a bit more power to speed things up
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048

@@ -15,5 +15,10 @@
         "phpunit/phpunit": "4.8.*",
         "phpunit/dbunit": ">=1.2",
         "phpdocumentor/phpdocumentor": "2.*"
+    },
+    "config": {
+        "platform": {
+            "php": "5.4"
+        }
     }
 }
