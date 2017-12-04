@@ -24,43 +24,43 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 
 	$args = array ( 'person_id' => $person_id );
 	$speeches = $HANSARDLIST->display('person', $args, 'none');
-		
+
 	// Some data about this person that we'll need for the feed.
 	$MEMBER = new MEMBER(array('person_id' => $person_id));
-	$MPURL = new URL('mp');
+	$MPURL = new \MySociety\TheyWorkForYou\Url('mp');
 	$MPURL->insert(array('pid'=>$person_id));
 	$mpurl = $MPURL->generate();
-		
+
 	$date = gmdate('Y-m-d');
 	$time = gmdate('H:i:s');
 	$datenow = $date . 'T' . $time . '+00:00';
-		
+
 	// Prepare the meat of the RSS file.
 	$items = '';
 	$entries = '';
 	if (isset ($speeches['rows']) && count($speeches['rows']) > 0) {
-		
+
 		foreach ($speeches['rows'] as $n => $row) {
-		
+
 			// While we're linking to individual speeches,
 			// the text is the body of the parent, ie (sub)section.
 			$title = _htmlentities(str_replace('&#8212;', '-', $row['parent']['body']));
 
 			$link = isset($row['listurl']) ? $row['listurl'] : '';
 			$link = 'https://' . DOMAIN . $link;
-				
+
 			$description = _htmlentities(trim_characters($row['body'], 0, 200));
 			$contentencoded = $row['body'];
-				
+
 			$hdate = format_date($row['hdate'], 'Y-m-d');
 			if ($row['htime'] != NULL) {
 				$htime = format_time($row['htime'], 'H:i:s');
 			} else {
 				$htime = '00:00:00';
 			}
-				
+
 			$date = $hdate . 'T' . $htime . '+00:00';
-				
+
 			$items .= '<rdf:li rdf:resource="' . $link . '" />' . "\n";
 			$entries .= "<item rdf:about=\"$link\">
 	<title>$title</title>
@@ -70,10 +70,10 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 	<dc:date>$date</dc:date>
 </item>
 ";
-		
-		}	
+
+		}
 	}
-		
+
 	// Prepare the whole text of the RSS file.
 	$rsstext = '<?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
@@ -81,7 +81,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns="http://purl.org/rss/1.0/"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
-		
+
 <channel rdf:about="https://' . DOMAIN . $mpurl . '">
 <title>' . entities_to_numbers($MEMBER->full_name()) . '\'s recent appearances (TheyWorkForYou)</title>
 <link>https://' . DOMAIN . $mpurl . '</link>
@@ -100,7 +100,7 @@ for ($personrow=0; $personrow<$q->rows(); $personrow++) {
 ' . $entries . '
 
 </rdf:RDF>';
-		
+
 	// Write the text to the file...
 	$filename = $rsspath . $person_id . '.rdf';
 	$fh = @fopen($filename, "w");

@@ -72,7 +72,7 @@ function calendar_past_date($date) {
     global $PAGE, $DATA, $this_page, $hansardmajors;
 
     $PAGE->set_hansard_headings(array('date'=>$date));
-    $URL = new URL($this_page);
+    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $nextprevdata = array();
     $db = new ParlDB;
     $q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
@@ -98,7 +98,7 @@ function calendar_past_date($date) {
         );
     }
     #	$year = substr($date, 0, 4);
-    #	$URL = new URL($hansardmajors[1]['page_year']);
+    #	$URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[1]['page_year']);
     #	$URL->insert(array('y'=>$year));
     #	$nextprevdata['up'] = array (
         #		'body'  => "All of $year",
@@ -121,7 +121,7 @@ function calendar_past_date($date) {
             'date' => $date
         );
         foreach (array_keys($hansardmajors) as $major) {
-            $URL = new URL($hansardmajors[$major]['page_all']);
+            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$major]['page_all']);
             $URL->insert(array('d'=>$date));
             $data[$major] = array('listurl'=>$URL->generate());
         }

@@ -117,7 +117,7 @@ if (get_http_var('recent')) {
         }
     }
     if ($pid) {
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->insert( array('pid'=>$pid, 'pop'=>1) );
         header('Location: ' . $URL->generate('none'));
         exit;
@@ -721,7 +721,7 @@ function person_list_page($ids) {
             'name' => ucwords(strtolower($name)) . ', ' . $constituency,
         );
     }
-    $MPSURL = new \URL('mps');
+    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     $data['all_mps_url'] = $MPSURL->generate();
     MySociety\TheyWorkForYou\Renderer::output('mp/list', $data);
 }
@@ -734,23 +734,23 @@ function person_error_page($message) {
     case 'mla':
         $rep = 'MLA';
         $SEARCHURL = '/postcode/';
-        $MPSURL = new \URL('mlas');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('mlas');
         break;
     case 'msp':
         $rep = 'MSP';
         $SEARCHURL = '/postcode/';
-        $MPSURL = new \URL('msps');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('msps');
         break;
     case 'peer':
         $rep = 'Lord';
         $SEARCHURL = '';
-        $MPSURL = new \URL('peers');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
         break;
     default:
         $rep = 'MP';
-        $SEARCHURL = new \URL('mp');
+        $SEARCHURL = new \MySociety\TheyWorkForYou\Url('mp');
         $SEARCHURL = $SEARCHURL->generate();
-        $MPSURL = new \URL('mps');
+        $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     }
 
     $data = array(
@@ -891,7 +891,7 @@ function person_recent_appearances($member) {
     $out['appearances'] = unserialize($recent);
     twfy_debug_timestamp();
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
@@ -899,7 +899,7 @@ function person_recent_appearances($member) {
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
-        $HELPURL = new \URL('help');
+        $HELPURL = new \MySociety\TheyWorkForYou\Url('help');
         $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person&rsquo;s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
 
@@ -1078,7 +1078,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     if ($entered_house > $year_ago)
         $since_text = 'since joining Parliament';
 
-    $MOREURL = new \URL('search');
+    $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'Sinn Féin') {

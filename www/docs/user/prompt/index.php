@@ -19,7 +19,7 @@ $message = "Sorry, you must be logged in to add an annotation.";
 $message2 = "You'll be able to post your annotation straight after.";
 $anchor = '#addcomment';
 
-$URL = new URL('userjoin');
+$URL = new \MySociety\TheyWorkForYou\Url('userjoin');
 $URL->insert(array('ret'=>$returl.$anchor));
 $joinurl = $URL->generate();
 

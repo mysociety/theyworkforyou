@@ -69,8 +69,8 @@ if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 &&
 
 
 
-$HANSARDURL = new URL('hansard');
-$MPURL = new URL('yourmp');
+$HANSARDURL = new \MySociety\TheyWorkForYou\Url('hansard');
+$MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
 
 $PAGE->block_start(array ('id'=>'intro', 'title'=>'Election special! Find out how they performed for YOU:'));
 ?>
@@ -85,9 +85,9 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     // already have one set in their prefs.)
 
     if ($THEUSER->isloggedin()) {
-        $CHANGEURL = new URL('useredit');
+        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
     } else {
-        $CHANGEURL = new URL('userchangepc');
+        $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
     }
     $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
     $mpname = $MEMBER->full_name();
@@ -110,7 +110,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
 
                         <li>
 <?php
-    $SEARCHURL = new URL('search');
+    $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
     ?>
                         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                         <p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
@@ -172,7 +172,7 @@ $PAGE->block_end();
 //  MOST RECENT GLOSSARY ENTRY
 
 // Temporary HTML...
-$URL = new URL('glossary');
+$URL = new \MySociety\TheyWorkForYou\Url('glossary');
 
 //$PAGE->block_start(array('title'=>'Latest glossary entry'));
 ?>

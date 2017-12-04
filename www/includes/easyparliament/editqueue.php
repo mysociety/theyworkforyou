@@ -266,22 +266,22 @@ class EDITQUEUE {
     // Add links later for "approve, decline, refer"
     // Just get the fucker working for now
 
-            $URL = new URL('admin_glossary_pending');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
             $URL->reset();
             $form_link = $URL->generate('url');
 
         ?><form action="<?php echo $form_link ?>" method="post"><?php
         foreach ($this->pending as $editqueue_id => $pender) {
 
-            $URL = new URL('admin_glossary_pending');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
             $URL->insert(array('approve' => $editqueue_id));
             $approve_link = $URL->generate('url');
 
-            $URL = new URL('admin_glossary_pending');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
             $URL->insert(array('modify' => $editqueue_id));
             $modify_link = $URL->generate('url');
 
-            $URL = new URL('admin_glossary_pending');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
             $URL->insert(array('decline' => $editqueue_id));
             $decline_link = $URL->generate('url');
 

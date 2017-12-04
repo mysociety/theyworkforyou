@@ -2,7 +2,7 @@
 // For displaying the main Hansard content listings (by date).
 
 if (isset($data['years'])) {
-    $DAYURL = new URL($data['info']['page']);
+    $DAYURL = new \MySociety\TheyWorkForYou\Url($data['info']['page']);
     $out = array('url' => $DAYURL->generate('none'), 'dates'=>array());
     foreach ($data['years'] as $year => $months) {
         foreach ($months as $month => $dates) {

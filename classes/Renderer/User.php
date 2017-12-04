@@ -32,7 +32,7 @@ class User
 
         // We may want to send the user back to this current page after they've
         // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new \URL($this->page);
+        $URL = new \MySociety\TheyWorkForYou\Url($this->page);
         $this->returl = $URL->generate('none');
 
         //user logged in
@@ -48,7 +48,7 @@ class User
         $menudata   = $this->pagedata->page_metadata('userviewself', 'menu');
         $edittext   = $menudata['text'];
         $edittitle  = $menudata['title'];
-        $EDITURL    = new \URL('userviewself');
+        $EDITURL    = new \MySociety\TheyWorkForYou\Url('userviewself');
         if ($this->page == 'userviewself' || $this->page == 'useredit' ) {
             $editclass = 'on';
         } else {
@@ -60,7 +60,7 @@ class User
         $logouttext = $menudata['text'];
         $logouttitle= $menudata['title'];
 
-        $LOGOUTURL  = new \URL('userlogout');
+        $LOGOUTURL  = new \MySociety\TheyWorkForYou\Url('userlogout');
         if ($this->page != 'userlogout') {
             $LOGOUTURL->insert(array("ret"=>$this->returl));
             $logoutclass = '';
@@ -96,7 +96,7 @@ class User
         $jointext   = $menudata['text'];
         $jointitle  = $menudata['title'];
 
-        $JOINURL    = new \URL('userjoin');
+        $JOINURL    = new \MySociety\TheyWorkForYou\Url('userjoin');
         if ($this->page != 'userjoin') {
             if ($this->page != 'userlogout' && $this->page != 'userlogin') {
                 // We don't do this on the logout page, because then the user
@@ -114,7 +114,7 @@ class User
         $logintext = $menudata['text'];
         $logintitle = $menudata['title'];
 
-        $LOGINURL = new \URL('userlogin');
+        $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
         if ($this->page != 'userlogin') {
             if ($this->page != "userlogout" &&
                 $this->page != "userpassword" &&
@@ -160,7 +160,7 @@ class User
             foreach ($items as $item) {
                 $menudata   = $this->pagedata->page_metadata($item, 'menu');
                 $logintext  = $menudata['text'];
-                $URL = new \URL($item);
+                $URL = new \MySociety\TheyWorkForYou\Url($item);
                 $this->data['user_nav_links'][] = array(
                     'href'    => $URL->generate(),
                     'title'   => '',

@@ -30,7 +30,7 @@ $q = $db->query("SELECT COUNT(*) AS deletedcount,
                 ORDER BY deletedcount DESC");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 
@@ -103,7 +103,7 @@ $q = $db->query("SELECT COUNT(*) AS rejectedcount,
                 ORDER BY rejectedcount DESC");
 
 $rows = array();
-$USERURL = new URL('userview');
+$USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 for ($row=0; $row<$q->rows(); $row++) {
 

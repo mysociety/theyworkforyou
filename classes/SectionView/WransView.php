@@ -40,10 +40,10 @@ class WransView extends SectionView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('wrans');
+        $day = new \MySociety\TheyWorkForYou\Url('wrans');
         $urls['day'] = $day;
         $urls['wransday'] = $day;
-        $day = new \URL('wms');
+        $day = new \MySociety\TheyWorkForYou\Url('wms');
         $urls['wmsday'] = $day;
         return $urls;
     }
@@ -86,9 +86,9 @@ class WransView extends SectionView {
             $yesplural = $yesvotes == 1 ? 'person thinks' : 'people think';
             $noplural = $novotes == 1 ? 'person thinks' : 'people think';
 
-            $URL = new \URL($this_page);
+            $URL = new \MySociety\TheyWorkForYou\Url($this_page);
             $returl = $URL->generate();
-            $VOTEURL = new \URL('epvote');
+            $VOTEURL = new \MySociety\TheyWorkForYou\Url('epvote');
             $VOTEURL->insert(array('v'=>'1', 'id'=>$id, 'ret'=>$returl));
             $yes_vote_url = $VOTEURL->generate();
             $VOTEURL->insert(array('v'=>'0'));

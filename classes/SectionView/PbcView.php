@@ -59,7 +59,7 @@ class PbcView extends SectionView {
             return $this->addCommonData($data);
         } elseif ($this->session && $this->bill) {
             # Illegal bill title, redirect to session page
-            $URL = new \URL('pbc_session');
+            $URL = new \MySociety\TheyWorkForYou\Url('pbc_session');
             header('Location: ' . $URL->generate() . urlencode($this->session));
             exit;
         } elseif ($this->session) {
@@ -81,7 +81,7 @@ class PbcView extends SectionView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('pbc_front');
+        $day = new \MySociety\TheyWorkForYou\Url('pbc_front');
         $urls['pbcday'] = $day;
         return $urls;
     }

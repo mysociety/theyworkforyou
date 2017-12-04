@@ -174,7 +174,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
         $items = array();
 
         if (isset($GLOSSARY->num_search_matches) && $GLOSSARY->num_search_matches >= 1) {
-            $URL = new \URL('glossary');
+            $URL = new \MySociety\TheyWorkForYou\Url('glossary');
             $URL->insert(array('gl' => ""));
             foreach ($GLOSSARY->search_matches as $glossary_id => $term) {
                 $URL->update(array("gl" => $glossary_id));

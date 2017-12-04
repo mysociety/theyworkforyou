@@ -26,9 +26,11 @@ into being more popular.
 
 class SEARCHLOG {
 
+    private $SEARCHURL;
+    private $db;
 
     public function __construct() {
-        $this->SEARCHURL = new URL('search');
+        $this->SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
 
         $this->db = new ParlDB;
     }

@@ -31,7 +31,7 @@ function gid_to_url($gid) {
 
     $q = $db->query("SELECT major FROM hansard WHERE gid = :gid", array( ':gid' => $gid ));
     $url_gid = fix_gid_from_db($gid);
-    $url = new \URL($hansardmajors[$q->field(0, 'major')]['page']);
+    $url = new \MySociety\TheyWorkForYou\Url($hansardmajors[$q->field(0, 'major')]['page']);
     $url->insert(array('id' => $url_gid));
     return $url->generate();
 }

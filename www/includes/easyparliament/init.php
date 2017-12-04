@@ -85,8 +85,6 @@ class ParlDB extends \MySociety\TheyWorkForYou\Db\Connection {
     }
 }
 
-include_once (INCLUDESPATH."url.php");
-
 $filter = new \MySociety\TheyWorkForYou\Utility\LibFilter;
 
 include_once (INCLUDESPATH."easyparliament/user.php");

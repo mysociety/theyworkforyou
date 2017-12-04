@@ -35,7 +35,7 @@ class SpwransView extends WransView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('spwrans');
+        $day = new \MySociety\TheyWorkForYou\Url('spwrans');
         $urls['day'] = $day;
         $urls['spwransday'] = $day;
         return $urls;
@@ -55,14 +55,14 @@ class SpwransView extends WransView {
         $gid = $SPWRANSLIST->get_gid_from_spid($spid);
         if ($gid) {
             if (preg_match('/uk\.org\.publicwhip\/spwa\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
-                $URL = new \URL('spwrans');
+                $URL = new \MySociety\TheyWorkForYou\Url('spwrans');
                 $URL->reset();
                 $URL->insert( array('id' => $m[1]) );
                 $fragment_identifier = '#g' . $m[2];
                 header('Location: ' . $URL->generate('none') . $fragment_identifier, true, 303);
                 exit;
             } elseif (preg_match('/uk\.org\.publicwhip\/spor\/(\d{4}-\d\d-\d\d\.(.*))/',$gid,$m)) {
-                $URL = new \URL('spdebates');
+                $URL = new \MySociety\TheyWorkForYou\Url('spdebates');
                 $URL->reset();
                 $URL->insert( array('id' => $m[1]) );
                 $fragment_identifier = '#g' . $m[2];
@@ -123,7 +123,7 @@ class SpwransView extends WransView {
                     break;
                 case 4:
                     if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['gid'],$m) ) {
-                        $URL = new \URL("spwrans");
+                        $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                         $URL->insert( array('spid' => $m[1]) );
                         $relative_url = $URL->generate("none");
                         $inner = "Given a <a class=\"debate-speech__meta__link\" href=\"$relative_url\">written answer on $date</a>";
@@ -134,7 +134,7 @@ class SpwransView extends WransView {
                     break;
                 case 6:
                     if( preg_match('/^uk.org.publicwhip\/spor\/(.*)$/',$row['mentioned_gid'],$m) ) {
-                        $URL = new \URL("spdebates");
+                        $URL = new \MySociety\TheyWorkForYou\Url("spdebates");
                         $URL->insert( array('id' => $m[1]) );
                         $relative_url = $URL->generate("none");
                         $inner = "<a href=\"$relative_url\">Asked in parliament on $date</a>";
@@ -143,7 +143,7 @@ class SpwransView extends WransView {
                 case 7:
                     if( preg_match('/^uk.org.publicwhip\/spq\/(.*)$/',$row['mentioned_gid'],$m) ) {
                         $referencing_spid = $m[1];
-                        $URL = new \URL("spwrans");
+                        $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                         $URL->insert( array('spid' => $referencing_spid) );
                         $relative_url = $URL->generate("none");
                         $inner = "Referenced in <a href=\"$relative_url\">question $referencing_spid</a>";

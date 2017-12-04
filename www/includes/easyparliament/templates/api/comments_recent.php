@@ -5,7 +5,7 @@
 */
 
 if (isset($data['comments']) && count($data['comments']) > 0) {
-    $USERURL = new URL('userview');
+    $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
     foreach ($data['comments'] as $key => $value) {
         unset($data['comments'][$key]['modflagged']);
         unset($data['comments'][$key]['visible']);

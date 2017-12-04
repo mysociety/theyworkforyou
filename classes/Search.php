@@ -127,7 +127,7 @@ class Search {
         global $this_page;
         $urls = array();
 
-        $url = new \URL($this_page);
+        $url = new Url($this_page);
         $url->insert(array('o' => 'r'));
         $urls['relevance'] = $url->generate();
         $url->insert(array('o' => 'o'));
@@ -184,7 +184,7 @@ class Search {
     protected function get_search_url($params = true) {
         global $this_page;
 
-        $url = new \URL($this_page);
+        $url = new Url($this_page);
 
         if (isset($this->searchstring)) {
             $value = $this->searchstring;

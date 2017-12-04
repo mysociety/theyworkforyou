@@ -22,7 +22,7 @@ class NiView extends SectionView {
     protected function getURLs($data) {
         $urls = array();
 
-        $day = new \URL('nidebates');
+        $day = new \MySociety\TheyWorkForYou\Url('nidebates');
         $urls['niday'] = $day;
 
         $urls['day'] = $day;
@@ -51,7 +51,7 @@ class NiView extends SectionView {
         $DEBATELIST = new \NILIST;
 
         $debates = $DEBATELIST->display('recent_debates', array('days' => 30, 'num' => 6), 'none');
-        $MOREURL = new \URL('nidebatesfront');
+        $MOREURL = new \MySociety\TheyWorkForYou\Url('nidebatesfront');
         $MOREURL->insert( array( 'more' => 1 ) );
 
         // this makes sure that we don't repeat this debate in the list below

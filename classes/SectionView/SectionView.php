@@ -88,7 +88,7 @@ class SectionView {
         $urls = array_merge($urls, $this->getViewUrls());
 
         if ( isset($data['info']['page']) ) {
-            $day = new \URL($data['info']['page']);
+            $day = new \MySociety\TheyWorkForYou\Url($data['info']['page']);
             $urls['day'] = $day;
         }
 
@@ -97,12 +97,12 @@ class SectionView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('debates');
+        $day = new \MySociety\TheyWorkForYou\Url('debates');
         $urls['debatesday'] = $day;
         $urls['day'] = $day;
-        $day = new \URL('whall');
+        $day = new \MySociety\TheyWorkForYou\Url('whall');
         $urls['whallday'] = $day;
-        $day = new \URL('lordsdebates');
+        $day = new \MySociety\TheyWorkForYou\Url('lordsdebates');
         $urls['lordsday'] = $day;
         return $urls;
     }
@@ -146,10 +146,10 @@ class SectionView {
 
         $data = array();
         $data['column'] = $column;
-        $URL = new \URL($this->list->listpage);
+        $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
         $URL->insert(array('d' => $date));
         $data['debate_day_link'] = $URL->generate();
-        $data['debate_day_human'] = format_date($date, LONGDATEFORMAT); 
+        $data['debate_day_human'] = format_date($date, LONGDATEFORMAT);
 
         $data['rows'] = $content;
         $data['info'] = array('major' => $this->major, 'date' => $date);
@@ -194,7 +194,7 @@ class SectionView {
         try {
             $data = $this->list->display('gid', $args, 'none');
         } catch (\RedirectException $e) {
-            $URL = new \URL($this->major_data['page_all']);
+            $URL = new \MySociety\TheyWorkForYou\Url($this->major_data['page_all']);
             if ($this->major == 6) {
                 # Magically (as in I can't remember quite why), pbc_clause will
                 # contain the new URL without any change...
@@ -247,7 +247,7 @@ class SectionView {
         $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
         $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
 
-        $URL = new \URL($this->list->listpage);
+        $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
         $URL->insert(array('d' => $first_speech['hdate']));
         $URL->remove(array('id'));
         $data['debate_day_link'] = $URL->generate();

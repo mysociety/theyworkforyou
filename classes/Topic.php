@@ -73,7 +73,7 @@ class Topic {
     }
 
     function url() {
-        $url = new \URL('topic');
+        $url = new Url('topic');
         return $url->generate() . $this->slug;
     }
 

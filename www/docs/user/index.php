@@ -96,7 +96,7 @@ switch (get_http_var("pg")) {
             $this_page = "userview";
         } else {
             // probably want to login
-            $URL = new URL('userlogin');
+            $URL = new \MySociety\TheyWorkForYou\Url('userlogin');
             $URL->insert(array('ret'=>'/user/'));
             $loginurl = $URL->generate();
             header("Location: $loginurl");

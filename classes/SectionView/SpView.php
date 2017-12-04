@@ -16,7 +16,7 @@ class SpView extends SectionView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('spdebates');
+        $day = new \MySociety\TheyWorkForYou\Url('spdebates');
         $urls['spdebatesday'] = $day;
         $urls['day'] = $day;
         return $urls;

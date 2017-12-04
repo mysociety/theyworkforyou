@@ -45,10 +45,10 @@ class MiniSurvey {
                     $hide_url = $MEMBER->url() . "?hide_survey=$current_question";
                 }
             } else {
-                $URL = new \URL($this_page);
+                $URL = new Url($this_page);
                 $URL->insert(array('answered_survey' => $current_question ));
                 $page_url = 'https://' . DOMAIN . $URL->generate();
-                $URL = new \URL($this_page);
+                $URL = new Url($this_page);
                 $URL->insert(array('hide_survey' => $current_question ));
                 $hide_url = $URL->generate();
             }

@@ -252,7 +252,7 @@ class COMMENTREPORT {
 
             // Notify those who need to know that there's a new report.
 
-            $URL = new URL('admin_commentreport');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
             $URL->insert(array(
                 'rid'=>$this->report_id,
                 'cid'=>$this->comment_id

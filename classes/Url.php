@@ -1,59 +1,37 @@
 <?php
+/**
+ * URL Class
+ *
+ * @package TheyWorkForYou
+ */
 
-/*
-URL class v1.3 2003-11-25
-phil@gyford.com
+namespace MySociety\TheyWorkForYou;
 
-REQUIRES:
-    data.php v1.0
-    utiltity.php v1.0
-    GLOBALS:
-        WEBPATH	/directory/
+/**
+ * URL Class
+ *
+ * The URL class is used for generating URLs and other related things.
+ * Relies on there being a get_http_var() function.
+ *
+ * This is probably how you'll use it most:
+ *
+ * ```php
+ * $URL = new \MySociety\TheyWorkForYou\Url("YOURPAGENAME");
+ * print $URL->generate();
+ * ```
+ *
+ * In the metadata you should set a session_vars variable, an array.
+ * The default page session_vars may be just array("debug").
+ * These can then be overridden on a per-page basis.
+ * Session vars are GET/POST vars that will be passed by default to that page.
+ * ie, if "foo=bar" is in the current URL and you generate a URL to a page that has "foo"
+ * as a session_var, "foo=bar" will be automatically added to the generated URL.
+ * You can modify the session vars that will be included in the URL generated using the functions below.
+ *
+ * @author Phil Gyford <phil@gyford.com>
+ */
 
-DOCUMENTATION:
-
-The URL class is used for generating URLs and other related things.
-Relies on there being a get_http_var() function.
-
-This is probably how you'll use it most:
-
-    $URL = new URL("yourpagename");
-    print $URL->generate();
-
-In the metadata you should set a session_vars variable, an array.
-The default page session_vars may be just array("debug").
-These can then be overridden on a per-page basis.
-Session vars are GET/POST vars that will be passed by default to that page.
-ie, if "foo=bar" is in the current URL and you generate a URL to a page that has "foo"
-as a session_var, "foo=bar" will be automatically added to the generated URL.
-You can modify the session vars that will be included in the URL generated using the functions below.
-
-
-PUBLICALLY ACCESSIBLE FUNCTIONS:
-
-restore() 	- Sets $URL->session_vars back to how they were when the object was instantiated.
-reset() 	- Sets $URL->session_vars to be an empty array.
-insert() 	- Add/overwrite session key and value pair(s).
-remove() 	- Remove session key/value pair(s).
-update() 	- Update the values of some/all session_vars.
-generate() 	- Generate a URL to the page specified with session vars.
-header_redirect_url()	- Generate a URL with
-hidden_form_vars() - Prints hidden form variables.
-
-
-VERSION HISTORY
-v1.0	2003-07-16
-v1.1	2003-09-10
-            Changed format for $encode in generate().
-            Insert() now overwrites existing variables, rather than maintaining them.
-v1.2	2003-10-03
-            Added support for "pg" variables in the metadata. You can create virtual
-                pages from the same physical file.
-v1.3	2003-11-25
-            Changed from PAGEURL to URL. Now use defined constants instead of globals.
-*/
-
-class URL {
+class Url {
 
     public function __construct($pagename) {
         // Initialise.
@@ -93,6 +71,13 @@ class URL {
 
     }
 
+    /**
+     * Restore Session Variables
+     *
+     * Restores the session variables to their state when the object was
+     * instantiated.
+     */
+
     public function restore() {
         // Call this to reset the session vars to how they were when
         // the object was instantiated.
@@ -100,10 +85,22 @@ class URL {
 
     }
 
+    /**
+     * Reset Session Variables
+     *
+     * Removes all session variables.
+     */
+
     public function reset() {
         // Call this to remove all the session_vars.
         $this->session_vars = array ();
     }
+
+    /**
+     * Insert Session Key/Value Pairs
+     *
+     * @param array $arr An associative array of key/value pairs
+     */
 
     public function insert($arr) {
         // $arr is an associative array of key/value pairs.
@@ -113,6 +110,12 @@ class URL {
             $this->session_vars[$key] = $val;
         }
     }
+
+    /**
+     * Remove Session Key/Value Pair
+     *
+     * @param array $arr A list array of key names to remove
+     */
 
     public function remove($arr) {
         // $arr is a list array of key names. Any key/value pairs
@@ -124,11 +127,19 @@ class URL {
         }
     }
 
+    /**
+     * Update Values
+     *
+     * Any keys in session_vars that are also in $arr
+     * will have their values overwritten by those in $arr.
+     * Other session_var key/vals are not affected.
+     *
+     * @param array $arr An associative array of key/value pairs.
+     */
+
     public function update($arr) {
-        // $arr is an associative array of key/value pairs.
-        // Any keys in session_vars that are also in $arr
-        // will have their values overwritten by those in $arr.
-        // Other session_var key/vals are not affected.
+        //
+        //
         foreach ($arr as $key => $val) {
             if (isset($this->session_vars[$key])) {
                 $this->session_vars[$key] = $arr[$key];
@@ -136,17 +147,23 @@ class URL {
         }
     }
 
+    /**
+     * Generate URL
+     *
+     * Generate a URL to the page specified with session vars.
+     *
+     * @param string encode       "html" will make the URL suitable for inclusion
+     *                            in a page directly, "none" will leave it alone,
+     *                            "url" will do exactly the same.
+     * @param array  overrideVars A key=>value mapping which allows some specific
+     *                            variable/value pairs to be overridden/inserted
+     *                            into the query. Use this when you want to keep
+     *                            the standard 'session vars' in a url, but
+     *                            override just one or two of them.
+     */
+
     public function generate($encode = "html", $overrideVars=array()) {
-        // Returns a URL with the appropriate session_vars.
-        // If $encode is "html", the URL will be suitable to be put in HTML.
-        // If $encode is "none", the URL will be as is.
-        // If $encode is "url", the URL will...
-        //
-        // $overrideVars is a key=>value mapping which allows some
-        // specific variable/value pairs to be overridden/inserted
-        // into the query. Use this when you want to keep the standard
-        // 'session vars' in a url, but override just one or two of
-        // them.
+
         global $DATA;
 
         $url_args = array ();
@@ -173,13 +190,19 @@ class URL {
         }
     }
 
-/* 	DEPRECATED. Use hidden_form_vars() in utility.php instead. */
+    /**
+     * Hidden Form Variables
+     *
+     * Use this when you have a form and want to retain some/all of the
+     * variables in the URL get string.
+     *
+     * If you have a form that changes, say, $s, then you'll need to
+     * pass "s" in in the $remove_vars array, so it isn't created as a
+     * hidden variable.
+     *
+     * @deprecated
+     */
 
-    // Use this when you have a form and want to retain some/all of the
-    // variables in the URL get string.
-    // If you have a form that changes, say, $s, then you'll need to
-    // pass "s" in in the $remove_vars array, so it isn't created as a
-    // hidden variable.
     public function hidden_form_varsOLD ($remove_vars=array(), $insert_vars=array()) {
         // This should really be tidied up lots. That $dont_keep array for a start is NASTY!
         // You can also pass in an array of variables to remove() and insert().
@@ -201,7 +224,7 @@ class URL {
         $html = "";
 
         // Put keys of any variables you never want to hang on to in here:
-        $dont_keep = array();	// VERY BAD!
+        $dont_keep = array();   // VERY BAD!
         $this->remove($dont_keep);
 
         foreach ($this->session_vars as $key => $val) {

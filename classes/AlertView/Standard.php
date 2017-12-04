@@ -99,7 +99,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['site'] = get_http_var('site');
         $this->data['message'] = '';
 
-        $ACTIONURL = new \URL($this_page);
+        $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
         $ACTIONURL->reset();
         $this->data['actionurl'] = $ACTIONURL->generate();
     }

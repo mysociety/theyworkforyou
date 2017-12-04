@@ -19,7 +19,7 @@ class SPHomepage extends Homepage {
         $item = $debatelist->display('recent_debates', array('days' => 7, 'num' => 1), 'none');
 
         $item = $item['data'][0];
-        $more_url = new \URL('spdebatesfront');
+        $more_url = new Url('spdebatesfront');
         $item['more_url'] = $more_url->generate();
         $item['desc'] = 'Scottish Parliament debate';
         $item['related'] = array();
@@ -31,7 +31,7 @@ class SPHomepage extends Homepage {
     protected function getURLs() {
         $urls = array();
 
-        $regional = new \URL('msp');
+        $regional = new Url('msp');
         $urls['regional'] = $regional->generate();
 
         return $urls;

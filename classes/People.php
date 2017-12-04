@@ -150,7 +150,7 @@ class People extends \PEOPLE {
 
         $urls = array();
 
-        $URL = new \URL($this_page);
+        $URL = new Url($this_page);
 
         $urls['plain'] = $URL->generate();
 

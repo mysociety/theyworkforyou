@@ -49,9 +49,9 @@ class PAGE {
         $parent = $DATA->page_metadata($this_page, "parent");
         if ($parent == 'admin' && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
             if (!$THEUSER->isloggedin()) {
-                $THISPAGE = new URL($this_page);
+                $THISPAGE = new \MySociety\TheyWorkForYou\Url($this_page);
 
-                $LOGINURL = new URL('userlogin');
+                $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
                 $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
 
                 $text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
@@ -358,7 +358,7 @@ class PAGE {
         $this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
         echo '<form action="/postcode/" method="get">';
         if ($THEUSER->postcode_is_set()) {
-            $FORGETURL = new URL('userchangepc');
+            $FORGETURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
             $FORGETURL->insert(array('forget'=>'t'));
             ?>
                         <p>Your current postcode: <strong><?php echo $THEUSER->postcode(); ?></strong> &nbsp; <small>(<a href="<?php echo $FORGETURL->generate(); ?>" title="The cookie storing your postcode will be erased">Forget this postcode</a>)</small></p>
@@ -555,7 +555,7 @@ class PAGE {
 
             $uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
             if (get_http_var('s')) {
-                $URL = new URL($this_page);
+                $URL = new \MySociety\TheyWorkForYou\Url($this_page);
                 $uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
             }
             $uplink .= '</span>';
@@ -593,7 +593,7 @@ class PAGE {
 
         $wtt = get_http_var('wtt');
 
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->reset(); // no need to pass any query params as a form action. They are not used.
 
         if ($value == '') {
@@ -625,7 +625,7 @@ class PAGE {
                 }
                 echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
                 echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
-                $URL = new URL('search');
+                $URL = new \MySociety\TheyWorkForYou\Url('search');
             $URL->insert(array('adv' => 1));
                 echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More&nbsp;options</a>';
                 echo '<br>';
@@ -639,7 +639,7 @@ class PAGE {
 
         if (!$wtt && ($value || $person_name)) {
             echo '<div style="margin-top: 5px">';
-            $orderUrl = new URL('search');
+            $orderUrl = new \MySociety\TheyWorkForYou\Url('search');
             $orderUrl->insert(array('s'=>$value)); # Need the parsed value
                 $ordering = get_http_var('o');
                 if ($ordering != 'r' && $ordering != 'd' && $ordering != 'p' && $ordering != 'o') {
@@ -691,7 +691,7 @@ class PAGE {
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
         ?>
-        <form method="post" action="<?php $URL = new URL('userlogin'); $URL->reset(); echo $URL->generate(); ?>" class="login-form">
+        <form method="post" action="<?php $URL = new \MySociety\TheyWorkForYou\Url('userlogin'); $URL->reset(); echo $URL->generate(); ?>" class="login-form">
 
 <?php
         if (isset($errors["email"])) {
@@ -756,7 +756,7 @@ class PAGE {
             <p>
                 Forgotten your password?
                 <a href="<?php
-                    $URL = new URL("userpassword");
+                    $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
                     $URL->insert(array("email"=>get_http_var("email")));
                     echo $URL->generate();
                 ?>">Set a new one!</a>
@@ -764,7 +764,7 @@ class PAGE {
 
             <p>
                 Not yet a member?
-                <a href="<?php $URL = new URL("userjoin"); echo $URL->generate(); ?>">Join now!</a>
+                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin"); echo $URL->generate(); ?>">Join now!</a>
             </p>
 
         </form>
@@ -774,7 +774,7 @@ class PAGE {
     public function mp_search_form($person_id) {
         // Search box on the MP page.
 
-        $URL = new URL('search');
+        $URL = new \MySociety\TheyWorkForYou\Url('search');
         $URL->remove(array('s', 'q'));
         ?>
                 <div class="mpsearchbox">
@@ -798,7 +798,7 @@ class PAGE {
             if ($letter == $GLOSSARY->current_letter) {
                 // if we're in item view - show the letter as "on" but make it a link
                 if ($GLOSSARY->current_term != '') {
-                    $URL = new URL('glossary');
+                    $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                     $URL->insert(array('az' => $letter));
                     $letter_link = $URL->generate('url');
 
@@ -810,7 +810,7 @@ class PAGE {
                 }
             }
             elseif (!empty($GLOSSARY->alphabet[$letter])) {
-                $URL = new URL('glossary');
+                $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                 $URL->insert(array('az' => $letter));
                 $letter_link = $URL->generate('url');
 
@@ -852,7 +852,7 @@ class PAGE {
         if ($this_page == "admin_glossary") {
             print "<a id=\"gl".$term['glossary_id']."\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
-            $URL = new URL('admin_glossary');
+            $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary');
             $URL->insert(array("delete_confirm" => $term['glossary_id']));
             $delete_url = $URL->generate();
             $admin_links = "<br><small><a href=\"".$delete_url."\">delete</a></small>";
@@ -862,7 +862,7 @@ class PAGE {
         }
 
         if (isset($term['user_id'])) {
-            $URL = new URL('userview');
+            $URL = new \MySociety\TheyWorkForYou\Url('userview');
             $URL->insert(array('u' => $term['user_id']));
             $user_link = $URL->generate('url');
 
@@ -876,7 +876,7 @@ class PAGE {
 
         if ($this_page == "glossary_item") {
             // Add a direct search link for current glossary item
-            $URL = new URL('search');
+            $URL = new \MySociety\TheyWorkForYou\Url('search');
             // remember to quote the term for phrase matching in search
             $URL->insert(array('s' => '"'.$term['title'].'"'));
             $search_url = $URL->generate();
@@ -897,7 +897,7 @@ class PAGE {
             <p>It seems we already have <?php echo $definition; ?> for that. Would you care to see <?php echo $plural; ?>?</p>
             <ul class="glossary"><?php
             foreach ($GLOSSARY->search_matches as $match) {
-                $URL = new URL('glossary');
+                $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                 $URL->insert(array('gl' => $match['glossary_id']));
                 $URL->remove(array('g'));
                 $term_link = $URL->generate('url');
@@ -909,7 +909,7 @@ class PAGE {
 
     public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
-        $URL = new URL('glossary');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary');
         $URL->remove(array("g"));
         $glossary_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_link . "\">Browse the glossary</a></small>";
@@ -954,7 +954,7 @@ class PAGE {
             }
 
             // Generate all the page links.
-            $URL = new URL($this_page);
+            $URL = new \MySociety\TheyWorkForYou\Url($this_page);
             $URL->insert( array('wtt' => get_http_var('wtt')) );
             if (isset($pagedata['s'])) {
                 # XXX: Should be taken out in *one* place, not here + search_form etc.
@@ -1025,7 +1025,7 @@ class PAGE {
         // Called from $COMMENT->display_report().
 
         if ($data['user_id'] > 0) {
-            $USERURL = new URL('userview');
+            $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
             $USERURL->insert(array('id'=>$data['user_id']));
             $username = '<a href="' . $USERURL->generate() . '">' . _htmlentities($data['user_name']) . '</a>';
         } else {
@@ -1074,7 +1074,7 @@ class PAGE {
 
             $tabledata['rows'] = array();
 
-            $EDITURL = new URL('admin_commentreport');
+            $EDITURL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
 
             foreach ($data as $n => $report) {
 
@@ -1188,7 +1188,7 @@ class PAGE {
             $calendar .= "<td colspan=\"$dayOfWeek\">&nbsp;</td>";
         }
 
-        $DAYURL = new URL($page);
+        $DAYURL = new \MySociety\TheyWorkForYou\Url($page);
 
         while ($currentDay <= $numberDays) {
 
@@ -1325,7 +1325,7 @@ class PAGE {
             $title = $DATA->page_metadata($page, 'title');
 
             if ($page != $this_page) {
-                $URL = new URL($page);
+                $URL = new \MySociety\TheyWorkForYou\Url($page);
                 $title = '<a href="' . $URL->generate() . '">' . $title . '</a>';
             } else {
                 $title = '<strong>' . $title . '</strong>';

@@ -70,8 +70,8 @@ if (is_numeric(get_http_var('id'))) {
     <p><strong>The annotation has been reported</strong> and a moderator will look into it as soon as possible. You should receive an email shortly confirming your report. Thanks for taking the time let us know about this.</p>
 <?php
                 if (!$THEUSER->isloggedin()) {
-                    $LOGINURL = new URL('userlogin');
-                    $JOINURL = new URL('userjoin');
+                    $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
+                    $JOINURL = new \MySociety\TheyWorkForYou\Url('userjoin');
                     ?>
     <p>By the way, if you <a href="<?php echo $LOGINURL->generate(); ?>">sign in</a> before you make a report in future, you won't have to enter your name and email address each time!  (You'll need to <a href="<?php $JOINURL->generate(); ?>">join</a> if you haven't already.)</p>
 <?php
@@ -113,7 +113,7 @@ function display_form($COMMENT, $errors=array()) {
 
     // Now display the form.
 
-    $FORMURL = new URL($this_page);
+    $FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
     $FORMURL->remove(array('id'));
 
     ?>
@@ -155,7 +155,7 @@ function display_form($COMMENT, $errors=array()) {
     if (isset($errors['body'])) {
         $PAGE->error_message($errors['body']);
     }
-    $RULESURL = new URL('houserules');
+    $RULESURL = new \MySociety\TheyWorkForYou\Url('houserules');
     ?>
                 <p style="clear: left;"><strong>Why should this annotation be deleted?</strong><br>
                 <small>Check our <a href="<?php echo $RULESURL->generate(); ?>">House Rules</a> and tell us why the annotation breaks them.</small><br>

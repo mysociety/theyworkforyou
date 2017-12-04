@@ -1024,7 +1024,7 @@ function major_summary($data, $echo = true) {
                 AND major = ' . $p_major . '
                 ORDER BY hpos');
         $out = '';
-        $LISTURL = new URL($hansardmajors[$p_major]['page_all']);
+        $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$p_major]['page_all']);
         $current_sid = 0;
         for ($i = 0; $i < $q->rows(); $i++) {
             $gid = fix_gid_from_db($q->field($i, 'gid'));

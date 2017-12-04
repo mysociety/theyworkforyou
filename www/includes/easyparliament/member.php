@@ -585,15 +585,15 @@ class MEMBER {
     public function url($absolute = false) {
         $house = $this->house_disp;
         if ($house == HOUSE_TYPE_COMMONS) {
-            $URL = new URL('mp');
+            $URL = new \MySociety\TheyWorkForYou\Url('mp');
         } elseif ($house == HOUSE_TYPE_LORDS) {
-            $URL = new URL('peer');
+            $URL = new \MySociety\TheyWorkForYou\Url('peer');
         } elseif ($house == HOUSE_TYPE_NI) {
-            $URL = new URL('mla');
+            $URL = new \MySociety\TheyWorkForYou\Url('mla');
         } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            $URL = new URL('msp');
+            $URL = new \MySociety\TheyWorkForYou\Url('msp');
         } elseif ($house == HOUSE_TYPE_ROYAL) {
-            $URL = new URL('royal');
+            $URL = new \MySociety\TheyWorkForYou\Url('royal');
         }
         $member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
         if ($absolute) {

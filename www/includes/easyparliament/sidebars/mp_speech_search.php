@@ -3,7 +3,7 @@
 
 global $MEMBER;
 
-$SEARCHURL = new URL("search");
+$SEARCHURL = new \MySociety\TheyWorkForYou\Url("search");
 
 if ($MEMBER->person_id()) {
     $pid = $MEMBER->person_id();

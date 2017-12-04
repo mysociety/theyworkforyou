@@ -9,7 +9,7 @@ include_once '../../../includes/easyparliament/init.php';
 
 $this_page = "userlogout";
 
-$URL = new URL($this_page);
+$URL = new \MySociety\TheyWorkForYou\Url($this_page);
 if (get_http_var("ret") != "") {
     // So we can send the user back to where they came from.
     $URL->insert(array("ret"=>get_http_var("ret")));

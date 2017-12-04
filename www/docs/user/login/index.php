@@ -105,7 +105,7 @@ function display_page( $errors=array() ) {
 
     if ($THEUSER->isloggedin()) {
         // Shouldn't really get here, but you never know.
-        $URL = new URL('userlogout');
+        $URL = new \MySociety\TheyWorkForYou\Url('userlogout');
         ?>
     <p><strong>You are already signed in. <a href="<?php echo $URL->generate(); ?>">Sign out?</a></strong></p>
     <?php

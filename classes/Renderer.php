@@ -50,7 +50,7 @@ class Renderer
         ////////////////////////////////////////////////////////////
         // Search URL
 
-        $SEARCH = new \URL('search');
+        $SEARCH = new Url('search');
         $SEARCH->reset();
         $data['search_url'] = $SEARCH->generate();
 
@@ -103,7 +103,7 @@ class Renderer
 
         foreach ( $common_urls as $path ) {
             if (!isset($urls[$path]) ) {
-                $url = new \URL($path);
+                $url = new Url($path);
                 $urls[$path] = $url->generate();
             }
         }

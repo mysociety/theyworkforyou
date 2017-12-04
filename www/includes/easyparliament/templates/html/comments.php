@@ -94,7 +94,7 @@ if ($subheading != '') {
             // The comment hasn't been reported and we're on a page where we want to
             // display this link.
 
-            $URL = new URL('commentreport');
+            $URL = new \MySociety\TheyWorkForYou\Url('commentreport');
             $URL->insert(array(
                 'id'	=> $comment['comment_id'],
                 'ret' 	=> $comment['url']
@@ -112,7 +112,7 @@ if ($subheading != '') {
 
         // USERNAME AND DATE AND TIME.
 
-        $USERURL = new URL('userview');
+        $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
         $USERURL->insert(array('u'=>$comment['user_id']));
 
         list($date, $time) = explode(' ', $comment['posted']);

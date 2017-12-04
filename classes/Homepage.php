@@ -66,7 +66,7 @@ class Homepage {
             $item = $debatelist->display('recent_debates', array('days' => 7, 'num' => 1), 'none');
             if ( isset($item['data']) && count($item['data']) ) {
                 $item = $item['data'][0];
-                $more_url = new \URL('debates');
+                $more_url = new Url('debates');
                 $item['more_url'] = $more_url->generate();
                 $item['desc'] = 'Commons Debates';
                 $item['related'] = array();
@@ -124,7 +124,7 @@ class Homepage {
         foreach ( $this->recent_types as $class => $recent ) {
             $class = "\\$class";
             $instance = new $class();
-            $more_url = new \URL($recent[1]);
+            $more_url = new Url($recent[1]);
             if ( $recent[0] == 'recent_pbc_debates' ) {
                 $content = array( 'data' => $instance->display($recent[0], array('num' => 5), 'none') );
             } else {

@@ -119,7 +119,7 @@ class Header
         $this->data['header_links'] = array();
         if ($this_page != 'overview') {
 
-            $URL = new \URL('overview');
+            $URL = new \MySociety\TheyWorkForYou\Url('overview');
 
             $this->data['header_links'][] = array(
                 'rel'   => 'start',
@@ -195,7 +195,7 @@ class Header
             $bottom_highlight = '';
 
             $selected_top_link = $DATA->page_metadata('hansard', 'menu');
-            $url = new \URL('hansard');
+            $url = new \MySociety\TheyWorkForYou\Url('hansard');
             $selected_top_link['link'] = $url->generate();
 
         } else {
@@ -224,7 +224,7 @@ class Header
                 # Just in case something's gone wrong
                 $selected_top_link = $DATA->page_metadata('hansard', 'menu');
             }
-            $url = new \URL($top_highlight);
+            $url = new \MySociety\TheyWorkForYou\Url($top_highlight);
             $selected_top_link['link'] = $url->generate();
 
         }
@@ -283,7 +283,7 @@ class Header
 
                 //get link and description for the menu ans add it to the array
             $class = $toppage == $this->nav_highlights['top'] ? 'on' : '';
-                $URL = new \URL($toppage);
+                $URL = new \MySociety\TheyWorkForYou\Url($toppage);
                 $top_link = array(
                     'href'    => $URL->generate(),
                     'title'   => $title,
@@ -300,7 +300,7 @@ class Header
                     $text = $menudata['text'];
                     $title = $menudata['title'];
                     // Where we're linking to.
-                    $URL = new \URL($bottompage);
+                    $URL = new \MySociety\TheyWorkForYou\Url($bottompage);
                     $class = $bottompage == $this->nav_highlights['bottom'] ? 'on' : '';
                     $this->data['section_nav_links'][] = array(
                         'href'    => $URL->generate(),

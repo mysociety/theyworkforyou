@@ -1,6 +1,6 @@
 <?php
 
-$URL = new URL('help');
+$URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
 $this->block_start(array('id'=>'help', 'title'=>"What is the Scottish Parliament?"));
 ?>

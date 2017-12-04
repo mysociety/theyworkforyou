@@ -362,9 +362,9 @@ class User {
 
     private function getPostCodeChangeURL() {
         global $THEUSER;
-        $CHANGEURL = new \URL('userchangepc');
+        $CHANGEURL = new Url('userchangepc');
         if ($THEUSER->isloggedin()) {
-            $CHANGEURL = new \URL('useredit');
+            $CHANGEURL = new Url('useredit');
         }
 
         return $CHANGEURL->generate();

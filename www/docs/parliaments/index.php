@@ -11,7 +11,7 @@ foreach (array('hansard', 'sp_home', 'ni_home', 'wales_home') as $page) {
     $menu = $DATA->page_metadata($page, 'menu');
     $title = $menu['text'];
     $text = $menu['title'];
-    $URL = new URL($page);
+    $URL = new \MySociety\TheyWorkForYou\Url($page);
     $url = $URL->generate();
     echo "<dt><a href='$url'>$title</a></dt><dd>$text</dd>\n";
 }

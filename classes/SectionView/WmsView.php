@@ -12,7 +12,7 @@ class WmsView extends SectionView {
 
     protected function getViewUrls() {
         $urls = array();
-        $day = new \URL('wms');
+        $day = new \MySociety\TheyWorkForYou\Url('wms');
         $urls['day'] = $day;
         $urls['wmsday'] = $day;
         return $urls;

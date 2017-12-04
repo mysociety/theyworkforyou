@@ -59,7 +59,7 @@ class Footer
 
             //check for external vs internal menu links
             if (!valid_url($url)) {
-                $URL = new \URL($page);
+                $URL = new \MySociety\TheyWorkForYou\Url($page);
                 $url = $URL->generate();
             }
 

@@ -509,7 +509,7 @@ class Divisions {
             return '';
         }
         $parent_gid = fix_gid_from_db($parent_gid);
-        $url = new \URL($hansardmajors[$q->field(0, 'major')]['page']);
+        $url = new Url($hansardmajors[$q->field(0, 'major')]['page']);
         $url->insert(array('gid' => $parent_gid));
         return $url->generate();
     }

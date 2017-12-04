@@ -3,10 +3,10 @@
 
 $this->block_start(array('id'=>'help', 'title'=>"What's all this about?"));
 
-$URL = new URL('about');
+$URL = new \MySociety\TheyWorkForYou\Url('about');
 $abouturl = $URL->generate();
 
-$URL = new URL('help');
+$URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
 ?>
 

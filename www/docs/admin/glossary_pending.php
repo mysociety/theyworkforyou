@@ -78,7 +78,7 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
     $args['action'] = "admin_glossary";
     $args['glossary_id'] = $glossary_id;
 
-    $URL = new URL('admin_glossary_pending');
+    $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary_pending');
     $form_action = $URL->generate('url');
 
     ?>

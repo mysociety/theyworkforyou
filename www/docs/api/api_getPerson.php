@@ -25,7 +25,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
         unset($row['lordofname']);
     }
     if ($row['house'] == 1) {
-        $URL = new URL('mp');
+        $URL = new \MySociety\TheyWorkForYou\Url('mp');
         $row['url'] = $URL->generate('none') . make_member_url($row['full_name'], $row['constituency'], $row['house'], $row['person_id']);
     }
     if ($has_party && isset($parties[$row['party']]))
