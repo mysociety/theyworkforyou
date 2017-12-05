@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "==> Installing dependencies from Composer…"
+php composer.phar install --no-interaction --prefer-source
