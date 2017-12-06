@@ -31,8 +31,7 @@ env:
 
 before_script:
  - mysql -e "create database IF NOT EXISTS twfy_test;" -uroot
- - mysql -u root twfy_test < db/schema.sql
- - php composer.phar install --no-interaction --prefer-source
+ - script/update
  - bash -c 'if [ $(echo "$TRAVIS_PHP_VERSION>=7.0" | bc -l) == 1 ]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; else echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
 
 script:
