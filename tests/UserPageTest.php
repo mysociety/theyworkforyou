@@ -50,7 +50,7 @@ class UserPageTest extends FetchPageTestCase
     public function testEditUserInfo()
     {
         $page = $this->fetch_user_page( array('pg' => 'edit' ) );
-        $this->assertContains('Your details', $page);
+        $this->assertContains('Edit your details', $page);
         $this->assertContains('name="pg" value="edit"', $page);
         $this->assertContains('value="Test"', $page);
 

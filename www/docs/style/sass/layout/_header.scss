@@ -1,43 +1,25 @@
-$site-header-height: 48px;
-
-// The TWFY header has three modes:
-//
-// Mobile: all nav links are stacked vertically and hidden under a menu icon.
-//
-// Tablet: nav links form a horizontal bar, but submenus (eg: user menu,
-// pages menu, assembly selector) are hidden under dropdown menu icons.
-//
-// Desktop: pages menu is promoted to a row of top-level links, rather than
-// being hidden behind a dropdown menu button.
-
-.site-header {
+.site-header,
+.site-nav {
     background: white;
 }
 
-.site-header__row {
+.site-header__row,
+.site-nav__row {
     @include grid-row;
 }
 
 .site-header__logo {
-    // Reset h1 styles
     margin: 0;
     font-size: em-calc(18);
-    height: $site-header-height;
-    line-height: $site-header-height;
+    line-height: 1em;
     font-weight: normal;
-    letter-spacing: 0;
-
-    // Tab takes up 10/12ths of screen width on mobile
-    @include grid-column(10, $collapse: true);
-    text-align: center;
+    float: left;
 
     a {
-        // The famous green tab
         display: block;
-        padding: 0 1.5em;
-        background-color: $primary-color;
+        padding: 1em;
         color: #fff;
-        white-space: nowrap; // stop TheyWorkForYou splitting onto multiple lines (eg: in Firefox)
+        background-color: $primary-color;
 
         &:hover, &:focus {
             text-decoration: none;
@@ -47,344 +29,287 @@ $site-header-height: 48px;
 }
 
 .site-header__mobile-nav-toggle {
-    @include grid-column(2);
-    height: $site-header-height;
-    display: block;
+    float: right;
+    padding: 1em;
+    background-color: #fff;
+    color: $primary-color;
 
-    @extend .image-replacement;
-    background: $primary-color url('../img/hamburger-white.png') center center no-repeat;
-    border-left: 1px solid mix($primary-color, #fff, 70%);
+    // Menu icon.
+    span {
+        position: relative;
+        vertical-align: 0.2em;
+        margin-left: 0.3em;
 
-    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-        background-image:  url('../img/hamburger-white@2.png');
-        @include background-size(28px 26px);
+        &,
+        &:before,
+        &:after {
+            display: inline-block;
+            width: 16px;
+            height: 3px;
+            background-color: $primary-color;
+            transition: 0.25s;
+        }
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: -6px;
+            transform-origin: 100% 50%; // Pivot around rightmost edge.
+        }
+
+        &:after {
+            top: 6px;
+        }
     }
 
     &:hover, &:focus {
-        background-color: darken($primary-color, 5%);
+        text-decoration: none;
+        color: darken($primary-color, 5%);
+        background-color: mix($primary-color, #fff, 10%);
     }
 
     &.toggled {
-      background-color: #fff;
-      background-image:  url('../img/hamburger-green.png');
-      border-left: none;
+        span {
+            background-color: transparent;
 
-      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-          background-image:  url('../img/hamburger-green@2.png');
-      }
+            &:before,
+            &:after {
+                width: 17px;
+            }
 
-      &:hover, &:focus {
-          background-color: mix($primary-color, #fff, 10%);
-      }
-    }
-}
+            &:before {
+                transform: rotate3d(0, 0, 1, -45deg);
+            }
 
-.site-header__main-nav {
-    @include grid-column(12, $collapse: true);
-
-    // Hide the menu if javascript works
-    body.js & {
-        display: none;
-
-        // Show the menu again when it's toggled by javascript
-        &.toggled {
-            display: block;
+            &:after {
+                transform: rotate3d(0, 0, 1, 45deg);
+            }
         }
     }
 }
 
-.site-header__main-nav__section {
-    @include unstyled-list();
-    margin-bottom: 0;
+// Hide the site nav by default, and show it again if:
+// * It has been toggled by .site-header__mobile-nav-toggle
+// * Or it is the current :target of the URL hash fragment
+// * Or the window is wide enough for the "desktop" header layout
+.site-nav {
+    display: none;
+
+    &.toggled,
+    &:target {
+        display: block;
+    }
+
+    @media (min-width: $medium-screen) {
+        display: block;
+    }
+}
+
+.site-nav {
+    border-top: 1px solid $borders;
 
     ul {
         @include unstyled-list();
-        background-color: $body-bg;
-        display: none;
-
-        &.toggled {
-            display: block;
-        }
-
-        // Fallback for non-javascript users, based on URL hash fragment
-        // (which is set by clicking the trigger link - old school!)
-        &:target {
-            display: block;
-        }
-
-        a {
-            color: $colour_grey;
-        }
+        margin-bottom: 0;
+        line-height: 1; // down from Foundation default of 1.6
     }
 
     a {
         display: block;
-        padding: 0.3em 0.6em;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 0.5em 1em;
         color: $colour_dark_grey;
     }
 }
 
-.site-header__dropdown-toggle {
-    &:before {
+.site-nav__assembly,
+.site-nav__search,
+.site-nav__user,
+.site-nav__general {
+    border-bottom: 1px solid $borders;
+    padding: 0.5em 0;
+}
+
+.site-nav__general {
+    border-bottom: none; // no need for border as this is the last child
+}
+
+.site-nav__assembly {
+    padding-bottom: 0; // .site-nav__dropdown-toggle handles the padding here
+
+    // This means there's always the right amount of space below the toggle,
+    // whether the dropdown itself is open or closed.
+    .site-nav__dropdown-toggle {
+        margin-bottom: 0.5em;
+    }
+}
+
+.site-nav__dropdown-toggle {
+    &:after {
         content: "";
-        display: block;
-        font-size: 18px;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        font-size: 1em;
         border: 0.4em solid transparent;
         border-top-color: $colour_mid_grey;
-        float: right;
-        margin-top: 0.7em;
-
-        @media (min-width: $medium-screen) {
-          border-width: 0.3em;
-          margin-left: 0.4em;
-          margin-top: 1.2em;
-        }
+        border-bottom-width: 0;
+        margin-left: 0.3em;
+        vertical-align: 0.1em;
     }
+}
 
-    &.toggled {
-        outline: none; // Avoid dotted lines around buttons you've just pressed
+.site-nav__assembly__dropdown {
+    background-color: $body-bg;
+    padding: 0.5em 0;
 
-        &:before {
-            border-top-color: transparent;
-            border-bottom-color: $colour_mid_grey;
-            margin-top: 0.2em;
+    body.js & {
+        display: none;
 
-            @media (min-width: $medium-screen) {
-                margin-top: 0.9em;
-            }
+        &.toggled {
+            display: block;
         }
     }
 }
 
-.site-header__user-button,
-.site-header__search-button {
-    img {
-        vertical-align: -5px; // Don't ask me why this works
+.site-nav__search {
+    form {
+        padding: 0.5em 1em;
     }
 
-    img + span {
-        margin-left: 0.5em;
+    label {
+        margin-bottom: 0.5em;
+    }
+
+    input {
+        padding: 0 0.5em;
+        margin-bottom: 0;
+        border-radius: $global-radius 0 0 $global-radius;
+        box-shadow: none;
+        height: 2.4em;
+    }
+
+    button {
+        padding: 0;
+        margin-bottom: 0;
+        border-radius: 0 $global-radius $global-radius 0;
+        box-shadow: none;
+        height: 2.4em;
+        border: none;
     }
 }
 
+// Hold on to your hats. The layout gets kinda funky on wider screens,
+// as we split up and float all the components horizontally.
 @media (min-width: $medium-screen) {
-    .site-header__logo {
-        float: none; // override grid-column() behaviour
-        display: table-cell;
-        vertical-align: top;
-        width: auto; // width is determined by text content
+
+    // By default, Foundation rows clear themselves. But we want the
+    // .site-header to collapse, so that the green TheyWorkForYou tab
+    // hangs over the top left edge of the .site-nav below it, letting
+    // the various .site-nav__* children stack horizontally next to it.
+    // So we remove the :after that powers the Foundation row clearfix.
+    .site-header__row {
+        &:after {
+            display: none;
+        }
     }
 
+    // No need for a mobile nav toggle, now the nav is always visible.
     .site-header__mobile-nav-toggle {
         display: none;
     }
 
-    .site-header__main-nav {
-        float: none; // override grid-column() behaviour
-        display: table-cell;
-        vertical-align: top;
-        width: 100%; // occupy as much space as is left over after the logo
-        font-size: 16px; // slightly narrower text, now it's all lined up horizontally
-
-        // Yes, even if the nav was hidden by javascript
-        // in mobile mode, we want to show it again now.
-        body.js &,
-        body.js &.toggled {
-            display: table-cell;
-        }
+    // Vertical spacing for the top row of nav items.
+    .site-nav {
+        padding-top: 0.2em;
+        border-top: 0;
 
         a {
-            padding-top: 0;
-            padding-bottom: 0;
-            height: $site-header-height;
-            line-height: $site-header-height;
-            border-bottom: 0;
-
-            &.toggled {
-                background-color: $body-bg;
-            }
+            font-size: (14em / 16);
+            padding: 1em 0.7em;
         }
     }
 
-    .site-header__main-nav__section {
+    // Remove the borders and paddings we needed for the stacked mobile nav.
+    .site-nav__assembly,
+    .site-nav__search,
+    .site-nav__user,
+    .site-nav__general {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    // Float the contituent parts of the nav.
+    .site-nav__assembly,
+    .site-nav__search {
         float: left;
+    }
 
-        & > li {
+    .site-nav__user {
+        float: right;
+
+        li {
             float: left;
-            position: relative;
         }
+    }
 
-        // Style the submenu as a pop-out dropdown menu
-        ul {
-            position: absolute;
-            z-index: 1; // Appear over any accidentally position:relative siblings
-            top: $site-header-height;
-            left: 0;
-            white-space: nowrap; // stop linebreaks inside links
-            min-width: 100%; // no narrower than parent list item
-            padding: 0.3em 0;
-            @include box-shadow(0 2px 2px rgba(0,0,0,0.2));
+    .site-nav__general {
+        li {
+            float: left;
+        }
+    }
 
-            a {
-                height: auto;
-                line-height: 1em;
-                padding: 0.6em 1em;
-                min-width: 10em; // Avoids stumpy little links like "Log in"
+    // Full width dividing line between the two rows of nav items.
+    .site-nav__secondary {
+        border-top: 1px solid $borders;
+    }
+
+    // Positioning context for .site-nav__assembly__dropdown
+    .site-nav__assembly {
+        position: relative;
+
+        // Make the dropdown toggle a bit more like all the other links.
+        .site-nav__dropdown-toggle {
+            margin-bottom: 0;
+            padding: 1em;
+
+            &:after {
+                margin-left: 0.3em;
             }
         }
     }
 
-    .site-header__main-nav__section--actions {
-        float: right;
-        border-right: 1px solid $colour_light_grey;
-
-        & > li {
-            float: right;
-            border-left: 1px solid $colour_light_grey;
-        }
-
-        & > li > a {
-            padding-left: 1em;
-            padding-right: 1em;
-        }
-
-        // The actions dropdowns are right-aligned, because
-        // the actions are against the right edge of the page.
-        // And it's -1px rather than 0px, because we want it to
-        // appear seamless with the 1px border-right on the trigger.
-        ul {
-            left: auto;
-            right: -1px;
-        }
-    }
-
-    .site-header__main-nav__section--assemblies,
-    .site-header__main-nav__section--pages {
-      border-right: 1px solid $colour_light_grey;
-
-      & > li > a {
-          padding-left: 1em;
-          padding-right: 1em;
-      }
-    }
-
-    .site-header__user-button,
-    .site-header__search-button {
-        span {
-            display: none;
-        }
-    }
-}
-
-@media (min-width: $large-screen) {
-    .site-header__main-nav__section--pages {
-      margin-left: 0.4em;
-      border-right: none;
-
-      .site-header__dropdown-toggle {
-          display: none;
-      }
-
-      // Override all the submenu styling, to make
-      // the #pages-menu look like a top level menu
-      ul {
-          display: block;
-          position: static;
-          background-color: transparent;
-          min-width: initial;
-          top: initial;
-          left: initial;
-          white-space: initial;
-          @include box-shadow(none);
-          padding: 0;
-
-          & > li {
-              float: left;
-          }
-
-          a {
-              display: block;
-              padding: 0 0.6em;
-              height: 48px;
-              line-height: 48px;
-              color: inherit;
-              min-width: 0;
-          }
-      }
-    }
-}
-
-// Fixes for browsers that don't support box-sizing (eg: IE7-8)
-html.no-boxsizing {
-    .site-header__logo {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .site-header__mobile-nav-toggle {
-        padding-left: 0;
-        padding-right: 0;
-        border-left: none;
-    }
-}
-
-
-
-// Fancy-search module (see .js-fancy-search in main.js)
-
-.fancy-search__form {
-    padding: 0.6em;
-    display: none;
-
-    @media (min-width: $medium-screen) {
-        display: block;
+    .site-nav__assembly__dropdown {
         position: absolute;
-        top: 0;
-        right: 100%;
-        bottom: 0;
-        background-color: #fff;
-        height: 100%;
-        overflow: hidden;
-        width: 0;
-        @include single-transition(width);
-        padding: 0.5em 0;
-        background: transparent linear-gradient(to right, rgba(255,255,255,0) 0, rgba(255,255,255,1) 1em);
-    }
-}
+        left: 1em;
+        top: 3em;
+        z-index: 1; // above the position:relative .row in .site-nav__search
+        float: left;
+        white-space: nowrap;
+        font-size: 0.8em;
+        box-shadow: 0 2px 2px rgba(#000, 0.2);
 
-.fancy-search__input[type] {
-    // The [type] is a hack to overpower the Foundation input[type="text"] selector
-    width: 100%;
-    font-size: 0.85em;
-    margin-bottom: 0;
-}
-
-.fancy-search__submit {
-    position: absolute;
-    top: -20em;
-}
-
-.fancy-search-active {
-    .fancy-search__form {
-        display: block;
+        a {
+            font-size: 1em;
+            padding: 0.5em 1em;
+        }
     }
 
-    @media (min-width: $medium-screen) {
-        .fancy-search__form {
-            width: 20em;
-            padding-left: 2em;
+    // Some styling fixups for the search form.
+    .site-nav__search {
+        width: 33%;
+
+        form {
+            padding-top: 0.3em;
+            padding-bottom: 0.3em;
         }
 
-        .site-header__main-nav__section--pages {
-            opacity: 0.2;
+        label {
+            @include visuallyhidden();
         }
     }
 }
-
-.site-header__main-nav__section--pages {
-    @include single-transition(opacity);
-}
-
 
 
 // Site announcements

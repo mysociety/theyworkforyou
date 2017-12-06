@@ -234,10 +234,10 @@ class Header
             $selected_top_link['text'] = 'UK';
         } elseif ($top_highlight == 'ni_home') {
             $section = 'ni';
-            $selected_top_link['text'] = 'NORTHERN IRELAND';
+            $selected_top_link['text'] = 'Northern Ireland';
         } elseif ($top_highlight == 'sp_home') {
             $section = 'scotland';
-            $selected_top_link['text'] = 'SCOTLAND';
+            $selected_top_link['text'] = 'Scotland';
         } else {
             $section = '';
         }
@@ -260,10 +260,10 @@ class Header
         // we're within that section.
         $nav_items = array (
             array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary', 'contact'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront', 'contact'),
-            array('ni_home', 'nioverview', 'mlas', 'contact'),
-            array('wales_home', 'contact'),
+            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary'),
+            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
+            array('ni_home', 'nioverview', 'mlas'),
+            array('wales_home'),
         );
 
         $this->data['assembly_nav_links'] = array();
@@ -277,20 +277,20 @@ class Header
 
             // What gets displayed for this page.
             $menudata = $DATA->page_metadata($toppage, 'menu');
-                $text = $menudata['text'];
-                $title = $menudata['title'];
+            $text = $menudata['text'];
+            $title = $menudata['title'];
             if (!$title) continue;
 
-                //get link and description for the menu ans add it to the array
+            //get link and description for the menu ans add it to the array
             $class = $toppage == $this->nav_highlights['top'] ? 'on' : '';
-                $URL = new \MySociety\TheyWorkForYou\Url($toppage);
-                $top_link = array(
-                    'href'    => $URL->generate(),
-                    'title'   => $title,
-                    'classes' => $class,
-                    'text'    => $text
-                );
-                array_push($this->data['assembly_nav_links'], $top_link);
+            $URL = new \MySociety\TheyWorkForYou\Url($toppage);
+            $top_link = array(
+                'href'    => $URL->generate(),
+                'title'   => $title,
+                'classes' => $class,
+                'text'    => $text
+            );
+            array_push($this->data['assembly_nav_links'], $top_link);
 
             if ($toppage == $this->nav_highlights['top']) {
 

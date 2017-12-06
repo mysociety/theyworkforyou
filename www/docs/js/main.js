@@ -87,21 +87,16 @@ $(function(){
       $('body').addClass('touch');
   }
 
-  $('.js-toggle').on('click', function(e){
-    e.preventDefault();
+  $('.js-toggle').each(function(){
     var $link = $(this);
     var $el = $( $link.attr('href') );
     var eventName = 'click.toggle-until-click-outside-' + $el.attr('id');
 
-    if( $el.is('.toggled') ){
-      $el.removeClass('toggled');
-      $link.removeClass('toggled');
-      $('body').off(eventName);
-      $el.off(eventName);
-      $link.off(eventName);
-    } else {
+    var openDropdown = function openDropdown(){
       $el.addClass('toggled');
+      $el.attr('aria-hidden', 'false');
       $link.addClass('toggled');
+      $link.attr('aria-expanded', 'true');
 
       if($link.is('.js-toggle-until-click-outside')){
         // Timeout is a bit hacky, but avoids cancelling the click
@@ -113,56 +108,32 @@ $(function(){
           $link.on(eventName, function(e){
             e.stopPropagation();
           })
-          $('body').on(eventName, function(){
-            $link.removeClass('toggled');
-            $el.removeClass('toggled');
-            $('body').off(eventName);
-            $el.off(eventName);
-            $link.off(eventName);
-          });
+          $('body').on(eventName, closeDropdown);
         }, 250);
       }
     }
-  });
 
-  $('.js-fancy-search').each(function(){
-    var $a = $(this);
-    var $li = $a.parents('li');
-    var $nav = $a.parents('nav');
+    var closeDropdown = function closeDropdown() {
+      $el.removeClass('toggled');
+      $el.attr('aria-hidden', 'true');
+      $link.removeClass('toggled');
+      $link.attr('aria-expanded', 'false');
+      $('body').off(eventName);
+      $el.off(eventName);
+      $link.off(eventName);
+    }
 
-    var $form = $('<form>').attr({
-      'class': 'fancy-search__form',
-      'action': '/search/'
-    });
+    $link.attr('aria-controls', $el.attr('id'));
+    $link.attr('aria-haspopup', 'true');
 
-    var $input = $('<input>').attr({
-      'class': 'fancy-search__input',
-      'name': 'q',
-      'type': 'text',
-      'placeholder': 'Type a search term and press Enter'
-    }).appendTo($form);
-
-    $('<input>').attr({
-      'class': 'fancy-search__submit',
-      'type': 'submit'
-    }).appendTo($form);
-
-    $form.insertAfter($a);
-
-    $a.on('click', function(e){
+    $link.on('click', function(e){
       e.preventDefault();
-      if($nav.is('.fancy-search-active')){
-        $nav.removeClass('fancy-search-active');
-      } else {
-        $nav.addClass('fancy-search-active');
-        $input.focus();
-      }
-    });
 
-    $input.on('blur', function(){
-      setTimeout(function(){
-          $nav.removeClass('fancy-search-active');
-      }, 100);
+      if ( $el.is('.toggled') ) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
     });
   });
 

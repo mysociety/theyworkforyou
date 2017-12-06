@@ -193,55 +193,76 @@
                 <a href="/">TheyWorkForYou</a>
             </h1>
 
-            <a href="#main-nav" class="site-header__mobile-nav-toggle js-toggle">Menu</a>
-
-            <nav class="site-header__main-nav" id="main-nav">
-                <ul class="site-header__main-nav__section site-header__main-nav__section--assemblies">
-                    <li>
-                        <a href="#nav-assemblies" class="site-header__dropdown-toggle js-toggle js-toggle-until-click-outside"><?= $assembly_nav_current ?></a>
-                        <ul id="nav-assemblies">
-                          <?php foreach ($assembly_nav_links as $nav_link) { ?>
-                            <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                          <?php } ?>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="site-header__main-nav__section site-header__main-nav__section--pages">
-                    <li>
-                        <a href="#nav-pages" class="site-header__dropdown-toggle js-toggle js-toggle-until-click-outside">Go to&hellip;</a>
-                        <ul id="nav-pages">
-                          <?php foreach ($section_nav_links as $nav_link) { ?>
-                            <li>
-                                <a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a>
-                            </li>
-                          <?php } ?>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="site-header__main-nav__section site-header__main-nav__section--actions">
-                    <li>
-                        <a href="#nav-user" class="site-header__user-button site-header__dropdown-toggle js-toggle js-toggle-until-click-outside">
-                            <img src="/style/img/user@2.png" width="24" height="24" alt=""><span>Your Profile</span>
-                        </a>
-                        <ul id="nav-user">
-                          <?php foreach ($user_nav_links as $nav_link){ ?>
-                            <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>"><?= $nav_link['text'] ?></a></li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="/search/" class="site-header__search-button js-fancy-search">
-                            <img src="/style/img/search@2.png" width="24" height="24" alt=""><span>Search</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <a href="#main-nav" class="site-header__mobile-nav-toggle js-toggle">
+                Menu
+                <span></span>
+            </a>
 
         </div>
     </header>
+
+    <nav class="site-nav" id="main-nav">
+        <div class="site-nav__primary">
+            <div class="site-nav__row">
+
+                <div class="site-nav__assembly">
+                    <a href="#nav-assemblies" class="site-nav__dropdown-toggle js-toggle js-toggle-until-click-outside">
+                        <?= $assembly_nav_current ?>
+                    </a>
+                    <ul id="nav-assemblies" class="site-nav__assembly__dropdown" aria-label="Available assemblies">
+                      <?php foreach ($assembly_nav_links as $nav_link) { ?>
+                        <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>">
+                            <?= $nav_link['text'] ?>
+                        </a></li>
+                      <?php } ?>
+                    </ul>
+                </div>
+
+                <div class="site-nav__search">
+                    <form action="/search/">
+                        <label for="site-header-search">Search TheyWorkForYou</label>
+                        <div class="row collapse">
+                            <div class="small-9 columns">
+                                <input type="search" id="site-header-search" name="q" placeholder="e.g. a postcode, person, or topic">
+                            </div>
+                            <div class="small-3 columns">
+                                <button type="submit" class="prefix">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="site-nav__user">
+                    <ul>
+                      <?php foreach ($user_nav_links as $nav_link){ ?>
+                        <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>">
+                            <?= $nav_link['text'] ?>
+                        </a></li>
+                      <?php } ?>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="site-nav__secondary">
+            <div class="site-nav__row">
+
+                <div class="site-nav__general">
+                    <ul>
+                      <?php foreach ($section_nav_links as $nav_link) { ?>
+                        <li>
+                            <a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>">
+                                <?= $nav_link['text'] ?>
+                            </a>
+                        </li>
+                      <?php } ?>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
 
     <?php if (isset($page_errors)) { ?>
     <div class="full-page legacy-page static-page">

@@ -23,7 +23,6 @@ class User
         $this->page = $this_page;
         $this->data = array();
         $this->setupNavLinks();
-        $this->addRepLinks();
     }
 
     private function setupNavLinks() {
@@ -46,7 +45,6 @@ class User
     private function addLoggedInLinks() {
         // The 'Edit details' link.
         $menudata   = $this->pagedata->page_metadata('userviewself', 'menu');
-        $edittext   = $menudata['text'];
         $edittitle  = $menudata['title'];
         $EDITURL    = new \MySociety\TheyWorkForYou\Url('userviewself');
         if ($this->page == 'userviewself' || $this->page == 'useredit' ) {
@@ -70,24 +68,23 @@ class User
 
         $username = $this->user->firstname() . ' ' . $this->user->lastname();
 
-        $this->data['user_nav_links'][] = array(
-            'href'    => $LOGOUTURL->generate(),
-            'title'   => $logouttitle,
-            'classes' => $logoutclass,
-            'text'    => $logouttext
-        );
-        $this->data['user_nav_links'][] = array(
-            'href'    => $EDITURL->generate(),
-            'title'   => $edittitle,
-            'classes' => $editclass,
-            'text'    => $edittext
-        );
+        $this->addRepLinks();
+
         $this->data['user_nav_links'][] = array(
             'href'    => $EDITURL->generate(),
             'title'   => $edittitle,
             'classes' => $editclass,
             'text'    => _htmlentities($username)
         );
+
+        $this->data['user_nav_links'][] = array(
+            'href'    => $LOGOUTURL->generate(),
+            'title'   => $logouttitle,
+            'classes' => $logoutclass,
+            'text'    => $logouttext
+        );
+
+        $this->addContactLink();
     }
 
     private function addLoggedOutLinks() {
@@ -144,6 +141,9 @@ class User
             'classes' => $joinclass,
             'text'    => $jointext
         );
+
+        $this->addRepLinks();
+        $this->addContactLink();
     }
 
     // add links to your MP etc if postcode set
@@ -170,6 +170,19 @@ class User
             }
         }
 
+    }
+
+    private function addContactLink() {
+        $menudata = $this->pagedata->page_metadata('contact', 'menu');
+        $text = $menudata['text'];
+        $title = $menudata['title'];
+        $url = new \MySociety\TheyWorkForYou\Url('contact');
+        $this->data['user_nav_links'][] = array(
+            'href'    => $url->generate(),
+            'title'   => $title,
+            'classes' => '',
+            'text'    => $text
+        );
     }
 
 }
