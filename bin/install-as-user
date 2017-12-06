@@ -47,6 +47,9 @@ ln -sfn "$REPOSITORY" $LINK_DESTINATION
 echo $DONE_MSG
 cd "$REPOSITORY"
 
+echo -n "Running script/bootstrap... "
+script/bootstrap
+
 echo -n "Creating conf/general configuration... "
 # Write sensible values into the config file:
 sed -r \
@@ -61,12 +64,8 @@ sed -r \
 echo $DONE_MSG
 
 # Create the database if it doesn't exist:
-echo -n "Loading schema into database... "
-if ! mysql -u $UNIX_USER theyworkforyou -e "DESCRIBE consinfo" 2>/dev/null | grep -q Field; then
-    mysql -u $UNIX_USER theyworkforyou < db/schema.sql
-else
-    printf "\033[33malready\033[0m "
-fi
+echo -n "Running script/update... "
+script/update
 echo $DONE_MSG
 
 echo -n "Checking out parlparse... "

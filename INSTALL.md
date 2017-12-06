@@ -81,13 +81,15 @@ https://github.com/mysociety/theyworkforyou.
     (to load the Wikipedia titles, you'll need the FILE privilege too, I'm not
     sure if the above line adds it or not).
 
-4. Create database schema. The creation script is in the `db` subdirectory of
-the theyworkforyou source code package.  
-  
-        $ cd db
-        $ mysql -u twfy -p twfy < schema.sql
+5. Run bootstrapping to resolve dependencies
 
-5. Configure the configuration file. In directory `<theyworkforyou>/conf` you
+        $ script/bootstrap
+
+4. Run update script to bring database schema up to date
+
+        $ script/update
+
+6. Configure the configuration file. In directory `<theyworkforyou>/conf` you
 should rename the file `general-example` to `general` and then edit the first
 few lines to be appropriate for your setup. Make sure the directories you
 specify have the trailing `/`, unless otherwise specified.
