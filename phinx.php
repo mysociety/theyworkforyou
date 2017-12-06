@@ -1,9 +1,9 @@
 <?php
 
 if (
-    isset($_SERVER['TWFY_TEST_DB_HOST']) AND
-    isset($_SERVER['TWFY_TEST_DB_USER']) AND
-    isset($_SERVER['TWFY_TEST_DB_PASS']) AND
+    isset($_SERVER['TWFY_TEST_DB_HOST']) &&
+    isset($_SERVER['TWFY_TEST_DB_USER']) &&
+    isset($_SERVER['TWFY_TEST_DB_PASS']) &&
     isset($_SERVER['TWFY_TEST_DB_NAME'])
 ) {
 
@@ -16,8 +16,6 @@ if (
 } else {
     include_once('conf/general');
 }
-
-
 
 return [
     'paths' => [
