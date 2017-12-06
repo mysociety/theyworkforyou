@@ -81,11 +81,11 @@ https://github.com/mysociety/theyworkforyou.
     (to load the Wikipedia titles, you'll need the FILE privilege too, I'm not
     sure if the above line adds it or not).
 
-5. Run bootstrapping to resolve dependencies
+4. Run bootstrapping to resolve dependencies
 
         $ script/bootstrap
 
-4. Run update script to bring database schema up to date
+5. Run update script to bring database schema up to date
 
         $ script/update
 
