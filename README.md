@@ -48,6 +48,9 @@ You will need the latest versions of VirtualBox and Vagrant, then:
 * Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
 * Point your web browser at `http://10.11.12.13` and marvel at modern technology.
 
+If you haven't used your Vagrant box for a while, run `script/update` to resolve
+dependencies and migrate the database.
+
 #### Compiling Static Assets
 
 If you're working on a page which uses the redesign, you will need to compile
@@ -56,6 +59,11 @@ static assets after changes:
 * `vagrant ssh`
 * `cd /vagrant/theyworkforyou/www/docs/style`
 * `compass compile` for a one-off compilation or `compass watch` to recompile on changes
+
+#### Database Migrations
+
+Database migrations are done using [Phinx](https://phinx.org/). You can bring
+your installation to the latest version by running `script/update`.
 
 ## Testing
 
