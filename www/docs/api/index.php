@@ -259,11 +259,12 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 <li><a href="https://github.com/jamtho/twfy">Common Lisp</a> (thanks to James Thompson)</li>
 <li><a href="https://github.com/rubenarakelyan/twfyapi/">JavaScript</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
-<li><a href="http://search.cpan.org/perldoc?WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
-<li><a href="https://github.com/rubenarakelyan/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
-<li><a href="http://code.google.com/p/twfython/">Python</a> (thanks to Paul Doran)</li>
-<li><a href="https://github.com/bruce/twfy">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
 <li><a href="https://github.com/ifraixedes/node-theyworkforyou-api">Node</a> (thanks to Ivan Fraixedes)</li>
+<li><a href="https://metacpan.org/pod/WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi/">PHP</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="https://code.google.com/archive/p/twfython/">Python</a> (thanks to Paul Doran)</li>
+<li><a href="https://github.com/conjugateprior/twfy">R</a> (thanks to Will Lowe)</li>
+<li><a href="https://github.com/bruce/twfy">Ruby</a> (thanks to Bruce Williams and Martin Owen)</li>
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
