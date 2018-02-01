@@ -1,44 +1,32 @@
 Hello everyone,
 
-If you're looking to set up a new Parliamentary monitoring site then you
-should look at our Pombola probject at
-https://www.mysociety.org/international/pombola/ which takes the lessons
-we've learned from writing and running TheyWorkForYou and uses them to
-create a modern, flexible and more easily adaptable platform for
-creating your own Parliamentary monitoring site. We strongly encourage
-people to use this rather than trying to adapt TheyWorkForYou to their
-own requirements.
+This is the source code that powers the TheyWorkForYou.com website. It's
+mainly written in PHP, although there are also some Perl scripts for database
+loading and indexing. The backend parser code is separate and available
+[on GitHub](https://github.com/mysociety/parlparse). You can read more about this
+on [TheyWorkForYou's parser info page](http://parser.theyworkforyou.com/parser.html)
 
-If you want to dig in to the source of TheyWorkForYou then carry right
-on below.
-
-We're pleased to release the TheyWorkForYou.com source code. This is the code
-for the website itself. It's mainly written in PHP, although there are also some
-Perl scripts for database loading and indexing. The backend parser code is
-separate and available [on GitHub](https://github.com/mysociety/parlparse). You
-can read more about this on
-[TheyWorkForYou's parser info page](http://parser.theyworkforyou.com/parser.html)
-
-The TheyWorkForYou.com source code in this distribution is released under a BSD
+The TheyWorkForYou source code in this distribution is released under a BSD
 style license. Roughly, this means you are free to copy, use, modify and
 redistribute the code or binaries made from the code. Commercial or non-
 commercial use is allowed. However, we disclaim warranty, and expect you not to
-use our name without our permission.
+use our name without our permission. See the file LICENSE.md for exact legal
+information.
 
-See the file LICENSE.md for exact legal information.
+## What is TheyWorkForYou anyway?
 
-## What is TheyWorkForYou.com anyway?
-
-Everything MPs say in the UK's House of Commons is recorded in a document called
-Hansard. TheyWorkForYou.com helps make sense of this vital democratic resource
-and, crucially, allows you to add your own annotations and links to the official
-transcripts of Parliament.
+Everything MPs say in the UK's House of Commons is recorded in a document
+called Hansard; TheyWorkForYou helps make sense of this vital democratic
+resource. It also includes things from the House of Lords, the Scottish
+Parliament, and the Northern Ireland Assembly.
 
 ## How on earth do I use this code?
 
 See INSTALL.md for installation questions.
 
-If you have questions, the best place to ask is the mySociety TheyWorkForYou email list at https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou
+If you have questions, the best place to ask is the mySociety TheyWorkForYou
+email list at
+https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou
 
 ### Developing with Vagrant
 
