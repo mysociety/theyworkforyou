@@ -163,6 +163,11 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/photos.php',
     ),
+    'admin_profile_message' => array (
+        'title'			=> 'Profile message banner',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/profile-message.php',
+    ),
     'admin_mpurls' => array (
         'title'			=> 'MP Websites',
         'parent'		=> 'admin',

@@ -124,6 +124,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php } ?>
 
+              <?php if ($profile_message): ?>
+                <div class="panel panel--profile-message">
+                    <p><?= $profile_message ?></p>
+                </div>
+              <?php endif; ?>
+
                 <?php if (!$displayed_votes) { ?>
 
                     <div class="panel">

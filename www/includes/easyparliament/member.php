@@ -352,11 +352,11 @@ class MEMBER {
 
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
-    public function load_extra_info($display = false) {
+    public function load_extra_info($display = false, $force = false) {
         $memcache = new MySociety\TheyWorkForYou\Memcache;
         $memcache_key = 'extra_info:' . $this->person_id . ($display ? '' : ':plain');
         $this->extra_info = $memcache->get($memcache_key);
-        if (!DEVSITE && $this->extra_info) {
+        if (!DEVSITE && !$force && $this->extra_info) {
             return;
         }
         $this->extra_info = array();

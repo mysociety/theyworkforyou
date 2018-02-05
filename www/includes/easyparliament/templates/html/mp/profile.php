@@ -42,6 +42,12 @@ $display_wtt_stats_banner = '2015';
             </div>
             <div class="primary-content__unit">
 
+              <?php if ($profile_message): ?>
+                <div id="profile-message" class="panel panel--profile-message">
+                    <p><?= $profile_message ?></p>
+                </div>
+              <?php endif; ?>
+
               <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
@@ -364,7 +370,7 @@ $display_wtt_stats_banner = '2015';
                     <a name="numerology"></a>
                     <h2 data-magellan-destination="numerology">Numerology</h2>
 
-                    <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site.<br><small><a href="<?= WEBPATH ?>help/#numbers">More about this</a></small></p>
+                    <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site. <a href="<?= WEBPATH ?>help/#numbers">More about this</a></p>
 
                     <ul class="numerology">
 

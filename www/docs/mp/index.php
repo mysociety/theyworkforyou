@@ -291,6 +291,7 @@ foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
         $data[$key] = $MEMBER->extra_info[$key];
     }
 }
+$data['profile_message'] = isset($MEMBER->extra_info['profile_message']) ? $MEMBER->extra_info['profile_message'] : '';
 $data['image'] = $MEMBER->image();
 $data['member_summary'] = person_summary_description($MEMBER);
 $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();

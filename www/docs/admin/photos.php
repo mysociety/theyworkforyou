@@ -80,7 +80,7 @@ function person_drop_down() {
     $out = '
 <div class="row">
 <span class="label"><label for="form_pid">Person:</label></span>
-<span class="formw"><select id="form_pid" name="pid"></span>
+<span class="formw"><select id="form_pid" name="pid" class="autocomplete">
 ';
     $query = 'SELECT house, member.person_id, title, given_name, family_name, lordofname, constituency, party
         FROM member, person_names,

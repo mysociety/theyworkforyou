@@ -103,8 +103,18 @@
 <script src="/js/foundation/foundation.reveal.js"></script>
 <script src="/js/riveted.min.js"></script>
 <script src="/js/jquery.scrolldepth.min.js"></script>
+<script src="/js/accessible-autocomplete.min.js"></script>
 
 <script>
+
+$('.autocomplete').each(function() {
+  accessibleAutocomplete.enhanceSelectElement({
+    selectElement: this,
+    displayMenu: 'overlay',
+    defaultValue: '',
+    required: true
+  });
+});
 
   $( document ).ready(function() {
 

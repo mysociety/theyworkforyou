@@ -29,6 +29,11 @@
     border: 1px solid #e2dfd9;
 }
 
+.panel--profile-message {
+    background-color: #f5cea2;
+    border: 1px solid #f4a140;
+}
+
 // Panel without vertical padding. Handy when you want vertical lines or child
 // content that stretch the entire height of the panel (as on the homepage).
 .panel--flushtop {
