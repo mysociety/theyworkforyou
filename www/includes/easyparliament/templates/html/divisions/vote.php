@@ -113,7 +113,7 @@
             </div>
 
              <ul class="debate-speech__meta debate-speech__links">
-             <?php if ( $division['debate_url'] ) { ?>
+             <?php if (isset($division['debate_url'])) { ?>
                   <li class="link-to-speech">
                       <a class="link debate-speech__meta__link" href="<?= $division['debate_url'] ?>">Show full debate</a>
                   </li>
