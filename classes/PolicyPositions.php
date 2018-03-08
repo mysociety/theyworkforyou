@@ -188,6 +188,10 @@ class PolicyPositions {
                 if ($inverse)
                     $dmpscore = 1.0 - $dmpscore;
                 $consistency = score_to_strongly($dmpscore);
+
+                if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
+                    $consistency = preg_replace('#(consistently|almost always|generally) #', '', $consistency);
+                }
             }
             $has_strong = 0;
             if (isset($extra_info["public_whip_dreammp${dreamid}_has_strong_vote"]) && $extra_info["public_whip_dreammp${dreamid}_has_strong_vote"] == 1) {
