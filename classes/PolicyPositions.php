@@ -108,7 +108,8 @@ class PolicyPositions {
                 if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
                     continue;
 
-                $dream_info = $this->displayDreamComparison($policy[0], $policy[1]);
+                $votes_summary = array_key_exists($policy[0], $this->summaries) ? $this->summaries[$policy[0]] : array();
+                $dream_info = $this->displayDreamComparison($policy[0], $policy[1], $votes_summary);
 
                 // don't return votes where they haven't voted on a strong division
                 // if we're limiting the number of votes
@@ -116,13 +117,9 @@ class PolicyPositions {
                     continue;
                 }
 
-
                 // Make sure the dream actually exists
                 if (!empty($dream_info)) {
-                    $summary = '';
-                    if (array_key_exists($policy[0], $this->summaries)) {
-                      $summary = $this->divisions->generateSummary($this->summaries[$policy[0]]);
-                    }
+                    $summary = $votes_summary ? $this->divisions->generateSummary($votes_summary) : '';
                     $this->positions[] = array(
                         'policy_id' => $policy[0],
                         'policy' => $policy[1],
@@ -160,7 +157,7 @@ class PolicyPositions {
     /**
      * displayDreamComparison
      *
-     * Returns an array with one key: "full_sentence".
+     * Returns an array with keys "full_sentence", "score", "position", "has_strong".
      *
      * The "full_sentence" element is a string, beginning with a lower case
      * letter, suitable for either displaying after a person’s name, eg:
@@ -174,7 +171,7 @@ class PolicyPositions {
      *
      */
 
-    private function displayDreamComparison($dreamid, $policy_description, $inverse=false) {
+    private function displayDreamComparison($dreamid, $policy_description, $votes_summary) {
         $out = array();
 
         $extra_info = $this->member->extra_info();
@@ -185,9 +182,11 @@ class PolicyPositions {
                 $dmpscore = -1;
             } else {
                 $dmpscore = floatval($extra_info["public_whip_dreammp${dreamid}_distance"]);
-                if ($inverse)
-                    $dmpscore = 1.0 - $dmpscore;
                 $consistency = score_to_strongly($dmpscore);
+
+                if ($votes_summary && ($votes_summary['for'] == 0 || $votes_summary['against'] == 0) && preg_match('#mixture#', $consistency)) {
+                    $consistency = ($dmpscore > 0.5) ? 'voted against' : 'voted for';
+                }
 
                 if ($extra_info["public_whip_dreammp${dreamid}_both_voted"] == 1) {
                     $consistency = preg_replace('#(consistently|almost always|generally) #', '', $consistency);
