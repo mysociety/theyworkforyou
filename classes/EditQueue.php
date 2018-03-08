@@ -58,7 +58,7 @@ class EditQueue {
     public $pending_count = '';
 
     public function __construct() {
-        $this->db = new ParlDB;
+        $this->db = new \ParlDB;
     }
 
     public function add($data) {
