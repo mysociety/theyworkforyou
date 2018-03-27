@@ -172,6 +172,11 @@ $em = join('&#64;', array('enquiries', 'mysociety.org'));
     <a href="http://everypolitician.org/">EveryPolitician</a> instead.
 </p>
 
+<p>
+    APIs and datasets for other mySociety services can be found on our
+    data portal, <a href="https://data.mysociety.org">data.mysociety.org</a>.
+</p>
+
 <h3>Terms of usage</h3>
 <p>
     Low volume, charitable use of the API is free. This means direct use by
