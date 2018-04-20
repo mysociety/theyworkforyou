@@ -24,6 +24,7 @@ class Header
         $this->get_page_url();
         $this->get_page_title();
         $this->get_page_keywords();
+        $this->get_opengraph_metadata();
         $this->get_header_links();
         $this->get_next_prev_links();
         $this->get_rss_link();
@@ -91,10 +92,6 @@ class Header
                 $this->data['page_title'] .= ' - ' . $sitetitle;
             }
         }
-
-        # for overriding the OpenGraph image
-        $this->data['og_image'] = '';
-
     }
 
     private function get_page_keywords() {
@@ -111,6 +108,24 @@ class Header
         if ($DATA->page_metadata($this_page, "meta_description")) {
             $this->data['meta_description'] = $DATA->page_metadata($this_page, "meta_description");
         }
+    }
+
+
+
+    // This *MUST* be run after get_page_title() and get_page_keywords()
+    // because it relies on data['page_title'] and data['meta_description'].
+    private function get_opengraph_metadata() {
+        global $DATA, $this_page;
+
+        // Useful for cleaning up HTML tags from page titles like:
+        // "Financial Guidance and Claims Bill [HL] - <i>Third Reading</i>"
+        function strip_html_tags($text){
+            return preg_replace('#<[^>]*>#', '', $text);
+        }
+
+        $this->data['og_title'] = strip_html_tags($DATA->page_metadata($this_page, 'title'));
+        $this->data['og_description'] = $this->data['meta_description'];
+        $this->data['og_image'] = '';
     }
 
     private function get_header_links() {

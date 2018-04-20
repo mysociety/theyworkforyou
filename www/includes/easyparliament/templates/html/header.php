@@ -20,23 +20,23 @@
 
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
-    <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
-    <?php if ($og_image) { ?>
+    <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $og_title) ?>">
+    <meta property="og:description" content="<?= _htmlentities($og_description) ?>">
+  <?php if ($og_image) { ?>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@theyworkforyou">
     <meta name="twitter:creator" content="@theyworkforyou">
-      <meta property="og:image" content="<?= $og_image ?>">
+    <meta property="og:image" content="<?= $og_image ?>">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1000">
     <meta property="og:image:height" content="500">
     <meta property="og:type" content="profile">
-    <?php } else { ?>
+  <?php } else { ?>
     <meta property="og:type" content="website">
-      <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
-        <meta property="og:image:width" content="200">
-        <meta property="og:image:height" content="200">
-    <?php } ?>
-    <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
+    <meta property="og:image:width" content="200">
+    <meta property="og:image:height" content="200">
+  <?php } ?>
     <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 
     <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
