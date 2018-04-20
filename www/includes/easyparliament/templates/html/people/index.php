@@ -213,6 +213,8 @@ if (!count($data)) {
                         <a class="pick-a-date" href="#past-list-dates">Pick a date</a>
                     </p>
                     <p class="past-list-dates" id="past-list-dates">
+                        <a href="<?= $urls['plain'] ?>?date=2017-06-09">MPs at 2017 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=2015-05-08">MPs at 2015 general election</a>
                         <a href="<?= $urls['plain'] ?>?date=2010-05-06">MPs at 2010 general election</a>
                         <a href="<?= $urls['plain'] ?>?date=2005-05-05">MPs at 2005 general election</a>
                         <a href="<?= $urls['plain'] ?>?date=2001-06-07">MPs at 2001 general election</a>
