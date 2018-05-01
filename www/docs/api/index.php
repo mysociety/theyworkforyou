@@ -183,9 +183,9 @@ $em = join('&#64;', array('enquiries', 'mysociety.org'));
     registered charities, or individuals pursuing a non-profit project on an
     unpaid basis, with a volume of up to 50,000 calls per year. All other use
     requires a licence, as a contribution towards the costs of providing this
-    service. Please email us at <a href="mailto:<?=$em?>"><?=$em?></a> if your
-    usage is likely to fall into the non-free bracket: <strong>unlicensed users
-    may be blocked without warning</strong>.
+    service. Please email us at <a href="mailto:<?=$em?>"><?=$em?></a>
+    (mentioning TheyWorkForYou) if your usage is likely to fall into the
+    non-free bracket: <strong>unlicensed users may be blocked without warning</strong>.
 </p>
 
 <h3>Pricing</h3>
