@@ -410,10 +410,10 @@ class ALERT {
 
     // The user has clicked the link in their delete confirmation email
     // and the deletion page has passed the token from the URL to here.
-    // If all goes well the alert will be flagged as deleted.
+    // If all goes well the alert will be deleted.
     public function delete($token) {
         if (!($alert = $this->check_token($token))) return false;
-        $r = $this->db->query("UPDATE alerts SET deleted = 1 WHERE alert_id = :alert_id", array(
+        $r = $this->db->query("DELETE FROM alerts WHERE alert_id = :alert_id", array(
             ':alert_id' => $alert['id']
             ));
 

@@ -12,15 +12,6 @@
 			<field name="created">2014-01-01 00:00:00</field>
 		</row>
 		<row>
-			<field name="alert_id">2</field>
-			<field name="deleted">1</field>
-			<field name="confirmed">0</field>
-			<field name="registrationtoken">token2</field>
-			<field name="email">test2@theyworkforyou.com</field>
-			<field name="criteria">test2</field>
-			<field name="created">2014-01-01 00:00:00</field>
-		</row>
-		<row>
 			<field name="alert_id">3</field>
 			<field name="deleted">0</field>
 			<field name="confirmed">1</field>
@@ -28,15 +19,6 @@
 			<field name="email">test3@theyworkforyou.com</field>
 			<field name="criteria">test3</field>
 			<field name="created">2014-02-03 00:00:00</field>
-		</row>
-		<row>
-			<field name="alert_id">4</field>
-			<field name="deleted">1</field>
-			<field name="confirmed">1</field>
-			<field name="registrationtoken">token4</field>
-			<field name="email">test4@theyworkforyou.com</field>
-			<field name="criteria">test4</field>
-			<field name="created">2014-02-01 00:00:00</field>
 		</row>
 		<row>
 			<field name="alert_id">5</field>
