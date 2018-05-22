@@ -72,6 +72,7 @@
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-660910-1');  // Replace with your property ID.
+        ga('set', 'anonymizeIp', true);
         ga('send', 'pageview');
 
         function trackFormSubmit(form, category, name, value) {
