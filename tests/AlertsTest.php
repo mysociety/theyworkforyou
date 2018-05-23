@@ -59,47 +59,13 @@ class AlertsTest extends TWFY_Database_TestCase
     }
 
     /**
-     * Test that unconfirmed, deleted tests are correctly retrieved
-     */
-    public function testFetchUnconfirmedDeleted()
-    {
-        $ALERT = new ALERT();
-
-        $response = $ALERT->fetch(0,1);
-
-        // Make sure we only get one response
-        $this->assertEquals(1, count($response['data']));
-
-        // Make sure the response has the correct attributes
-        $this->assertEquals(0, $response['data'][0]['confirmed']);
-        $this->assertEquals(1, $response['data'][0]['deleted']);
-    }
-
-    /**
-     * Test that confirmed, deleted tests are correctly retrieved
-     */
-    public function testFetchConfirmedDeleted()
-    {
-        $ALERT = new ALERT();
-
-        $response = $ALERT->fetch(1,1);
-
-        // Make sure we only get one response
-        $this->assertEquals(1, count($response['data']));
-
-        // Make sure the response has the correct attributes
-        $this->assertEquals(1, $response['data'][0]['confirmed']);
-        $this->assertEquals(1, $response['data'][0]['deleted']);
-    }
-
-    /**
      * Test that the correct alerts between given dates are retrieved
      */
     public function testFetchBetween()
     {
         $ALERT = new ALERT();
 
-        $response = $ALERT->fetch_between(1,1, '2014-02-01', '2014-02-02');
+        $response = $ALERT->fetch_between(1,0, '2014-02-03', '2014-02-04');
 
         // Make sure we only get one response
         $this->assertEquals(1, count($response['alerts']));
@@ -158,8 +124,8 @@ class AlertsTest extends TWFY_Database_TestCase
         $ALERT = new ALERT();
 
         $details = array(
-            'email' => 'test4@theyworkforyou.com',
-            'keyword' => 'test4',
+            'email' => 'test6@theyworkforyou.com',
+            'keyword' => 'test6',
             'pc' => 'SW1A 1AA'
         );
 
