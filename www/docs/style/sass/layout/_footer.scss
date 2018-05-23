@@ -8,13 +8,14 @@ $mysoc-footer-breakpoint-sm: $medium-screen;
 .footer__newsletter-form {
     max-width: 20em; // Label for signup box is punchier when lines are shorter
 
-    p {
+    p, .row {
         margin-bottom: 0.5em;
         color: $colour_grey;
     }
 
     input {
         height: 3em;
+        margin-bottom: 0;
 
         &[type=email] {
             border-right: none;

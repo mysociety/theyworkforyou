@@ -19,7 +19,8 @@
                         <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
                     </div>
                 </div>
-          </form>
+                <p><a href="https://www.mysociety.org/privacy#newsletter">Your data</a></p>
+            </form>
         </div>
 
         <div class="medium-4 columns">
