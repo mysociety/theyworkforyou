@@ -57,4 +57,11 @@ Vagrant.configure(2) do |config|
     echo "Your site should now be visible at http://10.11.12.13/"
   SHELL
 
+  # It's likely the shared folder wasn't available when Apache started.
+  # So restart Apache again once the machine has started up.
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    sudo apachectl restart
+    echo "Your site should now be visible at http://10.11.12.13/"
+  SHELL
+
 end
