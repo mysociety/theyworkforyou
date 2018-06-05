@@ -2168,13 +2168,13 @@ class HANSARDLIST {
 
     private function _get_speaker_url($house) {
         $URL = new \MySociety\TheyWorkForYou\Url('mp'); # Default, house=1
-        if ($house==2) {
+        if ($house == HOUSE_TYPE_LORDS) {
             $URL = new \MySociety\TheyWorkForYou\Url('peer');
-        } elseif ($house==3) {
+        } elseif ($house == HOUSE_TYPE_NI) {
             $URL = new \MySociety\TheyWorkForYou\Url('mla');
-        } elseif ($house==4) {
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             $URL = new \MySociety\TheyWorkForYou\Url('msp');
-        } elseif ($house==0) {
+        } elseif ($house == HOUSE_TYPE_ROYAL) {
             $URL = new \MySociety\TheyWorkForYou\Url('royal');
         }
         return $URL;

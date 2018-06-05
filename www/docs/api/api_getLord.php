@@ -16,5 +16,6 @@ function api_getLord_front() {
 }
 
 function api_getLord_id($id) {
-    return api_getPerson_id($id, 2);
+    return api_getPerson_id($id, HOUSE_TYPE_LORDS); 
 }
+

@@ -32,7 +32,7 @@ if (isset ($data['rows'])) {
                     $desc = join(', ', $desc) . '; ';
                 }
 
-                if ($speaker['house'] == 1 && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
+                if ($speaker['house'] == HOUSE_TYPE_COMMONS && $speaker['party'] != 'Speaker' && $speaker['party'] != 'Deputy Speaker' && $speaker['constituency']) {
                     $desc .= $speaker['constituency'] . ', ';
                 }
                 $desc .= _htmlentities($speaker['party']);

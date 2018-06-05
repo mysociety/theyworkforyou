@@ -3,11 +3,8 @@
 // $Id: dbtypes.php,v 1.8 2009-04-28 13:13:04 matthew Exp $
 
 // The type field in the epobject database table
-/*
-$eptype = array(
-    1 => "hansard",
-    2 => "glossary" );
-*/
+define ('EPTYPE_HANSARD', 1);
+define ('EPTYPE_GLOSSARY', 2);
 
 // The major field in the hansard database table
 $hansardmajors = array(

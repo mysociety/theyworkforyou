@@ -153,20 +153,22 @@ class EditQueue {
             // entries in different tables.
             switch ($data['epobject_type']) {
 
-                // glossary item
-                case 2:
+                case EPTYPE_GLOSSARY:
                     $previous_insert_id = $q->insert_id();
-                    $q = $this->db->query("INSERT INTO glossary
+                    $q = $this->db->query('INSERT INTO glossary
                                     (epobject_id, type, visible)
                                     VALUES
-                                    ('" . $q->insert_id() . "',
-                                    '2',
-                                    '1');");
+                                    (:id, :type, :enabled);',
+                                    array(
+                                      ':id' => $q->insert_id(),
+                                      ':type' => EPTYPE_GLOSSARY,
+                                      ':enabled' => 1,
+                                    ));
                     // Again, no point carrying on if this fails,
                     // so remove the previous entry
                     if (!$q->success()) {
                         print "glossary trouble!";
-                        $q = $this->db->query("delete from epobject where epobject_id=" . $previous_insert_id . "");
+                        $q = $this->db->query('DELETE FROM epobject WHERE epobject_id=:id ;', array(':id' => $previous_insert_id));
                         return false;
                     }
                     break;
@@ -176,13 +178,20 @@ class EditQueue {
 
             // Then finally update the editqueue with
             // the new epobject id and approval details.
-            $q = $this->db->query("UPDATE editqueue
+            $q = $this->db->query('UPDATE editqueue
                             SET
-                            epobject_id_l='" .  $this->current_epobject_id. "',
-                            editor_id='" . addslashes($THEUSER->user_id()) . "',
-                            approved='1',
-                            decided='" . $timestamp . "'
-                            WHERE edit_id=" . $approval_id . ";");
+                            epobject_id_l=:current,
+                            editor_id=:editor,
+                            approved=:approved,
+                            decided=:timestamp
+                            WHERE edit_id=:approval_id ;',
+                            array(
+                                ':current' => $this->current_epobject_id,
+                                ':editor' => addslashes($THEUSER->user_id()),
+                                ':approved' => '1',
+                                ':timestamp' => $timestamp,
+                                ':approval_id' => $approval_id
+                            ));
             if (!$q->success()) {
                 break;
             }

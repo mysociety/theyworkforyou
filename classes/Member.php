@@ -67,7 +67,7 @@ class Member extends \MEMBER {
      * @return boolean
      */
 
-    public function isNew($house = 1) {
+    public function isNew($house = HOUSE_TYPE_COMMONS) {
         $date_entered = $this->getEntryDate($house);
 
         if ($date_entered) {
@@ -91,7 +91,7 @@ class Member extends \MEMBER {
      * @return string - blank if no entry date for that house otherwise in YYYY-MM-DD format
      */
 
-    public function getEntryDate($house = 1) {
+    public function getEntryDate($house = HOUSE_TYPE_COMMONS) {
         $date_entered = '';
 
         $entered_house = $this->entered_house($house);
@@ -111,7 +111,7 @@ class Member extends \MEMBER {
      * @return string - 9999-12-31 if they are still in that house otherwise in YYYY-MM-DD format
      */
 
-    public function getLeftDate($house = 1) {
+    public function getLeftDate($house = HOUSE_TYPE_COMMONS) {
         $date_left = '';
 
         $left_house = $this->left_house($house);
@@ -370,7 +370,7 @@ class Member extends \MEMBER {
     private function entered_house_line($house, $house_name) {
         if (isset($this->entered_house[$house]['date'])) {
             $string = "<strong>Entered the $house_name ";
-            $string .= strlen($this->entered_house[$house]['date_pretty'])==4 ? 'in ' : 'on ';
+            $string .= strlen($this->entered_house[$house]['date_pretty'])==HOUSE_TYPE_SCOTLAND ? 'in ' : 'on ';
             $string .= $this->entered_house[$house]['date_pretty'] . '</strong>';
             if ($this->entered_house[$house]['reason']) {
                 $string .= ' &mdash; ' . $this->entered_house[$house]['reason'];
@@ -488,16 +488,16 @@ class Member extends \MEMBER {
 
     public static function getRepNameForHouse($house) {
         switch ( $house ) {
-        case 1:
+        case HOUSE_TYPE_COMMONS:
             $name = 'MP';
             break;
-        case 2:
+        case HOUSE_TYPE_LORDS:
             $name = 'Peer';
             break;
-        case 3:
+        case HOUSE_TYPE_NI:
             $name = 'MLA';
             break;
-        case 4:
+        case HOUSE_TYPE_SCOTLAND:
             $name = 'MSP';
             break;
         default:

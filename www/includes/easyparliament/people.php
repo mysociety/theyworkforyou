@@ -55,22 +55,22 @@ class PEOPLE {
     }
 
     public function _get_data_by_msps($args) {
-        $args['house'] = 4;
+        $args['house'] = HOUSE_TYPE_SCOTLAND;
         return $this->_get_data_by_group($args);
     }
 
     public function _get_data_by_mlas($args) {
-        $args['house'] = 3;
+        $args['house'] = HOUSE_TYPE_NI;
         return $this->_get_data_by_group($args);
     }
 
     public function _get_data_by_peers($args) {
-        $args['house'] = 2;
+        $args['house'] = HOUSE_TYPE_LORDS;
         return $this->_get_data_by_group($args);
     }
 
     public function _get_data_by_mps($args) {
-        $args['house'] = 1;
+        $args['house'] = HOUSE_TYPE_COMMONS;
         return $this->_get_data_by_group($args);
     }
 
@@ -114,7 +114,7 @@ class PEOPLE {
         $query .= 'WHERE house=' . $args['house'] . ' ';
         if (isset($args['date']))
             $query .= 'AND entered_house <= :date AND :date <= left_house ';
-        elseif (!isset($args['all']) || $args['house'] == 1)
+        elseif (!isset($args['all']) || $args['house'] == HOUSE_TYPE_COMMONS)
             $query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
 
         if (isset($args['order'])) {
@@ -174,7 +174,7 @@ class PEOPLE {
                 $data[$p_id] = $narray;
             }
         }
-        if ($args['house'] == 2 && ($order == 'name' || $order == 'constituency'))
+        if ($args['house'] == HOUSE_TYPE_LORDS && ($order == 'name' || $order == 'constituency'))
             uasort($data, array($this, 'by_peer_name'));
 
         $data = array (

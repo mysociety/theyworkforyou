@@ -10,16 +10,16 @@
                 <h2>Who says <em class="current-search-term"><?= _htmlentities($searchstring) ?></em> the most?</h2>
 
               <?php if ( isset($error) ) { ?>
-                <?php if ( $error == 'No results' && isset( $house ) && $house != 0 ) { ?>
+                <?php if ( $error == 'No results' && isset( $house ) && $house != HOUSE_TYPE_ROYAL ) { ?>
                   <ul class="search-result-display-options">
                       <li>
-                        <?php if ( $house == 1 ) { ?>
+                        <?php if ( $house ==  HOUSE_TYPE_COMMONS) { ?>
                           No results for MPs only
-                        <?php } else if ( $house == 2 ) { ?>
+                        <?php } else if ( $house ==  HOUSE_TYPE_LORDS) { ?>
                           No results for Peers only
-                        <?php } else if ( $house == 4 ) { ?>
+                        <?php } else if ( $house == HOUSE_TYPE_SCOTLAND) { ?>
                           No results for MSPs only
-                        <?php } else if ( $house == 3 ) { ?>
+                        <?php } else if ( $house ==  HOUSE_TYPE_NI) { ?>
                           No results for MLAs only
                         <?php } ?>
                           |
@@ -45,34 +45,34 @@
                     <ul class="search-result-display-options">
                         <li>Results grouped by person</li>
                         <li>
-                          <?php if ( $house == 0 ) { ?>
+                          <?php if ( $house ==  HOUSE_TYPE_ROYAL) { ?>
                             Show All
                           <?php } else { ?>
                             <a href="<?= $this_url->generate('html') ?>">Show All</a>
                           <?php } ?>
                             |
-                          <?php if ( $house == 1 ) { ?>
+                          <?php if ( $house ==  HOUSE_TYPE_COMMONS) { ?>
                             MPs only
                           <?php } else { ?>
                             <a href="<?= $this_url->generate('html', array('house'=>1)) ?>">MPs only</a>
                           <?php } ?>
                             |
-                          <?php if ( $house == 2 ) { ?>
+                          <?php if ( $house ==  HOUSE_TYPE_LORDS) { ?>
                             Peers only
                           <?php } else { ?>
                             <a href="<?= $this_url->generate('html', array('house'=>2)) ?>">Lords only</a>
                           <?php } ?>
                             |
-                          <?php if ( $house == 4 ) { ?>
+                          <?php if ( $house ==  HOUSE_TYPE_SCOTLAND) { ?>
                             MSPs only
                           <?php } else { ?>
                             <a href="<?= $this_url->generate('html', array('house'=>4)) ?>">MSPs only</a>
                           <?php } ?>
                             |
-                          <?php if ( $house == 3 ) { ?>
+                          <?php if ( $house ==  HOUSE_TYPE_NI) { ?>
                             MLAs only
                           <?php } else { ?>
-                            <a href="<?= $this_url->generate('html', array('house'=>3)) ?>">MLAs only</a>
+                            <a href="<?= $this_url->generate('html', array('house'=>HOUSE_TYPE_NI)) ?>">MLAs only</a>
                           <?php } ?>
                         </li>
                         <li><a href="<?= $ungrouped_url->generate() ?>">Ungroup results</a></li>
@@ -108,7 +108,7 @@
                                 <?php if ( isset($speaker['party']) ) { ?>
                                   <span class="search-results-grouped__speaker-party">(<?= $speaker['party'] ?>)</span>
                                 <?php } ?>
-                                <?php if ( $house != 2 ) { ?>
+                                <?php if ( $house !=  HOUSE_TYPE_LORDS) { ?>
                                   <?= isset($speaker['office']) ? ' - ' . join('; ', $speaker['office']) : '' ?>
                                 <?php } ?>
                               <?php } else { // no $pid ?>

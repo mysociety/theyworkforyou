@@ -18,7 +18,7 @@ function _api_getMembers_output($sql, $params) {
                 $q->field($i, 'lordofname') )),
             'party' => isset($parties[$q->field($i, 'party')]) ? $parties[$q->field($i, 'party')] : $q->field($i, 'party'),
         );
-        if ($q->field($i, 'house') != 2) {
+        if ($q->field($i, 'house') != HOUSE_TYPE_LORDS) {
             $row['constituency'] = $q->field($i, 'constituency');
         }
         $output[$pid] = $row;

@@ -21,10 +21,10 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     global $parties;
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['given_name'],
         $row['family_name'], $row['lordofname']);
-    if ($row['house'] != 2) {
+    if ($row['house'] != HOUSE_TYPE_LORDS) {
         unset($row['lordofname']);
     }
-    if ($row['house'] == 1) {
+    if ($row['house'] == HOUSE_TYPE_COMMONS) {
         $URL = new \MySociety\TheyWorkForYou\Url('mp');
         $row['url'] = $URL->generate('none') . make_member_url($row['full_name'], $row['constituency'], $row['house'], $row['person_id']);
     }
@@ -39,7 +39,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     }
 
     $dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
-    if ($row['house'] == 1 && ($row['left_house'] == '9999-12-31' || (isset($dissolution[1]) && $row['left_house'] == $dissolution[1]))) {
+    if ($row['house'] == HOUSE_TYPE_COMMONS && ($row['left_house'] == '9999-12-31' || (isset($dissolution[1]) && $row['left_house'] == $dissolution[1]))) {
         # Ministerialships and Select Committees
         $db = new ParlDB;
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');

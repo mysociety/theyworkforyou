@@ -43,7 +43,7 @@ and effectiveness. </li>
 
 <?php
 
-$q = $db->query('select max(left_house) as left_house from member where house=1');
+$q = $db->query('select max(left_house) as left_house from member where house=' . HOUSE_TYPE_COMMONS);
 $left_house = $q->field(0, 'left_house');
 
 $q = $db->query("select personinfo.person_id from personinfo, member
