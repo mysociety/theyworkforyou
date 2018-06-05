@@ -6,7 +6,7 @@
             <div class="mysoc-footer__site-description">
                 <p>Making it easy to keep an eye on the UK&rsquo;s parliaments. Discover who represents you, how they&rsquo;ve voted and what they&rsquo;ve said in debates &ndash; simply and clearly.</p>
             </div>
-            <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
+            <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
                 <p>Get insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
                 <div class="row collapse">
                     <div class="small-8 columns">
@@ -16,6 +16,7 @@
                         <label style="position: absolute; left: -5000px;">
                           Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
                         </label>
+                        <input type="hidden" name="group[11745][32]" value="1">
                         <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
                     </div>
                 </div>
