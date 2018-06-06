@@ -57,6 +57,27 @@ You may find that in some versions of PHPUnit errors are thrown regarding code
 coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
 and located at `/vendor/bin/phpunit` should run correctly.
 
+## Database Migrations
+
+This application uses [phinx](https://phinx.org) for database migrations.
+
+- Create database migration
+```
+vendor/bin/phinx create <MIGRATION_NAME> 
+```
+
+- Apply database migration (development environment)
+```
+vendor/bin/phinx migrate -e development
+```
+
+- Roll back database migration
+```
+vendor/bin/phinx rollback -e development
+```
+
+For more details, see [phinx docs](https://book.cakephp.org/3.0/en/phinx/commands.html).
+
 ## Build Status
 
 [![Build Status](https://img.shields.io/travis/mysociety/theyworkforyou.svg)](https://travis-ci.org/mysociety/theyworkforyou)

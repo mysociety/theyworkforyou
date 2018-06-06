@@ -13,3 +13,7 @@ export PATH="$DIR/vendor/bundle-bin:$PATH"
 DIR=`dirname $BASH_SOURCE`/../www/docs/style
 cd $DIR
 compass compile
+
+# Database migrations
+vendor/bin/phinx migrate -e development
+vendor/bin/phinx migrate -e testing
