@@ -85,6 +85,72 @@ $weight_bold: 700;
     }
 }
 
+@mixin display-flex() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values, $values2009: 0) {
+  -webkit-box-flex: $values2009;
+  -moz-box-flex: $values2009;
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+@mixin flex-wrap($wrap) {
+  -webkit-box-wrap: $wrap;
+  -webkit-flex-wrap: $wrap;
+  -ms-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-align($alignment) {
+  -webkit-box-align: $alignment;
+  -webkit-align-items: $alignment;
+  -ms-flex-align: $alignment;
+  align-items: $alignment;
+}
+
+@mixin flex-direction($direction) {
+    @if ($direction == column) {
+        -webkit-box-orient: vertical;
+    } @elseif ($direction == row) {
+        -webkit-box-orient: horizontal;
+    }
+    -moz-flex-direction: $direction;
+    -ms-flex-direction: $direction;
+    -webkit-flex-direction: $direction;
+    flex-direction: $direction;
+}
+
+@mixin justify-content($alignment) {
+    -webkit-justify-content: $alignment;
+    -moz-justify-content: $alignment;
+    -ms-justify-content: $alignment;
+    justify-content: $alignment;
+}
+
+@mixin flex-order($order) {
+  // 2009 syntax
+  -webkit-box-ordinal-group: $order;
+  -moz-box-ordinal-group: $order;
+
+   // 2011 syntax https://www.w3.org/TR/2012/WD-css3-flexbox-20120322/#flex-order
+  -ms-flex-order: $order;
+  flex-order: $order;
+
+  // Modern syntax
+  -webkit-order: $order;
+  -ms-order: $order;
+  order: $order;
+}
+
 .hide-on-small {
     display: none;
     visibility: hidden;
@@ -208,16 +274,12 @@ $weight_bold: 700;
 }
 
 .button--facebook {
-    background: #3b5998 url(../img/facebook-icon.png) 1em 50% no-repeat;
+    background: #3b5998 url(../img/icon-facebook-f.png) 1em 50% no-repeat;
     background-size: 10px 20px;
     padding-left: 2.33em;
 
-    @media ($high-dpi-screen) {
-        background-image: url(../img/facebook-icon@2x.png);
-    }
-
     @media (screen) {
-        background-image: url(../img/facebook-icon.svg), none;
+        background-image: url(../img/icon-facebook-f.svg), none;
     }
 
     &:hover,

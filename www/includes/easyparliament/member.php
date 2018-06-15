@@ -127,6 +127,7 @@ class MEMBER {
                     'date' => $entered_house,
                     'date_pretty' => $this->entered_house_text($entered_house),
                     'reason' => $this->entered_reason_text($entered_reason),
+                    'house' => $house
                 );
             }
 
@@ -136,7 +137,8 @@ class MEMBER {
                     'date_pretty' => $this->left_house_text($left_house),
                     'reason' => $this->left_reason_text($left_reason, $left_house, $house),
                     'constituency' => $const,
-                    'party' => $this->party_text($party)
+                    'party' => $this->party_text($party),
+                    'house' => $house
                 );
             }
 

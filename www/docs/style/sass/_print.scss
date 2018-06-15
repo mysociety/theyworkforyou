@@ -19,8 +19,8 @@
     .debate-speech__speaker a:after,
     .debate-speech__meta__link.time:after,
     .debate-speech__question-answered .button,
-    .person-header .person-buttons,
-    .person-header .person-search,
+    .person-header__actions,
+    .person-header__search,
     .search-page__section--search,
     .search-result-display-options,
     .people-list-alphabet,
@@ -59,9 +59,12 @@
     .business-section__header,
     .business-section__primary,
     .business-section__secondary,
-    .person-header,
     .person-panels {
         padding: 0 !important;
+    }
+
+    .person-header {
+        margin-bottom: 1em;
     }
 
     input {
@@ -86,15 +89,5 @@
         border: 1px solid #ccc;
         padding: 0.1em 0.4em;
         border-radius: 0.3em;
-    }
-
-    .person-header .person-header__content {
-        .person-constituency {
-            position: static;
-        }
-
-        .person-name {
-            width: auto;
-        }
     }
 }

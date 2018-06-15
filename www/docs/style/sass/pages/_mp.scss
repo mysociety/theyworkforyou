@@ -1,272 +1,260 @@
 .person-header {
-    padding-top: 16px;
-    position: relative; //allow us to z-index the regional-header__overlay behind this content
+    background: #fff;
+    border: 1px solid $borders;
+    border-width: 1px 0;
+    padding: 16px 0;
+
     @media (min-width: $medium-screen) {
-        padding-top: 32px;
-    }
-    @media (min-width: $large-screen) {
-        padding-top: 64px;
+        padding: 32px 0;
     }
 
-    .person-header__content {
-        color: white;
+    .full-page__unit {
+        display: grid;
+        grid-gap: 0 20px;
+        grid-template-columns: 60px 1fr;
+        grid-template-areas: "image   about"
+                             "search  search"
+                             "actions actions";
+
+        @media (min-width: 30em) {
+            grid-template-areas: "image about"
+                                 "image search"
+                                 "image actions";
+        }
 
         @media (min-width: $medium-screen) {
-            position: relative; // for search and button positioning
-            padding-bottom: 3em; // space for the search and buttons to absolutely position over
+            grid-template-columns: 120px 1fr 1fr;
+            grid-template-areas: "image about    about"
+                                 "image actions  search";
+        }
+    }
+}
+
+// Historical figures have no `.person-header__actions`
+// so, to avoid a big empty space, we use a custom grid.
+.person-header--historical {
+    .full-page__unit {
+        grid-template-areas: "image   about"
+                             "search  search";
+
+        @media (min-width: 30em) {
+            grid-template-areas: "image about"
+                                 "image search";
         }
 
-        @media (min-width: $large-screen) {
-            padding-bottom: 5em; // give buttons and search more vertical space
+        @media (min-width: $medium-screen) {
+            grid-template-columns: 60px 1fr;
+            grid-template-areas: "image about"
+                                 "image search";
         }
+    }
+}
 
-        .person-name {
-            display: table; // this won't work in IE7
+.person-header__image {
+    float: left;
+    margin-right: 1em;
 
-            @media (min-width: $large-screen) {
-                width: 60%; // leave room for .person-constituency to absolutely position to the right
-            }
+    @supports (display: flex) {
+        float: none;
+        margin-right: 0;
+    }
 
-            .mp-image {
-                display: table-cell; // this won't work in IE7
-                vertical-align: top;
-                width: 48px;
+    grid-area: image;
+}
 
-                *float: left; // fallback for IE7 and below
-                *margin-right: 10px; // fallback for IE7 and below
+@media (min-width: $medium-screen) {
+    .person-header__image--small {
+        position: relative;
+        overflow: hidden;
+        @include display-flex();
+        @include flex-align(center);
+        @include justify-content(center);
+        background: #000;
 
-                @media (min-width: $medium-screen) {
-                    width: 60px; // bit bigger, since h1 now has larger font-size
-                }
-
-                img {
-                    width: 100%;
-                    margin-top: 5px;
-                    margin-bottom: 5px;
-                }
-            }
-
-            .mp-name-and-position {
-                color: white;
-                display: table-cell; // this won't work in IE7
-                vertical-align: bottom;
-                padding-left: 10px;
-
-                h1 {
-                    margin: 0px;
-                    padding: 0px;
-                    line-height: 1em;
-                    color: inherit;
-                }
-
-                p {
-                    font-size: em-calc(21);
-                    line-height: 1.1em;
-                    margin: 0.1em 0;
-
-                    @media (min-width: $medium-screen) {
-                        font-size: em-calc(24);
-                    }
-                }
-            }
-        }
-
-        .person-data-attribution {
-          margin: 0.5em 0 0 0;
-          font-size: 0.7em;
-          color: rgba(255,255,255,0.7);
-
-          @media (min-width: $large-screen) {
+        span {
+            display: block;
             position: absolute;
-            bottom: 0;
-            margin-top: 0;
-          }
-
-          a {
-            color: inherit;
-
-            &:hover, &:focus {
-              color: #fff;
-            }
-          }
+            top: -10px;
+            right: -10px;
+            bottom: -10px;
+            left: -10px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 50% 50%;
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            filter: blur(5px);
+            opacity: 0.7;
         }
 
-        .person-search {
-            @media (min-width: $medium-screen) {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-            }
+        img {
+            position: relative;
+            box-shadow: 0 5px 10px rgba(#000, 0.2);
+        }
+    }
+}
 
-            @media (min-width: $large-screen) {
-                bottom: 1em;
-            }
+.person-header__about {
+    grid-area: about;
 
-            form {
-                padding-bottom: 1em;
+    @media (min-width: $medium-screen) {
+        @include display-flex();
+        @include flex-wrap(wrap);
+    }
+}
 
-                input {
-                    -webkit-appearance: none;
-                    padding: em-calc(8);
-                    font-size: em-calc(16);
-                    font-style: italic;
-                    border: 1px solid $borders;
-                    border-right: 0px;
-                    border-radius: 3px 0px 0px 3px;
-                    width: 16em;
+.person-header__about__name {
+    font-size: 1.66667em; // match h2 on mobile
+    line-height: 1em;
+    margin-top: -0.1em; // line up top of text with image
+    margin-bottom: 0.2em;
 
-                    &.submit {
-                        background: transparent url('/images/search.png') no-repeat scroll center center;
-                        background-color: white;
-                        color: transparent;
-                        border-right: 1px solid $borders;
-                        border-left: 0px;
-                        border-radius: 0px 3px 3px 0px;
-                        width: auto;
-                    }
-                }
-            }
+    @media (min-width: $medium-screen) {
+        flex: 1 0 auto;
+        font-size: 2.11111em;
+        width: 100%;
+    }
+}
+
+.person-header__about__known-for {
+    line-height: 1.2em;
+    margin-bottom: 0.5em;
+
+    @media (min-width: $medium-screen) {
+        flex: 1 0 auto;
+        width: 100%;
+    }
+}
+
+.person-header__about__position {
+    line-height: 1.2em;
+    margin-bottom: 0.5em;
+
+    @media (min-width: $medium-screen) {
+        @include flex(0 0 auto);
+        margin-right: 30px;
+    }
+}
+
+.person-header__about__position__party,
+.person-header__about__position__role,
+.person-header__about__position__constituency {
+    font-weight: bold;
+}
+
+.person-header__about__media {
+    font-size: 0.9em;
+    line-height: 1.2em;
+    margin: 0 0 0.5em -5px;
+
+    @media (min-width: $medium-screen) {
+        @include flex(0 0 auto);
+        margin: 0 0 0.5em -10px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        margin: 0 5px;
+        white-space: nowrap;
+
+        @media (min-width: $medium-screen) {
+            margin: 0 10px;
         }
 
-        .person-buttons {
-            .button {
-                padding-left: 0.85em;
-                padding-right: 0.85em;
-
-                img {
-                    display: none;
-                }
-            }
-
-            @media (min-width: $medium-screen) {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-
-                .button {
-                    padding: 0.4em 0.9em;
-                    margin-right: 0.5em;
-
-                    img {
-                        display: inline-block;
-                    }
-                }
-            }
-
-            @media (min-width: $large-screen) {
-                bottom: 1em;
-            }
-        }
-
-        .person-constituency {
-            margin-bottom: 1em;
-            margin-top: 0.5em;
-
-            @media (min-width: $large-screen) {
-                position: absolute;
-                bottom: 5em; // to match padding-bottom on .person-header__content
-                right: 0;
-                margin-bottom: 5px; // match bottom padding on h1 (because of line-height, not really padding)
-                margin-top: 0;
-            }
-
-            span {
-                display: block;
-                @media (min-width: $medium-screen) {
-                    display: inline;
-                }
-            }
-
-            .constituency {
-                margin-right: 1em;
-
-                &:before {
-                    position: relative;
-                    content: url('../img/location-pin.png');
-                    bottom: -0.3em;
-                }
-            }
-
-            .party {
-                &:before {
-                    display: inline-block;
-                    width: 1.4em;
-                    height: 1.4em;
-                    line-height: 1.4em;
-                    vertical-align: 0.2em;
-                    text-align: center;
-                    font-size: em-calc(12);
-                    content: 'O';
-                    margin-right: 0.5em;
-                    margin-left: 0.5em;
-                    @media (min-width: $large-screen) {
-                        margin-left: auto;
-                    }
-                    @include radius(100%);
-                    font-weight: bold;
-                    color: lightgrey;
-                    background-color: lightgrey;
-                }
-                &.Conservative:before {
-                    color: white;
-                    content: 'C';
-                    background-color: rgb(22,111,210);
-                }
-                &.Labour:before {
-                    color: white;
-                    content: 'L';
-                    background-color: rgb(238, 50, 36);
-                }
-                &.LiberalDemocrat:before {
-                    color: black;
-                    content: 'L';
-                    background-color: rgb(255, 187, 51);
-                }
-                &.ScottishNationalParty:before {
-                    color: black;
-                    content: 'S';
-                    background-color: rgb(255, 249, 93);
-                }
-                &.Green:before {
-                    color: white;
-                    content: 'G';
-                    background-color: rgb(106, 176, 35);
-                }
-                &.UKIP:before {
-                    color: #FEDF00;
-                    content: 'U';
-                    background-color: #70147A;
-                }
-                &.PlaidCymru:before {
-                    color: #3f8429;
-                    content: 'P';
-                    background-color: #f8bf1a;
-                }
-                &.DUP:before {
-                    color: white;
-                    content: 'D';
-                    background-color: #cc0202;
-                }
-                &.SinnFéin:before {
-                    color: white;
-                    content: 'S';
-                    background-color: #0c6a30;
-                }
-            }
+        &:hover,
+        &:focus {
+            text-decoration: underline;
         }
     }
 
-    @media (min-width: $large-screen) {
-        &.has-data-attribution .person-header__content {
-          margin-bottom: 2em;
-          margin-top: -1em;
+    [href] {
+        &:before {
+            content: "";
+            display: inline-block;
+            margin-right: 0.3em;
+            width: 16px;
+            height: 16px;
+            background-size: 16px 16px;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            vertical-align: -0.2em;
         }
+    }
 
-        // Special case for the Queen, bless her
-        &.royal {
-            .person-header__content .person-name {
-                width: auto; // the Queen has no party/constituency, so no need for the 60% width
+    [href*="facebook.com"] {
+        &:before {
+            background-image: url('../img/icon-facebook.png');
+            background-image: url('../img/icon-facebook.svg'), none;
+        }
+    }
+
+    [href*="twitter.com"] {
+        &:before {
+            background-image: url('../img/icon-twitter.png');
+            background-image: url('../img/icon-twitter.svg'), none;
+        }
+    }
+}
+
+.person-header__search {
+    margin-top: 0.5em;
+    grid-area: search;
+    align-self: end;
+
+    input[name="q"] {
+        padding: 0 0.5em;
+        margin-bottom: 0;
+        border-radius: 3px 0 0 3px;
+        box-shadow: none;
+        height: 2.4em;
+    }
+
+    button {
+        padding: 0;
+        margin-bottom: 0;
+        border-radius: 0 3px 3px 0;
+        box-shadow: none;
+        height: 2.4em;
+        border: none;
+    }
+
+    @media (min-width: $medium-screen) {
+        margin-top: 1em;
+
+        .row {
+            max-width: 20em;
+            margin-right: auto;
+            margin-left: 0; // Align to left edge of parent
+
+            @supports (display: flex) {
+                margin-right: 0; // Align to right edge of parent
+                margin-left: auto;
             }
+
+            .person-header--historical & {
+                margin-right: auto;
+                margin-left: 0; // Align to left edge of parent
+            }
+        }
+    }
+}
+
+.person-header__actions {
+    margin: 1em -5px 0 -5px;
+    @include display-flex();
+    grid-area: actions;
+    align-self: end;
+
+    .button {
+        margin: 0 5px;
+        padding: 0.5em;
+        line-height: 1em;
+        @include flex(1 1 auto);
+
+        @media (min-width: $medium-screen) {
+            @include flex(0 1 auto);
+            padding: 0.5em 1em;
         }
     }
 }

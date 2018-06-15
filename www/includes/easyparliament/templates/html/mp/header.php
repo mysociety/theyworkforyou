@@ -1,74 +1,72 @@
-    <div class="regional-header regional-header--<?= $current_assembly ?>">
-        <div class="regional-header__overlay"></div>
-        <div class="person-header <?= $this_page ?> <?= (isset($data['photo_attribution_text'])?'has-data-attribution':'') ?>">
-            <div class="full-page__row">
-                <div class="full-page__unit">
-                    <div class="person-header__content">
-                        <div class="person-name">
-                          <?php if ( $image ) { ?>
-                            <div class="mp-image">
-                                <img src="<?= $image['url'] ?>" height="48">
-                            </div>
-                          <?php } ?>
-                            <div class="mp-name-and-position">
-                                <h1><?= $full_name ?></h1>
-                              <?php if ($header_position) { ?>
-                                 <p><?= $header_position ?></p>
-                              <?php } ?>
-                            </div>
-                        </div>
-                        <?php if($image && $image['exists']): ?>
-                            <?php if(isset($data['photo_attribution_text'])) { ?>
-                                <div class="person-data-attribution">
-                                  <?php if(isset($data['photo_attribution_link'])) { ?>
-                                    Profile photo: <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
-                                  <?php } else { ?>
-                                    Profile photo: <?= $data['photo_attribution_text'] ?>
-                                  <?php } ?>
-                                </div>
-                            <?php } ?>
-                        <?php else: ?>
-                            <div class="person-data-attribution">
-                                We&rsquo;re missing a photo of <?= $full_name ?>. If you have a
-                                photo <em>that you can release under a Creative Commons Attribution-ShareAlike
-                                license</em> or can locate a <em>copyright free</em> photo,
-                                <a href="mailto:<?= str_replace('@', '&#64;', CONTACTEMAIL) ?>">please email it to us</a>.
-                                Please do not email us about copyrighted photos elsewhere on the internet; we can&rsquo;t
-                                use them.
-                            </div>
-                        <?php endif; ?>
-                        <div class="person-constituency">
-                          <?php if ( $constituency && $this_page != 'peer' && $this_page != 'royal' ) { ?>
-                            <span class="constituency"><?= $constituency ?></span>
-                          <?php } ?>
-                          <?php if ( $party ) { ?>
-                            <span class="party <?= $party_short ?>"><?= $party ?></span>
-                          <?php } ?>
-                        </div>
-                        <div class="person-search">
-                            <form action="<?= $search_url ?>" method="get" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
-                                <input id="person_search_input" name="q" maxlength="200" placeholder="Search this person's speeches"><input type="submit" class="submit" value="GO">
-                                <input type="hidden" name="pid" value="<?= $person_id ?>">
-                            </form>
-                        </div>
-                        <div class="person-buttons">
-                          <?php if ($current_member_anywhere && $this_page != 'royal') { ?>
-                            <a href="https://www.writetothem.com/<?php
-                                if ($current_member[HOUSE_TYPE_LORDS]) {
-                                    echo "?person=uk.org.publicwhip/person/$person_id";
-                                }
-                                if ($the_users_mp) {
-                                    echo "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
-                                }
-                            ?>" class="button wtt" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;"><img src="/style/img/envelope.png">Send a message</a>
-
-                          <?php } ?>
-                          <?php if ($has_email_alerts) { ?>
-                            <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" class="button alert" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;"><img src="/style/img/plus-circle.png">Get email updates</a>
-                          <?php } ?>
-                        </div>
+<div class="person-header <?= $current_member_anywhere ? '' : 'person-header--historical'; ?>">
+    <div class="full-page__row">
+        <div class="full-page__unit">
+          <?php if ( $image ) { ?>
+            <div class="person-header__image <?= $image['size'] == 'S' ? 'person-header__image--small' : '' ?>">
+              <?php if ( $image['size'] == 'S' ) { ?>
+                <span style="background-image: url('<?= $image['url'] ?>');"></span>
+              <?php } ?>
+                <img src="<?= $image['url'] ?>">
+            </div>
+          <?php } ?>
+            <div class="person-header__about">
+                <h1 class="person-header__about__name"><?= $full_name ?></h1>
+              <?php if ( $known_for ) { ?>
+                <p class="person-header__about__known-for">
+                    <?= $known_for ?>
+                </p>
+              <?php } ?>
+              <?php if ( $latest_membership && $latest_membership['house'] != HOUSE_TYPE_ROYAL ) { ?>
+                <p class="person-header__about__position">
+                    <span class="person-header__about__position__role">
+                        <?= $latest_membership['current'] ? '' : 'Former' ?>
+                        <?= $latest_membership['party'] == 'Bishop' ? '' : $latest_membership['party'] ?>
+                        <?= $latest_membership['rep_name'] ?>
+                    </span>
+                  <?php if ( $latest_membership['constituency'] ) { ?>
+                    for
+                    <span class="person-header__about__position__constituency">
+                        <?= $latest_membership['constituency'] ?>
+                    </span>
+                  <?php } ?>
+                </p>
+              <?php } ?>
+              <?php if (count($social_links) > 0) { ?>
+                <p class="person-header__about__media">
+                  <?php foreach ($social_links as $link){ ?>
+                      <a href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'Social-Link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a>
+                  <?php } ?>
+                </p>
+              <?php } ?>
+            </div>
+            <form class="person-header__search" action="<?= $search_url ?>" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Person'); return false;">
+                <div class="row collapse">
+                    <div class="small-9 columns">
+                        <input name="q" placeholder="Search this person’s speeches" type="search">
+                    </div>
+                    <div class="small-3 columns">
+                        <button type="submit" class="prefix">Search</button>
                     </div>
                 </div>
+                <input type="hidden" name="pid" value="<?= $person_id ?>">
+            </form>
+          <?php if ($current_member_anywhere) { ?>
+            <div class="person-header__actions">
+              <?php if ($this_page != 'royal') {
+                $wtt_url = 'https://www.writetothem.com/';
+                if ($current_member[HOUSE_TYPE_LORDS]) {
+                    $wtt_url = $wtt_url . "?person=uk.org.publicwhip/person/$person_id";
+                } else if ($the_users_mp) {
+                    $wtt_url = $wtt_url . "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
+                }
+              ?>
+                <a href="<?= $wtt_url ?>" class="button" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;">Send a message</a>
+              <?php } ?>
+              <?php if ($has_email_alerts) { ?>
+                <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>" class="button tertiary" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;">Get email updates</a>
+              <?php } ?>
             </div>
+          <?php } ?>
         </div>
     </div>
+</div>

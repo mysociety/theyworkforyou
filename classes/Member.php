@@ -164,46 +164,30 @@ class Member extends \MEMBER {
 
     }
 
-    // TODO: some of this probably wants to go elsewhere
     public function getMostRecentMembership() {
-        $last_cons = '';
-        $last_house = null;
-        $last_party = null;
-        if ( $this->current_member_anywhere() ) {
-            $houses = array_keys(array_filter($this->current_member(), 'strlen'));
-            $last_cons = $this->constituency;
-            $last_party = $this->party;
-            $last_house = $this->house_disp;
-        } else {
-            $max_date = null;
-            foreach ( array_keys($this->left_house) as $house ) {
-                if ($this->left_house[$house]['date'] > $max_date ) {
-                    $max_date = $this->left_house[$house]['date'];
-                    $last_cons = $this->left_house[$house]['constituency'];
-                    $last_party = $this->left_house[$house]['party'];
-                    $last_house = $house;
+        $departures = $this->left_house();
+
+        usort(
+            $departures,
+            function ($a, $b) {
+                if ( $a['date'] == $b['date'] ) {
+                    return 0;
+                } else if ( $a['date'] < $b['date'] ) {
+                    return -1;
+                } else {
+                    return 1;
                 }
             }
-        }
-        $details = array(
-            'entered_house' => '',
-            'left_house' => '',
-            'cons' => $last_cons,
-            'party' => $last_party,
-            'house' => $last_house,
-            'rep_name' => $this->getRepNameForHouse($last_house)
         );
 
-        $entered_house = $this->entered_house($last_house);
-        $left_house = $this->left_house($last_house);
-        if ( isset($entered_house['date']) ) {
-            $details['entered_house'] = $entered_house['date'];
-        }
-        if ( isset($left_house['date']) ) {
-            $details['left_house'] = $left_house['date'];
-        }
+        $latest_membership = array_slice($departures, -1)[0];
+        $latest_membership['current'] = ($latest_membership['date'] == '9999-12-31');
+        $latest_entrance = $this->entered_house($latest_membership['house']);
+        $latest_membership['start_date'] = $latest_entrance['date'];
+        $latest_membership['end_date'] = $latest_membership['date'];
+        $latest_membership['rep_name'] = $this->getRepNameForHouse($latest_membership['house']);
 
-        return $details;
+        return $latest_membership;
     }
 
     /**

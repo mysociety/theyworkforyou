@@ -10,27 +10,3 @@ $large-screen: 60px;
     width: 1140px !important;
     margin: auto;
 }
-
-.lt-ie9 {
-    .person-header {
-        .person-header__content {
-            .person-search {
-                form {
-                    input {
-                        display: inline-block;
-                        background-image: none;
-                        height: 33px;
-                        &[type="submit"] {
-                            border-left: 1px solid $borders;
-                        }
-                    }
-                }
-            }
-            .person-buttons {
-                .button {
-                    width: 14em;
-                }
-            }
-        }
-    }
-}

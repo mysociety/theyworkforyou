@@ -219,37 +219,10 @@ if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
     $title .= ' MSP, '.$MEMBER->constituency();
 }
 
-$positions = array();
-
-// Position if this is a member of the Commons
-if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
-    $position = $MEMBER->current_member(HOUSE_TYPE_COMMONS) ? 'MP' : 'Former MP';
-    if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
-    $positions[] = $position;
-}
-
-// Position if this is a member of NIA
-if ($MEMBER->house(HOUSE_TYPE_NI)) {
-    $position = $MEMBER->current_member(HOUSE_TYPE_NI) ? 'MLA' : 'Former MLA';
-    if ($MEMBER->constituency()) $position .= ', ' . $MEMBER->constituency();
-    $positions[] = $position;
-}
-
-// Position if this is a member of Scottish Parliament
-if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
-    $position = $MEMBER->current_member(HOUSE_TYPE_SCOTLAND) ? 'MSP' : 'Former MSP';
-    $position .= ', ' . $MEMBER->constituency();
-    $positions[] = $position;
-}
-
-$position = implode('; ', $positions);
-
-$current_offices = $MEMBER->offices('current', TRUE);
-$former_offices = $MEMBER->offices('previous', TRUE);
-
-// If this person has named non-committee offices, they override the default
-if (count($current_offices) > 0) {
-    $position = $current_offices[0];
+$known_for = '';
+$current_offices_ignoring_committees = $MEMBER->offices('current', TRUE);
+if (count($current_offices_ignoring_committees) > 0) {
+    $known_for = $current_offices_ignoring_committees[0];
 }
 
 // Finally, if this is a Votes page, replace the page description with
@@ -273,11 +246,11 @@ $data['full_name'] = $MEMBER->full_name();
 $data['person_id'] = $MEMBER->person_id();
 $data['member_id'] = $MEMBER->member_id();
 
-$data['header_position'] = $position;
+$data['known_for'] = $known_for;
+$data['latest_membership'] = $MEMBER->getMostRecentMembership();
 
 $data['constituency'] = $MEMBER->constituency();
 $data['party'] = $MEMBER->party_text();
-$data['party_short'] = $MEMBER->getShortParty();
 $data['current_member_anywhere'] = $MEMBER->current_member_anywhere();
 $data['current_member'] = $MEMBER->current_member();
 $data['the_users_mp'] = $MEMBER->the_users_mp();
