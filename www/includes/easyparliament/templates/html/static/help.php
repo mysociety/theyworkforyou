@@ -86,7 +86,7 @@
                     <p>Here&rsquo;s everything you&rsquo;ll find on the site currently:</p>
 
                     <ul>
-                        <li>House of Commons debates back to the General Election of <strong>1935</strong>;
+                        <li>House of Commons debates back to the General Election of <strong>December 1918</strong>;
                         <li>Data on MPs back to <strong>1806</strong> or thereabouts;
                         <li>House of Commons written answers and written ministerial statements
                         back to the General Election of June 2001;

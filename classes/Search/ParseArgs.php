@@ -29,7 +29,7 @@ class ParseArgs {
         if (get_http_var('from') || get_http_var('to')) {
             $from = parse_date(get_http_var('from'));
             if ($from) $from = $from['iso'];
-            else $from = '1935-10-01';
+            else $from = '1919-01-01';
             $to = parse_date(get_http_var('to'));
             if ($to) $to = $to['iso'];
             else $to = date('Y-m-d');

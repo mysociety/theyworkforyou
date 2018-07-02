@@ -234,6 +234,12 @@ if (!count($data)) {
                         <a href="<?= $urls['plain'] ?>?date=1950-02-23">MPs at 1950 general election</a>
                         <a href="<?= $urls['plain'] ?>?date=1945-07-05">MPs at 1945 general election</a>
                         <a href="<?= $urls['plain'] ?>?date=1935-11-14">MPs at 1935 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1931-10-27">MPs at 1931 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1929-05-30">MPs at 1929 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1924-10-29">MPs at 1924 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1923-12-06">MPs at 1923 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1922-11-15">MPs at 1922 general election</a>
+                        <a href="<?= $urls['plain'] ?>?date=1918-12-14">MPs at 1918 general election</a>
                         <label for="past-list-custom-date">Custom date&hellip;</label>
                         <span class="input-appended">
                             <input type="text" id="past-list-custom-date" name="date" class="form-control" placeholder="YYYY-MM-DD">
