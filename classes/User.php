@@ -31,7 +31,6 @@ class User {
         $data['name'] = $user->firstname() . " " . $user->lastname();
         $data['url'] = $user->url();
         $data['email'] = $user->email();
-        $data['emailpublic'] = $user->emailpublic() == true ? "Yes" : "No";
         $data['optin'] = $user->optin() == true ? "Yes" : "No";
         $data['postcode']	= $user->postcode();
         $data['website']	= $user->url();
@@ -61,7 +60,6 @@ class User {
         if ($user->facebook_user) {
             $details = $this->getUserDetails();
             $details["password"] = '';
-            $details["emailpublic"] = false;
         } else {
             $details["firstname"] = trim(get_http_var("firstname"));
             $details["lastname"] = trim(get_http_var("lastname"));
@@ -69,7 +67,6 @@ class User {
             $details["password"] = trim(get_http_var("password"));
             $details["password2"] = trim(get_http_var("password2"));
 
-            $details["emailpublic"] = get_http_var("emailpublic") == "true" ? true : false;
             $details["email"] = trim(get_http_var("em"));
 
             $details["url"] = trim(get_http_var("url"));

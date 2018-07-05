@@ -61,7 +61,6 @@ class USER {
     public $lastname = "";
     public $password = "";         // This will be a hashed version of a plaintext pw.
     public $email = "";
-    public $emailpublic = "";      // boolean - can other users see this user's email?
     public $postcode = "";
     public $url = "";
     public $lastvisit = "";        // Last time the logged-in user loaded a page (GMT).
@@ -96,7 +95,6 @@ class USER {
                                 lastname,
                                 password,
                                 email,
-                                emailpublic,
                                 postcode,
                                 url,
                                 lastvisit,
@@ -122,7 +120,6 @@ class USER {
             $this->lastname             = $q->field(0,"lastname");
             $this->password             = $q->field(0,"password");
             $this->email                = $q->field(0,"email");
-            $this->emailpublic = $q->field(0,"emailpublic") == 1 ? true : false;
             $this->postcode             = $q->field(0,"postcode");
             $this->facebook_id          = $q->field(0,"facebook_id");
             $this->facebook_token       = $q->field(0,"facebook_token");
@@ -181,13 +178,10 @@ class USER {
 
         $optin = $details["optin"] == true ? 1 : 0;
 
-        $emailpublic = $details["emailpublic"] == true ? 1 : 0;
-
         $q = $this->db->query("INSERT INTO users (
                 firstname,
                 lastname,
                 email,
-                emailpublic,
                 postcode,
                 url,
                 password,
@@ -201,7 +195,6 @@ class USER {
                 :firstname,
                 :lastname,
                 :email,
-                :emailpublic,
                 :postcode,
                 :url,
                 :password,
@@ -216,7 +209,6 @@ class USER {
             ':firstname' => $details["firstname"],
             ':lastname' => $details["lastname"],
             ':email' => $details["email"],
-            ':emailpublic' => $emailpublic,
             ':postcode' => $details["postcode"],
             ':url' => $details["url"],
             ':password' => $passwordforDB,
@@ -680,7 +672,6 @@ class USER {
     public function lastname() { return $this->lastname; }
     public function password() { return $this->password; }
     public function email() { return $this->email; }
-    public function emailpublic() { return $this->emailpublic; }
     public function postcode() { return $this->postcode; }
     public function url() { return $this->url; }
     public function lastvisit() { return $this->lastvisit; }
@@ -791,13 +782,11 @@ class USER {
         }
 
         // Convert internal true/false variables to MySQL BOOL 1/0 variables.
-        $emailpublic = $details["emailpublic"] == true ? 1 : 0;
         $optin = $details["optin"] == true ? 1 : 0;
 
         $q = $this->db->query("UPDATE users
                         SET     firstname   = :firstname,
                                 lastname    = :lastname,
-                                emailpublic = :emailpublic,
                                 postcode    = :postcode,
                                 url         = :url,"
                                 . $passwordsql
@@ -810,7 +799,6 @@ class USER {
                         ", array_merge($params, array(
                             ':firstname' => $details['firstname'],
                             ':lastname' => $details['lastname'],
-                            ':emailpublic' => $emailpublic,
                             ':postcode' => $details['postcode'],
                             ':url' => $details['url'],
                             ':optin' => $optin,
@@ -1218,7 +1206,6 @@ class THEUSER extends USER {
                 'url' => $this->url(),
                 'optin' => $this->optin(),
                 'user_id' => $user_id,
-                'emailpublic' => $this->emailpublic()
             );
             $ret = $this->_update($details);
 
@@ -1423,7 +1410,6 @@ class THEUSER extends USER {
 
                 $this->firstname        = $newdetails["firstname"];
                 $this->lastname         = $newdetails["lastname"];
-                $this->emailpublic      = $newdetails["emailpublic"];
                 $this->postcode         = $newdetails["postcode"];
                 $this->url              = $newdetails["url"];
                 $this->optin            = $newdetails["optin"];
@@ -1477,7 +1463,6 @@ class THEUSER extends USER {
 
                 $this->firstname        = $newdetails["firstname"];
                 $this->lastname         = $newdetails["lastname"];
-                $this->emailpublic      = $newdetails["emailpublic"];
                 $this->postcode         = $newdetails["postcode"];
                 $this->url              = $newdetails["url"];
                 $this->optin            = $newdetails["optin"];

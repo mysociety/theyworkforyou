@@ -131,21 +131,6 @@
                 <span class="formw"><input type="text" name="url" id="url" value="<?= _htmlentities($url) ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
                 </div>
 
-                <?php if (isset($errors['emailpublic'])) { ?>
-                <p class="error">
-                    <?= $errors['emailpublic'] ?>
-                </p>
-                <?php } ?>
-
-                <div class="row">
-                &nbsp;<br>Let other users see your email address?
-                </div>
-
-                <div class="row">
-                <span class="formw"><input type="radio" name="emailpublic" id="emailpublictrue" value="true" <?= $emailpublic == 'Yes' ? ' checked' : '' ?>> <label for="emailpublictrue">Yes</label><br>
-                    <input type="radio" name="emailpublic" id="emailpublicfalse" value="false" <?= $emailpublic == 'No' ? ' checked' : '' ?>> <label for="emailpublicfalse">No</label></span>
-                </div>
-
                 <?php if (isset($showall) && $showall == True) { ?>
                   <?php if (isset($errors['status'])) { ?>
                   <p class="error">

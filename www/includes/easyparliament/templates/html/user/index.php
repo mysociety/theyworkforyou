@@ -36,13 +36,8 @@
           </div>
 
           <div class="row">
-            <span class="label">Email</span>
-            <span class="formw"><?= $emailpublic == 'Yes' ? _htmlentities($email) : 'Not public' ?></span>
-          </div>
-
-          <div class="row">
             <span class="label">Website</span>
-            <span class="formw"><?= $website == '' ? 'none' : '<a href="' . _htmlentities($website) . '">'. _htmlentities($website) . '</a>' ?></span>
+            <span class="formw"><?= $website == '' ? 'none' : '<a rel="nofollow" href="' . _htmlentities($website) . '">'. _htmlentities($website) . '</a>' ?></span>
           </div>
 
           <?php if ($facebook_user) { ?>

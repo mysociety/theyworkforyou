@@ -129,7 +129,6 @@ class FacebookLogin {
             'status' => '',
             'password' => '',
             'optin' => False,
-            'emailpublic' => False,
             'mp_alert' => False,
             'facebook_id' => $user['id']
         );
@@ -156,7 +155,6 @@ class FacebookLogin {
             'postcode' => $THEUSER->postcode(),
             'url' => $THEUSER->url(),
             'optin' => $THEUSER->optin(),
-            'emailpublic' => False,
             'password' => '',
          );
 

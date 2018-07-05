@@ -31,7 +31,6 @@ class UserTest extends TWFY_Database_TestCase
             "firstname" => 'Test',
             "lastname" => 'User',
             "email" => 'test@example.org',
-            "emailpublic" => '0',
             "postcode" => 'EH1 99SP',
             "mp_alert" => false,
             "url" => '',
@@ -58,7 +57,6 @@ class UserTest extends TWFY_Database_TestCase
         $d = $u->update_self( array(
             'firstname' => 'Experiment',
             'lastname' => 'User',
-            'emailpublic' => '0',
             'postcode' => 'EH1 99SP',
             'password' => '',
             'url' => '',
@@ -80,7 +78,6 @@ class UserTest extends TWFY_Database_TestCase
             'firstname' => 'Experiment',
             'lastname' => 'User',
             'email' => 'user@example.com',
-            'emailpublic' => '0',
             'postcode' => 'EH1 99SP',
             'password' => '',
             'url' => '',
