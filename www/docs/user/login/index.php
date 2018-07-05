@@ -13,7 +13,7 @@ include_once '../../../includes/easyparliament/init.php';
 
 # we need this for the facebook login code to work as it stores
 # some CSFR tokens in the session
-session_start();
+MySociety\TheyWorkForYou\Utility\Session::start();
 $this_page = "userlogin";
 
 if (get_http_var("submitted") == "true") {

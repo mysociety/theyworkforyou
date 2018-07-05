@@ -147,19 +147,15 @@ function api_front_page($error = '') {
         print "<p style='color: #cc0000'>$error</p>";
     }
 
-$em = join('&#64;', array('enquiries', 'mysociety.org'));
-
 ?>
 
-<h3>Overview</h3>
 <p>
-    Welcome to TheyWorkForYou's API section. The API (Application Programming
+    Welcome to TheyWorkForYou’s API section. The API (Application Programming
     Interface) is a way of querying our database for information.
 </p>
-<p>
-    To use the API you need <a href="key">an API key</a>, and you may need a
-    license from us.
-</p>
+<p align="center"><big>
+    To use the API you need to <a href="key">get an API key</a>.
+</big></p>
 <p>
     The documentation for each individual API function is linked from this
     page: you can read what each function does, and test it out, without
@@ -167,53 +163,36 @@ $em = join('&#64;', array('enquiries', 'mysociety.org'));
 </p>
 
 <p>
-    <strong>Important note:</strong> Politicians' contact details can't be
-    obtained via this API. If that's what you're looking for, see
-    <a href="http://everypolitician.org/">EveryPolitician</a> instead.
-</p>
-
-<p>
+    <strong>Important note:</strong> Politicians’ contact details can’t be
+    obtained via this API. If that’s what you’re looking for, see
+    <a href="https://everypolitician.org/">EveryPolitician</a> instead.
     APIs and datasets for other mySociety services can be found on our
     data portal, <a href="https://data.mysociety.org">data.mysociety.org</a>.
 </p>
 
-<h3>Terms of usage</h3>
-<p>
-    Low volume, charitable use of the API is free. This means direct use by
-    registered charities, or individuals pursuing a non-profit project on an
-    unpaid basis, with a volume of up to 50,000 calls per year. All other use
-    requires a licence, as a contribution towards the costs of providing this
-    service. Please email us at <a href="mailto:<?=$em?>"><?=$em?></a>
-    (mentioning TheyWorkForYou) if your usage is likely to fall into the
-    non-free bracket: <strong>unlicensed users may be blocked without warning</strong>.
-</p>
-
 <h3>Pricing</h3>
-<p>
-    &pound;500 per year for up to 50,000 calls (free for charitable usage)<br/>
-    &pound;1,000 per year for up to 100,000 calls<br/>
-    &pound;2,000 per year for up to 200,000 calls<br/>
-    &pound;2,500 per year for up to 300,000 calls<br/>
-    &pound;3,000 per year for up to 500,000 calls<br/>
-</p>
-<p>In addition, we offer a 50% discount on the above rates for charitable usage.</p>
 
-<h3>Credits</h3>
-<p>Parliamentary material (that's data returned from getDebates, getWrans, and
-getWMS) may be reused under the terms of the
-<a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>.
-Our own data &ndash; lists of MPs, Lords, constituencies and so on &ndash; is
-available under the
-<a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons
-Attribution-ShareAlike license version 2.5</a>.
+<ul>
+    <li>&pound;20 per month for 1,000 calls per month (free for charitable usage)<br/>
+    <li>&pound;50 per month for 5,000 calls<br/>
+    <li>&pound;100 per month for 10,000 calls<br/>
+    <li>&pound;300 per month for unlimited calls
+</ul>
 
-<p>Please credit us by linking to <a href="https://www.theyworkforyou.com/">TheyWorkForYou</a>
-with wording such as "Data service provided by TheyWorkForYou" on the page
-where the data is used. This attribution is optional if you've paid for use of
-the service.
+<p>In addition, we offer a 50% discount on the above rates for charitable usage.
+This means direct use by registered charities, or individuals pursuing a
+non-profit project on an unpaid basis.</p>
 
+<p>Please read our full <a href="/api/terms">terms of usage</a>, including
+licence and attribution requirements.</p>
 
-<h3>Technical documentation</h3>
+<p align="center"><big>
+    To use the API you need to <a href="key">get an API key</a>.
+</big></p>
+
+<hr>
+
+<h2>Technical documentation</h2>
 <p>
     All requests are made by GETting a particular URL with a number of
     parameters. <em>key</em> is required; <em>output</em> is optional, and
@@ -224,7 +203,7 @@ the service.
 </p>
 <p>
     The current version of the API is <em>1.0.0</em>. If we make changes to
-    the API functions, we'll increase the version number and make it an
+    the API functions, we’ll increase the version number and make it an
     argument so you can still use the old version.
 </p>
 
@@ -240,14 +219,14 @@ the service.
 <li><strong>js</strong>. A JavaScript object. You can provide a callback
 function with the <em>callback</em> variable, and then that function will be
 called with the data as its argument.</li>
-<li><strong>rabx</strong>. "RPC over Anything But XML".</li>
+<li><strong>rabx</strong>. “RPC over Anything But XML”.</li>
 </ul>
 
 </td><td>
 
 <h3>Errors</h3>
 
-<p>If there's an error, either in the arguments provided or in trying to perform the request,
+<p>If there’s an error, either in the arguments provided or in trying to perform the request,
 this is returned as a top-level error string, ie. in XML it returns
 <code>&lt;twfy&gt;&lt;error&gt;ERROR&lt;/error&gt;&lt;/twfy&gt;</code>;
 in JS <code>{"error":"ERROR"}</code>;
@@ -273,7 +252,7 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 </ul>
 
 <p>If anyone wishes to write bindings for the API in any language, please
-do so, let us know and we'll link to it here. You might want to
+do so, let us know and we’ll link to it here. You might want to
 <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">join our mailing list</a>
 to discuss things.</p>
 

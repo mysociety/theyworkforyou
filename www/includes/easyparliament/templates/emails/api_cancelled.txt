@@ -1,0 +1,12 @@
+Subject: Your subscription to the TheyWorkForYou API has been cancelled
+Hi,
+
+I'm afraid that when we tried to take payment for your subscription to the
+TheyWorkForYou API, it failed again. We've cancelled your subscription, so
+you are now back on the free tier. If you wish to resubscribe, please just
+log in to TheyWorkForYou and pick a new plan:
+    https://www.theyworkforyou.com/api/key
+
+Yours,
+mySociety
+

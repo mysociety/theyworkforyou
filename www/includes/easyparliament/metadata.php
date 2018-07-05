@@ -235,7 +235,7 @@ $this->page = array (
         'url'			=> 'api/'
     ),
     'api_key'		=> array (
-        'title'			=> 'API Keys',
+        'title'			=> 'Plan and keys',
         'parent'		=> 'api_front',
         'url'			=> 'api/key'
     ),

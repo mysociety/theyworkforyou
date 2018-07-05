@@ -498,6 +498,12 @@ CREATE TABLE `api_stats` (
   KEY `query_time` (`query_time`)
 );
 
+CREATE TABLE `api_subscription` (
+  `user_id` int(11) NOT NULL,
+  `stripe_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+);
+
 CREATE TABLE `survey` (
   `shown` int(11) NOT NULL default '0',
   `yes` int(11) NOT NULL default '0',
