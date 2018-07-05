@@ -135,7 +135,9 @@ $('.autocomplete').each(function() {
 
   $(document).foundation();
 
-  riveted.init();
+  if (window.riveted) {
+    riveted.init();
+  }
 
   $(function() {
     setTimeout(function() {
