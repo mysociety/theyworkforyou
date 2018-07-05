@@ -27,13 +27,12 @@ if (get_http_var('welcome') == 't') {
         if ($THEUSER->isloggedin()) {
             ?>
 
-    <p>Hi, and welcome to TheyWorkForYou.com! You are now logged in.</p>
+    <p>Hi, and welcome to TheyWorkForYou! You are now logged in.</p>
 
-    <p><strong>TheyWorkForYou.com</strong> helps make sense of this vital democratic resource and, crucially, allows you to scribble all over the margins.</p>
+    <p><strong>TheyWorkForYou</strong> helps make sense of this vital democratic resource.
+    Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, or other representatives covered.
 
-    <p>Feel free to use it to keep an eye on <strong>your MP</strong>, Peers, add <strong>annotations</strong> next to speeches, or help others by contributing your own <strong>links</strong>.</p>
-
-    <p>Do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">let us know</a> if you find a bug, or have a suggestion.</p>
+    <p>If you are looking to sign up for our API, please <a href="/api/key">get one here</a>.</p>
 
 <?php
         } else {

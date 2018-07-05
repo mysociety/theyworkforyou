@@ -363,6 +363,9 @@ class USER {
         $urltoken = $this->user_id . '-' . $this->registrationtoken;
 
         $confirmurl = 'https://' . DOMAIN . '/U/' . $urltoken;
+        if (isset($details['ret'])) {
+            $confirmurl .= '?ret=' . $details['ret'];
+        }
 
         // Arrays we need to send a templated email.
         $data = array (
@@ -1289,11 +1292,14 @@ class THEUSER extends USER {
 
                 $this->confirmed = true;
 
-                // Log the user in, redirecting them to the confirm page
-                // where they should get a nice welcome message.
-                $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
-                $URL->insert(array('welcome'=>'t'));
-                $redirecturl = $URL->generate();
+                $redirecturl = get_http_var('ret');
+                if (!$redirecturl || substr($redirecturl, 0, 1) != '/') {
+                    // Log the user in, redirecting them to the confirm page
+                    // where they should get a nice welcome message.
+                    $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
+                    $URL->insert(array('welcome'=>'t'));
+                    $redirecturl = $URL->generate();
+                }
 
                 $this->login($redirecturl, 'session');
 

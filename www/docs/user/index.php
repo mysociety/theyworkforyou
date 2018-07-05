@@ -22,6 +22,7 @@ switch (get_http_var("pg")) {
 
     case "join":	// A new user signing up.
 
+        $data['ret'] = get_http_var("ret");
         $template = 'user/join';
         $this_page = "userjoin";
         break;
@@ -111,7 +112,8 @@ if (
       )
    ) {
     // Put all the user-submitted data in an array.
-     $data = $user->getUpdateDetails($this_page, $THEUSER);
+    $data = $user->getUpdateDetails($this_page, $THEUSER);
+    $data['ret'] = get_http_var("ret");
 
     if ($this_page == 'useredit') {
         $data['facebook_user'] = $THEUSER->facebook_user();

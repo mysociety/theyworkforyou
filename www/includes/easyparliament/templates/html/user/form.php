@@ -190,14 +190,7 @@
                 </div>
 
                 <input type="hidden" name="submitted" value="true">
-
-                <?php if (isset($ret) && $ret != '' ) { ?>
-                    <input type="hidden" name="ret" value="<?= _htmlentities($ret) ?>">
-                <?php } ?>
-
-                <?php if (isset($pg)) { ?>
-                    <input type="hidden" name="pg" value="<?= $pg ?>">
-                <?php } ?>
+                <input type="hidden" name="pg" value="<?= _htmlentities($pg) ?>">
 
                 <?php if (isset($showall) && $showall == True && isset($user_id)) { ?>
                     <input type="hidden" name="u" value="<?= _htmlentities($user_id) ?>">

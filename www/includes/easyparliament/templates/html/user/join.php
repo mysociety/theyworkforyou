@@ -125,11 +125,14 @@
                 </div>
 
                 <div class="row">
-                <span class="formw"><input type="submit" class="submit" value="Join TheyWorkForYou">
+                <span class="formw"><input type="submit" class="submit" value="Join TheyWorkForYou"></span>
                 </div>
 
                 <input type="hidden" name="submitted" value="true">
 
+              <?php if (isset($ret)) { ?>
+                <input type="hidden" name="ret" value="<?= _htmlentities($ret) ?>">
+              <?php } ?>
                 <input type="hidden" name="pg" value="join">
 
                 </form>

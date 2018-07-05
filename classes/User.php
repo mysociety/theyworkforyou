@@ -117,10 +117,6 @@ class User {
     public function checkUpdateDetails($details) {
         global $THEUSER, $this_page;
 
-        // This may be a URL that will send the user back to where they were before they
-        // wanted to join.
-        $ret = get_http_var("ret");
-
         $errors = array();
 
         // Check each of the things the user has input.
