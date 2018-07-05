@@ -1,0 +1,10 @@
+.account-form__field--error {
+    color: #f00;
+    label {
+        color: #f00;
+    }
+    input {
+        border-color: red;
+    }
+}
+

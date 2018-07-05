@@ -172,3 +172,12 @@ define('OPTION_SURVEY_SECRET', '');
 
 define('FACEBOOK_APP_ID', '');
 define('FACEBOOK_APP_SECRET', '');
+
+define('STRIPE_PUBLIC_KEY', '');
+define('STRIPE_SECRET_KEY', '');
+define('STRIPE_ENDPOINT_SECRET', '');
+define('REDIS_DB_HOST', 'localhost');
+define('REDIS_DB_PORT', '6379');
+define('REDIS_DB_NUMBER', '0');
+define('REDIS_DB_PASSWORD', '');
+define('REDIS_API_NAME', 'twfy');

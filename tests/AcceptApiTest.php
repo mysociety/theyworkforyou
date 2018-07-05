@@ -11,13 +11,18 @@ class AcceptApiTest extends FetchPageTestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/api.xml');
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/api.xml');
     }
 
     private function fetch_page($method, $vars = array())
     {
         $vars['method'] = $method;
         return $this->base_fetch_page($vars, 'api');
+    }
+
+    private function post_page($page, $vars = array())
+    {
+        return $this->base_post_page_user($vars, '1.fbb689a0c092f5534b929d302db2c8a9', 'api', "$page.php");
     }
 
     /**
@@ -109,4 +114,20 @@ class AcceptApiTest extends FetchPageTestCase
             '[{"member_id":"101","house":"3","given_name":"Test1","family_name":"Nimember","constituency":"Belfast West","party":"DUP","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"101","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test1 Nimember"}]');
     }
 
+    public function testApiKeySignup() {
+        $page = $this->post_page('key');
+        $this->assertContains('Subscribe to a plan', $page);
+        $page = $this->post_page('update-plan', array(
+            'plan' => 'twfy-1k',
+            'charitable_tick' => 'on',
+            'charitable' => 'c',
+            'charity_number' => '123456',
+            'tandcs_tick' => 'on',
+        ));
+        $this->assertEquals('Location: /api/key?updated=1', $page);
+        $page = $this->post_page('key', ['updated' => 1]);
+        $this->assertContains('Your current plan is <strong>Some calls per month</strong>.', $page);
+        $this->assertContains('It costs you £0/mth.', $page);
+        $this->assertContains('100% discount applied.', $page);
+    }
 }

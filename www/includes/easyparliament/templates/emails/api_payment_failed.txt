@@ -1,0 +1,13 @@
+Subject: Your payment for the TheyWorkForYou API has failed
+Hi,
+
+I'm afraid that when we tried to take payment for your subscription to the
+TheyWorkForYou API, it failed. We'll try again in three days time, but
+please could you log in to TheyWorkForYou and check that your payment details
+are up to date:
+    https://www.theyworkforyou.com/api/key
+
+In the meantime, your quota has not been reset.
+
+Yours,
+mySociety

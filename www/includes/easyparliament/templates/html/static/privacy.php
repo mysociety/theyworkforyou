@@ -47,9 +47,15 @@
             <p>We do not use this data for any purpose other than to allow you
             to log in to the site.</p>
 
-            <p id="api"><strong>If you register as a paying customer for the API</strong>
-            we collect your name, email address and a postal address. We use
-            these to issue invoices.</p>
+            <p id="api"><strong>If you register as a paying customer for the API</strong>,
+            your name, contact details, payment and security details are held
+            by the payment processor Stripe, whose usage terms and privacy
+            policy can be seen here: <a href="https://stripe.com/gb/privacy">stripe.com/gb/privacy</a>.
+            Your name, email address, the billing address of your card and the
+            last few digits of your card or bank account number are made
+            available to us along with your purchase history. We use these to
+            issue invoices and send you important information about changes or
+            updates to the service.</p>
 
             <p id="emails"><strong>If you contact us by email</strong>, your
             message will be accessible to our small team of support staff. We
