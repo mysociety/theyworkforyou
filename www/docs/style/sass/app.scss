@@ -112,6 +112,11 @@ h3 {
     font-size: 0.8125em;
 }
 
+pre {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 code {
     color: $light-text;
     background-color: #eee;
