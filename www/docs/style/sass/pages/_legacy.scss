@@ -1,6 +1,5 @@
 .legacy-page {
     label {
-        font-weight: bold;
         display: inline;
     }
     input {
@@ -9,23 +8,23 @@
     }
 
     .panel {
-        @include grid-row(collapse);
+        @include grid-row(nest);
 
         .main {
-            @include grid-column(12, $collapse: true);
+            @include grid-column(12);
             border-bottom: 1px solid $colour_off_white;
 
             @media (min-width: $large-screen) {
-                @include grid-column(8, $collapse: true);
+                @include grid-column(8);
                 border-bottom: none;
                 border-right: 1px solid $colour_off_white;
             }
         }
         .sidebar {
-            @include grid-column(12, $collapse: true);
+            @include grid-column(12);
 
             @media (min-width: $large-screen) {
-                @include grid-column(4, $collapse: true);
+                @include grid-column(4);
                 padding-left: 0.5em;
             }
         }
@@ -34,7 +33,6 @@
     .row {
         padding-top: 0.5em;
         span.label {
-            font-weight: bold;
             padding-right: 1em;
         }
         span.formw {
@@ -48,7 +46,6 @@
                 display: block;
                 float: left;
                 width: 10.5em;
-                font-weight: bold
             }
             span.formw {
                 display: block;
@@ -62,55 +59,55 @@
             }
         }
     }
+}
 
-    /* glossary page */
-    div.letters {
-        margin: 1em 14px 0 18px;
-    }
+/* glossary page */
+div.letters {
+    margin: 1em 14px 0 18px;
+}
 
-    div.letters ul,
-    div.letters li {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
-    div.letters ul {
-        clear: left;
-    }
-    div.letters li {
-        float: left;
-        width: 2em;
-        margin: 0 1px 1px 0;
-        padding-top: 0.3em;
-        padding-bottom: 0.5em;
-        text-align: center;
-        background: #e8fdcb;
-    }
-    div.letters li.on {
-        background: #880000;
-        color: #fff;
-        font-weight: bold;
-    }
-    div.letters li.on a {
-        background: #880000;
-        color: #fff;
-        font-weight: bold;
-    }
+div.letters ul,
+div.letters li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+div.letters ul {
+    clear: left;
+}
+div.letters li {
+    float: left;
+    width: 2em;
+    margin: 0 1px 1px 0;
+    padding-top: 0.3em;
+    padding-bottom: 0.5em;
+    text-align: center;
+    background: #e8fdcb;
+}
+div.letters li.on {
+    background: #880000;
+    color: #fff;
+    font-weight: bold;
+}
+div.letters li.on a {
+    background: #880000;
+    color: #fff;
+    font-weight: bold;
+}
 
-    ul.glossary {
-        @include unstyled-list;
-        clear: both;
-        padding-top: 1em;
-    }
+ul.glossary {
+    @include unstyled-list;
+    clear: both;
+    padding-top: 1em;
+}
 
-    .glossary-body {
-        clear: both;
-        padding-top: 1em;
-    }
+.glossary-body {
+    clear: both;
+    padding-top: 1em;
+}
 
-    p.error {
-        color: $colour_pale_red;
-        clear: left;
-        margin-bottom: 0;
-    }
+p.error {
+    color: $colour_pale_red;
+    clear: left;
+    margin-bottom: 0;
 }
