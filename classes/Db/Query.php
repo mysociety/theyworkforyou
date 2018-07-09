@@ -202,7 +202,7 @@ class Query {
     }
 
     # Used when debugging
-    private function displayResult() {
+    public function displayResult() {
         $html = "";
 
         if ($this->rows > 0) {
