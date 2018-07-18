@@ -760,26 +760,6 @@
     }
 }
 
-.about-this-page {
-    .about-this-page__one-of-two {
-        @include grid-column(12);
-        padding-left: 0;
-        padding-right: 0;
-
-        @media (min-width: $medium-screen) {
-            @include grid-column(6);
-        }
-
-        &:first-child {
-            padding-left: 0;
-        }
-
-        &:last-child {
-            padding-right: 0;
-        }
-    }
-}
-
 .mini-survey {
     label {
         font-size: 1em;

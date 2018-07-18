@@ -407,17 +407,13 @@ $display_wtt_stats_banner = '2015';
                 </div>
                 <?php endif; ?>
 
-                <div class="about-this-page">
-                    <div class="about-this-page__one-of-one">
-                        <div class="panel panel--secondary">
-                            <p>Note for journalists and researchers: The data on this page may be used freely,
-                               on condition that TheyWorkForYou.com is cited as the source.</p>
+                <div class="panel panel--secondary">
+                    <p>Note for journalists and researchers: The data on this page may be used freely,
+                       on condition that TheyWorkForYou.com is cited as the source.</p>
 
-                            <p>This data was produced by TheyWorkForYou from a variety
-                                of sources. Voting information from
-                                <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
-                        </div>
-                    </div>
+                    <p>This data was produced by TheyWorkForYou from a variety
+                        of sources. Voting information from
+                        <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
                 </div>
 
             </div>
