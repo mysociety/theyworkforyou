@@ -34,7 +34,7 @@
               <?php if ( $wtt ) { ?>
                 <p><strong>Now, try reading what a couple of these Lords are saying,
                 to help you find someone appropriate. When you've found someone,
-                hit the "I want to write to this Lord" button on their results page
+                follow the "I want to write to (name of lord)" link on their results page
                 to go back to WriteToThem.
                 </strong></p>
               <?php } ?>
