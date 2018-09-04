@@ -151,11 +151,11 @@ if ($action{'speaker_candidates'}) {
 if ($action{'pw'}) {
     my $ua = LWP::UserAgent->new( agent => 'mySociety/1.0 (TheyWorkForYou)' );
     print "Parsing Public Whip attendance and policies\n" if $verbose;
-    $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
-    $twig->parseurl("http://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
-    # Various policy IDs, see http://www.publicwhip.org.uk/policies.php for what they are
+    $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
+    $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
+    # Various policy IDs, see https://www.publicwhip.org.uk/policies.php for what they are
     foreach my $dreamid (@policyids) {
-      $twig->parseurl("http://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
+      $twig->parseurl("https://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
     }
 }
 
