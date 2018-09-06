@@ -90,14 +90,60 @@ class Subscription {
             $this->stripe->customer->save();
         }
 
-        # Update Stripe subscription
-        $this->stripe->plan = $form_data['plan'];
         if ($form_data['coupon']) {
             $this->stripe->coupon = $form_data['coupon'];
         } elseif ($this->stripe->discount) {
             $this->stripe->deleteDiscount();
         }
+
+        # Stripe cannot handle "please change this person to this plan at their
+        # next billing date". So we have to do it all ourselves, which is
+        # complicated by dealing with them changing again before the end of the
+        # current period, and so on.
+        # If someone is *upgrading* their plan, with no other complications,
+        # then we want to prorate it. If someone is *downgrading* their plan,
+        # we don't want to prorate, or alter their quota, because they've
+        # already paid (and perhaps already used) the higher amount for the
+        # whole month.
+
+        $prorate = null;
+        $current_plan = $this->stripe->plan->id;
+        $max_this_month = $this->stripe->metadata['maximum_plan'];
+
+        if ($this->plan_is_same_or_lower($current_plan, $form_data['plan'])) {
+            # Downgrading, no proration, remember where we were
+            $prorate = false;
+            if (!$max_this_month) {
+                $form_data['metadata']['maximum_plan'] = $current_plan;
+            }
+        } else {
+            # Upgrading, depends what we've already had this month
+            if (!$max_this_month) {
+                # Just a standard upgrade, want proration
+                $prorate = true;
+            } elseif ($this->plan_is_same_or_lower($max_this_month, $form_data['plan'])) {
+                # An upgrade back to a previous plan (or lower), no proration
+                $prorate = false;
+            } else {
+                # If we're upgrading to higher than where they started, we only
+                # want to prorate from where they started, not where we
+                # are (e.g. someone on £100/month, downgraded to £20, then
+                # upgraded to £300, want to charge them 100-300, not 20-300).
+                # So we upgrade back to the original without proration, then
+                # upgrade to the new plan from there, removing the old
+                # maximum_plan.
+                $this->update_stripe_sub($max_this_month, false);
+                $prorate = true;
+                $form_data['metadata']['maximum_plan'] = '';
+            }
+        }
         $this->stripe->metadata = $form_data['metadata'];
+        $this->update_stripe_sub($form_data['plan'], $prorate);
+    }
+
+    private function update_stripe_sub($plan, $prorate) {
+        $this->stripe->plan = $plan;
+        $this->stripe->prorate = $prorate;
         $this->stripe->cancel_at_period_end = false; # Needed in Stripe 2018-02-28
         $this->stripe->save();
     }
@@ -128,6 +174,7 @@ class Subscription {
             ':user_id' => $this->user->user_id(),
             ':stripe_id' => $stripe_id,
         ]);
+        $this->redis_update_max($form_data['plan']);
     }
 
     private function getFields() {
@@ -209,13 +256,29 @@ class Subscription {
         } else {
             $this->add_subscription($form_data);
         }
+    }
 
-        $this->redis_update_max($form_data['plan']);
+    private function plan_is_same_or_lower($old_plan, $new_plan) {
+        $old_calls = $this->number_of_calls($old_plan);
+        $new_calls = $this->number_of_calls($new_plan);
+        if ($old_calls == 0) {
+            # New plan must be same/lower than unlimited
+            return true;
+        } elseif ($new_calls == 0) {
+            # New plan only same/lower if old plan is unlimited
+            return $old_calls == 0;
+        } else {
+            return $new_calls <= $old_calls;
+        }
+    }
+
+    private function number_of_calls($plan) {
+        preg_match('#^twfy-(\d+)k#', $plan, $m);
+        return (int) $m[1];
     }
 
     public function redis_update_max($plan) {
-        preg_match('#^twfy-(\d+)k#', $plan, $m);
-        $max = $m[1] * 1000;
+        $max = $this->number_of_calls($plan) * 1000;
         $this->redis->set("$this->redis_prefix:max", $max);
         $this->redis->del("$this->redis_prefix:blocked");
     }
