@@ -45,11 +45,6 @@
               <?php } ?>
 
               <form method="post" action="/user/index.php">
-                <div class="row">
-                <span class="label">Status:</span>
-                <span class="formw"></span>
-                </div>
-
                 <?php if (isset($errors['firstname'])) { ?>
                 <p class="error">
                     <?= $errors['firstname'] ?>

@@ -12,11 +12,6 @@
         <p>Already joined? <a href="/user/login/">Then sign in!</a></p>
 
                 <form method="post" action="/user/index.php">
-                <div class="row">
-                <span class="label">Status:</span>
-                <span class="formw"></span>
-                </div>
-
                 <?php if (isset($errors['firstname'])) { ?>
                 <p class="error">
                     <?= $errors['firstname'] ?>
