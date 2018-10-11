@@ -45,6 +45,11 @@ $PAGE->block_end();
 
 ?>
 <h4>Recently registered users</h4>
+<form action="./users.php" method="get">
+    <label for="user_search">Search:</label>
+    <input type="text" name="s" id="user_search">
+    <input type="submit" value="Go">
+</form>
 <?php
 
 $q = $db->query("SELECT firstname,
