@@ -219,8 +219,6 @@
 	</table_data>
 	<table_data name="titles_ignored">
 	</table_data>
-	<table_data name="trackbacks">
-	</table_data>
 	<table_data name="users">
         <row>
             <field name="user_id">1</field>

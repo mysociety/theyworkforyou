@@ -153,11 +153,6 @@ $this->page = array (
         'parent'		=> 'admin',
         'url'			=> 'admin/reporting_stats.php'
     ),
-    'admin_trackbacks' => array (
-        'title'			=> 'Recent trackbacks',
-        'parent'		=> 'admin',
-        'url'			=> 'admin/trackbacks.php'
-    ),
     'admin_photos' => array (
         'title'			=> 'Photo upload/attribution',
         'parent'		=> 'admin',
@@ -896,11 +891,6 @@ $this->page = array (
         'url'           => 'topic/nhs',
         'parent'        => 'topic',
         'title'         => 'NHS'
-    ),
-
-    // The URL 3rd parties need to ping something here.
-    'trackback' => array (
-        'url'			=> 'trackback/'
     ),
 
     'useralerts' => array(

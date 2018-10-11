@@ -86,7 +86,7 @@ class HANSARDLIST {
 
 
     // When we view a particular item, we set these to the epobject_id and gid
-    // of the item so we can attach Trackbacks etc to it from outside.
+    // of the item so we can attach things to it from outside.
     public $epobject_id;
     public $gid;
 
@@ -2308,54 +2308,6 @@ class HANSARDLIST {
         return $q->field(0, 'count');
     }
 
-
-/*
-    public function _get_trackback_data($itemdata) {
-        // Returns a array of data we need to create the Trackback Auto-discovery
-        // RDF on a page.
-
-        // We're assuming that we're only using this on a page where there's only
-        // one 'thing' to be trackbacked to. ie, we don't add #anchor data onto the
-        // end of the URL so we can include this RDF in full lists of debate speeches.
-
-        $trackback = array();
-
-        $title = '';
-
-        if (isset($itemdata['speaker']) && isset($itemdata['speaker']['name'])) {
-            // This is probably a debate speech.
-            $title .= $itemdata['speaker']['name'] . ': ';
-        }
-
-        $trackback['title'] = $title . trim_characters($itemdata['body'], 0, 200);
-
-        // We're just saying this was in GMT...
-        $trackback['date'] = $itemdata['hdate'] . 'T' . $itemdata['htime'] . '+00:00';
-
-        // The URL of this particular item.
-        // For (sub)sections we link to their listing page.
-        // For everything else, to their individual pages.
-        if ($itemdata['htype'] == '10' ||
-            $itemdata['htype'] == '11'
-            ) {
-            $url = $itemdata['listurl'];
-        } else {
-            $url = $itemdata['commentsurl'];
-        }
-        $trackback['itemurl'] = 'https://' . DOMAIN . $url;
-
-        // Getting the URL the user needs to ping for this item.
-        $URL = new \MySociety\TheyWorkForYou\Url('trackback');
-        $URL->insert(array('e'=>$itemdata['epobject_id']));
-
-        $trackback['pingurl'] = 'https://' . DOMAIN . $URL->generate('html');
-
-
-        return $trackback;
-
-    }
-*/
-
     public function _get_data_by_gid($args) {
 
         // We need to get the data for this gid.
@@ -2489,8 +2441,6 @@ class HANSARDLIST {
             // This item is a section, so we're displaying all the items within
             // it that aren't within a subsection.
 
-            # $sectionrow['trackback'] = $this->_get_trackback_data($sectionrow);
-
             $input = array (
                 'amount' => $amount,
                 'where' => array (
@@ -2525,8 +2475,6 @@ class HANSARDLIST {
         } elseif ($itemdata['htype'] == '11') {
             // This item is a subsection, so we're displaying everything within it.
 
-            # $subsectionrow['trackback'] = $this->_get_trackback_data($subsectionrow);
-
             $input = array (
                 'amount' => $amount,
                 'where' => array (
@@ -2540,8 +2488,6 @@ class HANSARDLIST {
 
         } elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
             // Debate speech or procedural, so we're just displaying this one item.
-
-            # $itemdata['trackback'] = $this->_get_trackback_data($itemdata);
 
             $data['rows'][] = $itemdata;
 

@@ -13,7 +13,6 @@ Now some constants that are the same for live and dev versions
 
 // In case we need to switch these off globally at some point...
 define ("ALLOWCOMMENTS", true);
-define ("ALLOWTRACKBACKS", true);
 
 // These variables are so we can keep date/time formats consistent across the site
 // and change them easily.
@@ -101,7 +100,6 @@ include_once (INCLUDESPATH."easyparliament/hansardlist.php");
 include_once (INCLUDESPATH."dbtypes.php");
 include_once (INCLUDESPATH."easyparliament/commentlist.php");
 include_once (INCLUDESPATH."easyparliament/comment.php");
-include_once (INCLUDESPATH."easyparliament/trackback.php");
 
 // Added in as new module by Richard Allan MP
 include_once (INCLUDESPATH."easyparliament/alert.php");

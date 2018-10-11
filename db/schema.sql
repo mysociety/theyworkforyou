@@ -380,20 +380,6 @@ CREATE TABLE `search_query_log` (
   KEY `query_time` (`query_time`)
 );
 
-CREATE TABLE `trackbacks` (
-  `trackback_id` int(11) NOT NULL auto_increment,
-  `epobject_id` int(11) default NULL,
-  `blog_name` varchar(255) default NULL,
-  `title` varchar(255) default NULL,
-  `excerpt` varchar(255) default NULL,
-  `url` varchar(255) default NULL,
-  `posted` datetime default NULL,
-  `visible` tinyint(1) NOT NULL default '0',
-  `source_ip` varchar(20) default NULL,
-  PRIMARY KEY  (`trackback_id`),
-  KEY `visible` (`visible`)
-);
-
 CREATE TABLE `users` (
   `user_id` mediumint(9) NOT NULL auto_increment,
   `firstname` varchar(255) NOT NULL default '',

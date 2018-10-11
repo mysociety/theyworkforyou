@@ -79,8 +79,6 @@
         <field name="expires">2013-01-01</field>
       </row>
 	</table_data>
-	<table_data name="trackbacks">
-	</table_data>
 	<table_data name="users">
       <row>
         <field name="user_id">1</field>
