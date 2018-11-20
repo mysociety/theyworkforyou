@@ -41,7 +41,7 @@ class SEARCHENGINE {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
-        global $xapiandb, $PAGE, $hansardmajors, $parties;
+        global $xapiandb, $PAGE;
         if (!$xapiandb) {
             if (strstr(XAPIANDB, ":")) {
                 //ini_set('display_errors', 'On');
@@ -76,7 +76,9 @@ class SEARCHENGINE {
         }
 
         # Force words to lower case
-        $this->query = preg_replace('#(department|party):.+?\b#ie', 'strtolower("$0")', $this->query);
+        $this->query = preg_replace_callback('#(department|party):.+?\b#i', function($m) {
+            return strtolower($m[0]);
+        }, $this->query);
 
         // Any characters other than this are treated as, basically, white space
         // (apart from quotes and minuses, special case below)
@@ -209,8 +211,10 @@ class SEARCHENGINE {
         $qd = substr($qd, 14, -1); # Strip Xapian::Query()
         $qd = preg_replace('#:\(.*?\)#', '', $qd); # Don't need pos or weight
         # Date range
-        $qd = preg_replace('#VALUE_RANGE 1 (\d+) (\d+)#e', 'preg_replace("#(\d{4})(\d\d)(\d\d)#", "\$3/\$2/\$1", $1)
-            . ".." . preg_replace("#(\d{4})(\d\d)(\d\d)#", "\$3/\$2/\$1", $2)', $qd);
+        $qd = preg_replace_callback('#VALUE_RANGE 1 (\d+) (\d+)#', function($m) {
+            return preg_replace("#(\d{4})(\d\d)(\d\d)#", '$3/$2/$1', $m[1])
+                . ".." . preg_replace("#(\d{4})(\d\d)(\d\d)#", '$3/$2/$1', $m[2]);
+        }, $qd);
         # Replace phrases with the phrase in quotes
         preg_match_all('#\(([^(]*? PHRASE [^(]*?)\)#', $qd, $m);
         foreach ($m[1] as $phrase) {
@@ -233,7 +237,11 @@ class SEARCHENGINE {
         $qd = preg_replace('#\bU(\d+)\b#', 'segment:$1', $qd);
         $qd = preg_replace('#\bC(\d+)\b#', 'column:$1', $qd);
         $qd = preg_replace('#\bQ(.*?)\b#', 'gid:$1', $qd);
-        $qd = preg_replace('#\bP(.*?)\b#e', '"party:" . (isset($parties[ucfirst("$1")]) ? $parties[ucfirst("$1")] : "$1")', $qd);
+        $qd = preg_replace_callback('#\bP(.*?)\b#', function($m) {
+            global $parties;
+            $pu = ucfirst($m[1]);
+            return "party:" . (isset($parties[$pu]) ? $parties[$pu] : $m[1]);
+        }, $qd);
         $qd = preg_replace('#\bD(.*?)\b#', 'date:$1', $qd);
         $qd = preg_replace('#\bG(.*?)\b#', 'department:$1', $qd); # XXX Lookup to show proper name of dept
         if (strstr($qd, 'M1 OR M2 OR M3 OR M4 OR M6 OR M101')) {
@@ -241,7 +249,11 @@ class SEARCHENGINE {
         } elseif (strstr($qd, 'M7 OR M8')) {
             $qd = str_replace('M7 OR M8', 'section:scotland', $qd);
         }
-        $qd = preg_replace('#\bM(\d+)\b#e', '"in the \'" . (isset($hansardmajors[$1]["title"]) ? $hansardmajors[$1]["title"] . "\'" : "$1")', $qd);
+        $qd = preg_replace_callback('#\bM(\d+)\b#', function($m) {
+            global $hansardmajors;
+            $title = isset($hansardmajors[$m[1]]["title"]) ? $hansardmajors[$m[1]]["title"] : $m[1];
+            return "in the '$title'";
+        }, $qd);
         $qd = preg_replace('#\bMF\b#', 'in Future Business', $qd);
 
         # Replace stemmed things with their unstemmed terms from the query
