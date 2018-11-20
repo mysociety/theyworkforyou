@@ -1303,7 +1303,8 @@ class HANSARDLIST {
         }
 
         // Trim it to length and position, adding ellipses.
-        $extract = trim_characters ($extract, $startpos, $length_of_extract);
+        // Decode HTML entities so position matches up.
+        $extract = trim_characters(html_entity_decode($extract), $startpos, $length_of_extract);
 
         // Highlight search words
         $extract = $SEARCHENGINE->highlight($extract);
