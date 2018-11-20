@@ -502,10 +502,17 @@ class MEMBER {
         }
     }
 
-    public function entered_house($house = 0) {
-        if ($house) return array_key_exists($house, $this->entered_house) ? $this->entered_house[$house] : null;
+    public function entered_house($house = null) {
+        if ( isset($house) ) {
+            if ( array_key_exists($house, $this->entered_house) ) {
+                return $this->entered_house[$house];
+            } else {
+                return null;
+            }
+        }
         return $this->entered_house;
     }
+
     public function entered_house_text($entered_house) {
         if (!$entered_house) return '';
         list($year, $month, $day) = explode('-', $entered_house);
@@ -521,8 +528,13 @@ class MEMBER {
     }
 
     public function left_house($house = null) {
-        if (!is_null($house))
-            return array_key_exists($house, $this->left_house) ? $this->left_house[$house] : null;
+        if ( isset($house) ) {
+            if ( array_key_exists($house, $this->left_house) ) {
+                return $this->left_house[$house];
+            } else {
+                return null;
+            }
+        }
         return $this->left_house;
     }
 
