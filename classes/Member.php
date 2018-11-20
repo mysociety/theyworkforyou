@@ -500,6 +500,9 @@ class Member extends \MEMBER {
         case HOUSE_TYPE_SCOTLAND:
             $name = 'MSP';
             break;
+        case HOUSE_TYPE_ROYAL:
+            $name = 'Member of royalty';
+            break;
         default:
             $name = '';
         }
