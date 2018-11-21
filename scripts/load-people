@@ -16,7 +16,7 @@ use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
-use DBI;
+use DBHandle;
 use Encode;
 use File::Slurp;
 use Getopt::Long;
@@ -55,9 +55,7 @@ verbose("End");
 my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete);
 
 sub db_connect {
-    #DBI->trace(1);
-    my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, mysql_enable_utf8 => 1 });
+    $dbh = dbh();
 
     $memberadd = $dbh->prepare("replace into member (member_id, person_id, house,
         constituency, party, entered_house, left_house, entered_reason, left_reason)

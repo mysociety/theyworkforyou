@@ -17,7 +17,7 @@ $global_connection = null;
  * ```php
  * Class ParlDB extends \MySociety\TheyWorkForYou\Db\Connection {
  *     function ParlDB() {
- *         $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
+ *         $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_PORT, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
  *     }
  * }
  * ```
@@ -51,6 +51,7 @@ class Connection {
      * new connection.
      *
      * @param string $db_host The hostname of the database server
+     * @param string $db_port The port of the database server
      * @param string $db_user The user to connect to the database as
      * @param string $db_pass The password for the database user
      * @param string $db_name The name of the database
@@ -58,12 +59,12 @@ class Connection {
      * @return boolean If the connection has been created successfully.
      */
 
-    public function init($db_host, $db_user, $db_pass, $db_name) {
+    public function init($db_host, $db_port, $db_user, $db_pass, $db_name) {
         global $global_connection;
         // These vars come from config.php.
 
         if (!$global_connection) {
-            $dsn = 'mysql:charset=utf8;dbname=' . $db_name . ';host=' . $db_host;
+            $dsn = "mysql:charset=utf8;dbname=$db_name;host=$db_host;port=$db_port";
 
             try {
                 $conn = new \PDO($dsn, $db_user, $db_pass);

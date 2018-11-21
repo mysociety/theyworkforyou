@@ -197,6 +197,7 @@ class Entry(object):
 
 db_connection = MySQLdb.connect(
     host=config.get('TWFY_DB_HOST'),
+    port=config.get('TWFY_DB_PORT'),
     db=config.get('TWFY_DB_NAME'),
     user=config.get('TWFY_DB_USER'),
     passwd=config.get('TWFY_DB_PASS'),

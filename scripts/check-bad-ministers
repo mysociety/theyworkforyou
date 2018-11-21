@@ -14,7 +14,7 @@ use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
-use DBI;
+use DBHandle;
 use Encode;
 use File::Slurp;
 use Getopt::Long;
@@ -25,7 +25,7 @@ my $from = '';
 GetOptions ("verbose!" => \$verbose, "from=s" => \$from) or die $!;
 my $start_time = time();
 verbose("Start");
-db_connect();
+my $dbh = dbh();
 
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
 verbose("Checking Offices");
@@ -33,13 +33,6 @@ check_moffices();
 verbose("End");
 
 # ---
-
-my $dbh;
-
-sub db_connect {
-    my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, mysql_enable_utf8 => 1 });
-}
 
 my %organizations;
 

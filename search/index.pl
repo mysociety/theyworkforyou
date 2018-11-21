@@ -13,9 +13,7 @@ chdir $FindBin::Bin;
 use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
-use DBI;
-#use Data::Dumper;
-#DBI->trace(2);
+use DBHandle;
 
 # Command line parser
 $|=1;
@@ -37,8 +35,7 @@ my $changesets = mySociety::Config::get('XAPIAN_MAX_CHANGESETS');
 $ENV{XAPIAN_MAX_CHANGESETS} = $changesets if $changesets;
 
 # Open MySQL
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dbh = dbh();
 
 # Work out when to update from, for "sincefile" case
 my $since_date_condition = "";

@@ -7,14 +7,13 @@ use lib "$FindBin::Bin";
 use lib "$FindBin::Bin/../commonlib/perllib";
 
 use XML::RSS;
-use DBI;
 use URI::Escape;
 
 use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
+use DBHandle;
 
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dbh = dbh();
 
 my $dc = {
     subject => '',

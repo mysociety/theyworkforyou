@@ -80,7 +80,7 @@ $DATA = new \MySociety\TheyWorkForYou\Data;
 
 class ParlDB extends \MySociety\TheyWorkForYou\Db\Connection {
     public function __construct() {
-        $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
+        $this->init (OPTION_TWFY_DB_HOST, OPTION_TWFY_DB_PORT, OPTION_TWFY_DB_USER, OPTION_TWFY_DB_PASS, OPTION_TWFY_DB_NAME);
     }
 }
 

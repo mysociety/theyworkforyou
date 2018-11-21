@@ -26,7 +26,7 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 my $parldata = mySociety::Config::get('RAWDATA');
 my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
-use DBI; 
+use DBHandle;
 use File::Slurp;
 use HTML::Entities;
 use JSON;
@@ -41,7 +41,6 @@ use Uncapitalise;
 # the easiest/most reliable way to get the encodings correct for content
 # output with Twig's ->sprint (content, rather than attributes)
 my $outputfilter = 'safe';
-#DBI->trace(1);
 
 use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall
     $wms $lordsdebates $ni $force $quiet $cronquiet $standing
@@ -436,8 +435,7 @@ my ($dbh,
 sub db_connect
 {
     # Connect to database, and prepare queries
-    my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-    $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, , mysql_enable_utf8 => 1 });
+    $dbh = dbh();
 
     # epobject queries
     $epadd = $dbh->prepare("insert into epobject (title, body, type, created, modified)

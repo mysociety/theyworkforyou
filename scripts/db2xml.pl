@@ -25,7 +25,7 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 
 use Getopt::Long;
-use DBI; 
+use DBHandle; 
 use XML::Twig;
 
 use vars qw($cronquiet $update_person $personid $dbh $parldata $pwmembers $passer $debug
@@ -41,8 +41,7 @@ my $result = GetOptions (
                         "debug" => \$debug,
                         );
 
-my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
-$dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0 });
+my $dbh = dbh();
 
 if ($update_person && $personid) {
     update_person();

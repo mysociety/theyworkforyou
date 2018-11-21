@@ -14,7 +14,7 @@ use strict;
 require 5.8.0;
 
 # Horrible boilerplate to set up appropriate library paths.
-use DBI; 
+use DBHandle;
 use FindBin;
 use lib "$FindBin::Bin/commonlib/perllib";
 use lib "$FindBin::Bin/../commonlib/perllib";
@@ -65,8 +65,7 @@ sub mark_deleted($$$){
     my $email = $bounced_address || $recipient;
 
     if ($email && mySociety::EmailUtil::is_valid_email($email)){
-        my $dsn = "DBI:mysql:" . mySociety::Config::get('TWFY_DB_NAME') . ':' . mySociety::Config::get('TWFY_DB_HOST');
-        my $dbh = DBI->connect ($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1});
+        my $dbh = dbh();
         $dbh->do('update alerts set deleted=1 where email = ?', {}, $email);
         mark_as('deleted', $data);
     }else{

@@ -20,7 +20,6 @@ if (!defined('OPTION_TWFY_DB_NAME')) {
     define ("OPTION_TWFY_DB_NAME", "twfy");
 }
 
-# Code does not currently use this variable anywhere
 if (!defined('OPTION_TWFY_DB_PORT')) {
     define ("OPTION_TWFY_DB_PORT", 3306);
 }
