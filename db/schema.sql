@@ -423,29 +423,6 @@ CREATE TABLE `mentions` (
   PRIMARY KEY (`mention_id`)
 );
 
--- Free Our Bills
-CREATE TABLE `campaigners` (
-  `campaigner_id` mediumint(8) unsigned NOT NULL auto_increment,
-  `email` varchar(255) NOT NULL default '',
-  `postcode` varchar(255) NOT NULL default '',
-  `constituency` varchar(100) NOT NULL default '',
-  `token` varchar(255) NOT NULL default '',
-  `confirmed` tinyint(1) NOT NULL default '0',
-  `signup_date` datetime NOT NULL,
-  PRIMARY KEY  (`campaigner_id`),
-  KEY `email` (`email`),
-  KEY `confirmed` (`confirmed`),
-  KEY `constituency` (`constituency`)
-);
-
--- who each email has been sent to so far
-CREATE TABLE `campaigners_sent_email` (
-  `campaigner_id` int(11) NOT NULL,
-  `email_name` varchar(100) NOT NULL,
-
-  UNIQUE KEY `campaigner_id` (`campaigner_id`,`email_name`)
-);
-
 CREATE TABLE `video_timestamps` (
   `id` int(11) NOT NULL auto_increment,
   `gid` varchar(100) NOT NULL,

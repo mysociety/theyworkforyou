@@ -21,7 +21,6 @@ use Getopt::Long;
 use Data::Dumper;
 use File::Slurp::Unicode;
 
-use Uncapitalise;
 use JSON::XS;
 
 use vars qw($motion_count $policy_count $vote_count %motions_seen @policyids);

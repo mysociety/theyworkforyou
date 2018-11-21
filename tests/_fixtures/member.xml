@@ -20,10 +20,6 @@
 			<field name="standingprefix">test_</field>
 		</row>
 	</table_data>
-	<table_data name="campaigners">
-	</table_data>
-	<table_data name="campaigners_sent_email">
-	</table_data>
 	<table_data name="commentreports">
 	</table_data>
 	<table_data name="comments">

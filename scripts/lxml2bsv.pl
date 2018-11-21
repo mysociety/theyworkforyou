@@ -22,8 +22,6 @@ use Getopt::Long;
 use Data::Dumper;
 use HTML::Entities;
 
-use Uncapitalise;
-
 use vars qw(%membertoperson);
 my $twig = XML::Twig->new(twig_handlers => 
         { 'lord' => \&loadlord, 
