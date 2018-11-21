@@ -20,6 +20,11 @@ if (!defined('OPTION_TWFY_DB_NAME')) {
     define ("OPTION_TWFY_DB_NAME", "twfy");
 }
 
+# Code does not currently use this variable anywhere
+if (!defined('OPTION_TWFY_DB_PORT')) {
+    define ("OPTION_TWFY_DB_PORT", 3306);
+}
+
 // Parliamentary video database (we use PostgreSQL for this)
 define ('OPTION_BBC_DB_HOST', 'host');
 define ('OPTION_BBC_DB_PORT', 'port');
