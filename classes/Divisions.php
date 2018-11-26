@@ -125,7 +125,7 @@ class Divisions {
             "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, direction
             FROM policydivisions JOIN persondivisionvotes USING(division_id)
             WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
-            ORDER by policy_id, division_date",
+            ORDER by policy_id, division_date DESC",
             $args
         );
 
