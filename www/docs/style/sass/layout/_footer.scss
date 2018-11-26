@@ -29,11 +29,16 @@ $mysoc-footer-breakpoint-sm: $medium-screen;
 }
 
 .mysoc-footer {
+    position: relative; // To appear above overlapping fixed sidebar
     font-size: 16px; // down from 18px
 
     .row {
         max-width: (65em * (18px/16px)); // compensate for smaller font-size
     }
+}
+
+.mysoc-footer__links ul {
+    line-height: inherit;
 }
 
 .mysoc-footer__divider {
