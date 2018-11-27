@@ -30,16 +30,16 @@ class PageTest extends FetchPageTestCase
     {
         $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
         $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('<span class="constituency">Test Westminster Constituency</span>', $page);
-        $this->assertContains('<span class="party Lab">Labour</span>', $page);
+        $this->assertRegexp('#<span class="person-header__about__position__constituency">\s*Test Westminster Constituency\s*</span>#', $page);
+        $this->assertRegexp('#<span class="person-header__about__position__role">\s*Labour\s*MP\s*</span>#', $page);
     }
 
 	public function testSittingMLA()
     {
-        $page = $this->fetch_page( array( 'pid' => 4, 'url' => '/mp/4/test_current-mla/test_northern_ireland_constituency' ) );
+        $page = $this->fetch_page( array( 'pid' => 4, 'mla' => 1, 'url' => '/mp/4/test_current-mla' ) );
         $this->assertContains('Test Current-MLA', $page);
-        $this->assertContains('<span class="constituency">Test Northern Ireland Constituency</span>', $page);
-        $this->assertContains('<span class="party SinnFéin">Sinn Féin</span>', $page);
+        $this->assertRegexp('#<span class="person-header__about__position__constituency">\s*Test Northern Ireland Constituency\s*</span>#', $page);
+        $this->assertRegexp('#<span class="person-header__about__position__role">\s*Sinn Féin\s*MLA\s*</span>#', $page);
     }
 
     /**
@@ -66,7 +66,7 @@ class PageTest extends FetchPageTestCase
 	public function testSpeaker()
     {
         $page = $this->fetch_page( array( 'pid' => 13, 'url' => '/mp/13/test_speaker/buckingham' ) );
-        $this->assertContains('<span class="party SPK">Speaker</span>', $page);
+        $this->assertRegexp('#<span class="person-header__about__position__role">\s*Speaker\s*MP\s*</span>#', $page);
     }
 
     public function testBanner() {

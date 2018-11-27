@@ -247,9 +247,9 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, true, 'lord')
         );
 
-        // Does a large JPEG work?
+        // Does a large JPEG work? Not at present, 2018-11-27, as all images small!
         $this->assertEquals(
-            array('/images/mpsL/10001.jpeg', 'L'),
+            array('/images/mps/10001.jpeg', 'S'),
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001)
         );
 
@@ -259,9 +259,9 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001, true)
         );
 
-        // Does a large PNG work?
+        // Does a large PNG work? Ditto
         $this->assertEquals(
-            array('/images/mpsL/13943.png', 'L'),
+            array('/images/mps/13943.png', 'S'),
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943)
         );
 
@@ -271,9 +271,9 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943, true)
         );
 
-        // Does a large JPG work?
+        // Does a large JPG work? Ditto
         $this->assertEquals(
-            array('/images/mpsL/10552.jpg', 'L'),
+            array('/images/mps/10552.jpg', 'S'),
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10552)
         );
 

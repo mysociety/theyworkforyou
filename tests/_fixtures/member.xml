@@ -216,7 +216,7 @@
 			<field name="constituency">Test Northern Ireland Constituency</field>
 			<field name="party">Sinn Féin</field>
 			<field name="entered_house">2000-01-01</field>
-			<field name="left_house">9999-12-31</field>
+			<field name="left_house">2018-01-01</field>
 			<field name="entered_reason">general_election</field>
 			<field name="left_reason">still_in_office</field>
 			<field name="person_id">4</field>
