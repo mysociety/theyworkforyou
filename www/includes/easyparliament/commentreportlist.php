@@ -48,7 +48,7 @@ class COMMENTREPORTLIST {
 
         $time = gmdate("Y-m-d H:i:s", (time() - ($minutes * 60)));
 
-        $q = $this->db->query("UPDATE commentreports
+        $this->db->query("UPDATE commentreports
                         SET 	locked = NULL,
                                 lockedby = 0
                         WHERE	locked < '$time'

@@ -168,7 +168,7 @@ class EditQueue {
                     // so remove the previous entry
                     if (!$q->success()) {
                         print "glossary trouble!";
-                        $q = $this->db->query('DELETE FROM epobject WHERE epobject_id=:id ;', array(':id' => $previous_insert_id));
+                        $this->db->query('DELETE FROM epobject WHERE epobject_id=:id ;', array(':id' => $previous_insert_id));
                         return false;
                     }
                     break;
@@ -246,18 +246,6 @@ class EditQueue {
         $this->update_pending_count();
 
         return true;
-
-    }
-
-    public function modify($args) {
-    // Moderate a post,
-    // log it in editqueue,
-    // update glossary_id
-
-        // 1. Add the new item into the queue
-        $q = $this->db->query();
-
-    // 2. if successful, set the previous editqueue item to approved=0;
 
     }
 

@@ -47,11 +47,11 @@ class Topic {
     }
 
 
-    function title() {
+    public function title() {
         return $this->title;
     }
 
-    function sctitle() {
+    public function sctitle() {
         $title = $this->title;
         if (strpos($title, 'The ') === 0 ) {
             $title = lcfirst($title);
@@ -60,32 +60,32 @@ class Topic {
         return $title;
     }
 
-    function set_title($title) {
+    public function set_title($title) {
         $this->title = $title;
     }
 
-    function slug() {
+    public function slug() {
         return $this->slug;
     }
 
-    function set_slug($slug) {
+    public function set_slug($slug) {
         $this->slug = $slug;
     }
 
-    function url() {
+    public function url() {
         $url = new Url('topic');
         return $url->generate() . $this->slug;
     }
 
-    function image() {
+    public function image() {
         return $this->image;
     }
 
-    function image_url() {
+    public function image_url() {
         return "/topic/image.php?id=" . $this->slug();
     }
 
-    function image_path() {
+    public function image_path() {
         if ($this->image) {
             return sprintf('%s%s%s', TOPICIMAGEPATH, DIRECTORY_SEPARATOR, $this->image);
         }
@@ -93,32 +93,32 @@ class Topic {
         return false;
     }
 
-    function set_image($image) {
+    public function set_image($image) {
         $this->image = $image;
     }
 
 
-    function description() {
+    public function description() {
         return $this->description;
     }
 
-    function set_description($description) {
+    public function set_description($description) {
         $this->description = $description;
     }
 
-    function search_string() {
+    public function search_string() {
         return $this->search_string;
     }
 
-    function set_search_string($search_string) {
+    public function set_search_string($search_string) {
         $this->search_string = $search_string;
     }
 
-    function set_front_page($on) {
+    public function set_front_page($on) {
         $this->front_page = $on;
     }
 
-    function onFrontPage() {
+    public function onFrontPage() {
         return $this->front_page == 1;
     }
 
@@ -136,7 +136,7 @@ class Topic {
         return $q;
     }
 
-    function getContent() {
+    public function getContent() {
         $q = $this->_getContentIDs();
 
         $content = array();
@@ -152,7 +152,7 @@ class Topic {
         return $content;
     }
 
-    function getFullContent() {
+    public function getFullContent() {
         $q = $this->_getContentIDs();
 
         $content = array();
@@ -178,7 +178,7 @@ class Topic {
         return $content;
     }
 
-    function addContent($gid) {
+    public function addContent($gid) {
         $q = $this->db->query(
           "SELECT epobject_id FROM hansard WHERE gid = :gid",
           array(
@@ -203,7 +203,7 @@ class Topic {
         return $q->success();
     }
 
-    function deleteContent($id) {
+    public function deleteContent($id) {
         $q = $this->db->query(
           "DELETE FROM topic_epobjects WHERE topic_key = :topic AND epobject_id = :ep_id",
           array(
@@ -215,7 +215,7 @@ class Topic {
         return $q->success();
     }
 
-    function getPolicySets() {
+    public function getPolicySets() {
       $q = $this->db->query(
         "SELECT policyset FROM topic_policysets WHERE topic_key = :key",
         array(
@@ -232,7 +232,7 @@ class Topic {
       return $sets;
     }
 
-    function addPolicySets($sets) {
+    public function addPolicySets($sets) {
         if ($sets === '' or count($sets) == 0) {
             $q = $this->db->query(
                 "DELETE FROM topic_policysets WHERE topic_key = :topic_key",
@@ -258,7 +258,7 @@ class Topic {
         return $q->success();
     }
 
-    function getPolicies() {
+    public function getPolicies() {
       $q = $this->db->query(
         'SELECT policy_id FROM topic_policies WHERE topic_key = :key',
         array(
@@ -275,7 +275,7 @@ class Topic {
       return $policies;
     }
 
-    function addPolicies($policies) {
+    public function addPolicies($policies) {
         if ($policies === '' or count($policies) == 0) {
             $q = $this->db->query(
                 "DELETE FROM topic_policies WHERE topic_key = :topic_key",
@@ -301,7 +301,7 @@ class Topic {
         return $q->success();
     }
 
-    function getAllPolicies() {
+    public function getAllPolicies() {
         $policy_sets = $this->getPolicySets();
         $all_policies = array();
         $policies = new Policies();
@@ -314,7 +314,7 @@ class Topic {
         return array_unique($all_policies);
     }
 
-    function save() {
+    public function save() {
         $q = $this->db->query(
           "REPLACE INTO topics
           (id, title, slug, description, search_string, front_page, image)

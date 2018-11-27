@@ -148,7 +148,8 @@ function register_history($f) {
     $new = 0;
     if ($f) {
         $f = "$dir/regmem$f.xml";
-        for ($i=0; $i<count($files); ++$i) {
+        $count = count($files);
+        for ($i=0; $i<$count; ++$i) {
             if ($files[$i] == $f) {
                 $new = $i;
                 break;
@@ -231,25 +232,26 @@ function front_page() {
         $file = file_get_contents($_);
         preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m, PREG_SET_ORDER);
         foreach ($m as $k => $v) {
-            $person_id = $v[1]; $name = $v[3]; $data = $v[5];
+            $person_id = $v[1]; $name = $v[3];
             $names[$person_id] = $name;
         }
     }
     $c = 0; $year = 0;
     $view = ''; $compare = '';
-    for ($i=0; $i<count($files); ++$i) {
+    $count = count($files);
+    for ($i=0; $i<$count; ++$i) {
         preg_match('/(\d\d\d\d)-(\d\d-\d\d)/', $files[$i], $m);
         $y = $m[1]; $md = $m[2];
         if ($c++) {
             $view .= ' | ';
-            if ($i<count($files)-1) {
+            if ($i < $count-1) {
                 $compare .= ' | ';
             }
         }
         if ($year != $y) {
             $year = $y;
             $view .= "<em>$year</em> ";
-            if ($i<count($files)-1) {
+            if ($i < $count-1) {
                 $compare .= "<em>$year</em> ";
             }
         }
@@ -257,7 +259,7 @@ function front_page() {
         preg_match('/(\d\d)-(\d\d)/', $md, $m);
         $date = ($m[2]+0) . ' '. $months[$m[1]-1];
         $view .= '<a href="./?d='.$y.'-'.$md.'">'.$date.'</a>';
-        if ($i<count($files)-1) {
+        if ($i < $count-1) {
             $compare .= '<a href="?f='.$y.'-'.$md.'">'.$date.'</a>';
         }
     }

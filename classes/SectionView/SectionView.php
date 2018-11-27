@@ -56,7 +56,7 @@ class SectionView {
         $common = new \MySociety\TheyWorkForYou\Common;
         $data['urls'] = $this->getURLs($data);
         $data['popular_searches'] = $common->getPopularSearches();
-        $data['recess_major'] = $this->getRecessMajor($data);
+        $data['recess_major'] = $this->getRecessMajor();
 
         $nextprev = $DATA->page_metadata($this_page, 'nextprev');
         if ( isset($nextprev['next']['url']) ) {
@@ -111,7 +111,7 @@ class SectionView {
         return array();
     }
 
-    protected function getRecessMajor($data) {
+    protected function getRecessMajor() {
         global $hansardmajors;
 
         $recess_major = 1; # For all of UK Parliament
@@ -352,7 +352,8 @@ class SectionView {
         $first_speech = null;
         $data['section_title'] = '';
         $subsection_title = '';
-        for ($i=0; $i<count($data['rows']); $i++) {
+        $rows = count($data['rows']);
+        for ($i=0; $i<$rows; $i++) {
             $row = $data['rows'][$i];
             $htype = $row['htype'];
             // HPOS should be defined below if it's needed; otherwise default to 0

@@ -206,7 +206,7 @@ class User {
                 $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
             } else {
                 try {
-                    $mp = new \MySociety\TheyWorkForYou\Member(array(
+                    new \MySociety\TheyWorkForYou\Member(array(
                         'postcode' => $details['postcode'],
                         'house' => HOUSE_TYPE_COMMONS,
                     ));

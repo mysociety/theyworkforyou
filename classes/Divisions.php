@@ -111,7 +111,7 @@ class Divisions {
      * Each division is a hash with the following fields:
      *    division_id, date, vote, gid, url, text, strong
      *
-     * @param $policyId The ID of the policy to get divisions for
+     * @param int|null $policyId The ID of the policy to get divisions for
      */
 
     public function getMemberDivisionsForPolicy($policyID = null) {

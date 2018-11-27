@@ -41,7 +41,6 @@ class NiView extends SectionView {
         $this_page = "nioverview";
 
         $data = array();
-        $urls = array();
 
         $data['popular_searches'] = NULL;
 

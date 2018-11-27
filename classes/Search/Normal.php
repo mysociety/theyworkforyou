@@ -81,7 +81,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
             $data['mp_types'] = $mp_types;
             $data['glossary'] = $glossary;
             $data['pagination_links'] = $this->generate_pagination($data['info']);
-            $data['search_sidebar'] = $this->get_sidebar_links($this->searchstring);
+            $data['search_sidebar'] = $this->get_sidebar_links();
             return $data;
         }
     }

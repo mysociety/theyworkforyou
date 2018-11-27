@@ -807,7 +807,6 @@ function person_rebellion_rate ($member) {
     $rebellion_string = '';
 
     if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
-        $displayed_stuff = 1;
         $rebels_term = 'rebelled';
 
         $rebellion_string = 'has <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
@@ -1275,7 +1274,6 @@ function regional_list($pc, $area_type, $rep_type) {
     $mcon = array(); $mreg = array();
     for ($i=0; $i<$q->rows(); $i++) {
         $house = $q->field($i, 'house');
-        $pid = $q->field($i, 'person_id');
         $cons = $q->field($i, 'constituency');
         if ($house == HOUSE_TYPE_COMMONS) {
             continue;

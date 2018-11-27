@@ -27,7 +27,6 @@ function api_getBoundary_name($name) {
         return;
     }
 
-    $out = array();
     $areas_info = _api_cacheCheck('areas', 'WMC');
     $id = null;
     foreach ($areas_info as $k => $v) {

@@ -233,10 +233,6 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
 
 function video_front_page() {
     $db = new ParlDB;
-    $statuses = array(
-        0 => 'Unstamped',
-        4 => 'Timestamped by users',
-    );
     $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
     where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13) group by video_status&4');
     $totaliser = array(0=>0, 4=>0);

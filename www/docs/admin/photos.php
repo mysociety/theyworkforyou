@@ -164,7 +164,7 @@ function submit_attribution() {
             ($pid,'photo_attribution_text',:attr_text),
             ($pid,'photo_attribution_link',:attr_link)
         ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
-    $q = $db->query($query, array(
+    $db->query($query, array(
         ':attr_text' => $attr_text,
         ':attr_link' => $attr_link
         ));

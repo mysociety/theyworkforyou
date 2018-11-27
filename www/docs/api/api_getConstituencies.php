@@ -124,10 +124,11 @@ function _api_getConstituencies_latitude($lat, $lon, $d) {
                 );
         }
     }
-    usort($out, create_function('$a,$b', "
-        if (\$a['distance'] > \$b['distance']) return 1;
-        if (\$a['distance'] < \$b['distance']) return -1;
-        return 0;"));
+    usort($out, function($a, $b) {
+        if ($a['distance'] > $b['distance']) return 1;
+        if ($a['distance'] < $b['distance']) return -1;
+        return 0;
+    });
     return $out;
 }
 

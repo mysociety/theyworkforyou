@@ -136,8 +136,6 @@ class Wikipedia
 
     public static function antiTagInTag($content = '', $format = 'htmlhead')
     {
-      $contentwalker = 0;
-      $length = strlen( $content );
       $tagend = -1;
       for( $tagstart = strpos( $content, '<', $tagend + 1 ) ; $tagstart !== false && $tagstart < strlen( $content ); $tagstart = strpos( $content, '<', $tagend ) )
         {

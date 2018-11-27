@@ -955,7 +955,7 @@ class THEUSER extends USER {
         if ($this->isloggedin()) {
             // Set last_visit to now.
             $date_now = gmdate("Y-m-d H:i:s");
-            $q = $this->db->query("UPDATE users
+            $this->db->query("UPDATE users
                             SET     lastvisit = '$date_now'
                             WHERE   user_id = '" . $this->user_id() . "'");
 
@@ -1214,7 +1214,7 @@ class THEUSER extends USER {
 
             if ($ret) {
                 // and remove the token to be tidy
-                $q = $this->db->query("DELETE
+                $this->db->query("DELETE
                     FROM    tokens
                     WHERE   token = :token
                     AND   type = 'E'

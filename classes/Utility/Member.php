@@ -18,7 +18,7 @@ class Member
      *
      * @param string      $pid                The member's ID.
      * @param bool        $smallonly          Should the function only return a small sized image?
-     * @param bool|string @substitute_missing Should the function substitute a placeholder if no image can be found?
+     * @param bool|string $substitute_missing Should the function substitute a placeholder if no image can be found?
      *
      * @return array Array of the member's image URL and image size.
      */

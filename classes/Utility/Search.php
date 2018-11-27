@@ -35,9 +35,8 @@ class Search
         $speaker_count = array();
         $gids = join('","', $gids);
         $db = new \ParlDB;
-        $q = $db->query('SELECT gid,person_id,hdate FROM hansard WHERE gid IN ("' . $gids . '")');
+        $q = $db->query('SELECT person_id,hdate FROM hansard WHERE gid IN ("' . $gids . '")');
         for ($n=0; $n<$q->rows(); $n++) {
-            $gid = $q->field($n, 'gid');
             $person_id = $q->field($n, 'person_id');
             $hdate = $q->field($n, 'hdate');
             if (!isset($speaker_count[$person_id])) {

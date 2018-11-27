@@ -216,7 +216,7 @@ class ALERT {
                     }
                 } elseif ($instantly_confirm) {
                     // No confirmation email needed.
-                    $s = $this->db->query("UPDATE alerts
+                    $this->db->query("UPDATE alerts
                         SET confirmed = '1'
                         WHERE alert_id = :alert_id
                         ", array(

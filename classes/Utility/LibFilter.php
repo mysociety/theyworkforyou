@@ -392,10 +392,9 @@ class LibFilter {
 
         $data = preg_replace_callback(
             '/(^|[^\w\s\';,\\-])(\s*)([a-z])/',
-            create_function(
-                '$m',
-                'return $m[1].$m[2].StrToUpper($m[3]);'
-            ),
+            function($m) {
+                return $m[1] . $m[2] . strtoupper($m[3]);
+            },
             $data
         );
 

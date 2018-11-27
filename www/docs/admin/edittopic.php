@@ -242,8 +242,8 @@ function add_policy_sets($topic) {
 function add_policies($topic) {
     $policies = get_http_var('policies');
 
-    if ($sets[0] == '' && count($sets) == 1) {
-        $sets = array();
+    if ($policies[0] == '' && count($policies) == 1) {
+        $policies = array();
     }
 
     return $topic->addPolicies($policies);

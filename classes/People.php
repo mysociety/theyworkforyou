@@ -44,7 +44,7 @@ class People extends \PEOPLE {
 
         $data['mp_data'] = $user->getRep($this->cons_type, $this->house);
         $data['data'] = $this->addImagesToData($data['data']);
-        $data['urls'] = $this->addUrlsToData($data);
+        $data['urls'] = $this->addUrlsToData();
         $data['order'] = isset($args['order']) ? $args['order'] : 'l';
         $data['rep_plural'] = $this->rep_plural;
         $data['rep_name'] = $this->rep_name;

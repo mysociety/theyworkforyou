@@ -16,14 +16,12 @@ class MiniSurvey {
         $always_ask = 1;
         $data['survey_site'] = "twfy-mini-$current_question";
         $show_survey_qn = 0;
-        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
         $has_answered_question = get_http_var('answered_survey');
         $hide_question = get_http_var('hide_survey');
 
         $data['show'] = false;
 
         if ($hide_question) {
-            $always_ask = 0;
             $show_survey_qn = $current_question;
             setcookie('survey', $current_question, time()+60*60*24*365, '/');
         } elseif ($has_answered_question == $current_question && !$always_ask) {

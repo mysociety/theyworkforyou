@@ -73,11 +73,10 @@ class Topics {
           }
           $topics_str = implode(',', $quoted);
 
-          $q = $this->db->query("UPDATE topics SET front_page = TRUE WHERE slug IN ($topics_str)");
-
-          $q = $this->db->query("UPDATE topics SET front_page = FALSE WHERE slug NOT IN ($topics_str)");
+          $this->db->query("UPDATE topics SET front_page = TRUE WHERE slug IN ($topics_str)");
+          $this->db->query("UPDATE topics SET front_page = FALSE WHERE slug NOT IN ($topics_str)");
         } else {
-          $q = $this->db->query("UPDATE topics SET front_page = FALSE");
+          $this->db->query("UPDATE topics SET front_page = FALSE");
         }
 
         return true;

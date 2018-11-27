@@ -38,7 +38,8 @@ function person_drop_down() {
 
     $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
 
-    for ($i=0; $i<$q->rows(); $i++) {
+    $rows = $q->rows();
+    for ($i=0; $i<$rows; $i++) {
         $p_id = $q->field($i, 'person_id');
         $house = $q->field($i, 'house');
         $desc = member_full_name($house, $q->field($i, 'title'), $q->field($i, 'given_name'), $q->field($i, 'family_name'), $q->field($i, 'lordofname')) .
@@ -68,7 +69,7 @@ function submit_message() {
     $query = "INSERT INTO personinfo (person_id, data_key, data_value) VALUES
             ($pid,'profile_message',:profile_message)
         ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
-    $q = $db->query($query, array(':profile_message' => $message));
+    $db->query($query, array(':profile_message' => $message));
 
     $person = new MySociety\TheyWorkForYou\Member(array(
         'person_id' => $pid));
