@@ -1775,7 +1775,7 @@ class HANSARDLIST {
                     }
                 }
 
-                if ($item['epobject_id'] == 15674958 || $item['epobject_id'] == 15674959) {
+                if (in_array($item['epobject_id'], [15674958, 15674959, 12822764, 12822765])) {
                     global $DATA, $this_page;
                     $DATA->set_page_metadata($this_page, 'robots', 'noindex');
                 }
