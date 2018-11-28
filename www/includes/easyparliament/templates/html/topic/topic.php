@@ -88,15 +88,21 @@
             <div class="topic-block policies">
                 <h2>Recent votes on <?= _htmlspecialchars($topic->sctitle()) ?></h2>
                 <ul class="vote-descriptions">
-                  <?php foreach ($recent_divisions as $position) { ?>
-                    <li id="<?= $position['division_id'] ?>">
-                        The majority of MPs <?= $position['text'] ?>
-                        <a class="vote-description__source" href="<?= $position['url'] ?>">
+                  <?php foreach ($recent_divisions as $division) { ?>
+                    <li id="<?= $division['division_id'] ?>">
+                        The majority of MPs <?= $division['text'] ?>
+                        <?php if (isset($division['debate_url'])) { ?>
+                          <a class="vote-description__source" href="<?= $division['debate_url'] ?>">
                             Show debate
-                        </a>
-                        <a class="vote-description__evidence" href="<?= $position['url'] ?>">
-                            <?= format_date($position['date'], SHORTDATEFORMAT) ?>
-                        </a>
+                          </a>
+                          <a class="vote-description__evidence" href="<?= $division['debate_url'] ?>">
+                            <?= format_date($division['date'], SHORTDATEFORMAT) ?>
+                          </a>
+                        <?php } else { ?>
+                          <span class="vote-description__evidence">
+                            <?= format_date($division['date'], SHORTDATEFORMAT) ?>
+                          </span>
+                        <?php } ?>
                     </li>
                   <?php } ?>
                 </ul>

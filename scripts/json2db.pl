@@ -35,10 +35,13 @@ my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::
 my $policycheck = $dbh->prepare("SELECT policy_id from policies where policy_id = ?");
 my $policyadd = $dbh->prepare("INSERT INTO policies (policy_id, title, description) VALUES (?, ?, ?)");
 
-my $motioncheck = $dbh->prepare("SELECT division_title, gid, direction, policy_vote, yes_text, no_text, yes_total, no_total, absent_total, both_total, majority_vote FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $divisioncheck = $dbh->prepare("SELECT division_title, gid, yes_text, no_text, yes_total, no_total, absent_total, both_total, majority_vote FROM divisions WHERE division_id = ?");
+my $divisionadd = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+my $divisionupdate = $dbh->prepare("UPDATE divisions SET gid = ?, division_title = ?, yes_text = ?, no_text = ?, yes_total = ?, no_total = ?, absent_total = ?, both_total = ?, majority_vote = ? WHERE division_id = ?");
 
-my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, house, direction, policy_vote, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-my $motionupdate = $dbh->prepare("UPDATE policydivisions SET gid = ?, division_title = ?, yes_text = ?, no_text = ?, direction = ?, policy_vote = ?, yes_total = ?, no_total = ?, absent_total = ?, both_total = ?, majority_vote = ? WHERE division_id = ? AND policy_id = ?");
+my $motioncheck = $dbh->prepare("SELECT direction, policy_vote FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, direction, policy_vote) VALUES (?, ?, ?, ?)");
+my $motionupdate = $dbh->prepare("UPDATE policydivisions SET direction = ?, policy_vote = ? WHERE division_id = ? AND policy_id = ?");
 
 my $votecheck = $dbh->prepare("SELECT person_id, vote FROM persondivisionvotes WHERE division_id = ?");
 my $voteadd = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?)");
@@ -95,12 +98,16 @@ foreach my $dreamid ( @policyids ) {
         }
 
         my $text = $motion->{motion}->{text};
-        my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
 
+        my $curr_division = $dbh->selectrow_hashref($divisioncheck, {}, $motion_id);
+        if ( $curr_division ) {
+            $curr_division->{yes_text} ||= '';
+            $curr_division->{no_text} ||= '';
+        }
+
+        my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
         if ( $curr_motion ) {
             $curr_motion->{direction} ||= '';
-            $curr_motion->{yes_text} ||= '';
-            $curr_motion->{no_text} ||= '';
         }
 
         my $yes_text = '';
@@ -130,28 +137,40 @@ foreach my $dreamid ( @policyids ) {
             }
         }
 
-
-        if ( !defined $curr_motion ) {
-            my $r = $motionadd->execute($motion_id, $dreamid, $house, $motion->{direction}, $motion->{motion}->{policy_vote}, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
+        if ( !defined $curr_division ) {
+            my $r = $divisionadd->execute($motion_id, $house, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
             unless ( $r > 0 ) {
-                warn "problem creating policymotion for $dreamid, skipping motions\n";
+                warn "problem creating division $motion_id, skipping motions\n";
                 next;
             }
-        } elsif ( $curr_motion->{division_title} ne $text ||
-                  $curr_motion->{gid} ne $gid ||
-                  $curr_motion->{yes_text} ne $yes_text ||
-                  $curr_motion->{no_text} ne $no_text ||
-                  $curr_motion->{yes_total} ne $totals->{yes} ||
-                  $curr_motion->{no_total} ne $totals->{no} ||
-                  $curr_motion->{absent_total} ne $totals->{absent} ||
-                  $curr_motion->{both_total} ne $totals->{both} ||
-                  $curr_motion->{majority_vote} ne $majority_vote ||
-                  $motion->{direction} ne $curr_motion->{direction} ||
+        } elsif ( $curr_division->{division_title} ne $text ||
+                  $curr_division->{gid} ne $gid ||
+                  $curr_division->{yes_text} ne $yes_text ||
+                  $curr_division->{no_text} ne $no_text ||
+                  $curr_division->{yes_total} ne $totals->{yes} ||
+                  $curr_division->{no_total} ne $totals->{no} ||
+                  $curr_division->{absent_total} ne $totals->{absent} ||
+                  $curr_division->{both_total} ne $totals->{both} ||
+                  $curr_division->{majority_vote} ne $majority_vote
+        ) {
+            my $r = $divisionupdate->execute($gid, $text, $yes_text, $no_text, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote, $motion_id);
+            unless ( $r > 0 ) {
+                warn "problem updating division $motion_id from $curr_division->{division_title} to $text AND $curr_division->{gid} to $gid\n";
+            }
+        }
+
+        if ( !defined $curr_motion ) {
+            my $r = $motionadd->execute($motion_id, $dreamid, $motion->{direction}, $motion->{motion}->{policy_vote});
+            unless ( $r > 0 ) {
+                warn "problem creating policydivision for $motion_id / $dreamid, skipping motions\n";
+                next;
+            }
+        } elsif ( $motion->{direction} ne $curr_motion->{direction} ||
                   $motion->{motion}->{policy_vote} ne $curr_motion->{policy_vote}
         ) {
-            my $r = $motionupdate->execute($gid, $text, $yes_text, $no_text, $motion->{direction}, $motion->{motion}->{policy_vote}, , $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote, $motion_id, $dreamid);
+            my $r = $motionupdate->execute($motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
             unless ( $r > 0 ) {
-                warn "problem updating division $motion_id from " . $curr_motion->{division_title} . " to $text AND " . $curr_motion->{gid} . " to $gid\n";
+                warn "problem updating policydivision $motion_id / $dreamid from $curr_motion->{direction} to $motion->{direction}\n";
             }
         }
 

@@ -132,23 +132,30 @@ CREATE TABLE `policies` (
   UNIQUE KEY `policy_id` (`policy_id`)
 );
 
-CREATE TABLE `policydivisions` (
+CREATE TABLE `divisions` (
   `division_id` varchar(100) NOT NULL,
-  `policy_id` varchar(100) NOT NULL default '',
   `house` varchar(100),
   `gid` varchar(100) default '',
-  `direction` enum( 'Majority', 'Majority (strong)', 'minority', 'minority (strong)', 'absent', 'both', 'abstention', 'spoiled'),
   `division_title` text NOT NULL,
   `yes_text` text,
   `no_text` text,
   `division_date` date NOT NULL default '1000-01-01',
   `division_number` int(11),
-  `policy_vote` enum('aye', 'aye3', 'no', 'no3', 'both', 'absent', '') default '',
   `yes_total` int(3) default 0,
   `no_total` int(3) default 0,
   `absent_total` int(3) default 0,
   `both_total` int(3) default 0,
   `majority_vote` enum('aye', 'no', '') default '',
+  `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  UNIQUE KEY `division_id` (`division_id`),
+  KEY `gid` (`gid`)
+);
+
+CREATE TABLE `policydivisions` (
+  `division_id` varchar(100) NOT NULL,
+  `policy_id` varchar(100) NOT NULL default '',
+  `direction` enum( 'Majority', 'Majority (strong)', 'minority', 'minority (strong)', 'absent', 'both', 'abstention', 'spoiled'),
+  `policy_vote` enum('aye', 'aye3', 'no', 'no3', 'both', 'absent', '') default '',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   UNIQUE KEY `policy_division` (`division_id`, `policy_id`),
   KEY `division_id` (`division_id`)

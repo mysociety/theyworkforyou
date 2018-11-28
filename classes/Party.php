@@ -95,8 +95,9 @@ class Party {
         // This could be done as a join but it turns out to be
         // much slower to do that
         $divisions = $this->db->query(
-            "SELECT division_id, policy_vote, division_date
+            "SELECT division_id, policy_vote
             FROM policydivisions
+                JOIN divisions USING(division_id)
             WHERE policy_id = :policy_id
             AND house = 'commons'",
             array(
