@@ -428,6 +428,7 @@ sub parsefile_glob {
 my ($dbh, 
     $epadd, $epcheck, $epupdate,
     $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
+    $divisionupdate, $voteupdate,
     $gradd, $grdeletegid,
     $scotqadd, $scotqdelete, $scotqbusinessexist, $scotqholdingexist,
     $scotqdategidexist, $scotqreferenceexist,
@@ -453,6 +454,10 @@ sub db_connect
         where epobject_id = ? and gid = ?");
     $hdelete = $dbh->prepare("delete from hansard where gid = ? and epobject_id = ?");
     $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
+
+    # Divisions
+    $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), division_title=VALUES(division_title), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
+    $voteupdate = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE vote=VALUES(vote)");
 
     # gidredirect entries
     $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to, hdate, major) values (?,?,?,?)");
@@ -1023,8 +1028,12 @@ sub load_debate_heading {
 # load <division> tags
 sub load_debate_division {
     my ($division, $major) = @_;
+
+    my $gid = $division->att('id');
     my $divdate = $division->att('divdate');
     my $divnumber = $division->att('divnumber');
+    my $house = $major == 101 ? 'lords' : 'commons';
+    my $division_id = "pw-$divdate-$divnumber-$house";
 
     my $text =
 "<p class=\"divisionheading\">Division number $divnumber</p>
@@ -1032,6 +1041,13 @@ sub load_debate_division {
     $text .= '&amp;house=lords' if $major == 101;
     $text .= "&amp;showall=yes#voters\">See full
 list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
+
+    my $totals = {
+        aye => 0,
+        no => 0,
+        absent => 0, # Always going to be 0 on this import
+        both => 0,
+    };
 
     my $divcount = $division->first_child('divisioncount'); # attr ayes noes tellerayes tellernoes
     my ($votes_tag, $vote_tag);
@@ -1042,16 +1058,34 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
         $votes_tag = 'mplist';
         $vote_tag = 'mpname';
     }
+
     my @lists = $division->children($votes_tag);
+
+    # Find any 'both's...
+    my %vote_counts_by_pid;
     foreach my $list (@lists) {
         my $side = $list->att('vote');
         die unless $side =~ /^(aye|no|content|not-content)$/;
-        $text .= "<h2>\u$side</h2> <ul class='division-list'>";
         my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
         foreach my $vote (@names) {
             my $person_id = person_id($vote, 'id');
             my $vote_direction = $vote->att('vote');
             die unless $vote_direction eq $side;
+            $vote_counts_by_pid{$person_id}++;
+        }
+    }
+    foreach (keys %vote_counts_by_pid) {
+        $totals->{both}++ if $vote_counts_by_pid{$_} > 1;
+    }
+
+    # Okay, now construct HTML and add to database
+    foreach my $list (@lists) {
+        my $side = $list->att('vote');
+        $text .= "<h2>\u$side</h2> <ul class='division-list'>";
+        my @names = $list->children($vote_tag); # attr ids vote (teller), text is name
+        foreach my $vote (@names) {
+            my $person_id = person_id($vote, 'id');
+            my $vote_direction = $vote->att('vote');
             my $teller = $vote->att('teller');
             my $name = $vote->sprint(1);
             $name =~ s/ *\[Teller\]//; # In Lords
@@ -1060,9 +1094,18 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
             $text .= "<li><a href='/mp/?p=$person_id'>$name</a>";
             $text .= '&nbsp;(teller)' if $teller;
             $text .= "</li>\n";
+
+            my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
+            $totals->{$stored_vote}++ if $vote_counts_by_pid{$person_id} == 1;
+            $stored_vote = "tell$stored_vote" if $teller;
+            $voteupdate->execute($person_id, $division_id, $stored_vote);
         }
         $text .= "</ul>";
     }
+
+    my $majority_vote = $totals->{aye} > $totals->{no} ? 'aye': 'no';
+    $divisionupdate->execute($division_id, $house, "Division No. $divnumber", $divdate, $divnumber, $gid,
+        $totals->{aye}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
 
     do_load_speech($division, $major, 0, $text);
 }
@@ -1326,14 +1369,19 @@ sub add_scotland_day {
 # load <division> tags
 sub load_scotland_division {
     my ($division) = @_;
+    my $gid = $division->att('id');
     my $divnumber = $division->att('divnumber') + 1; # Own internal numbering from 0, per day
+    my $division_id = "pw-$curdate-$divnumber-scotland";
     my $text = $division->sprint(1);
     my %out;
+    my %totals = (for => 0, against => 0, abstentions => 0);
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
         push @{$out{$2}}, '<a href="/msp/?m=' . $1 . '">' . $3 . '</a>';
+        $totals{$2}++;
     }
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
         push @{$out{$2}}, '<a href="/msp/?p=' . $1 . '">' . $3 . '</a>';
+        $totals{$2}++;
     }
     $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
     foreach ('for','against','abstentions','spoiled votes') {
@@ -1343,6 +1391,10 @@ sub load_scotland_division {
         $text .= '<br />';
     }
     $text .= '</p>';
+
+    my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
+    $divisionupdate->execute($division_id, 'scotland', "Division No. $divnumber", $curdate, $divnumber, $gid,
+        $totals{for}, $totals{against}, $totals{abstentions}, 0, $majority_vote);
     do_load_speech($division, 7, 0, $text);
 }
 
@@ -1514,7 +1566,10 @@ sub add_standing_day {
 
 sub load_standing_division {
     my ($division, $id) = @_;
+    my $gid = $division->att('id');
+    my ($prefix) = $gid =~ m{uk.org.publicwhip/standing/standing(.*?)[a-z]*\.};
     my $divnumber = $division->att('divnumber');
+    my $division_id = "pbc-$prefix-$divnumber";
     my $ayes = $division->att('ayes');
     my $noes = $division->att('noes');
     my @names = $division->descendants('mpname');
@@ -1524,6 +1579,7 @@ sub load_standing_division {
         my $name = $_->att('membername');
         my $v = $_->att('vote');
         $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
+        $voteupdate->execute($person_id, $division_id, $v);
     }
     $out{aye} =~ s/, $//;
     $out{no} =~ s/, $//;
@@ -1531,6 +1587,9 @@ sub load_standing_division {
 <p class=\"divisionbody_yes\">Voting yes: $out{aye}</p>
 <p class=\"divisionbody_no\">Voting no: $out{no}</p>
 ";
+    my $majority_vote = $ayes > $noes ? 'aye': 'no';
+    $divisionupdate->execute($division_id, 'pbc', "Division No. $divnumber", $curdate, $divnumber, $gid,
+        $ayes, $noes, 0, 0, $majority_vote);
     do_load_speech($division, 6, $id, $text);
 }
 
