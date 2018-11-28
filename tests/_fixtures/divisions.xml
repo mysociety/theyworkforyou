@@ -314,15 +314,13 @@
           <field name="image_source">http://example.org/source</field>
       </row>
 	</table_data>
-	<table_data name="policydivisions">
+	<table_data name="divisions">
       <row>
           <field name="division_id">pw-2013-01-01-1-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text">Agreed</field>
           <field name="no_text">Disagreed</field>
-          <field name="direction">Majority (strong)</field>
           <field name="division_title">Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">1</field>
@@ -333,12 +331,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-2-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text">Do agree</field>
           <field name="no_text">Do not agree</field>
-          <field name="direction">Majority</field>
           <field name="division_title">Disagree Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">2</field>
@@ -349,12 +345,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-3-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text">Agreed</field>
           <field name="no_text">Disagreed</field>
-          <field name="direction">Minority</field>
           <field name="division_title">Absent Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">3</field>
@@ -365,12 +359,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-4-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text">Agreed</field>
           <field name="no_text">Disagreed</field>
-          <field name="direction">Minority (strong)</field>
           <field name="division_title">Abstained Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">4</field>
@@ -381,12 +373,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-5-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority (strong)</field>
           <field name="division_title">Yes Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">5</field>
@@ -397,12 +387,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-6-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">No Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">6</field>
@@ -413,12 +401,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-7-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell No Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">7</field>
@@ -429,12 +415,10 @@
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-8-commons</field>
-          <field name="policy_id">363</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2013-01-01</field>
           <field name="division_number">8</field>
@@ -445,12 +429,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-1-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid">com.theyworkforyou/test/hansard/2</field>
           <field name="yes_text">in favour of a thing</field>
           <field name="no_text">against a thing</field>
-          <field name="direction">Majority</field>
           <field name="division_title">A vote in favour</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">1</field>
@@ -461,12 +443,10 @@
      </row>
      <row>
           <field name="division_id">pw-3012-01-01-2-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">2</field>
@@ -477,12 +457,10 @@
       </row>
      <row>
           <field name="division_id">pw-3012-01-01-3-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">3</field>
@@ -493,12 +471,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-4-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">4</field>
@@ -509,12 +485,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-5-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">5</field>
@@ -525,12 +499,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-6-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">6</field>
@@ -541,12 +513,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-7-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">7</field>
@@ -557,12 +527,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-8-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">8</field>
@@ -573,12 +541,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-9-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">9</field>
@@ -589,12 +555,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-10-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">10</field>
@@ -605,12 +569,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-11-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">11</field>
@@ -621,12 +583,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-12-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">12</field>
@@ -637,12 +597,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-13-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">13</field>
@@ -653,12 +611,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-14-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">14</field>
@@ -669,12 +625,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-15-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">15</field>
@@ -685,12 +639,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-16-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">16</field>
@@ -701,12 +653,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-17-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">17</field>
@@ -717,12 +667,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-18-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">18</field>
@@ -733,12 +681,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-19-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">19</field>
@@ -749,12 +695,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-20-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">20</field>
@@ -765,12 +709,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-21-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">21</field>
@@ -781,12 +723,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-22-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">22</field>
@@ -797,12 +737,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-23-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">23</field>
@@ -813,12 +751,10 @@
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-24-commons</field>
-          <field name="policy_id">364</field>
           <field name="house">commons</field>
           <field name="gid"></field>
           <field name="yes_text"></field>
           <field name="no_text"></field>
-          <field name="direction">Majority</field>
           <field name="division_title">Tell Yes Division Title</field>
           <field name="division_date">2012-01-01</field>
           <field name="division_number">24</field>
@@ -826,6 +762,168 @@
           <field name="no_total">0</field>
           <field name="absent_total">0</field>
           <field name="majority_vote">aye</field>
+      </row>
+    </table_data>
+	<table_data name="policydivisions">
+      <row>
+          <field name="division_id">pw-2013-01-01-1-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority (strong)</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-2-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-3-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Minority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-4-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Minority (strong)</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-5-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority (strong)</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-6-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-7-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-2013-01-01-8-commons</field>
+          <field name="policy_id">363</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-1-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+     </row>
+     <row>
+          <field name="division_id">pw-3012-01-01-2-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+     <row>
+          <field name="division_id">pw-3012-01-01-3-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-4-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-5-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-6-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-7-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-8-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-9-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-10-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-11-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-12-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-13-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-14-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-15-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-16-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-17-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-18-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-19-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-20-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-21-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-22-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-23-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
+      </row>
+      <row>
+          <field name="division_id">pw-3012-01-01-24-commons</field>
+          <field name="policy_id">364</field>
+          <field name="direction">Majority</field>
       </row>
 	</table_data>
 	<table_data name="postcode_lookup">

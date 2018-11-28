@@ -2483,20 +2483,28 @@
           <field name="image_source">http://example.org/source</field>
       </row>
 	</table_data>
-  <table_data name="policydivisions">
+  <table_data name="divisions">
       <row>
           <field name="division_id">1</field>
           <field name="house">commons</field>
-          <field name="policy_id">810</field>
           <field name="division_title">A division</field>
+      </row>
+      <row>
+          <field name="division_id">2</field>
+          <field name="house">commons</field>
+          <field name="division_title">A division</field>
+      </row>
+  </table_data>
+  <table_data name="policydivisions">
+      <row>
+          <field name="division_id">1</field>
+          <field name="policy_id">810</field>
           <field name="direction">Majority</field>
           <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">2</field>
-          <field name="house">commons</field>
           <field name="policy_id">900</field>
-          <field name="division_title">A division</field>
           <field name="direction">Majority</field>
           <field name="policy_vote">absent</field>
       </row>
