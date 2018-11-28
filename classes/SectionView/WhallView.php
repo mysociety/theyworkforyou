@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class WhallView extends SectionView {
-    protected $major = 2;
+    public $major = 2;
     protected $class = 'WHALLLIST';
 
     protected function front_content() {

@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class NiView extends SectionView {
-    protected $major = 5;
+    public $major = 5;
     protected $class = 'NILIST';
     protected $index_template = 'section/ni_index';
 

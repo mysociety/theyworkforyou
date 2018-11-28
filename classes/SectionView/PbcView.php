@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class PbcView extends SectionView {
-    protected $major = 6;
+    public $major = 6;
     protected $class = 'StandingCommittee';
     protected $index_template = 'section/pbc_index';
 

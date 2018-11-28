@@ -4,7 +4,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class SectionView {
-    protected $major;
+    public $major;
     protected $class;
     protected $list;
     private $major_data;
@@ -254,6 +254,12 @@ class SectionView {
 
         $data['nextprev'] = $DATA->page_metadata($this_page, 'nextprev');
 
+        if (isset($THEUSER) && $THEUSER->postcode_is_set()) {
+            $user = new \MySociety\TheyWorkForYou\User();
+            $data['mp_data'] = $user->getRep($this->majorToConsType(), $this->majorToHouse()[0]);
+        }
+
+
         return $data;
     }
 
@@ -466,6 +472,38 @@ class SectionView {
 
         $detail = $details[$this->major];
         return array($detail['country'], $detail['location'], $detail['assembly']);
+    }
+
+    private function majorToHouse() {
+        $major_to_house = array(
+            1 => array(1),
+            2 => array(1),
+            3 => array(1, 2),
+            4 => array(1, 2),
+            5 => array(3),
+            6 => array(1),
+            7 => array(4),
+            8 => array(4),
+            101 => array(2),
+        );
+
+        return $major_to_house[$this->major];
+    }
+
+    private function majorToConsType() {
+        $major_to_cons_type = array(
+            1 => 'WMC',
+            2 => 'WMC',
+            3 => 'WMC',
+            4 => 'WMC',
+            5 => 'NIE',
+            6 => 'WMC',
+            7 => 'SPC',
+            8 => 'SPC',
+            101 => '',
+        );
+
+        return $major_to_cons_type[$this->major];
     }
 
     protected function display_front() {

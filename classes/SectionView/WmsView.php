@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class WmsView extends SectionView {
-    protected $major = 4;
+    public $major = 4;
     protected $class = 'WMSLIST';
 
     protected function front_content() {

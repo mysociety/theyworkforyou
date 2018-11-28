@@ -67,7 +67,7 @@
         position: relative;
         overflow: hidden;
         @include display-flex();
-        @include flex-align(center);
+        @include align-items(center);
         @include justify-content(center);
         background: #000;
 

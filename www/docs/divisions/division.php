@@ -12,16 +12,19 @@ if (!$vote) {
     exit();
 }
 
+$divisions = new MySociety\TheyWorkForYou\Divisions();
+$division_votes = $divisions->getDivisionResults($vote);
+list($country, $location, $assembly, $cons_type, $assembly_name) = MySociety\TheyWorkForYou\Utility\House::getCountryDetails($division_votes['house_number']);
+
 $main_vote_mp = false;
 if ($mp = get_http_var('p')) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $mp, 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $mp, 'house' => $division_votes['house_number']));
     $main_vote_mp = true;
-} else if ($THEUSER->postcode_is_set()) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+} else if ($THEUSER->postcode_is_set() && $cons_type !== '') {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => $division_votes['house_number']));
 }
 
-$divisions = new MySociety\TheyWorkForYou\Divisions();
-$data = array('division' => $divisions->getDivisionResults($vote));
+$data = array('division' => $division_votes);
 
 if (!$data['division']) {
     $PAGE->error_message("Vote not found", true);
@@ -34,7 +37,6 @@ $DATA->set_page_metadata($this_page, 'title', $data['division']['division_title'
 $data['main_vote_mp'] = $main_vote_mp;
 
 if (isset($MEMBER)) {
-    $data['member'] = $MEMBER;
     $mp_vote = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
     if ($mp_vote) {
         $data['mp_vote'] = $mp_vote;
@@ -43,19 +45,43 @@ if (isset($MEMBER)) {
             $data['mp_vote']['with_majority'] = true;
         }
     } else {
-      if ($data['division']['date'] < $MEMBER->entered_house(1)['date']) {
+      if ($data['division']['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
           $data['before_mp'] = true;
-      } else if ($data['division']['date'] > $MEMBER->left_house(1)['date']) {
+      } else if ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
           $data['after_mp'] = true;
       }
     }
+
+    $mp_data = array(
+        'name' => $MEMBER->full_name(),
+        'party' => $MEMBER->party(),
+        'constituency' => $MEMBER->constituency(),
+        'former' => '',
+        'mp_url' => $MEMBER->url(),
+        'image' => $MEMBER->image()['url'],
+    );
+    $left_house = $MEMBER->left_house();
+    if ($left_house[$division_votes['house_number']]['date'] != '9999-12-31') {
+        $mp_data['former'] = 'former';
+    }
+    $data['mp_data'] = $mp_data;
+
+    if ($THEUSER->postcode_is_set() && $cons_type !== '') {
+        $user = new MySociety\TheyWorkForYou\User();
+        $data['mp_data']['change_url'] = $user->getPostCodeChangeURL();
+        $data['mp_data']['postcode'] = $THEUSER->postcode();
+    }
 }
 
+if ($data['division']['house'] == 'pbc') {
+    $location = '&ndash; in a Public Bill Committee';
+}
 $data['debate_time_human'] = False;
 $data['debate_day_human'] = format_date($data['division']['date'], LONGDATEFORMAT);
-$data['col_country'] = 'UK';
-$data['location'] = 'in the House of Commons';
-$data['current_assembly'] = 'uk-commons';
+$data['col_country'] = $country;
+$data['location'] = $location;
+$data['current_assembly'] = $assembly;
+$data['assembly_name'] = $assembly_name;
 $data['nextprev'] = array('up' => array('url' => '/divisions/', 'body' => 'Recent Votes'));
 
 MySociety\TheyWorkForYou\Renderer::output($template, $data);

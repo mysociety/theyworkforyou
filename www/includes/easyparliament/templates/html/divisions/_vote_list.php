@@ -7,6 +7,11 @@
                     <?php if ($votes) {
                         $tellers = array();
                     ?>
+                    <ul class="division-dots">
+                        <?php foreach ($votes as $vote) { ?>
+                          <li class="people-list__person__party <?= slugify($vote['party']) ?>"></li>
+                        <?php } ?>
+                    </ul>
                     <ul class="division-list">
                         <?php foreach ($votes as $vote) {
                           $voter = sprintf('<a href="/mp/?p=%d">%s</a>', $vote['person_id'], $vote['name']);

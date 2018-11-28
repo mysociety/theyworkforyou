@@ -353,7 +353,7 @@ class User {
         return $mreg;
     }
 
-    private function getPostCodeChangeURL() {
+    public function getPostCodeChangeURL() {
         global $THEUSER;
         $CHANGEURL = new Url('userchangepc');
         if ($THEUSER->isloggedin()) {
