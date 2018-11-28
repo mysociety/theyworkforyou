@@ -192,6 +192,19 @@ class Divisions {
         return $policy_divisions;
     }
 
+    public function getDivisionByGid($gid) {
+        $args = array(
+            ':gid' => $gid
+        );
+        $q = $this->db->query("SELECT * FROM divisions WHERE gid = :gid", $args);
+
+        if ($q->rows == 0) {
+            return false;
+        }
+
+        return $this->_division_data($q);
+    }
+
     public function getDivisionResults($division_id) {
         $args = array(
             ':division_id' => $division_id
@@ -202,12 +215,27 @@ class Divisions {
             return false;
         }
 
+        return $this->_division_data($q);
+
+    }
+
+    private function _division_data($q) {
+
         $details = $this->getParliamentDivisionDetails($q->row(0));
 
+
+        $house = $q->row(0)['house'];
+        $args['division_id'] = $q->row(0)['division_id'];
+        $args['division_date'] = $q->row(0)['division_date'];
+        $args['house'] = \MySociety\TheyWorkForYou\Utility\House::house_name_to_number($house);
+
         $q = $this->db->query(
-            "SELECT person_id, vote, given_name, family_name
-            FROM persondivisionvotes JOIN person_names USING(person_id)
+            "SELECT pdv.person_id, vote, given_name, family_name, party
+            FROM persondivisionvotes AS pdv JOIN person_names AS pn ON (pdv.person_id = pn.person_id)
+            JOIN member AS m ON (pdv.person_id = m.person_id)
             WHERE division_id = :division_id
+            AND house = :house AND entered_house <= :division_date AND left_house >= :division_date
+            AND start_date <= :division_date AND end_date >= :division_date
             ORDER by family_name",
             $args
         );
@@ -219,10 +247,18 @@ class Divisions {
           'both_votes' => array()
         );
 
+        $party_breakdown = array(
+          'yes_votes' => array(),
+          'no_votes' => array(),
+          'absent_votes' => array(),
+          'both_votes' => array()
+        );
+
         foreach ($q->data as $vote) {
             $detail = array(
               'person_id' => $vote['person_id'],
               'name' => $vote['given_name'] . ' ' . $vote['family_name'],
+              'party' => $vote['party'],
               'teller' => false
             );
 
@@ -232,17 +268,41 @@ class Divisions {
 
             if ($vote['vote'] == 'aye' or $vote['vote'] == 'tellaye') {
               $votes['yes_votes'][] = $detail;
+              @$party_breakdown['yes_votes'][$detail['party']]++;
             } else if ($vote['vote'] == 'no' or $vote['vote'] == 'tellno') {
               $votes['no_votes'][] = $detail;
+              @$party_breakdown['no_votes'][$detail['party']]++;
             } else if ($vote['vote'] == 'absent') {
               $votes['absent_votes'][] = $detail;
+              @$party_breakdown['absent_votes'][$detail['party']]++;
             } else if ($vote['vote'] == 'both') {
               $votes['both_votes'][] = $detail;
+              @$party_breakdown['both_votes'][$detail['party']]++;
+            }
+        }
+
+        foreach ($votes as $vote => $count) { // array('yes_votes', 'no_votes', 'absent_votes', 'both_votes') as $vote) {
+          $votes[$vote . '_by_party'] = $votes[$vote];
+          usort($votes[$vote . '_by_party'], function ($a, $b) {
+                return $a['party']>$b['party'];
+            });
+        }
+
+        foreach ($party_breakdown as $vote => $parties) {
+            $summary = array();
+            foreach ($parties as $party => $count) {
+                array_push($summary, "$party: $count");
             }
 
+            sort($summary);
+            $party_breakdown[$vote] = implode(', ', $summary);
         }
 
         $details = array_merge($details, $votes);
+        $details['party_breakdown'] = $party_breakdown;
+        $details['members'] = \MySociety\TheyWorkForYou\Utility\House::house_to_members($args['house']);
+        $details['house'] = $house;
+        $details['house_number'] = $args['house'];
 
         return $details;
     }

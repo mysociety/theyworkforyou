@@ -251,6 +251,11 @@
           <field name="division_id">pw-2012-01-01-13-commons</field>
           <field name="vote">Yes</field>
       </row>
+      <row>
+          <field name="person_id">2</field>
+          <field name="division_id">pw-3012-01-01-1-commons</field>
+          <field name="vote">aye</field>
+      </row>
 	</table_data>
 	<table_data name="memberinfo">
 		<row>

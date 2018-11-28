@@ -209,4 +209,30 @@ $(function(){
 			}
 		}
 	}, 2000);
+
+    $('.js-vote-accordion').each(function(){
+
+        var $votes = $(this);
+        var $trigger = $('<button>');
+
+        var fold = function() {
+            $votes.children().eq(10).nextAll().addClass('visible-print-block');
+        };
+
+        var unfold = function() {
+            $votes.children().removeClass('visible-print-block');
+            $trigger.remove();
+        };
+
+        if ( $votes.children().length > 10 ) {
+          fold();
+
+          $trigger.addClass('hidden-print');
+          $trigger.html('<span class="button button--secondary button--small">Show All</span>');
+          $trigger.on('click', unfold);
+          $trigger.appendTo($votes);
+        }
+
+    });
+
 });

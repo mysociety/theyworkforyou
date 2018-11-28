@@ -113,11 +113,18 @@ $weight_bold: 700;
   flex-wrap: $wrap;
 }
 
-@mixin flex-align($alignment) {
+@mixin align-items($alignment) {
   -webkit-box-align: $alignment;
   -webkit-align-items: $alignment;
   -ms-flex-align: $alignment;
   align-items: $alignment;
+}
+
+@mixin align-self($alignment) {
+  -webkit-align-self: $alignment;
+  -ms-grid-column-align: $alignment;
+  -ms-align-self: $alignment;
+  align-self: $alignment;
 }
 
 @mixin flex-direction($direction) {
@@ -262,7 +269,8 @@ $weight_bold: 700;
     cursor: default;
 }
 
-.small-button {
+.small-button,
+.button--small {
     font-size: 0.875em;
     padding: 0.5em 1em 0.45em 1em;
 }

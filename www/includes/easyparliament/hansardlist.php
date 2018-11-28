@@ -1620,7 +1620,8 @@ class HANSARDLIST {
     }
 
     protected function _get_hansard_data($input) {
-        global $hansardmajors;
+        global $hansardmajors, $MEMBER;
+
         // Generic function for getting hansard data from the DB.
         // It returns an empty array if no data was found.
         // It returns an array of items if 1 or more were found.
@@ -1831,6 +1832,22 @@ class HANSARDLIST {
 
                     if ($r->rows() > 0) {
                         $item['excerpt'] = $r->field(0, 'body');
+                    }
+                }
+
+                if ($item['htype'] == 14) {
+                    $vote = $divisions = new MySociety\TheyWorkForYou\Divisions();
+                    $division_votes = $divisions->getDivisionByGid($this->gidprefix . $item['gid']);
+                    $item['division'] = $division_votes;
+                    if (isset($MEMBER)) {
+                      $item['mp_vote'] = $divisions->getDivisionResultsForMember($division_votes['division_id'], $MEMBER->person_id());
+                      if (!$item['mp_vote']) {
+                          if ($division_votes['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
+                              $item['before_mp'] = true;
+                          } else if ($division_votes['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
+                              $item['after_mp'] = true;
+                          }
+                      }
                     }
                 }
 

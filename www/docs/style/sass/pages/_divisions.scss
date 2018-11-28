@@ -1,0 +1,311 @@
+.debate-speech__division {
+  @media (min-width: $medium-screen) {
+    width: 70%;
+    float: left;
+  }
+}
+
+.debate-speech__division__header {
+  img {
+    float: left;
+    margin-right: 10px;
+    max-width: 50px;
+  }
+
+  small, strong {
+    display: block;
+  }
+
+  small {
+    line-height: 1;
+  }
+
+  strong {
+    line-height: 1.2;
+  }
+
+  @media (min-width: $medium-screen) {
+    font-size: 1.4em; // down from default 1.7em
+    position: relative;
+    padding-left: 70px;
+
+    img {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
+// Inspired by .search-page__section--your-mp
+.debate-speech__division__your-mp {
+  background-color: #FFFCD9; // very light yellow
+  border: 1px solid mix(#000, #FFFCD9, 10%);
+  padding: 0.5em;
+  border-radius: $global-radius;
+  margin: 1em 0;
+
+  @media (min-width: $medium-screen) {
+    padding: 1em;
+    margin: 1.5em 0 1.5em 70px;
+  }
+}
+
+.your-mp__header {
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid mix(#000, #FFFCD9, 10%);
+
+  h3 {
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1.2;
+    color: $light-text;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.8em;
+    line-height: 1.2;
+    color: mix($light-text, #FFFCD9, 70%);
+    margin-top: 0.2em;
+    margin-bottom: 0;
+
+    a {
+      margin-left: 0.2em;
+    }
+  }
+
+  @media (min-width: $medium-screen) {
+    @include clearfix();
+    padding-bottom: 0.8em;
+    margin-bottom: 1em;
+
+    h3 {
+      float: left;
+    }
+
+    p {
+      float: right;
+    }
+  }
+}
+
+.your-mp__content {
+  @include display-flex();
+  @include align-items(center);
+  @include flex-wrap(wrap);
+  color: inherit;
+  margin-top: -8px; // compensate for vertical space margins on children
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+
+    .people-list__person__name {
+      color: $colour_primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+.your-mp__footer {
+  padding-top: 0.5em;
+  margin-top: 0.5em;
+  border-top: 1px solid mix(#000, #FFFCD9, 10%);
+
+  @media (min-width: $medium-screen) {
+    padding-top: 0.8em;
+    margin-top: 1em;
+  }
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.your-mp__vote {
+  @include display-flex();
+  @include align-self(stretch);
+  @include align-items(center);
+  font-size: 1.7em;
+  padding: 0.2em 0.5em;
+  margin-right: 18px; // horizontal space between flex items
+  margin-top: 8px; // vertical space for when items wrap on narrow screens
+  background: #999;
+  color: #fff;
+  font-weight: 600;
+  border-radius: $global-radius;
+}
+
+.your-mp__vote--aye {
+  background-color: $colour_primary;
+}
+
+.your-mp__vote--no {
+  background-color: $colour_pale_red;
+}
+
+.your-mp__image {
+  margin-right: 18px; // horizontal space between flex items
+  margin-top: 8px; // vertical space for when items wrap on narrow screens
+  width: auto;
+  height: 3em;
+}
+
+.your-mp__person {
+  margin-top: 8px; // vertical space for when items wrap on narrow screens
+
+  .people-list__person__name {
+    margin-top: -0.2em; // compensate for empty space above x-height, to line up with photo
+  }
+
+  .people-list__person__memberships {
+    margin-top: 0;
+    margin-bottom: -0.2em; // compensate for empty space below x-height, to line up with photo
+  }
+}
+
+.debate-speech__division__details {
+  clear: left; // clear the floated .debate-speech__division__header img
+
+  @media (min-width: $medium-screen) {
+    padding-left: 70px;
+    width: 130%; // temporarily overflow into the links/social "sidebar"
+    max-width: 39em; // but don't overflow *too far* on almost-large screens
+  }
+
+  @media (min-width: $large-screen) {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.division-section__vote {
+  @media (min-width: 32em) {
+    @include box-sizing(content-box);
+    width: 48%;
+    padding: 0 0 1em 0;
+    float: left;
+
+    &:nth-child(2n+1) {
+      padding-right: 4%;
+    }
+  }
+
+  ul {
+    @include unstyled-list();
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 1em;
+  }
+}
+
+.division-section__vote__dots + .division-section__vote__names {
+  clear: both;
+}
+
+@mixin division-dots($diameter, $gap, $group-gap, $group-width, $groups-per-line) {
+  width: (($diameter * $group-width) + ($gap * ($group-width - 1)) + $group-gap) * $groups-per-line;
+
+  li {
+    height: $diameter;
+    width: $diameter;
+
+    // Artificially increase specificity with `[class]` attribute selector,
+    // so these margin settings will overpower any nth-child() margins defined
+    // in a previous media query. DANGER: Assumes list items have a class!!
+    &[class] {
+      margin: 0 $gap $gap 0;
+    }
+
+    &:nth-child(#{$group-width}n) {
+      margin-right: $group-gap;
+    }
+
+    &:nth-child(#{$group-width * $group-width * $groups-per-line}n) {
+      margin-bottom: $group-gap;
+    }
+
+    &:before {
+      height: $diameter;
+      width: $diameter;
+    }
+  }
+}
+
+.division-dots {
+  @include clearfix();
+  @include unstyled-list();
+
+  // Common styles that don’t depend on dot sizes / counts.
+  li {
+    float: left;
+
+    &:before {
+      content: "";
+      display: block;
+      border-radius: 100%;
+    }
+  }
+
+  // It’s tempting to use ems here, but browsers tend to round non-integer
+  // em values to pixels inconsitently, which would cause some dots to appear
+  // 1px larger or 1px more spaced out than others. Safer to just use pixels.
+  @include division-dots(8px, 4px, 12px, 5, 4);
+
+  @media (min-width: 32em) and (max-width: (40*16px) - 1px) {
+    @include division-dots(8px, 4px, 12px, 5, 3);
+  }
+
+  @media (min-width: $huge-screen) {
+    // @include division-dots(10px, 4px, 14px, 5, 4);
+  }
+}
+
+.division-names {
+  .party {
+    color: mix($light-text, $body-bg, 80%);
+    font-size: 0.8em;
+    margin-left: 0.5em;
+  }
+}
+
+.js-vote-accordion {
+  button {
+    display: block;
+    margin: 0;
+    padding: 3.5em 0 0 0;
+    margin-top: -3em;
+    width: 100%;
+    text-align: inherit;
+    border: 0;
+    background: transparent linear-gradient(to bottom, rgba(#fff, 0), #fff 3em) 0 0 no-repeat;
+    box-shadow: none;
+
+    .debate-speech:nth-child(2n) & {
+      background-image: linear-gradient(to bottom, rgba(#f3f1eb, 0), #f3f1eb 3em);
+    }
+
+    .button {
+      margin: 0;
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+
+    &:hover,
+    &:focus {
+      .button {
+        background-color: darken($colour_off_white, 5%);
+        color: $colour_black;
+        border-color: darken($colour_light_grey, 10%);
+      }
+    }
+  }
+
+  .visible-print-block {
+    display: none !important;
+  }
+}

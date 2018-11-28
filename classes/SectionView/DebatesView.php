@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class DebatesView extends SectionView {
-    protected $major = 1;
+    public $major = 1;
     protected $class = 'DEBATELIST';
 
     protected function display_front() {

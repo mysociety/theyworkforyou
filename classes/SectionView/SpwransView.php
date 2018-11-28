@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class SpwransView extends WransView {
-    protected $major = 8;
+    public $major = 8;
     protected $class = 'SPWRANSLIST';
 
     public function display() {

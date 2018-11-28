@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou\SectionView;
 
 class SpView extends SectionView {
-    protected $major = 7;
+    public $major = 7;
     protected $class = 'SPLIST';
 
     protected function front_content() {

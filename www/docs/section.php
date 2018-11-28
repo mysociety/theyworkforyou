@@ -15,6 +15,17 @@ if (get_http_var('gid')) {
 if ($type = ucfirst(get_http_var('type'))) {
     $class_name = "MySociety\TheyWorkForYou\SectionView\\${type}View";
     $view = new $class_name();
+
+    // use this for generating member vote data
+    global $THEUSER, $MEMBER;
+    if (isset($THEUSER) && $THEUSER->postcode_is_set()) {
+        try {
+            $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => \MySociety\TheyWorkForYou\Utility\House::majorToHouse($view->major)[0]));
+        } catch ( MySociety\TheyWorkForYou\MemberException $e ) {
+            $MEMBER = null;
+        }
+    }
+
     $data = $view->display();
     if ($data) {
         if ( !empty($data['template']) ) {
