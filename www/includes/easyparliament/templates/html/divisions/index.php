@@ -28,8 +28,11 @@
                             <?php include('_vote_description.php'); ?>
                             <br>
                             <span class="business-list__meta">
-                                <?= $division['summary'] ?>
-                                <?= $division['mp_vote'] !== '' ? '. <b>Your MP, ' . $mp_name . ', ' . $division['mp_vote'] . '.</b>': '' ?>
+                                <?=$division['for'] - 2 ?> for,
+                                <?=$division['against'] - 2 ?> against<?php
+                                if ($division['both'] > 0) { ?>, <?=$division['both'] ?> abstained<?php }
+                                if ($division['absent'] > 0) { ?>, <?=$division['absent'] ?> absent<?php } ?>.
+                                <?= $division['mp_vote'] !== '' ? '<b>Your MP, ' . $mp_name . ', ' . $division['mp_vote'] . '.</b>' : '' ?>
                             </span>
                         </p>
                     </li>

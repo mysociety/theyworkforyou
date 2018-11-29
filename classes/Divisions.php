@@ -441,7 +441,6 @@ class Divisions {
         }
         $division['division_title'] = $row['division_title'];
 
-        $division['summary'] = $row['yes_total'] . ' for, ' . $row['no_total'] . ' against, ' . $row['absent_total'] . ' absent';
         $division['for'] = $row['yes_total'];
         $division['against'] = $row['no_total'];
         $division['both'] = $row['both_total'];

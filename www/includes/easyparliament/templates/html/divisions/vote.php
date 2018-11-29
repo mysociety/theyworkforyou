@@ -140,13 +140,17 @@
     $votes = $division['no_votes'];
     include '_vote_list.php';
 
-    $vote_title = 'Absent';
-    $votes = $division['absent_votes'];
-    $anchor = 'absent';
-    include '_vote_list.php';
+    if ($division['absent'] > 0) {
+        $vote_title = 'Absent';
+        $votes = $division['absent_votes'];
+        $anchor = 'absent';
+        include '_vote_list.php';
+    }
 
-    $vote_title = 'Abstained';
-    $votes = $division['both_votes'];
-    $anchor = 'both';
-    include '_vote_list.php';
+    if ($division['both'] > 0) {
+        $vote_title = 'Abstained';
+        $votes = $division['both_votes'];
+        $anchor = 'both';
+        include '_vote_list.php';
+    }
 ?>

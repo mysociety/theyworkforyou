@@ -128,7 +128,7 @@ class DivisionsTest extends FetchPageTestCase
         $this->assertContains('A majority of MPs  <b>voted in favour</b> of a thing', $page);
         $this->assertContains('198 for', $page);
         $this->assertContains('98 against', $page);
-        $this->assertContains('0 abstained', $page);
+        $this->assertNotContains('0 abstained', $page);
         $this->assertContains('300 absent', $page);
     }
 
