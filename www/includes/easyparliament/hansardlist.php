@@ -1303,7 +1303,7 @@ class HANSARDLIST {
         $extract = trim_characters(html_entity_decode($extract), $startpos, $length_of_extract);
 
         // Highlight search words
-        $extract = $SEARCHENGINE->highlight($extract);
+        $extract = $SEARCHENGINE->highlight(htmlentities($extract));
 
         return $extract;
     }

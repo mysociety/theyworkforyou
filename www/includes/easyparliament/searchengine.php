@@ -487,12 +487,17 @@ class SEARCHENGINE {
         }
     }
 
+    private $specialchars = array('&lt;', '&gt;', '&quot;', '&amp;');
+    private $specialchars_upper = array('&LT;', '&GT;', '&QUOT;', '&AMP;');
+
     public function highlight_internal($body, $stemmed_words) {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return $body;
 
         # Does html_entity_decode without the htmlspecialchars
-        $body = htmlspecialchars_decode(_htmlentities($body));
+        $body = str_replace($this->specialchars, $this->specialchars_upper, $body);
+        $body = mb_convert_encoding($body, "UTF-8", "HTML-ENTITIES");
+        $body = str_replace($this->specialchars_upper, $this->specialchars, $body);
         $splitextract = preg_split('/(<[^>]*>|[0-9,.]+|['.$this->wordcharsnodigit.']+)/', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
         $hlextract = "";
         foreach ($splitextract as $extractword) {
