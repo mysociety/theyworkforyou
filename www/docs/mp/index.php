@@ -1055,8 +1055,9 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     $section = 'section:debates section:whall section:lords section:ni';
     $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>$section, 'pop'=>1));
     if ($member->party() != 'Sinn Féin') {
-        if (display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info)) {
-            $out[] = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info);
+        $spoken_in = display_stats_line('debate_sectionsspoken_inlastyear', 'Has spoken in ', 'debate', ' ' . $since_text, ' <a href="' . $MOREURL->generate() . '">See all ' . $member->full_name() . '&rsquo;s speeches</a>', $extra_info);
+        if ($spoken_in) {
+            $out[] = $spoken_in;
         }
 
         $MOREURL->insert(array('pid'=>$member->person_id(), 's'=>'section:wrans', 'pop'=>1));
@@ -1069,8 +1070,9 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
         if ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
             $minister = 2;
         }
-        if (display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister)) {
-            $out[] = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+        $wrans_answers = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
+        if ($wrans_answers) {
+            $out[] = $wrans_answers;
         }
     }
 
@@ -1104,11 +1106,9 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
         }
         */
 
-        if (display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info)) {
-            $out[] = display_stats_line('comments_on_speeches', 'People have made <a href="' . WEBPATH . 'comments/recent/?pid='.$member->person_id().'">', 'annotation', "</a> on this MP&rsquo;s speeches", '', $extra_info);
-        }
-        if (display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="https://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info)) {
-            $out[] = display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="https://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        $reading_age = display_stats_line('reading_age', 'This MP&rsquo;s speeches, in Hansard, are readable by an average ', '', ' year old, going by the <a href="https://en.wikipedia.org/wiki/Flesch-Kincaid_Readability_Test">Flesch-Kincaid Grade Level</a> score', '', $extra_info);
+        if ($reading_age) {
+            $out[] = $reading_age;
         }
     }
 
@@ -1127,8 +1127,8 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     }
 
     if ($member->party() != 'Sinn Féin') {
-        if (display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info)) {
-            $line = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
+        $line = display_stats_line('three_word_alliterations', 'Has used three-word alliterative phrases (e.g. "she sells seashells") ', 'time', ' in debates', ' <small>(<a href="' . WEBPATH . 'help/#numbers">Why is this here?</a>)</small>', $extra_info);
+        if ($line) {
             if (isset($extra_info['three_word_alliteration_content'])) {
                 $line .= "\n<!-- " . $extra_info['three_word_alliteration_content'] . " -->\n";
             }
