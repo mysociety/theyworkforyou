@@ -141,7 +141,7 @@ class HANSARDLIST {
         if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
             return false;
 
-        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_min', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
+        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
         if (in_array($view, $validviews)) {
 
             // What function do we call for this view?
@@ -979,10 +979,6 @@ class HANSARDLIST {
         return $data;
     }
 
-
-    public function _get_data_by_search_min($args) {
-        return $this->_get_data_by_search($args);
-    }
     public function _get_data_by_search_video($args) {
         return $this->_get_data_by_search($args);
     }

@@ -99,7 +99,8 @@ function _api_getHansard_search($array) {
         'o' => ($o=='d' || $o=='r') ? $o : 'd',
     );
     $LIST = new HANSARDLIST();
-    $LIST->display('search', $args, 'api');
+    $data = $LIST->display('search', $args, 'none');
+    api_output($data);
 }
 
 function _api_getHansard_gid($type, $gid) {
