@@ -2,7 +2,7 @@
         <div class="business-section">
           <div class="business-section__header">
               <h1 class="business-section__header__title">
-              Recent House of Commons Votes
+              Recent Votes
               </h1>
           </div>
           <div class="business-section__primary">
@@ -44,9 +44,9 @@
                 <div class="business-section__what-is-this">
                     <h3>What is this?</h3>
 
-                    <p>This list only contains votes that are part of a TheyWorkForYou policy. To see all recent votes have a look at <a href="http://www.publicwhip.org.uk/divisions.php">PublicWhip</a></p>
+                    <p>This list contains votes from the House of Commons, House of Lords, Public Bill Committees, and the Scottish Parliament.</p>
 
-                    <p class="policy-votes__byline">Vote information from <a href="http://www.publicwhip.org.uk/">PublicWhip</a>. Last updated: <?= $last_updated ?></p>
+                    <p class="policy-votes__byline">Some vote information from <a href="http://www.publicwhip.org.uk/">PublicWhip</a>. Last updated: <?= $last_updated ?></p>
                 </div>
             </div>
         </div>
