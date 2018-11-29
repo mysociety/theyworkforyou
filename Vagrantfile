@@ -32,6 +32,10 @@ Vagrant.configure(2) do |config|
     chown vagrant:vagrant /vagrant
     cd /vagrant/theyworkforyou
 
+    # mysql and xapian
+    bin/install-php5-xapian.sh
+    bin/install-mysql vagrant
+
     # Install the packages from conf/packages.ubuntu-trusty
     grep -vE "^#" conf/packages | xargs apt-get install -qq -y
 
@@ -46,10 +50,6 @@ Vagrant.configure(2) do |config|
     cp conf/httpd.vagrant /etc/apache2/sites-enabled/twfy.conf
     a2enmod expires rewrite php5
     /etc/init.d/apache2 reload
-
-    # mysql and xapian
-    bin/install-mysql vagrant
-    bin/install-php5-xapian.sh
 
     su vagrant -c 'bin/install-as-user vagrant 10.11.12.13 /vagrant yes'
     su vagrant -c 'bin/deploy.bash'
