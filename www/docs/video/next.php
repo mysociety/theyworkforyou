@@ -26,7 +26,7 @@ if ($action == 'next' || $action=='nextneeded') {
     $major = $q->field(0, 'major');
     $q = $db->query("select gid, hpos from hansard
         where hpos>$hpos and hdate='$hdate' and major=$major
-        and (htype=12 or htype=13) "
+        and htype IN (12,13,14) "
         . ($action=='nextneeded'?'and video_status in (1,3)':'') . "
         ORDER BY hpos LIMIT 1");
     if (!$q->rows()) {
@@ -45,7 +45,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
             $q = $db->query("select adate, atime from hansard, video_timestamps
                 where hansard.gid = video_timestamps.gid and deleted=0
                     and hpos<$new_hpos and hdate='$hdate' and major=$major
-                    and (htype=12 or htype=13) and (user_id is null or user_id!=-1)
+                    and htype IN (12,13,14) and (user_id is null or user_id!=-1)
                 order by hpos desc limit 1");
             $adate = $q->field(0, 'adate');
             $atime = $q->field(0, 'atime');
@@ -63,7 +63,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
     $db = new ParlDB;
     $q = $db->query("select gid from hansard
         where video_status in (1,3) and major=:major
-        and (htype=12 or htype=13)
+        and htype IN (12,13,14)
         and hansard.person_id=:pid
         ORDER BY RAND() LIMIT 1", array(':major' => $major, ':pid' => $pid));
     $new_gid = fix_gid_but_leave_section($q->field(0, 'gid'));
@@ -72,7 +72,7 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
     $db = new ParlDB;
     $q = $db->query("select gid, hpos, hdate from hansard
         where video_status in (1,3) and major=:major
-        and (htype=12 or htype=13)
+        and htype IN (12,13,14)
         ORDER BY RAND() LIMIT 1", array(':major' => $major));
     $gid = $q->field(0, 'gid');
     /*
@@ -82,14 +82,14 @@ Congratulations, now <a href="/video/">get stuck in somewhere else</a>!
     # Harder as need to check all since are /not/ done
     $q = $db->query("select gid from hansard
         where hpos<$hpos and hpos>=$hpos-5 and major=$major and hdate='$hdate'
-        and htype in (12,13) and video_status in (5,7)
+        and htype in (12,13,14) and video_status in (5,7)
         order by hpos desc limit 1");
     if ($q->rows()) {
         # Take the next speech, presumably needed
         $hpos = $q->field(0, 'hpos');
         $q = $db->query("select gid from hansard
             where hpos>$hpos and major=$major and hdate='$hdate'
-            and htype in (12,13)
+            and htype in (12,13,14)
             order by hpos limit 1");
         $gid = $q->field(0, 'gid');
     }

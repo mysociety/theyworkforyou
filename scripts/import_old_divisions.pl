@@ -165,12 +165,14 @@ sub parsefile_glob {
 ##########################################################################
 # Database
 
-my ($dbh, $divisionupdate, $voteupdate);
+my ($dbh, $divisionupdate, $voteupdate, $hupdate);
 
 sub db_connect {
     # Connect to database, and prepare queries
     my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
     $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, , mysql_enable_utf8 => 1 });
+
+    $hupdate = $dbh->prepare("update hansard set htype=14 where gid=?");
 
     # Divisions
     $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), division_title=VALUES(division_title), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
@@ -265,6 +267,7 @@ sub load_debate_division {
     my $majority_vote = $totals->{aye} > $totals->{no} ? 'aye': 'no';
     $divisionupdate->execute($division_id, $house, "Division No. $divnumber", $divdate, $divnumber, $gid,
         $totals->{aye}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
+    $hupdate->execute($gid);
 }
 
 ##########################################################################
@@ -326,6 +329,7 @@ sub load_scotland_division {
     my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
     $divisionupdate->execute($division_id, 'scotland', "Division No. $divnumber", $curdate, $divnumber, $gid,
         $totals{for}, $totals{against}, $totals{abstentions}, 0, $majority_vote);
+    $hupdate->execute($gid);
 }
 
 ##########################################################################
@@ -361,4 +365,5 @@ sub load_standing_division {
     my $majority_vote = $ayes > $noes ? 'aye': 'no';
     $divisionupdate->execute($division_id, 'pbc', "Division No. $divnumber", $curdate, $divnumber, $gid,
         $ayes, $noes, 0, 0, $majority_vote);
+    $hupdate->execute($gid);
 }
