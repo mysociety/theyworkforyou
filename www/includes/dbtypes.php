@@ -152,6 +152,7 @@ $hansardtypes = array (
     11 => 'Subsection heading',
     12 => 'Speech/ question/ answer with speaker ID',
     13 => 'Same without a speaker ID (so procedural)',
+    14 => 'Division',
 );
 
 // The edit_type field in the editqueue table

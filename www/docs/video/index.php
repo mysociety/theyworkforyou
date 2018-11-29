@@ -234,7 +234,7 @@ or <a href="/video/next.php?action=random">get a new unstamped speech at random<
 function video_front_page() {
     $db = new ParlDB;
     $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-    where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13) group by video_status&4');
+    where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13,14) group by video_status&4');
     $totaliser = array(0=>0, 4=>0);
     for ($i=0; $i<$q->rows(); $i++) {
         $status = $q->field($i, 'checked');
@@ -293,7 +293,7 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
 
 <?php
     $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
-    where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13)
+    where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13,14)
         and hdate=(select max(hdate) from hansard where major=1)
     group by video_status&4');
     $totaliser = array(0=>0, 4=>0);
@@ -466,7 +466,7 @@ function previous_speeches($surrounding_speeches, $gids_previous) {
 
 function disp_speech($row, $count) {
     echo '<li';
-    if ($row['htype']==13) echo ' class="unspoken"';
+    if ($row['htype']==13 || $row['htype']==14) echo ' class="unspoken"';
     elseif ($row['htype']<12) echo ' class="heading"';
     if (!($count%2)) echo ' style="background-color: #F5FDEA;"';
     else echo ' style="background-color: #E8FDCB;"';

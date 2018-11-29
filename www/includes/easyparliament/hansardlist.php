@@ -311,7 +311,7 @@ class HANSARDLIST {
         // What we return.
         $subsectiondata = array ();
 
-        if ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
+        if ($itemdata['htype'] == '12' || $itemdata['htype'] == '13' || $itemdata['htype'] == '14') {
             // This item is a speech or procedural, so get the
             // subsection info above this item.
 
@@ -2224,7 +2224,7 @@ class HANSARDLIST {
         $totalcomments = $this->_get_comment_count_for_epobject($item_data);
         $comment = array();
 
-        if ($item_data['htype'] == '12' || $item_data['htype'] == '13') {
+        if ($item_data['htype'] == '12' || $item_data['htype'] == '13' || $item_data['htype'] == '14') {
 
             // Things which can have comments posted directly to them.
 
@@ -2324,7 +2324,7 @@ class HANSARDLIST {
         }
 
         // If part of a Written Answer (just question or just answer), select the whole thing
-        if (isset($itemdata['major']) && $hansardmajors[$itemdata['major']]['type']=='other' and ($itemdata['htype'] == '12' or $itemdata['htype'] == '13')) {
+        if (isset($itemdata['major']) && $hansardmajors[$itemdata['major']]['type']=='other' and ($itemdata['htype'] == '12' or $itemdata['htype'] == '13' or $itemdata['htype'] == '14')) {
             // find the gid of the subheading which holds this part
             $input = array (
                 'amount' => array('gid' => true),
@@ -2487,7 +2487,7 @@ class HANSARDLIST {
             $data['rows'] = $this->_get_hansard_data($input);
 
 
-        } elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13') {
+        } elseif ($itemdata['htype'] == '12' || $itemdata['htype'] == '13' || $itemdata['htype'] == '14') {
             // Debate speech or procedural, so we're just displaying this one item.
 
             $data['rows'][] = $itemdata;

@@ -313,7 +313,7 @@ class SectionView {
         $bodies = array();
         foreach ($data['rows'] as $row) {
             $htype = $row['htype'];
-            if ($htype == 12 || $htype == 13) {
+            if ($htype == 12 || $htype == 13 || $htype == 14) {
                 $speeches++;
             }
             $body = $row['body'];
@@ -368,7 +368,7 @@ class SectionView {
                 # Splitting out highlighting results back into individual bits
                 $data['rows'][$i]['body'] = $bodies[$i];
             }
-            if ($htype == 12 || $htype == 13) {
+            if ($htype == 12 || $htype == 13 || $htype == 14) {
                 if (!$first_speech) {
                     $first_speech = $data['rows'][$i];
                 }

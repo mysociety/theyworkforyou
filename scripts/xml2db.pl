@@ -1747,6 +1747,9 @@ sub do_load_speech
             my $encoded = HTML::Entities::encode_entities($speech->att('speakername'));
             $pretext = '<p class="unknownspeaker">' . $encoded . ':</p> ';
         }
+    } elsif (defined $speech->att('divnumber')) {
+        # division
+        $type = 14;
     } else {
         # procedural
         $type = 13;

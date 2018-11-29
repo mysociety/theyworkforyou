@@ -231,6 +231,8 @@
                 <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) {
                     if ($speech['htype'] == '12') {
                         $thing = 'speech';
+                    } elseif ($speech['htype'] == '14') {
+                        $thing = 'vote';
                     } elseif ($speech['htype'] == '13') {
                         $thing = 'item';
                     } else {
