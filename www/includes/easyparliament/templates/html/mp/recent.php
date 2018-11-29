@@ -22,12 +22,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <div class="panel">
-                    <p>
-                    This list only contains votes that are part of a TheyWorkForYou policy.
-                    To see all recent votes have a look at <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&display=everyvote">PublicWhip</a>
-                </div>
-
                 <?php
 
                 $displayed_votes = FALSE;
