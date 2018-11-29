@@ -228,7 +228,7 @@
             </div>
 
             <ul class="debate-speech__meta debate-speech__links">
-                <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) {
+                <?php
                     if ($speech['htype'] == '12') {
                         $thing = 'speech';
                     } elseif ($speech['htype'] == '14') {
@@ -239,14 +239,15 @@
                         $thing = 'item';
                     }
                 ?>
+                <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) { ?>
                 <li class="link-to-speech">
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">See this <?= $thing ?> in context</a>
                 </li>
                 <?php
                 }
-                if (!$section || !$individual_item) { # XXX ?>
+                if (!$section || !$individual_item) { ?>
                 <li class="link-to-speech">
-                    <span class="link-to-speech__label">Link to this speech</span>
+                    <span class="link-to-speech__label">Link to this <?= $thing ?></span>
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">In context</a>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link">Individually</a>
                 </li>
