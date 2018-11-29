@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Need a database, isn't in packages for some reason?
+# Need a database, isn't in packages
 echo -n "Installing MySQL... "
 DEBIAN_FRONTEND=noninteractive apt-get -qq -y install mysql-server >/dev/null
 DEBIAN_FRONTEND=noninteractive apt-get -qq -y install git >/dev/null
