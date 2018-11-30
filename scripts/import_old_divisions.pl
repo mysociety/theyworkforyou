@@ -21,6 +21,7 @@ use JSON;
 use XML::Twig;
 use File::Find;
 use Getopt::Long;
+use TWFY::Utils;
 
 # output_filter 'safe' uses entities &#nnnn; to encode characters, this is
 # the easiest/most reliable way to get the encodings correct for content
@@ -69,7 +70,7 @@ db_connect();
 
 ##########################################################################
 
-use vars qw($curdate);
+use vars qw($curdate $currmajor $currminor);
 use vars qw(%membertoperson %personredirect);
 my $debatesdir = $parldata . "scrapedxml/debates/";
 my $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
@@ -175,7 +176,7 @@ sub db_connect {
     $hupdate = $dbh->prepare("update hansard set htype=14 where gid=?");
 
     # Divisions
-    $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), division_title=VALUES(division_title), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
+    $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
     $voteupdate = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE vote=VALUES(vote)");
 }
 
@@ -193,6 +194,8 @@ sub person_id {
 sub add_debates_day {
     my ($date) = @_;
     my $twig = XML::Twig->new(twig_handlers => {
+        'minor-heading' => sub { do_load_subheading($_) },
+        'major-heading' => sub { do_load_heading($_) },
         'division' => sub { load_debate_division($_, 1) },
         }, output_filter => $outputfilter );
     $curdate = $date;
@@ -265,9 +268,16 @@ sub load_debate_division {
     }
 
     my $majority_vote = $totals->{aye} > $totals->{no} ? 'aye': 'no';
-    $divisionupdate->execute($division_id, $house, "Division No. $divnumber", $divdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, $house, $title, $divdate, $divnumber, $gid,
         $totals->{aye}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
     $hupdate->execute($gid);
+}
+
+sub division_title {
+    my $divnumber = shift;
+    my $heading = join(" &#8212; ", $currmajor || (), $currminor || ());
+    return $heading || "Division No. $divnumber";
 }
 
 ##########################################################################
@@ -276,6 +286,8 @@ sub load_debate_division {
 sub add_lordsdebates_day {
     my ($date) = @_;
     my $twig = XML::Twig->new(twig_handlers => {
+        'minor-heading' => sub { do_load_subheading($_) },
+        'major-heading' => sub { do_load_heading($_) },
         'division' => sub { load_debate_division($_, 101) },
         }, output_filter => $outputfilter );
     $curdate = $date;
@@ -301,6 +313,8 @@ sub add_scotland_day {
     }
 
     my $twig = XML::Twig->new(twig_handlers => {
+        'minor-heading' => sub { do_load_subheading($_) },
+        'major-heading' => sub { do_load_heading($_) },
         'division' => sub { load_scotland_division($_) },
         }, output_filter => $outputfilter );
     $curdate = $date;
@@ -327,7 +341,8 @@ sub load_scotland_division {
     }
 
     my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
-    $divisionupdate->execute($division_id, 'scotland', "Division No. $divnumber", $curdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, 'scotland', $title, $curdate, $divnumber, $gid,
         $totals{for}, $totals{against}, $totals{abstentions}, 0, $majority_vote);
     $hupdate->execute($gid);
 }
@@ -338,6 +353,7 @@ sub load_scotland_division {
 sub add_standing_day {
     my ($date) = @_;
     my $twig = XML::Twig->new(twig_handlers => {
+        'minor-heading' => sub { do_load_subheading($_) },
         'divisioncount' => sub { load_standing_division($_) },
         }, output_filter => $outputfilter );
     $curdate = $date;
@@ -363,7 +379,19 @@ sub load_standing_division {
         $voteupdate->execute($person_id, $division_id, $v);
     }
     my $majority_vote = $ayes > $noes ? 'aye': 'no';
-    $divisionupdate->execute($division_id, 'pbc', "Division No. $divnumber", $curdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, 'pbc', $title, $curdate, $divnumber, $gid,
         $ayes, $noes, 0, 0, $majority_vote);
     $hupdate->execute($gid);
+}
+
+sub do_load_heading {
+    my ($heading) = @_;
+    $currmajor = fix_case(strip_string($heading->sprint(1)));
+    $currminor = '';
+}
+
+sub do_load_subheading {
+    my ($heading) = @_;
+    $currminor = fix_case(strip_string($heading->sprint(1)));
 }

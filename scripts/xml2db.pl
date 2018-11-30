@@ -33,9 +33,7 @@ use JSON;
 use XML::Twig;
 use File::Find;
 use Getopt::Long;
-use Data::Dumper;
-
-use Uncapitalise;
+use TWFY::Utils;
 
 # output_filter 'safe' uses entities &#nnnn; to encode characters, this is
 # the easiest/most reliable way to get the encodings correct for content
@@ -131,6 +129,7 @@ db_connect();
 
 use vars qw($hpos $curdate);
 use vars qw($currsection $currsubsection $inoralanswers $promotedheading);
+use vars qw($currmajor $currminor);
 use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummycount);
 use vars qw(%membertoperson %personredirect);
 use vars qw($current_file);
@@ -300,116 +299,6 @@ process_mentions('spq', $scotqsdir) if $scotqs;
 ##########################################################################
 # Utility
 
-# Code from: perldoc -q 'How do I test whether two arrays or hashes are equal?'
-# Why is this not built in?  This kind of thing makes me never want to use Perl again.
-sub compare_arrays {
-    my ($first, $second) = @_;
-    return 0 unless @$first == @$second;
-    for (my $i = 0; $i < @$first; $i++) {
-        if (defined $first->[$i] or defined $second->[$i]) {
-            if (!defined $first->[$i] or !defined $second->[$i]) {
-                return 0;
-            }
-            $second->[$i] = '00:00:00' if ($second->[$i] eq 'unknown');
-            if ($first->[$i] ne $second->[$i]) {
-                return 0;
-            }
-        }
-    }
-    return 1;
-}
-
-sub describe_compare_arrays {
-    my ($first, $second) = @_;
-    my $ret = "";
-    if (@$first != @$second) {
-        die "sizes differ in describe_compare_arrays";
-    }
-    for (my $i = 0; $i < @$first; $i++)
-    {
-        my $from = $first->[$i];
-        my $to = $second->[$i];
-        if (defined $from and (! defined $to))
-            { $ret .= "at $i value #$from# to <undef>. "; }
-        elsif ((!defined $from) and defined $to)
-            { $ret .= "at $i value <undef> to #$to#. "; }
-        elsif (defined $from and defined $to) {
-            if ("$from" ne "$to")
-                { $ret .= "at $i value #$from# to #$to#. "; }
-        }
-        elsif ((!defined $from) and (!defined $to)) {
-            # OK
-        }
-        else
-            { die "unknown defined status in describe_compare_arrays"; }
-    }
-    return $ret;
-}
-
-
-sub array_difference
-{
-    my $array1 = shift;
-    my $array2 = shift;
-
-    my @union = ();
-    my @intersection = ();
-    my @difference = ();
-
-    my %count = ();
-    foreach my $element (@$array1, @$array2) { $count{$element}++ }
-    foreach my $element (keys %count) {
-        push @union, $element;
-        push @{ $count{$element} > 1 ? \@intersection : \@difference }, $element;
-    }
-    return \@difference;
-}
-
-sub strip_string {
-    my $s = shift;
-    $s =~ s/^\s+//;
-    $s =~ s/\s+$//;
-    return $s;
-}
-
-# Converts all capital parts of a heading to mixed case
-sub fix_case
-{
-    $_ = shift;
-#    print "b:" . $_ . "\n";
-
-    # We work on each hyphen (mdash, &#8212;) separated section separately
-    my @parts = split /&#8212;/;
-    my @fixed_parts = map(&fix_case_part, @parts);
-    $_ = join(" &#8212; ", @fixed_parts);
-
-#    print "a:" . $_ . "\n";
-    return $_;
-}
-
-sub fix_case_part
-{
-    # This mainly applies to departmental names for Oral Answers to Questions
-#    print "fix_case_part " . $_ . "\n";
-
-    s/\s+$//g; 
-    s/^\s+//g;
-    s/\s+/ /g;
-
-    # if it is all capitals in Hansard
-    # e.g. CABINET OFFICE
-    if (m/^[^a-z]+(&amp;[^a-z]+)*$/)
-    {
-        die "undefined part title" if ! $_;
-#        print "fixing case: $_\n";
-        Uncapitalise::format($_);
-#        print "fixed  case: $_\n";
-    }
-    die "not defined title part" if ! $_;
-
-    return $_;
-}
-
 # Parse all the files which match the glob using twig.
 sub parsefile_glob {
     my ($twig, $glob) = @_;
@@ -456,7 +345,7 @@ sub db_connect
     $hdeletegid = $dbh->prepare("delete from hansard where gid = ?");
 
     # Divisions
-    $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), division_title=VALUES(division_title), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
+    $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
     $voteupdate = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE vote=VALUES(vote)");
 
     # gidredirect entries
@@ -1104,10 +993,17 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
     }
 
     my $majority_vote = $totals->{aye} > $totals->{no} ? 'aye': 'no';
-    $divisionupdate->execute($division_id, $house, "Division No. $divnumber", $divdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, $house, $title, $divdate, $divnumber, $gid,
         $totals->{aye}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
 
     do_load_speech($division, $major, 0, $text);
+}
+
+sub division_title {
+    my $divnumber = shift;
+    my $heading = join(" &#8212; ", $currmajor || (), $currminor || ());
+    return $heading || "Division No. $divnumber";
 }
 
 ##########################################################################
@@ -1393,7 +1289,8 @@ sub load_scotland_division {
     $text .= '</p>';
 
     my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
-    $divisionupdate->execute($division_id, 'scotland', "Division No. $divnumber", $curdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, 'scotland', $title, $curdate, $divnumber, $gid,
         $totals{for}, $totals{against}, $totals{abstentions}, 0, $majority_vote);
     do_load_speech($division, 7, 0, $text);
 }
@@ -1588,7 +1485,8 @@ sub load_standing_division {
 <p class=\"divisionbody_no\">Voting no: $out{no}</p>
 ";
     my $majority_vote = $ayes > $noes ? 'aye': 'no';
-    $divisionupdate->execute($division_id, 'pbc', "Division No. $divnumber", $curdate, $divnumber, $gid,
+    my $title = division_title($divnumber);
+    $divisionupdate->execute($division_id, 'pbc', $title, $curdate, $divnumber, $gid,
         $ayes, $noes, 0, 0, $majority_vote);
     do_load_speech($division, 6, $id, $text);
 }
@@ -1782,13 +1680,16 @@ sub do_load_heading
 
     my $type = 10;
     my $speaker = 0;
-       
-    my @epparam = (fix_case($text));
+
+    $text = fix_case($text);
+    my @epparam = ($text);
     my @hparam = ($speech->att('id'), $colnum, $type, $speaker, $major, $minor, 0, 0, $hpos, $curdate, $htime, $url);
     my $epid = db_addpair(\@epparam, \@hparam);
 
     $currsubsection = $epid;
     $currsection = $epid;
+    $currmajor = $text;
+    $currminor = '';
 }
 
 sub do_load_subheading
@@ -1832,11 +1733,13 @@ sub do_load_subheading
     my $type = 11;
     my $speaker = 0;
 
-    my @epparam = (fix_case($text));
+    $text = fix_case($text);
+    my @epparam = ($text);
     my @hparam = ($speech->att('id'), $colnum, $type, $speaker, $major, $minor, $currsection, 0, $hpos, $curdate, $htime, $url);
     my $epid = db_addpair(\@epparam, \@hparam);
 
     $currsubsection = $epid;
+    $currminor = $text;
 }
 
 sub do_load_gidredirect
