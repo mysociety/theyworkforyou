@@ -10,7 +10,7 @@
             </div>
           <?php } ?>
             <div class="person-header__about">
-                <h1 class="person-header__about__name"><?= $full_name ?></h1>
+                <h1 class="person-header__about__name"><?= ucfirst($full_name) ?></h1>
               <?php if ( $known_for ) { ?>
                 <p class="person-header__about__known-for">
                     <?= $known_for ?>
