@@ -267,8 +267,8 @@ sub load_debate_division {
             my $teller = $vote->att('teller');
 
             my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
-            $totals->{$stored_vote}++ if $vote_counts_by_pid{$person_id} == 1;
             $stored_vote = "tell$stored_vote" if $teller;
+            $totals->{$stored_vote}++ if $vote_counts_by_pid{$person_id} == 1;
             $voteupdate->execute($person_id, $division_id, $stored_vote);
         }
     }

@@ -1,6 +1,6 @@
 <p>
-    <a href="#for"><?= $division['for'] - 2 ?> for</a>,
-    <a href="#against"><?= $division['against'] - 2 ?> against</a><?php
+    <a href="#for"><?= $division['for'] ?> for</a>,
+    <a href="#against"><?= $division['against'] ?> against</a><?php
   if ($division['both'] > 0) { ?>,
     <a href="#both"><?= $division['both'] ?> abstained</a><?php
   }

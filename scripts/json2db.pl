@@ -137,6 +137,10 @@ foreach my $dreamid ( @policyids ) {
             }
         }
 
+        # Ignore tellers in totals
+        $totals->{yes} -= grep { $_->{option} =~ /tellaye/ } @{ $motion->{motion}->{ vote_events }->[0]->{votes} };
+        $totals->{no} -= grep { $_->{option} =~ /tellno/ } @{ $motion->{motion}->{ vote_events }->[0]->{votes} };
+
         if ( !defined $curr_division ) {
             my $r = $divisionadd->execute($motion_id, $house, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
             unless ( $r > 0 ) {
