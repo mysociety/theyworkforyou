@@ -134,6 +134,12 @@ use vars qw(%gids %grdests %ignorehistorygids $tallygidsmode $tallygidsmodedummy
 use vars qw(%membertoperson %personredirect);
 use vars qw($current_file);
 
+my %scotland_vote_store = (
+    for => 'aye',
+    against => 'no',
+    abstentions => 'both',
+);
+
 use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir
     $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir
     $scotwransdir $scotqsdir
@@ -1272,12 +1278,19 @@ sub load_scotland_division {
     my %out;
     my %totals = (for => 0, against => 0, abstentions => 0);
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        push @{$out{$2}}, '<a href="/msp/?m=' . $1 . '">' . $3 . '</a>';
-        $totals{$2}++;
+        my ($member_id, $vote, $name) = ($1, $2, $3);
+        my $person_id = $membertoperson{$member_id} || 'unknown';
+        $person_id =~ s/.*\///;
+        $person_id = $personredirect{$person_id} || $person_id;
+        push @{$out{$vote}}, '<a href="/msp/?m=' . $member_id . '">' . $name . '</a>';
+        $totals{$vote}++;
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
     }
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        push @{$out{$2}}, '<a href="/msp/?p=' . $1 . '">' . $3 . '</a>';
-        $totals{$2}++;
+        my ($person_id, $vote, $name) = ($1, $2, $3);
+        push @{$out{$vote}}, '<a href="/msp/?p=' . $person_id . '">' . $name . '</a>';
+        $totals{$vote}++;
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
     }
     $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
     foreach ('for','against','abstentions','spoiled votes') {

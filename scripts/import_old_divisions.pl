@@ -77,6 +77,12 @@ my $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
 my $scotlanddir = $parldata . 'scrapedxml/sp-new/meeting-of-the-parliament/';
 my $standingdir = $parldata . 'scrapedxml/standing/';
 
+my %scotland_vote_store = (
+    for => 'aye',
+    against => 'no',
+    abstentions => 'both',
+);
+
 # Do dates in reverse order
 sub revsort {
     return reverse sort @_;
@@ -331,13 +337,19 @@ sub load_scotland_division {
     my $divnumber = $division->att('divnumber') + 1; # Own internal numbering from 0, per day
     my $division_id = "pw-$curdate-$divnumber-scotland";
     my $text = $division->sprint(1);
-    my %out;
     my %totals = (for => 0, against => 0, abstentions => 0);
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        $totals{$2}++;
+        my ($member_id, $vote, $name) = ($1, $2, $3);
+        my $person_id = $membertoperson{$member_id} || 'unknown';
+        $person_id =~ s/.*\///;
+        $person_id = $personredirect{$person_id} || $person_id;
+        $totals{$vote}++;
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
     }
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        $totals{$2}++;
+        my ($person_id, $vote, $name) = ($1, $2, $3);
+        $totals{$vote}++;
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
     }
 
     my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
