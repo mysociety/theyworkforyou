@@ -122,6 +122,7 @@ $sects = array(
     8 => 'Scottish Parliament written answer',
     101 => 'Lords debate',
     'F' => 'event',
+    'V' => 'vote',
 );
 $sects_gid = array(
     1 => 'debate',
@@ -222,6 +223,50 @@ foreach ($alertdata as $alertitem) {
         $data = $results[$criteria_batch];
     }
 
+    # Divisions
+    if (preg_match('#^speaker:(\d+)$#', $criteria_raw, $m)) {
+        $pid = $m[1];
+        $q = $db->query('SELECT * FROM persondivisionvotes pdv JOIN divisions USING(division_id)
+            WHERE person_id=:person_id AND pdv.lastupdate >= :time', array(
+                'person_id' => $pid,
+                ':time' => date('Y-m-d H:i:s', $lastupdated),
+            ));
+        $rows = $q->rows();
+        if ($rows) {
+            for ($i=0; $i<$rows; $i++) {
+                $vote = $q->field($i, 'vote');
+                $num = $q->field($i, 'division_number');
+                $teller = '';
+                if (strpos($vote, 'tell') !== false) {
+                    $teller = '(as a teller) ';
+                    $vote = str_replace('tell', '', $vote);
+                }
+                if ($vote == 'absent') {
+                    continue;
+                }
+                $text = "Voted $teller";
+                if ($vote == 'aye' && $q->field($i, 'yes_text')) {
+                    $text .= $q->field($i, 'yes_text');
+                } elseif ($vote == 'no' && $q->field($i, 'no_text')) {
+                    $text .= $q->field($i, 'no_text');
+                } else {
+                    $text .= $vote;
+                }
+                $text .= " (division no. $num; result was " . $q->field($i, 'yes_total') . ' yes, ' . $q->field($i, 'no_total') . ' no)';
+                $data['rows'][] = [
+                    'parent' => [
+                        'body' => $q->field($i, 'division_title'),
+                    ],
+                    'extract' => $text,
+                    'listurl' => '/divisions/' . $q->field($i, 'division_id'),
+                    'major' => 'V',
+                    'hdate' => $q->field($i, 'division_date'),
+                    'hpos' => $q->field($i, 'division_number'),
+                ];
+            }
+        }
+    }
+
     if (isset($data['rows']) && count($data['rows']) > 0) {
         usort($data['rows'], 'sort_by_stuff'); # Sort results into order, by major, then date, then hpos
         $o = array(); $major = 0; $count = array(); $total = 0;
@@ -244,14 +289,17 @@ foreach ($alertdata as $alertitem) {
                 continue;
             }
 
-            $q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', array(
-                ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid']
-                ));
-            if ($q->rows() > 0) {
-                continue;
+            if (isset($sects_gid[$major])) {
+                $q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', array(
+                    ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid']
+                    ));
+                if ($q->rows() > 0) {
+                    continue;
+                }
             }
+
             --$k;
-            if ($k >= 0) {
+            if ($major == 'V' || $k >= 0) {
                 $any_content = true;
                 $parentbody = text_html_to_email($row['parent']['body']);
                 $body = text_html_to_email($row['extract']);
@@ -275,7 +323,7 @@ foreach ($alertdata as $alertitem) {
                 if ($body) {
                     $heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
                     $email_text .= "$heading\n" . str_repeat('=', strlen($heading)) . "\n\n";
-                    if ($count[$major] > 3) {
+                    if ($count[$major] > 3 && $major != 'V') {
                         $email_text .= "There are more results than we have shown here. See more:\nhttps://www.theyworkforyou.com/search/?s=" . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . "&o=d\n\n";
                     }
                     $email_text .= $body;
@@ -317,7 +365,14 @@ function _sort($a, $b) {
 }
 
 function sort_by_stuff($a, $b) {
-    # Always have future business first.
+    # Always have votes first.
+    if ($a['major'] == 'V' && $b['major'] != 'V') {
+        return -1;
+    } elseif ($b['major'] == 'V' && $a['major'] != 'V') {
+        return 1;
+    }
+
+    # Always have future business second..
     if ($a['major'] == 'F' && $b['major'] != 'F') {
         return -1;
     } elseif ($b['major'] == 'F' && $a['major'] != 'F') {
