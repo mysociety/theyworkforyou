@@ -126,8 +126,8 @@ class DivisionsTest extends FetchPageTestCase
     public function testSingleDivision() {
         $page = $this->base_fetch_page( array('url' => '/divisions/division.php', 'vote' => 'pw-3012-01-01-1-commons' ), 'divisions', 'division.php', '/divisions/division.php' );
         $this->assertContains('A majority of MPs  <b>voted in favour</b> of a thing', $page);
-        $this->assertContains('198 for', $page);
-        $this->assertContains('98 against', $page);
+        $this->assertContains('200 for', $page);
+        $this->assertContains('100 against', $page);
         $this->assertNotContains('0 abstained', $page);
         $this->assertContains('300 absent', $page);
     }
