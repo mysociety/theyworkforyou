@@ -16,7 +16,7 @@
 
             <div class="alerts-message alerts-message--confirmation-received">
                 <h2>Thanks for subscribing!</h2>
-                <p>You will now receive alerts when your MP speaks in Parliament or receives an answer to a written question.</p>
+                <p>You will now receive alerts when your MP speaks or votes in Parliament, or receives an answer to a written question.</p>
                 <?php if (isset($data['user_signed_in'])): ?>
                 <p><a href="/alert/" class="button radius">Show my email settings</a></p>
                 <?php endif ?>
@@ -30,7 +30,7 @@
 
           <?php else: ?>
 
-            <p class="lead">Enter your postcode, and we&rsquo;ll email you every time your MP speaks or receives a written answer.</p>
+            <p class="lead">Enter your postcode, and we&rsquo;ll email you every time your MP speaks, votes, or receives a written answer.</p>
 
           <?php if (isset($data['invalid-postcode-or-email'])): ?>
             <div class="alerts-message alerts-message--error">
@@ -49,7 +49,7 @@
           <?php if (isset($data['user_signed_in']) && isset($data['already_signed_up'])): ?>
             <div class="alerts-message alerts-message--reminder">
                 <h2>You are already signed up</h2>
-                <p>You are already receiving alerts when your MP<?= isset($data['mp_name']) ? ', ' . $data['mp_name'] . ',' : '' ?> speaks in Parliament or receives an answer to a written question.</p>
+                <p>You are already receiving alerts when your MP<?= isset($data['mp_name']) ? ', ' . $data['mp_name'] . ',' : '' ?> speaks or votes in Parliament, or receives an answer to a written question.</p>
                 <p><a href="/alert/" class="button radius">Show my email settings</a></p>
             </div>
            <?php endif ?>
