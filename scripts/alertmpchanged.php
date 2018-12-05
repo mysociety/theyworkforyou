@@ -131,7 +131,7 @@ foreach ($alertdata as $alertitem) {
     if (!in_array($text, $email_text)) {
         $email_text[] = $text;
 
-        $change = '* ' . $member->full_name() . ': https://' . DOMAIN . '/C/' . $alertitem['registrationtoken'];
+        $change = '* ' . $cons_member->full_name() . ': https://' . DOMAIN . '/C/' . $alertitem['registrationtoken'];
         $change_text[] = $change;
     }
 }
