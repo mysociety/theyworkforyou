@@ -970,7 +970,10 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
         }
     }
     foreach (keys %vote_counts_by_pid) {
-        $totals->{both}++ if $vote_counts_by_pid{$_} > 1;
+        if ($vote_counts_by_pid{$_} > 1) {
+            $totals->{both}++;
+            $voteupdate->execute($_, $division_id, 'both');
+        }
     }
 
     # Okay, now construct HTML and add to database
@@ -990,10 +993,12 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
             $text .= '&nbsp;(teller)' if $teller;
             $text .= "</li>\n";
 
-            my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
-            $stored_vote = "tell$stored_vote" if $teller;
-            $totals->{$stored_vote}++ if $vote_counts_by_pid{$person_id} == 1;
-            $voteupdate->execute($person_id, $division_id, $stored_vote);
+            if ($vote_counts_by_pid{$person_id} == 1) {
+                my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
+                $stored_vote = "tell$stored_vote" if $teller;
+                $totals->{$stored_vote}++;
+                $voteupdate->execute($person_id, $division_id, $stored_vote);
+            }
         }
         $text .= "</ul>";
     }
