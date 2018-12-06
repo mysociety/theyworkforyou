@@ -1,5 +1,5 @@
 #! /usr/bin/perl -w
-# vim:sw=8:ts=8:et:nowrap
+
 use strict;
 use utf8;
 
@@ -12,16 +12,9 @@ use mySociety::Config;
 mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $parldata = mySociety::Config::get('RAWDATA');
-my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
 use DBI;
-use HTML::Entities;
-use File::Find;
-use Getopt::Long;
-use Data::Dumper;
 use File::Slurp::Unicode;
-
-use Uncapitalise;
 use JSON::XS;
 
 use vars qw($motion_count $policy_count $vote_count %motions_seen @policyids);
@@ -64,8 +57,6 @@ foreach my $dreamid ( @policyids ) {
     }
     my $policy_json = read_file($policy_file);
     my $policy = $json->decode($policy_json);
-    my $motions = @{ $policy->{aspects} };
-
 
     my $curr_policy = $dbh->selectrow_hashref($policycheck, {}, $dreamid);
     # we don't update the policy title or text as we use slightly different
@@ -75,6 +66,22 @@ foreach my $dreamid ( @policyids ) {
     }
 
     $policy_count++;
+
+    process_motions($policy, $dreamid);
+}
+
+# And recently changed ones
+my $policy_file = $motionsdir . "recently-changed-divisions.json";
+if (-f $policy_file) {
+    my $policy_json = read_file($policy_file);
+    my $policy = $json->decode($policy_json);
+    process_motions($policy);
+}
+
+print "parsed $policy_count policies, $motion_count divisions and $vote_count votes from PW JSON\n";
+
+sub process_motions {
+    my ($policy, $dreamid) = @_;
 
     for my $motion ( @{ $policy->{aspects} } ) {
         $motion_count++;
@@ -91,12 +98,6 @@ foreach my $dreamid ( @policyids ) {
         }
 
         my $motion_id = $motion->{motion}->{id};
-
-        if ( !$motion->{direction} ) {
-            print "$motion_id in policy $dreamid has no direction, skipping\n";
-            next;
-        }
-
         my $text = $motion->{motion}->{text};
 
         my $curr_division = $dbh->selectrow_hashref($divisioncheck, {}, $motion_id);
@@ -105,9 +106,12 @@ foreach my $dreamid ( @policyids ) {
             $curr_division->{no_text} ||= '';
         }
 
-        my $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
-        if ( $curr_motion ) {
-            $curr_motion->{direction} ||= '';
+        my $curr_motion;
+        if ($dreamid) {
+            $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
+            if ($curr_motion) {
+                $curr_motion->{direction} ||= '';
+            }
         }
 
         my $yes_text = '';
@@ -163,18 +167,20 @@ foreach my $dreamid ( @policyids ) {
             }
         }
 
-        if ( !defined $curr_motion ) {
-            my $r = $motionadd->execute($motion_id, $dreamid, $motion->{direction}, $motion->{motion}->{policy_vote});
-            unless ( $r > 0 ) {
-                warn "problem creating policydivision for $motion_id / $dreamid, skipping motions\n";
-                next;
-            }
-        } elsif ( $motion->{direction} ne $curr_motion->{direction} ||
-                  $motion->{motion}->{policy_vote} ne $curr_motion->{policy_vote}
-        ) {
-            my $r = $motionupdate->execute($motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
-            unless ( $r > 0 ) {
-                warn "problem updating policydivision $motion_id / $dreamid from $curr_motion->{direction} to $motion->{direction}\n";
+        if ($dreamid) {
+            if ( !defined $curr_motion ) {
+                my $r = $motionadd->execute($motion_id, $dreamid, $motion->{direction}, $motion->{motion}->{policy_vote});
+                unless ( $r > 0 ) {
+                    warn "problem creating policydivision for $motion_id / $dreamid, skipping motions\n";
+                    next;
+                }
+            } elsif ( $motion->{direction} ne $curr_motion->{direction} ||
+                      $motion->{motion}->{policy_vote} ne $curr_motion->{policy_vote}
+            ) {
+                my $r = $motionupdate->execute($motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
+                unless ( $r > 0 ) {
+                    warn "problem updating policydivision $motion_id / $dreamid from $curr_motion->{direction} to $motion->{direction}\n";
+                }
             }
         }
 
@@ -186,7 +192,7 @@ foreach my $dreamid ( @policyids ) {
             $mp_id_num =~ s:uk.org.publicwhip/person/::;
             next unless $mp_id_num;
             if ( $mp_id_num !~ /^[1-9]\d+$/ ) {
-                print "$mp_id_num doesn't look like a valid person id - skipping vote for $motion_id - $dreamid\n";
+                print "$mp_id_num doesn't look like a valid person id - skipping vote for $motion_id - " . ($dreamid || "") . "\n";
                 next;
             }
 
@@ -211,25 +217,27 @@ foreach my $dreamid ( @policyids ) {
                 }
             }
 
-            # if it's a strong vote, i.e. yes3 or no3, then set mp has strong_vote attribute
-            if ( $motion->{motion}->{policy_vote} =~ /3/ ) {
-                my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
-                my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
-                if ( $strong_vote_check->rows() < 1 ) {
-                    $strong_vote_add->execute( $pw_id, 1, $mp_id_num);
+            if ($dreamid) {
+                # if it's a strong vote, i.e. yes3 or no3, then set mp has strong_vote attribute
+                if ( $motion->{motion}->{policy_vote} =~ /3/ ) {
+                    my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
+                    my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
+                    if ( $strong_vote_check->rows() < 1 ) {
+                        $strong_vote_add->execute( $pw_id, 1, $mp_id_num);
+                    }
                 }
-            }
 
-            # if the motion has been unset from strong -> weak then check if we need to unset
-            # the MP has strong vote attribute
-            if ( $curr_motion && $curr_motion->{policy_vote} =~ /3/ && $motion->{motion}->{policy_vote} !~ /3/ ) {
-                my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
-                my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
-                if ( $strong_vote_check->rows() > 0 ) {
-                    my $has_strong_for_policy = $strong_for_policy_check->execute( $dreamid, $mp_id_num );
-                    my $row = $strong_for_policy_check->fetchrow_hashref();
-                    if ( $row->{strong_votes} == 0 ) {
-                        $strong_vote_update->execute( 0, $pw_id, $mp_id_num);
+                # if the motion has been unset from strong -> weak then check if we need to unset
+                # the MP has strong vote attribute
+                if ( $curr_motion && $curr_motion->{policy_vote} =~ /3/ && $motion->{motion}->{policy_vote} !~ /3/ ) {
+                    my $pw_id = "public_whip_dreammp" . $dreamid . "_has_strong_vote";
+                    my $has_strong = $strong_vote_check->execute( $pw_id, $mp_id_num );
+                    if ( $strong_vote_check->rows() > 0 ) {
+                        my $has_strong_for_policy = $strong_for_policy_check->execute( $dreamid, $mp_id_num );
+                        my $row = $strong_for_policy_check->fetchrow_hashref();
+                        if ( $row->{strong_votes} == 0 ) {
+                            $strong_vote_update->execute( 0, $pw_id, $mp_id_num);
+                        }
                     }
                 }
             }
@@ -243,5 +251,3 @@ foreach my $dreamid ( @policyids ) {
 
     }
 }
-
-print "parsed $policy_count policies, $motion_count divisions and $vote_count votes from PW JSON\n";
