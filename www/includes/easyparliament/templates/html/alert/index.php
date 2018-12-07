@@ -252,7 +252,9 @@
               <?php if ($pid) { ?>
                 <h3>
                     Sign up for an alert when <?= $pid_member->full_name() ?>
+                    <?php if ($pid_member->constituency()) { ?>
                     (<?= _htmlspecialchars($pid_member->constituency()) ?>)
+                    <?php } ?>
                     speaks.
                 </h3>
               <?php } elseif ($keyword) { ?>
@@ -278,7 +280,7 @@
                     <p>
                       <?php if ($pid) { ?>
                         <input type="text" class="form-control" name="alertsearch" id="alertsearch" disabled="disabled"
-                            value="<?= $pid_member->full_name() ?> (<?= _htmlspecialchars($pid_member->constituency()) ?>)">
+                            value="<?= $pid_member->full_name() ?><?php if ($pid_member->constituency()) { ?> (<?= _htmlspecialchars($pid_member->constituency()) ?>)<?php } ?>">
                       <?php } elseif ($keyword) { ?>
                         <input type="text" class="form-control" name="alertsearch" id="alertsearch" disabled="disabled" value="<?= _htmlspecialchars($display_keyword) ?>">
                       <?php } else { ?>
