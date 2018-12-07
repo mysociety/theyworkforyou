@@ -156,15 +156,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             list ($this->data['constituencies'], $this->data['valid_postcode']) = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($this->data['alertsearch']);
         }
 
-        # If the above search returned one result for member or constituency search,
-        # use it immediately
-
-        if (isset($this->data['members']) && $this->data['members']->rows() == 1) {
-            $this->data['pid'] = $this->data['members']->field(0, 'person_id');
-            unset($this->data['members']);
-            $this->data['alertsearch'] = '';
-        }
-
+        # If the above search returned one result for constituency
+        # search by postcode, use it immediately
         if (isset($this->data['constituencies']) && count($this->data['constituencies']) == 1 && $this->data['valid_postcode']) {
             $MEMBER = new \MEMBER(array('constituency' => $this->data['constituencies'][0], 'house' => 1));
             $this->data['pid'] = $MEMBER->person_id();
