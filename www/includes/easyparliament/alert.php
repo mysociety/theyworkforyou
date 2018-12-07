@@ -420,6 +420,15 @@ class ALERT {
         return $r->success();
     }
 
+    public function delete_all($token) {
+        if (!($alert = $this->check_token($token))) return false;
+        $r = $this->db->query("DELETE FROM alerts WHERE email = :email", array(
+            ':email' => $alert['email']
+            ));
+
+        return $r->success();
+    }
+
     public function suspend($token) {
         if (!($alert = $this->check_token($token))) return false;
         $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", array(

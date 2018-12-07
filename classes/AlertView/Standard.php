@@ -66,6 +66,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($success) {
                     $this->data['results'] = 'alert-deleted';
                 }
+            } elseif ($action == 'Delete All') {
+                $success = $this->deleteAllAlerts($token);
+                if ($success) {
+                    $this->data['results'] = 'all-alerts-deleted';
+                }
             }
             if (!$success) {
                 $this->data['results'] = 'alert-fail';

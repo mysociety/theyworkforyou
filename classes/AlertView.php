@@ -33,4 +33,8 @@ class AlertView {
         return $this->alert->delete($token);
     }
 
+    protected function deleteAllAlerts($token) {
+        return $this->alert->delete_all($token);
+    }
+
 }

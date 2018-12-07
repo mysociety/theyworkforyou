@@ -64,6 +64,12 @@
                     You will no longer receive this alert.
                 </p>
 
+              <?php } elseif ( $results == 'all-alerts-deleted' ) { ?>
+                <h3>All alerts deleted</h3>
+                <p>
+                    You will no longer receive any alerts.
+                </p>
+
               <?php } elseif ( $results == 'alert-fail' ) { ?>
                 <h3>Hmmm, something&rsquo;s not right</h3>
                 <p>
@@ -356,6 +362,7 @@
 
                   <?php if ( $alerts ) { ?>
                     <h3>Your current email alerts</h3>
+
                     <ul class="alerts-manage__list">
                       <?php foreach ( $alerts as $alert ) { ?>
                         <li>
@@ -374,6 +381,14 @@
                         </li>
                       <?php } ?>
                     </ul>
+
+                    <div class="clearfix">
+                        <form action="<?= $actionurl ?>" method="POST" class="pull-right clearfix">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                            <input type="submit" class="button button--negative small" name="action" value="Delete All">
+                        </form>
+                    </div>
+
                   <?php } ?>
 
                   <?php if ( $current_mp ) { ?>
