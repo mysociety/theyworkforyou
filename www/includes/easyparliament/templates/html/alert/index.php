@@ -253,6 +253,69 @@
       <?php } ?>
 
         <div class="alert-section">
+            <div class="alert-section__secondary">
+              <?php if ($email_verified) { ?>
+
+                  <?php if ( $alerts ) { ?>
+                    <h3>Your current email alerts</h3>
+
+                    <ul class="alerts-manage__list">
+                      <?php foreach ( $alerts as $alert ) { ?>
+                        <li>
+                            When <?= _htmlspecialchars($alert['criteria']) ?>.
+                            <form action="<?= $actionurl ?>" method="POST">
+                                <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                              <?php if ( $alert['status'] == 'unconfirmed' ) { ?>
+                                <input type="submit" class="button small" name="action" value="Confirm">
+                              <?php } elseif ( $alert['status'] == 'suspended' ) { ?>
+                                <input type="submit" class="button small" name="action" value="Resume">
+                              <?php } else { ?>
+                                <input type="submit" class="button button--secondary small" name="action" value="Suspend">
+                                <input type="submit" class="button button--negative small" name="action" value="Delete">
+                              <?php } ?>
+                            </form>
+                        </li>
+                      <?php } ?>
+                    </ul>
+
+                    <div class="clearfix">
+                        <form action="<?= $actionurl ?>" method="POST" class="pull-right clearfix">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                            <input type="submit" class="button button--negative small" name="action" value="Delete All">
+                        </form>
+                    </div>
+
+                  <?php } ?>
+
+                  <?php if ( $current_mp ) { ?>
+                    <h3>Your MP alert</h3>
+                    <ul class="alerts-manage__list">
+                        <li>
+                            You are not subscribed to an alert for your
+                            current MP, <?=$current_mp->full_name() ?>.
+                            <form action="<?= $actionurl ?>" method="post">
+                                <input type="hidden" name="t" value="<?=_htmlspecialchars($token)?>">
+                                <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
+                                <input type="submit" class="button small" value="Subscribe">
+                            </form>
+                        </li>
+                    </ul>
+                  <?php } ?>
+
+              <?php } else { ?>
+                <p>
+                    If you <a href="/user/?pg=join">join</a> or
+                    <a href="/user/login/?ret=%2Falert%2F">sign in</a>,
+                    you can suspend, resume and delete your email alerts
+                    from your profile page.
+                </p>
+                <p>
+                    Plus, you won&rsquo;t need to confirm your email address
+                    for every alert you set.
+                </p>
+              <?php } ?>
+            </div>
+
             <div class="alert-section__primary">
 
               <?php if ($pid) { ?>
@@ -354,69 +417,6 @@
                         <li><a href="https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/">Managing email alerts</a>, including how to stop or suspend them.</li>
                     <ul>
                 </div>
-              <?php } ?>
-            </div>
-
-            <div class="alert-section__secondary">
-              <?php if ($email_verified) { ?>
-
-                  <?php if ( $alerts ) { ?>
-                    <h3>Your current email alerts</h3>
-
-                    <ul class="alerts-manage__list">
-                      <?php foreach ( $alerts as $alert ) { ?>
-                        <li>
-                            When <?= _htmlspecialchars($alert['criteria']) ?>.
-                            <form action="<?= $actionurl ?>" method="POST">
-                                <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
-                              <?php if ( $alert['status'] == 'unconfirmed' ) { ?>
-                                <input type="submit" class="button small" name="action" value="Confirm">
-                              <?php } elseif ( $alert['status'] == 'suspended' ) { ?>
-                                <input type="submit" class="button small" name="action" value="Resume">
-                              <?php } else { ?>
-                                <input type="submit" class="button button--secondary small" name="action" value="Suspend">
-                                <input type="submit" class="button button--negative small" name="action" value="Delete">
-                              <?php } ?>
-                            </form>
-                        </li>
-                      <?php } ?>
-                    </ul>
-
-                    <div class="clearfix">
-                        <form action="<?= $actionurl ?>" method="POST" class="pull-right clearfix">
-                            <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
-                            <input type="submit" class="button button--negative small" name="action" value="Delete All">
-                        </form>
-                    </div>
-
-                  <?php } ?>
-
-                  <?php if ( $current_mp ) { ?>
-                    <h3>Your MP alert</h3>
-                    <ul class="alerts-manage__list">
-                        <li>
-                            You are not subscribed to an alert for your
-                            current MP, <?=$current_mp->full_name() ?>.
-                            <form action="<?= $actionurl ?>" method="post">
-                                <input type="hidden" name="t" value="<?=_htmlspecialchars($token)?>">
-                                <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
-                                <input type="submit" class="button small" value="Subscribe">
-                            </form>
-                        </li>
-                    </ul>
-                  <?php } ?>
-
-              <?php } else { ?>
-                <p>
-                    If you <a href="/user/?pg=join">join</a> or
-                    <a href="/user/login/?ret=%2Falert%2F">sign in</a>,
-                    you can suspend, resume and delete your email alerts
-                    from your profile page.
-                </p>
-                <p>
-                    Plus, you won&rsquo;t need to confirm your email address
-                    for every alert you set.
-                </p>
               <?php } ?>
             </div>
 
