@@ -34,7 +34,7 @@ if (!count($data)) {
                         <h2 class="people-list__person__name"><?= $mp_data['name'] ?></h2>
                         <p class="people-list__person__memberships">
                         <span class="people-list__person__constituency"><?= $mp_data['constituency'] ?></span>
-                        <span class="people-list__person__party <?= strtolower( $mp_data['party'] ) ?>"><?= $mp_data['party'] ?></span>
+                        <span class="people-list__person__party <?= slugify($mp_data['party']) ?>"><?= $mp_data['party'] ?></span>
                         </p>
                     </a>
                     <?php }
@@ -50,7 +50,7 @@ if (!count($data)) {
                         <h2 class="people-list__person__name"><?= $rep['name'] ?></h2>
                         <p class="people-list__person__memberships">
                         <span class="people-list__person__constituency"><?= $rep['constituency'] ?></span>
-                        <span class="people-list__person__party <?= strtolower( $rep['party'] ) ?>"><?= $rep['party'] ?></span>
+                        <span class="people-list__person__party <?= slugify($rep['party']) ?>"><?= $rep['party'] ?></span>
                         </p>
                     </a>
                         <?php } ?>
@@ -191,7 +191,7 @@ if (!count($data)) {
                         <?php if ( $person['constituency'] ) { ?>
                         <span class="people-list__person__constituency"><?= $person['constituency'] ?></span>
                         <?php } ?>
-                        <span class="people-list__person__party <?= strtolower($person['party']) ?>"><?= $person['party'] ?></span>
+                        <span class="people-list__person__party <?= slugify($person['party']) ?>"><?= $person['party'] ?></span>
                         </p>
                     </a>
                 <?php } ?>

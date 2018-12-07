@@ -422,6 +422,14 @@ function parse_date($date) {
     return datetime_parse_local_date($date, time(), 'en', 'gb');
 }
 
+function slugify($text) {
+    $text = preg_replace('#[^\w]+#', '-', $text);
+    $text = trim($text, '-');
+    $text = preg_replace('#-+#', '-', $text);
+    $text = strtolower($text);
+    return $text;
+}
+
 /* strip_tags_tospaces TEXT
  * Return a copy of TEXT in which certain block-level HTML tags have been
  * replaced by single spaces, and other HTML tags have been removed. */
