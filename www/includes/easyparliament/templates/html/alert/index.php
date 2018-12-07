@@ -259,6 +259,8 @@
                 <h3>
                     Sign up for an alert when <?= _htmlspecialchars($display_keyword) ?>.
                 </h3>
+              <?php } elseif ($alertsearch) { ?>
+                <h3>Not quite right? Search again to refine your email alert.</h3>
               <?php } else { ?>
                 <h3>Request a new TheyWorkForYou email alert</h3>
               <?php } ?>
