@@ -328,7 +328,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         if ($this->data['email_verified']) {
             if ($this->user->postcode()) {
                 $current_mp = new \MEMBER(array('postcode' => $this->user->postcode()));
-                if (!$this->alert->fetch_by_mp($this->user->email(), $current_mp->person_id())) {
+                if (!$this->alert->fetch_by_mp($this->data['email'], $current_mp->person_id())) {
                     $this->data['current_mp'] = $current_mp;
                 }
             }
