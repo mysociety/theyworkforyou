@@ -1648,7 +1648,7 @@ sub do_load_speech
     die "speech without (sub)heading $id '$text'" if $currsection == 0 and $currsubsection == 0;
 
     $hpos++;
-    my $htime = $speech->att('time');
+    my $htime = $speech->att('time') || undef;
     $htime = canon_time($htime) if defined $htime;
     my $url = $speech->att('url') || '';
 
@@ -1690,7 +1690,7 @@ sub do_load_heading
     }
 
     $hpos++;
-    my $htime = $speech->att('time');
+    my $htime = $speech->att('time') || undef;
     $htime = canon_time($htime) if defined $htime;
     my $url = $speech->att('url') || '';
     my $colnum = $speech->att('colnum');
@@ -1742,7 +1742,7 @@ sub do_load_subheading
     }
 
     $hpos++;
-    my $htime = $speech->att('time');
+    my $htime = $speech->att('time') || undef;
     $htime = canon_time($htime) if defined $htime;
     my $url = $speech->att('url') || '';
     my $colnum = $speech->att('colnum');
