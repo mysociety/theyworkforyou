@@ -74,4 +74,6 @@
         <div class="break"></div>
       </div>
         <?php } ?>
+        </div>
     </div>
+</div>

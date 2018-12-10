@@ -197,4 +197,6 @@
             <div class="sidebar">&nbsp;</div>
             <div class="break"></div>
         </div>
+     </div>
+   </div>
 </div>
