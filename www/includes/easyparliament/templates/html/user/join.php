@@ -152,4 +152,6 @@
           </div> <!-- end .sidebar -->
           <div class="break"></div>
         </div>
+        </div>
+    </div>
 </div>

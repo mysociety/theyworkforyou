@@ -26,50 +26,59 @@ class Alert
         return $criteria;
     }
 
-    public static function manage($email) {
+    public static function forUser($email) {
         $db = new \ParlDB;
         $q = $db->query('SELECT * FROM alerts WHERE email = :email
             AND deleted != 1 ORDER BY created', array(
                 ':email' => $email
             ));
-        $out = '';
-        for ($i=0; $i<$q->rows(); ++$i) {
+
+        $alerts = array();
+        $num_alerts = $q->rows();
+        for ($i = 0; $i < $num_alerts; ++$i) {
             $row = $q->row($i);
-            $criteria = explode(' ',$row['criteria']);
-            $ccc = array();
-            $current = true;
+            $criteria = self::prettifyCriteria($row['criteria']);
+            $token = $row['alert_id'] . '-' . $row['registrationtoken'];
+
+            $status = 'confirmed';
+            if ( !$row['confirmed'] ) {
+                $status = 'unconfirmed';
+            } elseif ( $row['deleted'] == 2 ) {
+                $status = 'suspended';
+            }
+
+            $alerts[] = array(
+                'token' => $token,
+                'status' => $status,
+                'criteria' => $criteria,
+                'raw' => $row['criteria'],
+            );
+        }
+
+        return $alerts;
+    }
+
+    public static function prettifyCriteria($alert_criteria) {
+        $text = '';
+        if ( $alert_criteria ) {
+            $criteria = explode(' ', $alert_criteria);
+            $words = array();
+            $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
+
             foreach ($criteria as $c) {
-                if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                    $MEMBER = new \MEMBER(array('person_id'=>$m[1]));
-                    $ccc[] = 'spoken by ' . $MEMBER->full_name();
-                    if (!$MEMBER->current_member_anywhere()) {
-                        $current = false;
-                    }
-                } else {
-                    $ccc[] = $c;
+                if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
+                    $words[] = $c;
                 }
             }
-            $criteria = join(' ',$ccc);
-            $token = $row['alert_id'] . '-' . $row['registrationtoken'];
-            $action = '<form action="/alert/" method="post"><input type="hidden" name="t" value="'.$token.'">';
-            if (!$row['confirmed']) {
-                $action .= '<input type="submit" name="action" value="Confirm">';
-            } elseif ($row['deleted']==2) {
-                $action .= '<input type="submit" name="action" value="Resume">';
-            } else {
-                $action .= '<input type="submit" name="action" value="Suspend"> <input type="submit" name="action" value="Delete">';
-            }
-            $action .= '</form>';
-            $out .= '<tr><td>' . $criteria . '</td><td align="center">' . $action . '</td></tr>';
-            if (!$current) {
-                $out .= '<tr><td colspan="2"><small>&nbsp;&mdash; <em>not a current member of any body covered by TheyWorkForYou</em></small></td></tr>';
+            if ( $spokenby && count($words) ) {
+                $text = implode(' or ', $spokenby) . ' mentions [' . implode(' ', $words) . ']';
+            } else if ( count( $words ) ) {
+                $text = '[' . implode(' ', $words) . ']' . ' is mentioned';
+            } else if ( $spokenby ) {
+                $text = implode(' or ', $spokenby) . " speaks";
             }
         }
-        if ($out) {
-            print '<table cellpadding="3" cellspacing="0"><tr><th>Criteria</th><th>Action</th></tr>' . $out . '</table>';
-        } else {
-            print '<p>You currently have no email alerts set up. You can create alerts <a href="/alert/">here</a>.</p>';
-        }
+        return $text;
     }
 
 }

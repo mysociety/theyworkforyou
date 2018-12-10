@@ -64,14 +64,17 @@
 
       <div class="stripe-side">
         <div class="main">
-            <h3>Your email alerts</h3>
-            <?php
-                \MySociety\TheyWorkForYou\Utility\Alert::manage($THEUSER->email());
-            ?>
+            <?php if ($alerts) { ?>
+                <?php include(dirname(__FILE__) . '/../alert/_list.php'); ?>
+            <?php } else { ?>
+                <p>You currently have no email alerts set up. You can create alerts <a href="/alert/">here</a>.</p>
+            <?php } ?>
         </div>
 
         <div class="sidebar">&nbsp;</div>
         <div class="break"></div>
       </div>
         <?php } ?>
+        </div>
     </div>
+</div>

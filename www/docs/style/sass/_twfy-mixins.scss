@@ -57,6 +57,9 @@ $weight_bold: 700;
     }
 }
 
+.clearfix {
+    @include clearfix;
+}
 
 .image-replacement {
     text-indent: -1000%;
