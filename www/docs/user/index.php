@@ -13,8 +13,6 @@ include_once '../../includes/easyparliament/page.php';
 
 $user = new \MySociety\TheyWorkForYou\User();
 
-global $this_page, $DATA, $THEUSER;
-
 $data = array();
 
 // work out what sort of page we are displaying
@@ -31,7 +29,6 @@ switch (get_http_var("pg")) {
 
         // We need a user_id. So make sure that exists.
         // And make sure the user is allowed to do this!
-
         $template = 'user/form';
         if (is_numeric( get_http_var("u") ) && $THEUSER->is_able_to("edituser")) {
 
@@ -41,45 +38,24 @@ switch (get_http_var("pg")) {
             $data['statuses'] = $THEUSER->possible_statuses();
             $data['pg'] = 'editother';
             $this_page = "otheruseredit";
-
-        } else if ($THEUSER->isloggedin()) {
-            // Revert to editing THEUSER's own info.
-            $data = $user->getUserDetails();
-            $data['pg'] = 'edit';
-            $this_page = "useredit";
-            if ($THEUSER->facebook_user()) {
-                unset($data['pg']);
-                $template = 'user/index';
-                $this_page = 'userviewself';
-            }
-
+            break;
         } else {
-            $this_page = "userjoin";
-            $template = 'user/join';
+            header("Location: /user/");
+            exit;
         }
-
-        break;
 
     case "edit": // Edit this user's owninfo.
 
         $template = 'user/form';
-
-        if ($THEUSER->isloggedin()) {
+        if ($THEUSER->isloggedin() && !get_http_var('u')) {
             $data = $user->getUserDetails();
-            $this_page = "useredit";
-            if (get_http_var('u') != '') {
-                $template = 'user/index';
-                $this_page = 'userviewself';
-            }
             $data['pg'] = 'edit';
+            $this_page = "useredit";
+            break;
         } else {
-            // Unlikely to get to this page without being logged in,
-            // but just in case, show them the blank form.
-            $this_page = "userjoin";
-            $template = 'user/join';
-
+            header("Location: /user/");
+            exit;
         }
-        break;
 
     default:
 
