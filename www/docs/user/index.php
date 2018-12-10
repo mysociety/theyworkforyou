@@ -132,4 +132,10 @@ if (
     }
 }
 
+if ($template == 'user/index' && $this_page != 'otheruseredit') {
+    $data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($THEUSER->email());
+    $ACTIONURL = new \MySociety\TheyWorkForYou\Url('alert');
+    $data['actionurl'] = $ACTIONURL->generate();
+}
+
 \MySociety\TheyWorkForYou\Renderer::output($template, $data);

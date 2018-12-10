@@ -49,7 +49,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $success = $this->confirmAlert($token);
                 if ($success) {
                     $this->data['results'] = 'alert-confirmed';
-                    $this->data['criteria'] = $this->prettifyCriteria($this->alert->criteria);
+                    $this->data['criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
                 }
             } elseif ($action == 'Suspend') {
                 $success = $this->suspendAlert($token);
@@ -227,43 +227,17 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['pc'] = '';
 
         $this->data['results'] = $result;
-        $this->data['criteria'] = $this->prettifyCriteria($this->alert->criteria);
+        $this->data['criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
     }
 
 
     private function formatSearchTerms() {
         if ( $this->data['alertsearch'] ) {
-            $this->data['alertsearch_pretty'] = $this->prettifyCriteria($this->data['alertsearch']);
+            $this->data['alertsearch_pretty'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->data['alertsearch']);
             $this->data['search_text'] = $this->data['alertsearch'];
         } else {
             $this->data['search_text'] = $this->data['keyword'];
         }
-    }
-
-    private function prettifyCriteria($alert_criteria) {
-        $text = '';
-        if ( $alert_criteria ) {
-            $criteria = explode(' ', $alert_criteria);
-            $words = array();
-            $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
-
-            foreach ($criteria as $c) {
-                if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
-                    $words[] = $c;
-                }
-            }
-            if ( $spokenby && count($words) ) {
-                $text = implode(' or ', $spokenby) . ' mentions [' . implode(' ', $words) . ']';
-            } else if ( count( $words ) ) {
-                $text = '[' . implode(' ', $words) . ']' . ' is mentioned';
-            } else if ( $spokenby ) {
-                $text = implode(' or ', $spokenby) . " speaks";
-            }
-
-            return $text;
-        }
-
-        return $text;
     }
 
     private function checkForCommonMistakes() {
@@ -323,7 +297,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         if ( $this->data['keyword'] ) {
-            $this->data['display_keyword'] = $this->prettifyCriteria($this->data['keyword']);
+            $this->data['display_keyword'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->data['keyword']);
         }
     }
 
@@ -337,39 +311,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $this->data['current_mp'] = $current_mp;
                 }
             }
-            $this->data['alerts'] = $this->getUsersAlerts();
+            $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
         }
     }
-
-    private function getUsersAlerts() {
-        $q = $this->db->query('SELECT * FROM alerts WHERE email = :email
-            AND deleted != 1 ORDER BY created', array(
-                ':email' => $this->data['email']
-            ));
-
-        $alerts = array();
-        $num_alerts = $q->rows();
-        for ($i = 0; $i < $num_alerts; $i++) {
-            $row = $q->row($i);
-            $criteria = $this->prettifyCriteria($row['criteria']);
-            $token = $row['alert_id'] . '-' . $row['registrationtoken'];
-
-            $status = 'confirmed';
-            if ( !$row['confirmed'] ) {
-                $status = 'unconfirmed';
-            } elseif ( $row['deleted'] == 2 ) {
-                $status = 'suspended';
-            }
-
-            $alerts[] = array(
-                'token' => $token,
-                'status' => $status,
-                'criteria' => $criteria,
-                'raw' => $row['criteria']
-            );
-        }
-
-        return $alerts;
-    }
-
 }
