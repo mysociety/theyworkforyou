@@ -56,12 +56,24 @@ class Divisions {
     }
 
     public function getRecentDivisions($number = 20) {
-        $q = $this->db->query(
-          "SELECT * FROM divisions ORDER BY division_date DESC, division_number DESC LIMIT :count",
-            array(
-                ':count' => $number
-            )
-        );
+        if ($this->member) {
+            $q = $this->db->query(
+                "SELECT divisions.*, vote FROM divisions
+                    LEFT JOIN persondivisionvotes ON divisions.division_id=persondivisionvotes.division_id AND person_id=:person_id
+                ORDER BY division_date DESC, division_number DESC LIMIT :count",
+                array(
+                    ':person_id' => $this->member->person_id,
+                    ':count' => $number
+                )
+            );
+        } else {
+            $q = $this->db->query(
+              "SELECT * FROM divisions ORDER BY division_date DESC, division_number DESC LIMIT :count",
+                array(
+                    ':count' => $number
+                )
+            );
+        }
 
         $divisions = array();
         foreach ($q->data as $division) {
@@ -377,15 +389,13 @@ class Divisions {
      *
      * Returns an array of divisions
      */
-    public function getRecentMemberDivisions($number = 20, $context = 'MP') {
+    public function getRecentMemberDivisions($number = 20) {
         $args = array(':person_id' => $this->member->person_id, ':number' => $number);
         $q = $this->db->query(
-            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid,
-            yes_total, no_total, absent_total, both_total, majority_vote
+            "SELECT *
             FROM persondivisionvotes
                 JOIN divisions USING(division_id)
             WHERE person_id = :person_id
-            GROUP BY division_id
             ORDER by division_date DESC, division_id DESC LIMIT :number",
             $args
         );
@@ -393,11 +403,7 @@ class Divisions {
         $divisions = array();
         $row_count = $q->rows();
         for ($n = 0; $n < $row_count; $n++) {
-          if ($context == 'Parliament') {
-              $divisions[] = $this->getParliamentDivisionDetails($q->row($n));
-          } else {
-              $divisions[] = $this->getDivisionDetails($q->row($n));
-          }
+            $divisions[] = $this->getDivisionDetails($q->row($n));
         }
 
         return $divisions;
