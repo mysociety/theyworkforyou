@@ -20,8 +20,8 @@ $main_vote_mp = false;
 if ($mp = get_http_var('p')) {
     $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $mp, 'house' => $division_votes['house_number']));
     $main_vote_mp = true;
-} else if ($THEUSER->postcode_is_set() && $cons_type !== '') {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => $division_votes['house_number']));
+} elseif ($THEUSER->postcode_is_set() && $cons_type == 'WMC') {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
 }
 
 $data = array('division' => $division_votes);
