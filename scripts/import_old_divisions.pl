@@ -163,10 +163,8 @@ process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
 sub parsefile_glob {
     my ($twig, $glob) = @_;
     my @files = glob($glob);
-    foreach (@files) {
-        #print "twigging: $_\n";
-        $twig->parsefile($_);
-    }
+    my $file = $files[-1];
+    $twig->parsefile($file);
 }
 
 ##########################################################################
