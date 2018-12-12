@@ -77,7 +77,26 @@ class Divisions {
 
         $divisions = array();
         foreach ($q->data as $division) {
-            $divisions[] = $this->getParliamentDivisionDetails($division);
+            $data = $this->getParliamentDivisionDetails($division);
+
+            $mp_vote = '';
+            if (array_key_exists('vote', $division)) {
+                if ($division['vote'] == 'aye') {
+                    $mp_vote = 'voted in favour';
+                } elseif ($division['vote'] == 'tellaye') {
+                    $mp_vote = 'voted (as a teller) in favour';
+                } elseif ($division['vote'] == 'no') {
+                    $mp_vote = 'voted against';
+                } elseif ($division['vote'] == 'tellno') {
+                    $mp_vote = 'voted (as a teller) against';
+                } elseif ($division['vote'] == 'absent') {
+                    $mp_vote = ' was absent';
+                } elseif ($division['vote'] == 'both') {
+                    $mp_vote = ' abstained';
+                }
+            }
+            $data['mp_vote'] = $mp_vote;
+            $divisions[] = $data;
         }
 
         return array('divisions' => $divisions);
@@ -495,18 +514,7 @@ class Divisions {
     private function getParliamentDivisionDetails($row) {
         $division = $this->getBasicDivisionDetails($row, $row['majority_vote']);
 
-        $division['mp_vote'] = '';
-        if (array_key_exists('vote', $row)) {
-          $mp_vote = ' was absent';
-          if ($row['vote'] == 'aye') {
-              $mp_vote = 'voted in favour';
-          } else if ($row['vote'] == 'no') {
-              $mp_vote = 'voted against';
-          }
-          $division['mp_vote'] = $mp_vote;
-        }
         $division['division_title'] = $row['division_title'];
-
         $division['for'] = $row['yes_total'];
         $division['against'] = $row['no_total'];
         $division['both'] = $row['both_total'];
