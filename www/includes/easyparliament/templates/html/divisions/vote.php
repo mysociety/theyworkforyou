@@ -37,9 +37,9 @@
                           </span><br>
                       <?php } else { ?>
                           <?php if ($mp_vote['with_majority']) { ?>
-                              <?php $vote_prefix = 'A majority of MPs <b>agreed</b> and'; include('_vote_description.php'); ?>
+                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural']  . ' <b>agreed</b> and'; include('_vote_description.php'); ?>
                           <?php } else { ?>
-                              <?php $vote_prefix = 'A majority of MPs <b>disagreed</b> and'; include('_vote_description.php'); ?>
+                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural'] . ' <b>disagreed</b> and'; include('_vote_description.php'); ?>
                           <?php } ?>
                       <?php } ?>
                       </p>

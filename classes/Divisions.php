@@ -96,6 +96,8 @@ class Divisions {
                 }
             }
             $data['mp_vote'] = $mp_vote;
+            $house = Utility\House::house_name_to_number($division['house']);
+            $data['members'] = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
             $divisions[] = $data;
         }
 
