@@ -1309,7 +1309,7 @@ sub load_scotland_division {
     my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
     my $title = division_title($divnumber);
     $divisionupdate->execute($division_id, 'scotland', $title, $curdate, $divnumber, $gid,
-        $totals{for}, $totals{against}, $totals{abstentions}, 0, $majority_vote);
+        $totals{for}, $totals{against}, 0, $totals{abstentions}, $majority_vote);
     do_load_speech($division, 7, 0, $text);
 }
 
