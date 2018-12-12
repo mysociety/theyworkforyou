@@ -254,7 +254,10 @@ sub load_debate_division {
         }
     }
     foreach (keys %vote_counts_by_pid) {
-        $totals->{both}++ if $vote_counts_by_pid{$_} > 1;
+        if ($vote_counts_by_pid{$_} > 1) {
+            $totals->{both}++;
+            $voteupdate->execute($_, $division_id, 'both');
+        }
     }
 
     # Okay, now add to database
@@ -266,10 +269,12 @@ sub load_debate_division {
             my $vote_direction = $vote->att('vote');
             my $teller = $vote->att('teller');
 
-            my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
-            $stored_vote = "tell$stored_vote" if $teller;
-            $totals->{$stored_vote}++ if $vote_counts_by_pid{$person_id} == 1;
-            $voteupdate->execute($person_id, $division_id, $stored_vote);
+            if ($vote_counts_by_pid{$person_id} == 1) {
+                my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
+                $stored_vote = "tell$stored_vote" if $teller;
+                $totals->{$stored_vote}++;
+                $voteupdate->execute($person_id, $division_id, $stored_vote);
+            }
         }
     }
 
