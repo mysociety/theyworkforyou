@@ -96,35 +96,27 @@ class COMMENTREPORTLIST {
         LIMIT $number_to_fetch");
 
         $data = array();
-
-        if ($q->rows() > 0) {
-
-            for ($n=0; $n<$q->rows(); $n++) {
-
-                $data[] = array (
-                    'report_id'		=> $q->field($n,'report_id'),
-                    'comment_id' 	=> $q->field($n,'comment_id'),
-                    'firstname'		=> $q->field($n, 'firstname'),
-                    'lastname'		=> $q->field($n, 'lastname'),
-                    'body'			=> $q->field($n, 'body'),
-                    'reported'		=> $q->field($n, 'reported'),
-                    'locked'		=> $q->field($n, 'locked')
-                );
-            }
-
+        foreach ($q as $row) {
+            $data[] = array (
+                'report_id'		=> $row['report_id'],
+                'comment_id' 	=> $row['comment_id'],
+                'firstname'		=> $row['firstname'],
+                'lastname'		=> $row['lastname'],
+                'body'			=> $row['body'],
+                'reported'		=> $row['reported'],
+                'locked'		=> $row['locked']
+            );
         }
-        if ($r->rows() > 0) {
-            for ($n=0; $n<$r->rows(); $n++) {
-                $data[] = array (
-                    'report_id'		=> $r->field($n,'report_id'),
-                    'comment_id' 	=> $r->field($n,'comment_id'),
-                    'firstname'		=> $r->field($n, 'firstname'),
-                    'lastname'		=> $r->field($n, 'lastname'),
-                    'body'			=> $r->field($n, 'body'),
-                    'reported'		=> $r->field($n, 'reported'),
-                    'locked'		=> $r->field($n, 'locked')
-                );
-            }
+        foreach ($r as $row) {
+            $data[] = array (
+                'report_id'		=> $row['report_id'],
+                'comment_id' 	=> $row['comment_id'],
+                'firstname'		=> $row['firstname'],
+                'lastname'		=> $row['lastname'],
+                'body'			=> $row['body'],
+                'reported'		=> $row['reported'],
+                'locked'		=> $row['locked']
+            );
         }
 
         return $data;

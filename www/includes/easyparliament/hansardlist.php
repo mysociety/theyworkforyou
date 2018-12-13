@@ -863,23 +863,16 @@ class HANSARDLIST {
                         $limit
                         ", $params);
 
-        if ($q->rows() > 0) {
-
-            $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
-
-            for ($n=0; $n<$q->rows(); $n++) {
-                $rowdata = array();
-
-                $rowdata['body'] = format_date($q->field($n, 'hdate'), SHORTDATEFORMAT);
-                $URL->insert(array('d'=>$q->field($n, 'hdate')));
-                $rowdata['listurl'] = $URL->generate();
-
-                $data['rows'][] = $rowdata;
-            }
+        $URL = new \MySociety\TheyWorkForYou\Url($this->listpage);
+        foreach ($q as $row) {
+            $URL->insert(array('d' => $row['hdate']));
+            $data['rows'][] = array(
+                'body' => format_date($row['hdate'], SHORTDATEFORMAT),
+                'listurl' => $URL->generate(),
+            );
         }
 
         $data['info']['text'] = 'Recent dates';
-
 
         return $data;
     }
@@ -935,29 +928,27 @@ class HANSARDLIST {
 
 
         $speeches = array();
-        if ($q->rows() > 0) {
-            for ($n=0; $n<$q->rows(); $n++) {
-                $speech = array (
-                    'subsection_id'	=> $q->field($n, 'subsection_id'),
-                    'section_id'	=> $q->field($n, 'section_id'),
-                    'htype'		=> $q->field($n, 'htype'),
-                    'major'		=> $q->field($n, 'major'),
-                    'minor'		=> $q->field($n, 'minor'),
-                    'hdate'		=> $q->field($n, 'hdate'),
-                    'htime'		=> $q->field($n, 'htime'),
-                    'person_id'	=> $q->field($n, 'person_id'),
-                    'body'		=> $q->field($n, 'body'),
-                    'body_section'  => $q->field($n, 'body_section'),
-                    'body_subsection' => $q->field($n, 'body_subsection'),
-                    'gid'		=> fix_gid_from_db($q->field($n, 'gid')),
-                );
-                // Cache parent id to speed up _get_listurl
-                $this->epobjectid_to_gid[$q->field($n, 'subsection_id') ] = fix_gid_from_db( $q->field($n, 'gid_subsection') );
+        foreach ($q as $row) {
+            $speech = array (
+                'subsection_id' => $row['subsection_id'],
+                'section_id' => $row['section_id'],
+                'htype' => $row['htype'],
+                'major' => $row['major'],
+                'minor' => $row['minor'],
+                'hdate' => $row['hdate'],
+                'htime' => $row['htime'],
+                'person_id' => $row['person_id'],
+                'body' => $row['body'],
+                'body_section' => $row['body_section'],
+                'body_subsection' => $row['body_subsection'],
+                'gid' => fix_gid_from_db($row['gid']),
+            );
+            // Cache parent id to speed up _get_listurl
+            $this->epobjectid_to_gid[$row['subsection_id']] = fix_gid_from_db($row['gid_subsection']);
 
-                $url_args = array ('p'=>$q->field($n, 'person_id'));
-                $speech['listurl'] = $this->_get_listurl($speech, $url_args);
-                $speeches[] = $speech;
-            }
+            $url_args = array ('p' => $row['person_id']);
+            $speech['listurl'] = $this->_get_listurl($speech, $url_args);
+            $speeches[] = $speech;
         }
 
         if (count($speeches) > 0) {
@@ -1500,9 +1491,8 @@ class HANSARDLIST {
             // We put the data in this array. See top of function for the structure.
             $years = array();
 
-            for ($row=0; $row<$q->rows(); $row++) {
-
-                list($year, $month, $day) = explode('-', $q->field($row, 'hdate'));
+            foreach ($q as $row) {
+                list($year, $month, $day) = explode('-', $row['hdate']);
 
                 $month = intval($month);
                 $day = intval($day);
@@ -1608,14 +1598,10 @@ class HANSARDLIST {
     }
 
     public function _get_mentions($spid) {
-        $result = array();
         $q = $this->db->query("select gid, type, date, url, mentioned_gid
             from mentions where gid like 'uk.org.publicwhip/spq/$spid'
             order by date, type");
-        $nrows = $q->rows();
-        for ($i=0; $i < $nrows; $i++) {
-            $result[$i] = $q->row($i);
-        }
+        $result = $q->fetchAll();
         return $result;
     }
 
@@ -1731,195 +1717,190 @@ class HANSARDLIST {
                         ", $params);
 
         // Format the data into an array for returning.
-        $data = array ();
+        $data = array();
+        foreach ($q as $row) {
+            // Where we'll store the data for this item before adding
+            // it to $data.
+            $item = array();
 
-        if ($q->rows() > 0) {
+            // Put each row returned into its own array in $data.
+            foreach ($fieldsarr as $table => $tablesfields) {
+                foreach ($tablesfields as $m => $field) {
+                    $item[$field] = $row[$field];
+                }
+            }
 
-            for ($n=0; $n<$q->rows(); $n++) {
+            if (isset($item['gid'])) {
+                // Remove the "uk.org.publicwhip/blah/" from the gid:
+                // (In includes/utility.php)
+                $item['gid'] = fix_gid_from_db( $item['gid'] );
+            }
 
-                // Where we'll store the data for this item before adding
-                // it to $data.
-                $item = array();
+            // Add mentions if (a) it's a question in the written
+            // answer section or (b) it's in the official reports
+            // and the body text ends in a bracketed SPID.
+            if (($this->major && $hansardmajors[$this->major]['page']=='spwrans') && ($item['htype'] == '12' && $item['minor'] == '1')) {
+                // Get out the SPID:
+                if ( preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $item['gid'], $m) ) {
+                    $item['mentions'] = $this->_get_mentions($m[1]);
+                }
+            }
 
-                // Put each row returned into its own array in $data.
-                foreach ($fieldsarr as $table => $tablesfields) {
-                    foreach ($tablesfields as $m => $field) {
-                        $item[$field] = $q->field($n, $field);
-                    }
+            // The second case (b):
+            if (($this->major && $hansardmajors[$this->major]['page']=='spdebates') && isset($item['body'])) {
+                $stripped_body = preg_replace('/<[^>]+>/ms','',$item['body']);
+                if ( preg_match('/\((S\d+\w+-\d+)\)/ms',$stripped_body,$m) ) {
+                    $item['mentions'] = $this->_get_mentions($m[1]);
+                }
+            }
+
+            if (in_array($item['epobject_id'], [15674958, 15674959, 12822764, 12822765])) {
+                global $DATA, $this_page;
+                $DATA->set_page_metadata($this_page, 'robots', 'noindex');
+            }
+
+            // Get the number of items within a section or subsection.
+            // It could be that we can do this in the main query?
+            // Not sure.
+            if ( ($this->major && $hansardmajors[$this->major]['type']=='debate') && ($item['htype'] == '10' || $item['htype'] == '11') ) {
+
+                if ($item['htype'] == '10') {
+                    // Section - get a count of items within this section that
+                    // don't have a subsection heading.
+                    $where = "section_id = '" . $item['epobject_id'] . "'
+                        AND subsection_id = '" . $item['epobject_id'] . "'";
+
+                } else {
+                    // Subsection - get a count of items within this subsection.
+                    $where = "subsection_id = '" . $item['epobject_id'] . "'";
                 }
 
-                if (isset($item['gid'])) {
-                    // Remove the "uk.org.publicwhip/blah/" from the gid:
-                    // (In includes/utility.php)
-                    $item['gid'] = fix_gid_from_db( $item['gid'] );
+                $r = $this->db->query("SELECT COUNT(*) AS count
+                                FROM 	hansard
+                                WHERE 	$where
+                                AND htype = 12
+                                ");
+
+                if ($r->rows() > 0) {
+                    $item['contentcount'] = $r->field(0, 'count');
+                } else {
+                    $item['contentcount'] = '0';
+                }
+            }
+
+            // Get the body of the first item with the section or
+            // subsection. This can then be printed as an excerpt
+            // on the daily list pages.
+
+            if ((isset($amount['excerpt']) && $amount['excerpt'] == true) &&
+                ($item['htype'] == '10' ||
+                $item['htype'] == '11')
+                ) {
+                $params = array(':epobject_id' => $item['epobject_id']);
+                if ($item['htype'] == '10') {
+                    $where = 'hansard.section_id = :epobject_id
+                        AND hansard.subsection_id = :epobject_id';
+                } elseif ($item['htype'] == '11') {
+                    $where = 'hansard.subsection_id = :epobject_id';
                 }
 
-                // Add mentions if (a) it's a question in the written
-                // answer section or (b) it's in the official reports
-                // and the body text ends in a bracketed SPID.
-                if (($this->major && $hansardmajors[$this->major]['page']=='spwrans') && ($item['htype'] == '12' && $item['minor'] == '1')) {
-                    // Get out the SPID:
-                    if ( preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $item['gid'], $m) ) {
-                        $item['mentions'] = $this->_get_mentions($m[1]);
+                $r = $this->db->query("SELECT epobject.body
+                                FROM 	hansard,
+                                        epobject
+                                WHERE	$where
+                                AND		hansard.epobject_id = epobject.epobject_id
+                                ORDER BY hansard.hpos ASC
+                                LIMIT	1", $params);
+
+                if ($r->rows() > 0) {
+                    $item['excerpt'] = $r->field(0, 'body');
+                }
+            }
+
+            if ($item['htype'] == 14) {
+                $divisions = new MySociety\TheyWorkForYou\Divisions();
+                $division_votes = $divisions->getDivisionByGid($this->gidprefix . $item['gid']);
+                $item['division'] = $division_votes;
+                # Don't want MP vote on PBC pages
+                if (isset($MEMBER) && $this->major != 6) {
+                    $item['mp_vote'] = $divisions->getDivisionResultsForMember($division_votes['division_id'], $MEMBER->person_id());
+                    if (!$item['mp_vote']) {
+                        if ($division_votes['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
+                            $item['before_mp'] = true;
+                        } else if ($division_votes['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
+                            $item['after_mp'] = true;
+                        }
                     }
                 }
+            }
 
-                // The second case (b):
-                if (($this->major && $hansardmajors[$this->major]['page']=='spdebates') && isset($item['body'])) {
-                    $stripped_body = preg_replace('/<[^>]+>/ms','',$item['body']);
-                    if ( preg_match('/\((S\d+\w+-\d+)\)/ms',$stripped_body,$m) ) {
-                        $item['mentions'] = $this->_get_mentions($m[1]);
-                    }
+
+            // We generate two permalinks for each item:
+            // 'listurl' is the URL of the item in the full list view.
+            // 'commentsurl' is the URL of the item on its own page, with comments.
+
+            // All the things we need to work out a listurl!
+            $item_data = array (
+                'major'			=> $this->major,
+                'minor' 		=> $item['minor'],
+                'htype' 		=> $item['htype'],
+                'gid' 			=> $item['gid'],
+                'section_id'	=> $item['section_id'],
+                'subsection_id'	=> $item['subsection_id']
+            );
+
+
+            $item['listurl'] = $this->_get_listurl($item_data);
+
+
+            // Create a URL for where we can see all the comments for this item.
+            if (isset($this->commentspage)) {
+                $COMMENTSURL = new \MySociety\TheyWorkForYou\Url($this->commentspage);
+                if ($this->major == 6) {
+                    # Another hack...
+                    $COMMENTSURL->remove(array('id'));
+                    $id = preg_replace('#^.*?_.*?_#', '', $item['gid']);
+                    $fragment = $this->url . $id;
+                    $item['commentsurl'] = $COMMENTSURL->generate() . $fragment;
+                } else {
+                    $COMMENTSURL->insert(array('id' => $item['gid']));
+                    $item['commentsurl'] = $COMMENTSURL->generate();
                 }
+            }
 
-                if (in_array($item['epobject_id'], [15674958, 15674959, 12822764, 12822765])) {
-                    global $DATA, $this_page;
-                    $DATA->set_page_metadata($this_page, 'robots', 'noindex');
-                }
+            // Get the user/anon votes items that have them.
+            if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) &&
+                $item['htype'] == '12') {
+                // Debate speech or written answers (not questions).
 
-                // Get the number of items within a section or subsection.
-                // It could be that we can do this in the main query?
-                // Not sure.
-                if ( ($this->major && $hansardmajors[$this->major]['type']=='debate') && ($item['htype'] == '10' || $item['htype'] == '11') ) {
+                $item['votes'] = $this->_get_votes( $item['epobject_id'] );
+            }
 
-                    if ($item['htype'] == '10') {
-                        // Section - get a count of items within this section that
-                        // don't have a subsection heading.
-                        $where = "section_id = '" . $item['epobject_id'] . "'
-                            AND subsection_id = '" . $item['epobject_id'] . "'";
+            // Get the speaker for this item, if applicable.
+            if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
+                $item['person_id'] != '') {
 
-                    } else {
-                        // Subsection - get a count of items within this subsection.
-                        $where = "subsection_id = '" . $item['epobject_id'] . "'";
-                    }
-
-                    $r = $this->db->query("SELECT COUNT(*) AS count
-                                    FROM 	hansard
-                                    WHERE 	$where
-                                    AND htype = 12
-                                    ");
-
-                    if ($r->rows() > 0) {
-                        $item['contentcount'] = $r->field(0, 'count');
-                    } else {
-                        $item['contentcount'] = '0';
-                    }
-                }
-
-                // Get the body of the first item with the section or
-                // subsection. This can then be printed as an excerpt
-                // on the daily list pages.
-
-                if ((isset($amount['excerpt']) && $amount['excerpt'] == true) &&
-                    ($item['htype'] == '10' ||
-                    $item['htype'] == '11')
-                    ) {
-                    $params = array(':epobject_id' => $item['epobject_id']);
-                    if ($item['htype'] == '10') {
-                        $where = 'hansard.section_id = :epobject_id
-                            AND hansard.subsection_id = :epobject_id';
-                    } elseif ($item['htype'] == '11') {
-                        $where = 'hansard.subsection_id = :epobject_id';
-                    }
-
-                    $r = $this->db->query("SELECT epobject.body
-                                    FROM 	hansard,
-                                            epobject
-                                    WHERE	$where
-                                    AND		hansard.epobject_id = epobject.epobject_id
-                                    ORDER BY hansard.hpos ASC
-                                    LIMIT	1", $params);
-
-                    if ($r->rows() > 0) {
-                        $item['excerpt'] = $r->field(0, 'body');
-                    }
-                }
-
-                if ($item['htype'] == 14) {
-                    $divisions = new MySociety\TheyWorkForYou\Divisions();
-                    $division_votes = $divisions->getDivisionByGid($this->gidprefix . $item['gid']);
-                    $item['division'] = $division_votes;
-                    # Don't want MP vote on PBC pages
-                    if (isset($MEMBER) && $this->major != 6) {
-                      $item['mp_vote'] = $divisions->getDivisionResultsForMember($division_votes['division_id'], $MEMBER->person_id());
-                      if (!$item['mp_vote']) {
-                          if ($division_votes['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
-                              $item['before_mp'] = true;
-                          } else if ($division_votes['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
-                              $item['after_mp'] = true;
-                          }
-                      }
-                    }
-                }
+                $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $item['major']);
+            }
 
 
-                // We generate two permalinks for each item:
-                // 'listurl' is the URL of the item in the full list view.
-                // 'commentsurl' is the URL of the item on its own page, with comments.
+            // Get comment count and (if any) most recent comment for each item.
+            if (isset($amount['comment']) && $amount['comment'] == true) {
 
-                // All the things we need to work out a listurl!
+                // All the things we need to get the comment data.
                 $item_data = array (
-                    'major'			=> $this->major,
-                    'minor' 		=> $item['minor'],
-                    'htype' 		=> $item['htype'],
-                    'gid' 			=> $item['gid'],
-                    'section_id'	=> $item['section_id'],
-                    'subsection_id'	=> $item['subsection_id']
+                    'htype' => $item['htype'],
+                    'epobject_id' => $item['epobject_id']
                 );
 
-
-                $item['listurl'] = $this->_get_listurl($item_data);
-
-
-                // Create a URL for where we can see all the comments for this item.
-                if (isset($this->commentspage)) {
-                    $COMMENTSURL = new \MySociety\TheyWorkForYou\Url($this->commentspage);
-                    if ($this->major == 6) {
-                        # Another hack...
-                        $COMMENTSURL->remove(array('id'));
-                        $id = preg_replace('#^.*?_.*?_#', '', $item['gid']);
-                        $fragment = $this->url . $id;
-                        $item['commentsurl'] = $COMMENTSURL->generate() . $fragment;
-                    } else {
-                        $COMMENTSURL->insert(array('id' => $item['gid']));
-                        $item['commentsurl'] = $COMMENTSURL->generate();
-                    }
-                }
-
-                // Get the user/anon votes items that have them.
-                if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) &&
-                    $item['htype'] == '12') {
-                    // Debate speech or written answers (not questions).
-
-                    $item['votes'] = $this->_get_votes( $item['epobject_id'] );
-                }
-
-                // Get the speaker for this item, if applicable.
-                if ( (isset($amount['speaker']) && $amount['speaker'] == true) &&
-                    $item['person_id'] != '') {
-
-                    $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $item['major']);
-                }
-
-
-                // Get comment count and (if any) most recent comment for each item.
-                if (isset($amount['comment']) && $amount['comment'] == true) {
-
-                    // All the things we need to get the comment data.
-                    $item_data = array (
-                        'htype' => $item['htype'],
-                        'epobject_id' => $item['epobject_id']
-                    );
-
-                    $commentdata = $this->_get_comment($item_data);
-                    $item['totalcomments'] = $commentdata['totalcomments'];
-                    $item['comment'] = $commentdata['comment'];
-                }
-
-
-                // Add this item on to the array of items we're returning.
-                $data[$n] = $item;
+                $commentdata = $this->_get_comment($item_data);
+                $item['totalcomments'] = $commentdata['totalcomments'];
+                $item['comment'] = $commentdata['comment'];
             }
+
+
+            // Add this item on to the array of items we're returning.
+            $data[] = $item;
         }
 
         return $data;
@@ -2201,14 +2182,10 @@ class HANSARDLIST {
             WHERE person=:person_id
             AND from_date <= :hdate and :hdate <= to_date",
             array(':person_id' => $speaker['person_id'], ':hdate' => $hdate));
-        $rows = $q->rows();
-        if (!$rows) {
-            return $offices;
-        }
-        for ($row=0; $row<$rows; $row++) {
-            $dept = $q->field($row, 'dept');
-            $pos = $q->field($row, 'position');
-            $source = $q->field($row, 'source');
+        foreach ($q as $row) {
+            $dept = $row['dept'];
+            $pos = $row['position'];
+            $source = $row['source'];
             if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') {
                 continue;
             }
@@ -2665,32 +2642,24 @@ class DEBATELIST extends HANSARDLIST {
         // What we return.
         $data = array ();
         $speeches = array();
+        foreach ($q as $row) {
+            $speech = array (
+                'subsection_id' => $row['subsection_id'],
+                'section_id' => $row['section_id'],
+                'htype' => $row['htype'],
+                'major' => $row['major'],
+                'minor' => $row['minor'],
+                'hdate' => $row['hdate'],
+                'body' => $row['body'],
+                'votes' => $row['total_vote']
+            );
 
-        if ($q->rows() > 0) {
-
-            for ($n=0; $n<$q->rows(); $n++) {
-
-                $speech = array (
-                    'subsection_id'	=> $q->field($n, 'subsection_id'),
-                    'section_id'	=> $q->field($n, 'section_id'),
-                    'htype'			=> $q->field($n, 'htype'),
-                    'major'			=> $q->field($n, 'major'),
-                    'minor'			=> $q->field($n, 'minor'),
-                    'hdate'			=> $q->field($n, 'hdate'),
-                    'body'			=> $q->field($n, 'body'),
-                    'votes'			=> $q->field($n, 'total_vote')
-                );
-
-                // Remove the "uk.org.publicwhip/blah/" from the gid:
-                // (In includes/utility.php)
-                $speech['gid'] = fix_gid_from_db( $q->field($n, 'gid') );
-
-                $speech['listurl'] = $this->_get_listurl($speech);
-
-                $speech['speaker'] = $this->_get_speaker($q->field($n, 'person_id'), $q->field($n, 'hdate'), $q->field($n, 'htime'), $this->major );
-
-                $speeches[] = $speech;
-            }
+            // Remove the "uk.org.publicwhip/blah/" from the gid:
+            // (In includes/utility.php)
+            $speech['gid'] = fix_gid_from_db( $row['gid'] );
+            $speech['listurl'] = $this->_get_listurl($speech);
+            $speech['speaker'] = $this->_get_speaker($row['person_id'], $row['hdate'], $row['htime'], $this->major );
+            $speeches[] = $speech;
         }
 
         if (count($speeches) > 0) {
@@ -2932,26 +2901,25 @@ class DEBATELIST extends HANSARDLIST {
             LIMIT   :limit";
 
         $q = $this->db->query($query, $params);
-
-        for ($row=0; $row<$q->rows; $row++) {
+        foreach ($q as $row) {
 
             // This array just used for getting further data about this debate.
             $item_data = array (
-                'major'         => $this->major,
-                'gid'           => fix_gid_from_db( $q->field($row, 'gid') ),
-                'htype'         => $q->field($row, 'htype'),
-                'section_id'    => $q->field($row, 'section_id'),
-                'subsection_id' => $q->field($row, 'subsection_id'),
-                'epobject_id'   => $q->field($row, 'epobject_id')
+                'major' => $this->major,
+                'gid' => fix_gid_from_db( $row['gid'] ),
+                'htype' => $row['htype'],
+                'section_id' => $row['section_id'],
+                'subsection_id' => $row['subsection_id'],
+                'epobject_id' => $row['epobject_id']
             );
 
             $list_url      = $this->_get_listurl( $item_data );
             $totalcomments = $this->_get_comment_count_for_epobject( $item_data );
 
-            $contentcount  = $q->field($row, 'count');
-            $body          = $q->field($row, 'body');
-            $hdate         = $q->field($row, 'hdate');
-            $htime         = $q->field($row, 'htime');
+            $contentcount  = $row['count'];
+            $body          = $row['body'];
+            $hdate         = $row['hdate'];
+            $htime         = $row['htime'];
 
             // If this is a subsection, we're going to prepend the title
             // of the parent section, so let's get that.
@@ -3054,25 +3022,24 @@ class DEBATELIST extends HANSARDLIST {
                         ORDER BY count DESC
                         LIMIT :limit", $params);
 
-
-        for ($row=0; $row<$q->rows; $row++) {
+        foreach ($q as $row) {
 
             // This array just used for getting further data about this debate.
             $item_data = array (
-                'major'			=> $this->major,
-                'gid'			=> fix_gid_from_db( $q->field($row, 'gid') ),
-                'htype'			=> $q->field($row, 'htype'),
-                'section_id'	=> $q->field($row, 'section_id'),
-                'subsection_id'	=> $q->field($row, 'subsection_id'),
-                'epobject_id'	=> $q->field($row, 'epobject_id')
+                'major' => $this->major,
+                'gid' => fix_gid_from_db( $row['gid'] ),
+                'htype' => $row['htype'],
+                'section_id' => $row['section_id'],
+                'subsection_id' => $row['subsection_id'],
+                'epobject_id' => $row['epobject_id']
             );
 
             $list_url 		= $this->_get_listurl( $item_data );
             $totalcomments	= $this->_get_comment_count_for_epobject( $item_data );
 
-            $contentcount	= $q->field($row, 'count');
-            $body 			= $q->field($row, 'body');
-            $hdate			= $q->field($row, 'hdate');
+            $contentcount = $row['count'];
+            $body = $row['body'];
+            $hdate = $row['hdate'];
 
 
             // This array will be added to $data, which is what gets returned.
@@ -3199,30 +3166,30 @@ class WRANSLIST extends HANSARDLIST {
 
         $q = $this->db->query($query, $params);
 
-        for ($row=0; $row<$q->rows; $row++) {
+        foreach ($q as $row) {
             // This array just used for getting further data about this debate.
             $item_data = array (
-                'major'			=> $this->major,
-                'gid'			=> fix_gid_from_db( $q->field($row, 'gid') ),
-                'htype'			=> $q->field($row, 'htype'),
-                'section_id'	=> $q->field($row, 'section_id'),
-                'subsection_id'	=> $q->field($row, 'subsection_id'),
-                'epobject_id'	=> $q->field($row, 'epobject_id')
+                'major' => $this->major,
+                'gid' => fix_gid_from_db( $row['gid'] ),
+                'htype' => $row['htype'],
+                'section_id' => $row['section_id'],
+                'subsection_id' => $row['subsection_id'],
+                'epobject_id' => $row['epobject_id']
             );
 
             $list_url 		= $this->_get_listurl( $item_data );
             $totalcomments	= $this->_get_comment_count_for_epobject( $item_data );
 
-            $body 			= $q->field($row, 'body');
-            $hdate			= $q->field($row, 'hdate');
+            $body = $row['body'];
+            $hdate = $row['hdate'];
 
             // Get the parent section for this item.
             $parentbody = '';
-            if ($q->field($row, 'section_id')) {
+            if ($row['section_id']) {
                 $r = $this->db->query("SELECT e.body
                             FROM	hansard h, epobject e
                             WHERE	h.epobject_id = e.epobject_id
-                            AND		h.epobject_id = '" . $q->field($row, 'section_id') . "'
+                            AND		h.epobject_id = '" . $row['section_id'] . "'
                             ");
                 $parentbody = $r->field(0, 'body');
             }
@@ -3232,7 +3199,7 @@ class WRANSLIST extends HANSARDLIST {
                                     h.person_id, h.hdate, h.htime
                             FROM	hansard h, epobject e
                             WHERE	h.epobject_id = e.epobject_id
-                            AND 	h.subsection_id = '" . $q->field($row, 'epobject_id') . "'
+                            AND 	h.subsection_id = '" . $row['epobject_id'] . "'
                             ORDER BY hpos
                             LIMIT 1
                             ");
@@ -3293,11 +3260,11 @@ class StandingCommittee extends DEBATELIST {
                 where bill_id = :bill_id group by person_id',
             array(':bill_id' => $bill_id));
         $comm = array('sittings' => $sittings, 'chairmen' => array(), 'members' => array());
-        for ($i=0; $i<$q->rows(); $i++) {
-            $person_id = $q->field($i, 'person_id');
-            $mp = new MEMBER(array('person_id'=>$person_id));
-            $attending = $q->field($i, 'attending');
-            $chairman = $q->field($i, 'chairman');
+        foreach ($q as $row) {
+            $person_id = $row['person_id'];
+            $mp = new MEMBER(array('person_id' => $person_id));
+            $attending = $row['attending'];
+            $chairman = $row['chairman'];
             $arr = array(
                 'name' => $mp->full_name(),
                 'attending' => $attending,
@@ -3369,8 +3336,8 @@ class StandingCommittee extends DEBATELIST {
             array(':session' => $session)
         );
         $bills = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $bills[$q->field($i, 'id')] = $q->field($i, 'title');
+        foreach ($q as $row) {
+            $bills[$row['id']] = $row['title'];
         }
         if (!count($bills)) {
             return array();
@@ -3380,17 +3347,17 @@ class StandingCommittee extends DEBATELIST {
             group by minor');
         $counts = array();
         # $comments = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $minor = $q->field($i, 'minor');
-            $counts[$minor] = $q->field($i, 'c');
+        foreach ($q as $row) {
+            $minor = $row['minor'];
+            $counts[$minor] = $row['c'];
             # $comments[$minor] = 0;
         }
         /*
         $q = $this->db->query('select minor,epobject_id from hansard where major=6 and htype=10
             and minor in (' . join(',', array_keys($bills)) . ')');
-        for ($i=0; $i<$q->rows(); $i++) {
-            $comments[$q->field($i, 'minor')] += $this->_get_comment_count_for_epobject(array(
-                'epobject_id' => $q->field($i, 'epobject_id'),
+        foreach ($q as $row) {
+            $comments[$row['minor']] += $this->_get_comment_count_for_epobject(array(
+                'epobject_id' => $row['epobject_id'],
                 'htype' => 10,
             ));
         }
@@ -3436,10 +3403,10 @@ class StandingCommittee extends DEBATELIST {
             where htype=10 and major=6
             order by hdate desc limit ' . $args['num']);
         $data = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $minor = $q->field($i, 'minor');
-            $gid = $q->field($i, 'gid');
-            $hdate = format_date($q->field($i, 'hdate'), LONGDATEFORMAT);
+        foreach ($q as $row) {
+            $minor = $row['minor'];
+            $gid = $row['gid'];
+            $hdate = format_date($row['hdate'], LONGDATEFORMAT);
             $qq = $this->db->query('select title, session from bills where id='.$minor);
             $title = $qq->field(0, 'title');
             $session = $qq->field(0, 'session');

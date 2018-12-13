@@ -15,11 +15,10 @@ print '<h3>Alert signups per month</h3> <table>';
 print '<table cellpadding="5">';
 print '<thead><tr><th>Year</th><th style="padding-right: 15px;">Month</th><th>Sign Ups</th><tr></thead>';
 
-$row_count = $q->rows();
-for ($i=0; $i<$row_count; $i++) {
-    $year = $q->field($i, 'the_year');
-    $month = $q->field($i, 'the_month');
-    $count = $q->field($i, 'c');
+foreach ($q as $row) {
+    $year = $row['the_year'];
+    $month = $row['the_month'];
+    $count = $row['c'];
     $shade = $i % 2 == 1 ? 'style="background-color: #eee"' : '';
     print "<tr $shade><td>$year</td><td align='center'>$month</td><td align='right'>$count</td></tr>";
 }

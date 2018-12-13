@@ -231,34 +231,32 @@ class People {
         $q = $this->db->query($query . "ORDER BY $sqlorder", $params);
 
         $data = array();
-        for ($row=0; $row<$q->rows(); $row++) {
-            $p_id = $q->field($row, 'person_id');
-            $dept = $q->field($row, 'dept');
-            $pos = $q->field($row, 'position');
+        foreach ($q as $row) {
+            $p_id = $row['person_id'];
+            $dept = $row['dept'];
+            $pos = $row['position'];
             if (isset($data[$p_id])) {
                 $data[$p_id]['dept'] = array_merge((array) $data[$p_id]['dept'], (array) $dept);
                 $data[$p_id]['pos'] = array_merge((array) $data[$p_id]['pos'], (array) $pos);
             } else {
-                $name = member_full_name($this->house, $q->field($row, 'title'),
-                    $q->field($row, 'given_name'), $q->field($row, 'family_name'),
-                    $q->field($row, 'lordofname'));
-                $constituency = $q->field($row, 'constituency');
+                $name = member_full_name($this->house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
+                $constituency = $row['constituency'];
                 $url = make_member_url($name, $constituency, $this->house, $p_id);
                 $narray = array (
                     'person_id' 	=> $p_id,
-                    'given_name' => $q->field($row, 'given_name'),
-                    'family_name' => $q->field($row, 'family_name'),
-                    'lordofname' => $q->field($row, 'lordofname'),
+                    'given_name' => $row['given_name'],
+                    'family_name' => $row['family_name'],
+                    'lordofname' => $row['lordofname'],
                     'name' => $name,
                     'url' => $url,
                     'constituency' 	=> $constituency,
-                    'party' 	=> $q->field($row, 'party'),
-                    'left_reason' 	=> $q->field($row, 'left_reason'),
+                    'party' 	=> $row['party'],
+                    'left_reason' 	=> $row['left_reason'],
                     'dept'		=> $dept,
                     'pos'		=> $pos
                 );
                 if ($use_extracol) {
-                    $narray['data_value'] = $q->field($row, 'data_value');
+                    $narray['data_value'] = $row['data_value'];
                 }
 
                 if ($narray['party'] == 'SPK') {

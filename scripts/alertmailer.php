@@ -231,39 +231,36 @@ foreach ($alertdata as $alertitem) {
                 'person_id' => $pid,
                 ':time' => date('Y-m-d H:i:s', $lastupdated),
             ));
-        $rows = $q->rows();
-        if ($rows) {
-            for ($i=0; $i<$rows; $i++) {
-                $vote = $q->field($i, 'vote');
-                $num = $q->field($i, 'division_number');
-                $teller = '';
-                if (strpos($vote, 'tell') !== false) {
-                    $teller = ', as a teller';
-                    $vote = str_replace('tell', '', $vote);
-                }
-                if ($vote == 'absent') {
-                    continue;
-                }
-                $text = "Voted ";
-                if ($vote == 'aye' && $q->field($i, 'yes_text')) {
-                    $text .= "($vote$teller) " . $q->field($i, 'yes_text');
-                } elseif ($vote == 'no' && $q->field($i, 'no_text')) {
-                    $text .= "($vote$teller) " . $q->field($i, 'no_text');
-                } else {
-                    $text .= "$vote$teller";
-                }
-                $text .= " (division #$num; result was " . $q->field($i, 'yes_total') . ' aye, ' . $q->field($i, 'no_total') . ' no)';
-                $data['rows'][] = [
-                    'parent' => [
-                        'body' => $q->field($i, 'division_title'),
-                    ],
-                    'extract' => $text,
-                    'listurl' => '/divisions/' . $q->field($i, 'division_id'),
-                    'major' => 'V',
-                    'hdate' => $q->field($i, 'division_date'),
-                    'hpos' => $q->field($i, 'division_number'),
-                ];
+        foreach ($q as $row) {
+            $vote = $row['vote'];
+            $num = $row['division_number'];
+            $teller = '';
+            if (strpos($vote, 'tell') !== false) {
+                $teller = ', as a teller';
+                $vote = str_replace('tell', '', $vote);
             }
+            if ($vote == 'absent') {
+                continue;
+            }
+            $text = "Voted ";
+            if ($vote == 'aye' && $row['yes_text']) {
+                $text .= "($vote$teller) " . $row['yes_text'];
+            } elseif ($vote == 'no' && $row['no_text']) {
+                $text .= "($vote$teller) " . $row['no_text'];
+            } else {
+                $text .= "$vote$teller";
+            }
+            $text .= " (division #$num; result was " . $row['yes_total'] . ' aye, ' . $row['no_total'] . ' no)';
+            $data['rows'][] = [
+                'parent' => [
+                    'body' => $row['division_title'],
+                ],
+                'extract' => $text,
+                'listurl' => '/divisions/' . $row['division_id'],
+                'major' => 'V',
+                'hdate' => $row['division_date'],
+                'hpos' => $row['division_number'],
+            ];
         }
     }
 

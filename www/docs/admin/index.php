@@ -66,26 +66,25 @@ $q = $db->query("SELECT firstname,
 $rows = array();
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
-for ($row=0; $row<$q->rows(); $row++) {
-
-    $user_id = $q->field($row, 'user_id');
+foreach ($q as $row) {
+    $user_id = $row['user_id'];
 
     $USERURL->insert(array('u'=>$user_id));
 
-    if ($q->field($row, 'confirmed') == 1) {
+    if ($row['confirmed'] == 1) {
         $confirmed = 'Yes';
-        $name = '<a href="' . $USERURL->generate() . '">' . _htmlspecialchars($q->field($row, 'firstname'))
-            . ' ' . _htmlspecialchars($q->field($row, 'lastname')) . '</a>';
+        $name = '<a href="' . $USERURL->generate() . '">' . _htmlspecialchars($row['firstname'])
+            . ' ' . _htmlspecialchars($row['lastname']) . '</a>';
     } else {
         $confirmed = 'No';
-        $name = _htmlspecialchars($q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname'));
+        $name = _htmlspecialchars($row['firstname'] . ' ' . $row['lastname']);
     }
 
     $rows[] = array (
         $name,
-        '<a href="mailto:' . $q->field($row, 'email') . '">' . $q->field($row, 'email') . '</a>',
+        '<a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a>',
         $confirmed,
-        $q->field($row, 'registrationtime')
+        $row['registrationtime']
     );
 }
 

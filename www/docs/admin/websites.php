@@ -42,24 +42,21 @@ function edit_member_form() {
         LEFT JOIN personinfo ON member.person_id = personinfo.person_id AND data_key = 'mp_website'
         WHERE member.person_id = :person_id
             AND member.person_id = pn.person_id AND pn.type='name'
-            AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_id=:person_id AND type='name')";
-    $q = $db->query($query, array(
+            AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_id=:person_id AND type='name')
+        ORDER BY left_house DESC LIMIT 1";
+    $row = $db->query($query, array(
         ':person_id' => $personid
-    ));
+    ))->first();
 
-    for ($row = 0; $row < $q->rows(); $row++) {
+    $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
 
-        $name = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'given_name'), $q->field($row, 'family_name'), $q->field($row, 'lordofname'));
-
-        $out = "<h3>Edit person: $name</h3>\n";
-
-        $out .= '<form action="websites.php?editperson=' . $q->field($row, 'person_id') . '" method="post">';
-        $out .= '<input name="action" type="hidden" value="SaveURL">';
-        $out .= '<label for="url">URL:</label>';
-        $out .= '<span class="formw"><input id="url" name="url" type="text"  size="60" value="' . $q->field($row, 'mp_website') . '"></span>' . "\n";
-        $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save URL"></span>';
-        $out .= '</form>';
-    }
+    $out = "<h3>Edit person: $name</h3>\n";
+    $out .= '<form action="websites.php?editperson=' . $row['person_id'] . '" method="post">';
+    $out .= '<input name="action" type="hidden" value="SaveURL">';
+    $out .= '<label for="url">URL:</label>';
+    $out .= '<span class="formw"><input id="url" name="url" type="text"  size="60" value="' . $row['mp_website'] . '"></span>' . "\n";
+    $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save URL"></span>';
+    $out .= '</form>';
 
     return $out;
 }
@@ -78,19 +75,19 @@ function list_members() {
         GROUP by person_id
         ORDER BY house, family_name, lordofname, given_name");
 
-    for ($row = 0; $row < $q->rows(); $row++) {
+    foreach ($q as $row) {
         $out .= '<li>';
-        $name = member_full_name($q->field($row, 'house'), $q->field($row, 'title'), $q->field($row, 'given_name'), $q->field($row, 'family_name'), $q->field($row, 'lordofname'));
-        $mp_website = $q->field($row, 'data_value');
-        $out .= ' <small>[<a href="websites.php?editperson=' . $q->field($row, 'person_id') . '"';
+        $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
+        $mp_website = $row['data_value'];
+        $out .= ' <small>[<a href="websites.php?editperson=' . $row['person_id'] . '"';
         if ($mp_website) {
             $out .= ' title="Change URL ' . $mp_website . '">Edit URL</a>]</small>';
         } else {
             $out .= '>Add URL</a>]</small>';
         }
         $out .= ' ' . $name;
-        if ($q->field($row, 'constituency')) {
-            $out .= ' (' . $q->field($row, 'constituency') . ')';
+        if ($row['constituency']) {
+            $out .= ' (' . $row['constituency'] . ')';
         }
         $out .= "</li>\n";
     }

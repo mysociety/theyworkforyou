@@ -9,13 +9,7 @@ $q = $db->query('select hansard.gid,time_to_sec(atime) as atime,hdate,hpos
 		and (user_id is null or user_id != -1) and deleted=0
 	order by hdate, hpos');
 $last = array('hdate'=>'');
-for ($i=0; $i<$q->rows(); $i++) {
-	$row = array(
-		'atime' => $q->field($i, 'atime'),
-		'hdate' => $q->field($i, 'hdate'),
-		'gid' => $q->field($i, 'gid'),
-		'hpos' => $q->field($i, 'hpos')
-	);
+foreach ($q as $row) {
 	if ($row['hdate'] != $last['hdate'])
 		$last = array();
 	if ($last && $row['atime'] < $last['atime']-5) {

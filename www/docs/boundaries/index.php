@@ -69,13 +69,13 @@ if ($pc) {
         WHERE constituency IN ('" . join("','", $a) . "')
         AND ( ( house = 3 and left_house = '2011-03-24' ) or ( house = 4 and left_house = '2011-03-23') )");
     $mreg = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $cons = $q->field($i, 'constituency');
-        $house = $q->field($i, 'house');
+    foreach ($q as $row) {
+        $cons = $row['constituency'];
+        $house = $row['house'];
         if (($house == 4 && $cons == $current['SPC']) || ($house == 3 && $cons == $current['NIE'])) {
-            $name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+            $name = $row['first_name'] . ' ' . $row['last_name'];
         } elseif ($house == 4 && $cons == $current['SPE']) {
-            $mreg[] = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
+            $mreg[] = $row['first_name'] . ' ' . $row['last_name'];
         }
     }
 

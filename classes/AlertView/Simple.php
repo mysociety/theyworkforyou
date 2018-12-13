@@ -131,10 +131,10 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
             )
         );
 
-        for ( $i = 0; $i < $q->rows; $i++ ) {
+        foreach ($q as $row) {
             // need to reset this otherwise delete does not work
             $this->alert->token_checked = null;
-            $other_criteria = trim(preg_replace('/speaker:\d+/', '', $q->field($i, 'criteria')));
+            $other_criteria = trim(preg_replace('/speaker:\d+/', '', $row['criteria']));
 
             $details = array(
                 'email' => $existing['email'],
@@ -145,7 +145,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
                 $details['keyword'] = $other_criteria;
             }
 
-            $this->alert->delete($q->field($i, 'alert_id') . '::' . $q->field($i ,'registrationtoken'));
+            $this->alert->delete($row['alert_id'] . '::' . $row['registrationtoken']);
             $this->alert->add($details, False);
         }
 

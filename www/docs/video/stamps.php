@@ -33,18 +33,18 @@ header('Content-Type: text/xml');
 $gids = array();
 $file_offset = 0;
 print '<stamps>';
-for ($i=0; $i<$q->rows(); $i++) {
-    $gid = str_replace('uk.org.publicwhip/', '', $q->field($i, 'gid'));
+foreach ($q as $row) {
+    $gid = str_replace('uk.org.publicwhip/', '', $row['gid']);
     if (isset($gids[$gid])) continue;
-    $timetoend = $q->field($i, 'timetoend') - $file_offset;
+    $timetoend = $row['timetoend'] - $file_offset;
     if ($timetoend>0) {
-        $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $q->field($i, 'adate'), $q->field($i, 'atime'));
+        $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $row['adate'], $row['atime']);
         $new_start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
         $file_offset += timediff($new_start, $start);
         $start = $new_start;
         $end = date('H:i:s', strtotime($video['broadcast_end'] . ' GMT'));
     }
-    $timediff = $q->field($i, 'timediff') - $file_offset;
+    $timediff = $row['timediff'] - $file_offset;
     if ($timediff>=0)
         print "<stamp><gid>$gid</gid><file>$video[id]</file><time>$timediff</time></stamp>\n";
     $gids[$gid] = true;

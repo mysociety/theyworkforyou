@@ -47,9 +47,8 @@ class Divisions {
         );
 
         $policy_maxes = array();
-        $row_count = $q->rows();
-        for ($n = 0; $n < $row_count; $n++) {
-            $policy_maxes[$q->field($n, 'policy_id')] = $q->field( $n, 'recent' );
+        foreach ($q as $row) {
+            $policy_maxes[$row['policy_id']] = $row['recent'];
         }
         $policy_maxes['latest'] = $policy_maxes ? max(array_values($policy_maxes)) : '';
         return $policy_maxes;
@@ -91,7 +90,7 @@ class Divisions {
         );
 
         $divisions = array();
-        foreach ($q->data as $division) {
+        foreach ($q as $division) {
             $data = $this->getParliamentDivisionDetails($division);
 
             $mp_vote = '';
@@ -154,7 +153,7 @@ class Divisions {
         );
 
         $debates = array();
-        foreach ($q->data as $debate) {
+        foreach ($q as $debate) {
             $debate_gid = fix_gid_from_db($debate['debate_gid']);
             $anchor = '';
             if ($debate['c'] == 1) {
@@ -192,9 +191,8 @@ class Divisions {
         );
 
         $divisions = array();
-        $row_count = $q->rows();
-        for ($n = 0; $n < $row_count; $n++) {
-          $divisions[] = $this->getParliamentDivisionDetails($q->row($n));
+        foreach ($q as $row) {
+          $divisions[] = $this->getParliamentDivisionDetails($row);
         }
 
         return $divisions;
@@ -248,15 +246,14 @@ class Divisions {
             $args
         );
 
-        $row_count = $q->rows();
-        for ($n = 0; $n < $row_count; $n++) {
-          $policy_id = $q->field($n, 'policy_id');
+        foreach ($q as $row) {
+          $policy_id = $row['policy_id'];
 
           if (!array_key_exists($policy_id, $policy_divisions)) {
             $summary = array(
-              'max' => $q->field($n, 'latest'),
-              'min' => $q->field($n, 'earliest'),
-              'total' => $q->field($n, 'total'),
+              'max' => $row['latest'],
+              'min' => $row['earliest'],
+              'total' => $row['total'],
               'for' => 0, 'against' => 0, 'absent' => 0, 'both' => 0, 'tell' => 0
             );
 
@@ -265,26 +262,26 @@ class Divisions {
 
           $summary = $policy_divisions[$policy_id];
 
-          $summary['total'] += $q->field($n, 'total');
-          if ($summary['max'] < $q->field($n, 'latest')) {
-              $summary['max'] = $q->field($n, 'latest');
+          $summary['total'] += $row['total'];
+          if ($summary['max'] < $row['latest']) {
+              $summary['max'] = $row['latest'];
           }
-          if ($summary['min'] > $q->field($n, 'latest')) {
-              $summary['min'] = $q->field($n, 'latest');
+          if ($summary['min'] > $row['latest']) {
+              $summary['min'] = $row['latest'];
           }
 
-          $vote = $q->field($n, 'vote');
-          $policy_vote = str_replace('3', '', $q->field($n, 'policy_vote'));
+          $vote = $row['vote'];
+          $policy_vote = str_replace('3', '', $row['policy_vote']);
           if ( $vote == 'absent' ) {
-              $summary['absent'] += $q->field($n, 'total');
+              $summary['absent'] += $row['total'];
           } else if ( $vote == 'both' ) {
-              $summary['both'] += $q->field($n, 'total');
+              $summary['both'] += $row['total'];
           } else if ( strpos($vote, 'tell') !== FALSE ) {
-              $summary['tell'] += $q->field($n, 'total');
+              $summary['tell'] += $row['total'];
           } else if ( $policy_vote == $vote ) {
-              $summary['for'] += $q->field($n, 'total');
+              $summary['for'] += $row['total'];
           } else if ( $policy_vote != $vote ) {
-              $summary['against'] += $q->field($n, 'total');
+              $summary['against'] += $row['total'];
           }
 
           $policy_divisions[$policy_id] = $summary;
@@ -297,9 +294,9 @@ class Divisions {
         $args = array(
             ':gid' => $gid
         );
-        $q = $this->db->query("SELECT * FROM divisions WHERE gid = :gid", $args);
+        $q = $this->db->query("SELECT * FROM divisions WHERE gid = :gid", $args)->first();
 
-        if ($q->rows == 0) {
+        if (!$q) {
             return false;
         }
 
@@ -310,9 +307,9 @@ class Divisions {
         $args = array(
             ':division_id' => $division_id
         );
-        $q = $this->db->query("SELECT * FROM divisions WHERE division_id = :division_id", $args);
+        $q = $this->db->query("SELECT * FROM divisions WHERE division_id = :division_id", $args)->first();
 
-        if ($q->rows == 0) {
+        if (!$q) {
             return false;
         }
 
@@ -320,14 +317,13 @@ class Divisions {
 
     }
 
-    private function _division_data($q) {
+    private function _division_data($row) {
 
-        $details = $this->getParliamentDivisionDetails($q->row(0));
+        $details = $this->getParliamentDivisionDetails($row);
 
-
-        $house = $q->row(0)['house'];
-        $args['division_id'] = $q->row(0)['division_id'];
-        $args['division_date'] = $q->row(0)['division_date'];
+        $house = $row['house'];
+        $args['division_id'] = $row['division_id'];
+        $args['division_date'] = $row['division_date'];
         $args['house'] = \MySociety\TheyWorkForYou\Utility\House::division_house_name_to_number($house);
 
         $q = $this->db->query(
@@ -360,7 +356,7 @@ class Divisions {
             uasort($q->data, 'by_peer_name');
         }
 
-        foreach ($q->data as $vote) {
+        foreach ($q as $vote) {
             $detail = array(
               'person_id' => $vote['person_id'],
               'name' => ucfirst(member_full_name($args['house'], $vote['title'], $vote['given_name'],
@@ -424,15 +420,15 @@ class Divisions {
             FROM divisions JOIN persondivisionvotes USING(division_id)
             WHERE division_id = :division_id AND person_id = :person_id",
             $args
-        );
+        )->first();
 
         // if the vote was before or after the MP was in Parliament
         // then there won't be a row
-        if ($q->rows == 0) {
+        if (!$q) {
             return false;
         }
 
-        $details = $this->getDivisionDetails($q->row(0));
+        $details = $this->getDivisionDetails($q);
         return $details;
     }
 
@@ -496,9 +492,8 @@ class Divisions {
         );
 
         $divisions = array();
-        $row_count = $q->rows();
-        for ($n = 0; $n < $row_count; $n++) {
-            $divisions[] = $this->getDivisionDetails($q->row($n));
+        foreach ($q as $row) {
+            $divisions[] = $this->getDivisionDetails($row);
         }
 
         return $divisions;
@@ -602,9 +597,8 @@ class Divisions {
     private function divisionsByPolicy($q) {
         $policies = array();
 
-        $row_count = $q->rows();
-        for ($n = 0; $n < $row_count; $n++) {
-            $policy_id = $q->field($n, 'policy_id');
+        foreach ($q as $row) {
+            $policy_id = $row['policy_id'];
 
             if ( !array_key_exists($policy_id, $policies) ) {
                 $policies[$policy_id] = array(
@@ -621,7 +615,7 @@ class Divisions {
                 }
             }
 
-            $division = $this->getDivisionDetails($q->row($n));
+            $division = $this->getDivisionDetails($row);
 
             if ( !$division['strong'] ) {
                 $policies[$policy_id]['weak_count']++;
@@ -638,13 +632,12 @@ class Divisions {
 
         $gid = get_canonical_gid($gid);
 
-        $q = $this->db->query("SELECT gid, major FROM hansard WHERE epobject_id = ( SELECT subsection_id FROM hansard WHERE gid = :gid )", array( ':gid' => $gid ));
-        $parent_gid = $q->field(0, 'gid');
-        if ( !$parent_gid ) {
+        $q = $this->db->query("SELECT gid, major FROM hansard WHERE epobject_id = ( SELECT subsection_id FROM hansard WHERE gid = :gid )", array( ':gid' => $gid ))->first();
+        if (!$q) {
             return '';
         }
-        $parent_gid = fix_gid_from_db($parent_gid);
-        $url = new Url($hansardmajors[$q->field(0, 'major')]['page']);
+        $parent_gid = fix_gid_from_db($q['gid']);
+        $url = new Url($hansardmajors[$q['major']]['page']);
         $url->insert(array('gid' => $parent_gid));
         return $url->generate() . '#g' . gid_to_anchor(fix_gid_from_db($gid));
     }

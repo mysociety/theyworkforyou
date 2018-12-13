@@ -140,12 +140,11 @@ class Topic {
         $q = $this->_getContentIDs();
 
         $content = array();
-        $rows = $q->rows;
-        for ($i = 0; $i < $rows; $i++) {
+        foreach ($q as $row) {
             $content[] = array(
-                'title' => $q->field($i, 'body'),
-                'href'  => Utility\Hansard::gid_to_url($q->field($i, 'gid')),
-                'id'    => $q->field($i, 'epobject_id'),
+                'title' => $row['body'],
+                'href'  => Utility\Hansard::gid_to_url($row['gid']),
+                'id'    => $row['epobject_id'],
             );
         }
 
@@ -156,9 +155,8 @@ class Topic {
         $q = $this->_getContentIDs();
 
         $content = array();
-        $rows = $q->rows;
-        for ($i = 0; $i < $rows; $i++) {
-            $gid = $q->field($i, 'gid');
+        foreach ($q as $row) {
+            $gid = $row['gid'];
             if (strpos($gid, 'lords') !== false) {
                 $debatelist = new \LORDSDEBATELIST;
             } elseif (strpos($gid, 'westminhall') !== false) {
@@ -223,13 +221,12 @@ class Topic {
         )
       );
 
-      $sets = array();
-      $count = $q->rows;
-      for ($i = 0; $i < $count; $i++) {
-        $sets[] = $q->field($i, 'policyset');
-      }
+        $sets = array();
+        foreach ($q as $row) {
+            $sets[] = $row['policyset'];
+        }
 
-      return $sets;
+        return $sets;
     }
 
     public function addPolicySets($sets) {
@@ -266,13 +263,12 @@ class Topic {
         )
       );
 
-      $policies = array();
-      $count = $q->rows;
-      for ($i = 0; $i < $count; $i++) {
-        $policies[] = $q->field($i, 'policy_id');
-      }
+        $policies = array();
+        foreach ($q as $row) {
+            $policies[] = $row['policy_id'];
+        }
 
-      return $policies;
+        return $policies;
     }
 
     public function addPolicies($policies) {

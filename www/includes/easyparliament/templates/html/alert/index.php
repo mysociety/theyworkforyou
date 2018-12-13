@@ -144,18 +144,17 @@
                 <h3>Sign up for alerts when people matching <i><?= _htmlspecialchars($alertsearch) ?></i> speaks</h3>
                 <ul>
                   <?php
-                    $q = $members;
-                    for ($n=0; $n<$q->rows(); $n++) {
+                    foreach ($members as $row) {
                   ?>
                     <li>
                         <form action="<?= $actionurl ?>" method="post">
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
-                            <input type="hidden" name="pid" value="<?= $q->field($n, 'person_id') ?>">
+                            <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
                             When
-                            <?= member_full_name($q->field($n, 'house'), $q->field($n, 'title'), $q->field($n, 'given_name'), $q->field($n, 'family_name'), $q->field($n, 'lordofname') ) ?>
-                            <?php if ($q->field($n, 'constituency')) { ?>
-                                (<?= $q->field($n, 'constituency') ?>)
+                            <?= member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname'] ) ?>
+                            <?php if ($row['constituency']) { ?>
+                                (<?= $row['constituency'] ?>)
                             <?php } ?>
                             speaks.
                             <input type="submit" class="button small" value="Subscribe"></form>

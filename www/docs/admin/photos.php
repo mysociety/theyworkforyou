@@ -93,14 +93,14 @@ function person_drop_down() {
 
     $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
 
-    for ($i=0; $i<$q->rows(); $i++) {
-        $p_id = $q->field($i, 'person_id');
-        $house = $q->field($i, 'house');
-        $desc = member_full_name($house, $q->field($i, 'title'), $q->field($i, 'given_name'), $q->field($i, 'family_name'), $q->field($i, 'lordofname')) .
+    foreach ($q as $row) {
+        $p_id = $row['person_id'];
+        $house = $row['house'];
+        $desc = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']) .
                 " " . $houses[$house];
-        if ($q->field($i, 'party')) $desc .= ' (' . $q->field($i, 'party') . ')';
-        if ($q->field($i, 'constituency')) {
-            $desc .= ', ' . $q->field($i, 'constituency');
+        if ($row['party']) $desc .= ' (' . $row['party'] . ')';
+        if ($row['constituency']) {
+            $desc .= ', ' . $row['constituency'];
         }
 
         list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);

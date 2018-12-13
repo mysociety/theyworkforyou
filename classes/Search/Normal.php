@@ -146,17 +146,15 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
         $members = array();
 
         $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
-        $row_count = $q->rows();
-        for ($n=0; $n<$row_count; $n++) {
-            $members[] = $q->field($n, 'person_id');
+        foreach ($q as $row) {
+            $members[] = $row['person_id'];
         }
 
         $db = new \ParlDB;
         $q = $db->query("SELECT person FROM moffice WHERE position LIKE :pos ORDER BY from_date DESC, moffice_id",
             array('pos' => "%$searchstring%"));
-        $row_count = $q->rows();
-        for ($n=0; $n<$row_count; $n++) {
-            $members[] = $q->field($n, 'person');
+        foreach ($q as $row) {
+            $members[] = $row['person'];
         }
 
         // We might have duplicates, so get rid of them

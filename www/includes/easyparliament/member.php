@@ -112,15 +112,15 @@ class MEMBER {
 
         $this->house_disp = 0;
         $last_party = null;
-        for ($row=0; $row<$q->rows(); $row++) {
-            $house          = $q->field($row, 'house');
+        foreach ($q as $row) {
+            $house = $row['house'];
             if (!in_array($house, $this->houses)) $this->houses[] = $house;
-            $const          = $q->field($row, 'constituency');
-            $party		= $q->field($row, 'party');
-            $entered_house	= $q->field($row, 'entered_house');
-            $left_house	= $q->field($row, 'left_house');
-            $entered_reason	= $q->field($row, 'entered_reason');
-            $left_reason	= $q->field($row, 'left_reason');
+            $const = $row['constituency'];
+            $party = $row['party'];
+            $entered_house = $row['entered_house'];
+            $left_house = $row['left_house'];
+            $entered_reason = $row['entered_reason'];
+            $left_reason = $row['left_reason'];
 
             if (!isset($this->entered_house[$house]) || $entered_house < $this->entered_house[$house]['date']) {
                 $this->entered_house[$house] = array(
@@ -152,12 +152,12 @@ class MEMBER {
                 $this->constituency = $const;
                 $this->party = $party;
 
-                $this->member_id	= $q->field($row, 'member_id');
-                $this->title		= $q->field($row, 'title');
-                $this->given_name = $q->field($row, 'given_name');
-                $this->family_name = $q->field($row, 'family_name');
-                $this->lordofname = $q->field($row, 'lordofname');
-                $this->person_id	= $q->field($row, 'person_id');
+                $this->member_id = $row['member_id'];
+                $this->title = $row['title'];
+                $this->given_name = $row['given_name'];
+                $this->family_name = $row['family_name'];
+                $this->lordofname = $row['lordofname'];
+                $this->person_id = $row['person_id'];
             }
 
             if (($last_party && $party && $party != $last_party) || $left_reason == 'changed_party') {
@@ -296,8 +296,8 @@ class MEMBER {
 
         # More than one person ID matching the given name
         $person_ids = array();
-        for ($i=0; $i<$q->rows; ++$i) {
-            $pid = $q->field($i, 'person_id');
+        foreach ($q as $row) {
+            $pid = $row['person_id'];
             $person_ids[$pid] = 1;
         }
         $pids = array_keys($person_ids);
@@ -326,8 +326,8 @@ class MEMBER {
         $q = $this->db->query($q, $params);
         if ($q->rows > 1) {
             $person_ids = array();
-            for ($i=0; $i<$q->rows(); ++$i) {
-                $person_ids[$q->field($i, 'person_id')] = $q->field($i, 'constituency');
+            foreach ($q as $row) {
+                $person_ids[$row['person_id']] = $row['constituency'];
             }
             throw new MySociety\TheyWorkForYou\MemberMultipleException($person_ids);
         } elseif ($q->rows > 0) {
@@ -365,19 +365,17 @@ class MEMBER {
 
         $q = $this->db->query('SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC, moffice_id',
                               array(':person_id' => $this->person_id));
-        for ($row=0; $row<$q->rows(); $row++) {
-            $this->extra_info['office'][] = $q->row($row);
-        }
+        $this->extra_info['office'] = $q->fetchAll();
 
         // Info specific to member id (e.g. attendance during that period of office)
         $q = $this->db->query("SELECT data_key, data_value
                         FROM 	memberinfo
                         WHERE	member_id = :member_id",
             array(':member_id' => $this->member_id));
-        for ($row = 0; $row < $q->rows(); $row++) {
-            $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
-            #		if ($q->field($row, 'joint') > 1)
-            #			$this->extra_info[$q->field($row, 'data_key').'_joint'] = true;
+        foreach ($q as $row) {
+            $this->extra_info[$row['data_key']] = $row['data_value'];
+            #		if ($row['joint'] > 1)
+            #			$this->extra_info[$row['data_key'].'_joint'] = true;
         }
 
         // Info specific to person id (e.g. their permanent page on the Guardian website)
@@ -385,10 +383,10 @@ class MEMBER {
                         FROM 	personinfo
                         WHERE	person_id = :person_id",
             array(':person_id' => $this->person_id));
-        for ($row = 0; $row < $q->rows(); $row++) {
-            $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
-        #	    if ($q->field($row, 'count') > 1)
-        #	    	$this->extra_info[$q->field($row, 'data_key').'_joint'] = true;
+        foreach ($q as $row) {
+            $this->extra_info[$row['data_key']] = $row['data_value'];
+        #	    if ($row['count'] > 1)
+        #	    	$this->extra_info[$row['data_key'].'_joint'] = true;
         }
 
         // Info specific to constituency (e.g. election results page on Guardian website)
@@ -397,8 +395,8 @@ class MEMBER {
             $q = $this->db->query("SELECT data_key, data_value FROM consinfo
             WHERE constituency = :constituency",
                 array(':constituency' => $this->constituency));
-            for ($row = 0; $row < $q->rows(); $row++) {
-                $this->extra_info[$q->field($row, 'data_key')] = $q->field($row, 'data_value');
+            foreach ($q as $row) {
+                $this->extra_info[$row['data_key']] = $row['data_value'];
             }
         }
 
@@ -454,15 +452,15 @@ class MEMBER {
             where bill_id = bills.id and person_id = ' . $this->person_id()
              . ' group by bill_id order by session desc');
         $this->extra_info['pbc'] = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $bill_id = $q->field($i, 'bill_id');
+        foreach ($q as $row) {
+            $bill_id = $row['bill_id'];
             $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
             $c = $c->field(0, 'c');
-            $title = $q->field($i, 'title');
-            $attending = $q->field($i, 'a');
-            $chairman = $q->field($i, 'c');
+            $title = $row['title'];
+            $attending = $row['a'];
+            $chairman = $row['c'];
             $this->extra_info['pbc'][$bill_id] = array(
-                'title' => $title, 'session' => $q->field($i, 'session'),
+                'title' => $title, 'session' => $row['session'],
                 'attending'=>$attending, 'chairman'=>($chairman>0), 'outof' => $c
             );
         }
@@ -642,9 +640,9 @@ class MEMBER {
                 ':date' => $entered_house['date'],
             ));
         $mships = array(); $last_pid = null;
-        for ($r = 0; $r < $q->rows(); $r++) {
-            $pid = $q->field($r, 'person_id');
-            $name = $q->field($r, 'given_name') . ' ' . $q->field($r, 'family_name');
+        foreach ($q as $row) {
+            $pid = $row['person_id'];
+            $name = $row['given_name'] . ' ' . $row['family_name'];
             if ($last_pid != $pid) {
                 $mships[] = array(
                     'href' => WEBPATH . 'mp/?pid='.$pid,

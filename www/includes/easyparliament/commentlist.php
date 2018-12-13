@@ -193,32 +193,29 @@ class COMMENTLIST {
 
         if ($q->rows() > 0) {
 
-            for ($n=0; $n<$q->rows(); $n++) {
+            foreach ($q as $row) {
 
-                // All the basic stuff...
-                $comments[$n] = array (
-                    'comment_id'		=> $q->field($n, 'comment_id'),
-                    'posted'			=> $q->field($n, 'posted'),
-                    'total_comments'	=> $q->field($n, 'total_comments'),
-                    'epobject_id'		=> $q->field($n, 'epobject_id'),
-                    'firstname'			=> $q->field($n, 'firstname'),
-                    'lastname'			=> $q->field($n, 'lastname'),
+                $urldata = array(
+                    'major' => $row['major'],
+                    'gid' => $row['gid'],
+                    'comment_id' => $row['comment_id'],
+                    'user_id' => $args['user_id']
+                );
+
+                $comments[] = array(
+                    'comment_id' => $row['comment_id'],
+                    'posted' => $row['posted'],
+                    'total_comments' => $row['total_comments'],
+                    'epobject_id' => $row['epobject_id'],
+                    'firstname' => $row['firstname'],
+                    'lastname' => $row['lastname'],
                     // Hansard item body, not comment body.
-                    'hbody'				=> $q->field($n, 'body'),
+                    'hbody' => $row['body'],
+                    'url' => $this->_comment_url($urldata),
                 );
-
-                // Add the URL...
-                $urldata = array (
-                    'major' 		=> $q->field($n, 'major'),
-                    'gid'			=> $q->field($n, 'gid'),
-                    'comment_id'	=> $q->field($n, 'comment_id'),
-                    'user_id'		=> $args['user_id']
-                );
-
-                $comments[$n]['url'] = $this->_comment_url($urldata);
 
                 // We'll need these for getting the comment bodies.
-                $comment_ids[] = $q->field($n, 'comment_id');
+                $comment_ids[] = $row['comment_id'];
 
             }
 
@@ -234,8 +231,8 @@ class COMMENTLIST {
 
                 $commentbodies = array();
 
-                for ($n=0; $n<$r->rows(); $n++) {
-                    $commentbodies[ $r->field($n, 'comment_id') ] = $r->field($n, 'body');
+                foreach ($r as $row2) {
+                    $commentbodies[$row2['comment_id']] = $row2['body'];
                 }
 
                 // This does rely on both this and the previous query returning
@@ -555,45 +552,43 @@ class COMMENTLIST {
         // Format the data into an array for returning.
         $data = array ();
 
-        if ($q->rows() > 0) {
+        // If you change stuff here, you might have to change it in
+        // $COMMENT->_set_url() too...
 
-            // If you change stuff here, you might have to change it in
-            // $COMMENT->_set_url() too...
+        // We'll generate permalinks for each comment.
+        // Assuming every comment is from the same major...
 
-            // We'll generate permalinks for each comment.
-            // Assuming every comment is from the same major...
+        foreach ($q as $row) {
 
-            for ($n=0; $n<$q->rows(); $n++) {
+            $out = array();
 
-                // Put each row returned into its own array in $data.
-                foreach ($fieldsarr as $table => $tablesfields) {
-                    foreach ($tablesfields as $m => $field) {
+            // Put each row returned into its own array in $data.
+            foreach ($fieldsarr as $table => $tablesfields) {
+                foreach ($tablesfields as $m => $field) {
 
-                        // HACK 2.
-                        // If we're getting the body of a hansard object, we have
-                        // got it AS 'hbody', so we didn't duplicate the comment's 'body'
-                        // element.
-                        if ($table == 'epobject' && $field == 'body') {
-                            $field = 'hbody';
-                        }
-
-                        $data[$n][$field] = $q->field($n, $field);
+                    // HACK 2.
+                    // If we're getting the body of a hansard object, we have
+                    // got it AS 'hbody', so we didn't duplicate the comment's 'body'
+                    // element.
+                    if ($table == 'epobject' && $field == 'body') {
+                        $field = 'hbody';
                     }
-                }
 
-                $urldata = array(
-                    'major' => $q->field($n, 'major'),
-                    'gid' => $data[$n]['gid'],
-                    'comment_id' => $data[$n]['comment_id'],
-#					'user_id' =>
-                );
-                $data[$n]['url'] = $this->_comment_url($urldata);
+                    $out[$field] = $row[$field];
+                }
             }
+
+            $urldata = array(
+                'major' => $row['major'],
+                'gid' => $out['gid'],
+                'comment_id' => $out['comment_id'],
+#					'user_id' =>
+            );
+            $out['url'] = $this->_comment_url($urldata);
+            $data[] = $out;
         }
 
         return $data;
 
     }
-
-
 }

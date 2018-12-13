@@ -78,8 +78,8 @@ class SEARCHLOG {
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
         $popular_searches = array();
-        for ($row=0; $row<$q->rows(); $row++) {
-            array_push($popular_searches, $this->_db_row_to_array($q, $row));
+        foreach ($q as $row) {
+            array_push($popular_searches, $this->_db_row_to_array($row));
         }
 
         //maximum number of chars?
@@ -101,8 +101,8 @@ class SEARCHLOG {
         return $popular_searches;
     }
 
-    public function _db_row_to_array($q, $row) {
-        $query = $q->field($row, 'query_string');
+    public function _db_row_to_array($row) {
+        $query = $row['query_string'];
         $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
         $url = $this->SEARCHURL->generate();
         $htmlescape = 1;
@@ -120,7 +120,7 @@ class SEARCHLOG {
         }
         $visible_name = preg_replace('/"/', '', $query);
 
-        $rowarray = $q->row($row);
+        $rowarray = $row;
         $rowarray['query'] = $query;
         $rowarray['visible_name'] = $visible_name;
         $rowarray['url'] = $url;
@@ -134,8 +134,8 @@ class SEARCHLOG {
         $q = $this->db->query("SELECT query_string, page_number, count_hits, ip_address, query_time
                 FROM search_query_log ORDER BY query_time desc LIMIT $count");
         $searches_array = array();
-        for ($row=0; $row<$q->rows(); $row++) {
-            array_push($searches_array, $this->_db_row_to_array($q, $row));
+        foreach ($q as $row) {
+            array_push($searches_array, $this->_db_row_to_array($row));
         }
 
         return $searches_array;
@@ -149,8 +149,8 @@ class SEARCHLOG {
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
         $popular_searches = array();
-        for ($row=0; $row<$q->rows(); $row++) {
-            array_push($popular_searches, $this->_db_row_to_array($q, $row));
+        foreach ($q as $row) {
+            array_push($popular_searches, $this->_db_row_to_array($row));
         }
 
         return $popular_searches;
@@ -165,8 +165,8 @@ class SEARCHLOG {
                 FROM search_query_log GROUP BY query_string HAVING count_hits = 0
                 ORDER BY count_ips DESC, max_time DESC");
         $searches_array = array();
-        for ($row=0; $row<$q->rows(); $row++) {
-            array_push($searches_array, $this->_db_row_to_array($q, $row));
+        foreach ($q as $row) {
+            array_push($searches_array, $this->_db_row_to_array($row));
         }
 
         return $searches_array;

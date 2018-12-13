@@ -19,8 +19,8 @@ if (!$dept) {
             ':dept' => $dept
             ));
     $ids = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $ids[] = $q->field($i, 'epobject_id');
+    foreach ($q as $row) {
+        $ids[] = $row['epobject_id'];
     }
 
     print '<h2>' . _htmlspecialchars(ucwords($dept)) . '</h2>';
@@ -30,8 +30,8 @@ if (!$dept) {
         and section_id in (' . join(',', $ids) . ')
         order by body');
     print '<ul>';
-    for ($i=0; $i<$q->rows(); $i++) {
-        print '<li><a href="/wms/?id=' . fix_gid_from_db($q->field($i, 'gid')). '">' . $q->field($i, 'body'). '</a>';
+    foreach ($q as $row) {
+        print '<li><a href="/wms/?id=' . fix_gid_from_db($row['gid']). '">' . $row['body']. '</a>';
         print '</li>';
     }
     print '</ul>';

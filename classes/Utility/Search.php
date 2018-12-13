@@ -36,9 +36,9 @@ class Search
         $gids = join('","', $gids);
         $db = new \ParlDB;
         $q = $db->query('SELECT person_id,hdate FROM hansard WHERE gid IN ("' . $gids . '")');
-        for ($n=0; $n<$q->rows(); $n++) {
-            $person_id = $q->field($n, 'person_id');
-            $hdate = $q->field($n, 'hdate');
+        foreach ($q as $row) {
+            $person_id = $row['person_id'];
+            $hdate = $row['hdate'];
             if (!isset($speaker_count[$person_id])) {
                 $speaker_count[$person_id] = 0;
                 $maxdate[$person_id] = '1001-01-01';
@@ -62,25 +62,25 @@ class Search
                             WHERE member.person_id IN (' . $person_ids . ')
                             ' . ($house ? " AND house=$house" : '') . '
                             ORDER BY left_house DESC');
-            for ($n=0; $n<$q->rows(); $n++) {
-                $mid = $q->field($n, 'member_id');
+            foreach ($q as $row) {
+                $mid = $row['member_id'];
                 if (!isset($pids[$mid])) {
-                    $title = $q->field($n, 'title');
-                    $first = $q->field($n, 'given_name');
-                    $last = $q->field($n, 'family_name');
-                    $lordofname = $q->field($n, 'lordofname');
-                    $house = $q->field($n, 'house');
-                    $party = $q->field($n, 'party');
+                    $title = $row['title'];
+                    $first = $row['given_name'];
+                    $last = $row['family_name'];
+                    $lordofname = $row['lordofname'];
+                    $house = $row['house'];
+                    $party = $row['party'];
                     $full_name = ucfirst(member_full_name($house, $title, $first, $last, $lordofname));
-                    $pid = $q->field($n, 'person_id');
+                    $pid = $row['person_id'];
                     $pids[$mid] = $pid;
                     $speakers[$pid]['house'] = $house;
-                    $speakers[$pid]['left'] = $q->field($n, 'left_house');
+                    $speakers[$pid]['left'] = $row['left_house'];
                 }
-                $dept = $q->field($n, 'dept');
-                $posn = $q->field($n, 'position');
-                $moffice_id = $q->field($n, 'moffice_id');
-                if ($dept && $q->field($n, 'to_date') == '9999-12-31')
+                $dept = $row['dept'];
+                $posn = $row['position'];
+                $moffice_id = $row['moffice_id'];
+                if ($dept && $row['to_date'] == '9999-12-31')
                     $speakers[$pid]['office'][$moffice_id] = prettify_office($posn, $dept);
                 if (!isset($speakers[$pid]['name'])) {
                     $speakers[$pid]['name'] = $full_name . ($house==1?' MP':'');
@@ -191,8 +191,8 @@ class Search
         }
 
         $person_ids = array();
-        for ($i=0; $i<$q->rows(); ++$i) {
-            $pid = $q->field($i, 'person_id');
+        foreach ($q as $row) {
+            $pid = $row['person_id'];
             $person_ids[$pid] = 1;
         }
         $pids = array_keys($person_ids);
@@ -252,8 +252,8 @@ class Search
         $q = $db->query($query, array(':try' => '%' . $try . '%'));
 
         $constituencies = array();
-        for ($n=0; $n<$q->rows(); $n++) {
-            $constituencies[] = $q->field($n, 'name');
+        foreach ($q as $row) {
+            $constituencies[] = $row['name'];
         }
 
         return array( $constituencies, false );

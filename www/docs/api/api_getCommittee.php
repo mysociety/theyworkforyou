@@ -66,9 +66,10 @@ function api_getCommittee_name($name) {
             ));
     if ($q->rows() > 1) {
         # More than one committee matches
-        for ($i=0; $i<$q->rows(); $i++) {
+        $output = array();
+        foreach ($q as $row) {
             $output['committees'][] = array(
-                'name' => $q->field($i, 'dept')
+                'name' => $row['dept']
             );
         }
         api_output($output);
@@ -84,14 +85,14 @@ function api_getCommittee_name($name) {
             ));
         if ($q->rows()) {
             $output = array();
-            $output['committee'] = $q->field(0, 'dept');
-            for ($i=0; $i<$q->rows(); $i++) {
+            $output['committee'] = $q->first()['dept'];
+            foreach ($q as $row) {
                 $member = array(
-                    'person_id' => $q->field($i, 'person'),
-                    'name' => $q->field($i, 'given_name') . ' ' . $q->field($i, 'family_name'),
+                    'person_id' => $row['person'],
+                    'name' => $row['given_name'] . ' ' . $row['family_name'],
                 );
-                if ($q->field($i, 'position') == 'Chairman') {
-                    $member['position'] = $q->field($i, 'position');
+                if ($row['position'] == 'Chairman') {
+                    $member['position'] = $row['position'];
                 }
                 $output['members'][] = $member;
             }
@@ -114,9 +115,10 @@ function api_getCommittee_date($date) {
         where source = 'chgpages/selctee'
         and from_date <= $date and $date <= to_date");
     if ($q->rows()) {
-        for ($i=0; $i<$q->rows(); $i++) {
+        $output = array();
+        foreach ($q as $row) {
             $output['committees'][] = array(
-                'name' => $q->field($i, 'dept')
+                'name' => $row['dept']
             );
         }
         api_output($output);

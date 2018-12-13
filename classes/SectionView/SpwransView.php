@@ -80,13 +80,11 @@ class SpwransView extends WransView {
             return '';
         }
         $result = '';
-        $nrows = count($row_data);
         $last_date = NULL;
         $first_difference_output = TRUE;
         // Keep the references until after the history that's in a timeline:
         $references = array();
-        for( $i = 0; $i < $nrows; $i++ ) {
-            $row = $row_data[$i];
+        foreach ($row_data as $row) {
             if( ! $row["date"] ) {
                 // If this mention isn't associated with a date, the difference won't be interesting.
                 $last_date = NULL;

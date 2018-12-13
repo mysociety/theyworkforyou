@@ -34,9 +34,7 @@ class Alert
             ));
 
         $alerts = array();
-        $num_alerts = $q->rows();
-        for ($i = 0; $i < $num_alerts; ++$i) {
-            $row = $q->row($i);
+        foreach ($q as $row) {
             $criteria = self::prettifyCriteria($row['criteria']);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
 

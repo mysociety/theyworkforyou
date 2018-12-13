@@ -68,13 +68,12 @@ class ALERT {
             ':end_date' => $end_date
             ));
         $data = array();
-    for ($row=0; $row<$q->rows(); $row++) {
-      $contents = array('criteria' => $q->field($row, 'criteria'), 'count' => $q->field($row, 'cnt'));
-          $data[] = $contents;
-    }
-    $data = array ('alerts' => $data);
-
-    return $data;
+        foreach ($q as $row) {
+            $contents = array('criteria' => $row['criteria'], 'count' => $row['cnt']);
+            $data[] = $contents;
+        }
+        $data = array ('alerts' => $data);
+        return $data;
     }
 
 // FUNCTION: fetch
@@ -100,22 +99,21 @@ class ALERT {
 
         $data = array();
 
-            for ($row=0; $row<$q->rows(); $row++) {
-                $contents = array(
-                'alert_id' 	=> $q->field($row, 'alert_id'),
-                'email' 	=> $q->field($row, 'email'),
-                'criteria' 	=> $q->field($row, 'criteria'),
-                'registrationtoken' => $q->field($row, 'registrationtoken'),
-                'confirmed' 	=> $q->field($row, 'confirmed'),
-                'deleted' 	=> $q->field($row, 'deleted')
+        foreach ($q as $row) {
+            $contents = array(
+                'alert_id' => $row['alert_id'],
+                'email' => $row['email'],
+                'criteria' => $row['criteria'],
+                'registrationtoken' => $row['registrationtoken'],
+                'confirmed' => $row['confirmed'],
+                'deleted' => $row['deleted']
             );
-                $data[] = $contents;
-            }
-            $info = "Alert";
-            $data = array ('info' => $info, 'data' => $data);
+            $data[] = $contents;
+        }
+        $info = "Alert";
+        $data = array ('info' => $info, 'data' => $data);
 
-
-            return $data;
+        return $data;
     }
 
     public function add($details, $confirmation_email=false, $instantly_confirm=true) {

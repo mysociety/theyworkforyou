@@ -16,9 +16,9 @@ $q = $db->query('select major,body from hansard,epobject
     group by body, major
     order by body');
 $data = array();
-for ($i=0; $i<$q->rows(); $i++) {
-    $body = $q->field($i, 'body');
-    $major = $q->field($i, 'major');
+foreach ($q as $row) {
+    $body = $row['body'];
+    $major = $row['major'];
     $data[$body][$major] = true;
 }
 

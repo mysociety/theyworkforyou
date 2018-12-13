@@ -30,13 +30,13 @@ function _api_getMPsInfo_id($ids) {
         where person_id in (" . $ids . ")");
     if ($q->rows()) {
         $output = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $data_key = $q->field($i, 'data_key');
+        foreach ($q as $row) {
+            $data_key = $row['data_key'];
             if (count($fields) && !in_array($data_key, $fields))
                 continue;
-            $pid = $q->field($i, 'person_id');
-            $output[$pid][$data_key] = $q->field($i, 'data_value');
-            $time = strtotime($q->field($i, 'lastupdate'));
+            $pid = $row['person_id'];
+            $output[$pid][$data_key] = $row['data_value'];
+            $time = strtotime($row['lastupdate']);
             if ($time > $last_mod)
                 $last_mod = $time;
         }
@@ -44,16 +44,16 @@ function _api_getMPsInfo_id($ids) {
             where memberinfo.member_id=member.member_id and person_id in (" . $ids . ")
             order by person_id,member_id");
         if ($q->rows()) {
-            for ($i=0; $i<$q->rows(); $i++) {
-                $data_key = $q->field($i, 'data_key');
+            foreach ($q as $row) {
+                $data_key = $row['data_key'];
                 if (count($fields) && !in_array($data_key, $fields))
                     continue;
-                $mid = $q->field($i, 'member_id');
-                $pid = $q->field($i, 'person_id');
+                $mid = $row['member_id'];
+                $pid = $row['person_id'];
                 if (!isset($output[$pid]['by_member_id'])) $output[$pid]['by_member_id'] = array();
                 if (!isset($output[$pid]['by_member_id'][$mid])) $output[$pid]['by_member_id'][$mid] = array();
-                $output[$pid]['by_member_id'][$mid][$data_key] = $q->field($i, 'data_value');
-                $time = strtotime($q->field($i, 'lastupdate'));
+                $output[$pid]['by_member_id'][$mid][$data_key] = $row['data_value'];
+                $time = strtotime($row['lastupdate']);
                 if ($time > $last_mod)
                     $last_mod = $time;
             }

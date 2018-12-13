@@ -8,21 +8,21 @@ function _api_getMembers_output($sql, $params) {
     $q = $db->query($sql, $params);
     $output = array();
     $last_mod = 0;
-    for ($i=0; $i<$q->rows(); $i++) {
-        $pid = $q->field($i, 'person_id');
+    foreach ($q as $row) {
+        $pid = $row['person_id'];
         $row = array(
-            'member_id' => $q->field($i, 'member_id'),
+            'member_id' => $row['member_id'],
             'person_id' => $pid,
-            'name' => html_entity_decode(member_full_name($q->field($i, 'house'), $q->field($i, 'title'),
-                $q->field($i, 'given_name'), $q->field($i, 'family_name'),
-                $q->field($i, 'lordofname') )),
-            'party' => isset($parties[$q->field($i, 'party')]) ? $parties[$q->field($i, 'party')] : $q->field($i, 'party'),
+            'name' => html_entity_decode(member_full_name($row['house'], $row['title'],
+                $row['given_name'], $row['family_name'],
+                $row['lordofname'] )),
+            'party' => isset($parties[$row['party']]) ? $parties[$row['party']] : $row['party'],
         );
-        if ($q->field($i, 'house') != HOUSE_TYPE_LORDS) {
-            $row['constituency'] = $q->field($i, 'constituency');
+        if ($row['house'] != HOUSE_TYPE_LORDS) {
+            $row['constituency'] = $row['constituency'];
         }
         $output[$pid] = $row;
-        $time = strtotime($q->field($i, 'lastupdate'));
+        $time = strtotime($row['lastupdate']);
         if ($time > $last_mod) {
             $last_mod = $time;
         }
@@ -32,8 +32,7 @@ function _api_getMembers_output($sql, $params) {
     if (count($pids)) {
         $q = $db->query('SELECT person, dept, position, from_date, to_date FROM moffice
             WHERE to_date="9999-12-31" AND person IN (' . join(',', $pids) . ')');
-        for ($i=0; $i<$q->rows(); $i++) {
-            $row = $q->row($i);
+        foreach ($q as $row) {
             $pid = $row['person'];
             unset($row['person']);
             $output[$pid]['office'][] = $row;

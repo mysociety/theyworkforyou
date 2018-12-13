@@ -444,16 +444,13 @@ class Member extends \MEMBER {
                 );
             }
 
-            for ($i = 0; $i < $q->rows; $i++) {
-                $name = member_full_name($house, $q->field($i, 'title'),
-                    $q->field($i, 'given_name'), $q->field($i, 'family_name'),
-                    $q->field($i, 'lordofname'));
-
+            foreach ($q as $row) {
+                $name = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                 $mreg[] = array(
-                    'person_id' 	=> $q->field($i, 'person_id'),
+                    'person_id' => $row['person_id'],
                     'name' => $name,
-                    'house' => $q->field($i, 'house'),
-                    'constituency' 	=> $q->field($i, 'constituency')
+                    'house' => $row['house'],
+                    'constituency' => $row['constituency']
                 );
             }
         }

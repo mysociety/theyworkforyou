@@ -45,11 +45,11 @@ function _api_getConstituencies_search($s) {
         ));
     $output = array();
     $done = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $name = $q->field($i, 'name');
+    foreach ($q as $row) {
+        $name = $row['name'];
         if (!in_array($name, $done)) {
             $output[] = array(
-                # 'id' => $q->field($i, 'cons_id'),
+                # 'id' => $row['cons_id'],
                 'name' => $name
             );
             $done[] = $name;
@@ -73,10 +73,10 @@ function api_getConstituencies($date = 'now()') {
         where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date
         order by name');
     $output = array();
-    for ($i=0; $i<$q->rows(); $i++) {
+    foreach ($q as $row) {
         $output[] = array(
-            # 'id' => $q->field($i, 'cons_id'),
-            'name' => $q->field($i, 'name')
+            # 'id' => $row['cons_id'],
+            'name' => $row['name']
         );
     }
     api_output($output);

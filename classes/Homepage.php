@@ -164,10 +164,6 @@ class Homepage {
             array( ':date' => $date )
         );
 
-        if (!$q->rows()) {
-            return array();
-        }
-
         $data = array();
         foreach ($q->data as $row) {
             $data[$row['event_date']][$row['chamber']][] = $row;

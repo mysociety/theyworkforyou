@@ -19,22 +19,25 @@ class Topics {
      *
      */
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = new \ParlDB;
     }
 
+    private function query($where='') {
+        $q = $this->db->query(
+            "SELECT id, slug, title, description, search_string, front_page, image FROM topics $where"
+        );
+
+        $topics = array();
+        foreach ($q as $row) {
+            $topic = $row;
+            $topics[$topic['slug']] = new Topic($topic);
+        }
+        return $topics;
+    }
+
     public function getTopics() {
-      $q = $this->db->query("SELECT id, slug, title, description, search_string, front_page, image FROM topics");
-
-      $topics = array();
-      $count = $q->rows();
-
-      for ($i = 0; $i < $count; $i++ ) {
-          $topic = $q->row($i);
-          $topics[$topic['slug']] = new Topic($topic);
-      }
-      return $topics;
+        return $this->query();
     }
 
     public function getTopic($topic_name) {
@@ -50,18 +53,7 @@ class Topics {
     }
 
     public function getFrontPageTopics() {
-      $q = $this->db->query(
-          "SELECT id, slug, title, description, search_string, front_page, image FROM topics WHERE front_page = TRUE"
-      );
-
-      $topics = array();
-      $count = $q->rows();
-
-      for ($i = 0; $i < $count; $i++ ) {
-          $topic = $q->row($i);
-          $topics[$topic['slug']] = new Topic($topic);
-      }
-      return $topics;
+        return $this->query("WHERE front_page = TRUE");
     }
 
     public function updateFrontPageTopics($topics) {

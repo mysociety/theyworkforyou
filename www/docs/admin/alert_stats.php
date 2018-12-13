@@ -35,9 +35,9 @@ print '<p>* Includes alerts for speaker and keyword</p>';
 $q = $db->query('select alert_id, criteria from alerts where criteria not like "%speaker:%" and criteria like "%,%" and confirmed and not deleted');
 print '<h3>People who probably wanted separate signups</h3>';
 $rows = array();
-for ($i=0; $i<$q->rows(); $i++) {
-    $id = $q->field($i, 'alert_id');
-    $criteria = $q->field($i, 'criteria');
+foreach ($q as $row) {
+    $id = $row['alert_id'];
+    $criteria = $row['criteria'];
     $rows[] = array($id, $critera);
 }
 $data = array( 'rows' => $rows );
@@ -45,9 +45,9 @@ $PAGE->display_table($data);
 
 $q = $db->query('select count(*) as c, criteria from alerts where criteria like "speaker:%" and confirmed and not deleted group by criteria order by c desc');
 $tots = array(); $name = array();
-for ($i=0; $i<$q->rows(); $i++) {
-    $c = $q->field($i, 'c');
-    $criteria = $q->field($i, 'criteria');
+foreach ($q as $row) {
+    $c = $row['c'];
+    $criteria = $row['criteria'];
     if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) continue;
     $person_id = $m[1];
     $MEMBER = new MEMBER(array('person_id'=>$person_id));
@@ -59,9 +59,9 @@ for ($i=0; $i<$q->rows(); $i++) {
 }
 $q = $db->query('select count(*) as c, criteria from alerts where criteria like "speaker:%" and not confirmed group by criteria order by c desc');
 $unconfirmed = array();
-for ($i=0; $i<$q->rows(); $i++) {
-    $c = $q->field($i, 'c');
-    $criteria = $q->field($i, 'criteria');
+foreach ($q as $row) {
+    $c = $row['c'];
+    $criteria = $row['criteria'];
     if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) continue;
     $person_id = $m[1];
     if (isset($name[$person_id])) {
@@ -87,16 +87,16 @@ $unconfirmed = array();
 $confirmed = array();
 $total = array();
 $q = $db->query("select count(*) as c, criteria from alerts where criteria not like '%speaker:%' and confirmed and not deleted group by criteria having c>1 order by c desc");
-for ($i=0; $i<$q->rows(); $i++) {
-    $c = $q->field($i, 'c');
-    $criteria = $q->field($i, 'criteria');
+foreach ($q as $row) {
+    $c = $row['c'];
+    $criteria = $row['criteria'];
     $confirmed[$criteria] = $c;
     $total[$criteria] = 1;
 }
 $q = $db->query("select count(*) as c, criteria from alerts where criteria not like '%speaker:%' and not confirmed group by criteria having c>1 order by c desc");
-for ($i=0; $i<$q->rows(); $i++) {
-    $c = $q->field($i, 'c');
-    $criteria = $q->field($i, 'criteria');
+foreach ($q as $row) {
+    $c = $row['c'];
+    $criteria = $row['criteria'];
     $unconfirmed[$criteria] = $c;
     $total[$criteria] = 1;
 }

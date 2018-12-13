@@ -5,9 +5,8 @@ include_once "../www/includes/easyparliament/init.php";
 $db = new ParlDB;
 
 $q = $db->query('select distinct(person_id) from hansard where video_status in (5,7) and person_id>0 limit 5');
-for ($i=0; $i<$q->rows(); $i++) {
-    $spid = $q->field($i, 'person_id');
-    calculate_speed($db, $spid);
+foreach ($q as $row) {
+    calculate_speed($db, $row['person_id']);
 }
 
 # 1604 = Diane Abbott
@@ -18,12 +17,12 @@ function calculate_speed($db, $spid) {
     $total_words = 0;
     $total_speed = 0;
     $num = 0;
-    for ($i=0; $i<$q->rows(); $i++) {
-        $hpos = $q->field($i, 'hpos');
-        $hdate = $q->field($i, 'hdate');
-        $gid = $q->field($i, 'gid');
-        $atime = $q->field($i, 'atime');
-        $body = strip_tags($q->field($i, 'body'));
+    foreach ($q as $row) {
+        $hpos = $row['hpos'];
+        $hdate = $row['hdate'];
+        $gid = $row['gid'];
+        $atime = $row['atime'];
+        $body = strip_tags($row['body']);
         $qq = $db->query('select time_to_sec(atime) as atime from hansard,video_timestamps where hansard.gid=video_timestamps.gid and deleted=0 and video_status in (5,7) and hdate="' . $hdate . '" and hpos=' . ($hpos+1) . ' group by video_timestamps.gid');
         $next_atime = $qq->field(0, 'atime');
         if (!$next_atime) continue;

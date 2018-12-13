@@ -1181,18 +1181,18 @@ function regional_list($pc, $area_type, $rep_type) {
             $dissolution['params']);
     }
     $mcon = array(); $mreg = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $house = $q->field($i, 'house');
-        $cons = $q->field($i, 'constituency');
+    foreach ($q as $row) {
+        $house = $row['house'];
+        $cons = $row['constituency'];
         if ($house == HOUSE_TYPE_COMMONS) {
             continue;
         } elseif ($house == HOUSE_TYPE_NI) {
-            $mreg[] = $q->row($i);
+            $mreg[] = $row;
         } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             if ($cons == $constituencies['SPC']) {
-                $mcon = $q->row($i);
+                $mcon = $row;
             } elseif ($cons == $constituencies['SPE']) {
-                $mreg[] = $q->row($i);
+                $mreg[] = $row;
             }
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Odd result returned!' . $house);

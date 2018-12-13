@@ -80,9 +80,8 @@ class ParseArgs {
         if ($searchspeaker = trim(get_http_var('person'))) {
             $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchspeaker);
             $pids = array();
-            $row_count = $q->rows();
-            for ($i=0; $i<$row_count; $i++) {
-                $pids[$q->field($i, 'person_id')] = true;
+            foreach ($q as $row) {
+                $pids[$row['person_id']] = true;
             }
             $pids = array_keys($pids);
             if (count($pids) > 0) {

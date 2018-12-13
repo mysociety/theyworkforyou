@@ -43,8 +43,8 @@ function _api_getPerson_row($row, $has_party=FALSE) {
         # Ministerialships and Select Committees
         $db = new ParlDB;
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
-        for ($i=0; $i<$q->rows(); $i++) {
-            $row['office'][] = $q->row($i);
+        foreach ($q as $office) {
+            $row['office'][] = $office;
         }
     }
 
@@ -80,11 +80,12 @@ function api_getPerson_id($id, $house='') {
 function _api_getPerson_output($q, $flatten=false) {
     $output = array();
     $last_mod = 0;
-    for ($i=0; $i<$q->rows(); $i++) {
-        $house = $q->field($i, 'house');
-        $out = _api_getPerson_row($q->row($i), $house == HOUSE_TYPE_ROYAL ? false : true);
+    $house = null;
+    foreach ($q as $row) {
+        $house = $row['house'];
+        $out = _api_getPerson_row($row, $house == HOUSE_TYPE_ROYAL ? false : true);
         $output[] = $out;
-        $time = strtotime($q->field($i, 'lastupdate'));
+        $time = strtotime($row['lastupdate']);
         if ($time > $last_mod)
             $last_mod = $time;
     }

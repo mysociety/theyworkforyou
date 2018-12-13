@@ -181,9 +181,9 @@ class SEARCHENGINE {
         # Merged people
         $db = new ParlDB;
         $merged = $db->query('SELECT * FROM gidredirect WHERE gid_from LIKE :gid_from', array(':gid_from' => "uk.org.publicwhip/person/%"));
-        for ($n=0; $n<$merged->rows(); $n++) {
-            $from_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_from'));
-            $to_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_to'));
+        foreach ($merged as $row) {
+            $from_id = str_replace('uk.org.publicwhip/person/', '', $row['gid_from']);
+            $to_id = str_replace('uk.org.publicwhip/person/', '', $row['gid_to']);
             $this->query = preg_replace("#speaker:($from_id|$to_id)#i", "(speaker:$from_id OR speaker:$to_id)", $this->query);
         }
 
@@ -272,9 +272,9 @@ class SEARCHENGINE {
         }
 
         # Speakers
-        for ($n=0; $n<$merged->rows(); $n++) {
-            $from_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_from'));
-            $to_id = str_replace('uk.org.publicwhip/person/', '', $merged->field($n, 'gid_to'));
+        foreach ($merged as $row) {
+            $from_id = str_replace('uk.org.publicwhip/person/', '', $row['gid_from']);
+            $to_id = str_replace('uk.org.publicwhip/person/', '', $row['gid_to']);
             $qd = str_replace("(S$from_id OR S$to_id)", "S$to_id", $qd);
             $qd = str_replace("S$from_id OR S$to_id", "S$to_id", $qd);
         }

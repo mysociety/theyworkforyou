@@ -91,11 +91,11 @@ class GLOSSARY {
             WHERE g.glossary_id=eq.glossary_id AND u.user_id=eq.user_id AND g.visible=1 AND eq.approved=1
             ORDER by g.title");
         if ($q->success() && $q->rows()) {
-            for ($i=0; $i < $q->rows(); $i++) {
-                $this->terms[ $q->field($i,"glossary_id") ] = $q->row($i);
+            foreach ($q as $row) {
+                $this->terms[$row["glossary_id"]] = $row;
                 // Now add the epobject to the alphabet navigation.
-                $first_letter = strtoupper(substr($q->field($i,"title"),0,1));
-                $this->alphabet[$first_letter][] = $q->field($i,"glossary_id");
+                $first_letter = strtoupper(substr($row["title"], 0, 1));
+                $this->alphabet[$first_letter][] = $row["glossary_id"];
             }
 
             $this->num_terms = $q->rows();
@@ -153,8 +153,8 @@ class GLOSSARY {
             ORDER by g.title";
         $q = $this->db->query($query);
         if ($q->success() && $q->rows()) {
-            for ($i=0; $i < $q->rows(); $i++) {
-                $this->search_matches[ $q->field($i,"glossary_id") ] = $q->row($i);
+            foreach ($q as $row) {
+                $this->search_matches[$row["glossary_id"]] = $row;
             }
             $this->num_search_matches = $q->rows();
         }

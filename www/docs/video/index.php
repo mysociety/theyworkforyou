@@ -87,8 +87,7 @@ $q = $db->query("select hansard.gid, body, htype, htime, adate, atime, hpos, giv
 $gids_previous = array();
 $gids_following = array();
 $gid_actual = array();
-for ($i=0; $i<$q->rows(); $i++) {
-    $row = $q->row($i);
+foreach ($q as $row) {
     if ($row['adate']) $row['hdate'] = $row['adate'];
     if ($row['atime']) $row['htime'] = $row['atime'];
     if ($row['hpos'] < $hpos) {
@@ -110,8 +109,7 @@ $q = $db->query("select hansard.gid, body, htype, hpos, person_id
     ORDER BY hpos
 ");
 $summary = '';
-for ($i=0; $i<$q->rows(); $i++) {
-    $row = $q->row($i);
+foreach ($q as $row) {
     $count = count(explode(' ', $row['body']));
     $summary .= '<li>';
 $row[person_id] : $count words";
@@ -236,9 +234,9 @@ function video_front_page() {
     $q = $db->query('select video_status&4 as checked,count(*) as c from hansard
     where major=1 and video_status>0 and video_status<8 and video_status!=2 and htype in (12,13,14) group by video_status&4');
     $totaliser = array(0=>0, 4=>0);
-    for ($i=0; $i<$q->rows(); $i++) {
-        $status = $q->field($i, 'checked');
-        $count = $q->field($i, 'c');
+    foreach ($q as $row) {
+        $status = $row['checked'];
+        $count = $row['c'];
         $totaliser[$status] = $count;
     }
     $percentage = round($totaliser[4] / ($totaliser[0]+$totaliser[4]) * 10000) / 100;
@@ -297,9 +295,9 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
         and hdate=(select max(hdate) from hansard where major=1)
     group by video_status&4');
     $totaliser = array(0=>0, 4=>0);
-    for ($i=0; $i<$q->rows(); $i++) {
-        $status = $q->field($i, 'checked');
-        $count = $q->field($i, 'c');
+    foreach ($q as $row) {
+        $status = $row['checked'];
+        $count = $row['c'];
         $totaliser[$status] = $count;
     }
     $total_possible = $totaliser[0] + $totaliser[4];
@@ -324,10 +322,10 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
     where (user_id != -1 or user_id is null) and video_timestamps.deleted=0
         and video_timestamps.gid = hansard.gid and hansard.subsection_id = epobject.epobject_id
     order by whenstamped desc limit 20');
-    for ($i=0; $i<$q->rows(); $i++) {
-        $gid = $q->field($i, 'gid');
-        $body = $q->field($i, 'body');
-        if ($q->field($i, 'major') == 101) {
+    foreach ($q as $row) {
+        $gid = $row['gid'];
+        $body = $row['body'];
+        if ($row['major'] == 101) {
             $url = '/lords/?gid=';
         } else {
             $url = '/debate/?id=';
@@ -346,12 +344,13 @@ function display_league($limit, $q = '') {
         where video_timestamps.deleted=0 and (video_timestamps.user_id is null or video_timestamps.user_id!=-1) '
         . $q . ' group by user_id order by c desc' . ($THEUSER->user_id() ? '' : " limit $limit") );
     $out = ''; $rank = 0;
-    for ($i=0; $i<$q->rows(); $i++) {
-        $name = $q->field($i, 'firstname') . ' ' . $q->field($i, 'lastname');
-        $user_id = $q->field($i, 'user_id');
+    $i = 0;
+    foreach ($q as $row) {
+        $name = $row['firstname'] . ' ' . $row['lastname'];
+        $user_id = $row['user_id'];
         #if ($user_id == -1) continue; # $name = 'CaptionerBot';
         if ($user_id == 0) $name = 'Anonymous';
-        $count = $q->field($i, 'c');
+        $count = $row['c'];
         if ($THEUSER->user_id() == $user_id) {
             $rank = $i+1;
         }
@@ -365,6 +364,7 @@ function display_league($limit, $q = '') {
         #if ($user_id == -1) {
         #	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
         #}
+        $i++;
     }
     return array($out, $rank);
 }

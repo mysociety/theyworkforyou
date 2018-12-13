@@ -108,16 +108,16 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     }
 
     $mcon = array(); $mreg = array();
-    for ($i=0; $i<$q->rows(); $i++) {
-        $house = $q->field($i, 'house');
-        $cons = $q->field($i, 'constituency');
+    foreach ($q as $row) {
+        $house = $row['house'];
+        $cons = $row['constituency'];
         if ($house==3) {
-            $mreg[] = $q->row($i);
+            $mreg[] = $row;
         } elseif ($house==4) {
             if ($cons == $areas['SPC']) {
-                $mcon = $q->row($i);
+                $mcon = $row;
             } elseif ($cons == $areas['SPE']) {
-                $mreg[] = $q->row($i);
+                $mreg[] = $row;
             }
         } else {
             $PAGE->error_message('Odd result returned, please let us know!');

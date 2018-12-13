@@ -11,15 +11,15 @@ $query = 'SELECT person_id, constituency, party
     WHERE house=1 AND left_house = (SELECT MAX(left_house) FROM member) ';
 $q = $db->query($query . "ORDER BY person_id");
 $out = array('both'=>'', 'small'=>'', 'none'=>array());
-for ($i=0; $i<$q->rows(); $i++) {
-    $p_id = $q->field($i, 'person_id');
+foreach ($q as $row) {
+    $p_id = $row['person_id'];
     list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
     if ($sz == 'L') {
-        $out['both'] .= $q->field($i, 'person_id') . ', ';
+        $out['both'] .= $row['person_id'] . ', ';
     } elseif ($sz == 'S') {
-        $out['small'] .= $q->field($i, 'person_id') . ', ';
+        $out['small'] .= $row['person_id'] . ', ';
     } else {
-        array_push($out['none'], '<li>' . $q->field($i, 'person_id') . ' (' . $q->field($i, 'party') . ')' . ', ' . $q->field($i, 'constituency'));
+        array_push($out['none'], '<li>' . $row['person_id'] . ' (' . $row['party'] . ')' . ', ' . $row['constituency']);
     }
 }
 print '<h3>Missing completely ('.count($out['none']).')</h3> <ul>';

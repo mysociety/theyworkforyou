@@ -72,9 +72,8 @@ function get_keys($user) {
     $db = new ParlDB;
     $q = $db->query('SELECT api_key, created, reason FROM api_key WHERE user_id=' . $user->user_id());
     $keys = [];
-    $rows = $q->rows();
-    for ($i = 0; $i < $rows; $i++) {
-        $keys[] = [$q->field($i, 'api_key'), $q->field($i, 'created'), $q->field($i, 'reason')];
+    foreach ($q as $row) {
+        $keys[] = [$row['api_key'], $row['created'], $row['reason']];
     }
     return $keys;
 }

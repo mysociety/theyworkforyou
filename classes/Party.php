@@ -107,7 +107,6 @@ class Party {
 
         $score = 0;
         $max_score = 0;
-        $num_divs = $divisions->rows;
         $total_votes = 0;
 
         $party_where = 'party = :party';
@@ -123,9 +122,9 @@ class Party {
             );
         }
 
-        for ( $i = 0; $i < $num_divs; $i++ ) {
-            $division_id = $divisions->field($i, 'division_id');
-            $weights = $this->get_vote_scores($divisions->field($i, 'policy_vote'));
+        foreach ($divisions as $division) {
+            $division_id = $division['division_id'];
+            $weights = $this->get_vote_scores($division['policy_vote']);
 
             $params[':division_id'] = $division_id;
 
@@ -143,14 +142,14 @@ class Party {
             );
 
             $num_votes = 0;
-            for ( $j = 0; $j < $votes->rows(); $j++ ) {
-                $vote_dir = $votes->field($j, 'vote');
+            foreach ($votes as $vote) {
+                $vote_dir = $vote['vote'];
                 if ( $vote_dir == '' ) continue;
                 if ( $vote_dir == 'tellno' ) $vote_dir = 'no';
                 if ( $vote_dir == 'tellaye' ) $vote_dir = 'aye';
 
-                $num_votes += $votes->field($j, 'num_votes');
-                $score += ($votes->field($j, 'num_votes') * $weights[$vote_dir]);
+                $num_votes += $vote['num_votes'];
+                $score += ($vote['num_votes'] * $weights[$vote_dir]);
             }
 
             $total_votes += $num_votes;
@@ -255,10 +254,8 @@ class Party {
         );
 
         $parties = array();
-        $party_count = $party_list->rows;
-
-        for ( $i = 0; $i < $party_count; $i++ ) {
-            $party = $party_list->field($i, 'party');
+        foreach ($party_list as $row) {
+            $party = $row['party'];
             if (
                 !$party
                 || $party == 'Independent'

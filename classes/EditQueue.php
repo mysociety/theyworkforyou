@@ -256,8 +256,8 @@ class EditQueue {
 
         $q = $this->db->query("SELECT eq.edit_id, eq.user_id, u.firstname, u.lastname, eq.glossary_id, eq.title, eq.body, eq.submitted FROM editqueue AS eq, users AS u WHERE eq.user_id = u.user_id AND eq.approved IS NULL ORDER BY eq.submitted DESC;");
         if ($q->success() && $q->rows()) {
-            for ($i = 0; $i < ($q->rows()); $i++) {
-                $this->pending[ $q->field($i,"edit_id") ] = $q->row($i);
+            foreach ($q as $row) {
+                $this->pending[$row['edit_id']] = $row;
             }
 
             $this->update_pending_count();

@@ -32,18 +32,17 @@ $q = $db->query("SELECT COUNT(*) AS deletedcount,
 $rows = array();
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
-for ($row=0; $row<$q->rows(); $row++) {
-
-    $user_id = $q->field($row, 'user_id');
+foreach ($q as $row) {
+    $user_id = $row['user_id'];
 
     // Get the total comments posted for this user.
     $r = $db->query("SELECT COUNT(*) AS totalcount
                     FROM	comments
-                    WHERE	user_id = '" . $user_id . "'");
+                    WHERE	user_id = '" . $user_id . "'")->first();
 
-    $totalcomments = $r->field(0, 'totalcount');
+    $totalcomments = $r['totalcount'];
 
-    $percentagedeleted = ( $q->field($row, 'deletedcount') / $totalcomments ) * 100;
+    $percentagedeleted = ( $row['deletedcount'] / $totalcomments ) * 100;
 
 
     // Get complaints made about this user's comments, but not upheld.
@@ -52,17 +51,16 @@ for ($row=0; $row<$q->rows(); $row++) {
                     WHERE	commentreports.comment_id = comments.comment_id
                     AND		comments.user_id = '$user_id'
                     AND		commentreports.resolved IS NOT NULL
-                    AND		commentreports.upheld = '0'");
+                    AND		commentreports.upheld = '0'")->first();
 
-    $notupheldcount = $r->field(0, 'count');
-
+    $notupheldcount = $r['count'];
 
     $USERURL->insert(array('u'=>$user_id));
 
     $rows[] = array (
-        '<a href="' . $USERURL->generate() . '">' . $q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname') . '</a>',
+        '<a href="' . $USERURL->generate() . '">' . $row['firstname'] . ' ' . $row['lastname'] . '</a>',
         $totalcomments,
-        $q->field($row, 'deletedcount'),
+        $row['deletedcount'],
         $percentagedeleted.'%',
         $notupheldcount
     );
@@ -105,9 +103,8 @@ $q = $db->query("SELECT COUNT(*) AS rejectedcount,
 $rows = array();
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
-for ($row=0; $row<$q->rows(); $row++) {
-
-    $user_id = $q->field($row, 'user_id');
+foreach ($q as $row) {
+    $user_id = $row['user_id'];
 
     $USERURL->insert(array('u'=>$user_id));
 
@@ -115,12 +112,12 @@ for ($row=0; $row<$q->rows(); $row++) {
     $r = $db->query("SELECT COUNT(*) AS upheldcount
                     FROM commentreports
                     WHERE	user_id = '$user_id'
-                    AND		upheld = '1'");
+                    AND		upheld = '1'")->first();
 
     $rows[] = array (
-        '<a href="' . $USERURL->generate() . '">' . $q->field($row, 'firstname') . ' ' . $q->field($row, 'lastname') . '</a>',
-        $q->field($row, 'rejectedcount'),
-        $r->field(0, 'upheldcount')
+        '<a href="' . $USERURL->generate() . '">' . $row['firstname'] . ' ' . $row['lastname'] . '</a>',
+        $row['rejectedcount'],
+        $r['upheldcount']
     );
 
 }

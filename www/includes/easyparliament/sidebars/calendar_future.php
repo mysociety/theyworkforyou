@@ -45,8 +45,8 @@ $q =  $db->query("SELECT DISTINCT(event_date) AS event_date FROM future
 
 if ($q->rows() > 0) {
     $years = array();
-    for ($row=0; $row<$q->rows(); $row++) {
-        list($year, $month, $day) = explode('-', $q->field($row, 'event_date'));
+    foreach ($q as $row) {
+        list($year, $month, $day) = explode('-', $row['event_date']);
         $month = intval($month);
         $years[$year][$month][] = intval($day);
     }

@@ -19,13 +19,13 @@ $q = $db->query(
 		where major = 3 and minor = 2 and left_house > curdate()
 	group by person_id');
 
-for ($i=0; $i<$q->rows(); $i++) {
-	$p_id = $q->field($i, 'person_id');
-	$name = $q->field($i, 'first_name') . ' ' . $q->field($i, 'last_name');
-	$con = $q->field($i, 'constituency');
-	$wrans = $q->field($i, 'wrans');
-	$yes = $q->field($i, 'yes');
-	$no = $q->field($i, 'no');
+foreach ($q as $row) {
+	$p_id = $row['person_id'];
+	$name = $row['first_name'] . ' ' . $row['last_name'];
+	$con = $row['constituency'];
+	$wrans = $row['wrans'];
+	$yes = $row['yes'];
+	$no = $row['no'];
 	if ($p_id) {
 	$qq = $db->query('(select hansard.epobject_id from hansard, uservotes
 			where hansard.epobject_id=uservotes.epobject_id

@@ -83,8 +83,8 @@ class Wikipedia
         $source = explode('|||', $source);
         $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN (" . join(',', array_keys($params)) . ") AND titles_ignored.title IS NULL", $params);
         $phrases = array();
-        for ($i=0; $i<$q->rows(); $i++) {
-            $phrases[] = $q->field($i, 'title');
+        foreach ($q as $row) {
+            $phrases[] = $row['title'];
         }
 
         # Sort into order, largest first

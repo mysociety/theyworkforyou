@@ -59,13 +59,12 @@ function _api_getConstituency_name($constituency) {
     $db = new ParlDB;
     $q = $db->query("select constituency, data_key, data_value from consinfo
                      where constituency = :constituency", array(':constituency' => $constituency));
-    if ($q->rows()) {
-        for ($i=0; $i<$q->rows(); $i++) {
-            $data_key = $q->field($i, 'data_key');
-            $output[$data_key] = $q->field($i, 'data_value');
-        }
-        ksort($output);
+    $output = array();
+    foreach ($q as $row) {
+        $data_key = $row['data_key'];
+        $output[$data_key] = $row['data_value'];
     }
+    ksort($output);
     $output['name'] = $constituency;
     api_output($output);
 

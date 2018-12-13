@@ -1032,10 +1032,10 @@ function major_summary($data, $echo = true) {
         $out = '';
         $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$p_major]['page_all']);
         $current_sid = 0;
-        for ($i = 0; $i < $q->rows(); $i++) {
-            $gid = fix_gid_from_db($q->field($i, 'gid'));
-            $body = $q->field($i, 'body');
-            $section_id = $q->field($i, 'section_id');
+        foreach ($q as $row) {
+            $gid = fix_gid_from_db($row['gid']);
+            $body = $row['body'];
+            $section_id = $row['section_id'];
             //if (strstr($body, 'Chair]')) continue;
             if ($p_major == 4 && !$section_id) {
                 if ($current_sid++) {
