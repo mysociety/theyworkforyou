@@ -46,18 +46,6 @@
 	</table_data>
 	<table_data name="member">
 		<row>
-			<field name="member_id">0</field>
-			<field name="house">0</field>
-			<field name="constituency"></field>
-			<field name="party"></field>
-			<field name="entered_house">1952-02-06</field>
-			<field name="left_house">9999-12-31</field>
-			<field name="entered_reason">accession</field>
-			<field name="left_reason">still_in_office</field>
-			<field name="person_id">1</field>
-			<field name="lastupdate">2013-08-07 11:02:49</field>
-		</row>
-		<row>
 			<field name="member_id">1</field>
 			<field name="house">1</field>
 			<field name="constituency">Test Westminster Constituency</field>
@@ -144,14 +132,6 @@
 	</table_data>
 	<table_data name="person_names">
 		<row>
-			<field name="given_name">Elizabeth</field>
-			<field name="family_name">the Second, by the Grace of God, of the United Kingdom of Great Britain and Northern Ireland and of Her other Realms and Territories Queen, Head of the Commonwealth, Defender of the Faith</field>
-			<field name="start_date">1952-02-06</field>
-			<field name="end_date">9999-12-31</field>
-			<field name="person_id">1</field>
-			<field name="title">Queen</field>
-		</row>
-		<row>
 			<field name="given_name">Test</field>
 			<field name="family_name">Current-MP</field>
 			<field name="start_date">2000-01-01</field>
@@ -201,11 +181,6 @@
 		</row>
 	</table_data>
 	<table_data name="memberinfo">
-		<row>
-			<field name="member_id">15</field>
-			<field name="data_key">test_member_key</field>
-			<field name="data_value">Test Member Value</field>
-		</row>
 	</table_data>
 	<table_data name="mentions">
 	</table_data>
@@ -215,23 +190,18 @@
 	</table_data>
 	<table_data name="personinfo">
 		<row>
-			<field name="person_id">16</field>
-			<field name="data_key">test_person_key</field>
-			<field name="data_value">Test Person Value</field>
-		</row>
-		<row>
 			<field name="person_id">2</field>
-			<field name="data_key">public_whip_dreammp363_distance</field>
+			<field name="data_key">public_whip_dreammp1113_distance</field>
 			<field name="data_value">0.27</field>
 		</row>
 		<row>
 			<field name="person_id">2</field>
-			<field name="data_key">public_whip_dreammp363_both_voted</field>
+			<field name="data_key">public_whip_dreammp1113_both_voted</field>
 			<field name="data_value">1</field>
 		</row>
 		<row>
 			<field name="person_id">2</field>
-			<field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+			<field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
 			<field name="data_value">1</field>
 		</row>
 
@@ -2473,7 +2443,7 @@
 	</table_data>
 	<table_data name="policies">
       <row>
-          <field name="policy_id">363</field>
+          <field name="policy_id">1113</field>
           <field name="title">Test Policy</field>
           <field name="description">A policy to test policies</field>
           <field name="image">/image/test-policy-image.png</field>
@@ -2496,6 +2466,12 @@
       </row>
   </table_data>
   <table_data name="policydivisions">
+      <row>
+          <field name="division_id">1</field>
+          <field name="policy_id">1113</field>
+          <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
+      </row>
       <row>
           <field name="division_id">1</field>
           <field name="policy_id">810</field>
@@ -2539,26 +2515,18 @@
   <table_data name="partypolicy">
       <row>
           <field name="party">A Party</field>
-          <field name="policy_id">363</field>
+          <field name="policy_id">1113</field>
           <field name="house">1</field>
           <field name="score">0.9</field>
       </row>
       <row>
           <field name="party">A Second Party</field>
-          <field name="policy_id">363</field>
+          <field name="policy_id">1113</field>
           <field name="house">1</field>
           <field name="score">0.9</field>
       </row>
   </table_data>
 	<table_data name="postcode_lookup">
-      <row>
-          <field name="postcode">KY16 8YG</field>
-          <field name="name">North East Fife|North East Fife|Mid Scotland and Fife</field>
-      </row>
-      <row>
-          <field name="postcode">BT17 0XD</field>
-          <field name="name">Belfast West|Belfast West</field>
-      </row>
 	</table_data>
 	<table_data name="search_query_log">
 	</table_data>

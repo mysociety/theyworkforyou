@@ -29,6 +29,12 @@ class PolicyPositions {
     private $policies;
 
     /**
+     * Summary of a person's votes by policy
+     */
+
+    private $summaries;
+
+    /**
      * Positions
      *
      * Array of positions held by the member.
@@ -108,8 +114,16 @@ class PolicyPositions {
                 break;
             }
 
-            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
+            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses)) {
                 continue;
+            }
+
+            # If we've been passed in vote summaries and there isn't one for this
+            # policy, skip as it means the person did not vote in this policy, or
+            # the relevant policy votes are all abstentions.
+            if ($this->summaries && !array_key_exists($policy[0], $this->summaries)) {
+                continue;
+            }
 
             $votes_summary = array_key_exists($policy[0], $this->summaries) ? $this->summaries[$policy[0]] : array();
             $dream_info = $this->displayDreamComparison($policy[0], $policy[1], $votes_summary);

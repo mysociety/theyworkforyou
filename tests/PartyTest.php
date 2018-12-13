@@ -35,11 +35,11 @@ class PartyTest extends FetchPageTestCase
         $positions = $this->getAllPositions('getAllPolicyPositions');
 
         $expectedPositions = array(
-            '363' => array(
+            '1113' => array(
                 'position' => 'almost always voted against',
                 'score' => '0.9',
-                'desc' => 'introducing <b>foundation hospitals</b>',
-                'policy_id' => 363
+                'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
+                'policy_id' => 1113
             )
         );
 
@@ -73,7 +73,13 @@ class PartyTest extends FetchPageTestCase
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
                 'desc' => 'greater <b>regulation of gambling</b>'
-            )
+            ),
+            '1113' => array(
+                'policy_id' => 1113,
+                'position' => 'voted a mixture of for and against',
+                'score' => 0.5,
+                'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
+            ),
         );
 
         $this->assertEquals($expectedResults, $positions);
@@ -109,7 +115,13 @@ class PartyTest extends FetchPageTestCase
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
                 'desc' => 'greater <b>regulation of gambling</b>'
-            )
+            ),
+            '1113' => array(
+                'policy_id' => 1113,
+                'position' => 'voted a mixture of for and against',
+                'score' => 0.5,
+                'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
+            ),
         );
 
         $this->assertEquals($expectedResults, $positions);
