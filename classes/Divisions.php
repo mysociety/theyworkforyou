@@ -572,6 +572,6 @@ class Divisions {
         $parent_gid = fix_gid_from_db($parent_gid);
         $url = new Url($hansardmajors[$q->field(0, 'major')]['page']);
         $url->insert(array('gid' => $parent_gid));
-        return $url->generate();
+        return $url->generate() . '#g' . gid_to_anchor(fix_gid_from_db($gid));
     }
 }
