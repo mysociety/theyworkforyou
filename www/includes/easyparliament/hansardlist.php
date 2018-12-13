@@ -1836,7 +1836,7 @@ class HANSARDLIST {
                 }
 
                 if ($item['htype'] == 14) {
-                    $vote = $divisions = new MySociety\TheyWorkForYou\Divisions();
+                    $divisions = new MySociety\TheyWorkForYou\Divisions();
                     $division_votes = $divisions->getDivisionByGid($this->gidprefix . $item['gid']);
                     $item['division'] = $division_votes;
                     if (isset($MEMBER)) {

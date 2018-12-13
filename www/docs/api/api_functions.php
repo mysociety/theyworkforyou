@@ -271,7 +271,7 @@ function api_output_rabx($arr) {
 }
 
 $api_xml_arr = 0;
-function api_output_xml($v, $k=null) {
+function api_output_xml($v) {
     global $api_xml_arr;
     $verbose = get_http_var('verbose') ? "\n" : '';
     if (is_array($v)) {
@@ -286,7 +286,7 @@ function api_output_xml($v, $k=null) {
         $out = '';
         foreach ($v as $k => $vv) {
             $out .= (is_numeric($k) || strpos($k, ' ')) ? '<match><id>' . _htmlspecialchars($k) . '</id>' : "<$k>";
-            $out .= api_output_xml($vv, $k);
+            $out .= api_output_xml($vv);
             $out .= (is_numeric($k) || strpos($k, ' ')) ? '</match>' : "</$k>";
             $out .= $verbose;
         }
@@ -375,9 +375,6 @@ $cond_date3_re = $cond_month_re . ' (\d\d| \d)';
 $cond_time_re = '([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|6[012])';
 
 function cond_parse_http_date($date) {
-    $H = $M = $S = 0;
-    $Y = $m = $d = 0;
-
     $ma = array();
     global $cond_wkday_re, $cond_weekday_re, $cond_month_re, $cond_month_map,
     $cond_date1_re, $cond_date2_re, $cond_date3_re, $cond_time_re;
@@ -405,8 +402,9 @@ function cond_parse_http_date($date) {
         $H = $ma[4];
         $M = $ma[5];
         $S = $ma[6];
-    } else
+    } else {
         return null;
+    }
 
     return gmmktime($H, $M, $S, $m, $d, $Y);
 }

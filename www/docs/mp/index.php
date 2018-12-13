@@ -34,7 +34,6 @@ $new_style_template = TRUE;
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
-include_once INCLUDESPATH . 'technorati.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/random.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';
 include_once '../api/api_getGeometry.php';
