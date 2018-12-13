@@ -3,7 +3,6 @@
 namespace MySociety\TheyWorkForYou\AlertView;
 
 include_once '../../../www/includes/easyparliament/init.php';
-include_once INCLUDESPATH . "easyparliament/people.php";
 include_once INCLUDESPATH . "easyparliament/member.php";
 include_once INCLUDESPATH . "easyparliament/searchengine.php";
 include_once INCLUDESPATH . '../../commonlib/phplib/auth.php';

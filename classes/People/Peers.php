@@ -12,7 +12,7 @@ class Peers extends \MySociety\TheyWorkForYou\People {
     public $type = 'peers';
     public $rep_name = 'Member of the House of Lords';
     public $rep_plural = 'Members of the House of Lords';
-    public $house = 2;
+    public $house = HOUSE_TYPE_LORDS;
     public $subs_missing_image = 'lord';
 
     protected function getRegionalReps($user) {

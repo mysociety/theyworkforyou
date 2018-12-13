@@ -12,7 +12,7 @@ class MPs extends \MySociety\TheyWorkForYou\People {
     public $type = 'mps';
     public $rep_name = 'MP';
     public $rep_plural = 'MPs';
-    public $house = 1;
+    public $house = HOUSE_TYPE_COMMONS;
     public $cons_type = 'WMC';
 
     protected function getRegionalReps($user) {
