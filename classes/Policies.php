@@ -118,6 +118,12 @@ class Policies {
         842  => 'a lower <b>voting age</b>',
     );
 
+    private $commons_only = array(
+        811,
+        826,
+        1053,
+    );
+
     /**
      * Policy Sets
      *
@@ -321,11 +327,11 @@ class Policies {
      */
     public function getArray() {
         $out = array();
-        foreach ($this->policies as $policy_id => $policy_text)
-        {
+        foreach ($this->policies as $policy_id => $policy_text) {
             $out[] = array(
                 $policy_id,
-                $policy_text
+                $policy_text,
+                in_array($policy_id, $this->commons_only),
             );
         }
         return $out;

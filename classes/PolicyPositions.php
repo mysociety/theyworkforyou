@@ -103,46 +103,44 @@ class PolicyPositions {
 
         // Loop around all the policies.
         foreach ($policies as $policy) {
-            // Are we still within the policy limit?
-            if ($i < $policy_limit) {
-                if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
-                    continue;
-
-                $votes_summary = array_key_exists($policy[0], $this->summaries) ? $this->summaries[$policy[0]] : array();
-                $dream_info = $this->displayDreamComparison($policy[0], $policy[1], $votes_summary);
-
-                // don't return votes where they haven't voted on a strong division
-                // if we're limiting the number of votes
-                if ( $limit && !empty($dream_info) && !$dream_info['has_strong'] ) {
-                    continue;
-                }
-
-                // Make sure the dream actually exists
-                if (!empty($dream_info)) {
-                    $summary = $votes_summary ? $this->divisions->generateSummary($votes_summary) : '';
-                    $this->positions[] = array(
-                        'policy_id' => $policy[0],
-                        'policy' => $policy[1],
-                        'desc' => $dream_info['full_sentence'],
-                        'has_strong' => $dream_info['has_strong'],
-                        'position' => $dream_info['position'],
-                        'summary' => $summary
-                    );
-                    $this->positionsById[$policy[0]] = array(
-                        'policy_id' => $policy[0],
-                        'policy' => $policy[1],
-                        'desc' => $dream_info['full_sentence'],
-                        'position' => $dream_info['position'],
-                        'has_strong' => $dream_info['has_strong'],
-                        'score' => $dream_info['score'],
-                        'summary' => $summary
-                    );
-                    $i++;
-                }
-
-            } else {
+            if ($i >= $policy_limit) {
                 // We're over the policy limit, no sense still going, break out of the foreach.
-                break ;
+                break;
+            }
+
+            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses))
+                continue;
+
+            $votes_summary = array_key_exists($policy[0], $this->summaries) ? $this->summaries[$policy[0]] : array();
+            $dream_info = $this->displayDreamComparison($policy[0], $policy[1], $votes_summary);
+
+            // don't return votes where they haven't voted on a strong division
+            // if we're limiting the number of votes
+            if ( $limit && !empty($dream_info) && !$dream_info['has_strong'] ) {
+                continue;
+            }
+
+            // Make sure the dream actually exists
+            if (!empty($dream_info)) {
+                $summary = $votes_summary ? $this->divisions->generateSummary($votes_summary) : '';
+                $this->positions[] = array(
+                    'policy_id' => $policy[0],
+                    'policy' => $policy[1],
+                    'desc' => $dream_info['full_sentence'],
+                    'has_strong' => $dream_info['has_strong'],
+                    'position' => $dream_info['position'],
+                    'summary' => $summary
+                );
+                $this->positionsById[$policy[0]] = array(
+                    'policy_id' => $policy[0],
+                    'policy' => $policy[1],
+                    'desc' => $dream_info['full_sentence'],
+                    'position' => $dream_info['position'],
+                    'has_strong' => $dream_info['has_strong'],
+                    'score' => $dream_info['score'],
+                    'summary' => $summary
+                );
+                $i++;
             }
         }
 
