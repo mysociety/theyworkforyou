@@ -9,72 +9,34 @@ namespace MySociety\TheyWorkForYou\Db;
  *
  * ### After a `SELECT`
  *
- * If successful:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns the number of rows selected
- * - `$this->row(n)` returns an array of the nth row, with the keys being column names.
- * - `$this->field(n,col)` returns the contents of the "col" column in the nth row.
- * - `$this->insert_id()` returns `null`.
- * - `$this->affected_rows()` returns `null`.
- *
- * If 0 rows selected:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns `0`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns `null`.
- * - `$this->affected_rows()` returns `null`.
+ * $q can be used as an iterator with foreach to loop over the rows.
+ * $q->first() returns the first row if present, else null.
+ * $q->exists() returns a boolean as to whether there were any results.
+ * $q->rows() returns the number of rows selected
+ * $q->insert_id() returns NULL.
+ * $q->affected_rows() returns NULL.
  *
  * ### After an `INSERT`
  *
- * If successful:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns `null`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns the last_insert_id (if there's AUTO_INCREMENT on a column)`.
- * - `$this->affected_rows()` returns `1`.
+ * $q->rows() returns NULL.
+ * $q->insert_id() returns the last_insert_id (if there's AUTO_INCREMENT on a column).
+ * $q->affected_rows() returns 1.
  *
  * ### After an `UPDATE`
  *
  * If rows have been changed:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns `null`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns `0`.
- * - `$this->affected_rows()` returns the number of rows changed.
+ * $q->rows() returns NULL.
+ * $q->insert_id() returns 0.
+ * $q->affected_rows() returns the number of rows changed.
  *
  * ### After a `DELETE`
  *
- * If rows have been deleted:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns `null`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns `0`.
- * - `$this->affected_rows()` returns the number of rows changed.
- *
- * If no rows are deleted:
- * - `$this->success()` returns `true`.
- * - `$this->rows()` returns `null`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns `0`.
- * - `$this->affected_rows()` returns `0`.
- *
- * ### Errors
- *
- * If there's an error for any of the above actions:
- * - `$this->success()` returns `false`.
- * - `$this->rows()` returns `null`.
- * - `$this->row(n)` returns an empty array.
- * - `$this->field(n,col)` returns an empty string.
- * - `$this->insert_id()` returns `null`.
- * - `$this->affected_rows()` returns `null`.
+ * $q->rows() returns NULL.
+ * $q->insert_id() returns 0.
+ * $q->affected_rows() returns the number of rows changed.
  */
 
-class Query {
+class Query implements \IteratorAggregate, \ArrayAccess {
 
     public $success = true;
     public $rows = null;
@@ -173,7 +135,29 @@ class Query {
         return $this->affected_rows;
     }
 
-    // After SELECT.
+    public function getIterator() {
+        return new \ArrayIterator($this->data);
+    }
+
+    public function offsetGet($offset) {
+        return $this->data[$offset];
+    }
+
+    public function offsetSet($offset, $value) {
+        throw new \Exception;
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->data[$offset]);
+    }
+
+    public function offsetUnset($offset) {
+        throw new \Exception;
+    }
+
+    public function fetchAll() {
+        return $this->data;
+    }
 
     /**
      * @param integer $row_index
@@ -185,7 +169,6 @@ class Query {
         return "";
     }
 
-    // After SELECT.
     public function rows() {
         return $this->rows;
     }
@@ -199,6 +182,14 @@ class Query {
         if ($this->success && $this->rows > 0)
             return $this->data[$row_index];
         return array();
+    }
+
+    public function exists() {
+        return $this->rows > 0;
+    }
+
+    public function first() {
+        return $this->rows > 0 ? $this[0] : null;
     }
 
     # Used when debugging
