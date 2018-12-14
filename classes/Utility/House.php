@@ -10,7 +10,7 @@ namespace MySociety\TheyWorkForYou\Utility;
 
 class House
 {
-    public static function house_name_to_number($name) {
+    public static function division_house_name_to_number($name) {
         $name_to_number = array(
             'commons' => HOUSE_TYPE_COMMONS,
             'lords' => HOUSE_TYPE_LORDS,

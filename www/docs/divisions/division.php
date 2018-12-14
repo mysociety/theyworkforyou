@@ -36,7 +36,8 @@ $DATA->set_page_metadata($this_page, 'title', $data['division']['division_title'
 
 $data['main_vote_mp'] = $main_vote_mp;
 
-if (isset($MEMBER)) {
+# We don't want a "Your MP" box on PBC votes
+if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
     $mp_vote = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
     if ($mp_vote) {
         $data['mp_vote'] = $mp_vote;

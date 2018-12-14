@@ -96,7 +96,7 @@ class Divisions {
                 }
             }
             $data['mp_vote'] = $mp_vote;
-            $house = Utility\House::house_name_to_number($division['house']);
+            $house = Utility\House::division_house_name_to_number($division['house']);
             $data['members'] = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
             $divisions[] = $data;
         }
@@ -260,7 +260,7 @@ class Divisions {
         $house = $q->row(0)['house'];
         $args['division_id'] = $q->row(0)['division_id'];
         $args['division_date'] = $q->row(0)['division_date'];
-        $args['house'] = \MySociety\TheyWorkForYou\Utility\House::house_name_to_number($house);
+        $args['house'] = \MySociety\TheyWorkForYou\Utility\House::division_house_name_to_number($house);
 
         $q = $this->db->query(
             "SELECT pdv.person_id, vote, given_name, family_name, party

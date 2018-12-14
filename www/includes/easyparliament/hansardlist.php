@@ -1839,7 +1839,8 @@ class HANSARDLIST {
                     $divisions = new MySociety\TheyWorkForYou\Divisions();
                     $division_votes = $divisions->getDivisionByGid($this->gidprefix . $item['gid']);
                     $item['division'] = $division_votes;
-                    if (isset($MEMBER)) {
+                    # Don't want MP vote on PBC pages
+                    if (isset($MEMBER) && $this->major != 6) {
                       $item['mp_vote'] = $divisions->getDivisionResultsForMember($division_votes['division_id'], $MEMBER->person_id());
                       if (!$item['mp_vote']) {
                           if ($division_votes['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
