@@ -288,9 +288,9 @@ class MEMBER {
         }
 
         $q = $this->db->query($q, $params);
-        if (!$q->rows) {
+        if (!$q->rows()) {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, we could not find anyone with that name.');
-        } elseif ($q->rows == 1) {
+        } elseif ($q->rows() == 1) {
             return $q->first()['person_id'];
         }
 
@@ -324,13 +324,13 @@ class MEMBER {
         $q .= ' GROUP BY person_id';
 
         $q = $this->db->query($q, $params);
-        if ($q->rows > 1) {
+        if ($q->rows() > 1) {
             $person_ids = array();
             foreach ($q as $row) {
                 $person_ids[$row['person_id']] = $row['constituency'];
             }
             throw new MySociety\TheyWorkForYou\MemberMultipleException($person_ids);
-        } elseif ($q->rows > 0) {
+        } elseif ($q->rows() > 0) {
             return $q->first()['person_id'];
         } elseif ($const) {
             return $this->name_to_person_id($name);

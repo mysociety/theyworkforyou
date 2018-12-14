@@ -165,7 +165,7 @@ class Homepage {
         );
 
         $data = array();
-        foreach ($q->data as $row) {
+        foreach ($q as $row) {
             $data[$row['event_date']][$row['chamber']][] = $row;
         }
 

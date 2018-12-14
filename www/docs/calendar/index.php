@@ -57,7 +57,7 @@ function calendar_date($date) {
         $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = :date', array(
             ':date' => $date
             ));
-        foreach ($q->data as $row) {
+        foreach ($q as $row) {
             $data['majors'][] = $row['major'];
         }
     }

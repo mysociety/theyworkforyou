@@ -186,7 +186,7 @@ class Search
     public static function searchMemberDbLookupWithNames($searchstring, $current_only=false) {
         $q = self::searchMemberDbLookup($searchstring, $current_only);
 
-        if ( !$q->rows ) {
+        if (!$q->rows()) {
             return $q;
         }
 

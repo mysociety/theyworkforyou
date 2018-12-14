@@ -352,11 +352,12 @@ class Divisions {
         );
 
         # Sort Lords specially
+        $data = $q->fetchAll();
         if ($args['house'] == HOUSE_TYPE_LORDS) {
-            uasort($q->data, 'by_peer_name');
+            uasort($data, 'by_peer_name');
         }
 
-        foreach ($q as $vote) {
+        foreach ($data as $vote) {
             $detail = array(
               'person_id' => $vote['person_id'],
               'name' => ucfirst(member_full_name($args['house'], $vote['title'], $vote['given_name'],

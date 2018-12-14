@@ -2108,7 +2108,7 @@ class HANSARDLIST {
                             AND p.start_date <= :hdate AND :hdate <= p.end_date
                         ORDER BY entered_house",
             array(':person_id' => $person_id, ':hdate' => $hdate));
-        $member = $this->_get_speaker_alone($q->data, $person_id, $hdate, $htime, $major);
+        $member = $this->_get_speaker_alone($q, $person_id, $hdate, $htime, $major);
 
         $URL = $this->_get_speaker_url($member['house']);
         $URL->insert( array ('p' => $person_id) );
@@ -2135,7 +2135,8 @@ class HANSARDLIST {
         return $speaker;
     }
 
-    private function _get_speaker_alone($members, $person_id, $hdate, $htime, $major) {
+    private function _get_speaker_alone($q, $person_id, $hdate, $htime, $major) {
+        $members = $q->fetchAll();
         if (count($members) > 1) {
             $members = array_filter($members, function($m) use ($major) {
                 return in_array($m['house'], $this->major_to_house[$major]);

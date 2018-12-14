@@ -82,7 +82,7 @@ class Featured {
                 ':key' => $key
             )
         );
-        if ( $check_q->rows ) {
+        if ( $check_q->rows() ) {
             $set_q = $this->db->query("UPDATE editorial set value = :value WHERE item = :key",
                 array(
                     ':key' => $key,

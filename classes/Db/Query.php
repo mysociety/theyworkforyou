@@ -38,11 +38,11 @@ namespace MySociety\TheyWorkForYou\Db;
 
 class Query implements \IteratorAggregate, \ArrayAccess {
 
-    public $success = true;
-    public $rows = null;
-    public $data = array();
-    public $insert_id = null;
-    public $affected_rows = null;
+    private $success = true;
+    private $rows = null;
+    private $data = array();
+    private $insert_id = null;
+    private $affected_rows = null;
 
     public function __construct($conn) {
         $this->conn = $conn;

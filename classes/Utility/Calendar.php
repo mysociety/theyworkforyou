@@ -40,7 +40,7 @@ class Calendar
         $DATA->set_page_metadata($this_page, 'date', $date);
 
         $data = array();
-        foreach ($q->data as $row) {
+        foreach ($q as $row) {
             $data[$row['event_date']][$row['chamber']][] = $row;
         }
 

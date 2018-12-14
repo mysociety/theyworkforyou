@@ -162,11 +162,11 @@ function _api_getPerson_constituency($constituencies, $house) {
         AND house = :house";
 
     $q = $db->query("$query_base AND left_reason = 'still_in_office'", $params);
-    if ($q->rows == 0 && get_http_var('always_return') && $dissolution) {
+    if ($q->rows() == 0 && get_http_var('always_return') && $dissolution) {
         $q = $db->query("$query_base AND $dissolution[query]", $params + $dissolution['params']);
     }
 
-    if ($q->rows > 0) {
+    if ($q->rows() > 0) {
         _api_getPerson_output($q, true);
     } else {
         api_error('Unknown constituency, or no results for that constituency');
