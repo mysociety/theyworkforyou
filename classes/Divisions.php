@@ -55,25 +55,40 @@ class Divisions {
         return $policy_maxes;
     }
 
-    public function getRecentDivisions($number = 20) {
-        if ($this->member) {
-            $q = $this->db->query(
-                "SELECT divisions.*, vote FROM divisions
-                    LEFT JOIN persondivisionvotes ON divisions.division_id=persondivisionvotes.division_id AND person_id=:person_id
-                ORDER BY division_date DESC, division_number DESC LIMIT :count",
-                array(
-                    ':person_id' => $this->member->person_id,
-                    ':count' => $number
-                )
-            );
-        } else {
-            $q = $this->db->query(
-              "SELECT * FROM divisions ORDER BY division_date DESC, division_number DESC LIMIT :count",
-                array(
-                    ':count' => $number
-                )
-            );
+    /**
+     * @param  int              $number  Number of divisions to return. Optional.
+     * @param  string|string[]  $houses  House name (eg: "commons") or array of
+     *                                   house names. Optional.
+     */
+    public function getRecentDivisions($number = 20, $houses = NULL) {
+        $select = '';
+        $where = '';
+        $order = 'ORDER BY division_date DESC, division_number DESC';
+        $limit = 'LIMIT :count';
+        $params = array(
+            ':count' => $number
+        );
+
+        if ( is_string($houses) ) {
+            $houses = array( $houses );
         }
+
+        if ( is_array($houses) && count($houses) > 0 ) {
+            $where = 'WHERE house IN ("' . implode('", "', $houses) . '")';
+        }
+
+        if ( $this->member ) {
+            $select = "SELECT divisions.*, vote FROM divisions
+                LEFT JOIN persondivisionvotes ON divisions.division_id=persondivisionvotes.division_id AND person_id=:person_id";
+            $params[':person_id'] = $this->member->person_id;
+        } else {
+            $select = "SELECT * FROM divisions";
+        }
+
+        $q = $this->db->query(
+            sprintf("%s %s %s %s", $select, $where, $order, $limit),
+            $params
+        );
 
         $divisions = array();
         foreach ($q->data as $division) {
