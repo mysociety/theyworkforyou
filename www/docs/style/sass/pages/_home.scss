@@ -283,17 +283,17 @@ input.homepage-search__button {
         font-size: 1em;
         color: $colour_dark_grey;
         font-weight: normal;
+    }
 
-        // Extra space above when not first child
-        * + & {
-            margin-top: 2em;
-        }
+    // Extra space above when not first child
+    * + h2 {
+        margin-top: 2em;
     }
 }
 
 .homepage-recently {
     @include grid-column(12);
-    padding-top: 3em;
+    padding-top: 2em;
     padding-bottom: 2em;
     @media (min-width: $large-screen) {
         @include grid-column(8);
@@ -306,7 +306,7 @@ input.homepage-search__button {
     @media (min-width: $large-screen) {
         @include grid-column(4);
     }
-    padding-top: 3em;
+    padding-top: 2em;
     padding-bottom: 2em;
 }
 
