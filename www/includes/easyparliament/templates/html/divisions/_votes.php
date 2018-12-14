@@ -1,41 +1,5 @@
 <?php
 
-// Charts/lists in the other they should appear on the page.
-$division_sections = array(
-    array(
-        'thekey' => 'yes_votes',
-        'style' => 'dot_vote_list',
-    ),
-    array(
-        'thekey' => 'no_votes',
-        'style' => 'dot_vote_list',
-    ),
-    array(
-        'thekey' => 'yes_votes',
-        'style' => 'name_vote_list',
-    ),
-    array(
-        'thekey' => 'no_votes',
-        'style' => 'name_vote_list',
-    ),
-    array(
-        'thekey' => 'absent_votes',
-        'style' => 'dot_vote_list',
-    ),
-    array(
-        'thekey' => 'both_votes',
-        'style' => 'dot_vote_list',
-    ),
-    array(
-        'thekey' => 'absent_votes',
-        'style' => 'name_vote_list',
-    ),
-    array(
-        'thekey' => 'both_votes',
-        'style' => 'name_vote_list',
-    ),
-);
-
 $vote_sets = array(
     'yes_votes' => array(
       'title' => 'Aye',
@@ -55,17 +19,36 @@ $vote_sets = array(
     ),
 );
 
-foreach ( $division_sections as $s ) {
-    $vote_title = $vote_sets[ $s['thekey'] ]['title'];
-    $anchor = $vote_sets[ $s['thekey'] ]['anchor'];
-    $summary = $division['party_breakdown'][ $s['thekey'] ];
+$sections_with_votes = array_filter(array_keys($vote_sets), function($s) use($division) {
+    return count($division[$s]);
+});
+$sections_with_votes = array_values($sections_with_votes);
 
-    if ( $s['style'] == 'dot_vote_list' ) {
-        $votes = $division[ $s['thekey'] . '_by_party' ];
+for ($i=0; $i<count($sections_with_votes); $i+=2) {
+    $l = $sections_with_votes[$i];
+    $r = $i+1 < count($sections_with_votes) ? $sections_with_votes[$i+1] : null;
+
+    $vote_title = $vote_sets[$l]['title'];
+    $anchor = $vote_sets[$l]['anchor'];
+    $summary = $division['party_breakdown'][$l];
+    $votes = $division[$l . '_by_party'];
+    include '_dot_vote_list.php';
+
+    if ($r) {
+        $vote_title = $vote_sets[$r]['title'];
+        $anchor = $vote_sets[$r]['anchor'];
+        $summary = $division['party_breakdown'][$r];
+        $votes = $division[$r . '_by_party'];
         include '_dot_vote_list.php';
+    }
 
-    } else if ( $s['style'] == 'name_vote_list' ) {
-        $votes = $division[ $s['thekey'] ];
+    $vote_title = $vote_sets[$l]['title'];
+    $votes = $division[$l];
+    include '_name_vote_list.php';
+
+    if ($r) {
+        $vote_title = $vote_sets[$r]['title'];
+        $votes = $division[$r];
         include '_name_vote_list.php';
     }
 }
