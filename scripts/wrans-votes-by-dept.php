@@ -5,8 +5,8 @@ include '../www/includes/easyparliament/init.php';
 
 $db = new ParlDB;
 
-$q = $db->query('select count(*) as c from hansard where major=3 and minor=2');
-$answers = $q->field(0, 'c');
+$q = $db->query('select count(*) as c from hansard where major=3 and minor=2')->first();
+$answers = $q['c'];
 
 # Done directly as storing everything in an array as $db->query() does runs out of memory, unsurprisingly
 $q = mysql_query(

@@ -10,21 +10,21 @@ $PAGE->stripe_start();
 $PAGE->block_start(array ('id'=>'alerts', 'title'=>'Alert Statistics'));
 $db = new ParlDB;
 
-$q_confirmed = $db->query('select count(*) as c from alerts where confirmed and not deleted');
-$q_not_confirmed = $db->query('select count(*) as c from alerts where not confirmed and not deleted');
-$q_deleted = $db->query('select count(*) as c from alerts where confirmed and deleted');
-$q_speaker = $db->query('select count(*) as c from alerts where criteria like "%speaker:%" and confirmed and not deleted');
-$q_keyword = $db->query("select count(*) as c from alerts where criteria not like '%speaker:%' and confirmed and not deleted");
+$q_confirmed = $db->query('select count(*) as c from alerts where confirmed and not deleted')->first()['c'];
+$q_not_confirmed = $db->query('select count(*) as c from alerts where not confirmed and not deleted')->first()['c'];
+$q_deleted = $db->query('select count(*) as c from alerts where confirmed and deleted')->first()['c'];
+$q_speaker = $db->query('select count(*) as c from alerts where criteria like "%speaker:%" and confirmed and not deleted')->first()['c'];
+$q_keyword = $db->query("select count(*) as c from alerts where criteria not like '%speaker:%' and confirmed and not deleted")->first()['c'];
 
 print '<h3>Headline stats</h3> <table>';
 $data = array(
     'header' => array( 'Alert Type', 'Count' ),
     'rows' => array(
-        array( 'Confirmed', $q_confirmed->field('0', 'c') ),
-        array( 'Not Confirmed', $q_not_confirmed->field('0', 'c') ),
-        array( 'Deleted', $q_deleted->field('0', 'c') ),
-        array( 'For a Speaker<sup>*</sup>', $q_speaker->field('0', 'c') ),
-        array( 'For a Keyword', $q_keyword->field('0', 'c') ),
+        array( 'Confirmed', $q_confirmed ),
+        array( 'Not Confirmed', $q_not_confirmed ),
+        array( 'Deleted', $q_deleted ),
+        array( 'For a Speaker<sup>*</sup>', $q_speaker ),
+        array( 'For a Keyword', $q_keyword ),
     )
 );
 

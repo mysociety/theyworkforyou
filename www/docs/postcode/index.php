@@ -85,10 +85,10 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
         AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
             ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC'])
-            ));
+            ))->first();
     $mp = array();
-    if ($q->rows()) {
-        $mp = $q->row(0);
+    if ($q) {
+        $mp = $q;
         if ($mp['left_house'] != '9999-12-31') $mp['former'] = true;
     }
 

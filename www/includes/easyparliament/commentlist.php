@@ -246,8 +246,8 @@ class COMMENTLIST {
         $data['comments'] = $comments;
         $data['results_per_page'] = $num;
         $data['page'] = $page;
-        $q = $this->db->query('SELECT COUNT(DISTINCT(epobject_id)) AS count FROM comments WHERE visible=1 AND user_id=' . $args['user_id']);
-        $data['total_results'] = $q->field(0, 'count');
+        $q = $this->db->query('SELECT COUNT(DISTINCT(epobject_id)) AS count FROM comments WHERE visible=1 AND user_id=' . $args['user_id'])->first();
+        $data['total_results'] = $q['count'];
         return $data;
 
     }
@@ -301,15 +301,15 @@ class COMMENTLIST {
         if (isset($args['pid']) && is_numeric($args['pid'])) {
             $data['pid'] = $args['pid'];
             $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND left_house="9999-12-31" AND m.person_id = :pid';
-            $q = $this->db->query($q, array(':pid' => $args['pid']));
-            $data['full_name'] = member_full_name($q->field(0, 'house'), $q->field(0, 'title'), $q->field(0, 'given_name'), $q->field(0, 'family_name'), $q->field(0,'lordofname'));
+            $q = $this->db->query($q, array(':pid' => $args['pid']))->first();
+            $data['full_name'] = member_full_name($q['house'], $q['title'], $q['given_name'], $q['family_name'], $q['lordofname']);
             $q = 'SELECT COUNT(*) AS count FROM comments,hansard WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.person_id = :pid';
             $params[':pid'] = $args['pid'];
         } else {
             $q = 'SELECT COUNT(*) AS count FROM comments WHERE visible=1';
         }
-        $q = $this->db->query($q, $params);
-        $data['total_results'] = $q->field(0, 'count');
+        $q = $this->db->query($q, $params)->first();
+        $data['total_results'] = $q['count'];
         return $data;
     }
 
@@ -374,8 +374,8 @@ class COMMENTLIST {
         $data['search'] = $args['s'];
         #		$data['results_per_page'] = $num;
         #		$data['page'] = $page;
-        #		$q = $this->db->query('SELECT COUNT(*) AS count FROM comments WHERE visible=1');
-        #		$data['total_results'] = $q->field(0, 'count');
+        #		$q = $this->db->query('SELECT COUNT(*) AS count FROM comments WHERE visible=1')->first();
+        #		$data['total_results'] = $q['count'];
         return $data;
     }
 
@@ -431,11 +431,11 @@ class COMMENTLIST {
                 $gidextra = 'debate';
             }
 
-            $q = $this->db->query ("SELECT epobject_id FROM hansard WHERE gid = 'uk.org.publicwhip/" . $gidextra . '/' . addslashes($args['gid']) . "'");
+            $q = $this->db->query ("SELECT epobject_id FROM hansard WHERE gid = 'uk.org.publicwhip/" . $gidextra . '/' . addslashes($args['gid']) . "'")->first();
 
-            if ($q->rows() > 0) {
+            if ($q) {
                 unset($args['gid']);
-                $args['epobject_id'] = $q->field(0, 'epobject_id');
+                $args['epobject_id'] = $q['epobject_id'];
             }
         }
 

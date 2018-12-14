@@ -109,38 +109,31 @@ class USER {
                                 facebook_token
                         FROM    users
                         WHERE   user_id = :user_id",
-                        array(':user_id' => $user_id));
+                        array(':user_id' => $user_id))->first();
 
 
-        if ($q->rows() == 1) {
+        if ($q) {
             // We've got a user, so set them up.
 
             $this->user_id              = $user_id;
-            $this->firstname            = $q->field(0,"firstname");
-            $this->lastname             = $q->field(0,"lastname");
-            $this->password             = $q->field(0,"password");
-            $this->email                = $q->field(0,"email");
-            $this->postcode             = $q->field(0,"postcode");
-            $this->facebook_id          = $q->field(0,"facebook_id");
-            $this->facebook_token       = $q->field(0,"facebook_token");
-            $this->url                  = $q->field(0,"url");
-            $this->lastvisit            = $q->field(0,"lastvisit");
-            $this->registrationtoken    = $q->field(0, 'registrationtoken');
-            $this->registrationtime     = $q->field(0,"registrationtime");
-            $this->registrationip       = $q->field(0,"registrationip");
-            $this->optin = $q->field(0,"optin") == 1 ? true : false;
-            $this->status               = $q->field(0,"status");
-            $this->deleted = $q->field(0,"deleted") == 1 ? true : false;
-            $this->confirmed = $q->field(0,"confirmed") == 1 ? true : false;
+            $this->firstname            = $q["firstname"];
+            $this->lastname             = $q["lastname"];
+            $this->password             = $q["password"];
+            $this->email                = $q["email"];
+            $this->postcode             = $q["postcode"];
+            $this->facebook_id          = $q["facebook_id"];
+            $this->facebook_token       = $q["facebook_token"];
+            $this->url                  = $q["url"];
+            $this->lastvisit            = $q["lastvisit"];
+            $this->registrationtoken    = $q['registrationtoken'];
+            $this->registrationtime     = $q["registrationtime"];
+            $this->registrationip       = $q["registrationip"];
+            $this->optin = $q["optin"] == 1 ? true : false;
+            $this->status               = $q["status"];
+            $this->deleted = $q["deleted"] == 1 ? true : false;
+            $this->confirmed = $q["confirmed"] == 1 ? true : false;
 
             return true;
-
-        } elseif ($q->rows() > 1) {
-            // And, yes, if we've ended up with more than one row returned
-            // we're going to show an error too, just in case.
-            // *Should* never happen...
-            return false;
-            twfy_debug("USER", "There is more than one user with an id of '" . _htmlentities($user_id) . "'");
 
         } else {
             return false;
@@ -542,14 +535,11 @@ class USER {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE email = :email", array(':email' => $email));
-            if ($q->rows() > 0) {
+            $q = $this->db->query("SELECT user_id FROM users WHERE email = :email", array(':email' => $email))->first();
+            if ($q) {
                 if ($return_id) {
-                    $row = $q->row(0);
-
-                    return $row['user_id'];
+                    return $q['user_id'];
                 }
-
                 return true;
             } else {
                 return false;
@@ -557,21 +547,17 @@ class USER {
         } else {
             return false;
         }
-
     }
 
     public function facebook_id_exists($id, $return_id = false) {
         // Returns true if there's a user with this facebook id.
 
         if ($id!= "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE facebook_id = :id", array(':id' => $id));
-            if ($q->rows() > 0) {
+            $q = $this->db->query("SELECT user_id FROM users WHERE facebook_id = :id", array(':id' => $id))->first();
+            if ($q) {
                 if ($return_id) {
-                    $row = $q->row(0);
-
-                    return $row['user_id'];
+                    return $q['user_id'];
                 }
-
                 return true;
             } else {
                 return false;
@@ -579,7 +565,6 @@ class USER {
         } else {
             return false;
         }
-
     }
 
     public function is_able_to($action) {
@@ -997,17 +982,17 @@ class THEUSER extends USER {
 
         $error_string = 'There is no user registered with an email of ' . _htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
 
-        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email = :email", array(':email' => $email));
+        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email = :email", array(':email' => $email))->first();
 
-        if ($q->rows() == 1) {
+        if ($q) {
             // OK.
-            $dbpassword = $q->field(0,"password");
+            $dbpassword = $q["password"];
             if (password_verify($userenteredpassword, $dbpassword)) {
-                $this->user_id  = $q->field(0,"user_id");
+                $this->user_id  = $q["user_id"];
                 $this->password = $dbpassword;
                 // We'll need these when we're going to log in.
-                $this->deleted  = $q->field(0,"deleted") == 1 ? true : false;
-                $this->confirmed = $q->field(0,"confirmed") == 1 ? true : false;
+                $this->deleted  = $q["deleted"] == 1 ? true : false;
+                $this->confirmed = $q["confirmed"] == 1 ? true : false;
 
                 return true;
 
@@ -1174,10 +1159,10 @@ class THEUSER extends USER {
             FROM    tokens
             WHERE   token = :token
             AND   type = 'E'
-        ", array (':token' => $registrationtoken));
+        ", array (':token' => $registrationtoken))->first();
 
-        if ($q->rows() == 1) {
-            $expires = $q->field(0, 'expires');
+        if ($q) {
+            $expires = $q['expires'];
             $expire_time = strtotime($expires);
             if ( $expire_time < time() ) {
                 global $PAGE;
@@ -1188,7 +1173,7 @@ class THEUSER extends USER {
                 return false;
             }
 
-            list( $user_id, $email ) = explode('::', $q->field(0, 'data'));
+            list( $user_id, $email ) = explode('::', $q['data']);
 
             // if we are logged in as someone else don't change the email
             if ( $this->user_id() != 0 && $this->user_id() != $user_id ) {
@@ -1260,14 +1245,14 @@ class THEUSER extends USER {
                         ", array(
                             ':user_id' => $user_id,
                             ':token' => $registrationtoken
-                        ));
+                        ))->first();
 
-        if ($q->rows() == 1) {
+        if ($q) {
 
             // We'll need these to be set before logging the user in.
             $this->user_id  = $user_id;
-            $this->email    = $q->field(0, 'email');
-            $this->password = $q->field(0, 'password');
+            $this->email    = $q['email'];
+            $this->password = $q['password'];
 
             // Set that they're confirmed in the DB.
             $r = $this->db->query("UPDATE users
@@ -1275,9 +1260,9 @@ class THEUSER extends USER {
                             WHERE   user_id = :user_id
                             ", array(':user_id' => $user_id));
 
-            if ($q->field(0, 'postcode')) {
+            if ($q['postcode']) {
                 try {
-                    $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>HOUSE_TYPE_COMMONS));
+                    $MEMBER = new MEMBER(array('postcode'=>$q['postcode'], 'house'=>HOUSE_TYPE_COMMONS));
                     $pid = $MEMBER->person_id();
                     # This should probably be in the ALERT class
                     $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
@@ -1327,13 +1312,13 @@ class THEUSER extends USER {
                         WHERE   user_id = :user_id
                         ", array(
                             ':user_id' => $this->user_id,
-                        ));
+                        ))->first();
 
-        if ($q->rows() == 1) {
+        if ($q) {
 
             twfy_debug("THEUSER", "User with ID found to confirm: " . $this->user_id());
             // We'll need these to be set before logging the user in.
-            $this->email    = $q->field(0, 'email');
+            $this->email    = $q['email'];
 
             // Set that they're confirmed in the DB.
             $r = $this->db->query("UPDATE users
@@ -1341,9 +1326,9 @@ class THEUSER extends USER {
                             WHERE   user_id = :user_id
                             ", array(':user_id' => $this->user_id));
 
-            if ($q->field(0, 'postcode')) {
+            if ($q['postcode']) {
                 try {
-                    $MEMBER = new MEMBER(array('postcode'=>$q->field(0, 'postcode'), 'house'=>HOUSE_TYPE_COMMONS));
+                    $MEMBER = new MEMBER(array('postcode'=>$q['postcode'], 'house'=>HOUSE_TYPE_COMMONS));
                     $pid = $MEMBER->person_id();
                     # This should probably be in the ALERT class
                     $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(

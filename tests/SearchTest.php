@@ -45,13 +45,13 @@ class SearchTest extends FetchPageTestCase
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Joseph');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(2, $results->field(0, 'person_id'));
+        $this->assertEquals(2, $results->first()['person_id']);
 
         // Test a single (last) name.
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Bloggs');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(2, $results->field(0, 'person_id'));
+        $this->assertEquals(2, $results->first()['person_id']);
 
     }
 
@@ -66,19 +66,19 @@ class SearchTest extends FetchPageTestCase
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mary Smith');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(3, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->first()['person_id']);
 
         // Test an inverse full name.
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Smith Mary');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(3, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->first()['person_id']);
 
         // Test a name with title.
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mrs Smith');
 
         $this->assertEquals(1, $results->rows());
-        $this->assertEquals(3, $results->field(0, 'person_id'));
+        $this->assertEquals(3, $results->first()['person_id']);
 
     }
 

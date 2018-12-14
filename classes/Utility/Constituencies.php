@@ -30,16 +30,18 @@ class Constituencies
         $query = "select cons_id from constituency where name like :name and from_date <= date(now()) and date(now()) <= to_date";
         $q1 = $db->query($query, array(
             ':name' => $name
-            ));
-        if ($q1->rows <= 0)
+            ))->first();
+        if (!$q1) {
             return false;
+        }
 
-        $query = "select name from constituency where main_name and cons_id = '".$q1->field(0,'cons_id')."'";
-        $q2 = $db->query($query);
-        if ($q2->rows <= 0)
+        $query = "select name from constituency where main_name and cons_id = '" . $q1['cons_id'] . "'";
+        $q2 = $db->query($query)->first();
+        if (!$q2) {
             return false;
+        }
 
-        return $q2->field(0, "name");
+        return $q2['name'];
     }
 
 }

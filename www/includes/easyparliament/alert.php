@@ -135,10 +135,9 @@ class ALERT {
             AND confirmed=1", array(
                 ':email' => $details['email'],
                 ':criteria' => $criteria
-            ));
-        if ($q->rows() > 0) {
-            $deleted = $q->field(0, 'deleted');
-            if ($deleted) {
+            ))->first();
+        if ($q) {
+            if ($q['deleted']) {
                 $this->db->query("UPDATE alerts SET deleted=0
                     WHERE email = :email
                     AND criteria = :criteria
@@ -357,14 +356,14 @@ class ALERT {
                         ", array(
                             ':alert_id' => $alert_id,
                             ':registration_token' => $registrationtoken
-                        ));
-        if (!$q->rows()) {
+                        ))->first();
+        if (!$q) {
             $this->token_checked = false;
         } else {
             $this->token_checked = array(
-                'id' => $q->field(0, 'alert_id'),
-                'email' => $q->field(0, 'email'),
-                'criteria' => $q->field(0, 'criteria'),
+                'id' => $q['alert_id'],
+                'email' => $q['email'],
+                'criteria' => $q['criteria'],
             );
         }
 
@@ -378,15 +377,15 @@ class ALERT {
                         ", array(
                             ':registration_token' => $confirmation
                         )
-                    );
+                    )->first();
 
-        if (!$q->rows()) {
+        if (!$q) {
             return false;
         } else {
             return array(
-                'id' => $q->field(0, 'alert_id'),
-                'email' => $q->field(0, 'email'),
-                'criteria' => $q->field(0, 'criteria'),
+                'id' => $q['alert_id'],
+                'email' => $q['email'],
+                'criteria' => $q['criteria'],
             );
         }
     }

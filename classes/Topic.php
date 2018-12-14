@@ -182,13 +182,13 @@ class Topic {
           array(
             ":gid" => $gid
           )
-        );
+        )->first();
 
-        if (!$q->success() || $q->rows == 0) {
+        if (!$q) {
           return false;
         }
 
-        $epobject_id = $q->field(0, 'epobject_id');
+        $epobject_id = $q['epobject_id'];
 
         $q = $this->db->query(
           "INSERT INTO topic_epobjects (topic_key, epobject_id) VALUES (:topic, :ep_id)",

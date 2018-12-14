@@ -48,8 +48,8 @@ class User {
             array(
                 ':user_id' => $user->user_id()
             )
-        );
-        $data['video'] = $q->field(0, 'c');
+        )->first();
+        $data['video'] = $q['c'];
 
         return $data;
     }

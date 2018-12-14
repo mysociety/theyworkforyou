@@ -18,15 +18,15 @@ $date = substr($from, 0, 10);
 $from = 'uk.org.publicwhip/debate/' . $from;
 if ($to) $to = 'uk.org.publicwhip/debate/' . $to;
 
-$q = $db->query('select hpos from hansard where gid="' . $from . '"');
-$hpos_from = $q->field(0, 'hpos');
+$q = $db->query('select hpos from hansard where gid="' . $from . '"')->first();
+$hpos_from = $q['hpos'];
 if (!$hpos_from) {
     print "No hpos for from gid!\n"; exit;
 }
 
 if ($to) {
-    $q = $db->query('select hpos from hansard where gid="' . $to . '"');
-    $hpos_to = $q->field(0, 'hpos');
+    $q = $db->query('select hpos from hansard where gid="' . $to . '"')->first();
+    $hpos_to = $q['hpos'];
     if (!$hpos_to) {
         print "No hpos for to gid!\n"; exit;
     }

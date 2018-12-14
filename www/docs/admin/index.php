@@ -16,19 +16,12 @@ $PAGE->stripe_start();
 
 $PAGE->block_start(array('title'=>'Stats'));
 
-$q = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '1'");
-$confirmedusers = $q->field(0, 'count');
-
-$q = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '0'");
-$unconfirmedusers = $q->field(0, 'count');
-
+$confirmedusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '1'")->first()['count'];
+$unconfirmedusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '0'")->first()['count'];
 $olddate = gmdate("Y-m-d H:i:s", time()-86400);
-$q = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'");
-$dayusers = $q->field(0, 'count');
-
+$dayusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'")->first()['count'];
 $olddate = gmdate("Y-m-d H:i:s", time()-86400*7);
-$q = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'");
-$weekusers = $q->field(0, 'count');
+$weekusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'")->first()['count'];
 ?>
 <ul>
 <li>Confirmed users: <?php echo $confirmedusers; ?></li>

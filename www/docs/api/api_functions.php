@@ -152,24 +152,27 @@ function api_is_superuser_key($key) {
                WHERE  users.user_id = api_key.user_id
                AND    api_key.api_key = :key', array(
                 ':key' => $key
-                ));
-  if (!$q->rows())
+                ))->first();
+  if (!$q) {
     return false;
-  if ($q->field(0, 'status') == 'Superuser')
+  }
+  if ($q['status'] == 'Superuser') {
     return true;
-  else
-    return false;
+  } 
+  return false;
 }
 
 function api_check_key($key) {
     $db = new ParlDB;
     $q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key = :key', array(
         ':key' => $key
-        ));
-    if (!$q->rows())
+        ))->first();
+    if (!$q) {
         return false;
-    if ($q->field(0, 'disabled'))
+    }
+    if ($q['disabled']) {
         return 'disabled';
+    }
     return true;
 }
 

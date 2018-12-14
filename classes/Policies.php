@@ -422,14 +422,14 @@ class Policies {
             "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source
             FROM policies WHERE policy_id = :policy_id",
             array(':policy_id' => $policyID)
-        );
+        )->first();
 
         $props = array(
-            'policy_id' => $q->field(0, 'policy_id'),
-            'title' => $q->field(0, 'title'),
+            'policy_id' => $q['policy_id'],
+            'title' => $q['title'],
             // remove full stops from the end of descriptions. Some of them have them and
             // some of them don't so we enforce consistency here
-            'description' => preg_replace('/\. *$/', '', $q->field(0, 'description')),
+            'description' => preg_replace('/\. *$/', '', $q['description']),
             'image' => '/images/header-debates-uk.jpg', // TODO: get a better default image
             'image_license' => '',
             'image_attribution' => '',
@@ -437,14 +437,14 @@ class Policies {
             'image_license_url' => ''
         );
 
-        $image = $q->field(0, 'image');
+        $image = $q['image'];
 
         if ( $image && file_exists(BASEDIR . '/' . $image)) {
             $props['image'] = $image;
-            $props['image_license'] = $q->field(0, 'image_license');
-            $props['image_attribution'] = $q->field(0, 'image_attrib');
-            $props['image_source'] = $q->field(0, 'image_source');
-            $props['image_license_url'] = $q->field(0, 'image_license_url');
+            $props['image_license'] = $q['image_license'];
+            $props['image_attribution'] = $q['image_attrib'];
+            $props['image_source'] = $q['image_source'];
+            $props['image_license_url'] = $q['image_license_url'];
         }
 
         return $props;

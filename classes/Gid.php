@@ -16,18 +16,18 @@ class Gid {
         $q = $this->db->query(
             "SELECT gid_to FROM gidredirect WHERE gid_from = :gid",
             array(':gid' => $this->gid)
-        );
+        )->first();
 
-        if ($q->rows() == 0) {
+        if (!$q) {
             return $this->gid;
         } else {
             do {
-                $gid = $q->field(0, 'gid_to');
+                $gid = $q['gid_to'];
                 $q = $this->db->query(
                     "SELECT gid_to FROM gidredirect WHERE gid_from = :gid",
                     array(':gid' => $gid)
-                );
-            } while ($q->rows() > 0);
+                )->first();
+            } while ($q);
             return $gid;
         }
     }

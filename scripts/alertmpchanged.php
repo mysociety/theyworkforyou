@@ -114,9 +114,9 @@ foreach ($alertdata as $alertitem) {
         $email_text = array();
         $change_text = array();
         $q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
-            ':email' => $email));
-        if ($q->rows() > 0) {
-            $user_id = $q->field(0, 'user_id');
+            ':email' => $email))->first();
+        if ($q) {
+            $user_id = $q['user_id'];
             $registered++;
         } else {
             $user_id = 0;

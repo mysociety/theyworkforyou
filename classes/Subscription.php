@@ -34,9 +34,9 @@ class Subscription {
             $this->user = $arg;
             $this->redis_prefix = "user:{$this->user->user_id}:quota:" . REDIS_API_NAME;
             $q = $this->db->query('SELECT * FROM api_subscription WHERE user_id = :user_id', [
-                ':user_id' => $this->user->user_id()]);
-            if ($q->rows > 0) {
-                $id = $q->field(0, 'stripe_id');
+                ':user_id' => $this->user->user_id()])->first();
+            if ($q) {
+                $id = $q['stripe_id'];
             } else {
                 return;
             }
@@ -44,10 +44,10 @@ class Subscription {
             # Assume Stripe ID string
             $id = $arg;
             $q = $this->db->query('SELECT * FROM api_subscription WHERE stripe_id = :stripe_id', [
-                ':stripe_id' => $id]);
-            if ($q->rows > 0) {
+                ':stripe_id' => $id])->first();
+            if ($q) {
                 $user = new \USER;
-                $user->init($q->field(0, 'user_id'));
+                $user->init($q['user_id']);
                 $this->user = $user;
                 $this->redis_prefix = "user:{$this->user->user_id}:quota:" . REDIS_API_NAME;
             } else {

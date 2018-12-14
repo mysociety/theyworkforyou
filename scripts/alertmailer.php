@@ -17,8 +17,8 @@ $global_start = getmicrotime();
 $db = new ParlDB;
 
 # Get current value of latest batch
-$q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch');
-$max_batch_id = $q->field(0, 'max_batch_id');
+$q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch')->first();
+$max_batch_id = $q['max_batch_id'];
 mlog("max_batch_id: " . $max_batch_id . "\n");
 
 # Last sent is timestamp of last alerts gone out.
@@ -182,9 +182,9 @@ foreach ($alertdata as $alertitem) {
         $email_text = '';
         $q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
             ':email' => $email
-            ));
-        if ($q->rows() > 0) {
-            $user_id = $q->field(0, 'user_id');
+            ))->first();
+        if ($q) {
+            $user_id = $q['user_id'];
             $registered++;
         } else {
             $user_id = 0;

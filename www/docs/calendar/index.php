@@ -75,23 +75,23 @@ function calendar_past_date($date) {
     $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $nextprevdata = array();
     $db = new ParlDB;
-    $q = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'");
-    if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
-        $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
-        $title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+    $hdate = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'")->first()['hdate'];
+    if ($hdate != NULL) {
+        $URL->insert( array( 'd'=>$hdate ) );
+        $title = format_date($hdate, SHORTDATEFORMAT);
         $nextprevdata['next'] = array (
-            'hdate'         => $q->field(0, 'hdate'),
+            'hdate'         => $hdate,
             'url'           => $URL->generate(),
             'body'          => 'Next day',
             'title'         => $title
         );
     }
-    $q = $db->query("SELECT MAX(hdate) AS hdate FROM hansard WHERE hdate < '$date'");
-    if ($q->rows() > 0 && $q->field(0, 'hdate') != NULL) {
-        $URL->insert( array( 'd'=>$q->field(0, 'hdate') ) );
-        $title = format_date($q->field(0, 'hdate'), SHORTDATEFORMAT);
+    $hdate = $db->query("SELECT MAX(hdate) AS hdate FROM hansard WHERE hdate < '$date'")->first()['hdate'];
+    if ($hdate != NULL) {
+        $URL->insert( array( 'd'=>$hdate ) );
+        $title = format_date($hdate, SHORTDATEFORMAT);
         $nextprevdata['prev'] = array (
-            'hdate'         => $q->field(0, 'hdate'),
+            'hdate'         => $hdate,
             'url'           => $URL->generate(),
             'body'          => 'Previous day',
             'title'         => $title

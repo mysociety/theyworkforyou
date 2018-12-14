@@ -84,9 +84,9 @@ class MEMBER {
             $q = $this->db->query("SELECT gid_to FROM gidredirect
                     WHERE gid_from = :gid_from",
                 array(':gid_from' => "uk.org.publicwhip/person/$person_id")
-            );
-            if ($q->rows > 0) {
-                $person_id = str_replace('uk.org.publicwhip/person/', '', $q->field(0, 'gid_to'));
+            )->first();
+            if ($q) {
+                $person_id = str_replace('uk.org.publicwhip/person/', '', $q['gid_to']);
             }
         }
 
@@ -186,16 +186,16 @@ class MEMBER {
         $q = $this->db->query("SELECT person_id FROM member
                     WHERE member_id = :member_id",
             array(':member_id' => $member_id)
-        );
-        if ($q->rows == 0) {
+        )->first();
+        if (!$q) {
             $q = $this->db->query("SELECT person_id FROM gidredirect, member
                     WHERE gid_from = :gid_from AND
                         CONCAT('uk.org.publicwhip/member/', member_id) = gid_to",
                 array(':gid_from' => "uk.org.publicwhip/member/$member_id")
-            );
+            )->first();
         }
-        if ($q->rows > 0) {
-            return $q->field(0, 'person_id');
+        if ($q) {
+            return $q['person_id'];
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no member with a member ID of "' . _htmlentities($member_id) . '".');
         }
@@ -237,10 +237,10 @@ class MEMBER {
             $params[':house'] = $house;
         }
 
-        $q = $this->db->query($query, $params);
+        $q = $this->db->query($query, $params)->first();
 
-        if ($q->rows > 0) {
-            return $q->field(0, 'person_id');
+        if ($q) {
+            return $q['person_id'];
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, there is no current member for the "' . _htmlentities(ucwords($constituency)) . '" constituency.');
         }
@@ -291,7 +291,7 @@ class MEMBER {
         if (!$q->rows) {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, we could not find anyone with that name.');
         } elseif ($q->rows == 1) {
-            return $q->field(0, 'person_id');
+            return $q->first()['person_id'];
         }
 
         # More than one person ID matching the given name
@@ -331,7 +331,7 @@ class MEMBER {
             }
             throw new MySociety\TheyWorkForYou\MemberMultipleException($person_ids);
         } elseif ($q->rows > 0) {
-            return $q->field(0, 'person_id');
+            return $q->first()['person_id'];
         } elseif ($const) {
             return $this->name_to_person_id($name);
         } else {
@@ -436,8 +436,8 @@ class MEMBER {
         $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }
 
-        $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted');
-        $this->extra_info['number_of_alerts'] = $q->field(0, 'c');
+        $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted')->first();
+        $this->extra_info['number_of_alerts'] = $q['c'];
 
         if (isset($this->extra_info['reading_ease'])) {
             $this->extra_info['reading_ease'] = round($this->extra_info['reading_ease'], 2);
@@ -454,8 +454,8 @@ class MEMBER {
         $this->extra_info['pbc'] = array();
         foreach ($q as $row) {
             $bill_id = $row['bill_id'];
-            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10');
-            $c = $c->field(0, 'c');
+            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10')->first();
+            $c = $c['c'];
             $title = $row['title'];
             $attending = $row['a'];
             $chairman = $row['c'];
@@ -565,8 +565,8 @@ class MEMBER {
         if (isset($this->reasons[$left_reason])) {
             $left_reason = $this->reasons[$left_reason];
             if (is_array($left_reason)) {
-                $q = $this->db->query("SELECT MAX(left_house) AS max FROM member WHERE house=$house");
-                $max = $q->field(0, 'max');
+                $q = $this->db->query("SELECT MAX(left_house) AS max FROM member WHERE house=$house")->first();
+                $max = $q['max'];
                 if ($max == $left_house) {
                     return $left_reason[0];
                 } else {

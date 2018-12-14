@@ -41,9 +41,9 @@ class Party {
                 ':house' => $house,
                 ':date' => date('Y-m-d'),
             )
-        );
-        if ( $member_count->rows ) {
-            $num_members = $member_count->field(0, 'num_members');
+        )->first();
+        if ($member_count) {
+            $num_members = $member_count['num_members'];
             return $num_members;
         } else {
             return 0;
@@ -68,10 +68,10 @@ class Party {
                 ':party' => $this->name,
                 ':policy_id' => $policy_id
             )
-        );
+        )->first();
 
-        if ( $position->rows ) {
-            $score = $position->field(0, 'score');
+        if ($position) {
+            $score = $position['score'];
             $score_desc = score_to_strongly($score);
 
             if ( $want_score ) {

@@ -69,10 +69,10 @@ class Postcode
         $db = new \ParlDB;
         $q = $db->query('select name from postcode_lookup where postcode = :postcode', array(
             ':postcode' => $postcode
-            ));
+            ))->first();
 
-        if ($q->rows > 0) {
-            $name = $q->field(0, 'name');
+        if ($q) {
+            $name = $q['name'];
             if (self::postcodeIsScottish($postcode)) {
                 $name = explode('|', $name);
                 if (count($name)==3)

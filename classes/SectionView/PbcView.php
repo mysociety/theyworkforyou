@@ -33,10 +33,10 @@ class PbcView extends SectionView {
                 and session = :session', array(
                 ':bill' => $this->bill,
                 ':session' => $this->session
-            ));
-            if ($q->rows()) {
-                $bill_id = $q->field(0, 'id');
-                $standingprefix = $q->field(0, 'standingprefix');
+            ))->first();
+            if ($q) {
+                $bill_id = $q['id'];
+                $standingprefix = $q['standingprefix'];
             }
         }
 

@@ -60,10 +60,10 @@ class Featured {
             array(
                 ':key' => $key
             )
-        );
+        )->first();
 
-        if ($q->rows) {
-            $text = $q->field(0, 'value');
+        if ($q) {
+            $text = $q['value'];
             if ( trim($text) == '' ) {
                 $text = NULL;
             }

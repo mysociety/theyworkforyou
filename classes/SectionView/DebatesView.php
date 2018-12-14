@@ -93,9 +93,9 @@ class DebatesView extends SectionView {
     private function video_sidebar($row, $heading_hpos, $count) {
         $db = new \ParlDB;
         $gid_type = $this->video_gid_type();
-        $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1");
-        $adate = $vq->field(0, 'adate');
-        $time = $vq->field(0, 'atime');
+        $vq = $db->query("select id,adate,atime from video_timestamps where gid='uk.org.publicwhip/$gid_type/$row[gid]' and (user_id!=-1 or user_id is null) and deleted=0 order by (user_id is null) limit 1")->first();
+        $adate = $vq['adate'];
+        $time = $vq['atime'];
         $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
         if (!$videodb) return '';
         $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $time);

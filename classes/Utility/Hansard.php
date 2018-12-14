@@ -36,9 +36,9 @@ class Hansard
         global $hansardmajors;
         $db = new \ParlDB();
 
-        $q = $db->query("SELECT major FROM hansard WHERE gid = :gid", array( ':gid' => $gid ));
+        $q = $db->query("SELECT major FROM hansard WHERE gid = :gid", array( ':gid' => $gid ))->first();
         $url_gid = fix_gid_from_db($gid);
-        $url = new \MySociety\TheyWorkForYou\Url($hansardmajors[$q->field(0, 'major')]['page']);
+        $url = new \MySociety\TheyWorkForYou\Url($hansardmajors[$q['major']]['page']);
         $url->insert(array('id' => $url_gid));
         return $url->generate();
     }

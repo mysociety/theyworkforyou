@@ -64,17 +64,17 @@ class COMMENT {
                                     modflagged
                             FROM	comments
                             WHERE 	comment_id=:comment_id",
-                    array(':comment_id' => $comment_id));
+                    array(':comment_id' => $comment_id))->first();
 
-            if ($q->rows() > 0) {
+            if ($q) {
 
                 $this->comment_id 	= $comment_id;
-                $this->user_id		= $q->field(0, 'user_id');
-                $this->epobject_id	= $q->field(0, 'epobject_id');
-                $this->body			= $q->field(0, 'body');
-                $this->posted		= $q->field(0, 'posted');
-                $this->visible		= $q->field(0, 'visible');
-                $this->modflagged	= $q->field(0, 'modflagged');
+                $this->user_id		= $q['user_id'];
+                $this->epobject_id	= $q['epobject_id'];
+                $this->body			= $q['body'];
+                $this->posted		= $q['posted'];
+                $this->visible		= $q['visible'];
+                $this->modflagged	= $q['modflagged'];
 
                 // Sets the URL and username for this comment. Duh.
                 $this->_set_url();
@@ -207,15 +207,15 @@ class COMMENT {
                                     gid
                             FROM	hansard
                             WHERE	epobject_id = :epobject_id",
-                            array(':epobject_id' => $this->epobject_id));
+                            array(':epobject_id' => $this->epobject_id))->first();
 
-            if ($q->rows() > 0) {
+            if ($q) {
                  // If you change stuff here, you might have to change it in
                  // $COMMENTLIST->_get_comment_data() too...
 
-                $gid = fix_gid_from_db($q->field(0, 'gid')); // In includes/utility.php
+                $gid = fix_gid_from_db($q['gid']); // In includes/utility.php
 
-                $major = $q->field(0, 'major');
+                $major = $q['major'];
                 $page = $hansardmajors[$major]['page'];
 
                 $URL = new \MySociety\TheyWorkForYou\Url($page);
@@ -235,11 +235,11 @@ class COMMENT {
                                     lastname
                             FROM	users
                             WHERE	user_id = :user_id",
-                            array(':user_id' => $this->user_id));
+                            array(':user_id' => $this->user_id))->first();
 
-            if ($q->rows() > 0) {
-                $this->firstname = $q->field(0, 'firstname');
-                $this->lastname = $q->field(0, 'lastname');
+            if ($q) {
+                $this->firstname = $q['firstname'];
+                $this->lastname = $q['lastname'];
             }
         }
     }

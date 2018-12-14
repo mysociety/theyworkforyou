@@ -21,9 +21,9 @@ $action = 'all';
 
 $db = new ParlDB;
 
-$q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0');
-$min_future_date = $q->field(0, 'min');
-$max_future_date = $q->field(0, 'max');
+$q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0')->first();
+$min_future_date = $q['min'];
+$max_future_date = $q['max'];
 if (!$min_future_date || !$max_future_date) {
     $PAGE->error_message("Couldn't find any future information");
 

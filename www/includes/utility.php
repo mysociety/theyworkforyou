@@ -612,9 +612,9 @@ function get_canonical_gid($gid) {
     $db = new ParlDB;
     $might_be_redirected = true;
     while ($might_be_redirected) {
-        $q = $db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid", array(':gid' => $gid));
-        if ($q->rows() > 0) {
-            $gid = $q->field(0, 'gid_to');
+        $q = $db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid", array(':gid' => $gid))->first();
+        if ($q) {
+            $gid = $q['gid_to'];
         } else {
             $might_be_redirected = false;
         }

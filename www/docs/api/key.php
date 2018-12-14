@@ -64,8 +64,8 @@ return here to get a key.</p>';
 
 function has_no_keys($user) {
     $db = new ParlDB;
-    $q = $db->query('SELECT COUNT(*) as count FROM api_key WHERE user_id=' . $user->user_id());
-    return $q->field(0, 'count') ? false : true;
+    $q = $db->query('SELECT COUNT(*) as count FROM api_key WHERE user_id=' . $user->user_id())->first()['count'];
+    return $q ? false : true;
 }
 
 function get_keys($user) {
@@ -86,14 +86,11 @@ function list_keys($keys) {
         echo '<li><span style="font-size:200%">' . $key . '</span><br><span style="color: #666666;">';
         echo 'Key created ', $created, '; ', $reason;
         echo '</span><br><em>Usage statistics</em>: ';
-        $q = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 day');
-        $c = $q->field(0, 'count');
+        $c = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 day')->first()['count'];
         echo "last 24 hours: $c, ";
-        $q = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 week');
-        $c = $q->field(0, 'count');
+        $c = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 week')->first()['count'];
         echo "last week: $c, ";
-        $q = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 month');
-        $c = $q->field(0, 'count');
+        $c = $db->query('SELECT count(*) as count FROM api_stats WHERE api_key="' . $key . '" AND query_time > NOW() - interval 1 month')->first()['count'];
         echo "last month: $c";
         echo '</p>';
     }

@@ -9,8 +9,8 @@ function api_convertURL_front() {
 <dt>url (required)</dt>
 <dd>The parliament.uk URL you wish to convert, e.g.
 <?php	$db = new ParlDB;
-    $q = $db->query('SELECT source_url FROM hansard WHERE major=1 AND hdate>"2006-07-01" ORDER BY RAND() LIMIT 1');
-    print $q->field(0, 'source_url');
+    $q = $db->query('SELECT source_url FROM hansard WHERE major=1 AND hdate>"2006-07-01" ORDER BY RAND() LIMIT 1')->first();
+    print $q['source_url'];
 ?></dd>
 </dl>
 
@@ -31,10 +31,10 @@ function api_convertURL_front() {
 function get_listurl($q) {
     global $hansardmajors;
     $id_data = array(
-        'gid' => fix_gid_from_db($q->field(0, 'gid')),
-        'major' => $q->field(0, 'major'),
-        'htype' => $q->field(0, 'htype'),
-        'subsection_id' => $q->field(0, 'subsection_id'),
+        'gid' => fix_gid_from_db($q['gid']),
+        'major' => $q['major'],
+        'htype' => $q['htype'],
+        'subsection_id' => $q['subsection_id'],
     );
     $db = new ParlDB;
     $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
@@ -48,9 +48,9 @@ function get_listurl($q) {
                 FROM 	hansard
                 WHERE	epobject_id = :epobject_id", array(
                     ':epobject_id' => $parent_epobject_id
-                    ));
-        if ($r->rows() > 0) {
-            $parent_gid = fix_gid_from_db( $r->field(0, 'gid') );
+                    ))->first();
+        if ($r) {
+            $parent_gid = fix_gid_from_db($r['gid']);
         }
         if ($parent_gid != '') {
             $LISTURL->insert( array( 'id' => $parent_gid ) );
@@ -61,7 +61,7 @@ function get_listurl($q) {
 }
 
 function api_converturl_url_output($q) {
-    $gid = $q->field(0, 'gid');
+    $gid = $q['gid'];
     $url = get_listurl($q);
     $output = array(
         'gid' => $gid,
@@ -74,23 +74,26 @@ function api_converturl_url($url) {
     $url_nohash = preg_replace('/#.*/', '', $url);
     $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = :url order by gid limit 1', array(
         ':url' => $url
-        ));
-    if ($q->rows())
+        ))->first();
+    if ($q) {
         return api_converturl_url_output($q);
+    }
 
     $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
         ':url' => $url_nohash . '%'
-        ));
-    if ($q->rows())
+        ))->first();
+    if ($q) {
         return api_converturl_url_output($q);
+    }
 
     $url_bound = str_replace('cmhansrd/cm', 'cmhansrd/vo', $url_nohash);
     if ($url_bound != $url_nohash) {
         $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
             ':url' => $url_bound . '%'
-            ));
-        if ($q->rows())
+            ))->first();
+        if ($q) {
             return api_converturl_url_output($q);
+        }
     }
     api_error('Sorry, URL could not be converted');
 }

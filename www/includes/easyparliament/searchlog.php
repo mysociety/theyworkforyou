@@ -111,9 +111,9 @@ class SEARCHLOG {
                 FROM member, person_names pn
                 WHERE member.person_id = pn.person_id and member.person_id=:pid
                 AND pn.type="name" AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id=member.person_id)
-                ORDER BY end_date DESC LIMIT 1', array(':pid' => $m[1]));
-            if ($qq->rows()) {
-                $name = member_full_name($qq->field(0, 'house'), $qq->field(0, 'title'), $qq->field(0, 'given_name'), $qq->field(0, 'family_name'), $qq->field(0, 'lordofname'));
+                ORDER BY end_date DESC LIMIT 1', array(':pid' => $m[1]))->first();
+            if ($qq) {
+                $name = member_full_name($qq['house'], $qq['title'], $qq['given_name'], $qq['family_name'], $qq['lordofname']);
                 $query = preg_replace('#speaker:(\d+)#', $name, $query);
                 #$htmlescape = 0;
             }

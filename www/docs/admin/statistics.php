@@ -24,12 +24,11 @@ $debate_speeches = $DEBATELIST->total_speeches();
 
 $wrans_questions = $WRANSLIST->total_questions();
 
-$q = $db->query("SELECT min(hdate) as mindate, max(hdate) as maxdate from hansard");
-$datefrom = format_date($q->field(0, 'mindate'), SHORTDATEFORMAT);
-$dateto = format_date($q->field(0, 'maxdate'), SHORTDATEFORMAT);
+$q = $db->query("SELECT min(hdate) as mindate, max(hdate) as maxdate from hansard")->first();
+$datefrom = format_date($q['mindate'], SHORTDATEFORMAT);
+$dateto = format_date($q['maxdate'], SHORTDATEFORMAT);
 
-$q = $db->query("SELECT count(distinct hdate) as count from hansard");
-$uniquedates = $q->field(0, 'count');
+$uniquedates = $db->query("SELECT count(distinct hdate) as count from hansard")->first()['count'];
 ?>
 
 <p><b><?=$datefrom?></b> to <b><?=$dateto?></b>. Parliament was sitting for

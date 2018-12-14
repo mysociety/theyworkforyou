@@ -12,10 +12,10 @@ $q = $db->query("select subsection_id,adate,atime from hansard, video_timestamps
     where hansard.gid = video_timestamps.gid and hansard.gid = :gid
         and deleted=0 and (user_id is null or user_id!=-1)", array(
         ':gid' => "uk.org.publicwhip/$gid"
-        ));
-$subsection_id = $q->field(0, 'subsection_id');
-$adate = $q->field(0, 'adate');
-$atime = $q->field(0, 'atime');
+        ))->first();
+$subsection_id = $q['subsection_id'];
+$adate = $q['adate'];
+$atime = $q['atime'];
 $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $atime);
 if (!$video) exit;
 

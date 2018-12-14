@@ -44,9 +44,9 @@ class Topics {
       $q = $this->db->query(
           "SELECT id, slug, title, description, search_string, front_page, image FROM topics WHERE slug = :slug",
           array(':slug' => $topic_name)
-      );
-      if ($q->rows) {
-          return new Topic($q->row(0));
+      )->first();
+      if ($q) {
+          return new Topic($q);
       }
 
       return NULL;

@@ -13,11 +13,11 @@ $q = $db->query("select hdate, htime, adate, atime from hansard
     left join video_timestamps on hansard.gid=video_timestamps.gid and user_id=-1 and video_timestamps.deleted=0
     where hansard.gid = :gid", array(
         ':gid' => $gid
-        ));
-$hdate = $q->field(0, 'hdate');
-$htime = $q->field(0, 'htime');
-$atime = $q->field(0, 'atime');
-$adate = $q->field(0, 'adate');
+        ))->first();
+$hdate = $q['hdate'];
+$htime = $q['htime'];
+$atime = $q['atime'];
+$adate = $q['adate'];
 if ($atime) $htime = $atime;
 if ($adate) $hdate = $adate;
 

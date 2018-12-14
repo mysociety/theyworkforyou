@@ -67,29 +67,29 @@ class COMMENTREPORT {
                             AND		commentreports.user_id = users.user_id
                             ", array(
                                 ':report_id' => $report_id
-                            ));
+                            ))->first();
 
-            if ($q->rows() > 0) {
-                $this->report_id		= $report_id;
-                $this->comment_id 		= $q->field(0, 'comment_id');
-                $this->body 			= $q->field(0, 'body');
-                $this->reported 		= $q->field(0, 'reported');
-                $this->resolved 		= $q->field(0, 'resolved');
-                $this->resolvedby 		= $q->field(0, 'resolvedby');
-                $this->locked 			= $q->field(0, 'locked');
-                $this->lockedby			= $q->field(0, 'lockedby');
-                $this->upheld 			= $q->field(0, 'upheld');
+            if ($q) {
+                $this->report_id = $report_id;
+                $this->comment_id = $q['comment_id'];
+                $this->body = $q['body'];
+                $this->reported = $q['reported'];
+                $this->resolved = $q['resolved'];
+                $this->resolvedby = $q['resolvedby'];
+                $this->locked = $q['locked'];
+                $this->lockedby = $q['lockedby'];
+                $this->upheld = $q['upheld'];
 
-                if ($q->field(0, 'user_id') == 0) {
+                if ($q['user_id'] == 0) {
                     // The report was made by a non-logged-in user.
-                    $this->firstname = $q->field(0, 'firstname');
-                    $this->lastname = $q->field(0, 'lastname');
-                    $this->email = $q->field(0, 'email');
+                    $this->firstname = $q['firstname'];
+                    $this->lastname = $q['lastname'];
+                    $this->email = $q['email'];
                 } else {
                     // The report was made by a logged-in user.
-                    $this->firstname = $q->field(0, 'u_firstname');
-                    $this->lastname = $q->field(0, 'u_lastname');
-                    $this->user_id = $q->field(0, 'user_id');
+                    $this->firstname = $q['u_firstname'];
+                    $this->lastname = $q['u_lastname'];
+                    $this->user_id = $q['user_id'];
                 }
             } else {
                 $q = $this->db->query("SELECT commentreports.comment_id,
@@ -107,21 +107,21 @@ class COMMENTREPORT {
                             FROM	commentreports
                             WHERE	commentreports.report_id = :report_id", array(
                                 ':report_id' => $report_id
-                            ));
+                            ))->first();
 
                 if ($q->rows() > 0) {
-                $this->report_id		= $report_id;
-                $this->comment_id 		= $q->field(0, 'comment_id');
-                $this->body 			= $q->field(0, 'body');
-                $this->reported 		= $q->field(0, 'reported');
-                $this->resolved 		= $q->field(0, 'resolved');
-                $this->resolvedby 		= $q->field(0, 'resolvedby');
-                $this->locked 			= $q->field(0, 'locked');
-                $this->lockedby			= $q->field(0, 'lockedby');
-                $this->upheld 			= $q->field(0, 'upheld');
-                $this->firstname = $q->field(0, 'firstname');
-                $this->lastname = $q->field(0, 'lastname');
-                $this->email = $q->field(0, 'email');
+                $this->report_id = $report_id;
+                $this->comment_id = $q['comment_id'];
+                $this->body = $q['body'];
+                $this->reported = $q['reported'];
+                $this->resolved = $q['resolved'];
+                $this->resolvedby = $q['resolvedby'];
+                $this->locked = $q['locked'];
+                $this->lockedby = $q['lockedby'];
+                $this->upheld = $q['upheld'];
+                $this->firstname = $q['firstname'];
+                $this->lastname = $q['lastname'];
+                $this->email = $q['email'];
                 }
             }
         }

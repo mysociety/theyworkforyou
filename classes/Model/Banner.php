@@ -29,10 +29,10 @@ class Banner {
         $text = $this->mem->get('banner');
 
         if ( $text === false ) {
-            $q = $this->db->query("SELECT value FROM editorial WHERE item = 'banner'");
+            $q = $this->db->query("SELECT value FROM editorial WHERE item = 'banner'")->first();
 
-            if ($q->rows) {
-                $text = $q->field(0, 'value');
+            if ($q) {
+                $text = $q['value'];
                 if ( trim($text) == '' ) {
                     $text = NULL;
                 }

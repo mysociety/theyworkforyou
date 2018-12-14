@@ -13,9 +13,8 @@ class Calendar
 
     public static function minFutureDate() {
         $db = new \ParlDB();
-        $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0');
-
-        return $q->field(0, 'm');
+        $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0')->first();
+        return $q['m'];
     }
 
     public static function fetchDate($date) {

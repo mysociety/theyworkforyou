@@ -35,24 +35,24 @@ $q = $db->query("select hdate, htime, adate, atime, hpos, video_status, subsecti
     left join video_timestamps on hansard.gid = video_timestamps.gid and user_id = -1 and video_timestamps.deleted = 0
     where hansard.gid = :gid", array(
         ':gid' => $gid
-        ));
-if (!$q->rows()) {
+        ))->first();
+if (!$q) {
     $PAGE->error_message('That GID does not appear to exist.', true, 404);
     exit;
 }
-$video_status = $q->field(0, 'video_status');
-$major = $q->field(0, 'major');
-$hpos = $q->field(0, 'hpos');
-$hdate = $q->field(0, 'hdate');
-$htime = $q->field(0, 'htime');
-$atime = $q->field(0, 'atime');
-$adate = $q->field(0, 'adate');
+$video_status = $q['video_status'];
+$major = $q['major'];
+$hpos = $q['hpos'];
+$hdate = $q['hdate'];
+$htime = $q['htime'];
+$atime = $q['atime'];
+$adate = $q['adate'];
 if ($atime) $htime = $atime;
 if ($adate) $hdate = $adate;
-$parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q->field(0, 'parent_gid'));
+$parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q['parent_gid']);
 $parent_gid = str_replace('uk.org.publicwhip/lords/', '/lords/?gid=', $parent_gid);
-$parent_body = $q->field(0, 'parent_body');
-$parent_epid = $q->field(0, 'subsection_id');
+$parent_body = $q['parent_body'];
+$parent_epid = $q['subsection_id'];
 
 if (!($video_status&1) || ($video_status&8)) {
     $PAGE->error_message('That GID does not appear to have any video. Please visit the <a href="/video/">video front page</a>.', true, 404);
@@ -64,10 +64,10 @@ $q = $db->query("select adate,atime from video_timestamps, hansard
     where video_timestamps.gid = hansard.gid
         and (user_id is null or user_id != -1) and deleted = 0
         and hdate='$hdate' and hpos<$hpos and major=$major
-    order by hpos desc limit 1");
-if ($q->rows()) {
-    $adate = $q->field(0, 'adate');
-    $atime = $q->field(0, 'atime');
+    order by hpos desc limit 1")->first();
+if ($q) {
+    $adate = $q['adate'];
+    $atime = $q['atime'];
     if ($atime > $htime) {
         $htime = $atime;
         $offset = 0;
@@ -178,8 +178,7 @@ function showInstructions() {
     $hidden_int = (isset($_COOKIE['hideVideoInt']) && $_COOKIE['hideVideoInt']);
     echo '<table id="video_table" border="0" cellspacing="0" cellpadding="5"><tr valign="top"><td width="50%">';
     if ($gid_actual['video_status']&4) {
-        $q = $db->query("select timediff(current_timestamp,max(whenstamped)) as ws from video_timestamps where gid='$q_gid' and (user_id is null or user_id != -1) and deleted=0");
-        $max = $q->field(0, 'ws');
+        $max = $db->query("select timediff(current_timestamp,max(whenstamped)) as ws from video_timestamps where gid='$q_gid' and (user_id is null or user_id != -1) and deleted=0")->first()['ws'];
         echo '<p class="informational">Thanks, but this speech has <strong>already been stamped</strong>';
         if ($max < '00:15:00') {
             echo ' <strong>within the last 15 minutes</strong>, so it\'s possible you and someone
