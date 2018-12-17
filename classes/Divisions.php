@@ -119,6 +119,59 @@ class Divisions {
         return array('divisions' => $divisions);
     }
 
+    /**
+     * @param  int              $number  Number of divisions to return. Optional.
+     * @param  int|int[]        $majors  Major types (e.g. 1) or array of
+     *                                   major types. Optional.
+     */
+    public function getRecentDebatesWithDivisions($number = 20, $majors = NULL) {
+        global $hansardmajors;
+
+        if (!is_array($majors)) {
+            $majors = [$majors];
+        }
+
+        $where = '';
+        if (count($majors) > 0) {
+            $where = 'AND h.major IN (' . implode(', ', $majors) . ')';
+        }
+
+        # Fetch any division speech, its subsection gid for the link, and
+        # section/subsection bodies to construct a debate title
+        $q = $this->db->query(
+            "SELECT eps.body as section_body, epss.body as subsection_body,
+                ss.gid as debate_gid, h.gid, h.hdate, h.major, count(h.gid) AS c
+            FROM hansard h, hansard ss, epobject eps, epobject epss
+            WHERE h.section_id = eps.epobject_id
+                AND h.subsection_id = epss.epobject_id
+                AND h.subsection_id = ss.epobject_id
+                AND h.htype=14
+            $where
+            GROUP BY h.subsection_id
+            ORDER BY h.hdate DESC, h.hpos DESC
+            LIMIT :count",
+            array(':count' => $number)
+        );
+
+        $debates = array();
+        foreach ($q->data as $debate) {
+            $debate_gid = fix_gid_from_db($debate['debate_gid']);
+            $anchor = '';
+            if ($debate['c'] == 1) {
+                $anchor = '#g' . gid_to_anchor(fix_gid_from_db($debate['gid']));
+            }
+            $url = new Url($hansardmajors[$debate['major']]['page']);
+            $url->insert(array('gid' => $debate_gid));
+            $debates[] = [
+                'url' => $url->generate() . $anchor,
+                'title' => "$debate[section_body] : $debate[subsection_body]",
+                'date' => $debate['hdate'],
+            ];
+        }
+
+        return $debates;
+    }
+
     public function getRecentDivisionsForPolicies($policies, $number = 20) {
         $args = array(':number' => $number);
 

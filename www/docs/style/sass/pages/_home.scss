@@ -317,7 +317,7 @@ input.homepage-search__button {
 .recently__list {
     @extend .unstyled-list;
     li {
-        margin-bottom: 2em;
+        margin-bottom: 1em;
     }
 }
 
@@ -327,10 +327,14 @@ input.homepage-search__button {
 
 .excerpt__title {
     margin-bottom: 0.1em;
-    max-width: 21em;
     font-size: 1.125em;
     @media (min-width: $medium-screen) {
         font-size: 1em;
+        padding-right: 14em; // leave space for long categories like "Northern Ireland Assembly debate"
+
+        .parliamentary-excerpt--no-category & {
+            padding-right: 0;
+        }
     }
 }
 
@@ -343,8 +347,8 @@ input.homepage-search__button {
 .excerpt__category {
     @media (min-width: $large-screen) {
         position: absolute;
-        right: 1.5%;
-        top: 0.5em;
+        right: 0;
+        top: 0.2em; // vertically align with .excerpt__title baseline
     }
     a {
         color: $brand;
@@ -360,6 +364,8 @@ input.homepage-search__button {
     font-size: 0.888888889em;
     @media (min-width: $medium-screen) {
         font-size: 1em;
+        line-height: 1.4; // match `.panel h3`
+        margin-bottom: 2em; // extra vertical space between excerpts with statements
     }
     q {
         display: block;

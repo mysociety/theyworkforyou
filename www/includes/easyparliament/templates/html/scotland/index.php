@@ -100,6 +100,8 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-recently homepage-content-section">
+                        <?php include dirname(__FILE__) . '/../homepage/recent-votes.php'; ?>
+
                         <h2>Recently in Parliament</h2>
                         <ul class="recently__list"><?php
                             foreach ( $debates['recent'] as $recent ) {

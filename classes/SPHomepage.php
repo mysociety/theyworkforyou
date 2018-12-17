@@ -8,6 +8,7 @@ class SPHomepage extends Homepage {
     protected $cons_type = 'SPC';
     protected $mp_url = 'yourmsp';
     protected $page = 'spoverview';
+    protected $houses = array(7);
 
     protected $recent_types = array(
         'SPLIST' => array('recent_debates', 'spdebatesfront', 'Scottish parliament debates'),
