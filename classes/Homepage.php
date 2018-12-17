@@ -10,6 +10,7 @@ class Homepage {
     protected $cons_type = 'WMC';
     protected $mp_url = 'yourmp';
     protected $page = 'overview';
+    protected $houses = array(1, 101);
 
     protected $recent_types = array(
         'DEBATELIST' => array('recent_debates', 'debatesfront', 'Commons debates'),
@@ -43,6 +44,7 @@ class Homepage {
         $data['calendar'] = $this->getCalendarData();
         $data['featured'] = $this->getEditorialContent();
         $data['topics'] = $this->getFrontPageTopics();
+        $data['divisions'] = $this->getRecentDivisions();
 
         return $data;
     }
@@ -108,6 +110,11 @@ class Homepage {
     protected function getFrontPageTopics() {
         $topics = new Topics();
         return $topics->getFrontPageTopics();
+    }
+
+    private function getRecentDivisions() {
+        $divisions = new Divisions();
+        return $divisions->getRecentDebatesWithDivisions(5, $this->houses);
     }
 
     protected function getURLs() {

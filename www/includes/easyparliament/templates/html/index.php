@@ -106,6 +106,28 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-recently homepage-content-section">
+
+                      <?php if ( count($divisions) > 0 ) { ?>
+                        <h2 style="position: relative;">
+                            Recent Votes
+                            <div class="meta excerpt__category"><a href="/divisions/">Show all recent votes</a></div>
+                        </h2>
+                        <ul class="recently__list">
+                          <?php foreach ($divisions as $debate) { ?>
+                            <li class="parliamentary-excerpt parliamentary-excerpt--no-category">
+                                <h3 class="excerpt__title">
+                                    <a href="<?= $debate['url'] ?>">
+                                        <?= $debate['title'] ?>
+                                    </a>
+                                </h3>
+                                <p class="meta">
+                                    <?= format_date($debate['date'], LONGERDATEFORMAT) ?>
+                                </p>
+                          </li>
+                          <?php } ?>
+                        </ul>
+                      <?php } ?>
+
                         <h2>Recently in Parliament</h2>
                         <ul class="recently__list"><?php
                             foreach ( $debates['recent'] as $recent ) {
