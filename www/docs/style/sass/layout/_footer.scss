@@ -45,3 +45,12 @@ $mysoc-footer-breakpoint-sm: $medium-screen;
     margin-left: 1.5%;
     margin-right: 1.5%;
 }
+
+// Only one logo, so do this to prevent horizontal
+// scrollbar due to .column padding
+.mysoc-footer__org {
+    padding: 0;
+}
+.mysoc-footer__orgs {
+    margin: 0;
+}
