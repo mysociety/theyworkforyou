@@ -181,6 +181,14 @@
   }
 }
 
+// The "Votes in this debate" list, at the top of debate pages.
+ul.debate-speech__division__details {
+  clear: none;
+  margin-bottom: 0;
+  margin-top: -0.5em;
+  padding-left: 70px;
+}
+
 .division-section__vote {
   @media (min-width: 32em) {
     @include box-sizing(content-box);

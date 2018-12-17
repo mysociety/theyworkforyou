@@ -1,4 +1,6 @@
-  <?php foreach($data['rows'] as $speech) { ?>
+<?php
+
+foreach($data['rows'] as $speech) { ?>
 
     <?php
 
@@ -327,8 +329,11 @@
 
     <?php $previous_speech_time = $speech['htime']; ?>
 
-  <?php } // end foreach
-        if (isset($data['subrows'])) {
+<?php
+
+} // end foreach
+
+    if (isset($data['subrows'])) {
         print '<div class="subrows"><div class="full-page__row"><div class="full-page__unit"><ul>';
         foreach ($data['subrows'] as $row) {
             print '<li class="subrows__list-item">';
@@ -366,6 +371,7 @@
         }
         print '</ul></div></div></div>';
     }
+
     if ($section && $individual_item) { ?>
         <div class="debate-comments">
             <div class="full-page__row">
@@ -379,7 +385,5 @@
                 </div>
             </div>
         </div>
-        <?php
+<?php
     }
-
-?>

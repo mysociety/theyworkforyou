@@ -25,7 +25,11 @@
 
 <div class="full-page">
 
-<?php $section = true; include '_section_content.php'; ?>
+<?php
+    include '_section_toc.php';
+    $section = true;
+    include '_section_content.php';
+?>
 
 </div>
 
