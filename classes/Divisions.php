@@ -263,7 +263,7 @@ class Divisions {
         $args['house'] = \MySociety\TheyWorkForYou\Utility\House::division_house_name_to_number($house);
 
         $q = $this->db->query(
-            "SELECT pdv.person_id, vote, given_name, family_name, party
+            "SELECT pdv.person_id, vote, title, given_name, family_name, lordofname, party
             FROM persondivisionvotes AS pdv JOIN person_names AS pn ON (pdv.person_id = pn.person_id)
             JOIN member AS m ON (pdv.person_id = m.person_id)
             WHERE division_id = :division_id
@@ -290,7 +290,8 @@ class Divisions {
         foreach ($q->data as $vote) {
             $detail = array(
               'person_id' => $vote['person_id'],
-              'name' => $vote['given_name'] . ' ' . $vote['family_name'],
+              'name' => ucfirst(member_full_name($args['house'], $vote['title'], $vote['given_name'],
+                    $vote['family_name'], $vote['lordofname'])),
               'party' => $vote['party'],
               'teller' => false
             );
