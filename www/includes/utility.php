@@ -933,6 +933,18 @@ function member_full_name($house, $title, $given_name, $family_name, $lordofname
     return $s;
 }
 
+function by_peer_name($a, $b) {
+    if (!$a['family_name'] && !$b['family_name'])
+        return strcmp($a['lordofname'], $b['lordofname']);
+    if (!$a['family_name'])
+        return strcmp($a['lordofname'], $b['family_name']);
+    if (!$b['family_name'])
+        return strcmp($a['family_name'], $b['lordofname']);
+    if (strcmp($a['family_name'], $b['family_name']))
+        return strcmp($a['family_name'], $b['family_name']);
+    return strcmp($a['lordofname'], $b['lordofname']);
+}
+
 function prettify_office($pos, $dept) {
     $lookup = array(
         'Prime Minister, HM Treasury' => 'Prime Minister',

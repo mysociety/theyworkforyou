@@ -287,6 +287,11 @@ class Divisions {
           'both_votes' => array()
         );
 
+        # Sort Lords specially
+        if ($args['house'] == HOUSE_TYPE_LORDS) {
+            uasort($q->data, 'by_peer_name');
+        }
+
         foreach ($q->data as $vote) {
             $detail = array(
               'person_id' => $vote['person_id'],

@@ -274,8 +274,9 @@ class People {
                 $data[$p_id] = $narray;
             }
         }
-        if ($this->house == HOUSE_TYPE_LORDS && ($order == 'name' || $order == 'constituency'))
-            uasort($data, array($this, 'by_peer_name'));
+        if ($this->house == HOUSE_TYPE_LORDS && ($order == 'name' || $order == 'constituency')) {
+            uasort($data, 'by_peer_name');
+        }
 
         $data = array (
             'info' => array (
@@ -286,18 +287,6 @@ class People {
 
         return $data;
 
-    }
-
-    private function by_peer_name($a, $b) {
-        if (!$a['family_name'] && !$b['family_name'])
-            return strcmp($a['lordofname'], $b['lordofname']);
-        if (!$a['family_name'])
-            return strcmp($a['lordofname'], $b['family_name']);
-        if (!$b['family_name'])
-            return strcmp($a['family_name'], $b['lordofname']);
-        if (strcmp($a['family_name'], $b['family_name']))
-            return strcmp($a['family_name'], $b['family_name']);
-        return strcmp($a['lordofname'], $b['lordofname']);
     }
 
 }
