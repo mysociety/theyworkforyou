@@ -374,7 +374,8 @@ $this->page = array (
     'divisions_vote' => array (
         'parent'		=> 'divisions_recent',
         'title'			=> 'Vote',
-        'url'			=> 'divisions/division.php'
+        'url'			=> 'divisions/division.php',
+        'session_vars'	=> array('vote'),
     ),
     'epvote' => array (
         'url'			=> 'vote/'
