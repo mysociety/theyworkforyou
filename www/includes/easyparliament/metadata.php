@@ -193,6 +193,11 @@ $this->page = array (
         'parent'		=> 'admin_topics',
         'url'			=> 'admin/edittopic.php',
     ),
+    'admin_wikipedia' => array (
+        'title' => 'Wikipedia links',
+        'parent' => 'admin',
+        'url' => 'admin/wikipedia.php',
+    ),
 
 // Added by Richard Allan for email alert functions
 
