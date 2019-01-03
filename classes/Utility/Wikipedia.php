@@ -22,6 +22,9 @@ class Wikipedia
 {
 
     public static function wikipedize($source) {
+        global $format_date_months;
+        $months = join('|', array_slice($format_date_months, 1));
+
         $was_array = false;
         if (is_array($source)) {
             $source = join('|||', $source);
@@ -67,6 +70,10 @@ class Wikipedia
         $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
             $propernounphrases3[1], $propernounphrases4[1], $propernounphrases5[0], $acronyms[0]));
         foreach ($phrases as $i => $phrase) {
+            # Ignore months
+            if (preg_match("#^($months)\s+\d+$#", $phrase)) {
+                continue;
+            }
             $phrases[$i] = str_replace(' ', '_', trim($phrase));
         }
 
