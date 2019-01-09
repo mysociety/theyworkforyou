@@ -43,6 +43,14 @@
                           <?php } ?>
                       <?php } ?>
                       </p>
+
+                      <?php if (isset($division['debate_url'])) { ?>
+                        <p class="link-to-speech">
+                            Want to understand more about this vote?
+                            <a href="<?= $division['debate_url'] ?>">Read the debate that it was part of</a>.
+                        </p>
+                      <?php } ?>
+
                     </div>
 
                     <div class="debate-speech__division__details">
