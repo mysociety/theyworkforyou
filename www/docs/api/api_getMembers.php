@@ -10,7 +10,7 @@ function _api_getMembers_output($sql, $params) {
     $last_mod = 0;
     foreach ($q as $row) {
         $pid = $row['person_id'];
-        $row = array(
+        $out = array(
             'member_id' => $row['member_id'],
             'person_id' => $pid,
             'name' => html_entity_decode(member_full_name($row['house'], $row['title'],
@@ -19,9 +19,9 @@ function _api_getMembers_output($sql, $params) {
             'party' => isset($parties[$row['party']]) ? $parties[$row['party']] : $row['party'],
         );
         if ($row['house'] != HOUSE_TYPE_LORDS) {
-            $row['constituency'] = $row['constituency'];
+            $out['constituency'] = $row['constituency'];
         }
-        $output[$pid] = $row;
+        $output[$pid] = $out;
         $time = strtotime($row['lastupdate']);
         if ($time > $last_mod) {
             $last_mod = $time;

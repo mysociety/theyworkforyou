@@ -940,9 +940,8 @@ class THEUSER extends USER {
         if ($this->isloggedin()) {
             // Set last_visit to now.
             $date_now = gmdate("Y-m-d H:i:s");
-            $this->db->query("UPDATE users
-                            SET     lastvisit = '$date_now'
-                            WHERE   user_id = '" . $this->user_id() . "'");
+            $this->db->query("UPDATE users SET lastvisit = :lastvisit WHERE user_id = :user_id",
+                [ ':lastvisit' => $date_now, ':user_id' => $this->user_id() ]);
 
             $this->lastvisit = $date_now;
         }
