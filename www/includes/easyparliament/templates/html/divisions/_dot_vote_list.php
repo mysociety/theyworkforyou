@@ -3,7 +3,11 @@
       <h2 id="<?= $anchor ?>" title="<?= $summary ?>"><?= $vote_title ?>: <?= $division[$anchor] ?> <?= $division[$anchor] == 1 ? $division['members']['singular'] : $division['members']['plural'] ?></h2>
       <ul class="division-dots">
         <?php foreach ($votes as $vote) { ?>
-        <li class="people-list__person__party <?= slugify($vote['party']) ?>" title="<?= $vote['name'] ?>, <?= $vote['party'] ?><?= $vote['teller'] ? ' (teller)' : '' ?>"></li>
+        <li class="people-list__person__party <?= slugify($vote['party']) ?>" title="<?= $vote['name']
+            ?>, <?= $vote['party']
+            ?><?= $vote['teller'] ? ' (teller)' : ''
+            ?><?= $vote['proxy'] ? " (proxy vote cast by $vote[proxy])" : ''
+            ?>"></li>
         <?php } ?>
       </ul>
   </div>

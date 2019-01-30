@@ -352,7 +352,7 @@ sub db_connect
 
     # Divisions
     $divisionupdate = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, '', '', ?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE gid=VALUES(gid), yes_total=VALUES(yes_total), no_total=VALUES(no_total), absent_total=VALUES(absent_total), both_total=VALUES(both_total), majority_vote=VALUES(majority_vote)");
-    $voteupdate = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE vote=VALUES(vote)");
+    $voteupdate = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote, proxy) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE vote=VALUES(vote), proxy=VALUES(proxy)");
 
     # gidredirect entries
     $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to, hdate, major) values (?,?,?,?)");
@@ -958,6 +958,7 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
 
     # Find any 'both's...
     my %vote_counts_by_pid;
+    my %proxies;
     foreach my $list (@lists) {
         my $side = $list->att('vote');
         die unless $side =~ /^(aye|no|content|not-content)$/;
@@ -966,13 +967,17 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
             my $person_id = person_id($vote, 'id');
             my $vote_direction = $vote->att('vote');
             die unless $vote_direction eq $side;
+            if (my $proxy = $vote->att('proxy')) {
+                $proxy =~ s/.*\///;
+                $proxies{$person_id} = $proxy;
+            }
             $vote_counts_by_pid{$person_id}++;
         }
     }
     foreach (keys %vote_counts_by_pid) {
         if ($vote_counts_by_pid{$_} > 1) {
             $totals->{both}++;
-            $voteupdate->execute($_, $division_id, 'both');
+            $voteupdate->execute($_, $division_id, 'both', $proxies{$_});
         }
     }
 
@@ -997,7 +1002,7 @@ list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip
                 my $stored_vote = $vote_direction =~ /^(aye|content)$/ ? 'aye' : 'no';
                 $stored_vote = "tell$stored_vote" if $teller;
                 $totals->{$stored_vote}++;
-                $voteupdate->execute($person_id, $division_id, $stored_vote);
+                $voteupdate->execute($person_id, $division_id, $stored_vote, $proxies{$person_id});
             }
         }
         $text .= "</ul>";
@@ -1289,13 +1294,13 @@ sub load_scotland_division {
         $person_id = $personredirect{$person_id} || $person_id;
         push @{$out{$vote}}, '<a href="/msp/?m=' . $member_id . '">' . $name . '</a>';
         $totals{$vote}++;
-        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote}, undef);
     }
     while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
         my ($person_id, $vote, $name) = ($1, $2, $3);
         push @{$out{$vote}}, '<a href="/msp/?p=' . $person_id . '">' . $name . '</a>';
         $totals{$vote}++;
-        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote});
+        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote}, undef);
     }
     $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
     foreach ('for','against','abstentions','spoiled votes') {
@@ -1494,7 +1499,7 @@ sub load_standing_division {
         my $name = $_->att('membername');
         my $v = $_->att('vote');
         $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
-        $voteupdate->execute($person_id, $division_id, $v);
+        $voteupdate->execute($person_id, $division_id, $v, undef);
     }
     $out{aye} =~ s/, $//;
     $out{no} =~ s/, $//;

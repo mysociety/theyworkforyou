@@ -3,10 +3,11 @@
 if (!function_exists('print_voter')) {
   function print_voter($vote){
     echo sprintf(
-      '<li><a href="/mp/?p=%d">%s</a> <span class="party">%s</span></li>',
+      '<li><a href="/mp/?p=%d">%s</a> <span class="party">%s%s</span></li>',
       $vote['person_id'],
       $vote['name'],
-      $vote['party']
+      $vote['party'],
+      $vote['proxy'] ? " (proxy vote cast by $vote[proxy])" : ''
     );
   }
 }

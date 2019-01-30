@@ -327,7 +327,7 @@ class Divisions {
         $args['house'] = \MySociety\TheyWorkForYou\Utility\House::division_house_name_to_number($house);
 
         $q = $this->db->query(
-            "SELECT pdv.person_id, vote, title, given_name, family_name, lordofname, party
+            "SELECT pdv.person_id, vote, proxy, title, given_name, family_name, lordofname, party
             FROM persondivisionvotes AS pdv JOIN person_names AS pn ON (pdv.person_id = pn.person_id)
             JOIN member AS m ON (pdv.person_id = m.person_id)
             WHERE division_id = :division_id
@@ -363,11 +363,25 @@ class Divisions {
               'name' => ucfirst(member_full_name($args['house'], $vote['title'], $vote['given_name'],
                     $vote['family_name'], $vote['lordofname'])),
               'party' => $vote['party'],
+              'proxy' => false,
               'teller' => false
             );
 
             if (strpos($vote['vote'], 'tell') !== FALSE) {
                 $detail['teller'] = true;
+            }
+
+            if ($vote['proxy']) {
+                $q = $this->db->query(
+                    "SELECT title, given_name, family_name, lordofname
+                    FROM person_names AS pn
+                    WHERE person_id = :person_id
+                    AND start_date <= :division_date AND end_date >= :division_date",
+                    [ ':person_id' => $vote['proxy'], ':division_date' => $row['division_date'] ]
+                )->first();
+                $detail['proxy'] = ucfirst(member_full_name(
+                    HOUSE_TYPE_COMMONS, $q['title'], $q['given_name'],
+                    $q['family_name'], $q['lordofname']));
             }
 
             if ($vote['vote'] == 'aye' or $vote['vote'] == 'tellaye') {
