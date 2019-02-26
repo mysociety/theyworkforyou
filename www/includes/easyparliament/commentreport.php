@@ -108,20 +108,19 @@ class COMMENTREPORT {
                             WHERE	commentreports.report_id = :report_id", array(
                                 ':report_id' => $report_id
                             ))->first();
-
-                if ($q->rows() > 0) {
-                $this->report_id = $report_id;
-                $this->comment_id = $q['comment_id'];
-                $this->body = $q['body'];
-                $this->reported = $q['reported'];
-                $this->resolved = $q['resolved'];
-                $this->resolvedby = $q['resolvedby'];
-                $this->locked = $q['locked'];
-                $this->lockedby = $q['lockedby'];
-                $this->upheld = $q['upheld'];
-                $this->firstname = $q['firstname'];
-                $this->lastname = $q['lastname'];
-                $this->email = $q['email'];
+                if ($q) {
+                    $this->report_id = $report_id;
+                    $this->comment_id = $q['comment_id'];
+                    $this->body = $q['body'];
+                    $this->reported = $q['reported'];
+                    $this->resolved = $q['resolved'];
+                    $this->resolvedby = $q['resolvedby'];
+                    $this->locked = $q['locked'];
+                    $this->lockedby = $q['lockedby'];
+                    $this->upheld = $q['upheld'];
+                    $this->firstname = $q['firstname'];
+                    $this->lastname = $q['lastname'];
+                    $this->email = $q['email'];
                 }
             }
         }
