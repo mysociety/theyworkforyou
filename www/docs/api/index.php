@@ -88,7 +88,7 @@ if ($q_method = get_http_var('method')) {
 }
 
 function api_documentation_front($method, $explorer) {
-    global $PAGE, $this_page, $DATA, $methods;
+    global $PAGE, $this_page, $DATA;
     $this_page = 'api_doc_front';
     $DATA->set_page_metadata($this_page, 'title', "$method function");
     $PAGE->page_start();
@@ -96,6 +96,16 @@ function api_documentation_front($method, $explorer) {
     include_once 'api_'. $method . '.php';
     print '<p align="center"><strong>https://www.theyworkforyou.com/api/' . $method . '</strong></p>';
     api_call_user_func_or_error('api_' . $method . '_front', array(), 'No documentation yet', 'html');
+    if ($method != 'getQuota') {
+        api_documentation_explorer($method, $explorer);
+    }
+    $sidebar = api_sidebar();
+    $PAGE->stripe_end(array($sidebar));
+    $PAGE->page_end();
+}
+
+function api_documentation_explorer($method, $explorer) {
+    global $methods;
 ?>
 <h4>Explorer</h4>
 <p>Try out this function without writing any code!</p>
@@ -133,9 +143,6 @@ Output:
         print $method . '?' . join('&amp;', $qs) . '&amp;output='._htmlspecialchars(get_http_var('output')).'</strong></p>';
         print '<pre>' . _htmlspecialchars($explorer) . '</pre>';
     }
-    $sidebar = api_sidebar();
-    $PAGE->stripe_end(array($sidebar));
-    $PAGE->page_end();
 }
 
 function api_front_page($error = '') {

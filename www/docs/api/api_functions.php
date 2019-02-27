@@ -5,10 +5,10 @@ include_once INCLUDESPATH . '../../commonlib/phplib/rabx.php';
 # The METHODS
 
 $methods = array(
-    'convertURL' => array(
-        'parameters' => array('url'),
-        'required' => true,
-        'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
+    'getQuota' => array(
+        'parameters' => array(),
+        'required' => false,
+        'help' => 'Return your current quota usage/limit (does not use up quota)',
     ),
     'getConstituency' => array(
         'new' => true,
@@ -120,6 +120,12 @@ $methods = array(
         'parameters' => array('search', 'page', 'num', 'pid', 'start_date', 'end_date'),
         'required' => false,
         'help' => 'Returns comments'
+    ),
+    'convertURL' => array(
+        'new' => true,
+        'parameters' => array('url'),
+        'required' => true,
+        'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
     ),
     'getAlerts' => array(
         'parameters' => array('start_date', 'end_date'),
