@@ -454,10 +454,10 @@
                     I want a site like TheyWorkForYou for my country!
                 </dt>
                     <p>
-                        TheyWorkForYou&rsquo;s code is completely open source and anyone is welcome to use it &ndash; however,
-                        we recommend using our more recent codebase <a href="https://www.mysociety.org/projects/parliamentarymonitoring/pombola/">Pombola</a>,
-                        which is much easier to install and run. <a href="mailto:international@mysociety.org">Drop us a line</a>
-                        and we&rsquo;ll be happy to explain more.
+                        TheyWorkForYou&rsquo;s code is completely open source and anyone is welcome to use it. However,
+                        we have more recent codebases and data that are probably easier to work with.
+                        Read our page about <a href="https://www.mysociety.org/democracy/pombola/">parliamentary monitoring</a>
+                        for more information.
                     </p>
                 </dd>
             </dl>
