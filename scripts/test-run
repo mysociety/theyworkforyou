@@ -62,7 +62,7 @@ print "Set up web test harness...\n" if $verbose > 0;
 our $wth = new mySociety::WebTestHarness();
 our $base_url = 'https://' . mySociety::Config::get('DOMAIN');
 our $email_domain = mySociety::Config::get('EMAILDOMAIN');
-our $alert_command = 'php5 ./alertmailer.php --nomail 2>&1';
+our $alert_command = 'php ./alertmailer.php --nomail 2>&1';
 our $alerts_ok = 'Everything went swimmingly';
 $wth->database_connect('');
 $wth->database_drop_reload('../db/schema.sql');

@@ -102,7 +102,7 @@ if ( $xapiandb !~ /:/ ) {
 }
 
 # Video - updating GIDs that have video available according to parlvid database
-system "php5 $path/theyworkforyou/scripts/video-availability.php";
+system "php $path/theyworkforyou/scripts/video-availability.php";
 
 # Create new RSS files.
 if ($verbose) {
