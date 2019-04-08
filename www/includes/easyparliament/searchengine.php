@@ -208,8 +208,8 @@ class SEARCHENGINE {
 
         $qd = $query->get_description();
         twfy_debug("SEARCH", "queryparser original description -- " . $qd);
-        $qd = substr($qd, 14, -1); # Strip Xapian::Query()
-        $qd = preg_replace('#:\(.*?\)#', '', $qd); # Don't need pos or weight
+        $qd = substr($qd, 6, -1); # Strip "Query()" around description
+        $qd = preg_replace('#@[0-9]+#', '', $qd); # Strip position variable
         # Date range
         $qd = preg_replace_callback('#VALUE_RANGE 1 (\d+) (\d+)#', function($m) {
             return preg_replace("#(\d{4})(\d\d)(\d\d)#", '$3/$2/$1', $m[1])
