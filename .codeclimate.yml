@@ -1,0 +1,3 @@
+plugins:
+  phpmd:
+    enabled: false
