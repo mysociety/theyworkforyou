@@ -915,22 +915,28 @@ function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid =
 }
 
 function member_full_name($house, $title, $given_name, $family_name, $lordofname) {
-    $s = 'ERROR';
-    if ($house == HOUSE_TYPE_COMMONS || $house == HOUSE_TYPE_NI || $house == HOUSE_TYPE_SCOTLAND) {
-        $s = "$given_name $family_name";
-        if ($title) {
-            $s = $title . ' ' . $s;
-        }
-    } elseif ($house == HOUSE_TYPE_LORDS) {
-        $s = '';
-        if (!$family_name) $s = 'the ';
-        $s .= $title;
-        if ($family_name) $s .= ' ' . $family_name;
-        if ($lordofname) $s .= ' of ' . $lordofname;
-    } elseif ($house == HOUSE_TYPE_ROYAL) { # Queen
-        $s = "$given_name $family_name";
+
+    switch ($house) {
+        case HOUSE_TYPE_LORDS:
+            $s = '';
+            if (!$family_name) $s = 'the ';
+            $s .= $title;
+            if ($family_name) $s .= ' ' . $family_name;
+            if ($lordofname) $s .= ' of ' . $lordofname;
+            return $s;
+
+        case HOUSE_TYPE_ROYAL:
+            $s = "$given_name $family_name";
+            return $s;
+
+        default:
+            $s = "$given_name $family_name";
+            if ($title) {
+                $s = $title . ' ' . $s;
+            }
+            return $s;
     }
-    return $s;
+
 }
 
 function by_peer_name($a, $b) {
