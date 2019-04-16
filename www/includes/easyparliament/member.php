@@ -447,10 +447,16 @@ class MEMBER {
         }
 
         # Public Bill Committees
-        $q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
+        $q = $this->db->query(
+            'select bill_id,session,title,sum(attending) as a,sum(chairman) as c
             from pbc_members, bills
-            where bill_id = bills.id and person_id = ' . $this->person_id()
-             . ' group by bill_id order by session desc');
+            where bill_id = bills.id and person_id = :person_id
+            group by bill_id order by session desc',
+            [
+                'person_id' => $this->person_id
+            ]
+        );
+
         $this->extra_info['pbc'] = array();
         foreach ($q as $row) {
             $bill_id = $row['bill_id'];
