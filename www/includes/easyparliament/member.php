@@ -601,17 +601,29 @@ class MEMBER {
 
     public function url($absolute = false) {
         $house = $this->house_disp;
-        if ($house == HOUSE_TYPE_COMMONS) {
-            $URL = new \MySociety\TheyWorkForYou\Url('mp');
-        } elseif ($house == HOUSE_TYPE_LORDS) {
-            $URL = new \MySociety\TheyWorkForYou\Url('peer');
-        } elseif ($house == HOUSE_TYPE_NI) {
-            $URL = new \MySociety\TheyWorkForYou\Url('mla');
-        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            $URL = new \MySociety\TheyWorkForYou\Url('msp');
-        } elseif ($house == HOUSE_TYPE_ROYAL) {
-            $URL = new \MySociety\TheyWorkForYou\Url('royal');
+
+        switch ($house) {
+            case HOUSE_TYPE_LORDS:
+                $URL = new \MySociety\TheyWorkForYou\Url('peer');
+                break;
+
+            case HOUSE_TYPE_NI:
+                $URL = new \MySociety\TheyWorkForYou\Url('mla');
+                break;
+
+            case HOUSE_TYPE_SCOTLAND:
+                $URL = new \MySociety\TheyWorkForYou\Url('msp');
+                break;
+
+            case HOUSE_TYPE_ROYAL:
+                $URL = new \MySociety\TheyWorkForYou\Url('royal');
+                break;
+
+            default:
+                $URL = new \MySociety\TheyWorkForYou\Url('mp');
+                break;
         }
+
         $member_url = make_member_url($this->full_name(true), $this->constituency(), $house, $this->person_id());
         if ($absolute) {
             $protocol = 'https://';
