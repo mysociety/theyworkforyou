@@ -38,6 +38,10 @@ class House
             HOUSE_TYPE_SCOTLAND => array(
               'singular' => 'MSP',
               'plural'   => 'MSPs'
+          ),
+            HOUSE_TYPE_LONDON_ASSEMBLY => array(
+              'singular' => 'Member of the London Assembly',
+              'plural'   => 'Members of the London Assembly'
             )
         );
 
@@ -73,6 +77,13 @@ class House
                 'location' => '&ndash; in the House of Lords',
                 'cons_type' => '',
                 'assembly_name' => 'House of Lords',
+            ),
+            HOUSE_TYPE_LORDS => array (
+                'country' => 'UK',
+                'assembly' => 'london-assembly',
+                'location' => '&ndash; in the London Assembly',
+                'cons_type' => '',
+                'assembly_name' => 'London Assembly',
             )
         );
 

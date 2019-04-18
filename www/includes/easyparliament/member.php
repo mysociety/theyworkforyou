@@ -30,6 +30,7 @@ class MEMBER {
         2 => 'House of Lords',
         3 => 'Northern Ireland Assembly',
         4 => 'Scottish Parliament',
+        6 => 'London Assembly',
     );
 
     // Mapping member table reasons to text.
@@ -143,6 +144,7 @@ class MEMBER {
             }
 
             if ( $house==HOUSE_TYPE_ROYAL 					# The Monarch
+                || (!$this->house_disp && $house==HOUSE_TYPE_LONDON_ASSEMBLY) # London Assembly
                 || (!$this->house_disp && $house==HOUSE_TYPE_SCOTLAND)	# MSPs and
                 || (!$this->house_disp && $house==HOUSE_TYPE_NI)	# MLAs have lowest priority
                 || ($this->house_disp!=HOUSE_TYPE_LORDS && $house==HOUSE_TYPE_LORDS)	# Lords have highest priority
@@ -311,6 +313,8 @@ class MEMBER {
             $params[':house'] = HOUSE_TYPE_NI;
         } elseif ($this_page == 'royal') {
             $params[':house'] = HOUSE_TYPE_ROYAL;
+        } elseif ($this_page == 'london-assembly') {
+            $params[':house'] = HOUSE_TYPE_LONDON_ASSEMBLY;
         } else {
             $params[':house'] = HOUSE_TYPE_COMMONS;
         }
@@ -617,7 +621,7 @@ class MEMBER {
                 break;
 
             case HOUSE_TYPE_LONDON_ASSEMBLY:
-                $URL = new \MySociety\TheyWorkForYou\Url('london-assembly');
+                $URL = new \MySociety\TheyWorkForYou\Url('london_assembly_member');
                 break;
 
             case HOUSE_TYPE_ROYAL:

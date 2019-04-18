@@ -264,6 +264,7 @@ class Header
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
             array('wales_home'),
+            array('london_home', 'london_assembly_members'),
         );
 
         $this->data['assembly_nav_links'] = array();
