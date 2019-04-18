@@ -463,26 +463,26 @@ class Member extends \MEMBER {
 
     public static function getRepNameForHouse($house) {
         switch ( $house ) {
-        case HOUSE_TYPE_COMMONS:
-            $name = 'MP';
-            break;
-        case HOUSE_TYPE_LORDS:
-            $name = 'Peer';
-            break;
-        case HOUSE_TYPE_NI:
-            $name = 'MLA';
-            break;
-        case HOUSE_TYPE_SCOTLAND:
-            $name = 'MSP';
-            break;
-        case HOUSE_TYPE_LONDON_ASSEMBLY:
-            $name = 'London Assembly Member';
-            break;
-        case HOUSE_TYPE_ROYAL:
-            $name = 'Member of royalty';
-            break;
-        default:
-            $name = '';
+            case HOUSE_TYPE_COMMONS:
+                $name = 'MP';
+                break;
+            case HOUSE_TYPE_LORDS:
+                $name = 'Peer';
+                break;
+            case HOUSE_TYPE_NI:
+                $name = 'MLA';
+                break;
+            case HOUSE_TYPE_SCOTLAND:
+                $name = 'MSP';
+                break;
+            case HOUSE_TYPE_LONDON_ASSEMBLY:
+                $name = 'London Assembly Member';
+                break;
+            case HOUSE_TYPE_ROYAL:
+                $name = 'Member of royalty';
+                break;
+            default:
+                $name = '';
         }
         return $name;
     }

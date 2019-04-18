@@ -658,28 +658,28 @@ $this->page = array (
     /* London Assembly */
 
     'london_home' => array(
-        'menu'			=> array (
-            'text'			=> 'London Assembly',
-            'title'			=> 'Scottish education, health, agriculture, justice, prisons and other devolved areas. Some tax-varying powers'
+        'menu'          => array (
+            'text'      => 'London Assembly',
+            'title'     => 'Scottish education, health, agriculture, justice, prisons and other devolved areas. Some tax-varying powers'
         ),
-        'title'			=> 'London Assembly',
-        'url'			=> 'london-assembly/'
+        'title'         => 'London Assembly',
+        'url'           => 'london-assembly/'
     ),
 
     'london_assembly_members' => array (
-        'parent'		=> 'london_home',
-        'menu'			=> array (
-            'text'			=> 'London Assembly Members',
-            'title'			=> "List of Members of the London Assembly)"
+        'parent'        => 'london_home',
+        'menu'          => array (
+            'text'      => 'London Assembly Members',
+            'title'     => "List of Members of the London Assembly)"
         ),
-        'title'			=> '',
-        'url'			=> 'london-assembly-members/'
+        'title'         => '',
+        'url'           => 'london-assembly-members/'
     ),
 
     'london_assembly_member' => array (
-        'parent'		=> 'london_assembly_members',
-        'title'			=> 'Find your London Assembly Member',
-        'url'			=> 'london-assembly-member/'
+        'parent'        => 'london_assembly_members',
+        'title'         => 'Find your London Assembly Member',
+        'url'           => 'london-assembly-member/'
     ),
 
     'otheruseredit' => array (
