@@ -36,9 +36,9 @@ before_script:
  - mysql -u root twfy_test < db/schema.sql
  - php composer.phar install --no-interaction --prefer-source
  - bash -c 'if [ $(echo "$TRAVIS_PHP_VERSION>=7.0" | bc -l) == 1 ]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; else echo "extension = memcache.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
- - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
- - chmod +x ./cc-test-reporter
- - ./cc-test-reporter before-build
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi;'
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then chmod +x ./cc-test-reporter; fi;'
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then ./cc-test-reporter before-build; fi;'
 
 script:
  - mkdir -p build/logs
@@ -48,4 +48,4 @@ after_script:
  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;'
  - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml; fi;'
  - bash -c '[ "$TRAVIS_PHP_VERSION-$TRAVIS_BRANCH-$TRAVIS_PULL_REQUEST" = "5.4-master-false" ] && bash build-docs.sh'
- - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+ - bash -c 'if [ "$TRAVIS_PHP_VERSION" == "5.4" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi;'
