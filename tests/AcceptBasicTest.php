@@ -45,7 +45,7 @@ class AcceptBasicTest extends FetchPageTestCase
      */
     public function testLordsList()
     {
-        $page = $this->fetch_page('mps', 'index.php', array('peer' => '1'));
+        $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'peer'));
         $this->assertContains('All Members of the House of Lords', $page);
         $this->assertContains('Mr Current-Lord', $page);
     }
@@ -55,7 +55,7 @@ class AcceptBasicTest extends FetchPageTestCase
      */
     public function testMSPList()
     {
-        $page = $this->fetch_page('mps', 'index.php', array('msp' => '1'));
+        $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'msp'));
         $this->assertContains('Scottish Parliament', $page);
         $this->assertContains('All MSPs', $page);
         $this->assertContains('Test Current-MSP', $page);
@@ -66,7 +66,7 @@ class AcceptBasicTest extends FetchPageTestCase
      */
     public function testMLAList()
     {
-        $page = $this->fetch_page('mps', 'index.php', array('mla' => '1'));
+        $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'mla'));
         $this->assertContains('Northern Ireland Assembly', $page);
         $this->assertContains('All MLAs', $page);
         $this->assertContains('Test Current-MLA', $page);

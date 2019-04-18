@@ -21,7 +21,7 @@ class PageTest extends FetchPageTestCase
 
     public function testQueenie()
     {
-        $page = $this->fetch_page( array( 'royal' => 1, 'n' => 'elizabeth_the_second' ) );
+        $page = $this->fetch_page( array( 'representative_type' => 'royal', 'n' => 'elizabeth_the_second' ) );
         $this->assertContains('Elizabeth the Second', $page);
         $this->assertContains('Coronated on 2 June 1953', $page);
     }
@@ -36,7 +36,7 @@ class PageTest extends FetchPageTestCase
 
 	public function testSittingMLA()
     {
-        $page = $this->fetch_page( array( 'pid' => 4, 'mla' => 1, 'url' => '/mp/4/test_current-mla' ) );
+        $page = $this->fetch_page( array( 'pid' => 4, 'representative_type' => 'mla', 'url' => '/mp/4/test_current-mla' ) );
         $this->assertContains('Test Current-MLA', $page);
         $this->assertRegexp('#<span class="person-header__about__position__constituency">\s*Test Northern Ireland Constituency\s*</span>#', $page);
         $this->assertRegexp('#<span class="person-header__about__position__role">\s*Sinn Féin\s*MLA\s*</span>#', $page);
