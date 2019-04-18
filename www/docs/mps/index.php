@@ -2,20 +2,24 @@
 
 include_once '../../includes/easyparliament/init.php';
 
-if (get_http_var('msp')) {
-    $type = 'MSPs';
-} elseif (get_http_var('mla')) {
-    $type = 'MLAs';
-} elseif (get_http_var('peer')) {
-    $type = 'Peers';
-} elseif (get_http_var('london-assembly-member')) {
-    $type = 'LondonAssemblyMembers';
-} else {
-    $type = 'MPs';
+switch (get_http_var('representative_type')) {
+    case 'peer':
+        $people = new MySociety\TheyWorkForYou\People\Peers();
+        break;
+    case 'mla':
+        $people = new MySociety\TheyWorkForYou\People\MLAs();
+        break;
+    case 'msp':
+        $people = new MySociety\TheyWorkForYou\People\MSPs();
+        break;
+    case 'london-assembly-member':
+        $people = new MySociety\TheyWorkForYou\People\LondonAssemblyMembers();
+        break;
+    default:
+        $people = new MySociety\TheyWorkForYou\People\MPs();
+        break;
 }
 
-$class = "MySociety\TheyWorkForYou\People\\$type";
-$people = new $class();
 $args = $people->getArgs();
 $people->setMetaData($args);
 $data = $people->getData($args);
