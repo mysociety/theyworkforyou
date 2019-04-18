@@ -53,4 +53,12 @@ class HousesTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(5, HOUSE_TYPE_WALES);
     }
+
+	/**
+     * Test that the London Assembly is correctly defined.
+     */
+	public function testLondonAssemblyHouseDefined()
+    {
+        $this->assertEquals(6, HOUSE_TYPE_LONDON_ASSEMBLY);
+    }
 }

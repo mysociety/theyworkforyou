@@ -104,7 +104,7 @@ class Header
         if (!$this->data['meta_keywords'] = $DATA->page_metadata($this_page, "meta_keywords")) {
             $this->data['meta_keywords'] = $this->keywords_title;
             if ($this->data['meta_keywords']) $this->data['meta_keywords'] .= ', ';
-            $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs';
+            $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs, London Assembly Members';
         }
 
         $this->data['meta_description'] = "TheyWorkForYou is a website which makes it easy to keep track of your local MP's activities.";
@@ -264,6 +264,7 @@ class Header
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
             array('wales_home'),
+            array('london_home', 'london-assembly-members'),
         );
 
         $this->data['assembly_nav_links'] = array();

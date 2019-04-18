@@ -8,6 +8,8 @@ if (get_http_var('msp')) {
     $type = 'MLAs';
 } elseif (get_http_var('peer')) {
     $type = 'Peers';
+} elseif (get_http_var('london-assembly-member')) {
+    $type = 'LondonAssemblyMembers';
 } else {
     $type = 'MPs';
 }

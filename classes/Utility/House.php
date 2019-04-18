@@ -38,6 +38,10 @@ class House
             HOUSE_TYPE_SCOTLAND => array(
               'singular' => 'MSP',
               'plural'   => 'MSPs'
+          ),
+            HOUSE_TYPE_LONDON_ASSEMBLY => array(
+              'singular' => 'Member of the London Assembly',
+              'plural'   => 'Members of the London Assembly'
             )
         );
 
@@ -73,6 +77,13 @@ class House
                 'location' => '&ndash; in the House of Lords',
                 'cons_type' => '',
                 'assembly_name' => 'House of Lords',
+            ),
+            HOUSE_TYPE_LONDON_ASSEMBLY => array (
+                'country' => 'UK',
+                'assembly' => 'london-assembly',
+                'location' => '&ndash; in the London Assembly',
+                'cons_type' => 'LAS',
+                'assembly_name' => 'London Assembly',
             )
         );
 
@@ -82,15 +93,16 @@ class House
 
     public static function majorToHouse($major) {
         $major_to_house = array(
-            1 => array(1),
-            2 => array(1),
-            3 => array(1, 2),
-            4 => array(1, 2),
-            5 => array(3),
-            6 => array(1),
-            7 => array(4),
-            8 => array(4),
-            101 => array(2),
+            1 => array(HOUSE_TYPE_COMMONS),
+            2 => array(HOUSE_TYPE_COMMONS),
+            3 => array(HOUSE_TYPE_COMMONS, HOUSE_TYPE_LORDS),
+            4 => array(HOUSE_TYPE_COMMONS, HOUSE_TYPE_LORDS),
+            5 => array(HOUSE_TYPE_NI),
+            6 => array(HOUSE_TYPE_COMMONS),
+            7 => array(HOUSE_TYPE_SCOTLAND),
+            8 => array(HOUSE_TYPE_SCOTLAND),
+            9 => array(HOUSE_TYPE_LONDON_ASSEMBLY),
+            101 => array(HOUSE_TYPE_LORDS),
         );
 
         return $major_to_house[$major];

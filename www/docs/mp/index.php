@@ -129,6 +129,7 @@ if (get_http_var('peer')) $this_page = 'peer';
 elseif (get_http_var('royal')) $this_page = 'royal';
 elseif (get_http_var('mla')) $this_page = 'mla';
 elseif (get_http_var('msp')) $this_page = 'msp';
+elseif (get_http_var('london-assembly-member')) $this_page = 'london-assembly-member';
 else $this_page = 'mp';
 
 try {

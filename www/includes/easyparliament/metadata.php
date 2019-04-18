@@ -655,6 +655,33 @@ $this->page = array (
         'url'			=> 'ni/'
     ),
 
+    /* London Assembly */
+
+    'london_home' => array(
+        'menu'          => array (
+            'text'      => 'London Assembly',
+            'title'     => 'Members of the London Assembly, answers from the Mayor of London'
+        ),
+        'title'         => 'London Assembly',
+        'url'           => 'london/'
+    ),
+
+    'london-assembly-members' => array (
+        'parent'        => 'london_home',
+        'menu'          => array (
+            'text'      => 'London Assembly Members',
+            'title'     => "List of Members of the London Assembly)"
+        ),
+        'title'         => '',
+        'url'           => 'london-assembly-members/'
+    ),
+
+    'london-assembly-member' => array (
+        'parent'        => 'london-assembly-members',
+        'title'         => 'Find your London Assembly Member',
+        'url'           => 'london-assembly-member/'
+    ),
+
     'otheruseredit' => array (
         'pg'			=> 'editother',
         'title'			=> "Editing a user's data",
