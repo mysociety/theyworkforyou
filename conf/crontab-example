@@ -15,10 +15,6 @@ MAILTO=cron-twfy@mysociety.org
 # every week early Sunday grab Wikipedia titles update, only on live site
 23 4 * * Sun twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/wikipedia-update
 
-# not for the glossary links, but for the editing history from
-# political IP addresses, only on live site
-4 0-23/2 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/wikipedia-cron.php
-
 #0 8 * * * twfy /data/vhost/www.theyworkforyou.com/theyworkforyou/scripts/edm_status.pl > /data/vhost/www.theyworkforyou.com/dumps/edm_status.csv
 
 # Scheduled parlparse update tasks
