@@ -6,7 +6,7 @@
         if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
             $stance = strip_tags($key_vote['desc'], '<b>');
             $stance = ucfirst($stance);
-            $stance = preg_replace('#</?b>#i', '*', $stance);
+            $stance = preg_replace('#</?b[^>]*>#i', '*', $stance);
             $stance = htmlentities(html_entity_decode($stance), ENT_COMPAT | ENT_XML1);
             $lines = explode("\n", wordwrap($stance, 84));
 
