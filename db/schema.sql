@@ -422,11 +422,11 @@ CREATE TABLE `uservotes` (
 
 CREATE TABLE `mentions` (
   `mention_id` int(11) NOT NULL auto_increment,
-  `gid` varchar(100) default NULL,
+  `gid` varchar(100) default NULL collate latin1_swedish_ci,
   `type` int(11) NOT NULL,
   `date` date default NULL,
-  `url` varchar(255) default NULL,
-  `mentioned_gid` varchar(100) default NULL,
+  `url` varchar(255) default NULL collate latin1_swedish_ci,
+  `mentioned_gid` varchar(100) default NULL collate latin1_swedish_ci,
   UNIQUE KEY `all_values` (`gid`,`type`,`date`,`url`,`mentioned_gid`),
   PRIMARY KEY (`mention_id`)
 );
@@ -550,4 +550,3 @@ CREATE TABLE `topic_epobjects` (
   `epobject_id` int(11) NOT NULL,
   UNIQUE KEY `topic_object` (`topic_key`, `epobject_id`)
 );
-

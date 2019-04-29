@@ -28,5 +28,5 @@ unless ($ENV{LOCKFILE}) {
 # Make RSS this takes a while
 chdir $FindBin::Bin;
 system "./make_rss.pl";
-system "php5 -q mprss.php";
+system "php -q mprss.php";
 

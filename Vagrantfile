@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "debian/stretch64"
 
   # Enable NFS access to the disk
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -27,29 +27,34 @@ Vagrant.configure(2) do |config|
 
   # Provision the vagrant box
   config.vm.provision "shell", inline: <<-SHELL
+    export DEBIAN_FRONTEND=noninteractive
     apt-get update
 
     chown vagrant:vagrant /vagrant
     cd /vagrant/theyworkforyou
 
+    # Install needed things
+    apt-get -qq -y install unzip fakeroot git >/dev/null
+
     # mysql and xapian
-    bin/install-php5-xapian.sh
+    bin/install-php7-xapian.sh
     bin/install-mysql vagrant
 
-    # Install the packages from conf/packages.ubuntu-trusty
-    grep -vE "^#" conf/packages | xargs apt-get install -qq -y
+    # Install the packages from conf/packages
+    grep -vE "^#" conf/packages | xargs apt-get install -qq -y >/dev/null
 
-    # Run install-as-user to set up a database, virtualenv, python, sass etc
-    apt-get -qq -y install apache2 libapache2-mod-php5 ruby-compass ruby-bundler php5-curl php5-mysql php5-memcache memcachedb
-
-    # set memcache back to the standard port
-    sed -i -e 's!-p 21201!-p 11211!' /etc/memcachedb.conf
-    service memcachedb restart
+    # Install webserver
+    apt-get -qq -y install apache2 libapache2-mod-php >/dev/null
 
     # apache config and modules
     cp conf/httpd.vagrant /etc/apache2/sites-enabled/twfy.conf
-    a2enmod expires rewrite php5
+    a2enmod expires rewrite
     /etc/init.d/apache2 reload
+
+    # NFS woes mean you have to do this - it can't compile FFI inside
+    mkdir /home/vagrant/bundle
+    chown vagrant:vagrant /home/vagrant/bundle
+    ln -sn /home/vagrant/bundle vendor/bundle
 
     su vagrant -c 'bin/install-as-user vagrant 10.11.12.13 /vagrant yes'
     su vagrant -c 'bin/deploy.bash'

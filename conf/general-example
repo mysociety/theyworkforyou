@@ -70,7 +70,7 @@ define ("DEVSITE", true);
 // Add this and a number to the URL (eg '?debug=1') to view debug info.
 define ("DEBUGTAG", 'debug');
 
-// Timezone (only works in PHP5)
+// Timezone
 define ("TIMEZONE", "Europe/London");
 
 // XML files and other scraped data stored as files
