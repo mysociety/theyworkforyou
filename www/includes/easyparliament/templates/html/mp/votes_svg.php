@@ -7,6 +7,7 @@
             $stance = strip_tags($key_vote['desc'], '<b>');
             $stance = ucfirst($stance);
             $stance = preg_replace('#</?b>#i', '*', $stance);
+            $stance = htmlentities(html_entity_decode($stance), ENT_COMPAT | ENT_XML1);
             $lines = explode("\n", wordwrap($stance, 84));
 
             $stances[] = $lines;
@@ -26,7 +27,7 @@
 
     header("Content-type: image/svg+xml");
 
-    echo '<?xml version="1.0" encoding="iso-8859-1"?>';
+    echo '<?xml version="1.0" encoding="utf-8"?>';
 
  ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
