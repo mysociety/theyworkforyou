@@ -366,7 +366,7 @@ class SEARCHENGINE {
                 $this->enquire->set_sort_by_value(0, false);
                 break;
             case 'created':
-                $this->enquire->set_sort_by_value(2);
+                $this->enquire->set_sort_by_value(2, false);
             default:
                 //do nothing, default ordering is by relevance
                 break;
