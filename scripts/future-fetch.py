@@ -46,17 +46,18 @@ class Entry(object):
     location = ''
 
     def __init__(self, entry):
-        self.id = entry.event.attrib['id']
+        event = entry['{http://services.parliament.uk/ns/calendar/feeds}event']
+        self.id = event.attrib['id']
         self.deleted = 0
         self.link_calendar = entry.guid
         self.link_external = entry.link
-        chamber = entry.event.chamber.text.strip()
-        self.chamber = '%s: %s' % (entry.event.house.text.strip(), chamber)
-        self.event_date = entry.event.date.text
-        self.time_start = getattr(entry.event, 'startTime', None)
-        self.time_end = getattr(entry.event, 'endTime', None)
+        chamber = event.chamber.text.strip()
+        self.chamber = '%s: %s' % (event.house.text.strip(), chamber)
+        self.event_date = event.date.text
+        self.time_start = getattr(event, 'startTime', None)
+        self.time_end = getattr(event, 'endTime', None)
 
-        committee_text = entry.event.comittee.text
+        committee_text = event.comittee.text
         if committee_text:
             committee_text = committee_text.strip()
             if chamber in ('Select Committee', 'General Committee'):
@@ -66,7 +67,7 @@ class Entry(object):
 
         self.people = []
 
-        title_text = entry.event.inquiry.text
+        title_text = event.inquiry.text
         if title_text:
             m = re.search(' - ([^-]*)$', title_text)
             if m:
@@ -96,7 +97,7 @@ class Entry(object):
             self.title = committee_text
 
         self.witnesses = []
-        witness_text = entry.event.witnesses.text
+        witness_text = event.witnesses.text
         if witness_text == 'This is a private meeting.':
             self.title = witness_text
         elif witness_text:
@@ -113,7 +114,7 @@ class Entry(object):
                 self.witnesses.append(pid)
                 self.witnesses_str = self.witnesses_str.replace(mp, mp_link)
 
-        location_text = entry.event.location.text
+        location_text = event.location.text
         if location_text:
             self.location = location_text.strip()
 
@@ -231,7 +232,7 @@ for entry in entries:
            title, witnesses, location
          FROM future
          WHERE id=%s''',
-        id,
+        (id,)
         )
 
     if row_count:
