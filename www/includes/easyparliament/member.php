@@ -54,6 +54,8 @@ class MEMBER {
 
     );
 
+    private $db;
+
     public function __construct($args) {
         // $args is a hash like one of:
         // member_id 		=> 237
@@ -69,6 +71,7 @@ class MEMBER {
         $house = isset($args['house']) ? $args['house'] : null;
 
         $this->db = new ParlDB;
+
         $person_id = '';
         if (isset($args['member_id']) && is_numeric($args['member_id'])) {
             $person_id = $this->member_id_to_person_id($args['member_id']);
