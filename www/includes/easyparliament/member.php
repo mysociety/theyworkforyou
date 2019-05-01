@@ -57,6 +57,43 @@ class MEMBER {
 
     private $db;
 
+    /*
+     * Is given house higher priority than current?
+     *
+     * Determine if the given house is a higher priority than the currently displayed one.
+     *
+     * @param int $house The number of the house to evaluate.
+     *
+     * @return boolean
+     */
+
+    private function isHigherPriorityHouse(int $house)
+    {
+        # The monarch always takes priority, so if the house is royal always say "yes"
+        if ($house == HOUSE_TYPE_ROYAL) {
+            return true;
+        }
+
+        # If the current house is *not* Lords, and the house to check is, Lords is next
+        if ($this->house_disp != HOUSE_TYPE_LORDS && $house == HOUSE_TYPE_LORDS) {
+            return true;
+        }
+
+        # All the following only happen if the house to display isn't yet set.
+        # TODO: This relies on interpreting the default value of 0 as a false, which may be error-prone.
+        if (! (bool) $this->house_disp) {
+            if ($house == HOUSE_TYPE_LONDON_ASSEMBLY # London Assembly
+                || $house == HOUSE_TYPE_SCOTLAND     # MSPs and
+                || $house == HOUSE_TYPE_NI           # MLAs have lowest priority
+                || $house == HOUSE_TYPE_COMMONS      # MPs
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function __construct($args) {
         // $args is a hash like one of:
         // member_id 		=> 237
@@ -99,6 +136,7 @@ class MEMBER {
             return;
         }
 
+        // Find the memberships of this person, in reverse chronological order (latest first)
         $q = $this->db->query("SELECT member_id, house, title,
             given_name, family_name, lordofname, constituency, party, lastupdate,
             entered_house, left_house, entered_reason, left_reason, member.person_id
@@ -147,13 +185,7 @@ class MEMBER {
                 );
             }
 
-            if ( $house==HOUSE_TYPE_ROYAL 					# The Monarch
-                || (!$this->house_disp && $house==HOUSE_TYPE_LONDON_ASSEMBLY) # London Assembly
-                || (!$this->house_disp && $house==HOUSE_TYPE_SCOTLAND)	# MSPs and
-                || (!$this->house_disp && $house==HOUSE_TYPE_NI)	# MLAs have lowest priority
-                || ($this->house_disp!=HOUSE_TYPE_LORDS && $house==HOUSE_TYPE_LORDS)	# Lords have highest priority
-                || (!$this->house_disp && $house==HOUSE_TYPE_COMMONS) # MPs
-            ) {
+            if ($this->isHigherPriorityHouse($house)) {
                 $this->house_disp = $house;
                 $this->constituency = $const;
                 $this->party = $party;
