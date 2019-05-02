@@ -28,6 +28,7 @@ Vagrant.configure(2) do |config|
   # Provision the vagrant box
   config.vm.provision "shell", inline: <<-SHELL
     export DEBIAN_FRONTEND=noninteractive
+    echo 'deb http://mirror.bytemark.co.uk/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
     apt-get update
 
     chown vagrant:vagrant /vagrant
