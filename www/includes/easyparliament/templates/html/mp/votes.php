@@ -91,7 +91,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             </ul>
 
                             <div class="share-vote-descriptions">
-                                <p>Share a screenshot of these votes:</p>
+                                <p>Share a <a href="<?= $abs_member_url ?>/policy_set_png?policy_set=<?= $segment['key'] ?>">screenshot</a> of these votes:</p>
 
                                 <a href="#" class="facebook-share-button js-facebook-share" data-text="<?= $single_policy_page ? '' : $segment['title'] . ' ' ?><?= $page_title ?>" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Share</a>
 
