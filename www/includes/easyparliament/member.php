@@ -449,12 +449,13 @@ class MEMBER {
         # Public Bill Committees
         $q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
             from pbc_members, bills
-            where bill_id = bills.id and person_id = ' . $this->person_id()
-             . ' group by bill_id order by session desc');
+            where bill_id = bills.id and person_id = :person_id
+            group by bill_id order by session desc',
+            array(':person_id' => $this->person_id()));
         $this->extra_info['pbc'] = array();
         foreach ($q as $row) {
             $bill_id = $row['bill_id'];
-            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor='.$bill_id.' and htype=10')->first();
+            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor=:bill_id and htype=10', array(':bill_id' => $bill_id))->first();
             $c = $c['c'];
             $title = $row['title'];
             $attending = $row['a'];
