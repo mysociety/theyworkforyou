@@ -27,7 +27,7 @@
             <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">join
             our discussion list</a> and say hello.</p>
 
-            <p>If not, maybe you can get the information you need on <a href="http://www.assemblywales.org/">the official Welsh Assembly website</a>.</p>
+            <p>If not, maybe you can get the information you need on <a href="http://assembly.wales/">the official Welsh Assembly website</a>.</p>
         </div>
     </div>
 </div>
