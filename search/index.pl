@@ -5,6 +5,7 @@
 
 use strict;
 use Carp;
+use File::Basename;
 use Search::Xapian qw(:standard);
 use HTML::Parser;
 use HTML::Entities;
@@ -286,8 +287,7 @@ if ($action ne "check" && $action ne 'checkfull') {
     }
 
 } elsif ($action eq 'check') {
-
-    my $lastupdatedir = "$dbfile/../xml2db/";
+    my $lastupdatedir = dirname($dbfile) . "/xml2db/"; # Want to ignore if dbfile is symlink
     open FP, $lastupdatedir . 'deleted-gids' or exit;
     while (<FP>) {
         chomp;
