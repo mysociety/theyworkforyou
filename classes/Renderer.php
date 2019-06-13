@@ -90,6 +90,7 @@ class Renderer
           require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
           require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
           require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+          exit;
         }
     }
 

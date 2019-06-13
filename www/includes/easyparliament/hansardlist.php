@@ -1138,6 +1138,12 @@ class HANSARDLIST {
 
             } else {
 
+                $q = array('gid_to' => $gid);
+                do {
+                    $gid = $q['gid_to'];
+                    $q = $this->db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid", array(':gid' => $gid))->first();
+                } while ($q);
+
                 // Get the data for the gid from the database
                 $q = $this->db->query("SELECT hansard.gid, hansard.hdate,
                     hansard.htime, hansard.section_id, hansard.subsection_id,
