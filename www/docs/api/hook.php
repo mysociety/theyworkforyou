@@ -29,7 +29,23 @@ if ($event->type == 'customer.subscription.deleted') {
 } elseif ($event->type == 'customer.subscription.updated') {
     $sub = new \MySociety\TheyWorkForYou\Subscription($obj->id);
     if ($sub->stripe) {
-        $sub->redis_update_max($obj->plan->id);
+        # See if we're changing plan...
+        $old_plan = null;
+        if (property_exists($event->data, 'previous_attributes')) {
+            $previous = $event->data->previous_attributes;
+            if (array_key_exists('plan', $previous)) {
+                $old_plan = $previous['plan']['id'];
+            }
+        }
+        $new_plan = $obj->plan->id;
+        # If we are, and it's an upgrade...
+        if ($old_plan && !$sub->plan_is_same_or_lower($old_plan, $new_plan)) {
+            $max_this_month = $obj->metadata['maximum_plan'];
+            # And either it's a normal upgrade, or one past the previous maximum
+            if (!$max_this_month || !$this->plan_is_same_or_lower($max_this_month, $new_plan)) {
+                $sub->redis_update_max($new_plan);
+            }
+        }
     }
 } elseif ($event->type == 'invoice.payment_failed' && stripe_twfy_sub($obj)) {
     $customer = \Stripe\Customer::retrieve($obj->customer);
@@ -74,6 +90,13 @@ function stripe_reset_quota($subscription) {
     $sub = new \MySociety\TheyWorkForYou\Subscription($subscription);
     if ($sub->stripe) {
         $sub->redis_reset_quota();
+        # If we'd previously been remembering a higher plan,
+        # forget it now and set plan limit
+        if ($sub->stripe->metadata['maximum_plan']) {
+            $sub->redis_update_max($sub->stripe->plan->id);
+            $sub->stripe->metadata['maximum_plan'] = '';
+            $sub->stripe->save();
+        }
     } else {
         $subject = "Someone's subscription was not renewed properly";
         $message = "TheyWorkForYou tried to reset the quota for subscription $subscription but couldn't find it";
