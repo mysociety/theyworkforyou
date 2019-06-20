@@ -46,6 +46,7 @@ class MEMBER {
         'general_election_not_standing' 	=> 'did not stand for re-election',
         'reinstated'		=> 'Reinstated',
         'resigned'		=> 'Resigned',
+        'recall_petition'   => 'Removed from office by a recall petition',
         'still_in_office'	=> 'Still in office',
         'dissolution'		=> 'Dissolved for election',
         'regional_election'	=> 'Election', # Scottish Parliament
