@@ -390,56 +390,13 @@ switch ($pagetype) {
         break;
 
     case 'policy_set_svg':
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
-        $set_descriptions = $policiesList->getSetDescriptions();
-        $policy_set = get_http_var('policy_set');
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
-
-        if (!array_key_exists($policy_set, $set_descriptions)) {
-            header('HTTP/1.0 404 Not Found');
-            exit();
-        }
-
-        // Generate voting segments
-        $data['segment'] = array(
-          'key'   => $policy_set,
-          'title' => $policiesList->getSetDescriptions()[$policy_set],
-          'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-              $policiesList->limitToSet($policy_set), $MEMBER
-          )
-        );
-
-        MySociety\TheyWorkForYou\Renderer::output('mp/votes_svg', $data, true);
+        policy_image($data, $MEMBER, 'svg');
         break;
 
     case 'policy_set_png':
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
-        $set_descriptions = $policiesList->getSetDescriptions();
-        $policy_set = get_http_var('policy_set');
-
-        if (!array_key_exists($policy_set, $set_descriptions)) {
-            header('HTTP/1.0 404 Not Found');
-            exit();
-        }
-
-        $im = new Imagick();
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
-
-        $url = $MEMBER->url(true) . "/policy_set_svg?policy_set=" . $policy_set;
-        $svg = file_get_contents($url);
-        $im->setOption('-antialias', true);
-        $im->readImageBlob($svg);
-        $im->setImageFormat("png24");
-
-        $filename = strtolower(str_replace(' ', '_', $MEMBER->full_name() . "_" . $policiesList->getSetDescriptions()[$policy_set] . ".png"));
-        header("Content-type: image/png");
-        header('Content-Disposition: filename="' . $filename . '"');
-        print $im->getImageBlob();
-
-        $im->clear();
-        $im->destroy();
-
+        policy_image($data, $MEMBER, 'png');
         break;
+
     case '':
     default:
 
@@ -1229,4 +1186,47 @@ function regional_list($pc, $area_type, $rep_type) {
     // Send the output for rendering
     MySociety\TheyWorkForYou\Renderer::output('mp/regional_list', $data);
 
+}
+
+function policy_image($data, $MEMBER, $format) {
+    $policiesList = new MySociety\TheyWorkForYou\Policies;
+    $set_descriptions = $policiesList->getSetDescriptions();
+    $policy_set = get_http_var('policy_set');
+
+    if (!array_key_exists($policy_set, $set_descriptions)) {
+        header('HTTP/1.0 404 Not Found');
+        exit();
+    }
+
+    // Generate voting segments
+    $data['segment'] = array(
+      'key'   => $policy_set,
+      'title' => $policiesList->getSetDescriptions()[$policy_set],
+      'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+          $policiesList->limitToSet($policy_set), $MEMBER
+      )
+    );
+
+    if ($format === 'png') {
+        ob_start();
+    }
+    MySociety\TheyWorkForYou\Renderer::output('mp/votes_svg', $data, true);
+    if ($format === 'svg') {
+        return;
+    }
+
+    $svg = ob_get_clean();
+
+    $im = new Imagick();
+    $im->setOption('-antialias', true);
+    $im->readImageBlob($svg);
+    $im->setImageFormat("png24");
+
+    $filename = strtolower(str_replace(' ', '_', $MEMBER->full_name() . "_" . $policiesList->getSetDescriptions()[$policy_set] . ".png"));
+    header("Content-type: image/png");
+    header('Content-Disposition: filename="' . $filename . '"');
+    print $im->getImageBlob();
+
+    $im->clear();
+    $im->destroy();
 }
