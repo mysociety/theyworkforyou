@@ -3,7 +3,7 @@
 use strict;
 
 # Loads XML written answer/debate/etc files into TheyWorkForYou.
-# 
+#
 # Magic numbers, and other properties of the destination schema
 # used to be documented here:
 #    http://web.archive.org/web/20090414002944/http://wiki.theyworkforyou.com/cgi-bin/moin.cgi/DataSchema
@@ -26,7 +26,7 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 my $parldata = mySociety::Config::get('RAWDATA');
 my $lastupdatedir = mySociety::Config::get('INCLUDESPATH') . "../../../xml2db/";
 
-use DBI; 
+use DBI;
 use File::Slurp;
 use HTML::Entities;
 use JSON;
@@ -79,7 +79,7 @@ Loads XML files from the parldata directory into TheyWorkForYou.
 The input files contain debates, written answers and so on, and were generated
 by pyscraper from parlparse. This script synchronises the database to the
 files, so existing entries with the same gid are updated preserving their
-database id. 
+database id.
 
 --wrans - process Written Answers (C&L)
 --debates - process Commons Debates
@@ -99,7 +99,7 @@ database id.
 
 --force - also delete items from database that weren't in the XML
       file (applied per day only)
---quiet - don't print the contents whenever an existing entry is 
+--quiet - don't print the contents whenever an existing entry is
       modified or deleted
 --cronquiet - stop printing date names as entries are processed
 
@@ -214,7 +214,7 @@ sub process_type {
             my @stat = stat($xdir . $xfile);
             my $use = ($stat[9] >= $xsince);
             my $date_part = $1;
-    
+
             if ($xmaxtime[$i] < $stat[9]) {
                 $xmaxfile = $xfile;
                 $xmaxtime[$i] = $stat[9];
@@ -255,7 +255,7 @@ sub process_type {
                 $xxmaxtime = $xmaxtime[$i];
             }
         }
-       
+
         if ($xxmaxtime != $xsince) {
             # We use the current maxtime, so we run things still at that time again
             # (when there was an rsync from parlparse it might have only got one of
@@ -320,7 +320,7 @@ sub parsefile_glob {
 ##########################################################################
 # Database
 
-my ($dbh, 
+my ($dbh,
     $epadd, $epcheck, $epupdate,
     $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
     $divisionupdate, $voteupdate,
@@ -473,7 +473,7 @@ sub delete_lonely_epobjects()
     my $r2 = $dbh->selectcol_arrayref("select count(*) from hansard");
     my $c2 = $r2->[0];
     return if $c2 == $c1;
-    
+
     print "Fixing up lonely epobjects. Counts: $c1 $c2\n" unless $cronquiet;
     my $q = $dbh->prepare("select epobject_id from epobject");
     $q->execute();
@@ -527,7 +527,7 @@ sub check_extra_gids
     # code is partly a double check.
     my %xml_hash;
     foreach my $gid (@xml_gids) {
-        $xml_hash{$gid} = 1; 
+        $xml_hash{$gid} = 1;
     }
     my $missing = 0;
     foreach my $gid (@mysql_allgids) {
@@ -536,7 +536,7 @@ sub check_extra_gids
             $missing++;
             my $vital = 0;
             # check no comments, votes etc.
-            for my $entry (["comments", "epobject_id",], 
+            for my $entry (["comments", "epobject_id",],
                        ["anonvotes", "epobject_id",],
                        ["uservotes", "epobject_id",],
                        ["editqueue", "epobject_id_l",],
@@ -568,14 +568,14 @@ sub check_extra_gids
                                 next;
                             }
                         }
-                    }                
+                    }
                     print "VITAL ERROR! gid $gid needs deleting, has an entry in table $table, but no gid redirect\n";
                     $vital++;
                 }
             }
             # either fix it, or display it
             if ($force) {
-                if ($vital > 0) { 
+                if ($vital > 0) {
                     die "Refusing to even force delete, when there are references in other tables\n";
                 } else {
                     $hdeletegid->execute($gid);
@@ -626,7 +626,7 @@ sub delete_redirected_gids {
         }
 
         # move comments and votes and so forth to redirected gid destination
-        for my $entry (["comments", "epobject_id",], 
+        for my $entry (["comments", "epobject_id",],
                    ["anonvotes", "epobject_id",],
                    ["uservotes", "epobject_id",],
                    ["editqueue", "epobject_id_l",],
@@ -702,7 +702,7 @@ sub db_addpair
     my $major = $$hparams[3];
 
     $ignorehistorygids{$gid} = 1;
-       
+
     # Depending on what mode we're in
     if ($tallygidsmode) {
         die "Got gid $gid twice in XML file" if (defined $gids{$gid});
@@ -773,7 +773,7 @@ sub db_addpair
         }
     }
     $hcheck->finish();
-    
+
     $epadd->execute(@$epparams);
     my $epid = last_id();
     $epadd->finish();
@@ -781,7 +781,7 @@ sub db_addpair
     $hadd->finish();
 
     # print "added " . $gid . "\n";
-    
+
     return $epid;
 }
 
@@ -808,9 +808,9 @@ sub person_id {
 sub add_wrans_day
 {
     my ($date) = @_;
-    
+
     use vars qw($lordshead);
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
             'ques' => sub { do_load_speech($_, 3, 1, $_->sprint(1)) },
             'reply' => sub { do_load_speech($_, 3, 2, $_->sprint(1)) },
             'minor-heading' => sub {
@@ -864,7 +864,7 @@ sub add_wrans_day
 
     # and delete anything that has been redirected (moving comments etc)
     delete_redirected_gids($date, \%grdests);
-     
+
     undef $twig;
 }
 
@@ -874,7 +874,7 @@ sub add_wrans_day
 sub add_debates_day
 {
     my ($date) = @_;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'speech' => sub { do_load_speech($_, 1, 0, $_->sprint(1)) },
         'minor-heading' => sub { do_load_subheading($_, 1, strip_string($_->sprint(1))) },
         'major-heading' => sub { load_debate_heading($_, 1) },
@@ -904,7 +904,7 @@ sub add_debates_day
 }
 
 # load <major-heading> tags
-sub load_debate_heading { 
+sub load_debate_heading {
     my ($speech, $major) = @_;
     # we merge together the Oral Answers to Questions major heading with the
     # major headings "under" it.
@@ -1028,7 +1028,7 @@ sub division_title {
 sub add_lordsdebates_day
 {
     my ($date) = @_;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'speech' => sub { do_load_speech($_, 101, 0, $_->sprint(1)) },
         'minor-heading' => sub { do_load_subheading($_, 101, strip_string($_->sprint(1))) },
         'major-heading' => sub { do_load_heading($_, 101, strip_string($_->sprint(1))) },
@@ -1062,7 +1062,7 @@ sub add_lordsdebates_day
 sub add_westminhall_day
 {
     my ($date) = @_;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'speech' => sub { do_load_speech($_, 2, 0, $_->sprint(1)) },
         'minor-heading' => sub { do_load_subheading($_, 2, strip_string($_->sprint(1))) },
         'major-heading' => sub { load_debate_heading($_, 2) },
@@ -1194,7 +1194,7 @@ sub load_lords_wms_speech {
 
 sub add_ni_day {
     my ($date) = @_;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'speech' => sub {
             my $speech = $_;
             if (!$currsection && !$currsubsection) {
@@ -1229,7 +1229,7 @@ sub add_ni_day {
     undef $twig;
 }
 
-sub load_ni_heading { 
+sub load_ni_heading {
     my ($speech, $inoralanswers) = @_;
     my $text = strip_string($speech->sprint(1));
     if ($inoralanswers) {
@@ -1254,7 +1254,7 @@ sub add_scotland_day {
         return;
     }
 
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'speech'    => sub { do_load_speech($_, 7, 0, $_->sprint(1)) },
         'minor-heading' => sub { do_load_subheading($_, 7, strip_string($_->sprint(1))) },
         'major-heading' => sub { do_load_heading($_, 7, strip_string($_->sprint(1))) },
@@ -1320,7 +1320,7 @@ sub load_scotland_division {
 
 sub add_scotwrans_day {
     my ($date) = @_;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'ques' => sub { do_load_speech($_, 8, 1, $_->sprint(1)) },
         'reply' => sub { do_load_speech($_, 8, 2, $_->sprint(1)) },
         'minor-heading' => sub { do_load_heading($_, 8, strip_string($_->sprint(1))) },
@@ -1390,7 +1390,7 @@ sub add_standing_day {
     my ($date) = @_;
     use vars qw($bill $bill_id $majorheadingstate @preheadingspeech);
     $majorheadingstate = 0;
-    my $twig = XML::Twig->new(twig_handlers => { 
+    my $twig = XML::Twig->new(twig_handlers => {
         'bill' => sub {
             $bill = strip_string($_->att('title'));
             $bill_id = add_bill($bill, $_);
@@ -1769,7 +1769,7 @@ sub do_load_gidredirect
 {
     my ($gidredirect, $major) = @_;
 
-    my $oldgid = $gidredirect->att('oldgid'); 
+    my $oldgid = $gidredirect->att('oldgid');
     my $newgid = $gidredirect->att('newgid');
     my $matchtype = $gidredirect->att('matchtype');
     # if matchtype is multiplecover, let through >1 identical GIDs
@@ -1788,12 +1788,10 @@ sub do_load_gidredirect
         $gids{$oldgid} = 1;
         return if ($matchtype eq 'removed');
     }
- 
+
     $gradd->execute($oldgid, $newgid, $curdate, $major);
     $gradd->finish();
 }
 
 # TODO
 # Check we don't have duplicates between two tables
-
-
