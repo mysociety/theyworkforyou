@@ -66,3 +66,13 @@
         background-image: url('../img/ni-parliament-desktop.jpg');
     }
 }
+
+.regional-header--london-assembly {
+    background-image: url('../img/london-assembly-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/london-assembly-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/london-assembly-desktop.jpg');
+    }
+}

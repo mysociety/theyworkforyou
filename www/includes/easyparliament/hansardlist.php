@@ -2552,6 +2552,13 @@ class NILIST extends DEBATELIST {
     public $gidprefix = 'uk.org.publicwhip/ni/';
 }
 
+class LMQLIST extends WRANSLIST {
+    public $major = 9;
+    public $listpage = 'lmqs';
+    public $commentspage = 'lmqs';
+    public $gidprefix = 'uk.org.publicwhip/london-mayors-questions/';
+}
+
 class SPLIST extends DEBATELIST {
     public $major = 7;
     public $listpage = 'spdebates';
@@ -3143,7 +3150,7 @@ class WRANSLIST extends HANSARDLIST {
 
 
         // Get a random selection of subsections in wrans.
-        if ($hansardmajors[$this->major]['location'] == 'Scotland') {
+        if (in_array($hansardmajors[$this->major]['location'], ['Scotland', 'London'])) {
             $htype = 'htype = 10 and section_id = 0';
         } else {
             $htype = 'htype = 11 and section_id != 0';

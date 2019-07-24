@@ -137,6 +137,7 @@ class SEARCHENGINE {
                     elseif ($value == 'pbc' || $value == 'standing') $newv = 6;
                     elseif ($value == 'sp') $newv = 7;
                     elseif ($value == 'spwrans' || $value == 'spwran') $newv = 8;
+                    elseif ($value == 'lmqs') $newv = 9;
                     elseif ($value == 'uk') $newv = array(1,2,3,4,6,101);
                     elseif ($value == 'scotland') $newv = array(7,8);
                     elseif ($value == 'future') $newv = 'F';

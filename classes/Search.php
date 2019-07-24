@@ -118,6 +118,9 @@ class Search {
         case 'spwrans':
             $name = 'Scottish Parliament Written answers';
             break;
+        case 'lmqs':
+            $name = 'Questions to the Mayor of London';
+            break;
         }
 
         return $name;

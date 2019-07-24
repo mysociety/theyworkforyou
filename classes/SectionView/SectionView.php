@@ -463,6 +463,11 @@ class SectionView {
                 'assembly' => 'scotland',
                 'location' => '&ndash; Scottish Parliament written question &ndash; answered'
             ),
+            9 => array (
+                'country' => 'LONDON',
+                'assembly' => 'london-assembly',
+                'location' => 'Questions to the Mayor of London &ndash; answered'
+            ),
             101 => array (
                 'country' => 'UK',
                 'assembly' => 'uk-lords',
@@ -607,6 +612,7 @@ class SectionView {
             6 => 'standing',
             7 => 'sp',
             8 => 'spwrans',
+            9 => 'lmqs',
             101 => 'lords'
         );
 

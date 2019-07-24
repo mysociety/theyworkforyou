@@ -118,6 +118,18 @@ $hansardmajors = array(
         'sidebar_short'=>'spwrans_short',
         'location' => 'Scotland',
     ),
+    9 => array(
+        'type'=>'other',
+        'title'=>"Questions to the Mayor of London",
+        'singular'=>'answer',
+        'plural'=>'answers',
+        'page'=>'lmqs',
+        'page_all'=>'lmqs',
+        'page_year'=>'lmqsyear',
+        'sidebar'=>'lmqs',
+        'sidebar_short'=>'lmqs_short',
+        'location' => 'London',
+    ),
 );
 $hansardmajors[104] = $hansardmajors[4];
 

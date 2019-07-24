@@ -83,6 +83,9 @@ we have in the system. Dates can be entered in any format you wish, e.g.
                         <option value="sp"<?= $search_section == 'sp' ? ' selected' : '' ?>>Debates</option>
                         <option value="spwrans"<?= $search_section == 'spwrans' ? ' selected' : '' ?>>Written answers</option>
                     </optgroup>
+                    <optgroup label="London Assembly">
+                        <option value="lmqs"<?= $search_section == 'lmqs' ? ' selected' : '' ?>>Questions to the Mayor</option>
+                    </optgroup>
                  </select>
             </div>
             <div class="search-option__hint">

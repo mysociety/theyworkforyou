@@ -682,6 +682,29 @@ $this->page = array (
         'url'           => 'london-assembly-member/'
     ),
 
+    'lmqs' => array (
+        'parent'		=> 'london_home',
+        'url'			=> 'london/',
+        'session_vars'	=> array ('id')
+    ),
+    'lmqsday'  => array (
+        'parent'		=> 'london_home',
+        'url'			=> 'london/',
+    ),
+    'lmqsfront' => array (
+        'parent'		=> 'london_home',
+        'menu'			=> array (
+            'text'			=> 'Questions to the Mayor of London',
+            'title'			=> "Questions to the Mayor of London"
+        ),
+        'title'			=> 'questions to the Mayor of London',
+        'url'			=> 'london/',
+    ),
+    'lmqsyear' => array (
+        'parent'		=> 'london_home',
+        'url'			=> 'london/',
+    ),
+
     'otheruseredit' => array (
         'pg'			=> 'editother',
         'title'			=> "Editing a user's data",

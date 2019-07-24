@@ -238,6 +238,9 @@ class Header
         } elseif ($top_highlight == 'sp_home') {
             $section = 'scotland';
             $selected_top_link['text'] = 'Scotland';
+        } elseif ($top_highlight == 'london_home') {
+            $section = 'london';
+            $selected_top_link['text'] = 'London Assembly';
         } else {
             $section = '';
         }
@@ -264,7 +267,7 @@ class Header
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
             array('wales_home'),
-            array('london_home', 'london-assembly-members'),
+            array('london_home', 'lmqsfront', 'london-assembly-members'),
         );
 
         $this->data['assembly_nav_links'] = array();

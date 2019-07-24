@@ -92,10 +92,11 @@
             <h3>Image credits:</h3>
 
             <ul>
-              <li><a href="https://www.flickr.com/photos/mhl20/3925817094/">Scottish Parliament photo</a> courtesy of Mark Longair</li>
-              <li><a href="https://www.flickr.com/photos/uk_parliament/8737181202/">Commons debate photo</a> courtesy of UK Parliament</li>
-              <li><a href="https://www.flickr.com/photos/ukhouseoflords/8643003436/">Lords debate photo</a> courtesy of UK House of Lords</li>
-              <li>Parliamentary copyright images (eg: photographs of MPs) are reproduced with the permission of Parliament.</li>
+              <li><a href="https://www.flickr.com/photos/mhl20/3925817094/">Scottish Parliament photo</a> courtesy of Mark Longair, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA</a></li>
+              <li><a href="https://www.flickr.com/photos/uk_parliament/8737181202/">Commons debate photo</a> courtesy of UK Parliament/Catherine Bebbington, <a href="https://creativecommons.org/licenses/by-nc/2.0/">CC BY-NC</a></li>
+              <li><a href="https://www.flickr.com/photos/ukhouseoflords/8643003436/">Lords debate photo</a> courtesy of UK House of Lords, <a href="https://www.parliament.uk/site-information/copyright-parliament/use-of-parliamentary-photographic-images/">parliamentary copyright</a></li>
+              <li><a href="https://www.flickr.com/photos/grahamchandler/2752807919/">London Assembly photo</a> courtesty of Graham Chandler, <a href="https://creativecommons.org/licenses/by-nc-nd/2.0/">CC BY-NC-ND</a></li>
+              <li>Other parliamentary copyright images (eg: photographs of MPs) are reproduced with the permission of Parliament.</li>
             </ul>
 
             <p>The copyright of Hansard remains under <a href="http://www.opsi.gov.uk/advice/parliamentary-copyright/">Parliamentary Copyright</a>, used under licence.</p>
