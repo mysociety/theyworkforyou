@@ -235,4 +235,114 @@ $(function(){
 
     });
 
+  var tocLink = function($el){
+    var id = $el.attr('id');
+    var label = $el.attr('data-toc-label') || $el.text();
+    return $('<a>').attr('href', '#' + id).text(label);
+  }
+
+  var tocRelationship = function($a, $b) {
+    var l = ['H1', 'H2', 'H3', 'H4'];
+    var a = $a.prop('tagName');
+    var b = $b.prop('tagName');
+    if ( l.indexOf(b) === -1 || l.indexOf(a) === -1 ) {
+      return 'sibling';
+    } else if ( l.indexOf(b) > l.indexOf(a) ) {
+      return 'child';
+    } else if ( l.indexOf(b) < l.indexOf(a) ) {
+      return 'parent';
+    } else {
+      return 'sibling';
+    }
+  }
+
+  $('.js-toc').each(function(){
+
+    if ( "IntersectionObserver" in window ) {
+      var visibleTocSections = [];
+
+      var wrapTocSection = function($el){
+        var $sectionContents = $el.nextUntil('.js-toc-item');
+        $el.add($sectionContents).wrapAll('<div class="js-toc-section"></div>');
+        observer.observe( $el.parent('.js-toc-section')[0] );
+      };
+
+      var highlightCurrentTocSection = function(){
+        $container.find('li.current').removeClass('current');
+        // We could mark all of the visibleTocSections as .current,
+        // but for now, let's keep it simple and just do the last one.
+        var id = visibleTocSections[ visibleTocSections.length - 1 ];
+        $container.find('a[href="#' + id + '"]').parents('li').addClass('current');
+      };
+
+      var tocItemIntersection = function(entries, observer){
+        $.each(entries, function(i, entry){
+          var id = $(entry.target).children('.js-toc-item, .js-toc-title').eq(0).attr('id');
+          if ( entry.isIntersecting ) {
+            // Element is visible.
+            visibleTocSections.push(id);
+          } else if ( visibleTocSections.indexOf(id) > -1 ) {
+            // Previously visible element is no longer visible.
+            visibleTocSections.splice( visibleTocSections.indexOf(id), 1 );
+          }
+          highlightCurrentTocSection();
+        });
+      };
+
+      var observer = new IntersectionObserver(tocItemIntersection, {
+        rootMargin: '-20% 0% -20% 0%',
+        threshold: 0
+      });
+    }
+
+    var $container = $(this);
+
+    var $button = $('<button>').text('Jump to page section');
+    $button.prepend('<span>');
+    $button.on('click', function(){
+      $container.toggleClass('mobile-expanded');
+    });
+    $container.append($button);
+
+    $container.on('click', 'a', function(){
+      $container.removeClass('mobile-expanded');
+    });
+
+    var $tocTitle = $('.js-toc-title');
+    if ( $tocTitle.length === 1 ) {
+      $container.append( tocLink($tocTitle) );
+      if ( "IntersectionObserver" in window ) {
+        wrapTocSection($tocTitle);
+      }
+    }
+
+    var $tocItems = $('.js-toc-item');
+
+    var $tocUl = $('<ul>');
+    $container.append( $tocUl );
+    var levels = [ $tocUl ];
+
+    $tocItems.each(function(i){
+      var $tocItem = $(this);
+      var $li = $('<li>');
+      $li.append( tocLink( $tocItem ) );
+      levels[0].append($li);
+
+      var $nextItem = $tocItems.eq(i+1);
+      var relationship = tocRelationship( $tocItem, $nextItem );
+      if ( relationship === 'child' ) {
+        var $tocChildrenUl = $('<ul>');
+        $li.append($tocChildrenUl);
+        levels.unshift($tocChildrenUl);
+      } else if ( relationship === 'parent' ) {
+        levels.shift();
+      }
+
+      if ( "IntersectionObserver" in window ) {
+        wrapTocSection($tocItem);
+      }
+    });
+
+  });
+
 });

@@ -21,8 +21,23 @@
     h3 {
         line-height: 1.4em;
     }
-}
 
+    .full-width {
+        margin: 0 -1.5em;
+
+        img {
+            margin: 1.5em 0;
+        }
+
+        @media (min-width: $medium-screen) {
+            margin: 0 -2.5em;
+
+            img {
+                margin: 2em 0;
+            }
+        }
+    }
+}
 
 .panel--secondary {
     background-color: #f9f8f5; // slightly lighter than $colour_off_white
