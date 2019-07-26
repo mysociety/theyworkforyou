@@ -43,7 +43,7 @@ my $outputfilter = 'safe';
 
 use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall
     $wms $lordsdebates $ni $force $quiet $cronquiet $standing
-    $scotland $scotwrans $scotqs %scotqspreloaded
+    $scotland $scotwrans $scotqs %scotqspreloaded $lmqs
 );
 my $result = GetOptions ( "all" => \$all,
             "recent" => \$recent,
@@ -60,6 +60,7 @@ my $result = GetOptions ( "all" => \$all,
             "scotwrans" => \$scotwrans,
             "scotqs" => \$scotqs,
             "standing" => \$standing,
+            "lmqs" => \$lmqs,
             "force" => \$force,
             "quiet" => \$quiet,
             "cronquiet" => \$cronquiet,
@@ -71,7 +72,7 @@ $c++ if $recent;
 $c++ if $date;
 $c++ if ($datefrom || $dateto);
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs && !$lmqs))
 {
 print <<END;
 
@@ -91,6 +92,7 @@ database id.
 --scotwrans - process Scottish Parliament written answers
 --scotqs - process mentions of Scottish Parliament question IDs
 --standing - process Public Bill Commitees (Standing Committees as were)
+--lmqs - process London Mayor's Questions
 
 --recent - acts incrementally, using -lastload files
 --all - reprocess every single date back in time
@@ -142,7 +144,7 @@ my %scotland_vote_store = (
 
 use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir
     $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir
-    $scotwransdir $scotqsdir
+    $scotwransdir $scotqsdir $lmqsdir
 );
 $debatesdir = $parldata . "scrapedxml/debates/";
 $wransdir = $parldata . "scrapedxml/wrans/";
@@ -156,6 +158,7 @@ $scotlanddir = $parldata . 'scrapedxml/sp-new/meeting-of-the-parliament/';
 $scotwransdir = $parldata . 'scrapedxml/sp-written/';
 $standingdir = $parldata . 'scrapedxml/standing/';
 $scotqsdir = $parldata . 'scrapedxml/sp-questions/';
+$lmqsdir = $parldata . 'scrapedxml/london-mayors-questions/';
 
 my @wrans_major_headings = (
 "ADVOCATE-GENERAL", "ADVOCATE GENERAL", "ADVOCATE-GENERAL FOR SCOTLAND", "AGRICULTURE, FISHERIES AND FOOD",
@@ -298,6 +301,7 @@ process_type(['ni'], [$nidir], \&add_ni_day) if ($ni);
 process_type(['sp'], [$scotlanddir], \&add_scotland_day) if $scotland;
 process_type(['spwa'], [$scotwransdir], \&add_scotwrans_day) if $scotwrans;
 process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
+process_type(['lmqs'], [$lmqsdir], \&add_lmqs_day) if $lmqs;
 
 # Process the question mentions for the Scottish Parliament
 process_mentions('spq', $scotqsdir) if $scotqs;
@@ -861,6 +865,42 @@ sub add_wrans_day
     parsefile_glob($twig, $parldata . "scrapedxml/wrans/answers" . $curdate. "*.xml");
     $lordshead = 1 if $curdate lt '2015-01-26';
     parsefile_glob($twig, $parldata . "scrapedxml/lordswrans/lordswrans" . $curdate. "*.xml");
+
+    # and delete anything that has been redirected (moving comments etc)
+    delete_redirected_gids($date, \%grdests);
+
+    undef $twig;
+}
+
+##########################################################################
+# London Mayor's Questions
+
+sub add_lmqs_day
+{
+
+    my ($date) = @_;
+
+    my $twig = XML::Twig->new(twig_handlers => {
+            'question' => sub { do_load_speech($_, 9, 1, $_->sprint(1)) },
+            'reply' => sub { do_load_speech($_, 9, 2, $_->sprint(1)) },
+            'minor-heading' => sub { do_load_subheading($_, 9, strip_string($_->sprint(1))) },
+            }, output_filter => $outputfilter );
+    $curdate = $date;
+
+    # find out what gids there are (using tallygidsmode)
+    $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0; $inoralanswers = 0;
+    $tallygidsmode = 1; %gids = (); %grdests = (); $tallygidsmodedummycount = 10;
+    $lordshead = 0;
+    parsefile_glob($twig, $parldata . "scrapedxml/london-mayors-questions/lmqs" . $curdate. "*.xml");
+    # see if there are deleted gids
+    my @gids = keys %gids;
+    check_extra_gids($date, \@gids, "major = 9");
+
+    # make the modifications
+    $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0; $inoralanswers = 0;
+    $tallygidsmode = 0; %gids = ();
+    $lordshead = 0;
+    parsefile_glob($twig, $parldata . "scrapedxml/london-mayors-questions/lmqs" . $curdate. "*.xml");
 
     # and delete anything that has been redirected (moving comments etc)
     delete_redirected_gids($date, \%grdests);
