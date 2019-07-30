@@ -108,115 +108,6 @@
                     No, but <a href="http://votewatch.eu/">votewatch.eu</a> do, and they might have what you're looking for.
                 </p>
 
-                <h3 class="js-toc-item" id="found-error">
-                    What should I do if I find an error on the site?
-            </h3>
-                <p>
-                    By all means <a href="mailto:support@theyworkforyou.com">let us know</a>, but be aware that because,
-                    as explained above, much of our data replicates the official parliamentary source, the error may well
-                    originate from there.
-                </p>
-
-                <p>
-                    Parliament undertakes a rolling process of corrections and updates. When their content is amended, the
-                    next time our site picks it up, our content should be amended too.
-                </p>
-
-                <h3 class="js-toc-item" id="vote-descriptions">
-                    What does it mean when you say that a representative has &ldquo;consistently&rdquo; or &ldquo;generally&rdquo;
-                    voted for or against something?
-                </h3>
-                <p>
-                    MPs&rsquo; stances are made up from a number of different votes which Public Whip have deemed to be relevant
-                    to the topic. For example, an MP&rsquo;s position on Trident is judged from the way he or she voted on each
-                    occasion <a href="http://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
-                </p>
-
-                <p>
-                    If an MP&rsquo;s votes all, or almost all, align strongly with those listed on that page, we&rsquo;d say
-                    they &ldquo;consistently&rdquo; voted in favour of Trident. MPs who have voted in a different way are marked
-                    as having &ldquo;almost always voted for&rdquo;, &ldquo;generally voted against&rdquo;, or &ldquo;consistently
-                    voted against&rdquo; the issue, depending on how many of their votes align with this list.
-                </p>
-
-                <p>
-                    You can see a link at the end of every such statement on TheyWorkForYou, titled &ldquo;details&rdquo; &ndash;
-                    clicking on that will show you exactly which votes went towards any particular stance.
-                </p>
-
-                <p>
-                    The votes that go to make up each position are carefully compiled by hand: we&rsquo;ve written a couple of
-                    blog posts on how we do that: read the <a href="https://www.mysociety.org/2014/07/15/weve-analysed-every-vote-since-the-general-election-and-why-thats-good-news-for-you/">first one here</a>
-                    and the <a href="https://www.mysociety.org/2015/08/03/how-far-does-your-mp-tread-the-party-line/">second here</a>.
-                </p>
-
-                <h3 class="js-toc-item" id="votingrecord">
-                    How is the voting record decided?
-                </h3>
-
-                <p>The voting record is not affected by what MPs and Peers have said, only how they
-                <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
-                "no".  Votes on each topic were examined, and strength of support determined
-                based on these votes.  Follow the "votes" link next to each topic for details.
-                Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
-                parties. Since the Whip is secret, we have to assume, <a
-                href="https://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
-                Speaker</a>, that all votes are free.  </P>
-
-                <p>Details of the votes on which each policy position is based are available on
-                the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
-                <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
-                more about the process we follow when researching the policy positions on our
-                blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
-                which needs to be updated or corrected.</p>
-
-                <h3 class="js-toc-item" id="new-feature">
-                    I have an idea for a new feature &ndash; do you want to hear it?
-                </h3>
-                <p>
-                    We&rsquo;d love to &ndash; but please be aware that we&rsquo;re a small team, so we can&rsquo;t always
-                    introduce new features as quickly as we&rsquo;d like to. However:
-                </p>
-                <ul>
-                    <li>
-                        We do adopt new ideas on a merit basis, so if enough people request a feature, it&rsquo;s much more
-                        likely to get made;
-                    </li>
-                    <li>
-                        <a href="https://github.com/mysociety/theyworkforyou">The code behind TheyWorkForYou</a> is open source,
-                        meaning that anyone can pick it up and work with it. If we can&rsquo;t build the feature you want,
-                        you&rsquo;re welcome to either build it yourself or find a developer who can (a good place to find developers
-                        is the <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">TheyWorkForYou community mailing list</a>
-                        &ndash; see if you can excite people enough, and you never know, someone might take your idea and run with it.)
-                        Do <a href="mailto:hello@mysociety.org">talk to us</a> first though, to make sure no-one else is already working
-                        on a similar idea!
-                    </li>
-                </ul>
-
-                <h3 class="js-toc-item" id="photos">
-                    How do I submit photos of representatives?
-                </h3>
-                <p>
-                    We welcome contributions of images, especially for those representatives who don&rsquo;t yet have one.
-                </p>
-
-                <p>
-                    But please note that any image we use must have been released by its owner under a
-                    <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike</a>
-                    license &ndash; which means that anyone is free to copy and use the image themselves, with attribution.
-                </p>
-
-                <p>
-                    Unfortunately, that means we can&rsquo;t just use any old photo that you may have found on the web:
-                    it needs to be from a verified public domain source, or owned by you, or you need to have permission
-                    from the owner for it to be used on the site.
-                </p>
-
-                <p>
-                    If that is the case then please do <a href="mailto:support@theyworkforyou.com">forward it to us</a> and
-                    we will be happy to use it.
-                </p>
-
                 <h3 class="js-toc-item" id="numbers">
                     Why should I read in more depth than just the numbers?
                 </h3>
@@ -339,8 +230,77 @@
 
             <div class="panel">
 
+                <h2 class="js-toc-item" id="voting">
+                    Voting records
+                </h2>
+
+                <p>TheyWorkForYou contains a wealth of data on how MPs have voted in Parliament.</p>
+
+                <p>Our <a href="/voting-information">“What you should know about voting information on TheyWorkForYou”</a> page describes:</p>
+
+                <ul>
+                    <li><a href="/voting-information/#interested">How to find the voting data you’re after</a></li>
+                    <li><a href="/voting-information/#what-we-publish">What data we <em>do</em> and <em>don’t</em> publish</a></li>
+                    <li><a href="/voting-information/#interpreting">How you should interpet our data</a></li>
+                    <li>And <a href="/voting-information/#misunderstandings">how to avoid some common misunderstandings</a> about voting in Parliament.</li>
+                </ul>
+
+                <hr>
+
+                <h3 class="js-toc-item" id="vote-descriptions">
+                    What does it mean when you say that a representative has &ldquo;consistently&rdquo; or &ldquo;generally&rdquo;
+                    voted for or against something?
+                </h3>
+                <p>
+                    MPs&rsquo; stances are made up from a number of different votes which Public Whip have deemed to be relevant
+                    to the topic. For example, an MP&rsquo;s position on Trident is judged from the way he or she voted on each
+                    occasion <a href="http://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
+                </p>
+
+                <p>
+                    If an MP&rsquo;s votes all, or almost all, align strongly with those listed on that page, we&rsquo;d say
+                    they &ldquo;consistently&rdquo; voted in favour of Trident. MPs who have voted in a different way are marked
+                    as having &ldquo;almost always voted for&rdquo;, &ldquo;generally voted against&rdquo;, or &ldquo;consistently
+                    voted against&rdquo; the issue, depending on how many of their votes align with this list.
+                </p>
+
+                <p>
+                    You can see a link at the end of every such statement on TheyWorkForYou, titled &ldquo;details&rdquo; &ndash;
+                    clicking on that will show you exactly which votes went towards any particular stance.
+                </p>
+
+                <p>
+                    The votes that go to make up each position are carefully compiled by hand: we&rsquo;ve written a couple of
+                    blog posts on how we do that: read the <a href="https://www.mysociety.org/2014/07/15/weve-analysed-every-vote-since-the-general-election-and-why-thats-good-news-for-you/">first one here</a>
+                    and the <a href="https://www.mysociety.org/2015/08/03/how-far-does-your-mp-tread-the-party-line/">second here</a>.
+                </p>
+
+                <h3 class="js-toc-item" id="votingrecord">
+                    How is the voting record decided?
+                </h3>
+
+                <p>The voting record is not affected by what MPs and Peers have said, only how they
+                <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
+                "no".  Votes on each topic were examined, and strength of support determined
+                based on these votes.  Follow the "votes" link next to each topic for details.
+                Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
+                parties. Since the Whip is secret, we have to assume, <a
+                href="https://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
+                Speaker</a>, that all votes are free.  </P>
+
+                <p>Details of the votes on which each policy position is based are available on
+                the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
+                <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
+                more about the process we follow when researching the policy positions on our
+                blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
+                which needs to be updated or corrected.</p>
+
+            </div>
+
+            <div class="panel">
+
                 <h2 class="js-toc-item" id="data">
-                    Data and code
+                    Reusing our data and code
                 </h2>
 
                 <h3 class="js-toc-item" id="api">
@@ -433,6 +393,75 @@
                     we have more recent codebases and data that are probably easier to work with.
                     Read our page about <a href="https://www.mysociety.org/democracy/pombola/">parliamentary monitoring</a>
                     for more information.
+                </p>
+
+            </div>
+
+            <div class="panel">
+
+                <h2 class="js-toc-item" id="contribute">
+                    Contributing to TheyWorkForYou
+                </h2>
+
+                <h3 class="js-toc-item" id="found-error">
+                    What should I do if I find an error on the site?
+                </h3>
+                <p>
+                    By all means <a href="mailto:support@theyworkforyou.com">let us know</a>, but be aware that because,
+                    as explained above, much of our data replicates the official parliamentary source, the error may well
+                    originate from there.
+                </p>
+
+                <p>
+                    Parliament undertakes a rolling process of corrections and updates. When their content is amended, the
+                    next time our site picks it up, our content should be amended too.
+                </p>
+
+                <h3 class="js-toc-item" id="new-feature">
+                    I have an idea for a new feature &ndash; do you want to hear it?
+                </h3>
+                <p>
+                    We&rsquo;d love to &ndash; but please be aware that we&rsquo;re a small team, so we can&rsquo;t always
+                    introduce new features as quickly as we&rsquo;d like to. However:
+                </p>
+                <ul>
+                    <li>
+                        We do adopt new ideas on a merit basis, so if enough people request a feature, it&rsquo;s much more
+                        likely to get made;
+                    </li>
+                    <li>
+                        <a href="https://github.com/mysociety/theyworkforyou">The code behind TheyWorkForYou</a> is open source,
+                        meaning that anyone can pick it up and work with it. If we can&rsquo;t build the feature you want,
+                        you&rsquo;re welcome to either build it yourself or find a developer who can (a good place to find developers
+                        is the <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">TheyWorkForYou community mailing list</a>
+                        &ndash; see if you can excite people enough, and you never know, someone might take your idea and run with it.)
+                        Do <a href="mailto:hello@mysociety.org">talk to us</a> first though, to make sure no-one else is already working
+                        on a similar idea!
+                    </li>
+                </ul>
+
+                <h3 class="js-toc-item" id="photos">
+                    How do I submit photos of representatives?
+                </h3>
+                <p>
+                    We welcome contributions of images, especially for those representatives who don&rsquo;t yet have one.
+                </p>
+
+                <p>
+                    But please note that any image we use must have been released by its owner under a
+                    <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike</a>
+                    license &ndash; which means that anyone is free to copy and use the image themselves, with attribution.
+                </p>
+
+                <p>
+                    Unfortunately, that means we can&rsquo;t just use any old photo that you may have found on the web:
+                    it needs to be from a verified public domain source, or owned by you, or you need to have permission
+                    from the owner for it to be used on the site.
+                </p>
+
+                <p>
+                    If that is the case then please do <a href="mailto:support@theyworkforyou.com">forward it to us</a> and
+                    we will be happy to use it.
                 </p>
 
             </div>
