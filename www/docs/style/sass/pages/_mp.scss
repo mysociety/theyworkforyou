@@ -687,15 +687,9 @@
     display: block;
 }
 
-.policy-votes__byline {
-    font-size: 0.8em;
-    color: #cfcabb; // light desaturated taupe colour
-
-    @media (min-width: $medium-screen) {
-        float: right;
-        margin-top: 0.3em; // line up baseline with "show all votes" button
-        margin-right: 1em; // line up with "Show full debate" links
-    }
+.voting-information-provenance {
+    font-size: 0.9em;
+    color: #6c6b68;
 }
 
 .share-vote-descriptions {

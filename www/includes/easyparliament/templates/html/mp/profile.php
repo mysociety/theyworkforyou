@@ -157,6 +157,11 @@ $display_wtt_stats_banner = '2015';
                           } ?>
                         </ul>
 
+                        <p class="voting-information-provenance">
+                            Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?>.
+                            <a href="/voting-information">Please share these votes responsibly.</a>
+                        </p>
+
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
                     <?php elseif (count($policyPositions->positions) == 0 ): ?>
 
@@ -165,7 +170,6 @@ $display_wtt_stats_banner = '2015';
                     <?php endif; ?>
 
                     <p><?= $full_name ?> <?= $rebellion_rate ?></p>
-                    <small>Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?></small>
 
                 </div>
                 <?php endif; ?>

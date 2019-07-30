@@ -46,7 +46,11 @@
 
                     <p>This list contains votes from the House of Commons, House of Lords, Public Bill Committees, and the Scottish Parliament.</p>
 
-                    <p class="policy-votes__byline">Some vote information from <a href="http://www.publicwhip.org.uk/">PublicWhip</a>. Last updated: <?= $last_updated ?></p>
+                    <p class="voting-information-provenance">
+                        Some vote information from <a href="http://www.publicwhip.org.uk/">PublicWhip</a>.
+                        Last updated: <?= $last_updated ?>.
+                        <a href="/voting-information">Please share these votes responsibly.</a>
+                    </p>
                 </div>
             </div>
         </div>

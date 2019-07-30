@@ -55,7 +55,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <?php if (count($segment['votes']->positions) > 0): ?>
                         <?php $most_recent = ''; ?>
 
-                            <div class="panel">
+                        <div class="panel">
 
                             <h2 id="<?= $segment['key'] ?>" data-magellan-destination="<?= $segment['key'] ?>">
                                 How <?= $full_name ?> voted on <?= $segment['title'] ?>
@@ -96,9 +96,14 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <a href="#" class="facebook-share-button js-facebook-share" data-text="<?= $single_policy_page ? '' : $segment['title'] . ' ' ?><?= $page_title ?>" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Share</a>
 
                                 <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
-                                </div>
-                                <small>Last updated: <?= format_date($most_recent, LONGDATEFORMAT) ?></small>
                             </div>
+
+                            <p class="voting-information-provenance">
+                                Last updated: <?= format_date($most_recent, LONGDATEFORMAT) ?>.
+                                <a href="/voting-information">Please share these votes responsibly.</a>
+                            </p>
+
+                        </div>
 
                             <?php $displayed_votes = TRUE; ?>
 

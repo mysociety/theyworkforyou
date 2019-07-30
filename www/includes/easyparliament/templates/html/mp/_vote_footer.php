@@ -2,9 +2,8 @@
     <p>Note for journalists and researchers: The data on this page may be used freely,
        on condition that TheyWorkForYou.com is cited as the source.</p>
 
-    <p>For an explanation of the vote descriptions please see the FAQ entries on
-    <a href="/help/#vote-descriptions">vote descriptions</a> and
-    <a href="/help/#votingrecord">how the voting record is decided</a></p>
+    <p>For an explanation of the vote descriptions please see our page about
+      <a href="/voting-information">voting information on TheyWorkForYou</a>.</p>
 
   <?php if(isset($data['photo_attribution_text'])) { ?>
     <p>
