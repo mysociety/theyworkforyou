@@ -683,10 +683,6 @@ class PAGE {
         echo '</form> </div>';
     }
 
-    public function advanced_search_form() {
-        include_once INCLUDESPATH . 'easyparliament/templates/html/search_advanced.php';
-    }
-
     public function login_form ($errors = array()) {
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
