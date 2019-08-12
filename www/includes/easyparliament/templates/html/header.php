@@ -43,6 +43,7 @@
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
+    <script async src="<?= cache_version('js/loading-attribute-polyfill.min.js') ?>"></script>
 
     <?php foreach ($header_links as $link): ?>
     <link rel="<?= $link['rel'] ?>" title="<?= $link['title'] ?>" href="<?= $link['href'] ?>">

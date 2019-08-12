@@ -185,7 +185,9 @@ if (!count($data)) {
                     }
                 ?>
                 <a <?= $initial_link ?>href="/mp/<?= $person['url'] ?>" class="people-list__person">
-                <img class="people-list__person__image" src="<?= $person['image'] ?>">
+                <noscript class="loading-lazy">
+                    <img class="people-list__person__image" src="<?= $person['image'] ?>" loading="lazy" alt="">
+                </noscript>
                         <h2 class="people-list__person__name"><?= ucfirst($person['name']) ?></h2>
                         <p class="people-list__person__memberships">
                         <?php if ( $person['constituency'] ) { ?>
