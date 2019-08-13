@@ -81,11 +81,7 @@ function swapCalendar(direction) {
 }
 
 $(function(){
-	$('body').addClass('js');
-  // check if touch
-  if ( Modernizr.touch ) {
-      $('body').addClass('touch');
-  }
+  $('body').addClass('js');
 
   $('.js-toggle').each(function(){
     var $link = $(this);
