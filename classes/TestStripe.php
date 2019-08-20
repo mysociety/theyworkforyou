@@ -24,6 +24,9 @@ class TestStripe extends Stripe {
                     'id' => 'cus_123',
                     'account_balance' => 0,
                     'default_source' => [],
+                    'invoice_settings' => [
+                        'default_payment_method' => [],
+                    ],
                 ],
             ], null);
         }

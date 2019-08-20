@@ -58,7 +58,7 @@ class Subscription {
         try {
             $this->stripe = $this->api->getSubscription([
                 'id' => $id,
-                'expand' => ['customer.default_source'],
+                'expand' => ['customer.default_source', 'customer.invoice_settings.default_payment_method'],
             ]);
         } catch (\Stripe\Error\InvalidRequest $e) {
             $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
@@ -66,7 +66,12 @@ class Subscription {
             return;
         }
 
-        $this->has_payment_data = $this->stripe->customer->default_source;
+        $this->has_payment_data = $this->stripe->customer->default_source || $this->stripe->customer->invoice_settings->default_payment_method;
+        if ($this->stripe->customer->invoice_settings->default_payment_method) {
+            $this->card_info = $this->stripe->customer->invoice_settings->default_payment_method->card;
+        } else {
+            $this->card_info = $this->stripe->customer->default_source;
+        }
 
         $data = $this->stripe;
         if ($data->discount && $data->discount->coupon && $data->discount->coupon->percent_off) {

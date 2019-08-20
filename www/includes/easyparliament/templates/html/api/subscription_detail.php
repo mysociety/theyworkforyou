@@ -97,9 +97,9 @@ if ($subscription->upcoming) {
 
             <h3>Your payment details</h3>
 
-            <?php if ($subscription->stripe->customer->default_source) { ?>
-                <p>Payment details we hold: <?= $subscription->stripe->customer->default_source->brand ?>,
-                last four digits <code><?= $subscription->stripe->customer->default_source->last4 ?></code>.</p>
+            <?php if ($subscription->card_info) { ?>
+                <p>Payment details we hold: <?= $subscription->card_info->brand ?>,
+                last four digits <code><?= $subscription->card_info->last4 ?></code>.</p>
             <?php } else { ?>
                 <p>We do not currently hold any payment details for you.</p>
             <?php } ?>
