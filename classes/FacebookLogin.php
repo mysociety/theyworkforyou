@@ -12,6 +12,9 @@ class FacebookLogin {
 
 
     public function getFacebookObject() {
+        if (!FACEBOOK_APP_ID) {
+            return;
+        }
         if (!isset($this->fb)) {
           $this->fb = new \Facebook\Facebook([
             'app_id' => FACEBOOK_APP_ID,
@@ -24,7 +27,11 @@ class FacebookLogin {
     }
 
     public function getLoginURL() {
-        $helper = $this->getFacebookObject()->getRedirectLoginHelper();
+        $fb = $this->getFacebookObject();
+        if (!$fb) {
+            return;
+        }
+        $helper = $fb->getRedirectLoginHelper();
         $permissions = ['email'];
         return $helper->getLoginUrl('https://' . DOMAIN . '/user/login/fb.php', $permissions);
     }
