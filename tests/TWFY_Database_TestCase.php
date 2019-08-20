@@ -15,7 +15,10 @@ abstract class TWFY_Database_TestCase extends PHPUnit_Extensions_Database_TestCa
      */
     public function getConnection()
     {
-        $dsn = 'mysql:host=' . OPTION_TWFY_DB_HOST . ' ;dbname=' . OPTION_TWFY_DB_NAME . ';charset=utf8';
+        $dsn = 'mysql:dbname=' . OPTION_TWFY_DB_NAME . ';charset=utf8';
+        if (OPTION_TWFY_DB_HOST) {
+            $dsn .= ';host=' . OPTION_TWFY_DB_HOST;
+        }
         $username = OPTION_TWFY_DB_USER;
         $password = OPTION_TWFY_DB_PASS;
         $pdo = new PDO($dsn, $username, $password);
