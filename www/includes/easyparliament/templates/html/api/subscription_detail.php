@@ -104,19 +104,38 @@ if ($subscription->upcoming) {
                 <p>We do not currently hold any payment details for you.</p>
             <?php } ?>
 
-            <form action="/api/update-card" method="POST">
+            <noscript>
+                <p class="account-form__field--error"> Unfortunately, our payment
+                processor requires JavaScript to update details.<br>Please
+                <a href="/contact/">contact us</a> about your requirements and
+                we’ll be happy to help.</p>
+            </noscript>
+
+            <p>Fill in the below to update your card details:</p>
+            <form action="/api/update-card" method="POST" id="update_card_form">
                 <?= \Volnix\CSRF\CSRF::getHiddenInputString() ?>
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<?= STRIPE_PUBLIC_KEY ?>"
-                    data-image="https://s3.amazonaws.com/stripe-uploads/acct_19EbqNIbP0iBLddtmerchant-icon-1479145884111-mysociety-wheel-logo.png"
-                    data-name="mySociety"
-                    data-panel-label="Update Card Details"
-                    data-label="Update Card Details"
-                    data-allow-remember-me=false
-                    data-zip-code=true
-                    data-locale="auto"
-                    data-email="<?= $THEUSER->email() ?>">
-              </script>
+                <div class="row">
+                    <label for="id_card_name">Name on card:</label>
+                    <div class="account-form__input"><input type="text" name="card_name" id="id_card_name"></div>
+                </div>
+
+                <div class="row">
+                    <label for="card-element">Credit or debit card details:</label>
+                    <div id="card-element"><!-- A Stripe Element will be inserted here. --></div>
+                    <div id="card-errors" role="alert"></div>
+                </div>
+
+                <input type="hidden" name="payment_method" value="">
+
+                <div class="row row--submit">
+                   <button id="customButton"
+                            class="button">Update card details</button>
+                    <div id="spinner" class="mysoc-spinner mysoc-spinner--small" role="status">
+                        <span class="sr-only">Processing…</span>
+                    </div>
+                </div>
+                <script src="https://js.stripe.com/v3"></script>
+                <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" src="<?= cache_version('js/payment.js') ?>"></script>
             </form>
 
         <?php } else { ?>
