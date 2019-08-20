@@ -110,15 +110,40 @@ If you update your plan below, it will be reactivated.
 
     <input type="hidden" name="stripeToken" id="id_stripeToken" value="<?=_htmlspecialchars($stripeToken) ?>">
 
-    <div class="row">
+
+    <noscript>
+        <p class="account-form__errors"> Unfortunately, our payment
+        processor requires JavaScript to take payment.<br>Please
+        <a href="/contact/">contact us</a> about your requirements and
+        we’ll be happy to help.</p>
+    </noscript>
+
+<?php if (!$stripeToken) { ?>
+    <div id="js-payment-needed">
+        <div class="row">
+            <label for="id_card_name">Name on card:</label>
+            <input type="text" name="card_name" id="id_card_name" value="">
+        </div>
+        <div class="row">
+            <label for="card-element">Credit or debit card details:</label>
+            <div id="card-element"><!-- Stripe Element will be inserted here --></div>
+            <div id="card-errors" role="alert"></div>
+        </div>
+    </div>
+<?php } ?>
+
+    <div class="row row--submit">
         <button id="customButton" class="btn btn--primary">
             <?= $stripe ? "Change plan" : "Add plan" ?></h2>
         </button>
+        <div id="spinner" class="mysoc-spinner mysoc-spinner--small" role="status">
+            <span class="sr-only">Processing...</span>
+        </div>
     </div>
 </form>
 
-<script src="https://checkout.stripe.com/checkout.js"></script>
+<script src="https://js.stripe.com/v3"></script>
 <script id="js-payment"
     <?php if ($subscription->has_payment_data) { echo 'data-has-payment-data="1"'; } ?>
     data-key="<?= STRIPE_PUBLIC_KEY ?>"
-    data-email="<?= $THEUSER->email() ?>" src="<?= cache_version('js/payment.js') ?>"></script>
+    src="<?= cache_version('js/payment.js') ?>"></script>

@@ -1,0 +1,65 @@
+$mysoc-spinner-diameter: 4em !default;
+$mysoc-spinner-thickness: 0.4em !default;
+$mysoc-spinner-color: #269BE8 !default;
+$mysoc-spinner-background-opacity: 0.25 !default;
+$mysoc-spinner-duration: 1s !default;
+$mysoc-spinner-webkit-compatibility: true !default;
+
+@if $mysoc-spinner-webkit-compatibility {
+    @-webkit-keyframes mysoc-spinner-spin {
+        from { -webkit-transform: rotate(0deg); }
+        to { -webkit-transform: rotate(360deg); }
+    }
+}
+
+@keyframes mysoc-spinner-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.mysoc-spinner {
+    width: $mysoc-spinner-diameter;
+    height: $mysoc-spinner-diameter;
+    position: relative;
+    @if $mysoc-spinner-webkit-compatibility {
+        -webkit-animation: $mysoc-spinner-duration linear mysoc-spinner-spin infinite;
+    }
+    animation: $mysoc-spinner-duration linear mysoc-spinner-spin infinite;
+    color: $mysoc-spinner-color;
+
+    &:before,
+    &:after {
+        content: "";
+        box-sizing: border-box;
+        display: block;
+        border: $mysoc-spinner-thickness solid currentColor;
+    }
+
+    &:before {
+        width: $mysoc-spinner-diameter;
+        height: $mysoc-spinner-diameter;
+        border-radius: 100%;
+        opacity: $mysoc-spinner-background-opacity;
+    }
+
+    &:after {
+        width: ($mysoc-spinner-diameter / 2);
+        height: ($mysoc-spinner-diameter / 2);
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-width: $mysoc-spinner-thickness 0 0 $mysoc-spinner-thickness;
+        border-radius: ($mysoc-spinner-diameter / 2) 0 0 0;
+    }
+
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
