@@ -19,12 +19,6 @@ if ($THEUSER->loggedin()) {
         create_key($THEUSER);
     }
 
-    if (get_http_var('updated')) {
-        print '<p class="alert-box">Thanks very much!</p>';
-        if (has_no_keys($THEUSER)) {
-            create_key($THEUSER);
-        }
-    }
     if (get_http_var('cancelled')) {
         print '<p class="alert-box">Your subscription has been cancelled.</p>';
     }
@@ -33,7 +27,53 @@ if ($THEUSER->loggedin()) {
     $errors = [];
 
     if ($subscription->stripe) {
-        include_once INCLUDESPATH . 'easyparliament/templates/html/api/subscription_detail.php';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !get_http_var('create_key')) {
+            if (!Volnix\CSRF\CSRF::validate($_POST)) {
+                print 'CSRF validation failure!';
+                exit;
+            }
+
+            $payment_method = get_http_var('payment_method');
+            $payment_method = \Stripe\PaymentMethod::retrieve($payment_method);
+            $sub = $subscription->stripe;
+            $payment_method->attach(['customer' => $sub->customer->id]);
+            \Stripe\Customer::update($sub->customer->id, [
+                'invoice_settings' => [
+                    'default_payment_method' => $payment_method,
+                ],
+            ]);
+
+            try {
+                $invoice = $sub->latest_invoice;
+                $invoice->pay([ 'expand' => [ 'payment_intent' ] ]);
+            } catch (\Stripe\Error\Card $e) {
+                $invoice = \Stripe\Invoice::retrieve($sub->latest_invoice, ['expand' => [ 'payment_intent'] ]);
+            }
+        } else {
+            $invoice = $subscription->stripe->latest_invoice;
+        }
+        $needs_processing = null;
+        if ($invoice) {
+            $needs_processing = check_payment_intent($invoice);
+            if ($needs_processing) {
+                include_once INCLUDESPATH . 'easyparliament/templates/html/api/check.php';
+            } else {
+                if (get_http_var('updated')) {
+                    print '<p class="alert-box">Thanks very much!</p>';
+                    if (has_no_keys($THEUSER)) {
+                        create_key($THEUSER);
+                    }
+                }
+                include_once INCLUDESPATH . 'easyparliament/templates/html/api/subscription_detail.php';
+            }
+        } else {
+            include_once INCLUDESPATH . 'easyparliament/templates/html/api/subscription_detail.php';
+        }
+        if ($needs_processing) {
+            $PAGE->stripe_end();
+            $PAGE->page_end();
+            exit;
+        }
     } else {
         include_once INCLUDESPATH . 'easyparliament/templates/html/api/update.php';
     }
@@ -108,4 +148,25 @@ function create_key($user) {
         ]);
     $r = new \MySociety\TheyWorkForYou\Redis();
     $r->set("key:$key:api:" . REDIS_API_NAME, $user->user_id());
+}
+
+function check_payment_intent($invoice) {
+    # The subscription has been created, but it is possible that the
+    # payment failed (card error), or we need to do 3DS or similar
+    $pi = $invoice->payment_intent;
+    if (!$pi) { # Free plan
+        return;
+    }
+    if ($pi->status == 'requires_payment_method' || $pi->status == 'requires_source') {
+        return [
+            'requires_payment_method' => true,
+            'requires_action' => false,
+        ];
+    } elseif ($pi->status == 'requires_action' || $pi->status == 'requires_source_action') {
+        return [
+            'requires_payment_method' => false,
+            'requires_action' => true,
+            'payment_intent_client_secret' => $pi->client_secret,
+        ];
+    }
 }

@@ -20,6 +20,7 @@ class TestStripe extends Stripe {
                 'cancel_at_period_end' => false,
                 'created' => time(),
                 'current_period_end' => time(),
+                'latest_invoice' => [],
                 'customer' => [
                     'id' => 'cus_123',
                     'account_balance' => 0,

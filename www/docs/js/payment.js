@@ -38,6 +38,7 @@ function need_stripe() {
 
 function toggle_stripe() {
   var div = document.getElementById('js-payment-needed');
+  if (!div) { return; }
   if (need_stripe()) {
     div.style.display = 'block';
   } else {
@@ -117,6 +118,63 @@ function err(field, extra) {
   return err_highlight(label, extra !== undefined ? extra && !f : !f);
 }
 
+function handleToken(form_id) {
+  if (err('id_card_name')) {
+    return;
+  }
+
+  document.getElementById('customButton').disabled = true;
+  document.getElementById('spinner').style.display = 'inline-block';
+  stripe.createToken(card, {
+    name: document.getElementById('id_card_name').value || ''
+  }).then(function(result) {
+    if (result.error) {
+      document.getElementById('customButton').disabled = false;
+      document.getElementById('spinner').style.display = 'none';
+      showError(result.error.message);
+    } else {
+      var form = document.getElementById(form_id);
+      form.stripeToken.value = result.token.id;
+      form.submit();
+    }
+  });
+}
+
+function card_update(form_id) {
+  if (err('id_card_name')) {
+    return;
+  }
+
+  document.getElementById('customButton').disabled = true;
+  document.getElementById('spinner').style.display = 'inline-block';
+
+  var request = new XMLHttpRequest();
+  request.open("GET", '/api/update-card');
+  request.addEventListener("load", function() {
+    var json = JSON.parse(request.responseText);
+    stripe.handleCardSetup(
+      json.secret, card, {
+        payment_method_data: {
+          billing_details: {
+            name: document.getElementById('id_card_name').value || ''
+          }
+        }
+      }
+    ).then(function(result) {
+      if (result.error) {
+        document.getElementById('customButton').disabled = false;
+        document.getElementById('spinner').style.display = 'none';
+        showError(result.error.message);
+      } else {
+        var form = document.getElementById(form_id);
+        form.payment_method.value = result.setupIntent.payment_method;
+        form.submit();
+      }
+    });
+  });
+  request.send();
+}
+
 var form = document.getElementById('signup_form');
 form && form.addEventListener('submit', function(e) {
   if (this.stripeToken.value) {
@@ -144,60 +202,24 @@ form && form.addEventListener('submit', function(e) {
     return;
   }
 
-  if (err('id_card_name')) {
-    return;
+  var form = document.getElementById('signup_form');
+  if (document.getElementById('js-payment').getAttribute('data-has-subscription')) {
+    card_update('signup_form');
+  } else {
+    handleToken('signup_form');
   }
-
-  document.getElementById('customButton').disabled = true;
-  document.getElementById('spinner').style.display = 'inline-block';
-  stripe.createToken(card, {
-    name: document.getElementById('id_card_name').value || ''
-  }).then(function(result) {
-    if (result.error) {
-      document.getElementById('customButton').disabled = false;
-      document.getElementById('spinner').style.display = 'none';
-      showError(result.error.message);
-    } else {
-      var form = document.getElementById('signup_form');
-      form.stripeToken.value = result.token.id;
-      form.submit();
-    }
-  });
 });
 
 var form = document.getElementById('update_card_form');
 form && form.addEventListener('submit', function(e) {
   e.preventDefault();
+  card_update('update_card_form');
+});
 
-  if (err('id_card_name')) {
-    return;
-  }
-
-  document.getElementById('customButton').disabled = true;
-  document.getElementById('spinner').style.display = 'inline-block';
-  var request = new XMLHttpRequest();
-  request.open("GET", '/api/update-card');
-  request.addEventListener("load", function() {
-    var json = JSON.parse(request.responseText);
-    var cardholderName = document.getElementById('id_card_name');
-    stripe.handleCardSetup(
-      json.secret, card, {
-      payment_method_data: {
-        billing_details: {name: cardholderName.value}
-      }
-    }).then(function(result) {
-      if (result.error) {
-        document.getElementById('customButton').disabled = false;
-        document.getElementById('spinner').style.display = 'none';
-        showError(result.error.message);
-      } else {
-        var form = document.getElementById('update_card_form');
-        form.payment_method.value = result.setupIntent.payment_method;
-        form.submit();
-      }
-    });
-  });
-  request.send();
+var form = document.getElementById('declined_form');
+form && form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  card_update('declined_form');
 });
 
 })();

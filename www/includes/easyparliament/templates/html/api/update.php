@@ -2,6 +2,7 @@
 
 $stripe = $subscription->stripe;
 $stripeToken = get_http_var('stripeToken');
+$payment_method = get_http_var('payment_method');
 $charitable_tick = $stripe ? $stripe->discount : '';
 $charitable = $stripe ? $stripe->metadata['charitable'] : '';
 $charity_number = $stripe ? $stripe->metadata['charity_number'] : '';
@@ -109,6 +110,7 @@ If you update your plan below, it will be reactivated.
 <?php } ?>
 
     <input type="hidden" name="stripeToken" id="id_stripeToken" value="<?=_htmlspecialchars($stripeToken) ?>">
+    <input type="hidden" name="payment_method" id="id_payment_method" value="<?=_htmlspecialchars($payment_method) ?>">
 
 
     <noscript>
@@ -145,5 +147,6 @@ If you update your plan below, it will be reactivated.
 <script src="https://js.stripe.com/v3"></script>
 <script id="js-payment"
     <?php if ($subscription->has_payment_data) { echo 'data-has-payment-data="1"'; } ?>
+    <?php if ($stripe) { echo 'data-has-subscription="1"'; } ?>
     data-key="<?= STRIPE_PUBLIC_KEY ?>"
     src="<?= cache_version('js/payment.js') ?>"></script>
