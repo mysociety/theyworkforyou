@@ -141,7 +141,7 @@ if ($subscription->upcoming) {
         <?php } else { ?>
             <p>You are not currently subscribed to a plan.</p>
             <p>
-                <a href="/api/update-plan" class="btn btn--primary">Subscribe to a plan</a></p>
+                <a href="/api/update-plan" class="button">Subscribe to a plan</a></p>
             </p>
 
         <?php } ?>

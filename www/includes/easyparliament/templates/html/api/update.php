@@ -135,7 +135,7 @@ If you update your plan below, it will be reactivated.
 <?php } ?>
 
     <div class="row row--submit">
-        <button id="customButton" class="btn btn--primary">
+        <button id="customButton" class="button">
             <?= $stripe ? "Change plan" : "Add plan" ?></h2>
         </button>
         <div id="spinner" class="mysoc-spinner mysoc-spinner--small" role="status">

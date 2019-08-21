@@ -78,6 +78,7 @@ if ($THEUSER->loggedin()) {
         include_once INCLUDESPATH . 'easyparliament/templates/html/api/update.php';
     }
 
+    print '<hr>';
     $keys = get_keys($THEUSER);
     if ($keys) {
         list_keys($keys);
