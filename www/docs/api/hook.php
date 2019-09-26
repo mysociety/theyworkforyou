@@ -41,11 +41,14 @@ if ($event->type == 'customer.subscription.deleted') {
     }
 } elseif ($event->type == 'invoice.payment_succeeded' && stripe_twfy_sub($obj)) {
     # If this isn't a manual invoice (so it's the monthly one), reset the quota
+    $sub = null;
     if ($obj->billing_reason != 'manual') {
-        stripe_reset_quota($obj->subscription);
+        $sub = stripe_reset_quota($obj->subscription);
     }
     # The plan might have changed too, so update the maximum
-    $sub = new \MySociety\TheyWorkForYou\Subscription($obj->id);
+    if (!$sub) {
+        $sub = new \MySociety\TheyWorkForYou\Subscription($obj->subscription);
+    }
     if ($sub->stripe) {
         $sub->redis_update_max($sub->stripe->plan->id);
     }
@@ -91,4 +94,5 @@ function stripe_reset_quota($subscription) {
         $message = "TheyWorkForYou tried to reset the quota for subscription $subscription but couldn't find it";
         send_email(CONTACTEMAIL, $subject, $message);
     }
+    return $sub;
 }
