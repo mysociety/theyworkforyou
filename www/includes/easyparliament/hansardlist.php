@@ -2628,14 +2628,14 @@ class DEBATELIST extends HANSARDLIST {
             $items_to_list = 5;
         }
 
-        $q = $this->db->query("SELECT subsection_id,
-                                section_id,
-                                htype,
-                                gid,
-                                major, minor,
-                                hdate, htime,
-                                person_id,
-                                epobject.body,
+        $q = $this->db->query("SELECT min(subsection_id) AS subsection_id,
+                                min(section_id) AS section_id,
+                                min(htype) AS htype,
+                                min(gid) AS gid,
+                                min(major) AS major, min(minor) AS minor,
+                                min(hdate) AS hdate, min(htime) AS htime,
+                                min(person_id) AS person_id,
+                                min(epobject.body) AS body,
                                 SUM(uservotes.vote) + anonvotes.yes_votes AS total_vote
                         FROM	hansard,
                                 epobject
@@ -2893,14 +2893,14 @@ class DEBATELIST extends HANSARDLIST {
         $params[':major'] = $this->major;
 
         $query = "SELECT COUNT(*) AS count,
-                    body,
-                    h.hdate,
-                    sech.htype,
-                    sech.htime,
-                    sech.gid,
-                    sech.subsection_id,
-                    sech.section_id,
-                    sech.epobject_id
+                    min(body) AS body,
+                    min(h.hdate) AS hdate,
+                    min(sech.htype) AS htype,
+                    min(sech.htime) AS htime,
+                    min(sech.gid) AS gid,
+                    min(sech.subsection_id) AS subsection_id,
+                    min(sech.section_id) AS section_id,
+                    min(sech.epobject_id) AS epobject_id
             FROM    hansard h, epobject e, hansard sech
             WHERE   h.major = :major
             AND     $datewhere
@@ -3017,13 +3017,13 @@ class DEBATELIST extends HANSARDLIST {
         $params[':major'] = $this->major;
 
         $q = $this->db->query("SELECT COUNT(*) AS count,
-                                body,
-                                h.hdate,
-                                sech.htype,
-                                sech.gid,
-                                sech.subsection_id,
-                                sech.section_id,
-                                sech.epobject_id
+                                min(body) AS body,
+                                min(h.hdate) AS hdate,
+                                min(sech.htype) AS htype,
+                                min(sech.gid) AS gid,
+                                min(sech.subsection_id) AS subsection_id,
+                                min(sech.section_id) AS section_id,
+                                min(sech.epobject_id) AS epobject_id
                         FROM 	hansard h, epobject e, hansard sech
                         WHERE 	h.major = :major
                         AND 	$datewhere

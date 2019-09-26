@@ -63,7 +63,10 @@ class Connection {
         // These vars come from config.php.
 
         if (!$global_connection) {
-            $dsn = 'mysql:charset=utf8;dbname=' . $db_name . ';host=' . $db_host;
+            $dsn = 'mysql:charset=utf8;dbname=' . $db_name;
+            if ($db_host) {
+                $dsn .= ';host=' . $db_host;
+            }
 
             try {
                 $conn = new \PDO($dsn, $db_user, $db_pass);

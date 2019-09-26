@@ -356,7 +356,8 @@ class MEMBER {
         }
 
         $pids_str = join(',', $pids);
-        $q = "SELECT person_id, constituency FROM member WHERE person_id IN ($pids_str) AND house = :house";
+        $q = "SELECT person_id, min(constituency) AS constituency
+            FROM member WHERE person_id IN ($pids_str) AND house = :house";
         if ($const) {
             $params[':constituency'] = $const;
             $q .= ' AND constituency=:constituency';
@@ -487,7 +488,10 @@ class MEMBER {
         }
 
         # Public Bill Committees
-        $q = $this->db->query('select bill_id,session,title,sum(attending) as a,sum(chairman) as c
+        $q = $this->db->query('select bill_id,
+            min(session) AS session,
+            min(title) AS title,
+            sum(attending) as a, sum(chairman) as c
             from pbc_members, bills
             where bill_id = bills.id and person_id = :person_id
             group by bill_id order by session desc',

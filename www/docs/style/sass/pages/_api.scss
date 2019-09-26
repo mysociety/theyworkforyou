@@ -8,3 +8,24 @@
     }
 }
 
+.StripeElement {
+    @include form-element;
+}
+
+.row--submit {
+    display: flex;
+    align-items: center;
+}
+
+.row--submit button {
+    margin-bottom: 0;
+}
+
+.mysoc-spinner--small {
+    margin-left: 1em;
+    font-size: 0.5em;
+    display: none;
+}
+
+$mysoc-spinner-color: #62b356;
+@import "spinner";

@@ -58,7 +58,11 @@ class Subscription {
         try {
             $this->stripe = $this->api->getSubscription([
                 'id' => $id,
-                'expand' => ['customer.default_source'],
+                'expand' => [
+                    'customer.default_source',
+                    'customer.invoice_settings.default_payment_method',
+                    'latest_invoice.payment_intent',
+                ],
             ]);
         } catch (\Stripe\Error\InvalidRequest $e) {
             $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
@@ -66,7 +70,12 @@ class Subscription {
             return;
         }
 
-        $this->has_payment_data = $this->stripe->customer->default_source;
+        $this->has_payment_data = $this->stripe->customer->default_source || $this->stripe->customer->invoice_settings->default_payment_method;
+        if ($this->stripe->customer->invoice_settings->default_payment_method) {
+            $this->card_info = $this->stripe->customer->invoice_settings->default_payment_method->card;
+        } else {
+            $this->card_info = $this->stripe->customer->default_source;
+        }
 
         $data = $this->stripe;
         if ($data->discount && $data->discount->coupon && $data->discount->coupon->percent_off) {
@@ -85,21 +94,44 @@ class Subscription {
     }
 
     private function update_subscription($form_data) {
-        if ($form_data['stripeToken']) {
-            $this->stripe->customer->source = $form_data['stripeToken'];
-            $this->stripe->customer->save();
+        if ($form_data['payment_method']) {
+            $payment_method = \Stripe\PaymentMethod::retrieve($form_data['payment_method']);
+            $payment_method->attach(['customer' => $this->stripe->customer->id]);
+            \Stripe\Customer::update($this->stripe->customer->id, [
+                'invoice_settings' => [
+                    'default_payment_method' => $payment_method,
+                ],
+            ]);
         }
 
         # Update Stripe subscription
-        $this->stripe->plan = $form_data['plan'];
+        $args = [
+            'payment_behavior' => 'allow_incomplete',
+            'plan' => $form_data['plan'],
+            'metadata' => $form_data['metadata'],
+            'cancel_at_period_end' => false, # Needed in Stripe 2018-02-28
+        ];
         if ($form_data['coupon']) {
-            $this->stripe->coupon = $form_data['coupon'];
+            $args['coupon'] = $form_data['coupon'];
         } elseif ($this->stripe->discount) {
-            $this->stripe->deleteDiscount();
+            $args['coupon'] = '';
         }
-        $this->stripe->metadata = $form_data['metadata'];
-        $this->stripe->cancel_at_period_end = false; # Needed in Stripe 2018-02-28
-        $this->stripe->save();
+        \Stripe\Subscription::update($this->stripe->id, $args);
+
+        # Attempt immediate payment on the upgrade
+        try {
+            $invoice = \Stripe\Invoice::create([
+                'customer' => $this->stripe->customer,
+                'subscription' => $this->stripe,
+                'tax_percent' => 20
+            ]);
+            $invoice->finalizeInvoice();
+            $invoice->pay();
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            # No invoice created if nothing to pay
+        } catch (\Stripe\Error\Card $e) {
+            # A source may still require 3DS... Stripe will have sent an email :-/
+        }
     }
 
     private function add_subscription($form_data) {
@@ -116,6 +148,8 @@ class Subscription {
         }
 
         $obj = $this->api->createSubscription([
+            'payment_behavior' => 'allow_incomplete',
+            'expand' => ['latest_invoice.payment_intent'],
             'tax_percent' => 20,
             'customer' => $customer,
             'plan' => $form_data['plan'],
@@ -131,7 +165,7 @@ class Subscription {
     }
 
     private function getFields() {
-        $fields = ['plan', 'charitable_tick', 'charitable', 'charity_number', 'description', 'tandcs_tick', 'stripeToken'];
+        $fields = ['plan', 'charitable_tick', 'charitable', 'charity_number', 'description', 'tandcs_tick', 'stripeToken', 'payment_method'];
         $this->form_data = [];
         foreach ($fields as $field) {
             $this->form_data[$field] = get_http_var($field);
@@ -143,7 +177,8 @@ class Subscription {
     }
 
     private function checkPaymentGivenIfNeeded() {
-        return ($this->has_payment_data || $this->form_data['stripeToken'] || (
+        $payment_data = $this->form_data['stripeToken'] || $this->form_data['payment_method'];
+        return ($this->has_payment_data || $payment_data || (
                     $this->form_data['plan'] == $this::$plans[0]
                 && in_array($this->form_data['charitable'], ['c', 'i'])
                 ));
@@ -209,8 +244,6 @@ class Subscription {
         } else {
             $this->add_subscription($form_data);
         }
-
-        $this->redis_update_max($form_data['plan']);
     }
 
     public function redis_update_max($plan) {

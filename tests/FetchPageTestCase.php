@@ -18,7 +18,7 @@ abstract class FetchPageTestCase extends TWFY_Database_TestCase
 
         $vars = join('&', $vars);
         $command = 'parse_str($argv[1], $_GET); include_once("tests/Bootstrap.php"); chdir("www/docs/' . $dir . '"); include_once("' . $page . '");';
-        $page = `REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
+        $page = `REQUEST_METHOD=GET REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
 
         return $page;
     }
@@ -35,7 +35,7 @@ abstract class FetchPageTestCase extends TWFY_Database_TestCase
 
         $vars = join('&', $vars);
         $command = 'parse_str($argv[1], $_GET); $_COOKIE["epuser_id"] = "' . $cookie . '"; include_once("tests/Bootstrap.php"); chdir("www/docs/' . $dir . '"); include_once("' . $page . '");';
-        $page = `REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
+        $page = `REQUEST_METHOD=GET REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
 
         return $page;
     }
@@ -60,7 +60,7 @@ include_once("tests/Bootstrap.php");
 chdir("www/docs/' . $dir . '");
 include_once("' . $page . '");
 ';
-        $page = `REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
+        $page = `REQUEST_METHOD=POST REQUEST_URI=$req_uri REMOTE_ADDR=127.0.0.1 php -e -r '$command' -- '$vars'`;
 
         return $page;
     }

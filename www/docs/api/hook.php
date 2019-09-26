@@ -31,7 +31,7 @@ if ($event->type == 'customer.subscription.deleted') {
     if ($sub->stripe) {
         $sub->redis_update_max($obj->plan->id);
     }
-} elseif ($event->type == 'invoice.payment_failed' && stripe_twfy_sub($obj)) {
+} elseif ($event->type == 'invoice.payment_failed' && $obj->billing_reason == 'subscription_cycle' && stripe_twfy_sub($obj)) {
     $customer = \Stripe\Customer::retrieve($obj->customer);
     $email = $customer->email;
     if ($obj->next_payment_attempt) {
@@ -40,12 +40,24 @@ if ($event->type == 'customer.subscription.deleted') {
         send_template_email(array('template' => 'api_cancelled', 'to' => $email), array());
     }
 } elseif ($event->type == 'invoice.payment_succeeded' && stripe_twfy_sub($obj)) {
-    stripe_reset_quota($obj->subscription);
+    # If this isn't a manual invoice (so it's the monthly one), reset the quota
+    if ($obj->billing_reason != 'manual') {
+        stripe_reset_quota($obj->subscription);
+    }
+    # The plan might have changed too, so update the maximum
+    $sub = new \MySociety\TheyWorkForYou\Subscription($obj->id);
+    if ($sub->stripe) {
+        $sub->redis_update_max($sub->stripe->plan->id);
+    }
     try {
-        # Update the invoice's charge to say it came from TWFY (for CSV export)
-        $charge = \Stripe\Charge::retrieve($obj->charge);
-        $charge->description = 'TheyWorkForYou';
-        $charge->save();
+        # Update the invoice's PaymentIntent and Charge to say it came from TWFY (for CSV export)
+        # Both are shown in the Stripe admin, annoyingly
+        if ($obj->payment_intent) {
+            \Stripe\PaymentIntent::update($obj->payment_intent, [ 'description' => 'TheyWorkForYou' ]);
+        }
+        if ($obj->charge) {
+            \Stripe\Charge::update($obj->charge, [ 'description' => 'TheyWorkForYou' ]);
+        }
     } catch (\Stripe\Error\Base $e) {
     }
 } elseif ($event->type == 'invoice.updated' && stripe_twfy_sub($obj)) {

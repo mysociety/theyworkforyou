@@ -20,6 +20,11 @@ class AcceptApiTest extends FetchPageTestCase
         return $this->base_fetch_page($vars, 'api');
     }
 
+    private function get_page($page, $vars = array())
+    {
+        return $this->base_fetch_page_user($vars, '1.fbb689a0c092f5534b929d302db2c8a9', 'api', "$page.php");
+    }
+
     private function post_page($page, $vars = array())
     {
         return $this->base_post_page_user($vars, '1.fbb689a0c092f5534b929d302db2c8a9', 'api', "$page.php");
@@ -125,7 +130,7 @@ class AcceptApiTest extends FetchPageTestCase
             'tandcs_tick' => 'on',
         ));
         $this->assertEquals('Location: /api/key?updated=1', $page);
-        $page = $this->post_page('key', ['updated' => 1]);
+        $page = $this->get_page('key', ['updated' => 1]);
         $this->assertContains('Your current plan is <strong>Some calls per month</strong>.', $page);
         $this->assertContains('It costs you £0/month.', $page);
         $this->assertContains('100% discount applied.', $page);
