@@ -315,7 +315,7 @@ foreach ($alertdata as $alertitem) {
         if ($any_content) {
             # Add data to email_text
             $desc = trim(html_entity_decode($data['searchdescription']));
-            $desc = trim(preg_replace('#\(*B\d+( OR B\d+)*\)\s*#', '', $desc));
+            $desc = trim(preg_replace(['#\(B\d+( OR B\d+)*\)#', '#B\d+( OR B\d+)*#'], '', $desc));
             foreach ($o as $major => $body) {
                 if ($body) {
                     $heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
