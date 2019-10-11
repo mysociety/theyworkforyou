@@ -247,10 +247,10 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(1, true, 'lord')
         );
 
-        // Does a large JPEG work? Not at present, 2018-11-27, as all images small!
+        // Does a large JPEG work?
         $this->assertEquals(
-            array('/images/mps/10001.jpeg', 'S'),
-            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001)
+            array('/images/mpsL/11132.jpeg', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(11132)
         );
 
         // Does a small JPEG work?
@@ -259,7 +259,7 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001, true)
         );
 
-        // Does a large PNG work? Ditto
+        // Does a large PNG work? No large PNGs
         $this->assertEquals(
             array('/images/mps/13943.png', 'S'),
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943)
@@ -271,10 +271,10 @@ class MemberTest extends TWFY_Database_TestCase
             \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(13943, true)
         );
 
-        // Does a large JPG work? Ditto
+        // Does a large JPG work?
         $this->assertEquals(
-            array('/images/mps/10552.jpg', 'S'),
-            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10552)
+            array('/images/mpsL/10001.jpg', 'L'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10001)
         );
 
         // Does a small JPG work?
@@ -291,8 +291,8 @@ class MemberTest extends TWFY_Database_TestCase
 
         // If we only have a small, but don't request explicitly?
         $this->assertEquals(
-            array('/images/mps/10002.jpg', 'S'),
-            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(10002)
+            array('/images/mps/28619.jpg', 'S'),
+            \MySociety\TheyWorkForYou\Utility\Member::findMemberImage(28619)
         );
 
     }
