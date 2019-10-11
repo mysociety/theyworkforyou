@@ -222,7 +222,7 @@ class PolicyPositions {
         $entered_house = $this->member->entered_house();
         $current_member = $this->member->current_member();
 
-        if (count($this->policies) > 0) {
+        if (count($this->policies->getPolicies()) > 0) {
             if (in_array(HOUSE_TYPE_COMMONS, $member_houses) AND
                 $entered_house[HOUSE_TYPE_COMMONS]['date'] > '2001-06-07'
             ) {

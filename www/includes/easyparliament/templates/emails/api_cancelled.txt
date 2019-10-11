@@ -3,9 +3,11 @@ Hi,
 
 I'm afraid that when we tried to take payment for your subscription to the
 TheyWorkForYou API, it failed again. We've cancelled your subscription, so
-you are now back on the free tier. If you wish to resubscribe, please just
-log in to TheyWorkForYou and pick a new plan:
+you are now back on the free tier. If you wish to resubscribe in future,
+please log in to TheyWorkForYou and pick a new plan:
     https://www.theyworkforyou.com/api/key
+
+Thanks for using TheyWorkForYou.
 
 Yours,
 mySociety
