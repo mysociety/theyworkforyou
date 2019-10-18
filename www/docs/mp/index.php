@@ -896,7 +896,7 @@ function person_pbc_membership($member) {
 
     # Public Bill Committees
     if (count($extra_info['pbc'])) {
-        if ($member->party() == 'SNP') {
+        if ($member->party() == 'Scottish National Party') {
             $out['info'] = 'SNP MPs only attend sittings where the legislation pertains to Scotland.';
         }
         foreach ($extra_info['pbc'] as $bill_id => $arr) {
@@ -949,7 +949,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
             $minister = 1;
         if (isset($extra_info['Lwrans_answered_inlastyear']) && $extra_info['Lwrans_answered_inlastyear'] > 0 && $extra_info['Lwrans_asked_inlastyear'] == 0)
             $Lminister = true;
-        if ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
+        if ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
             $minister = 2;
         }
         $wrans_answers = display_stats_line('wrans_asked_inlastyear', 'Has received answers to <a href="' . $MOREURL->generate() . '">', 'written question', '</a> ' . $since_text, '', $extra_info, $minister, $Lminister);
@@ -967,9 +967,9 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
     }
 
     $after_stuff = ' <small>(From Public Whip)</small>';
-    if ($member->party() == 'SNP') {
-        $after_stuff .= '<br><em>Note SNP MPs do not vote on legislation not affecting Scotland.</em>';
-    } elseif ($member->party() == 'SPK' || $member->party() == 'CWM' || $member->party() == 'DCWM') {
+    if ($member->party() == 'Scottish National Party') {
+        $after_stuff .= '<br><em>Note SNP MPs do not generally vote on legislation not affecting Scotland, as these matters are devolved to the Scottish Parliament.</em>';
+    } elseif ($member->party() == 'Speaker' || $member->party() == 'Deputy Speaker') {
         $after_stuff .= '<br><em>Speakers and deputy speakers cannot vote except to break a tie.</em>';
     }
     if ($member->party() != 'Sinn Féin') {
