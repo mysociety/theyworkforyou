@@ -185,7 +185,7 @@ class People {
         $sqlorder = 'family_name, given_name';
 
         $params = array();
-        $query = 'SELECT distinct member.person_id, title, given_name, family_name, lordofname, constituency, party, left_reason, dept, position ';
+        $query = 'SELECT distinct member.person_id, title, given_name, family_name, lordofname, constituency, party, left_reason ';
         if ($use_extracol) {
             $query .= ', data_value ';
             $order = $args['order'];
@@ -196,26 +196,23 @@ class People {
             );
             $personinfo_key = $key_lookup[$order];
         }
-        $query .= 'FROM member LEFT OUTER JOIN moffice ON member.person_id = moffice.person ';
-        if (isset($args['date'])) {
-            $query .= 'AND from_date <= :date AND :date <= to_date ';
-            $params[':date'] = $args['date'];
-        } else {
-            $query .= 'AND to_date="9999-12-31" ';
-        }
+        $query .= 'FROM member ';
         if ($use_personinfo) {
             $query .= 'LEFT OUTER JOIN personinfo ON member.person_id = personinfo.person_id AND data_key="' . $personinfo_key . '" ';
         }
         $query .= ' JOIN person_names p ON p.person_id = member.person_id AND p.type = "name" ';
-        if (isset($args['date']))
+        if (isset($args['date'])) {
             $query .= 'AND start_date <= :date AND :date <= end_date ';
-        else
+            $params[':date'] = $args['date'];
+        } else {
             $query .= 'AND end_date="9999-12-31" ';
+        }
         $query .= 'WHERE house=' . $this->house . ' ';
-        if (isset($args['date']))
+        if (isset($args['date'])) {
             $query .= 'AND entered_house <= :date AND :date <= left_house ';
-        elseif (!isset($args['all']) || $this->house == HOUSE_TYPE_COMMONS)
+        } elseif (!isset($args['all']) || $this->house == HOUSE_TYPE_COMMONS) {
             $query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
+        }
 
         if (isset($args['order'])) {
             $order = $args['order'];
@@ -233,12 +230,7 @@ class People {
         $data = array();
         foreach ($q as $row) {
             $p_id = $row['person_id'];
-            $dept = $row['dept'];
-            $pos = $row['position'];
-            if (isset($data[$p_id])) {
-                $data[$p_id]['dept'] = array_merge((array) $data[$p_id]['dept'], (array) $dept);
-                $data[$p_id]['pos'] = array_merge((array) $data[$p_id]['pos'], (array) $pos);
-            } else {
+            if (!isset($data[$p_id])) {
                 $name = member_full_name($this->house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                 $constituency = $row['constituency'];
                 $url = make_member_url($name, $constituency, $this->house, $p_id);
@@ -252,21 +244,9 @@ class People {
                     'constituency' 	=> $constituency,
                     'party' 	=> $row['party'],
                     'left_reason' 	=> $row['left_reason'],
-                    'dept'		=> $dept,
-                    'pos'		=> $pos
                 );
                 if ($use_extracol) {
                     $narray['data_value'] = $row['data_value'];
-                }
-
-                if ($narray['party'] == 'SPK') {
-                    $narray['party'] = '-';
-                    $narray['pos'] = 'Speaker';
-                    $narray['dept'] = 'House of Commons';
-                } elseif ($narray['party'] == 'CWM' || $narray['party'] == 'DCWM') {
-                    $narray['party'] = '-';
-                    $narray['pos'] = 'Deputy Speaker';
-                    $narray['dept'] = 'House of Commons';
                 }
 
                 $data[$p_id] = $narray;
