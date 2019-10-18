@@ -193,7 +193,7 @@
 			<field name="member_id">12</field>
 			<field name="house">1</field>
 			<field name="constituency">Buckingham</field>
-			<field name="party">SPK</field>
+			<field name="party">Speaker</field>
 			<field name="entered_house">2000-01-01</field>
 			<field name="left_house">9999-12-31</field>
 			<field name="entered_reason">general_election</field>

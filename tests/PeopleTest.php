@@ -31,8 +31,6 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Westminster Constituency',
             'party' => 'Lab',
             'left_reason' => 'still_in_office',
-            'dept' => null,
-            'pos' => null,
             'image' => '/images/unknownperson.png'
         );
         $MPList = $people->getData();
@@ -55,8 +53,6 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Scotland Constituency',
             'party' => 'Scottish National Party',
             'left_reason' => 'still_in_office',
-            'dept' => null,
-            'pos' => null,
             'image' => '/images/unknownperson.png'
         );
         $MSPList = $people->getData();
@@ -79,8 +75,6 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Northern Ireland Constituency',
             'party' => 'Sinn Féin',
             'left_reason' => 'still_in_office',
-            'dept' => null,
-            'pos' => null,
             'image' => '/images/unknownperson.png'
         );
         $MLAList = $people->getData();
@@ -103,8 +97,6 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => '',
             'party' => 'XB',
             'left_reason' => 'still_in_office',
-            'dept' => null,
-            'pos' => null,
             'image' => '/images/unknownlord.png'
         );
         $PeerList = $people->getData();
