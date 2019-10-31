@@ -85,7 +85,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     $member_url,
                                     $policy_id
                                 );
-                                $show_link = $key_vote['position'] != 'has never voted on';
+                                $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
 
                                 if (isset($sorted_diffs[$policy_id]) && $sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1) {
                                     $diff = $sorted_diffs[$policy_id];
