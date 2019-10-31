@@ -83,7 +83,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     $member_url,
                                     $key_vote['policy_id']
                                 );
-                                $show_link = $key_vote['position'] != 'has never voted on';
+                                $show_link = true;
+                                $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
 
                                 include '_vote_description.php';
 

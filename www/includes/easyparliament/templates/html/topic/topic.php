@@ -71,7 +71,8 @@
                               $member_url,
                               $position['policy_id']
                           );
-                          $show_link = $position['position'] != 'has never voted on';
+                          $show_link = true;
+                          $link_text = $position['position'] != 'has never voted on' ? 'Show votes' : 'Details';
                           $key_vote = $position;
                           include(dirname(__DIR__) . '/mp/_vote_description.php');
 

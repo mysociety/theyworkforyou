@@ -81,7 +81,8 @@ $display_wtt_stats_banner = '2015';
                                 $member_url,
                                 $key_vote['policy_id']
                             );
-                            $show_link = $key_vote['position'] != 'has never voted on';
+                            $show_link = true;
+                            $link_text = ($key_vote['position'] != 'has never voted on') ? 'Show votes' : 'Details';
 
                             include '_vote_description.php';
 
@@ -122,6 +123,7 @@ $display_wtt_stats_banner = '2015';
                             );
                             $link = $member_url . '/divisions?policy=' . $policy_id;
                             $show_link = true;
+                            $link_text = 'Show votes';
 
                             include '_vote_description.php';
 
@@ -150,7 +152,8 @@ $display_wtt_stats_banner = '2015';
                                 $member_url,
                                 $key_vote['policy_id']
                             );
-                            $show_link = $key_vote['position'] != 'has never voted on';
+                            $show_link = true;
+                            $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
 
                             include '_vote_description.php';
 
