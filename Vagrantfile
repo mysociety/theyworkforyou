@@ -8,11 +8,11 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "debian/stretch64"
+  config.vm.box = "sagepe/stretch"
 
   # Enable NFS access to the disk
   config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder ".", "/vagrant/theyworkforyou", :nfs => true
+  config.vm.synced_folder ".", "/vagrant/theyworkforyou"
 
   # NFS requires a host-only network
   # This also allows you to test via other devices (e.g. mobiles) on the same
@@ -35,7 +35,7 @@ Vagrant.configure(2) do |config|
     cd /vagrant/theyworkforyou
 
     # Install needed things
-    apt-get -qq -y install unzip fakeroot git >/dev/null
+    apt-get -qq -y install unzip fakeroot git libffi-dev >/dev/null
 
     # mysql and xapian
     bin/install-php7-xapian.sh
@@ -51,11 +51,6 @@ Vagrant.configure(2) do |config|
     cp conf/httpd.vagrant /etc/apache2/sites-enabled/twfy.conf
     a2enmod expires rewrite
     /etc/init.d/apache2 reload
-
-    # NFS woes mean you have to do this - it can't compile FFI inside
-    mkdir /home/vagrant/bundle
-    chown vagrant:vagrant /home/vagrant/bundle
-    ln -sn /home/vagrant/bundle vendor/bundle
 
     su vagrant -c 'bin/install-as-user vagrant 10.11.12.13 /vagrant yes'
     su vagrant -c 'bin/deploy.bash'
