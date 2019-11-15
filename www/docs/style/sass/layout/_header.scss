@@ -334,3 +334,43 @@
         }
     }
 }
+
+.crowdfunding-topper {
+    background-color: #333;
+    color: #fff;
+    padding: 1em 0;
+
+    .full-page__row {
+        max-width: 65em; // Line up better with header logo
+    }
+
+    p {
+        margin: 0 0 1em 0;
+        font-size: (16em / 18);
+        line-height: 1.4;
+    }
+
+    .button {
+        margin: 0;
+    }
+
+    @media (min-width: $medium-screen) {
+        .full-page__unit {
+            @include display-flex();
+            @include justify-content(space-between);
+            @include align-items(center);
+        }
+
+        p {
+            margin: 0 1em 0 0;
+            max-width: 35em;
+            float: left; // non-flexbox fallback
+        }
+
+        .button {
+            @include flex(0 0 auto);
+            margin: 0;
+            float: right; // non-flexbox fallback
+        }
+    }
+}

@@ -28,6 +28,13 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
             <div class="primary-content__unit">
 
+                <div class="panel panel--primary panel--crowdfunding">
+                    <h2>We need your help</h2>
+                    <p>Please take a minute to <a href="https://www.crowdfunder.co.uk/theyworkforyou">donate to TheyWorkForYou</a> so we can bring you voting summaries like this for years to come.</p>
+                    <p>If everyone who visited TheyWorkForYou donated just £1, we’d reach our crowdfunding target in less than 3 days.</p>
+                    <a href="https://www.crowdfunder.co.uk/theyworkforyou" class="button" data-track-click="crowdfunder-mp-votes">Donate now</a>
+                </div>
+
                 <?php if ($profile_message): ?>
                 <div class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
