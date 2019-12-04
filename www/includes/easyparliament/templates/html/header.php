@@ -172,7 +172,7 @@
     <div class="full-page__row">
       <div class="full-page__unit">
         <p>We need your support to keep TheyWorkForYou running and make sure people across the UK can continue to hold their elected representatives to account.</p>
-        <a class="button" href="https://www.crowdfunder.co.uk/theyworkforyou" data-track-click="crowdfunder-header">Donate to our crowdfunder</a>
+        <a class="button button--negative" href="https://www.crowdfunder.co.uk/theyworkforyou" data-track-click="crowdfunder-header">Donate to our crowdfunder</a>
       </div>
     </div>
   </div>
