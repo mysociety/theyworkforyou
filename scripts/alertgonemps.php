@@ -87,15 +87,6 @@ foreach ($alertdata as $alertitem) {
     $member = $members[$person_id];
     if ($member->current_member_anywhere()) continue;
 
-    if (in_array($member->full_name(), array(
-        'Mr Paul Boateng', 'Mrs Helen Liddell', 'Jack McConnell', 'Tim Boswell',
-        'Angela Browning', 'John Gummer', 'Michael Howard', 'John Maples',
-        'Michael Spicer', 'Mr Richard Allan', 'Matthew Taylor', 'Phil Willis',
-        'Hilary Armstrong', 'Des Browne', 'Quentin Davies', 'Beverley Hughes',
-        'John Hutton', 'Jim Knight', 'Thomas McAvoy', 'John McFall', 'John Prescott',
-        'John Reid', 'Angela Smith', 'Don Touhig', 'Michael Wills', 'Ian Paisley',
-    ))) continue;
-
 	if ($email != $current['email']) {
 		if ($email_text)
             write_and_send_email($current, $email_text, $template);
