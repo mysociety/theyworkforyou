@@ -1,20 +1,21 @@
 Subject: Your TheyWorkForYou email alert
 Dear TheyWorkForYou alert subscriber,
 
-We're just writing to let you know that you are subscribed to
-{ALERTS} that won't email you any time soon - for example, because
-the MP or Lord has left Parliament. Your affected {ALERT_IS}:
+We're just writing to let you know that you are subscribed to {ALERTS} that
+probably won't email you any time soon - for example, because the MP has left
+Parliament (though perhaps they will be made a Lord). Your affected {ALERT_IS}:
 
 {DATA}
 
 (You may have other, live, alerts not listed here.)
 
-We thought you might want to alter your alerts to cover new MPs,
-Lords, and so on, and have written a new interface that lets you
-view your alerts, sign up for new ones, and suspend or remove
-alerts you no longer want. Simply visit this URL:
+To sign-up for alerts from your new MP, visit:
+    https://www.theyworkforyou.com/alert/by-postcode/
 
-    {MANAGE}
+TheyWorkForYou needs your help to carry on providing this service.
+If you find it useful, please contribute to our crowdfunder (which
+finishes at Friday lunchtime):
+    https://www.crowdfunder.co.uk/theyworkforyou
 
 Best wishes,
 TheyWorkForYou
@@ -24,11 +25,3 @@ mySociety Ltd,
 London,
 N13 4BS,
 United Kingdom
-
--------------------------------------------------------------------
-TheyWorkForYou email alerts need love and support to look
-after. Please consider donating to mySociety to help us
-continue and expand:
-        https://www.mysociety.org/twfy-donate/
--------------------------------------------------------------------
-
