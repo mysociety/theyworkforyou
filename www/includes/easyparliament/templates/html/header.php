@@ -168,10 +168,10 @@
     </div>
   <?php } ?>
 
-  <div class="crowdfunding-topper">
+  <div class="crowdfunding-topper js-show-during-crowdfunder">
     <div class="full-page__row">
       <div class="full-page__unit">
-        <p>We need your support to keep TheyWorkForYou running and make sure people across the UK can continue to hold their elected representatives to account.</p>
+        <p><strong>Only <span class="js-crowdfunder-time-left">a few days</span> to go:</strong> We’re raising £25,000 to keep TheyWorkForYou running and make sure people across the UK can hold their elected representatives to account.</p>
         <a class="button button--negative" href="https://www.crowdfunder.co.uk/theyworkforyou" data-track-click="crowdfunder-header">Donate to our crowdfunder</a>
       </div>
     </div>

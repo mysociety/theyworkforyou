@@ -349,4 +349,44 @@ $(function(){
     }
   });
 
+  function crowdfunder(now) {
+      var now_utc = (typeof now === 'undefined') ? new Date() : new Date(now);
+      var crowdfunder_end_utc = new Date(Date.UTC(2019, 11, 20, 12, 0, 0));
+      var hours_until_crowdfunder_end = (crowdfunder_end_utc - now_utc) / 3600000;
+      var crowdfunder_has_ended = 0;
+      var time_left_string = '' + Math.ceil(hours_until_crowdfunder_end / 24) + ' days';
+
+      if (hours_until_crowdfunder_end < 0) {
+          crowdfunder_has_ended = 1;
+      } else if (hours_until_crowdfunder_end < 2) {
+          time_left_string = 'an hour';
+      } else if (hours_until_crowdfunder_end < 12) {
+          time_left_string = 'a few hours';
+      } else if (hours_until_crowdfunder_end < 36) {
+          time_left_string = '1 day';
+      }
+
+      $('.js-crowdfunder-time-left').each(function(){
+          $(this).html(time_left_string);
+      });
+
+      $('.js-show-during-crowdfunder').each(function(){
+          if (crowdfunder_has_ended) {
+              $(this).hide();
+          } else {
+              $(this).show();
+          }
+      });
+
+      $('.js-show-after-crowdfunder').each(function(){
+          if (crowdfunder_has_ended) {
+              $(this).show();
+          } else {
+              $(this).hide();
+          }
+      });
+  }
+
+  crowdfunder();
+
 });
