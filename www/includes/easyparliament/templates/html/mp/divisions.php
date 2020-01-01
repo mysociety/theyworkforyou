@@ -102,7 +102,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <p><button class="button secondary-button small js-show-all-votes">Show all votes, including <?= $policy['weak_count'] ?> less important <?= $policy['weak_count'] == 1 ? 'vote' : 'votes' ?></button></p>
                                       <?php } ?>
                                         <p class="voting-information-provenance">
-                                            Vote information from <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
+                                            Vote information from <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
                                             Last updated: <?= $policy_last_update[$policy['policy_id']] ?>.
                                             <a href="/voting-information">Please share these votes responsibly.</a>
                                         </p>
