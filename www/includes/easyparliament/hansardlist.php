@@ -2060,18 +2060,6 @@ class HANSARDLIST {
         return $LISTURL->generate($encode) . $fragment;
     }
 
-    private $major_to_house = array(
-        1 => array(1),
-        2 => array(1),
-        3 => array(1, 2),
-        4 => array(1, 2),
-        5 => array(3),
-        6 => array(1),
-        7 => array(4),
-        8 => array(4),
-        101 => array(2),
-    );
-
     public function _get_speaker($person_id, $hdate, $htime, $major) {
         if ($person_id == 0) {
             return array();
@@ -2145,7 +2133,8 @@ class HANSARDLIST {
         $members = $q->fetchAll();
         if (count($members) > 1) {
             $members = array_filter($members, function($m) use ($major) {
-                return in_array($m['house'], $this->major_to_house[$major]);
+                $houses = \MySociety\TheyWorkForYou\Utility\House::majorToHouse($major);
+                return in_array($m['house'], $houses);
             });
             # Of course, remember PHP treats lists as dictionaries
             $members = array_values($members);

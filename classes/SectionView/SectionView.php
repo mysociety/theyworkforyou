@@ -256,7 +256,8 @@ class SectionView {
 
         if (isset($THEUSER) && $THEUSER->postcode_is_set()) {
             $user = new \MySociety\TheyWorkForYou\User();
-            $data['mp_data'] = $user->getRep($this->majorToConsType(), $this->majorToHouse()[0]);
+            $house = \MySociety\TheyWorkForYou\Utility\House::majorToHouse($this->major)[0];
+            $data['mp_data'] = $user->getRep($this->majorToConsType(), $house);
         }
 
 
@@ -477,22 +478,6 @@ class SectionView {
 
         $detail = $details[$this->major];
         return array($detail['country'], $detail['location'], $detail['assembly']);
-    }
-
-    private function majorToHouse() {
-        $major_to_house = array(
-            1 => array(1),
-            2 => array(1),
-            3 => array(1, 2),
-            4 => array(1, 2),
-            5 => array(3),
-            6 => array(1),
-            7 => array(4),
-            8 => array(4),
-            101 => array(2),
-        );
-
-        return $major_to_house[$this->major];
     }
 
     private function majorToConsType() {
