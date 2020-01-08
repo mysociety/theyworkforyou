@@ -474,11 +474,6 @@ $this->page = array (
         'heading'		=> 'IRC chat channel',
         'url'			=> 'http://www.irc.mysociety.org/'
     ),
-    'newzealand' => array (
-        'title'			=> 'New Zealand',
-        'heading'		=> 'They Work For You - New Zealand',
-        'url'			=> 'http://www.theyworkforyou.co.nz/'
-    ),
     'australia' => array (
         'title'			=> 'Australia',
         'heading'		=> 'Open Australia',

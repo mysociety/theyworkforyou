@@ -177,13 +177,11 @@
     </div>
   </div>
 
-  <?php if (isset($country) && in_array($country, array('NZ', 'AU', 'IE', 'CA'))) { ?>
+  <?php if (isset($country) && in_array($country, array('AU', 'IE', 'CA'))) { ?>
     <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
-              <?php if ($country == 'NZ') { ?>
-                You&rsquo;re in New Zealand, so check out <a href="http://www.theyworkforyou.co.nz">TheyWorkForYou.co.nz</a>
-              <?php } elseif ($country == 'AU') { ?>
+              <?php if ($country == 'AU') { ?>
                 You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under
               <?php } elseif ($country == 'IE') { ?>
                 Check out <a href="https://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas
