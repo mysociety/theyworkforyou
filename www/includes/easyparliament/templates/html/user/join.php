@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="row">
-                &nbsp;<br>Do you wish to receive occasional update emails about TheyWorkForYou.com?
+                &nbsp;<br>Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?
                 </div>
 
                 <?php if (isset($errors['optin'])) { ?>
