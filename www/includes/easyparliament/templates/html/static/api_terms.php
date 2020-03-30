@@ -26,8 +26,8 @@
 <section id="introduction">
 
 <h2>Introduction</h2>
-<p>The TheyWorkForYou API (“API”, the “Service”) is operated by mySociety Ltd, company
-no. 5798215, of 483 Green Lanes, London N13 4BS (“mySociety”, “we” or “us).</p>
+<p>The TheyWorkForYou API (“API”, the “Service”) is operated by SocietyWorks Ltd, company
+no. 5798215, of 483 Green Lanes, London N13 4BS (“we” or “us”).</p>
 <p>By using the Service or signing up for an account, you’re agreeing to these Terms,
 which form a legally binding agreement. Please read them carefully - they
 define the conditions under which you’re allowed to use the Service.</p>
@@ -35,8 +35,8 @@ define the conditions under which you’re allowed to use the Service.</p>
 enter into contracts. If you use the Service on behalf of a company or organisation
 you warrant that you have the authority to accept these Terms on behalf of that
 company or organisation.</p>
-<p>mySociety reserves the right to update and change these Terms from time to
-time without notice and at its sole discretion.</p>
+<p>We reserve the right to update and change these Terms from time to
+time without notice and at our sole discretion.</p>
 </section>
 
 <section id="usage">
@@ -74,7 +74,7 @@ process. This email address will be used if we need to contact you about
 anything relating to your account or usage - please ensure you keep your
 contact information up to date.</p>
 <p>You’re responsible for all activity that takes place under your account, so
-you must keep your password secure. mySociety cannot and will not be liable for
+you must keep your password secure. We cannot and will not be liable for
 any loss or damage from your failure to maintain the security of your account
 and password. You should immediately notify us if you become aware of any
 unauthorised use of your account.</p>
@@ -85,12 +85,12 @@ unauthorised use of your account.</p>
 <p>You can terminate this agreement at any time and for any reason by ceasing
 use of the API and cancelling any subscription you have. You may also choose to
 ask us to close your account.</p>
-<p>mySociety may suspend your access to the API if:</p>
+<p>We may suspend your access to the API if:</p>
 <ul>
 <li>You have failed to make any payment due;
-<li>mySociety reasonably believes you to be in material breach of any term of
+<li>We reasonably believe you to be in material breach of any term of
 this agreement;
-<li>mySociety reasonably believes that it is necessary to do so in order to
+<li>We reasonably believe that it is necessary to do so in order to
 comply with any applicable law or the order of a court or other competent
 authority.
 </ul>
@@ -126,20 +126,19 @@ Royal Mail data © Royal Mail copyright and database right 2018;
 National Statistics data © Crown copyright and database right 2018.
 </p>
 
-<p>The data is generated from sources outside mySociety and so mySociety
-cannot, and does not, warrant that it is accurate. mySociety accepts no
-liability for any errors. For the same reason, while we will take all
-reasonable steps to ensure that all data that is made available will continue
-to be available in the future, mySociety cannot, and does not, agree to keep
-the data up to date. We may, in our absolute discretion, add new data sources,
-data fields or other forms of information from time to time but we are under no
-obligation to do so.</p>
+<p>The data is generated from outside sources and so we cannot, and do not,
+warrant that it is accurate. We accept no liability for any errors. For the
+same reason, while we will take all reasonable steps to ensure that all data
+that is made available will continue to be available in the future, we cannot,
+and do not, agree to keep the data up to date. We may, in our absolute
+discretion, add new data sources, data fields or other forms of information
+from time to time but we are under no obligation to do so.</p>
 
 </section>
 
 <section id="licensing">
 <h2>Licensing</h2>
-<p>mySociety believes that the data may be used in accordance with these
+<p>We believe that the data may be used in accordance with these
 licences given by third parties:</p>
 
 <ul>
@@ -153,8 +152,8 @@ licences given by third parties:</p>
     <a href="https://www.ons.gov.uk/methodology/geography/licences">Northern Ireland End User Licence</a>.
 </ul>
 
-<p>but mySociety cannot know whether those licences were validly given, and in
-consequence, gives no warranty as to the ownership of the data or the use to
+<p>but we cannot know whether those licences were validly given, and in
+consequence, give no warranty as to the ownership of the data or the use to
 which it may be put.</p>
 
 <p>You must comply with the licence or licences relevant to the data you use,
@@ -173,7 +172,7 @@ must also give any appropriate attributions required by the data licences.</p>
 
 <section id="support">
 <h2>SLA and support</h2>
-<p>mySociety offers no guarantee as to the availability of the Service, and will not
+<p>We offer no guarantee as to the availability of the Service, and will not
 be liable if it is unavailable for any reason.</p>
 <p>If you need to contact us you can do so via our
 <a href="/contact/">contact page</a>.</p>
@@ -182,16 +181,16 @@ be liable if it is unavailable for any reason.</p>
 <section id="small-print">
 <h2>Small print</h2>
 <p>These Terms are subject to the law of England and Wales. They constitute all
-the terms and conditions agreed upon between you and mySociety and supersede
+the terms and conditions agreed upon between you and us and supersede
 any prior agreements, whether written or oral.</p>
 <p>You expressly understand and agree that to the maximum extent permitted by
-law mySociety excludes all liability and responsibility to you for any loss or
+law we exclude all liability and responsibility to you for any loss or
 damage resulting, directly or indirectly, from your use of or inability to use
 the API. In any event, our total liability for all claims made about the API in any
 month will be no more than what you paid us for the Service the month before.</p>
-<p>mySociety shall not be deemed to have waived its right to enforce any of its
-rights under this agreement merely because it has previously failed to enforce
-its rights under this agreement, or permitted you to breach any term of this
+<p>We shall not be deemed to have waived our right to enforce any of our
+rights under this agreement merely because we have previously failed to enforce
+our rights under this agreement, or permitted you to breach any term of this
 agreement on one or more occasions.</p>
 <p>If a court, or other competent authority, finds that any term of this
 agreement is illegal or otherwise unenforceable, that term is to be treated as
