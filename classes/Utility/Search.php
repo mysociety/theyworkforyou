@@ -139,7 +139,7 @@ class Search
      */
 
     public static function searchMemberDbLookup($searchstring, $current_only=false) {
-        if (!$searchstring) return false;
+        if (!$searchstring) return array();
         $searchwords = explode(' ', $searchstring, 3);
         $params = array();
         if (count($searchwords) == 1) {
@@ -180,22 +180,30 @@ class Search
 
         $db = new \ParlDB;
         $q = $db->query("SELECT person_id FROM person_names WHERE type='name' AND ($where)", $params);
-        return $q;
+
+        # Check for redirects
+        $pids = array();
+        foreach ($q as $row) {
+            $pid = $row['person_id'];
+            $redirect = $db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid_from",
+                array(':gid_from' => "uk.org.publicwhip/person/$pid")
+            )->first();
+            if ($redirect) {
+                $pid = str_replace('uk.org.publicwhip/person/', '', $redirect['gid_to']);
+            }
+            $pids[] = $pid;
+        }
+
+        return array_unique($pids);
     }
 
     public static function searchMemberDbLookupWithNames($searchstring, $current_only=false) {
-        $q = self::searchMemberDbLookup($searchstring, $current_only);
+        $pids = self::searchMemberDbLookup($searchstring, $current_only);
 
-        if (!$q->rows()) {
-            return $q;
+        if (!count($pids)) {
+            return $pids;
         }
 
-        $person_ids = array();
-        foreach ($q as $row) {
-            $pid = $row['person_id'];
-            $person_ids[$pid] = 1;
-        }
-        $pids = array_keys($person_ids);
         $pids_str = join(',', $pids);
 
         $where = '';

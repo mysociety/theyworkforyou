@@ -129,7 +129,7 @@
 
       <?php
           if(
-              (isset($members) && $members->rows() > 0) ||
+              (isset($members) && count($members)) ||
               (isset($constituencies) && count($constituencies) > 0) ||
               ($alertsearch)
           ) {
@@ -139,7 +139,7 @@
         <div class="alert-section alert-section--disambiguation">
             <div class="alert-section__primary">
 
-              <?php if (isset($members) && $members->rows() > 0) {
+              <?php if (isset($members) && count($members)) {
                   $member_options = true; ?>
                 <h3>Sign up for alerts when people matching <i><?= _htmlspecialchars($alertsearch) ?></i> speaks</h3>
                 <ul>

@@ -143,12 +143,7 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
         $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
         if (!$searchstring) return array();
 
-        $members = array();
-
-        $q = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
-        foreach ($q as $row) {
-            $members[] = $row['person_id'];
-        }
+        $members = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
 
         $db = new \ParlDB;
         $q = $db->query("SELECT person FROM moffice WHERE position LIKE :pos ORDER BY from_date DESC, moffice_id",
