@@ -231,6 +231,7 @@ class USER {
             // stuff, just need to match this token.
 
             $this->registrationtoken = strtr($token, '.', 'X');
+            $this->registrationtoken = strtr($token, '/', 'x');
 
             // Add that to the DB.
             $r = $this->db->query("UPDATE users
