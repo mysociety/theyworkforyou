@@ -120,6 +120,7 @@ $sects = array(
     6 => 'Public Bill committee',
     7 => 'Scottish Parliament debate',
     8 => 'Scottish Parliament written answer',
+    9 => 'London Mayoral question',
     101 => 'Lords debate',
     'F' => 'event',
     'V' => 'vote',
@@ -133,6 +134,7 @@ $sects_gid = array(
     6 => 'pbc',
     7 => 'sp',
     8 => 'spwa',
+    9 => 'london-mayors-questions',
     101 => 'lords',
     'F' => 'calendar',
 );
@@ -145,6 +147,7 @@ $sects_search = array(
     6 => 'pbc',
     7 => 'sp',
     8 => 'spwrans',
+    9 => 'lmqs',
     101 => 'lords',
     'F' => 'future',
 );
