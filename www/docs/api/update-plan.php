@@ -30,6 +30,6 @@ $PAGE->stripe_start();
 
 include_once INCLUDESPATH . 'easyparliament/templates/html/api/update.php';
 
-$sidebar = api_sidebar();
+$sidebar = api_sidebar($subscription);
 $PAGE->stripe_end(array($sidebar));
 $PAGE->page_end();

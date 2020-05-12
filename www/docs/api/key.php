@@ -10,6 +10,7 @@ $this_page = 'api_key';
 $PAGE->page_start();
 $PAGE->stripe_start();
 
+$subscription = null;
 if ($THEUSER->loggedin()) {
     if (get_http_var('create_key')) {
         if (!Volnix\CSRF\CSRF::validate($_POST)) {
@@ -90,7 +91,7 @@ if ($THEUSER->loggedin()) {
     logged_out();
 }
 
-$sidebar = api_sidebar();
+$sidebar = api_sidebar($subscription);
 $PAGE->stripe_end(array($sidebar));
 $PAGE->page_end();
 

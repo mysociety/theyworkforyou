@@ -29,6 +29,6 @@ $PAGE->stripe_start();
 
 include_once INCLUDESPATH . 'easyparliament/templates/html/api/cancel.php';
 
-$sidebar = api_sidebar();
+$sidebar = api_sidebar($subscription);
 $PAGE->stripe_end(array($sidebar));
 $PAGE->page_end();

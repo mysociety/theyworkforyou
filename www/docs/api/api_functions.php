@@ -184,9 +184,15 @@ function api_check_key($key) {
 
 # Front-end sidebar of all methods
 
-function api_sidebar() {
+function api_sidebar($subscription) {
     global $methods;
-    $sidebar = '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
+    $sidebar = '';
+    if ($subscription && $subscription->stripe) {
+        $sidebar .= '<div class="block"><h4>Your account</h4><div class="blockbody"><ul>';
+        $sidebar .= '<li><a href="/api/key">Plan and keys</a></li>';
+        $sidebar .= '</ul></div></div>';
+    }
+    $sidebar .= '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';
     foreach ($methods as $method => $data) {
         if (isset($data['superuser']) && $data['superuser']) {
             continue;

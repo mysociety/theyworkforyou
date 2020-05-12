@@ -88,7 +88,7 @@ if ($q_method = get_http_var('method')) {
 }
 
 function api_documentation_front($method, $explorer) {
-    global $PAGE, $this_page, $DATA;
+    global $PAGE, $this_page, $DATA, $THEUSER;
     $this_page = 'api_doc_front';
     $DATA->set_page_metadata($this_page, 'title', "$method function");
     $PAGE->page_start();
@@ -99,7 +99,9 @@ function api_documentation_front($method, $explorer) {
     if ($method != 'getQuota') {
         api_documentation_explorer($method, $explorer);
     }
-    $sidebar = api_sidebar();
+
+    $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
+    $sidebar = api_sidebar($subscription);
     $PAGE->stripe_end(array($sidebar));
     $PAGE->page_end();
 }
@@ -154,15 +156,25 @@ function api_front_page($error = '') {
         print "<p style='color: #cc0000'>$error</p>";
     }
 
+    $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
+
 ?>
 
 <p>
     Welcome to TheyWorkForYou’s API section. The API (Application Programming
     Interface) is a way of querying our database for information.
 </p>
+
+<?php if ($subscription->stripe) { ?>
+<p align="center"><big>
+    <a href="key">Manage your keys and payments</a>
+</big></p>
+<?php } else { ?>
 <p align="center"><big>
     To use the API you need to <a href="key">get an API key</a>.
 </big></p>
+<?php } ?>
+
 <p>
     The documentation for each individual API function is linked from this
     page: you can read what each function does, and test it out, without
@@ -193,9 +205,16 @@ non-profit project on an unpaid basis.</p>
 <p>Please read our full <a href="/api/terms">terms of usage</a>, including
 licence and attribution requirements.</p>
 
+<?php if ($subscription->stripe) { ?>
+<p align="center"><big>
+    <a href="key">Manage your keys and payments</a>
+</big></p>
+<?php } else { ?>
 <p align="center"><big>
     To use the API you need to <a href="key">get an API key</a>.
 </big></p>
+<?php } ?>
+
 
 <hr>
 
@@ -270,7 +289,7 @@ to discuss things.</p>
 </ul>
 
 <?php
-    $sidebar = api_sidebar();
+    $sidebar = api_sidebar($subscription);
     $PAGE->stripe_end(array($sidebar));
     $PAGE->page_end();
 }
