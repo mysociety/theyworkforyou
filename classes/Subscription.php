@@ -132,6 +132,10 @@ class Subscription {
         $this->api->updateCustomer($this->stripe->customer->id, $args);
     }
 
+    public function update_email($email) {
+        $this->update_customer([ 'email' => $email ]);
+    }
+
     public function update_payment_method($payment_method) {
         $payment_method = \Stripe\PaymentMethod::retrieve($payment_method);
         $payment_method->attach(['customer' => $this->stripe->customer->id]);

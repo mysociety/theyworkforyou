@@ -45,6 +45,10 @@ class TestStripe extends Stripe {
         ], null);
     }
 
+    public function updateCustomer($id, $args) {
+        return \Stripe\Util\Util::convertToStripeObject([], null);
+    }
+
     public function createSubscription($args) {
         return \Stripe\Util\Util::convertToStripeObject([
             'id' => 'sub_123',

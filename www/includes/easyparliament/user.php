@@ -1206,6 +1206,13 @@ class THEUSER extends USER {
                 ", array(':token' => $registrationtoken));
 
                 $this->email = $email;
+
+                # Check Stripe email
+                $subscription = new MySociety\TheyWorkForYou\Subscription($this);
+                if ($subscription->stripe) {
+                    $subscription->update_email($email);
+                }
+
                 $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
                 $URL->insert(array('email'=>'t'));
                 $redirecturl = $URL->generate();
