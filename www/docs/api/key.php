@@ -35,14 +35,7 @@ if ($THEUSER->loggedin()) {
             }
 
             $payment_method = get_http_var('payment_method');
-            $payment_method = \Stripe\PaymentMethod::retrieve($payment_method);
-            $sub = $subscription->stripe;
-            $payment_method->attach(['customer' => $sub->customer->id]);
-            \Stripe\Customer::update($sub->customer->id, [
-                'invoice_settings' => [
-                    'default_payment_method' => $payment_method,
-                ],
-            ]);
+            $subscription->update_payment_method($payment_method);
 
             try {
                 $invoice = $sub->latest_invoice;

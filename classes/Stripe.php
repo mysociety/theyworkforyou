@@ -26,6 +26,10 @@ class Stripe {
         return \Stripe\Customer::create($args);
     }
 
+    public function updateCustomer($id, $args) {
+        return \Stripe\Customer::update($id, $args);
+    }
+
     public function createSubscription($args) {
         return \Stripe\Subscription::create($args);
     }

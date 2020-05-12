@@ -95,13 +95,7 @@ class Subscription {
 
     private function update_subscription($form_data) {
         if ($form_data['payment_method']) {
-            $payment_method = \Stripe\PaymentMethod::retrieve($form_data['payment_method']);
-            $payment_method->attach(['customer' => $this->stripe->customer->id]);
-            \Stripe\Customer::update($this->stripe->customer->id, [
-                'invoice_settings' => [
-                    'default_payment_method' => $payment_method,
-                ],
-            ]);
+            $this->update_payment_method($form_data['payment_method']);
         }
 
         # Update Stripe subscription
@@ -132,6 +126,20 @@ class Subscription {
         } catch (\Stripe\Error\Card $e) {
             # A source may still require 3DS... Stripe will have sent an email :-/
         }
+    }
+
+    private function update_customer($args) {
+        $this->api->updateCustomer($this->stripe->customer->id, $args);
+    }
+
+    public function update_payment_method($payment_method) {
+        $payment_method = \Stripe\PaymentMethod::retrieve($payment_method);
+        $payment_method->attach(['customer' => $this->stripe->customer->id]);
+        $this->update_customer([
+            'invoice_settings' => [
+                'default_payment_method' => $payment_method,
+            ],
+        ]);
     }
 
     private function add_subscription($form_data) {
