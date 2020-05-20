@@ -65,7 +65,7 @@
 
         <div class="medium-4 columns">
             <div class="mysoc-footer__legal">
-                <p>mySociety Limited is a project of UK Citizens Online Democracy, a registered charity in England and Wales. For full details visit <a href="https://www.mysociety.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">mysociety.org</a>.</p>
+                <p><a href="https://www.mysociety.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">mySociety</a> is a registered charity in England and Wales (1076346) and a limited company (03277032). Through our trading subsidiary SocietyWorks (05798215) we also provide commercial services.</p>
             </div>
         </div>
 
