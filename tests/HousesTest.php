@@ -47,7 +47,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test that the Assembly for Wales is correctly defined.
+     * Test that the Welsh Parliament is correctly defined.
      */
 	public function testWalesHouseDefined()
     {

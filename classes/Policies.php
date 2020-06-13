@@ -88,7 +88,7 @@ class Policies {
         6705 => 'requiring pub companies to offer <b>pub landlords rent-only leases</b>',
         6706 => 'strengthening the <b>Military Covenant</b>',
         6707 => 'restricting the scope of <b>legal aid</b>',
-        6708 => 'transferring <b>more powers to the Welsh Assembly</b>',
+        6708 => 'transferring <b>more powers to the Senedd/Welsh Parliament</b>',
         6709 => 'transferring <b>more powers to the Scottish Parliament</b>',
         6710 => '<b>culling badgers</b> to tackle bovine tuberculosis',
         6711 => 'an annual tax on the value of expensive homes (popularly known as a <b>mansion tax</b>)',

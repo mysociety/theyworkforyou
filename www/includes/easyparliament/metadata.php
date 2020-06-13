@@ -1042,17 +1042,17 @@ $this->page = array (
         'title'			=> 'Video speech matching'
     ),
 
-    /* Welsh Assembly */
+    /* Welsh Parliament */
     'wales_home' => array(
         'menu' => array(
-            'text' => 'Welsh Assembly',
+            'text' => 'Welsh Parliament/Senedd',
             'title' => 'Welsh economic development, transport, finance, local government, health, housing, the Welsh Language and other devolved areas',
         ),
-        'title' => 'Welsh Assembly',
+        'title' => 'Senedd Cymru / Welsh Parliament',
         'url' => 'wales/',
     ),
     'wales_overview' => array(
-        'title' => 'Welsh Assembly',
+        'title' => 'Senedd Cymru / Welsh Parliament',
         'url' => 'wales/',
         'parent' => 'wales_home',
     ),
