@@ -68,19 +68,13 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel--video js-show-after-crowdfunder" style="display: none">
+            <div class="panel panel--video">
                 <h2>Inform yourself, get yourself heard</h2>
                 <div>
                     <div class="flex-video">
                         <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L_19GumEQCM?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
-            </div>
-            <div class="panel panel--primary panel--crowdfunding js-show-during-crowdfunder">
-                <h2>Can you help keep TheyWorkForYou running?</h2>
-                <p>Now more than ever, the UK needs TheyWorkForYou to provide clarity on what happens in Parliament. But we rely on public donations from users like you to keep the site running.</p>
-                <p>That’s why we’ve set up <a href="https://www.crowdfunder.co.uk/theyworkforyou">mySociety’s first ever crowdfunder</a>. If you enjoy — or perhaps even rely on — TheyWorkForYou’s services, then be a hero and pledge to help keep the site alive.</p>
-                <a href="https://www.crowdfunder.co.uk/theyworkforyou" class="button" data-track-click="crowdfunder-homepage">Donate now</a>
             </div>
             <div class="panel panel--inverted">
                 <div class="row nested-row">

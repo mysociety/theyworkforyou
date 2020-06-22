@@ -39,13 +39,6 @@ $display_wtt_stats_banner = '2015';
             </div>
             <div class="primary-content__unit">
 
-                <div class="panel panel--primary panel--crowdfunding js-show-during-crowdfunder">
-                <h2>Crowdfunder – only <span class="js-crowdfunder-time-left">a few days</span> to go</h2>
-                    <p>We’re trying to raise £25,000 to support TheyWorkForYou into the future.</p>
-                    <p>Please take a minute to <a href="https://www.crowdfunder.co.uk/theyworkforyou">donate to TheyWorkForYou</a> so we can bring you voting summaries like this for years to come.</p>
-                    <a href="https://www.crowdfunder.co.uk/theyworkforyou" class="button" data-track-click="crowdfunder-mp-profile">Donate now</a>
-                </div>
-
               <?php if ($profile_message): ?>
                 <div id="profile-message" class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
