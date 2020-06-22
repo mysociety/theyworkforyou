@@ -36,6 +36,8 @@ You will need the latest versions of VirtualBox and Vagrant, then:
 * Go make a cup of tea. It may take a while whilst Vagrant and Puppet do their thing.
 * Point your web browser at `http://10.11.12.13` and marvel at modern technology.
 
+See INSTALL.md for instructions on downloading and importing Parlparse data (members, debates, votes, etc).
+
 #### Compiling Static Assets
 
 If you're working on a page which uses the redesign, you will need to compile
@@ -43,7 +45,7 @@ static assets after changes:
 
 * `vagrant ssh`
 * `cd /vagrant/theyworkforyou/www/docs/style`
-* `compass compile` for a one-off compilation or `compass watch` to recompile on changes
+* `bundle exec compass compile` for a one-off compilation or `bundle exec compass watch` to recompile on changes
 
 ## Testing
 
