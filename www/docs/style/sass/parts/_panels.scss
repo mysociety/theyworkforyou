@@ -59,6 +59,11 @@
     border: 1px solid #e2dfd9;
 }
 
+.panel--highlight {
+    background-color: #fffbd6; // sticky note yellow
+    border-color: #e8e0bf;
+}
+
 .panel--profile-message {
     background-color: #f5cea2;
     border: 1px solid #f4a140;
@@ -103,5 +108,52 @@
     .flex-video {
         box-shadow: 0 5px 10px rgba(#000, 0.1);
         background-color: #000; // more seamless transition while video is loading
+    }
+}
+
+.panel--covid19 {
+    h2 {
+        font-size: 1.1em !important;
+        line-height: 1.4;
+        margin-top: 0;
+    }
+
+    details {
+        font-size: 0.875em;
+
+        summary {
+            display: list-item;
+        }
+
+        & > :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    dl {
+        margin-top: 1em;
+    }
+
+    dt {
+        padding-top: 0.5em;
+        margin-bottom: 0.5em;
+
+        @media (min-width: $medium-screen) {
+            float: left;
+            margin-top: 1px;
+        }
+    }
+
+    dd {
+        border-top: 1px solid rgba(#000, 0.1);
+        padding-top: 0.5em;
+
+        @media (min-width: $medium-screen) {
+            padding-left: 14em;
+        }
+
+        p {
+            margin-bottom: 0.5em;
+        }
     }
 }

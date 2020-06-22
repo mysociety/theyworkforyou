@@ -349,4 +349,11 @@ $(function(){
     }
   });
 
+  if ( ! ( 'open' in document.createElement('details') ) ) {
+    $('summary').siblings().hide();
+    $('summary').on('click', function(){
+      $(this).siblings().toggle();
+    });
+  }
+
 });
