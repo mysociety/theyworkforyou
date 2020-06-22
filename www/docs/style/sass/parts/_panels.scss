@@ -84,53 +84,6 @@
     }
 }
 
-.panel--responsiveness {
-    background-color: $links;
-    color: #fff;
-
-    a {
-        color: inherit;
-        text-decoration: underline;
-    }
-
-    h2 {
-        color: inherit;
-        font-weight: inherit;
-        margin-top: 0;
-    }
-
-    a[href^="https://www.writetothem.com"] {
-        img {
-          margin: 0 0.2em
-        }
-
-        &:after {
-            content: "";
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: transparent url(/images/external-link-icon-white.png) 0 -20px no-repeat;
-            background-size: 20px 30px;
-            margin-left: 5px;
-            vertical-align: -1px;
-
-            @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-                background-position: 0 0;
-                background-size: 10px; // 10px width, auto height
-            }
-        }
-    }
-
-    .panel--responsiveness--source {
-      float: right;
-      font-size: small;
-    }
-
-    .fb-share-button {
-      position: relative; top: -3px;
-    }
-}
-
 .panel--video {
     background: #2c8299 url(../img/twfy-video-background.jpg) 50% 50% no-repeat;
     background-size: cover;
