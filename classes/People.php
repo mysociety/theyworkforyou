@@ -75,7 +75,7 @@ class People {
         $order = get_http_var('o');
         $orders = array(
             'n' => 'name', 'f' => 'given_name', 'l' => 'family_name',
-            'c' => 'constituency', 'p' => 'party', 'd' => 'debates',
+            'c' => 'constituency', 'p' => 'party',
         );
         if (array_key_exists($order, $orders)) {
             $args['order'] = $orders[$order];
@@ -116,16 +116,10 @@ class People {
         $out = fopen('php://output', 'w');
 
         $headers = $this->getCSVHeaders();
-        if ($data['info']['order'] == 'debates') {
-            $headers[] = 'Debates spoken in the last year';
-        }
         fputcsv($out, $headers);
 
         foreach ($data['data'] as $pid => $details) {
             $row = $this->getCSVRow($details);
-            if ($data['info']['order'] == 'debates') {
-                $row[] = $details['data_value'];
-            }
             fputcsv($out, $row);
         }
 
@@ -175,32 +169,13 @@ class People {
     }
 
     private function _get_data_by_group($args) {
-        // $args can have an optional 'order' element.
-
-        $use_extracol = (isset($args['order']) && in_array($args['order'], array('debates')));
-        $use_personinfo = $use_extracol;
-
         # Defaults
         $order = 'family_name';
         $sqlorder = 'family_name, given_name';
 
         $params = array();
         $query = 'SELECT distinct member.person_id, title, given_name, family_name, lordofname, constituency, party, left_reason ';
-        if ($use_extracol) {
-            $query .= ', data_value ';
-            $order = $args['order'];
-            $sqlorder = 'data_value+0 DESC, family_name, given_name';
-            unset($args['date']);
-            $key_lookup = array(
-                'debates' => 'debate_sectionsspoken_inlastyear',
-            );
-            $personinfo_key = $key_lookup[$order];
-        }
-        $query .= 'FROM member ';
-        if ($use_personinfo) {
-            $query .= 'LEFT OUTER JOIN personinfo ON member.person_id = personinfo.person_id AND data_key="' . $personinfo_key . '" ';
-        }
-        $query .= ' JOIN person_names p ON p.person_id = member.person_id AND p.type = "name" ';
+        $query .= 'FROM member JOIN person_names p ON p.person_id = member.person_id AND p.type = "name" ';
         if (isset($args['date'])) {
             $query .= 'AND start_date <= :date AND :date <= end_date ';
             $params[':date'] = $args['date'];
@@ -214,6 +189,7 @@ class People {
             $query .= 'AND left_house = (SELECT MAX(left_house) FROM member) ';
         }
 
+        // $args can have an optional 'order' element.
         if (isset($args['order'])) {
             $order = $args['order'];
             if ($args['order'] == 'given_name') {
@@ -245,10 +221,6 @@ class People {
                     'party' 	=> $row['party'],
                     'left_reason' 	=> $row['left_reason'],
                 );
-                if ($use_extracol) {
-                    $narray['data_value'] = $row['data_value'];
-                }
-
                 $data[$p_id] = $narray;
             }
         }

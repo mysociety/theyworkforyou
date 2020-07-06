@@ -457,12 +457,6 @@ class MEMBER {
             $this->extra_info['public_whip_rebel_description'] = $rebel_desc;
         }
 
-        if (isset($this->extra_info['public_whip_attendrank'])) {
-            $prefix = ($this->house(HOUSE_TYPE_LORDS) ? 'L' : '');
-            $this->extra_info[$prefix.'public_whip_division_attendance_rank'] = $this->extra_info['public_whip_attendrank'];
-            $this->extra_info[$prefix.'public_whip_division_attendance_rank_outof'] = $this->extra_info['public_whip_attendrank_outof'];
-            $this->extra_info[$prefix.'public_whip_division_attendance_quintile'] = floor($this->extra_info['public_whip_attendrank'] / ($this->extra_info['public_whip_attendrank_outof']+1) * 5);
-        }
         if ($this->house(HOUSE_TYPE_LORDS) && isset($this->extra_info['public_whip_division_attendance'])) {
             $this->extra_info['Lpublic_whip_division_attendance'] = $this->extra_info['public_whip_division_attendance'];
             unset($this->extra_info['public_whip_division_attendance']);
@@ -479,13 +473,6 @@ class MEMBER {
 
         $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted')->first();
         $this->extra_info['number_of_alerts'] = $q['c'];
-
-        if (isset($this->extra_info['reading_ease'])) {
-            $this->extra_info['reading_ease'] = round($this->extra_info['reading_ease'], 2);
-            $this->extra_info['reading_year'] = round($this->extra_info['reading_year'], 0);
-            $this->extra_info['reading_age'] = $this->extra_info['reading_year'] + 4;
-            $this->extra_info['reading_age'] .= '&ndash;' . ($this->extra_info['reading_year'] + 5);
-        }
 
         # Public Bill Committees
         $q = $this->db->query('select bill_id,
