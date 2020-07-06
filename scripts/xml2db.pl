@@ -972,10 +972,10 @@ sub load_debate_division {
 
     my $text =
 "<p class=\"divisionheading\">Division number $divnumber</p>
-<p class=\"divisionbody\"><a href=\"http://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
+<p class=\"divisionbody\"><a href=\"https://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
     $text .= '&amp;house=lords' if $major == 101;
     $text .= "&amp;showall=yes#voters\">See full
-list of votes</a> (From <a href=\"http://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
+list of votes</a> (From <a href=\"https://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
 
     my $totals = {
         aye => 0,

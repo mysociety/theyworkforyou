@@ -68,7 +68,7 @@
                 </p>
 
                 <p>
-                    Voting content is taken from <a href="http://www.publicwhip.org.uk/">Public Whip</a>, a separate project (not run by us)
+                    Voting content is taken from <a href="https://www.publicwhip.org.uk/">Public Whip</a>, a separate project (not run by us)
                     which also works with scraped parliamentary data.
                 </p>
 
@@ -105,7 +105,7 @@
                     Do you cover the European Parliament?
                 </h3>
                 <p>
-                    No, but <a href="http://votewatch.eu/">votewatch.eu</a> do, and they might have what you're looking for.
+                    No, but <a href="https://votewatch.eu/">votewatch.eu</a> do, and they might have what you're looking for.
                 </p>
 
                 <h3 class="js-toc-item" id="numbers">
@@ -254,7 +254,7 @@
                 <p>
                     MPs&rsquo; stances are made up from a number of different votes which Public Whip have deemed to be relevant
                     to the topic. For example, an MP&rsquo;s position on Trident is judged from the way he or she voted on each
-                    occasion <a href="http://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
+                    occasion <a href="https://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
                 </p>
 
                 <p>
@@ -289,7 +289,7 @@
                 Speaker</a>, that all votes are free.  </P>
 
                 <p>Details of the votes on which each policy position is based are available on
-                the <a href="http://www.publicwhip.org.uk/">Public Whip</a> website. You can
+                the <a href="https://www.publicwhip.org.uk/">Public Whip</a> website. You can
                 <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
                 more about the process we follow when researching the policy positions on our
                 blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
@@ -341,7 +341,7 @@
                 <p>Here are some quotes from our users.</p>
 
                 <p>Jo Brodie, Science Information Officer &amp; Islet Project Coordinator,
-                <a href="http://www.diabetes.org.uk">Diabetes UK</a>:
+                <a href="https://www.diabetes.org.uk">Diabetes UK</a>:
                 </p>
 
                 <blockquote>
@@ -449,7 +449,7 @@
 
                 <p>
                     But please note that any image we use must have been released by its owner under a
-                    <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike</a>
+                    <a href="https://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike</a>
                     license &ndash; which means that anyone is free to copy and use the image themselves, with attribution.
                 </p>
 

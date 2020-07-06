@@ -66,7 +66,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                             <?= $full_name . ' ' . $policy['position']['desc'] ?>
                                         </h3>
 
-                                        <?php $pw_url = 'http://www.publicwhip.org.uk/mp.php?mpid=' . $member_id . '&amp;dmp=' . $policy['policy_id']; ?>
+                                        <?php $pw_url = 'https://www.publicwhip.org.uk/mp.php?mpid=' . $member_id . '&amp;dmp=' . $policy['policy_id']; ?>
                                         <p>
                                             TheyWorkForYou has automatically calculated this MP&rsquo;s stance based on all
                                             of their votes on the topic. <a href="<?= $pw_url ?>">You can browse the source
@@ -102,7 +102,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <p><button class="button secondary-button small js-show-all-votes">Show all votes, including <?= $policy['weak_count'] ?> less important <?= $policy['weak_count'] == 1 ? 'vote' : 'votes' ?></button></p>
                                       <?php } ?>
                                         <p class="voting-information-provenance">
-                                            Vote information from <a href="http://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
+                                            Vote information from <a href="https://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
                                             Last updated: <?= $policy_last_update[$policy['policy_id']] ?>.
                                             <a href="/voting-information">Please share these votes responsibly.</a>
                                         </p>

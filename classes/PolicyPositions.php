@@ -267,7 +267,7 @@ class PolicyPositions {
             ( isset($extra_info['Lpublic_whip_division_attendance']) AND
             $extra_info['Lpublic_whip_division_attendance'] != 'n/a' )
         ) {
-            $record[] = '<a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' .
+            $record[] = '<a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' .
                 $this->member->member_id() .
                 '&amp;showall=yes#divisions" title="At Public Whip">their full voting record on Public Whip</a>';
         }

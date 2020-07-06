@@ -313,7 +313,7 @@ if ($data['entry_date'] < '2010-05-05') {
     if (isset($MEMBER->extra_info['expenses_url'])) {
         $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
     } else {
-        $data['expenses_url_2004'] = 'http://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
+        $data['expenses_url_2004'] = 'https://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
     }
 }
 
@@ -691,7 +691,7 @@ function person_rebellion_rate ($member) {
     if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
         $rebels_term = 'rebelled';
 
-        $rebellion_string = 'has <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        $rebellion_string = 'has <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
 
         if (isset($member->extra_info['public_whip_rebelrank'])) {
             if ($member->extra_info['public_whip_data_date'] == 'complete') {
@@ -701,7 +701,7 @@ function person_rebellion_rate ($member) {
             }
         }
 
-        $rebellion_string .= ' <small><a title="What do the rebellion figures mean exactly?" href="http://www.publicwhip.org.uk/faq.php#clarify">Find out more</a>.</small>';
+        $rebellion_string .= ' <small><a title="What do the rebellion figures mean exactly?" href="https://www.publicwhip.org.uk/faq.php#clarify">Find out more</a>.</small>';
     }
 
     return $rebellion_string;
@@ -978,7 +978,7 @@ function person_numerology($member, $has_email_alerts, $wtt_stats_years) {
         if ($member->house_disp == HOUSE_TYPE_LORDS) {
             $when = 'in this House with this affiliation up to the 2015 general election';
         }
-        $div_attend = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
+        $div_attend = display_stats_line('public_whip_division_attendance', 'Has voted in <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '&amp;showall=yes#divisions" title="See more details at Public Whip">', 'of vote', '</a> ' . $when, $after_stuff, $extra_info);
         if ($div_attend) {
             $out[] = $div_attend;
         }

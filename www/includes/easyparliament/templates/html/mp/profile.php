@@ -269,7 +269,7 @@ $display_wtt_stats_banner = '2015';
                         <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
                         <?php endif; ?>
                         <?php if ($post_2010_expenses): ?>
-                        <li><a href="http://www.theipsa.org.uk/mp-costs/interactive-map/">Expenses from 2010 onwards</a></li>
+                        <li><a href="https://www.theipsa.org.uk/mp-costs/interactive-map/">Expenses from 2010 onwards</a></li>
                         <?php endif; ?>
                     </ul>
                     <?php endif; ?>
@@ -285,7 +285,7 @@ $display_wtt_stats_banner = '2015';
                             <?php } else { ?>
                                 We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
                             <?php } ?>
-                            <small>Source: <a href="http://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
+                            <small>Source: <a href="https://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
                         </p>
                     <?php endif; ?>
 
@@ -413,7 +413,7 @@ $display_wtt_stats_banner = '2015';
                     </p>
 
                     <p>
-                         <a class="moreinfo-link" href="http://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the register</a>
+                         <a class="moreinfo-link" href="https://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the register</a>
                     </p>
                 </div>
                 <?php endif; ?>
@@ -424,7 +424,7 @@ $display_wtt_stats_banner = '2015';
 
                     <p>This data was produced by TheyWorkForYou from a variety
                         of sources. Voting information from
-                        <a href="http://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
+                        <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
 
                   <?php if($image && $image['exists']) {
                       if(isset($data['photo_attribution_text'])) { ?>

@@ -5,10 +5,10 @@
 
             <h2>Contact your MP, MSP or MLA</h2>
 
-            <p>Use <a href="http://www.writetothem.com">WriteToThem</a> to contact your MP or MLA.</p>
+            <p>Use <a href="https://www.writetothem.com">WriteToThem</a> to contact your MP or MLA.</p>
 
             <h2>Contact a Lord</h2>
-            <p>Use <a href="http://www.writetothem.com/lords">WriteToThem Lords</a> to contact a lord.</p>
+            <p>Use <a href="https://www.writetothem.com/lords">WriteToThem Lords</a> to contact a lord.</p>
 
             <h2>Contact the TheyWorkForYou team</h2>
 

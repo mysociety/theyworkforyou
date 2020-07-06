@@ -631,7 +631,7 @@ class PAGE {
                 echo '<br>';
                 if ($wtt) print '<input type="hidden" name="wtt" value="1">';
         } else { ?>
-    <form action="http://www.writetothem.com/lords" method="get">
+    <form action="https://www.writetothem.com/lords" method="get">
     <input type="hidden" name="pid" value="<?=_htmlentities(get_http_var('pid')) ?>">
     <input type="submit" style="font-size: 150%" value=" I want to write to this Lord "><br>
 <?php
