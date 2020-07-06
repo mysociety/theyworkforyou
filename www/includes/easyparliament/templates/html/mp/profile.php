@@ -31,9 +31,6 @@ $display_wtt_stats_banner = '2015';
                     <li data-magellan-arrival="appearances"><a href="#appearances">Appearances</a></li>
                   <?php endif; ?>
                     <li data-magellan-arrival="profile"><a href="#profile">Profile</a></li>
-                  <?php if (count($numerology) > 0): ?>
-                    <li data-magellan-arrival="numerology"><a href="#numerology">Numerology</a></li>
-                  <?php endif; ?>
                   <?php if ($register_interests): ?>
                     <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
                   <?php endif; ?>
@@ -374,28 +371,6 @@ $display_wtt_stats_banner = '2015';
                     <?php endif; ?>
 
                 </div>
-
-                <?php if (count($numerology) > 0): ?>
-
-                <div class="panel">
-                    <a name="numerology"></a>
-                    <h2 data-magellan-destination="numerology">Numerology</h2>
-
-                    <p>Please note that numbers do not measure quality. Also, representatives may do other things not currently covered by this site. <a href="<?= WEBPATH ?>help/#numbers">More about this</a></p>
-
-                    <ul class="numerology">
-
-                        <?php foreach ($numerology as $numerology_item): ?>
-                        <?php if ($numerology_item): ?>
-                        <li><?= $numerology_item ?></li>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-
-                    </ul>
-
-                </div>
-
-                <?php endif; ?>
 
                 <?php if ($register_interests): ?>
                 <div class="panel register">
