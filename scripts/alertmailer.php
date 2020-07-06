@@ -161,13 +161,13 @@ foreach ($alertdata as $alertitem) {
     if ($onlyemail && $email != $onlyemail) {
         continue;
     }
-    if ($fromemail && strtolower($email) == $fromemail) {
+    if ($fromemail && strcasecmp($email, $fromemail) > 0) {
         $fromflag = true;
     }
     if ($fromemail && !$fromflag) {
         continue;
     }
-    if ($toemail && strtolower($email) >= $toemail) {
+    if ($toemail && strcasecmp($email, $toemail) > 0) {
         continue;
     }
     $criteria_raw = $alertitem['criteria'];
