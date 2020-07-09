@@ -176,6 +176,15 @@ class Subscription {
         ]);
     }
 
+    public function invoices() {
+        $invoices = $this->api->getInvoices([
+            'subscription' => $this->stripe->id,
+            'limit' => 24
+        ]);
+        $invoices = $invoices->data;
+        return $invoices;
+    }
+
     private function getFields() {
         $fields = ['plan', 'charitable_tick', 'charitable', 'charity_number', 'description', 'tandcs_tick', 'stripeToken', 'payment_method'];
         $this->form_data = [];

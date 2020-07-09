@@ -190,6 +190,7 @@ function api_sidebar($subscription) {
     if ($subscription && $subscription->stripe) {
         $sidebar .= '<div class="block"><h4>Your account</h4><div class="blockbody"><ul>';
         $sidebar .= '<li><a href="/api/key">Plan and keys</a></li>';
+        $sidebar .= '<li><a href="/api/invoices">Invoices</a></li>';
         $sidebar .= '</ul></div></div>';
     }
     $sidebar .= '<div class="block"><h4>API Functions</h4> <div class="blockbody"><ul>';

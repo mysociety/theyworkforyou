@@ -33,4 +33,8 @@ class Stripe {
     public function createSubscription($args) {
         return \Stripe\Subscription::create($args);
     }
+
+    public function getInvoices($args) {
+        return \Stripe\Invoice::all($args);
+    }
 }

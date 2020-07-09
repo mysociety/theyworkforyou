@@ -239,6 +239,11 @@ $this->page = array (
         'parent'		=> 'api_front',
         'url'			=> 'api/key'
     ),
+    'api_invoices'		=> array (
+        'title'			=> 'Invoices',
+        'parent'		=> 'api_front',
+        'url'			=> 'api/invoices'
+    ),
 
     'boundaries' => array(
         'title' => 'Constituency boundaries',
