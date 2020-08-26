@@ -149,24 +149,32 @@
                 by scraping various pages on the official parliament.uk site. The official site
                 stopped maintaining a list of PPSs in January 2009, which means our scraper could
                 no longer find and work out the information. Without a central list of
-                Parliamentary Private Secretaries, there isn&rsquo;t a lot we can do.</p>
+                Parliamentary Private Secretaries, sadly there isn&rsquo;t a lot we can do.</p>
 
                 <h3 class="js-toc-item" id="searching">
-                    How can I search more smartly?
+                   Can I search TheyWorkforYou?
                 </h3>
 
-                <p>Click &lsquo;Advanced search&rsquo; under the box on the
-                search results page, and you&rsquo;ll see a number of
-                options for refining your results. But you can do
-                everything that Advanced Search does, and even refine your
-                search further, right from the search box.</p>
+                <p>You certainly can  — you'll see the Search box at the top of every page. 
+                If you just want to search within a specific MP's speeches, there's a 
+                search box on each MP's page, too.</p>
+                
+                <p>But that might not be detailed enough for your needs, so there's more.</p>
+                
+                <p>Click &lsquo;Advanced search&rsquo; under the box on the search results page, 
+                    and you&rsquo;ll see a number of options for refining your results.</p>
+                
+                <p>That makes it easy to find what you want. Want to level up? If you're using TheyWorkForYou 
+                    on a regular basis, it's worth knowing that you can do everything Advanced Search does, 
+                    and even refine your search further, right from the search box.</p>
+
 
                 <ul>
                     <li>To search for an <strong>exact phrase</strong>, use quotes (""). For
                     example, to find only documents which contain the exact phrase <a
-                    href="/search/?q=%22Hutton+Report%22">"Hutton Report"</a>. Quotes can also
-                    be used to prevent stemming, so searching for &ldquo;horse&rdquo; will omit results for
-                    horses or horsing.
+                    href="/search/?q=%22Scottish+independence%22">"Scottish independence"</a>. Quotes can also
+                    be used to prevent stemming, so searching for &ldquo;refugee&rdquo; will omit results for
+                    refugees or refuge.
                     <li>To <strong>exclude</strong> a word from your search, put a minus ("-")
                     sign in front; for example to find documents containing the word
                     "representation" but not the word "taxation":
@@ -180,42 +188,45 @@
                     <li>Find results including <strong>at least one</strong> of your search
                     terms by using &ldquo;OR&rdquo;:
                     <a href="/search/?q=education+OR+schools">education OR schools</a>
-                    (we also have XOR if that&rsquo;s useful).
+                    (we also have XOR if that&rsquo;s useful: this returns a speech if it only matches 
+                    one of the two results).
                     <li>Finally, you can restrict your results to specific content types by
                     using shortcuts to our <strong>filters</strong>, which you can add to your
                     search term. Here&rsquo;s a selection &ndash; they can be used alone or in
                     combination with one another:
                     <ul>
                         <li>Column: If you know the Hansard column number (perhaps you&rsquo;re
-                        looking up a paper reference): column:123
+                            looking up a paper reference): <b>column:123</b>
                         <li>Party: To restrict results to speakers from a specific party:
-                        party:Lab
+                            <b>party:Lab</b>
                         <li>Department: To bring up only results from speakers in a specific
-                        department: department:Defence
+                            department: <b>department:Defence</b>
                         <li>Section: To restrict results to a particular parliament or assembly
                         (e.g. the Scottish Parliament), or a particular type of data within an
                         institution, such as UK Written Ministerial Statements:
-                        section:scotland section:wms
+                            <b>section:scotland section:wms</b>
                         <li>Date: To search only for results from a specific date:
-                        <a href="/search/?q=date:20080716">date:20080716</a> (16th July 2008)
+                            <b><a href="/search/?q=date:20080716">date:20080716</a></b> (16th July 2008)
                         <li>Or to return results between two specified dates (also requires a
                         search term):
-                        <a href="/search/?q=hospitals+20080101..20080131">hospitals 20080101..20080131</a>
+                        <b><a href="/search/?q=hospitals+20080101..20080131">hospitals 20080101..20080131</a></b>
                         (mentions of hospitals in January 2008)
                     </ul>
                 </ul>
 
                 <h3 class="js-toc-item" id="rss">
-                    What is RSS?
+                    Does TheyWorkForYou provide an RSS feed?
                 </h3>
 
-                <p>RSS is a means of fetching frequently-changing content from the
+                <p>Yes it does. RSS is a means of fetching frequently-changing content from the
                     web. The resulting feed can be read via a 'feed reader', or used
                     to provide content for other websites and applications.</p>
 
                 <p>TheyWorkForYou provides a number of feeds. For example, there are
-                    feeds for all Commons, Lords and Westminster Hall debates. There
-                    are also feeds for each representative's speeches: some MPs use
+                    feeds for all <a href="https://www.theyworkforyou.com/rss/debates.rss">Commons</a>,
+                    <a href="https://www.theyworkforyou.com/rss/lords.rss">Lords</a> and 
+                    <a href="https://www.theyworkforyou.com/rss/whall.rss">Westminster Hall</a> debates. 
+                    There are also feeds for each representative's speeches: some MPs use
                     these to display their latest activity on their own websites.</p>
 
                 <h3 class="js-toc-item" id="wikipedia">
@@ -224,7 +235,9 @@
 
                 <p>TheyWorkForYou automatically scans the text of debates to find phrases of more than two consecutive words which are also the title of a Wikipedia page, and then links them to those pages. Where the topic could refer to one of multiple Wikipedia entries (e.g. 'Michael Jackson' could refer to the pop star or to the once U.S. Deputy Secretary of Homeland Security), we link to the top page in Wikipedia's disambiguation list.</p>
 
-                <p>This generally provides a useful service whereby you can look up any unknown name or phrase easily. However, the automation of this process does sometimes mean that we link to an inappropriate Wikipedia page. If you find an example of this, please do <a href="mailto:support@theyworkforyou.com">let us know</a> and we will remove the link.</p>
+                <p>This system generally provides a useful service whereby you can look up any unknown name or phrase easily. 
+                    However, the automation of this process does sometimes mean that we link to an inappropriate Wikipedia page. 
+                    If you find an example of this, please do <a href="mailto:support@theyworkforyou.com">let us know</a> and we will remove the link.</p>
 
             </div>
 
@@ -236,7 +249,9 @@
 
                 <p>TheyWorkForYou contains a wealth of data on how MPs have voted in Parliament.</p>
 
-                <p>Our <a href="/voting-information">“What you should know about voting information on TheyWorkForYou”</a> page describes:</p>
+                <p>It's important to us that we represent MPs' activity fairly and without political bias. 
+                If you'd like to know more about how we do so, our 
+                <a href="/voting-information">“What you should know about voting information on TheyWorkForYou”</a> page describes:</p>
 
                 <ul>
                     <li><a href="/voting-information/#interested">How to find the voting data you’re after</a></li>
@@ -252,9 +267,9 @@
                     voted for or against something?
                 </h3>
                 <p>
-                    MPs&rsquo; stances are made up from a number of different votes which Public Whip have deemed to be relevant
-                    to the topic. For example, an MP&rsquo;s position on Trident is judged from the way he or she voted on each
-                    occasion <a href="https://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
+                    MPs&rsquo; stances are made up from a number of different votes which <a href="/#where-content">Public Whip</a> 
+                    have deemed to be relevant to the topic. For example, an MP&rsquo;s position on Trident is judged from the way 
+                    he or she voted on each occasion <a href="https://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
                 </p>
 
                 <p>
@@ -281,16 +296,18 @@
 
                 <p>The voting record is not affected by what MPs and Peers have said, only how they
                 <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
-                "no".  Votes on each topic were examined, and strength of support determined
-                based on these votes.  Follow the "votes" link next to each topic for details.
-                Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
-                parties. Since the Whip is secret, we have to assume, <a
-                href="https://www.theyworkforyou.com/debates/?id=2005-02-07.1200.2">like the
-                Speaker</a>, that all votes are free.  </P>
+                "no".  Votes on each topic are examined, and strength of support is determined
+                based on these votes. Follow the "votes" link next to each topic to see the votes 
+                that have made up that Member's stance.</p>
+                
+                <p>Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
+                parties. Since the Whip is secret,  we have no reliable means to represent where this has happened. 
+                Thus we can only commit to publishing the facts of how each Member voted, 
+                not the reasons why they might have done so.</p>
 
                 <p>Details of the votes on which each policy position is based are available on
-                the <a href="https://www.publicwhip.org.uk/">Public Whip</a> website. You can
-                <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
+                the <a href="https://www.publicwhip.org.uk/">Public Whip</a> website, and linked to from MPs' 
+                voting record pages. You can <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
                 more about the process we follow when researching the policy positions on our
                 blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
                 which needs to be updated or corrected.</p>
@@ -309,8 +326,8 @@
 
                 <p>
                     <a href="https://www.theyworkforyou.com/api/">The API</a> queries the TheyWorkForYou database
-                    to return data on MPs or debates. It&rsquo;s free for use that is both low-volume AND charitable,
-                    and there&rsquo;s a small fee attached for any usage outside that.
+                    to return data on MPs or debates. It&rsquo;s free for projects that are both low-volume AND charitable,
+                    and there&rsquo;s a small fee attached to any usage outside that.
                 </p>
 
                 <p>
@@ -372,9 +389,7 @@
                     useful resource when someone wants to know the impossible 'how many people use
                     insulin?'). So basically it 'begets' further info!
                     </p>
-
-                    <p>"It's a great site - thank you."
-                    </p>
+                   
                 </blockquote>
 
                 <p><a href="https://www.theyworkforyou.com/mp/robert_goodwill/scarborough_and_whitby">Robert Goodwill</a>, MP for Scarborough &amp; Whitby:</p>
@@ -383,18 +398,7 @@
                 constituents.  My local newspapers are registered so they often
                 cover my comments in Parliament that I wouldn't even send out as a
                 press release."</blockquote>
-
-                <h3 class="js-toc-item" id="my-country">
-                    I want a site like TheyWorkForYou for my country!
-                </h3>
-
-                <p>
-                    TheyWorkForYou&rsquo;s code is completely open source and anyone is welcome to use it. However,
-                    we have more recent codebases and data that are probably easier to work with.
-                    Read our page about <a href="https://www.mysociety.org/democracy/pombola/">parliamentary monitoring</a>
-                    for more information.
-                </p>
-
+               
             </div>
 
             <div class="panel">
@@ -416,29 +420,30 @@
                     Parliament undertakes a rolling process of corrections and updates. When their content is amended, the
                     next time our site picks it up, our content should be amended too.
                 </p>
+                
+                <p>So &mdash; if the error is in the data, it's likely to resolve itself. 
+                    But if there's something up with our code or the way the page is displaying, etc, 
+                    we would be glad to know.</p>
 
                 <h3 class="js-toc-item" id="new-feature">
                     I have an idea for a new feature &ndash; do you want to hear it?
                 </h3>
                 <p>
-                    We&rsquo;d love to &ndash; but please be aware that we&rsquo;re a small team, so we can&rsquo;t always
-                    introduce new features as quickly as we&rsquo;d like to. However:
+                    We&rsquo;d love to &ndash; but please be aware that TheyWorkForYou is currently running without dedicated 
+                    funding or resources, so at the moment we're unlikely to introduce new features. However, when we do have 
+                    funding,we adopt new ideas on a merit basis, so if enough people request a feature, it&rsquo;s much more 
+                    likely to get made.
+
                 </p>
-                <ul>
-                    <li>
-                        We do adopt new ideas on a merit basis, so if enough people request a feature, it&rsquo;s much more
-                        likely to get made;
-                    </li>
-                    <li>
-                        <a href="https://github.com/mysociety/theyworkforyou">The code behind TheyWorkForYou</a> is open source,
-                        meaning that anyone can pick it up and work with it. If we can&rsquo;t build the feature you want,
-                        you&rsquo;re welcome to either build it yourself or find a developer who can (a good place to find developers
-                        is the <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">TheyWorkForYou community mailing list</a>
-                        &ndash; see if you can excite people enough, and you never know, someone might take your idea and run with it.)
-                        Do <a href="mailto:hello@mysociety.org">talk to us</a> first though, to make sure no-one else is already working
-                        on a similar idea!
-                    </li>
-                </ul>
+             
+                 <p>Can&rsquo;t wait? <a href="https://github.com/mysociety/theyworkforyou">The code behind TheyWorkForYou</a> 
+                    is open source, meaning that anyone can pick it up and work with it. If we can&rsquo;t build the feature 
+                    you want, you&rsquo;re welcome to either build it yourself or find a developer who can (a good place to find developers
+                    is the <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">TheyWorkForYou community mailing list</a>
+                    &ndash; see if you can excite people enough, and you never know, someone might take your idea and run with it.)
+                    Do <a href="mailto:hello@mysociety.org">talk to us</a> first though, to make sure no-one else is already working
+                    on a similar idea!</p>
+                    
 
                 <h3 class="js-toc-item" id="photos">
                     How do I submit photos of representatives?
