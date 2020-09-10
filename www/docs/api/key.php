@@ -28,6 +28,7 @@ if ($THEUSER->loggedin()) {
     $errors = [];
 
     if ($subscription->stripe) {
+        $sub = $subscription->stripe;
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && !get_http_var('create_key')) {
             if (!Volnix\CSRF\CSRF::validate($_POST)) {
                 print 'CSRF validation failure!';
@@ -44,7 +45,7 @@ if ($THEUSER->loggedin()) {
                 $invoice = \Stripe\Invoice::retrieve($sub->latest_invoice, ['expand' => [ 'payment_intent'] ]);
             }
         } else {
-            $invoice = $subscription->stripe->latest_invoice;
+            $invoice = $sub->latest_invoice;
         }
         $needs_processing = null;
         if ($invoice) {
