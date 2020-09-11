@@ -65,7 +65,7 @@
 
                 <p>
                     Voting content is imported from <a href="https://www.publicwhip.org.uk/">Public Whip</a>, a separate project 
-					(<a href="https://www.bairwell.com/">run by Bairwell Ltd PHP and Node.JS development</a>)which also works with scraped parliamentary data.
+					(<a href="https://www.bairwell.com/">run by Bairwell Ltd PHP and Node.JS development</a>) which also works with scraped parliamentary data.
 
                 </p>
 
@@ -153,8 +153,8 @@
                     <li>To search for an <strong>exact phrase</strong>, use quotes (""). For
                     example, to find only documents which contain the exact phrase <a
                     href="/search/?q=%22Hutton+Report%22">"Hutton Report"</a>. Quotes can also
-                    be used to prevent stemming, so searching for &ldquo;refugee&rdquo; will omit results for
-                    refugees or reefuge.
+                    be used to prevent stemming, so searching for &ldquo;fish&rdquo; will omit results for
+                    fishing or fisher.
                     <li>To <strong>exclude</strong> a word from your search, put a minus ("-")
                     sign in front; for example to find documents containing the word
                     "representation" but not the word "taxation":
@@ -168,7 +168,7 @@
                     <li>Find results including <strong>at least one</strong> of your search
                     terms by using &ldquo;OR&rdquo;:
                     <a href="/search/?q=education+OR+schools">education OR schools</a>
-                    (we also have XOR if that&rsquo;s useful, , this returns a speech if it only matches one of the two results).
+                    (we also have XOR if that&rsquo;s useful; this returns a speech if it only matches one of the two results).
                     <li>Finally, you can restrict your results to specific content types by
                     using shortcuts to our <strong>filters</strong>, which you can add to your
                     search term. Here&rsquo;s a selection &ndash; they can be used alone or in
@@ -403,7 +403,7 @@
                     I have an idea for a new feature &ndash; do you want to hear it?
                 </h3>
                 <p>
-                    We&rsquo;d love to – but please be aware that TheyWorkForYou is currently running without dedicated funding or resources,
+                    We&rsquo;d love to – but please be aware that TheyWorkForYou is currently running without dedicated funding or resources, 
 					so at the moment we're unlikely to introduce new features. However, when we do have funding,we adopt new ideas on a merit
 					basis, so if enough people request a feature, it&rsquo;s much more likely to get made.
                 </p>
