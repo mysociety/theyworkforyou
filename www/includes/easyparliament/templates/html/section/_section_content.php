@@ -108,6 +108,8 @@ foreach($data['rows'] as $speech) { ?>
 
             <?php if ($speech['htype'] == 14 && $speech['division']) { ?>
             <div class="debate-speech__division">
+            <?php } elseif ($speech['major'] == 1 && $speech['minor'] == 2) { ?>
+            <div class="debate-speech__speaker-and-content debate-speech__speaker-and-content--intervention">
             <?php } else { ?>
             <div class="debate-speech__speaker-and-content">
             <?php } ?>

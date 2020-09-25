@@ -915,7 +915,14 @@ sub add_debates_day
 {
     my ($date) = @_;
     my $twig = XML::Twig->new(twig_handlers => {
-        'speech' => sub { do_load_speech($_, 1, 0, $_->sprint(1)) },
+        'speech' => sub {
+            my $minor = 0;
+            my $type = $_->att('type') || '';
+            if ($type eq 'Continuation Intervention' || $type eq 'Start Intervention') {
+                $minor = 2; # intervention in speech
+            }
+            do_load_speech($_, 1, $minor, $_->sprint(1));
+        },
         'minor-heading' => sub { do_load_subheading($_, 1, strip_string($_->sprint(1))) },
         'major-heading' => sub { load_debate_heading($_, 1) },
         'oral-heading' => sub { $inoralanswers = 1 },
