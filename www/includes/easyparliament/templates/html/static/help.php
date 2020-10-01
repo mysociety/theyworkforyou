@@ -241,7 +241,7 @@
                 <ul>
                     <li><a href="/voting-information/#interested">How to find the voting data you’re after</a></li>
                     <li><a href="/voting-information/#what-we-publish">What data we <em>do</em> and <em>don’t</em> publish</a></li>
-                    <li><a href="/voting-information/#interpreting">How you should interpet our data</a></li>
+                    <li><a href="/voting-information/#interpreting">How you should interpret our data</a></li>
                     <li>And <a href="/voting-information/#misunderstandings">how to avoid some common misunderstandings</a> about voting in Parliament.</li>
                 </ul>
 
