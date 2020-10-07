@@ -26,10 +26,6 @@
                 </p>
 
                 <div class="row">
-                <span class="formw">&nbsp;<br><small>Read our <a href="/houserules/" target="_blank">Terms of Use</a>.</small></span>
-                </div>
-
-                <div class="row">
                 <span class="formw"><input type="submit" class="submit" value="Update details"></span>
                 </div>
 
@@ -174,10 +170,6 @@
                 <div class="row">
                 <span class="formw"><input type="radio" name="optin" id="optintrue" value="true" <?= $optin == 'Yes' ? ' checked' : '' ?>> <label for="optintrue">Yes</label><br>
                 <input type="radio" name="optin" id="optinfalse" value="false" <?= $optin == 'No' ? ' checked' : '' ?>> <label for="optinfalse">No</label></span>
-                </div>
-
-                <div class="row">
-                <span class="formw">&nbsp;<br><small>Read our <a href="/houserules/" target="_blank">Terms of Use</a>.</small></span>
                 </div>
 
                 <div class="row">

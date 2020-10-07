@@ -49,14 +49,6 @@
 
             <p>Still got questions? <a href="/help">Check our FAQs.</a></p>
 
-            <hr>
-
-            <h2>I want a site like this for my country</h2>
-
-            <p>Excellent! Then you&rsquo;ll be glad to know that mySociety works with organisations and people all over the world to help them re-use our code and set up websites like ours.</p>
-
-            <p>Our Pombola codebase was created to make it easier to build sites that monitor parliaments &ndash; anywhere. <a href="https://www.mysociety.org/democracy/">Find out more here.</a></p>
-
           </div>
 
           <div class="panel">

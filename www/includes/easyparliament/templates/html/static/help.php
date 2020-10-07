@@ -384,17 +384,6 @@
                 cover my comments in Parliament that I wouldn't even send out as a
                 press release."</blockquote>
 
-                <h3 class="js-toc-item" id="my-country">
-                    I want a site like TheyWorkForYou for my country!
-                </h3>
-
-                <p>
-                    TheyWorkForYou&rsquo;s code is completely open source and anyone is welcome to use it. However,
-                    we have more recent codebases and data that are probably easier to work with.
-                    Read our page about <a href="https://www.mysociety.org/democracy/pombola/">parliamentary monitoring</a>
-                    for more information.
-                </p>
-
             </div>
 
             <div class="panel">

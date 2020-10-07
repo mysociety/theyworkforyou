@@ -116,10 +116,6 @@
                 </div>
 
                 <div class="row">
-                <span class="formw">&nbsp;<br><small>Read our <a href="/houserules/" target="_blank">Terms of Use</a>.</small></span>
-                </div>
-
-                <div class="row">
                 <span class="formw"><input type="submit" class="submit" value="Join TheyWorkForYou"></span>
                 </div>
 

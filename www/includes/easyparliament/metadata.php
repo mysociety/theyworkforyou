@@ -459,11 +459,6 @@ $this->page = array (
         'heading'		=> 'Raw data (XML) - the data behind TheyWorkForYou and Public Whip',
         'url'			=> 'http://parser.theyworkforyou.com'
     ),
-    'pombola' => array (
-        'title'			=> 'Pombola',
-        'heading'		=> 'mySociety\'s platform for running a Parliamentary monitoring site like this',
-        'url'			=> 'https://www.mysociety.org/projects/parliamentarymonitoring/pombola'
-    ),
     'devmailinglist' => array (
         'title'			=> 'Developer mailing list',
         'heading'		=> 'Developer mailing list',
