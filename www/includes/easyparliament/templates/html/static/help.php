@@ -404,7 +404,7 @@
                 </h3>
                 <p>
                     We&rsquo;d love to – but please be aware that TheyWorkForYou is currently running without dedicated funding or resources, 
-					so at the moment we're unlikely to introduce new features. However, when we do have funding,we adopt new ideas on a merit
+					so at the moment we're unlikely to introduce new features. However, when we do have funding, we adopt new ideas on a merit
 					basis, so if enough people request a feature, it&rsquo;s much more likely to get made.
                 </p>
 
