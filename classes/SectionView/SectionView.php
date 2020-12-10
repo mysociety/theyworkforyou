@@ -207,7 +207,7 @@ class SectionView {
             if ( $args['s'] !== '' ) {
                 $URL->insert( array('s'=>$args['s']) );
             }
-            redirect($URL->generate('none'));
+            redirect($URL->generate('none'), 301);
         }
 
         $data['individual_item'] = ($this->list->commentspage == $this_page);

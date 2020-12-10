@@ -1119,11 +1119,11 @@ function valid_url($url) {
     return $return;
 }
 
-function redirect($url) {
+function redirect($url, $code=302) {
     if (defined('TESTING')) {
         print "Location: $url";
     } else {
-        header("Location: $url", true, 301);
+        header("Location: $url", true, $code);
     }
     exit;
 }

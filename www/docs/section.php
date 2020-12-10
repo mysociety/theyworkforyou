@@ -9,7 +9,7 @@ include_once INCLUDESPATH . "easyparliament/recess.php";
 # We no longer want to use the gid parameter, it's all id.
 if (get_http_var('gid')) {
     $url = str_replace('gid', 'id', $_SERVER['REQUEST_URI']);
-    redirect($url);
+    redirect($url, 301);
 }
 
 if ($type = ucfirst(get_http_var('type'))) {
