@@ -15,6 +15,8 @@ use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
 use DBI;
+use JSON;
+use File::Slurp;
 #use Data::Dumper;
 #DBI->trace(2);
 
@@ -112,6 +114,17 @@ my %major_to_house = (
     9 => { 6 => 1 },
     101 => { 2 => 1 },
 );
+
+# Be aware of redirected persons - code similar to xml2db.pl
+my %personredirect;
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+my $j = decode_json(read_file($pwmembers . 'people.json'));
+foreach (@{$j->{persons}}) {
+    next unless $_->{redirect};
+    (my $id = $_->{id}) =~ s#uk.org.publicwhip/person/##;
+    (my $redirect = $_->{redirect}) =~ s#uk.org.publicwhip/person/##;
+    $personredirect{$id} = $redirect;
+}
 
 if ($action ne "check" && $action ne 'checkfull') {
 
@@ -348,6 +361,9 @@ if ($action ne "check" && $action ne 'checkfull') {
 sub get_person {
     my ($person_id, $hdate, $htime, $major) = @_;
     return unless $person_id;
+
+    # Map in any redirects.
+    $person_id = $personredirect{$person_id} || $person_id;
 
     # Special exemptions for people 'speaking' after they have died
     # Note identical code to this in hansardlist.php
