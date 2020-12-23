@@ -378,10 +378,10 @@ sub get_person {
     # Note identical code to this in hansardlist.php
     if (@matches > 1) {
         # Couple of special cases for the election of the NI Speaker
-        if ($person_id == 13799 && $hdate eq '2007-05-08') {
+        if ($person_id == 13799 && $hdate eq '20070508') {
             @matches = $matches[$htime < 1100 ? 0 : 1];
         }
-        if ($person_id == 13831 && $hdate eq '2015-01-12') {
+        if ($person_id == 13831 && $hdate eq '20150112') {
             @matches = $matches[$htime < 1300 ? 0 : 1];
         }
     }
