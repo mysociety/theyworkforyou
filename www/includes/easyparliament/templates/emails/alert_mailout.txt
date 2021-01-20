@@ -1,4 +1,8 @@
 Subject: Your TheyWorkForYou email alert
+
+New 2021 survey: We would like to hear from you about how you use email alerts https://mysociety.org/surveys/twfy-alerts/
+-------------------------------------------------------------------
+
 {DATA}
 
 If clicking any of these links doesn't work, you may have
