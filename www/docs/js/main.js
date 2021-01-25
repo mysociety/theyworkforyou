@@ -81,8 +81,6 @@ function swapCalendar(direction) {
 }
 
 $(function(){
-  $('body').addClass('js');
-
   $('.js-toggle').each(function(){
     var $link = $(this);
     var $el = $( $link.attr('href') );

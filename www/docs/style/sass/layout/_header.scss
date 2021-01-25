@@ -164,7 +164,7 @@
     background-color: $body-bg;
     padding: 0.5em 0;
 
-    body.js & {
+    html.js & {
         display: none;
 
         &.toggled {

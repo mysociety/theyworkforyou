@@ -581,7 +581,8 @@
       }
   }
 }
-.js {
+
+html.js {
     .policy-vote--minor {
         display: none;
     }
@@ -677,7 +678,7 @@
     }
 }
 
-.js .policy-votes-list-footer .js-show-all-votes {
+html.js .policy-votes-list-footer .js-show-all-votes {
     display: block;
 }
 

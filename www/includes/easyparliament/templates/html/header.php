@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
@@ -38,6 +38,7 @@
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
     <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 
+    <script>document.documentElement.className = 'js';</script>
     <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
     <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
