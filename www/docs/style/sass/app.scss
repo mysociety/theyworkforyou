@@ -58,7 +58,7 @@
 @import "_twfy-mixins.scss";
 @import "accessible-autocomplete";
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic);
 @import "../foundation-icons/foundation-icons.css";
 
 html,
@@ -85,10 +85,6 @@ h1,
 h2,
 h3 {
     font-weight: $weight_semibold;
-}
-
-.skinny-type {
-    font-weight: $weight_light;
 }
 
 .centered {
