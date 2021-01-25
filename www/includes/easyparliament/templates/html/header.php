@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html class="no-js" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
@@ -50,8 +49,6 @@
     <?php endforeach; ?>
 
     <link rel="stylesheet" href="<?= cache_version("style/stylesheets/app.css") ?>" type="text/css">
-    <!--[if IE 8]><link rel="stylesheet" href="<?= cache_version("style/stylesheets/ie8.css") ?>" type="text/css"><![endif]-->
-    <script type="text/javascript" src="<?= cache_version("js/respond.min.js") ?>"></script>
 
     <?php if (isset ($page_rss_url)): ?>
     <link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="<?= $page_rss_url ?>">
