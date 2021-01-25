@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
@@ -124,6 +124,7 @@
 </head>
 
 <body>
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js' : 'js');</script>
 
     <div id="fb-root"></div>
     <script>
