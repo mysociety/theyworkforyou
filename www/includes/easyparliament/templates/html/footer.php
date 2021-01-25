@@ -102,7 +102,6 @@
 
 <script src="/js/foundation/foundation.js"></script>
 <script src="/js/foundation/foundation.magellan.js"></script>
-<script src="/js/foundation/foundation.reveal.js"></script>
 <script src="/js/analytics/analytics.js"></script>
 <script src="/js/riveted.min.js"></script>
 <script src="/js/jquery.scrolldepth.min.js"></script>
