@@ -15,16 +15,15 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <ul data-magellan-expedition="fixed">
+                <ul>
                     <?php if ($has_voting_record): ?>
                     <?php foreach ($key_votes_segments as $segment): ?>
                     <?php if (count($segment['votes']->positions) > 0): ?>
-                    <li data-magellan-arrival="<?= $segment['key'] ?>"><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
+                    <li><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
                     <?php endif; ?>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </ul>
-                <div class="magellan-placeholder">&nbsp;</div>
             </div>
             <div class="primary-content__unit">
 
@@ -59,7 +58,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                         <div class="panel">
 
-                            <h2 id="<?= $segment['key'] ?>" data-magellan-destination="<?= $segment['key'] ?>">
+                            <h2 id="<?= $segment['key'] ?>">
                                 How <?= $full_name ?> voted on <?= $segment['title'] ?>
                                 <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
                             </h2>

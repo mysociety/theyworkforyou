@@ -14,8 +14,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
         </div>
         <div class="person-panels">
-            <div class="primary-content__unit" style="float: right">
-
+            <div class="primary-content__unit">
                 <?php include('_covid19_panel.php'); ?>
 
                 <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
@@ -43,7 +42,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             $current_date = $division['date'];
                             $sidebar_links[] = $division['date'];
                             ?>
-                          <div class="panel" id="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>" data-magellan-destination="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>">
+                          <div class="panel" id="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>">
                             <h2><?= strftime('%e %b %Y', strtotime($division['date'])) ?></h2>
                              <ul class="vote-descriptions policy-votes">
                           <?php }
@@ -62,16 +61,15 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
 
             <div class="sidebar__unit in-page-nav">
-                <ul data-magellan-expedition="fixed">
+                <ul>
                   <?php foreach($sidebar_links as $date) { ?>
-                    <li data-magellan-arrival="<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
+                    <li>
                         <a href="#<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
                             <?= strftime('%e %b %Y', strtotime($date)) ?>
                         </a>
                     </li>
                   <?php } ?>
                 </ul>
-                <div class="magellan-placeholder">&nbsp;</div>
             </div>
         </div>
     </div>

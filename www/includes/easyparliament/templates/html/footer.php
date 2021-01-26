@@ -100,8 +100,6 @@
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
-<script src="/js/foundation/foundation.js"></script>
-<script src="/js/foundation/foundation.magellan.js"></script>
 <script src="/js/analytics/analytics.js"></script>
 <script src="/js/riveted.min.js"></script>
 <script src="/js/jquery.scrolldepth.min.js"></script>
@@ -132,8 +130,6 @@ $('.autocomplete').each(function() {
     $.scrollDepth();
 
   });
-
-  $(document).foundation();
 
   if (window.riveted) {
     riveted.init();
