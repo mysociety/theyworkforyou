@@ -104,8 +104,6 @@
 <script src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
 <script src="<?= cache_version("js/main.js") ?>"></script>
 <script src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
-<script src="<?= cache_version("js/foundation/foundation.js") ?>"></script>
-<script src="<?= cache_version("js/foundation/foundation.magellan.js") ?>"></script>
 <script src="<?= cache_version("js/analytics/analytics.js") ?>"></script>
 <script src="<?= cache_version("js/accessible-autocomplete.min.js") ?>"></script>
 

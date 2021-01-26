@@ -291,6 +291,20 @@
     padding-top: em-calc(36);
     clear: both;
 
+    @media (min-width: $medium-screen) {
+        display: flex;
+    }
+
+    // Recent votes page has sidebar *after* the primary content
+    // (so that a list of content sections can be built up in $sidebar_links)
+    // but we want to make sure the main content always displays on the right.
+    .primary-content__unit {
+        @media (min-width: $medium-screen) {
+            float: right; // non-flex fallback
+            order: 1;
+        }
+    }
+
     .in-page-nav {
         display: none;
 
@@ -300,31 +314,14 @@
 
         & > * {
             @include radius(3px);
-
-            &.fixed {
-                // Use Foundation functions to work out the width of a 2-column
-                // grid unit, minus default gutter.
-                $percentWidth: gridCalc(2, 12) - $column-gutter; // 13.666666%
-                width: $percentWidth;
-
-                // Element is position:fixed, so width is relative to viewport,
-                // not parent. To stop the element expanding when the window is
-                // wider than 1140px, we cap it to a max-width of X% of 1140px.
-                max-width: 1140px * strip-unit($percentWidth) / 100;
-            }
-
             background-color: white;
             margin-left: 0px;
             margin-bottom: 0px;
             font-size: em-calc(16);
-        }
 
-        .magellan-placeholder {
-          display: none;
-        }
-
-        .fixed + .magellan-placeholder {
-          display: block;
+            position: sticky;
+            top: 1rem;
+            margin-bottom: 2.22222rem;
         }
 
         li {

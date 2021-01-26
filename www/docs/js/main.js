@@ -372,8 +372,6 @@ $(function(){
     t.parent().next(".nav-menu").toggleClass('closed');
   });
 
-  $(document).foundation();
-
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
