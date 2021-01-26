@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1">
     <?php if (isset($meta_description)): ?>
     <meta name="description" content="<?= _htmlentities($meta_description) ?>">
     <?php endif; ?>
