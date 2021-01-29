@@ -1,0 +1,41 @@
+<?php
+
+namespace MySociety\TheyWorkForYou;
+
+class AlertView {
+
+    const ALERT_EXISTS = -2;
+    const CREATE_FAILED = -1;
+
+    protected $user;
+    protected $db;
+    protected $alert;
+
+    public function __construct($THEUSER = NULL) {
+        $this->user = $THEUSER;
+        $this->db = new \ParlDB;
+        $this->alert = new \ALERT;
+    }
+
+    protected function confirmAlert($token) {
+        return $this->alert->confirm($token);
+    }
+
+    protected function suspendAlert($token) {
+        return $this->alert->suspend($token);
+    }
+
+    protected function resumeAlert($token) {
+        return $this->alert->resume($token);
+    }
+
+    protected function deleteAlert($token) {
+        return $this->alert->delete($token);
+    }
+
+    protected function deleteAllAlerts($token) {
+        return $this->alert->delete_all($token);
+    }
+
+}
+
