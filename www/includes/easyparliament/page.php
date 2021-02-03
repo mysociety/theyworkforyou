@@ -493,6 +493,12 @@ class PAGE {
             $page_title = trim_characters($info['text'], 0, 40);
         }
 
+        if ($page_title != '') {
+            // If page title has been set by now, it is good enough to display
+            // in the open graph title tag, without the extra date info etc.
+            $DATA->set_page_metadata($this_page, 'og_title', $page_title);
+        }
+
         if (isset($info['date'])) {
             // debatesday and wransday pages.
             if ($page_title != '') {

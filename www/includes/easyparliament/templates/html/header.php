@@ -3,7 +3,7 @@
 <!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
+    <title><?= strip_tags($page_title) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <?php if (isset($meta_description)): ?>
     <meta name="description" content="<?= _htmlentities($meta_description) ?>">
@@ -20,7 +20,7 @@
 
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
-    <meta property="og:title" content="<?= preg_replace('#<[^>]*>#', '', $page_title) ?>">
+    <meta property="og:title" content="<?= strip_tags( $og_title ?: $page_title ) ?>">
     <?php if ($og_image) { ?>
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@theyworkforyou">

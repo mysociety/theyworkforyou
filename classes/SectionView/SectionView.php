@@ -260,6 +260,13 @@ class SectionView {
             $data['mp_data'] = $user->getRep($this->majorToConsType(), $house);
         }
 
+        $DATA->set_page_metadata($this_page, 'meta_description', sprintf(
+            "%s %s%s %s",
+            $data['intro'],
+            $data['location'],
+            $data['debate_time_human'] ? " at $data[debate_time_human]" : '',
+            $data['debate_day_human']
+        ));
 
         return $data;
     }

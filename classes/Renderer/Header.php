@@ -66,6 +66,7 @@ class Header
 
         $this->data['page_title'] = '';
         $sitetitle = $DATA->page_metadata($this_page, "sitetitle");
+        $og_title = '';
         $this->keywords_title = '';
 
         if ($this_page == 'overview') {
@@ -88,12 +89,17 @@ class Header
             if ($this->data['page_title'] == '') {
                 $this->data['page_title'] = $sitetitle;
             } else {
+                $og_title = $this->data['page_title'];
                 $this->data['page_title'] .= ' - ' . $sitetitle;
             }
         }
 
         # for overriding the OpenGraph image
         $this->data['og_image'] = '';
+
+        // Pages can specify a custom OpenGraph title if they want, otherwise
+        // we use the page title without the trailing " - $sitetitle".
+        $this->data['og_title'] = $DATA->page_metadata($this_page, "og_title") ?: $og_title;
 
     }
 
