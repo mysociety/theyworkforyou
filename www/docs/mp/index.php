@@ -322,12 +322,8 @@ $data['constituency_future_mps'] = constituency_future_mps($MEMBER);
 $data['public_bill_committees'] = person_pbc_membership($MEMBER);
 
 $data['this_page'] = $this_page;
-$data['current_assembly'] = 'westminster';
-if ( $this_page == 'msp' || $this_page == 'yourmsp' ) {
-    $data['current_assembly'] = 'scotland';
-} else if ( $this_page == 'mla' || $this_page == 'yourmla' ) {
-    $data['current_assembly'] = 'ni';
-}
+$country = MySociety\TheyWorkForYou\Utility\House::getCountryDetails($data['latest_membership']['house']);
+$data['current_assembly'] = $country[2];
 
 $data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate();
 

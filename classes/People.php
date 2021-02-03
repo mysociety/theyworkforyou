@@ -48,6 +48,9 @@ class People {
         $data['rep_name'] = $this->rep_name;
         $data['type'] = $this->type;
 
+        $country = Utility\House::getCountryDetails($this->house);
+        $data['current_assembly'] = $country[2];
+
         return $data;
     }
 

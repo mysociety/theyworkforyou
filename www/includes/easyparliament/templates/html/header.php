@@ -21,21 +21,24 @@
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
     <meta property="og:title" content="<?= strip_tags( $og_title ?: $page_title ) ?>">
-    <?php if ($og_image) { ?>
+    <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@theyworkforyou">
     <meta name="twitter:creator" content="@theyworkforyou">
-      <meta property="og:image" content="<?= $og_image ?>">
+
+  <?php if ($og_image) { ?>
+    <meta property="og:image" content="<?= $og_image ?>">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1000">
     <meta property="og:image:height" content="500">
-    <meta property="og:type" content="profile">
-    <?php } else { ?>
-    <meta property="og:type" content="website">
-      <meta property="og:image" content="https://<?= DOMAIN ?>/images/facebook-avatar.png">
-        <meta property="og:image:width" content="200">
-        <meta property="og:image:height" content="200">
-    <?php } ?>
+  <?php } else { ?>
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/<?= isset($current_assembly) ? $current_assembly : 'default' ?>.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+  <?php } ?>
+
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
     <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 

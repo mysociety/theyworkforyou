@@ -47,6 +47,10 @@ class SectionView {
             $data = $this->addCommonData($data);
         }
 
+        list($country, $location, $assembly) = $this->getCountryDetails();
+        $data['location'] = $location;
+        $data['current_assembly'] = $assembly;
+
         return $data;
     }
 
@@ -154,11 +158,6 @@ class SectionView {
         $data['rows'] = $content;
         $data['info'] = array('major' => $this->major, 'date' => $date);
 
-        list($country, $location, $assembly) = $this->getCountryDetails();
-        $data['col_country'] = $country;
-        $data['location'] = $location;
-        $data['current_assembly'] = $assembly;
-
         $data['template'] = 'section/column';
         return $data;
     }
@@ -236,11 +235,6 @@ class SectionView {
         list($bodies, $speeches) = $this->highlightSpeeches($data);
 
         list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
-
-
-        list($country, $location, $assembly) = $this->getCountryDetails();
-        $data['location'] = $location;
-        $data['current_assembly'] = $assembly;
 
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 

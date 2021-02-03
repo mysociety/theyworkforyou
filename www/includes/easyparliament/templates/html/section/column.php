@@ -23,7 +23,7 @@
     <div class="debate-speech">
         <div class="full-page__row">
             <div class="full-page__unit">
-                <?php if ( $col_country == 'SCOTLAND' || $col_country == 'NORTHERN IRELAND' ) { ?>
+                <?php if ( $current_assembly != 'uk-commons' && $current_assembly != 'uk-lords' ) { ?>
                     We only have information about columns for debates in the House of Commons and the House of Lords.
                 <?php } else { ?>
                     We can't find anything in column <?= $column ?> on <?= $debate_day_human ?>.
