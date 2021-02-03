@@ -4,7 +4,7 @@ php7-xapian
 libdbd-mysql-perl
 libfile-slurp-unicode-perl
 libhtml-parser-perl
-libjson-xs-perl
+libjson-perl
 libmailtools-perl
 libmime-tools-perl
 liberror-perl
