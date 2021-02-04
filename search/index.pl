@@ -15,6 +15,8 @@ use lib "$FindBin::Bin/../commonlib/perllib";
 use mySociety::Config;
 mySociety::Config::set_file('../conf/general');
 use DBI;
+use JSON;
+use File::Slurp;
 #use Data::Dumper;
 #DBI->trace(2);
 
@@ -112,6 +114,17 @@ my %major_to_house = (
     9 => { 6 => 1 },
     101 => { 2 => 1 },
 );
+
+# Be aware of redirected persons - code similar to xml2db.pl
+my %personredirect;
+my $pwmembers = mySociety::Config::get('PWMEMBERS');
+my $j = decode_json(read_file($pwmembers . 'people.json'));
+foreach (@{$j->{persons}}) {
+    next unless $_->{redirect};
+    (my $id = $_->{id}) =~ s#uk.org.publicwhip/person/##;
+    (my $redirect = $_->{redirect}) =~ s#uk.org.publicwhip/person/##;
+    $personredirect{$id} = $redirect;
+}
 
 if ($action ne "check" && $action ne 'checkfull') {
 
@@ -349,6 +362,9 @@ sub get_person {
     my ($person_id, $hdate, $htime, $major) = @_;
     return unless $person_id;
 
+    # Map in any redirects.
+    $person_id = $personredirect{$person_id} || $person_id;
+
     # Special exemptions for people 'speaking' after they have died
     # Note identical code to this in hansardlist.php
     $hdate = '20140907' if $person_id == 10170 && $hdate eq '20140908';
@@ -362,10 +378,10 @@ sub get_person {
     # Note identical code to this in hansardlist.php
     if (@matches > 1) {
         # Couple of special cases for the election of the NI Speaker
-        if ($person_id == 13799 && $hdate eq '2007-05-08') {
+        if ($person_id == 13799 && $hdate eq '20070508') {
             @matches = $matches[$htime < 1100 ? 0 : 1];
         }
-        if ($person_id == 13831 && $hdate eq '2015-01-12') {
+        if ($person_id == 13831 && $hdate eq '20150112') {
             @matches = $matches[$htime < 1300 ? 0 : 1];
         }
     }
