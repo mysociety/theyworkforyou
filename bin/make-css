@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+DIR=$(cd "$(dirname "$BASH_SOURCE")" && pwd -P)/..
+MODE="compile"
+
+for argument in "$@"
+do
+    [[ "$argument" == "--watch" ]] && MODE="watch"
+done
+
+cd "$DIR/www/docs/style"
+bundle exec compass "$MODE"

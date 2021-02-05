@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title><?= preg_replace('#<[^>]*>#', '', $page_title) ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1">
     <?php if (isset($meta_description)): ?>
     <meta name="description" content="<?= _htmlentities($meta_description) ?>">
     <?php endif; ?>
@@ -39,19 +38,13 @@
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
     <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 
-    <script type="text/javascript" src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/jquery.fittext.js") ?>"></script>
-    <script type="text/javascript" src="<?= cache_version("js/main.js") ?>"></script>
-    <script async src="<?= cache_version('js/loading-attribute-polyfill.min.js') ?>"></script>
+    <script>document.documentElement.className = 'js';</script>
 
     <?php foreach ($header_links as $link): ?>
     <link rel="<?= $link['rel'] ?>" title="<?= $link['title'] ?>" href="<?= $link['href'] ?>">
     <?php endforeach; ?>
 
     <link rel="stylesheet" href="<?= cache_version("style/stylesheets/app.css") ?>" type="text/css">
-    <!--[if IE 8]><link rel="stylesheet" href="<?= cache_version("style/stylesheets/ie8.css") ?>" type="text/css"><![endif]-->
-    <script type="text/javascript" src="<?= cache_version("js/respond.min.js") ?>"></script>
 
     <?php if (isset ($page_rss_url)): ?>
     <link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="<?= $page_rss_url ?>">
@@ -62,10 +55,10 @@
     <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-touch-120.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-touch-152.png" />
 
-    <?php if (!DEVSITE): ?>
+    <script async src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
 
-    <script type="text/javascript">
-
+  <?php if (!DEVSITE): ?>
+    <script>
         (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -74,89 +67,12 @@
         ga('create', 'UA-660910-1', {'storage':'none'});
         ga('set', 'anonymizeIp', true);
         ga('send', 'pageview');
-
-        function trackFormSubmit(form, category, name, value) {
-            try {
-                ga('send', 'event', category, name, value);
-            } catch (err) {}
-            setTimeout(function () {
-                form.submit();
-            }, 100);
-        }
-
-        function trackLinkClick(link, category, name, value) {
-            try {
-                ga('send', 'event', category, name, value);
-            } catch (err) {}
-            setTimeout(function () {
-                document.location.href = link.href;
-            }, 100);
-        }
     </script>
-
-<?php endif; ?>
-
-    <script>window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-      if (d.getElementById(id)) return t;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      t._e = [];
-      t.ready = function(f) {
-        t._e.push(f);
-      };
-
-      return t;
-    }(document, "script", "twitter-wjs"));</script>
-
-    <script>
-      twttr.ready(function() {
-        twttr.events.bind('tweet', function() {
-            ga('send', 'social', 'twitter', 'tweet', window.location.href);
-        });
-        twttr.events.bind('follow', function() {
-            ga('send', 'social', 'twitter', 'follow', window.location.href);
-        });
-      });
-    </script>
+  <?php endif; ?>
 
 </head>
 
 <body>
-
-    <div id="fb-root"></div>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-            appId      : <?= json_encode(FACEBOOK_APP_ID) ?>,
-            xfbml      : true
-            });
-
-            FB.Event.subscribe('edge.create', function (targetUrl) {
-                ga('send', 'social', 'facebook', 'like', targetUrl);
-            });
-
-            FB.Event.subscribe('edge.remove', function (targetUrl) {
-                ga('send', 'social', 'facebook', 'unlike', targetUrl);
-            });
-
-            FB.Event.subscribe('message.send', function (targetUrl) {
-                ga('send', 'social', 'facebook', 'share', targetUrl);
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_GB/all.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
 
   <?php if ( $banner_text ) { ?>
     <div class="banner">

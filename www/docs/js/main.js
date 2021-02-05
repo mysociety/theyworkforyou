@@ -81,8 +81,6 @@ function swapCalendar(direction) {
 }
 
 $(function(){
-  $('body').addClass('js');
-
   $('.js-toggle').each(function(){
     var $link = $(this);
     var $el = $( $link.attr('href') );
@@ -356,4 +354,42 @@ $(function(){
     });
   }
 
+  $('.autocomplete').each(function() {
+    accessibleAutocomplete.enhanceSelectElement({
+      selectElement: this,
+      displayMenu: 'overlay',
+      defaultValue: '',
+      required: true
+    });
+  });
+
+  $(".menu-dropdown").click(function(e) {
+    var t = $(e.target);
+    if ( ! t.hasClass('button') ) {
+        t = t.parent('.button');
+    }
+    t.toggleClass('open');
+    t.parent().next(".nav-menu").toggleClass('closed');
+  });
+
 });
+
+// Backwards-compatible functions for the click/submit trackers on MP pages
+function trackFormSubmit(form, category, name, value) {
+  window.analytics.trackEvent({
+    eventCategory: category,
+    eventAction: name,
+    eventLabel: value
+  }).always(function(){
+    form.submit();
+  });
+}
+function trackLinkClick(link, category, name, value) {
+  window.analytics.trackEvent({
+    eventCategory: category,
+    eventAction: name,
+    eventLabel: value
+  }).always(function(){
+    document.location.href = link.href;
+  })
+}

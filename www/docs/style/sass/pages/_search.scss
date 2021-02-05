@@ -61,7 +61,7 @@
 }
 
 .search-page__section--options {
-  .js & {
+  html.js & {
     display: none; // hide advanced options so they can be shown on-demand by javascript
   }
 

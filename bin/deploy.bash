@@ -10,6 +10,5 @@ bundle install --deployment --binstubs "vendor/bundle-bin"
 export PATH="$DIR/vendor/bundle-bin:$PATH"
 
 # Now use compass to compile the SCSS:
-DIR=`dirname $BASH_SOURCE`/../www/docs/style
-cd $DIR
-compass compile
+cd "$DIR/www/docs/style"
+bundle exec compass compile

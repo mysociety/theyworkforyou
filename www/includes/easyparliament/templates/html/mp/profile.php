@@ -23,19 +23,18 @@ $display_wtt_stats_banner = '2015';
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <ul data-magellan-expedition="fixed">
+                <ul>
                   <?php if (count($policyPositions->positions) > 0): ?>
-                    <li data-magellan-arrival="votes"><a href="#votes">Votes</a></li>
+                    <li><a href="#votes">Votes</a></li>
                   <?php endif; ?>
                   <?php if (count($recent_appearances['appearances'])): ?>
-                    <li data-magellan-arrival="appearances"><a href="#appearances">Appearances</a></li>
+                    <li><a href="#appearances">Appearances</a></li>
                   <?php endif; ?>
-                    <li data-magellan-arrival="profile"><a href="#profile">Profile</a></li>
+                    <li><a href="#profile">Profile</a></li>
                   <?php if ($register_interests): ?>
-                    <li data-magellan-arrival="register"><a href="#register">Register of Interests</a></li>
+                    <li><a href="#register">Register of Interests</a></li>
                   <?php endif; ?>
                 </ul>
-                <div class="magellan-placeholder">&nbsp;</div>
             </div>
             <div class="primary-content__unit">
 
@@ -67,7 +66,7 @@ $display_wtt_stats_banner = '2015';
                     <?php if (count($policyPositions->positions) > 0) { ?>
                     <div class="panel">
                         <a name="votes"></a>
-                        <h2 data-magellan-destination="votes">A selection of <?= $full_name ?>'s votes</h2>
+                        <h2>A selection of <?= $full_name ?>&rsquo;s votes</h2>
 
                         <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
 
@@ -94,8 +93,7 @@ $display_wtt_stats_banner = '2015';
                 <?php } else if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
                 <div class="panel">
                     <a name="votes"></a>
-                    <h2 data-magellan-destination="votes"><?= $full_name ?>&rsquo;s voting in Parliament</h2>
-
+                    <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
                     <?php if (count($sorted_diffs) > 0 && $party_member_count > 1): ?>
 
@@ -176,7 +174,7 @@ $display_wtt_stats_banner = '2015';
                 <?php if (count($recent_appearances['appearances'])): ?>
                 <div class="panel">
                     <a name="appearances"></a>
-                    <h2 data-magellan-destination="appearances">Recent appearances</h2>
+                    <h2>Recent appearances</h2>
 
                     <?php if (count($recent_appearances['appearances']) > 0): ?>
 
@@ -210,7 +208,7 @@ $display_wtt_stats_banner = '2015';
 
                 <div class="panel">
                     <a name="profile"></a>
-                    <h2 data-magellan-destination="profile">Profile</h2>
+                    <h2>Profile</h2>
 
                     <p><?= $member_summary ?></p>
 
@@ -370,7 +368,7 @@ $display_wtt_stats_banner = '2015';
                 <?php if ($register_interests): ?>
                 <div class="panel register">
                     <a name="register"></a>
-                    <h2 data-magellan-destination="register">Register of Members&rsquo; Interests</h2>
+                    <h2>Register of Members&rsquo; Interests</h2>
 
                     <?php if ($register_interests['date']): ?>
                         <p>Last updated: <?= $register_interests['date'] ?>.</p>

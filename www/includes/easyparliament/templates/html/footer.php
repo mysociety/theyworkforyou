@@ -100,54 +100,58 @@
 </div> <!-- end #footer -->
 </div> <!-- end #container -->
 
-<script src="/js/foundation/foundation.js"></script>
-<script src="/js/foundation/foundation.magellan.js"></script>
-<script src="/js/foundation/foundation.reveal.js"></script>
-<script src="/js/analytics/analytics.js"></script>
-<script src="/js/riveted.min.js"></script>
-<script src="/js/jquery.scrolldepth.min.js"></script>
-<script src="/js/accessible-autocomplete.min.js"></script>
+<script src="<?= cache_version("js/jquery-1.11.3.min.js") ?>"></script>
+<script src="<?= cache_version("js/jquery.cookie.js") ?>"></script>
+<script src="<?= cache_version("js/accessible-autocomplete.min.js") ?>"></script>
+<script src="<?= cache_version("js/analytics/analytics.js") ?>"></script>
+<script src="<?= cache_version("js/main.js") ?>"></script>
 
 <script>
+window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+  return t;
+}(document, "script", "twitter-wjs"));
 
-$('.autocomplete').each(function() {
-  accessibleAutocomplete.enhanceSelectElement({
-    selectElement: this,
-    displayMenu: 'overlay',
-    defaultValue: '',
-    required: true
+twttr.ready(function() {
+  twttr.events.bind('tweet', function() {
+    ga('send', 'social', 'twitter', 'tweet', window.location.href);
+  });
+  twttr.events.bind('follow', function() {
+    ga('send', 'social', 'twitter', 'follow', window.location.href);
   });
 });
 
-  $( document ).ready(function() {
-
-    $(".menu-dropdown").click(function(e) {
-      var t = $(e.target);
-      if ( ! t.hasClass('button') ) {
-          t = t.parent('.button');
-      }
-      t.toggleClass('open');
-      t.parent().next(".nav-menu").toggleClass('closed');
-    });
-
-    $.scrollDepth();
-
+window.fbAsyncInit = function () {
+  FB.init({
+    appId: <?= json_encode(FACEBOOK_APP_ID) ?>,
+    autoLogAppEvents: true,
+    xfbml: true,
+    version: 'v9.0'
   });
 
-  $(document).foundation();
-
-  if (window.riveted) {
-    riveted.init();
-  }
-
-  $(function() {
-    setTimeout(function() {
-      try {
-        ga('send', 'event', 'engagement', 'timer', '7');
-      } catch(err){}
-    }, 7000);
+  FB.Event.subscribe('edge.create', function (targetUrl) {
+    ga('send', 'social', 'facebook', 'like', targetUrl);
   });
 
+  FB.Event.subscribe('edge.remove', function (targetUrl) {
+    ga('send', 'social', 'facebook', 'unlike', targetUrl);
+  });
+
+  FB.Event.subscribe('message.send', function (targetUrl) {
+    ga('send', 'social', 'facebook', 'share', targetUrl);
+  });
+};
 </script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js"></script>
+
 </body>
 </html>
