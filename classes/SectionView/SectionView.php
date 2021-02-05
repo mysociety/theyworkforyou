@@ -47,6 +47,10 @@ class SectionView {
             $data = $this->addCommonData($data);
         }
 
+        list($country, $location, $assembly) = $this->getCountryDetails();
+        $data['location'] = $location;
+        $data['current_assembly'] = $assembly;
+
         return $data;
     }
 
@@ -154,11 +158,6 @@ class SectionView {
         $data['rows'] = $content;
         $data['info'] = array('major' => $this->major, 'date' => $date);
 
-        list($country, $location, $assembly) = $this->getCountryDetails();
-        $data['col_country'] = $country;
-        $data['location'] = $location;
-        $data['current_assembly'] = $assembly;
-
         $data['template'] = 'section/column';
         return $data;
     }
@@ -237,11 +236,6 @@ class SectionView {
 
         list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
 
-
-        list($country, $location, $assembly) = $this->getCountryDetails();
-        $data['location'] = $location;
-        $data['current_assembly'] = $assembly;
-
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
         $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
@@ -260,6 +254,13 @@ class SectionView {
             $data['mp_data'] = $user->getRep($this->majorToConsType(), $house);
         }
 
+        $DATA->set_page_metadata($this_page, 'meta_description', sprintf(
+            "%s %s%s %s",
+            $data['intro'],
+            $data['location'],
+            $data['debate_time_human'] ? " at $data[debate_time_human]" : '',
+            $data['debate_day_human']
+        ));
 
         return $data;
     }

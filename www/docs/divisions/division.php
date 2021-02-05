@@ -79,7 +79,6 @@ if ($data['division']['house'] == 'pbc') {
 }
 $data['debate_time_human'] = False;
 $data['debate_day_human'] = format_date($data['division']['date'], LONGDATEFORMAT);
-$data['col_country'] = $country;
 $data['location'] = $location;
 $data['current_assembly'] = $assembly;
 $data['assembly_name'] = $assembly_name;
