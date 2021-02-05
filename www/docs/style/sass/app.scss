@@ -58,8 +58,32 @@
 @import "_twfy-mixins.scss";
 @import "accessible-autocomplete";
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic);
-@import "../foundation-icons/foundation-icons.css";
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,400italic&display=swap);
+
+/* Foundation Icons v 3.0 MIT License */
+@font-face {
+  font-family: "foundation-icons";
+  src: url("/style/foundation-icons/foundation-icons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.fi-social-facebook:before,
+.fi-social-twitter:before
+{
+  font-family: "foundation-icons";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+.fi-social-facebook:before { content: "\f1c4"; }
+.fi-social-twitter:before { content: "\f1e4"; }
 
 html,
 body {
