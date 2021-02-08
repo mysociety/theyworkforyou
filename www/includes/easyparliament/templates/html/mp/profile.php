@@ -110,7 +110,7 @@ $display_wtt_stats_banner = '2015';
 
                             $key_vote = NULL;
                             $description = sprintf(
-                                '%s <b>%s</b> %s, while most %s MPs <b>%s</b>.',
+                                '%s <b>%s</b> %s; most %s MPs <b>%s</b>.',
                                 $full_name,
                                 $positions[$policy_id]['position'],
                                 strip_tags($policies[$policy_id]),
