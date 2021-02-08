@@ -65,9 +65,10 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
+                                $policy_id = $key_vote['policy_id'];
 
-                                if (isset($policy_last_update[$key_vote['policy_id']]) && $policy_last_update[$key_vote['policy_id']] > $most_recent) {
-                                  $most_recent = $policy_last_update[$key_vote['policy_id']];
+                                if (isset($policy_last_update[$policy_id]) && $policy_last_update[$policy_id] > $most_recent) {
+                                  $most_recent = $policy_last_update[$policy_id];
                                 }
 
                                 if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
@@ -82,7 +83,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 $link = sprintf(
                                     '%s/divisions?policy=%s',
                                     $member_url,
-                                    $key_vote['policy_id']
+                                    $policy_id
                                 );
                                 $show_link = $key_vote['position'] != 'has never voted on';
 
