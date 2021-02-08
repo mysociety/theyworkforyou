@@ -86,6 +86,9 @@ class House
                 'assembly_name' => 'London Assembly',
             )
         );
+        if (!array_key_exists($house, $details)) {
+            return array('', '', '', '', '');
+        }
 
         $detail = $details[$house];
         return array($detail['country'], $detail['location'], $detail['assembly'], $detail['cons_type'], $detail['assembly_name']);
