@@ -33,24 +33,24 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testSinglePolicy() {
         $p = new MySociety\TheyWorkForYou\Policies;
-        $this->assertEquals(count($p->getArray()), 92);
+        $this->assertEquals(count($p->getPoliciesData()), 92);
 
         $p = $p->limitToSet('health');
-        $this->assertEquals(count($p->getArray()), 5);
+        $this->assertEquals(count($p->getPoliciesData()), 5);
 
         $p = new MySociety\TheyWorkForYou\Policies;
         $p = $p->limitToSet('education');
-        $this->assertEquals(count($p->getArray()), 5);
+        $this->assertEquals(count($p->getPoliciesData()), 5);
 
         $p = new MySociety\TheyWorkForYou\Policies(363);
-        $this->assertEquals(count($p->getArray()), 1);
+        $this->assertEquals(count($p->getPoliciesData()), 1);
 
         $p = $p->limitToSet('health');
-        $this->assertEquals(count($p->getArray()), 1);
+        $this->assertEquals(count($p->getPoliciesData()), 1);
 
         $p = new MySociety\TheyWorkForYou\Policies(363);
         $p = $p->limitToSet('education');
-        $this->assertEquals(count($p->getArray()), 0);
+        $this->assertEquals(count($p->getPoliciesData()), 0);
 
     }
 

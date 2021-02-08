@@ -325,13 +325,13 @@ class Policies {
      *
      * @return array Array of policies in the form `[ {id} , {text} ]`
      */
-    public function getArray() {
+    public function getPoliciesData() {
         $out = array();
         foreach ($this->policies as $policy_id => $policy_text) {
             $out[] = array(
-                $policy_id,
-                $policy_text,
-                in_array($policy_id, $this->commons_only),
+                'id' => $policy_id,
+                'text' => $policy_text,
+                'commons_only'=> in_array($policy_id, $this->commons_only),
             );
         }
         return $out;

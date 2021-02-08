@@ -90,7 +90,7 @@ class PolicyPositions {
             throw new \Exception('Member extra information has not been loaded; cannot find policy positions.');
         }
 
-        $policies = $this->policies->getArray();
+        $policies = $this->policies->getPoliciesData();
 
         $member_houses = $this->member->houses();
 
@@ -114,19 +114,19 @@ class PolicyPositions {
                 break;
             }
 
-            if (isset($policy[2]) && $policy[2] && !in_array(HOUSE_TYPE_COMMONS, $member_houses)) {
+            if ($policy['commons_only'] && !in_array(HOUSE_TYPE_COMMONS, $member_houses)) {
                 continue;
             }
 
             # If we've been passed in vote summaries and there isn't one for this
             # policy, skip as it means the person did not vote in this policy, or
             # the relevant policy votes are all abstentions.
-            if ($this->summaries && !array_key_exists($policy[0], $this->summaries)) {
+            if ($this->summaries && !array_key_exists($policy['id'], $this->summaries)) {
                 continue;
             }
 
-            $votes_summary = array_key_exists($policy[0], $this->summaries) ? $this->summaries[$policy[0]] : array();
-            $dream_info = $this->displayDreamComparison($policy[0], $policy[1], $votes_summary);
+            $votes_summary = array_key_exists($policy['id'], $this->summaries) ? $this->summaries[$policy['id']] : array();
+            $dream_info = $this->displayDreamComparison($policy['id'], $policy['text'], $votes_summary);
 
             // don't return votes where they haven't voted on a strong division
             // if we're limiting the number of votes
@@ -138,16 +138,16 @@ class PolicyPositions {
             if (!empty($dream_info)) {
                 $summary = $votes_summary ? $this->divisions->generateSummary($votes_summary) : '';
                 $this->positions[] = array(
-                    'policy_id' => $policy[0],
-                    'policy' => $policy[1],
+                    'policy_id' => $policy['id'],
+                    'policy' => $policy['text'],
                     'desc' => $dream_info['full_sentence'],
                     'has_strong' => $dream_info['has_strong'],
                     'position' => $dream_info['position'],
                     'summary' => $summary
                 );
-                $this->positionsById[$policy[0]] = array(
-                    'policy_id' => $policy[0],
-                    'policy' => $policy[1],
+                $this->positionsById[$policy['id']] = array(
+                    'policy_id' => $policy['id'],
+                    'policy' => $policy['text'],
                     'desc' => $dream_info['full_sentence'],
                     'position' => $dream_info['position'],
                     'has_strong' => $dream_info['has_strong'],
