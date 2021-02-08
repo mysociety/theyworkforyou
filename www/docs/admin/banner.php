@@ -21,22 +21,25 @@ print '<div id="adminbody">';
 print $out;
 ?>
 <script>
-    $('#preview').on('click', function bannerPreview() {
-        var text = $('#banner_text').val();
+    document.getElementById('preview').addEventListener('click', function(e) {
+        var text = document.getElementById('banner_text').value;
+        var banner_el = document.querySelector('.banner__content');
         if ( text ) {
-            var banner_el = $('#surveyPromoBanner');
-            var fadeDelay = 1000;
-            if ( !banner_el.length ) {
-                fadeDelay = 0;
-                banner_el = $('<div id="surveyPromoBanner" style="clear:both;padding:1em;margin-top:24px;background:#DDD;">&nbsp;</div>');
-                $('body').prepend(banner_el);
+            if ( !banner_el ) {
+                var body = document.body;
+                banner_el1 = document.createElement('div');
+                banner_el1.classList.add('banner');
+                var banner_el2 = document.createElement('div');
+                banner_el2.classList.add('full-page__row');
+                var banner_el = document.createElement('div');
+                banner_el.classList.add('banner__content');
+                banner_el2.appendChild(banner_el);
+                banner_el1.appendChild(banner_el2);
+                body.insertBefore(banner_el1, body.firstChild);
             }
-            banner_el.fadeOut(fadeDelay, function updateBannerText() {
-                banner_el.html($('#banner_text').val());
-                banner_el.fadeIn(1000);
-            });
+            banner_el.innerHTML = text;
         } else {
-            banner_el = $('#surveyPromoBanner').remove();
+            banner_el.parentNode.removeChild(banner_el);
         }
     });
 </script>

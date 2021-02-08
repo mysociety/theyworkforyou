@@ -209,6 +209,9 @@ if (!count($data)) {
                     suitable for Excel
                 </p>
                 <?php if ( $type == 'mps' ) { ?>
+                <style>
+                .js #past-list-dates { display: none; }
+                </style>
                 <form method="get" action="<?= $urls['plain'] ?>" class="sidebar-item-with-icon sidebar-item-with-icon--date">
                     <p>
                         Or view a past list
@@ -250,16 +253,6 @@ if (!count($data)) {
                     </p>
                 </form>
 
-                <script type="text/javascript">
-                $(function(){
-                  $('#past-list-dates').hide();
-                  $('a[href="#past-list-dates"]').on('click', function(e){
-                    e.preventDefault();
-                    $(this).trigger('blur');
-                    $('#past-list-dates').slideToggle();
-                  })
-                });
-                </script>
                 <?php } else if ( $type == 'msps' ) { ?>
                     <p class="past-list-dates" id="past-list-dates">
                         <a href="<?= $urls['plain'] ?>?date=2011-05-05">MSPs at 2011 election</a>

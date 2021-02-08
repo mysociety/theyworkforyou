@@ -39,6 +39,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php if ($has_voting_record) { ?>
 
                         <?php foreach ($policydivisions as $policy) { ?>
+                            <?php
+                                $show_all = FALSE;
+                                if ( $policy['weak_count'] == 0 || $policy['weak_count'] == count($policy['divisions']) ) {
+                                    $show_all = TRUE;
+                                }
+                            ?>
 
                             <?php if ( isset($policy['header']) ) { ?>
                                 <div class="panel policy-votes-hero" style="background-image: url('<?php echo $policy['header']['image']; ?>');">
@@ -73,7 +79,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                             data on PublicWhip.org.uk</a>.
                                         </p>
 
-                                        <h3 class="policy-votes-list-header"><span id="policy-votes-type">All</span> votes about <?= $policy['desc'] ?>:</h3>
+                                        <h3 class="policy-votes-list-header"><span id="policy-votes-type"><?=
+                                            $show_all ? 'All' : 'Key';
+                                        ?></span> votes about <?= $policy['desc'] ?>:</h3>
                                     <?php } else { ?>
                                         <h3 class="policy-vote-overall-stance">
                                             We don&rsquo;t have enough information to calculate <?= $full_name ?>&rsquo;s position on this issue
@@ -85,12 +93,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     <?php } ?>
 
                                     <ul class="vote-descriptions policy-votes">
-                                    <?php
-                                        $show_all = FALSE;
-                                        if ( $policy['weak_count'] == 0 || $policy['weak_count'] == count($policy['divisions']) ) {
-                                            $show_all = TRUE;
-                                        }
-                                    ?>
                                     <?php foreach ($policy['divisions'] as $division) {
                                         include('_division_description.php');
                                         $displayed_votes = TRUE;
@@ -107,19 +109,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                             <a href="/voting-information">Please share these votes responsibly.</a>
                                         </p>
                                     </div>
-
-                                    <script type="text/javascript">
-                                    $(function(){
-                                        <?php if ( !$show_all ) { ?>
-                                        $('#policy-votes-type').text('Key');
-                                        <?php } ?>
-                                        $('.js-show-all-votes').on('click', function(){
-                                            $(this).fadeOut();
-                                            $('.policy-vote--minor').slideDown();
-                                            $('#policy-votes-type').text('All');
-                                        });
-                                    })
-                                    </script>
 
                                 </div>
                             <?php } ?>

@@ -1,4 +1,4 @@
-<div class="search-page__section search-page__section--options" id="options">
+<div class="search-page__section search-page__section--options" id="options" data-advanced="<?=$is_adv ?>">
     <div class="search-page__section__primary">
         <h2>Advanced search</h2>
 
@@ -109,30 +109,3 @@ reference), you can restrict results to that; you can also use
         <p><input type="submit" class="button" value="Search"></p>
     </div>
 </div>
-
-<script type="text/javascript">
-$(function(){
-  // Move advanced search options to appear *before* results.
-  // (This means non-javascript users don't have to scroll past it
-  // to see their search results.)
-  $('.js-search-form-without-options').replaceWith( $('.js-search-form-with-options') );
-
-  // Show/hide advanced search options.
-  $('.js-toggle-search-options').on('click', function(e){
-    e.preventDefault();
-    var id = $(this).attr('href'); // #options
-    if($(id).is(':visible')){
-      $('.js-toggle-search-options[href="' + id + '"]').removeClass('toggled');
-      $(id).slideUp(250, function(){
-        // Disable the inputs *after* they're hidden (less distracting).
-        $(id).find(':input').attr('disabled', 'disabled');
-      });
-    } else {
-      $('.js-toggle-search-options[href="' + id + '"]').addClass('toggled');
-      $(id).find(':input:disabled').removeAttr('disabled');
-      $(id).slideDown(250);
-    }
-  });
-  <?= $is_adv ? '' : '$("#options").find(":input").attr("disabled", "disabled");' ?>
-});
-</script>

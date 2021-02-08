@@ -372,6 +372,42 @@ $(function(){
     t.parent().next(".nav-menu").toggleClass('closed');
   });
 
+  $('.js-show-all-votes').on('click', function(){
+    $(this).fadeOut();
+    $('.policy-vote--minor').slideDown();
+    $('#policy-votes-type').text('All');
+  });
+
+  $('a[href="#past-list-dates"]').on('click', function(e){
+    e.preventDefault();
+    $(this).trigger('blur');
+    $('#past-list-dates').slideToggle();
+  })
+
+  // Move advanced search options to appear *before* results.
+  // (This means non-javascript users don't have to scroll past it
+  // to see their search results.)
+  $('.js-search-form-without-options').replaceWith( $('.js-search-form-with-options') );
+
+  // Show/hide advanced search options.
+  $('.js-toggle-search-options').on('click', function(e){
+    e.preventDefault();
+    var id = $(this).attr('href'); // #options
+    if($(id).is(':visible')){
+      $('.js-toggle-search-options[href="' + id + '"]').removeClass('toggled');
+      $(id).slideUp(250, function(){
+        // Disable the inputs *after* they're hidden (less distracting).
+        $(id).find(':input').attr('disabled', 'disabled');
+      });
+    } else {
+      $('.js-toggle-search-options[href="' + id + '"]').addClass('toggled');
+      $(id).find(':input:disabled').removeAttr('disabled');
+      $(id).slideDown(250);
+    }
+  });
+  if (!$('#options').data('advanced')) {
+    $("#options").find(":input").attr("disabled", "disabled");
+  }
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
