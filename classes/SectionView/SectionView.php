@@ -236,6 +236,8 @@ class SectionView {
 
         list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
 
+        list($country, $location, $assembly) = $this->getCountryDetails();
+
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
         $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
@@ -257,7 +259,7 @@ class SectionView {
         $DATA->set_page_metadata($this_page, 'meta_description', sprintf(
             "%s %s%s %s",
             $data['intro'],
-            $data['location'],
+            $location,
             $data['debate_time_human'] ? " at $data[debate_time_human]" : '',
             $data['debate_day_human']
         ));
