@@ -344,8 +344,8 @@ switch ($pagetype) {
         if ( $policy_set && array_key_exists($policy_set, $set_descriptions) ) {
             $sets = array($policy_set);
             $data['og_image'] = $MEMBER->url(true) . "/policy_set_png?policy_set=" . $policy_set;
-            $data['page_title'] = $policiesList->getSetDescriptions()[$policy_set] . ' ' . $title . ' - TheyWorkForYou';
-            $data['meta_description'] = 'See how ' . $data['full_name'] . ' voted on ' . $policiesList->getSetDescriptions()[$policy_set];
+            $data['page_title'] = $set_descriptions[$policy_set] . ' ' . $title . ' - TheyWorkForYou';
+            $data['meta_description'] = 'See how ' . $data['full_name'] . ' voted on ' . $set_descriptions[$policy_set];
             $data['single_policy_page'] = true;
         } else {
             $data['single_policy_page'] = false;
