@@ -354,6 +354,7 @@ switch ($pagetype) {
                 'health', 'education', 'reform', 'home', 'environment',
                 'transport', 'housing', 'misc'
             );
+            shuffle($sets);
         }
 
         $data['key_votes_segments'] = array();
@@ -411,7 +412,7 @@ switch ($pagetype) {
     default:
 
         $policiesList = new MySociety\TheyWorkForYou\Policies;
-        $policies = $policiesList->limitToSet('summary')->shuffle();
+        $policies = $policiesList->limitToSet('summary');
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
         $policySummaries = $divisions->getMemberDivisionDetails();
 

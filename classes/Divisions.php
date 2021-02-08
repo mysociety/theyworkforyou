@@ -479,7 +479,8 @@ class Divisions {
      */
 
     public function getAllMemberDivisionsByPolicy() {
-        return $this->getMemberDivisionsForPolicy();
+        $policies = $this->getMemberDivisionsForPolicy();
+        return Utility\Shuffle::keyValue($policies);
     }
 
 

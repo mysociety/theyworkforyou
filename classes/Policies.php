@@ -346,13 +346,7 @@ class Policies {
      */
 
     public function shuffle() {
-
-        $keys = array_keys($this->policies);
-        shuffle($keys);
-        $random = array();
-        foreach ($keys as $key) {
-            $random[$key] = $this->policies[$key];
-        }
+        $random = Utility\Shuffle::keyValue($this->policies);
 
         $new_policies = new self();
         $new_policies->policies = $random;
@@ -395,7 +389,7 @@ class Policies {
             $new_policies = new self($this->policy_id);
             $new_policies->policies = $out;
 
-            return $new_policies;
+            return $new_policies->shuffle();
 
         } else {
             throw new \Exception ('Policy set "' . $set . '" does not exist.');
