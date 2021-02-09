@@ -87,6 +87,13 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 );
                                 $show_link = $key_vote['position'] != 'has never voted on';
 
+                                if (isset($sorted_diffs[$policy_id]) && $sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1) {
+                                    $diff = $sorted_diffs[$policy_id];
+                                    $party_voting_line = sprintf( 'Most current %s MPs %s.', $party, $diff['party_position']);
+                                } else {
+                                    $party_voting_line = null;
+                                }
+
                                 include '_vote_description.php';
 
                               } ?>
