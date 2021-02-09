@@ -368,6 +368,8 @@ switch ($pagetype) {
             );
         }
 
+        person_party_policy_diffs($MEMBER, $policiesList, false);
+
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
 
@@ -421,19 +423,7 @@ switch ($pagetype) {
         // Generate limited voting record list
         $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, $policyOptions);
 
-        // generate party policy diffs
-        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
-        $party_positions = $party->getAllPolicyPositions($policiesList);
-        $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, true);
-
-        $data['sorted_diffs'] = $policy_diffs;
-        # house hard coded as this is only used for the party position
-        # comparison which is Commons only
-        $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
-        $data['party_positions'] = $party_positions;
-        $data['positions'] = $positions->positionsById;
-        $data['policies'] = $policiesList->getPolicies();
+        person_party_policy_diffs($MEMBER, $policiesList, true);
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -1042,4 +1032,19 @@ function policy_image($data, $MEMBER, $format) {
 
     $im->clear();
     $im->destroy();
+}
+
+// generate party policy diffs
+function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
+    global $data;
+
+    $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+    $data['party_positions'] = $party->getAllPolicyPositions($policiesList);
+    # house hard coded as this is only used for the party position
+    # comparison which is Commons only
+    $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
+
+    $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+    $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, $only_diffs);
+    $data['sorted_diffs'] = $policy_diffs;
 }

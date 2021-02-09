@@ -106,16 +106,16 @@ $display_wtt_stats_banner = '2015';
                         </p>
 
                         <ul class="vote-descriptions">
-                          <?php foreach ($sorted_diffs as $policy_id => $score) {
+                          <?php foreach ($sorted_diffs as $policy_id => $diff) {
 
                             $key_vote = NULL;
                             $description = sprintf(
-                                '%s <b>%s</b> %s; most %s MPs <b>%s</b>.',
+                                '%s <b>%s</b> %s; most current %s MPs <b>%s</b>.',
                                 $full_name,
-                                $positions[$policy_id]['position'],
-                                strip_tags($policies[$policy_id]),
+                                $diff['person_position'],
+                                strip_tags($diff['policy_text']),
                                 $party,
-                                $party_positions[$policy_id]['position']
+                                $diff['party_position']
                             );
                             $link = $member_url . '/divisions?policy=' . $policy_id;
                             $show_link = true;

@@ -388,11 +388,18 @@ class Member extends \MEMBER {
                 if ( $only_diffs && $score_diff < 2 ) {
                     continue;
                 }
-                $policy_diffs[$policy_id] = $score_diff;
+                $policy_diffs[$policy_id] = [
+                    'policy_text' => $details['policy'],
+                    'score_difference' => $score_diff,
+                    'person_position' => $details['position'],
+                    'party_position' => $party_positions[$policy_id]['position'],
+                ];
             }
         }
 
-        arsort($policy_diffs);
+        uasort($policy_diffs, function($a, $b) {
+            return $b['score_difference'] - $a['score_difference'];
+        });
 
         return $policy_diffs;
     }
