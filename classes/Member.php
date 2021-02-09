@@ -392,6 +392,7 @@ class Member extends \MEMBER {
                     'policy_text' => $details['policy'],
                     'score_difference' => $score_diff,
                     'person_position' => $details['position'],
+                    'summary' => $details['summary'],
                     'party_position' => $party_positions[$policy_id]['position'],
                 ];
             }

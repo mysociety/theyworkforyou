@@ -1038,13 +1038,18 @@ function policy_image($data, $MEMBER, $format) {
 function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     global $data;
 
+    $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
+    $policySummaries = $divisions->getMemberDivisionDetails();
+
     $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
     $data['party_positions'] = $party->getAllPolicyPositions($policiesList);
     # house hard coded as this is only used for the party position
     # comparison which is Commons only
     $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
 
-    $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+    $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER, [
+        'summaries' => $policySummaries,
+    ]);
     $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, $only_diffs);
     $data['sorted_diffs'] = $policy_diffs;
 }
