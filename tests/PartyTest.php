@@ -87,7 +87,7 @@ class PartyTest extends FetchPageTestCase
 
     public function testCalculatePositionsPolicyAbsent() {
         $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
-        list($desc, $score) = $party->calculate_policy_position(900, true);
+        list($desc, $score) = $party->calculate_policy_position(900);
 
         $this->assertEquals(-1, $score);
     }
@@ -129,7 +129,7 @@ class PartyTest extends FetchPageTestCase
         $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
         $party->cache_position( $positions['810'] );
 
-        $position = $party->policy_position(810);
+        list($position, $score) = $party->policy_position(810);
         $expected = ('voted a mixture of for and against');
 
         $this->assertEquals($expected, $position);

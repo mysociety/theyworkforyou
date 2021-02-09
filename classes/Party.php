@@ -56,7 +56,7 @@ class Party {
         return $positions;
     }
 
-    public function policy_position($policy_id, $want_score = false) {
+    public function policy_position($policy_id) {
         $position = $this->db->query(
             "SELECT score
             FROM partypolicy
@@ -73,12 +73,7 @@ class Party {
         if ($position) {
             $score = $position['score'];
             $score_desc = score_to_strongly($score);
-
-            if ( $want_score ) {
-                return array( $score_desc, $score);
-            } else {
-                return $score_desc;
-            }
+            return array( $score_desc, $score);
         } else {
             return null;
         }
@@ -90,7 +85,7 @@ class Party {
         return $positions;
     }
 
-    public function calculate_policy_position($policy_id, $want_score = false) {
+    public function calculate_policy_position($policy_id) {
 
         // This could be done as a join but it turns out to be
         // much slower to do that
@@ -170,11 +165,7 @@ class Party {
         }
         $score_desc = score_to_strongly($weight);
 
-        if ( $want_score ) {
-            return array( $score_desc, $weight);
-        } else {
-            return $score_desc;
-        }
+        return array( $score_desc, $weight);
     }
 
     public function cache_position( $position ) {
@@ -198,7 +189,7 @@ class Party {
         }
 
         foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
-            list( $position, $score ) = $this->$method($policy_id, true);
+            list( $position, $score ) = $this->$method($policy_id);
             if ( $position === null ) {
                 continue;
             }
