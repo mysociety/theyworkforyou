@@ -58,7 +58,7 @@ class Party {
 
     public function policy_position($policy_id) {
         $position = $this->db->query(
-            "SELECT score
+            "SELECT score, divisions, date_min, date_max
             FROM partypolicy
             WHERE
                 party = :party
@@ -71,9 +71,8 @@ class Party {
         )->first();
 
         if ($position) {
-            $score = $position['score'];
-            $score_desc = score_to_strongly($score);
-            return array( $score_desc, $score);
+            $position['position'] = score_to_strongly($position['score']);
+            return $position;
         } else {
             return null;
         }
@@ -90,7 +89,7 @@ class Party {
         // This could be done as a join but it turns out to be
         // much slower to do that
         $divisions = $this->db->query(
-            "SELECT division_id, policy_vote
+            "SELECT division_id, division_date, policy_vote
             FROM policydivisions
                 JOIN divisions USING(division_id)
             WHERE policy_id = :policy_id
@@ -103,6 +102,9 @@ class Party {
         $score = 0;
         $max_score = 0;
         $total_votes = 0;
+        $date_min = '';
+        $date_max = '';
+        $num_divisions = 0;
 
         $party_where = 'party = :party';
         $params = array(
@@ -120,6 +122,7 @@ class Party {
         foreach ($divisions as $division) {
             $division_id = $division['division_id'];
             $weights = $this->get_vote_scores($division['policy_vote']);
+            $date = $division['division_date'];
 
             $params[':division_id'] = $division_id;
 
@@ -146,6 +149,12 @@ class Party {
                 $num_votes += $vote['num_votes'];
                 $score += ($vote['num_votes'] * $weights[$vote_dir]);
             }
+            # For range, only care if there were results
+            if ($votes->rows()) {
+                if (!$date_min || $date_min > $date) $date_min = $date;
+                if (!$date_max || $date_max < $date) $date_max = $date;
+                $num_divisions++;
+            }
 
             $total_votes += $num_votes;
             $max_score += $num_votes * max( array_values( $weights ) );
@@ -165,18 +174,27 @@ class Party {
         }
         $score_desc = score_to_strongly($weight);
 
-        return array( $score_desc, $weight);
+        return [
+            'score' => $weight,
+            'position' => $score_desc,
+            'divisions' => $num_divisions,
+            'date_min' => $date_min,
+            'date_max' => $date_max,
+        ];
     }
 
     public function cache_position( $position ) {
         $this->db->query(
             "REPLACE INTO partypolicy
-                (party, house, policy_id, score)
-                VALUES (:party, 1, :policy_id, :score)",
+                (party, house, policy_id, score, divisions, date_min, date_max)
+                VALUES (:party, 1, :policy_id, :score, :divisions, :date_min, :date_max)",
             array(
                 ':score' => $position['score'],
                 ':party' => $this->name,
-                ':policy_id' => $position['policy_id']
+                ':policy_id' => $position['policy_id'],
+                ':divisions' => $position['divisions'],
+                ':date_min' => $position['date_min'],
+                ':date_max' => $position['date_max'],
             )
         );
     }
@@ -189,17 +207,14 @@ class Party {
         }
 
         foreach ( $policies->getPolicies() as $policy_id => $policy_text ) {
-            list( $position, $score ) = $this->$method($policy_id);
-            if ( $position === null ) {
+            $data = $this->$method($policy_id);
+            if ( $data === null ) {
                 continue;
             }
 
-            $positions[$policy_id] = array(
-                'policy_id' => $policy_id,
-                'position' => $position,
-                'score' => $score,
-                'desc' => $policy_text
-            );
+            $data['policy_id'] = $policy_id;
+            $data['desc'] = $policy_text;
+            $positions[$policy_id] = $data;
         }
 
         return $positions;

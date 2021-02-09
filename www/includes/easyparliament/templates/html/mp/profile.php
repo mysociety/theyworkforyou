@@ -109,6 +109,7 @@ $display_wtt_stats_banner = '2015';
                           <?php foreach ($sorted_diffs as $policy_id => $diff) {
 
                             $key_vote = $diff;
+                            $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
                             $description = sprintf(
                                 '%s <b>%s</b> %s; most current %s MPs <b>%s</b>.',
                                 $full_name,

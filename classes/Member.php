@@ -380,7 +380,15 @@ class Member extends \MEMBER {
         foreach ( $positions->positionsById as $policy_id => $details ) {
             if ( $details['has_strong'] && $details['score'] != -1 && isset($party_positions[$policy_id])) {
                 $mp_score = $details['score'];
-                $party_score = $party_positions[$policy_id]['score'];
+                $party_position = $party_positions[$policy_id];
+                $party_score = $party_position['score'];
+                $year_min = substr($party_position['date_min'], 0, 4);
+                $year_max = substr($party_position['date_max'], 0, 4);
+                if ($year_min == $year_max) {
+                    $party_voting_summary = sprintf("%d votes, in %d", $party_position['divisions'], $year_min);
+                } else {
+                    $party_voting_summary = sprintf("%d votes, between %d–%d", $party_position['divisions'], $year_min, $year_max);
+                }
 
                 $score_diff = $this->calculatePolicyDiffScore($mp_score, $party_score);
 
@@ -393,7 +401,8 @@ class Member extends \MEMBER {
                     'score_difference' => $score_diff,
                     'person_position' => $details['position'],
                     'summary' => $details['summary'],
-                    'party_position' => $party_positions[$policy_id]['position'],
+                    'party_position' => $party_position['position'],
+                    'party_voting_summary' => $party_voting_summary,
                 ];
             }
         }

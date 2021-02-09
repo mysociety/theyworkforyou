@@ -2458,11 +2458,13 @@
           <field name="division_id">1</field>
           <field name="house">commons</field>
           <field name="division_title">A division</field>
+          <field name="division_date">2021-02-11</field>
       </row>
       <row>
           <field name="division_id">2</field>
           <field name="house">commons</field>
           <field name="division_title">A division</field>
+          <field name="division_date">2021-02-14</field>
       </row>
   </table_data>
   <table_data name="policydivisions">

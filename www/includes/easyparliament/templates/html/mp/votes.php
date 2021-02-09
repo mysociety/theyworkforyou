@@ -89,7 +89,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                                 if (isset($sorted_diffs[$policy_id]) && $sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1) {
                                     $diff = $sorted_diffs[$policy_id];
-                                    $party_voting_line = sprintf( 'Most current %s MPs %s.', $party, $diff['party_position']);
+                                    $party_voting_line = sprintf( 'Most current %s MPs %s (%s).', $party, $diff['party_position'], $diff['party_voting_summary']);
                                 } else {
                                     $party_voting_line = null;
                                 }

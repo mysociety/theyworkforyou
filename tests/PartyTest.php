@@ -39,6 +39,9 @@ class PartyTest extends FetchPageTestCase
                 'position' => 'almost always voted against',
                 'score' => '0.9',
                 'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
+                'divisions' => 0,
+                'date_min' => '0000-00-00',
+                'date_max' => '0000-00-00',
                 'policy_id' => 1113
             )
         );
@@ -72,12 +75,18 @@ class PartyTest extends FetchPageTestCase
                 'policy_id' => 810,
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
+                'divisions' => 1,
+                'date_min' => '2021-02-11',
+                'date_max' => '2021-02-11',
                 'desc' => 'greater <b>regulation of gambling</b>'
             ),
             '1113' => array(
                 'policy_id' => 1113,
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
+                'divisions' => 1,
+                'date_min' => '2021-02-11',
+                'date_max' => '2021-02-11',
                 'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
             ),
         );
@@ -87,9 +96,9 @@ class PartyTest extends FetchPageTestCase
 
     public function testCalculatePositionsPolicyAbsent() {
         $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
-        list($desc, $score) = $party->calculate_policy_position(900);
+        $data = $party->calculate_policy_position(900);
 
-        $this->assertEquals(-1, $score);
+        $this->assertEquals(-1, $data['score']);
     }
 
     public function testLabourCoOp() {
@@ -114,12 +123,18 @@ class PartyTest extends FetchPageTestCase
                 'policy_id' => 810,
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
+                'divisions' => 1,
+                'date_min' => '2021-02-11',
+                'date_max' => '2021-02-11',
                 'desc' => 'greater <b>regulation of gambling</b>'
             ),
             '1113' => array(
                 'policy_id' => 1113,
                 'position' => 'voted a mixture of for and against',
                 'score' => 0.5,
+                'divisions' => 1,
+                'date_min' => '2021-02-11',
+                'date_max' => '2021-02-11',
                 'desc' => 'an <b>equal number of electors</b> per parliamentary constituency',
             ),
         );
@@ -129,10 +144,10 @@ class PartyTest extends FetchPageTestCase
         $party = new MySociety\TheyWorkForYou\Party('Labour/Co-operative');
         $party->cache_position( $positions['810'] );
 
-        list($position, $score) = $party->policy_position(810);
+        $data = $party->policy_position(810);
         $expected = ('voted a mixture of for and against');
 
-        $this->assertEquals($expected, $position);
+        $this->assertEquals($expected, $data['position']);
     }
 
     private function getAllPositions($method, $party = 'A Party') {
