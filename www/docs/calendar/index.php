@@ -26,12 +26,8 @@ function calendar_summary() {
     $min_future_date = MySociety\TheyWorkForYou\Utility\Calendar::minFutureDate();
     if (!$min_future_date) {
         $this_page = 'calendar_future';
-        $PAGE->error_message('
-We don’t currently have any future information, as Parliament have switched to
-a new calendar system. You can <a href="https://calendar.parliament.uk/">view
-the Parliament calendar</a>, or explore our extensive archive using the search
-box above?
-');
+        $PAGE->error_message('We don&rsquo;t currently have any future information.
+Why not explore our extensive archive using the search box above?');
         $PAGE->page_end();
 
         return;
