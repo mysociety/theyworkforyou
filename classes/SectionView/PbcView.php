@@ -19,7 +19,10 @@ class PbcView extends SectionView {
 
     # Public Bill Committees have a somewhat different structure to the rest
     public function display() {
-        return $this->public_bill_committees();
+        $data = $this->public_bill_committees();
+        $data['location'] = $this->location;
+        $data['current_assembly'] = $this->assembly;
+        return $data;
     }
 
     protected function public_bill_committees() {

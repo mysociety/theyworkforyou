@@ -10,6 +10,8 @@ class SectionView {
     private $major_data;
     private $page_base;
     protected $index_template = '';
+    protected $location;
+    protected $assembly;
 
     public function __construct() {
         global $hansardmajors;
@@ -19,6 +21,10 @@ class SectionView {
             $this->class = "\\" . $this->class;
             $this->list = new $this->class();
         }
+
+        list($country, $location, $assembly) = $this->getCountryDetails();
+        $this->location = $location;
+        $this->assembly = $assembly;
     }
 
     public function display() {
@@ -47,9 +53,8 @@ class SectionView {
             $data = $this->addCommonData($data);
         }
 
-        list($country, $location, $assembly) = $this->getCountryDetails();
-        $data['location'] = $location;
-        $data['current_assembly'] = $assembly;
+        $data['location'] = $this->location;
+        $data['current_assembly'] = $this->assembly;
 
         return $data;
     }
@@ -116,12 +121,10 @@ class SectionView {
     }
 
     protected function getRecessMajor() {
-        global $hansardmajors;
-
         $recess_major = 1; # For all of UK Parliament
-        if ($hansardmajors[$this->major]['location'] == 'NI') {
+        if ($this->major_data['location'] == 'NI') {
             $recess_major = 5;
-        } elseif ($hansardmajors[$this->major]['location'] == 'Scotland') {
+        } elseif ($this->major_data['location'] == 'Scotland') {
             $recess_major = 4; # For all of Scotland
         } elseif ($this->major == 101) {
             $recess_major = 101; # Lords slightly different
@@ -236,8 +239,6 @@ class SectionView {
 
         list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
 
-        list($country, $location, $assembly) = $this->getCountryDetails();
-
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
         $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
@@ -259,7 +260,7 @@ class SectionView {
         $DATA->set_page_metadata($this_page, 'meta_description', sprintf(
             "%s %s%s %s",
             $data['intro'],
-            $location,
+            $this->location,
             $data['debate_time_human'] ? " at $data[debate_time_human]" : '',
             $data['debate_day_human']
         ));
