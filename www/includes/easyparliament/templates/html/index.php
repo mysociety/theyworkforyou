@@ -144,23 +144,12 @@
                                     <h3><?= $place ?></h3>
                                     <ul class="upcoming__list">
                                         <?php for ( $i = 0; $i < 3; $i++ ) {
-                                            if ( isset( $events[$i] ) ) { ?>
+                                            if ( isset( $events[$i] ) ) {
+                                                list($event_title, $meta_items) = MySociety\TheyWorkForYou\Utility\Calendar::meta($events[$i]);
+                                        ?>
                                         <li>
-                                            <h4 class="upcoming__title"><a href="<?= $events[$i]['link_external'] ?>"><?= $events[$i]['title'] ?></a></h4>
-                                            <p class="meta"><?php
-                                                $meta_items = array();
-                                                $meta_items[] = $events[$i]['debate_type'];
-                                                if( isset($events[$i]['time_start']) && $events[$i]['time_start'] != '00:00:00' ){
-                                                    $times = format_time($events[$i]['time_start'], 'g:i a');
-
-                                                    if( isset($events[$i]['time_end']) && $events[$i]['time_end'] != '00:00:00' ){
-                                                        $times = $times . ' - ' . format_time($events[$i]['time_end'], 'g:i a');
-                                                    }
-                                                    $meta_items[] = $times;
-                                                }
-                                                // Removes "empty" items, and joins them with a semicolon
-                                                echo implode('; ', array_filter($meta_items));
-                                            ?></p>
+                                            <h4 class="upcoming__title"><a href="<?= $events[$i]['link_calendar'] ?>"><?= $event_title ?></a></h4>
+                                            <p class="meta"><?= implode('; ', array_filter($meta_items)) ?></p>
                                         </li>
                                         <?php } ?>
                                         <?php } ?>
