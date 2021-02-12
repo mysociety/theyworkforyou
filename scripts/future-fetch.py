@@ -1,9 +1,11 @@
 #!/usr/bin/python
+# encoding: utf-8
 
+import json
 import os
 import sys
 import re
-from lxml import objectify
+import urllib2
 import MySQLdb
 
 import datetime
@@ -22,9 +24,24 @@ sys.path.append(os.path.normpath(config.get('PWMEMBERS') + '../pyscraper'))
 from resolvemembernames import memberList
 from lords.resolvenames import lordsList
 
-CALENDAR_URL = 'http://services.parliament.uk/calendar/all.rss'
+CALENDAR_LINK = 'https://whatson.parliament.uk/%(place)s/%(iso)s/'
+CALENDAR_BASE = 'https://whatson-api.parliament.uk/calendar/events/list.json?queryParameters.startDate=%(date)s'
 
 positions = {}
+
+
+def fetch_url(date):
+    data = CALENDAR_BASE % {'date': date}
+    data = urllib2.urlopen(data)
+    data = json.load(data)
+    return data
+
+def get_calendar_events():
+    date = datetime.date.today()
+    data = fetch_url(date)
+    data = sorted(data, key=lambda x: x['StartDate'] + x['StartTime'])
+    for event in data:
+        yield Entry(event)
 
 
 class Entry(object):
@@ -32,7 +49,7 @@ class Entry(object):
     modified = None
     deleted = 0
     link_calendar = None
-    link_external = None
+    link_external = ''
     body = 'uk'
     chamber = None
     event_date = None
@@ -45,78 +62,78 @@ class Entry(object):
     witnesses_str = ''
     location = ''
 
-    def __init__(self, entry):
-        event = entry['{http://services.parliament.uk/ns/calendar/feeds}event']
-        self.id = event.attrib['id']
-        self.deleted = 0
-        self.link_calendar = entry.guid
-        self.link_external = entry.link
-        chamber = event.chamber.text.strip()
-        self.chamber = '%s: %s' % (event.house.text.strip(), chamber)
-        self.event_date = event.date.text
-        self.time_start = getattr(event, 'startTime', None)
-        self.time_end = getattr(event, 'endTime', None)
+    def __init__(self, event):
+        house = event['House'] # Lords / Commons / Joint
+        chamber = event['Type'] # Select & Joint Committees, General Committee, Grand Committee, Main Chamber, Westminster Hall
 
-        committee_text = event.comittee.text
-        if committee_text:
-            committee_text = committee_text.strip()
-            if chamber in ('Select Committee', 'General Committee'):
-                self.committee_name = committee_text
-            elif committee_text != "Prime Minister's Question Time":
-                self.debate_type = committee_text
+        if chamber == 'Select & Joint Committees':
+            house_url = 'committees'
+            if house == 'Joint':
+                self.chamber = 'Joint Committee'
+            else:
+                self.chamber = '%s: Select Committee' % house
+        else:
+            self.chamber = '%s: %s' % (house, chamber)
+            house_url = house.lower()
+
+        # Two separate ID flows, for committees and not, it appears
+        # We only have the one primary key
+        self.id = event['Id']
+        if house_url == 'committees':
+            self.id += 1000000
+
+        self.event_date = event['StartDate'][0:10]
+        self.time_start = event['StartTime'] or None
+        self.time_end = event['EndTime'] or None
+        self.link_calendar = CALENDAR_LINK % {'place': house_url, 'iso': self.event_date}
+
+        if event['Category'] == "Prime Minister's Question Time":
+            self.debate_type = 'Oral questions'
+            self.title = event['Category']
+        else:
+            self.debate_type = event['Category']
+            self.title = event['Description'] or ''
+
+        committee = event['Committee']
+        if committee:
+            self.committee_name = committee['Description'] or ''
+            subject = (committee['Inquiries'] or [{}])[0].get('Description')
+            if subject and self.title:
+                self.title += ': ' + subject
+            elif subject:
+                self.title = subject
 
         self.people = []
-
-        title_text = event.inquiry.text
-        if title_text:
-            m = re.search(' - ([^-]*)$', title_text)
-            if m:
-                person_texts = [x.strip() for x in m.group(1).split('/')]
-
-                for person_text in person_texts:
-                    id, name, cons = memberList.matchfullnamecons(
-                        person_text, None, self.event_date
-                        )
-                    if not id:
-                        try:
-                            id = lordsList.GetLordIDfname(
-                                person_text, None, self.event_date
-                                )
-                        except:
-                            pass
-                    if id:
-                        self.people.append(
-                            int(id.replace('uk.org.publicwhip/person/', ''))
-                            )
-
-                if len(self.people) == len(person_texts):
-                    title_text = title_text.replace(' - ' + m.group(1), '')
-
-            self.title = title_text.strip()
-        elif committee_text == "Prime Minister's Question Time":
-            self.title = committee_text
+        for member in event['Members']:
+            id = str(member['Id'])
+            match = memberList.match_by_mnis(id, self.event_date)
+            if not match:
+                match = lordsList.match_by_mnis(id, self.event_date)
+            if match:
+		self.people.append(
+		    int(match['id'].replace('uk.org.publicwhip/person/', ''))
+		    )
 
         self.witnesses = []
-        witness_text = event.witnesses.text
-        if witness_text == 'This is a private meeting.':
-            self.title = witness_text
-        elif witness_text:
-            self.witnesses_str = witness_text.strip()
-            m = re.findall(r'\b(\w+ \w+ MP)', self.witnesses_str)
-            for mp in m:
-                id, name, cons = memberList.matchfullnamecons(
-                    mp, None, self.event_date
-                )
-                if not id:
-                    continue
-                pid = int(id.replace('uk.org.publicwhip/person/', ''))
-                mp_link = '<a href="/mp/?p=%d">%s</a>' % (pid, mp)
-                self.witnesses.append(pid)
-                self.witnesses_str = self.witnesses_str.replace(mp, mp_link)
+        witnesses_str = []
+        for activity in event['EventActivities'] or []:
+            for attendee in activity['Attendees']:
+                m = re.match(r'\b(\w+ \w+ MP)', attendee)
+                if m:
+                    mp = m.group(1)
+                    id, name, cons = memberList.matchfullnamecons(
+                        mp, None, self.event_date
+                    )
+                    if id:
+                        pid = int(id.replace('uk.org.publicwhip/person/', ''))
+                        mp_link = '<a href="/mp/?p=%d">%s</a>' % (pid, mp)
+                        self.witnesses.append(pid)
+                        witnesses_str.append(attendee.replace(mp, mp_link))
+                        continue
+                witnesses_str.append(attendee)
+        self.witnesses_str = '\n'.join(witnesses_str)
 
-        location_text = event.location.text
-        if location_text:
-            self.location = location_text.strip()
+        self.location = event['Location'] or ''
 
     def get_tuple(self):
         return (
@@ -207,8 +224,6 @@ db_connection = MySQLdb.connect(
 db_cursor = db_connection.cursor()
 
 
-parsed = objectify.parse(CALENDAR_URL)
-root = parsed.getroot()
 
 # Get the id's of entries from the future as the database sees it.
 # We'll delete ids from here as we go, and what's left will be things
@@ -216,9 +231,7 @@ root = parsed.getroot()
 db_cursor.execute('select id from future where event_date > CURRENT_DATE()')
 old_entries = set(db_cursor.fetchall())
 
-entries = root.channel.findall('item')
-for entry in entries:
-    new_entry = Entry(entry)
+for new_entry in get_calendar_events():
     id = new_entry.id
     event_date = new_entry.event_date
     positions[event_date] = positions.setdefault(event_date, 0) + 1
@@ -242,8 +255,8 @@ for entry in entries:
 
         # For some reason the time fields come out as timedelta rather that
         # time, so need converting.
-        old_tuple = (str(old_row[0]),) + \
-            old_row[1:6] + \
+        old_tuple = \
+            old_row[0:6] + \
             (old_row[6].isoformat(), ) + \
             ((datetime.datetime.min + old_row[7]).time().isoformat() if old_row[7] is not None else None,) + \
             ((datetime.datetime.min + old_row[8]).time().isoformat() if old_row[8] is not None else None,) + \
@@ -251,7 +264,7 @@ for entry in entries:
 
         new_tuple = new_entry.get_tuple()
 
-        if old_tuple != new_entry.get_tuple():
+        if old_tuple != new_tuple:
             new_entry.update()
 
         old_entries.discard((long(id),))
@@ -265,3 +278,5 @@ for entry in entries:
 db_cursor.executemany(
     'UPDATE future SET deleted=1 WHERE id=%s', tuple(old_entries)
     )
+
+db_connection.commit()

@@ -70,22 +70,17 @@ class Calendar
 
         if ($e['witnesses']) {
             print "<dd>";
-            print '<a href=" $e[link_calendar] "></a>';
-            print '<a href=" $e[link_external] "></a>';
-            print 'Witnesses: ' . $e['witnesses'];
+            print 'Witnesses: <ul><li>' . str_replace("\n", '<li>', $e['witnesses']) . '</ul>';
             print "</dd>\n";
         }
     }
 
     public static function meta($e) {
-        $private = false;
         if ($e['committee_name']) {
             $title = $e['committee_name'];
             if ($e['title'] == 'to consider the Bill') {
-            } elseif ($e['title'] && $e['title'] != 'This is a private meeting.') {
+            } elseif ($e['title']) {
                 $title .= ': ' . $e['title'];
-            } else {
-                $private = true;
             }
         } else {
             $title = $e['title'];
@@ -123,10 +118,6 @@ class Calendar
             if ($e['location']) {
                 $meta[] = $e['location'];
             }
-        }
-
-        if ($private) {
-            $meta[] = 'Private meeting';
         }
 
         return array($title, $meta);

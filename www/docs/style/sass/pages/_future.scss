@@ -1,0 +1,29 @@
+ul.future {
+    list-style-type: disc;
+    padding-left: 1.5em;
+}
+
+dl.future dt {
+    font-weight: normal;
+    margin-top: 0.5em;
+}
+dl.future dt.sc {
+    font-weight: bold;
+}
+
+dl.future dt span, ul.future li span, span.future_meta {
+    white-space: nowrap;
+    color: #666666;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+dl.future dt span.type {
+}
+dl.future dt span.meta {
+}
+
+dl.future dd {
+    margin: 0 0 0.5em 1.5em;
+    font-size: 0.85em;
+}

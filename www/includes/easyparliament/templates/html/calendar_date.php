@@ -10,10 +10,10 @@ $order = array(
     'Commons: General Committee',
     'Commons: Select Committee', 'Lords: Select Committee',
     'Lords: Grand Committee',
+    'Joint Committee',
 );
-$plural = array(0, 0, 0, 1, 1, 1, 0);
-$list   = array(1, 1, 1, 1, 0, 0, 1);
-$major  = array(1, 101, 2, 0, 0, 0, 0);
+$list   = array(1, 1, 1, 1, 0, 0, 1, 1);
+$major  = array(1, 101, 2, 6, 0, 0, 0, 0);
 
 # Content goes here
 foreach ($data['dates'] as $date => $day_events) {
@@ -21,15 +21,14 @@ foreach ($data['dates'] as $date => $day_events) {
         if (!array_key_exists($chamber, $day_events))
             continue;
         $events = $day_events[$chamber];
-        if ($plural[$i]) $chamber .= 's';
-        print "<h2 class='calendar'>$chamber";
+        print "<h2>$chamber";
         if (in_array($major[$i], $data['majors'])) {
             $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$major[$i]]['page_all']);
             $URL->insert( array( 'd' => $date ) );
             print ' &nbsp; <a href="' . $URL->generate() . '">See this day &rarr;</a>';
         }
         print "</h2>\n";
-        print $list[$i] ? "<ul class='calendar'>\n" : "<dl class='calendar'>\n";
+        print $list[$i] ? "<ul class='future'>\n" : "<dl class='future'>\n";
         foreach ($events as $event) {
             \MySociety\TheyWorkForYou\Utility\Calendar::displayEntry($event);
         }
