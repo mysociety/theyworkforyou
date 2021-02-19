@@ -41,7 +41,7 @@
                <?php } ?>
             </div>
             <div class="business-section__secondary">
-                <div class="business-section__what-is-this">
+                <div class="business-section__secondary__item">
                     <h3>What is this?</h3>
 
                     <p>This list contains votes from the House of Commons, House of Lords, Public Bill Committees, and the Scottish Parliament.</p>

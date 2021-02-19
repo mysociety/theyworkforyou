@@ -68,7 +68,7 @@
             </ul>
         </div>
         <div class="business-section__secondary">
-            <div class="business-section__what-is-this">
+            <div class="business-section__secondary__item">
                 <h3>What is this?</h3>
                 <?php include '_' . $section . '_desc.php'; ?>
             </div>
