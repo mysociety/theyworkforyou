@@ -20,7 +20,10 @@ if (is_numeric(get_http_var('id'))) {
 
     if ($COMMENT->exists() == false || !$COMMENT->visible()) {
         // This comment id didn't exist in the DB.
-        trigger_error("There is no annotation with an ID of '" . _htmlentities($comment_id) . "'.", E_USER_NOTICE);
+        $PAGE->error_message("There is no annotation with that ID");
+        $PAGE->stripe_end();
+        $PAGE->page_end();
+        exit;
     }
 
     // OK, we've got a valid comment ID.
