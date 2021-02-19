@@ -102,7 +102,7 @@
     }
 }
 
-.business-section__what-is-this {
+.business-section__secondary__item {
     h3 {
         color: $colour_grey;
         margin: 0;
@@ -111,6 +111,16 @@
     p {
         margin: 0.5em 0 0 0;
         font-size: 0.9em;
+    }
+}
+
+.business-section__secondary__item + .business-section__secondary__item,
+.business-section__secondary .calendar,
+.business-section__secondary .minisurvey {
+    margin-top: 2em;
+
+    @media (min-height: 700px) {
+        margin-top: 3em;
     }
 }
 
@@ -395,14 +405,5 @@ input.search-section__submit {
         label {
             margin-bottom: 0.5em;
         }
-    }
-}
-
-.calendar,
-.minisurvey {
-    margin-top: 2em;
-
-    @media (min-height: 700px) {
-        margin-top: 3em;
     }
 }

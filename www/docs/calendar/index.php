@@ -1,6 +1,7 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
+include_once INCLUDESPATH . "easyparliament/recess.php";
 
 $date = get_http_var('d');
 if (!$date || !preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
@@ -43,95 +44,121 @@ Why not explore our extensive archive using the search box above?');
 }
 
 function calendar_date($date) {
-    global $DATA, $this_page;
+    global $DATA, $this_page, $hansardmajors;
 
     $DATA->set_page_metadata($this_page, 'title', format_date($date, LONGERDATEFORMAT));
 
     $db = new ParlDB();
 
-    $data = array();
+    $data = array(
+        'date' => $date,
+    );
     $data['dates'] = MySociety\TheyWorkForYou\Utility\Calendar::fetchDate($date);
 
-    $data['majors'] = array();
+    $majors = array();
     if ($this_page == 'calendar_past') {
         $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = :date', array(
             ':date' => $date
             ));
         foreach ($q as $row) {
-            $data['majors'][] = $row['major'];
+            $majors[] = $row['major'];
         }
     }
 
-    include_once INCLUDESPATH . 'easyparliament/templates/html/calendar_date.php';
+    $data['order'] = array(
+        ['name'=>'Commons: Main Chamber', 'major'=>1, 'list'=>1],
+        ['name'=>'Lords: Main Chamber', 'major'=>101, 'list'=>1],
+        ['name'=>'Commons: Westminster Hall', 'major'=>2, 'list'=>1],
+        ['name'=>'Commons: General Committee', 'major'=>6, 'list'=>1],
+        ['name'=>'Commons: Select Committee', 'list'=>0],
+        ['name'=>'Lords: Select Committee', 'list'=>0],
+        ['name'=>'Lords: Grand Committee', 'list'=>1],
+        ['name'=>'Joint Committee', 'list'=>1],
+    );
+    foreach ($data['order'] as &$chamber) {
+        if (in_array($chamber['major'] ?? 0, $majors)) {
+            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$chamber['major']]['page_all']);
+            $URL->insert( array( 'd' => $date ) );
+            $chamber['url'] = $URL->generate();
+        }
+    }
+
+    $parent_page = $DATA->page_metadata($this_page, 'parent');
+
+    $data['title'] = $DATA->page_metadata($this_page, 'title');
+    $data['parent_title'] = $DATA->page_metadata($parent_page, 'title');
+
+    $data = sidebar_calendars($data);
+
+    $template = 'calendar/index';
+    MySociety\TheyWorkForYou\Renderer::output($template, $data);
 }
 
-# ---
-
-/*
-function calendar_past_date($date) {
-    global $PAGE, $DATA, $this_page, $hansardmajors;
-
-    $PAGE->set_hansard_headings(array('date'=>$date));
-    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
-    $nextprevdata = array();
+function sidebar_calendars($data) {
     $db = new ParlDB;
-    $hdate = $db->query("SELECT MIN(hdate) AS hdate FROM hansard WHERE hdate > '$date'")->first()['hdate'];
-    if ($hdate != NULL) {
-        $URL->insert( array( 'd'=>$hdate ) );
-        $title = format_date($hdate, SHORTDATEFORMAT);
-        $nextprevdata['next'] = array (
-            'hdate'         => $hdate,
-            'url'           => $URL->generate(),
-            'body'          => 'Next day',
-            'title'         => $title
-        );
+
+    $q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0')->first();
+    $min_future_date = $q['min'];
+    $max_future_date = $q['max'];
+    if (!$min_future_date || !$max_future_date) {
+        return;
     }
-    $hdate = $db->query("SELECT MAX(hdate) AS hdate FROM hansard WHERE hdate < '$date'")->first()['hdate'];
-    if ($hdate != NULL) {
-        $URL->insert( array( 'd'=>$hdate ) );
-        $title = format_date($hdate, SHORTDATEFORMAT);
-        $nextprevdata['prev'] = array (
-            'hdate'         => $hdate,
-            'url'           => $URL->generate(),
-            'body'          => 'Previous day',
-            'title'         => $title
-        );
-    }
-    #	$year = substr($date, 0, 4);
-    #	$URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[1]['page_year']);
-    #	$URL->insert(array('y'=>$year));
-    #	$nextprevdata['up'] = array (
-        #		'body'  => "All of $year",
-        #		'title' => '',
-        #		'url'   => $URL->generate()
-        #	);
-    $DATA->set_page_metadata($this_page, 'nextprev', $nextprevdata);
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-    include_once INCLUDESPATH . 'easyparliament/recess.php';
-    $time = strtotime($date);
-    $dayofweek = date('w', $time);
-    $recess = recess_prettify(date('j', $time), date('n', $time), date('Y', $time), 1);
-    if ($recess[0]) {
-        print '<p>The Houses of Parliament are in their ' . $recess[0] . ' at this time.</p>';
-    } elseif ($dayofweek == 0 || $dayofweek == 6) {
-        print '<p>The Houses of Parliament do not meet at weekends.</p>';
-    } else {
-        $data = array(
-            'date' => $date
-        );
-        foreach (array_keys($hansardmajors) as $major) {
-            $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$major]['page_all']);
-            $URL->insert(array('d'=>$date));
-            $data[$major] = array('listurl'=>$URL->generate());
-        }
-        major_summary($data);
-    }
-    $PAGE->stripe_end(array(
-        array (
-            'type' 	=> 'nextprev'
-        ),
+
+    list($firstyear, $firstmonth, $day) = explode('-', $min_future_date);
+    list($finalyear, $finalmonth, $day) = explode('-', $max_future_date);
+
+    $q =  $db->query("SELECT DISTINCT(event_date) AS event_date FROM future
+        WHERE event_date >= :firstdate
+        AND event_date <= :finaldate
+        AND deleted = 0
+        ORDER BY event_date ASC
+    ", array(
+        ':firstdate' => $firstyear . '-' . $firstmonth . '-01',
+        ':finaldate' => $finalyear . '-' . $finalmonth . '-31'
     ));
-    $PAGE->page_end();
+
+    $years = array();
+    if ($q->rows() > 0) {
+        foreach ($q as $row) {
+            list($year, $month, $day) = explode('-', $row['event_date']);
+            $month = intval($month);
+            $years[$year][$month][] = intval($day);
+        }
+
+        // If nothing happened on one month we'll have fetched nothing for it.
+        // So now we need to fill in any gaps with blank months.
+
+        // We cycle through every year and month we're supposed to have fetched.
+        // If it doesn't have an array in $years, we create an empty one for that
+        // month.
+        for ($y = intval($firstyear); $y <= $finalyear; $y++) {
+
+            if (!isset($years[$y])) {
+                $years[$y] = array(1=>array(), 2=>array(), 3=>array(), 4=>array(), 5=>array(), 6=>array(), 7=>array(), 8=>array(), 9=>array(), 10=>array(), 11=>array(), 12=>array());
+            } else {
+                // This year is set. Check it has all the months...
+                $minmonth = $y == $firstyear ? $firstmonth : 1;
+                $maxmonth = $y == $finalyear ? $finalmonth : 12;
+                for ($m = intval($minmonth); $m <= $maxmonth; $m++) {
+                    if (!isset($years[$y][$m])) {
+                        $years[$y][$m] = array();
+                    }
+                }
+                ksort($years[$y]);
+            }
+        }
+    }
+    $data['years'] = $years;
+
+    # Extra things calendar include needs
+    $data['info'] = [
+        'onday' => $data['date'],
+    ];
+    $data['recess_major'] = 1; # good enough
+    $data['section'] = 'calendar';
+    $data['urls'] = [
+        'calendarday' => new \MySociety\TheyWorkForYou\Url('calendar_future'),
+    ];
+
+    return $data;
 }
-*/
