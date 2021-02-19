@@ -977,7 +977,7 @@ $this->page = array (
     'userjoin' => array (
                 'menu'                  => array (
                         'text'                  => 'Join',
-                        'title'                 => "Joining is free and allows you to annotate speeches"
+                        'title'                 => "Joining is free and allows you to manage your email alerts"
                 ),
                 'pg'                    => 'join',
                 'sidebar'               => 'userjoin',
@@ -997,7 +997,7 @@ $this->page = array (
     'userlogin' => array (
         'menu'			=> array (
             'text'			=> 'Sign in',
-            'title'			=> "If you've already joined , sign in to add annotations"
+            'title'			=> "If you've already joined , sign in to your account"
         ),
         'sidebar'		=> 'userlogin',
         'title'			=> 'Sign in',
