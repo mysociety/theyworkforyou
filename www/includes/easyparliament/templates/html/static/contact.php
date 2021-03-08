@@ -2,40 +2,23 @@
     <div class="full-page__row">
         <div class="panel">
             <h1>Who do you want to contact?</h1>
-
-            <h2>Contact your MP, MSP or MLA</h2>
-
-            <p>Use <a href="https://www.writetothem.com">WriteToThem</a> to contact your MP or MLA.</p>
-
-            <h2>Contact a Lord</h2>
-            <p>Use <a href="https://www.writetothem.com/lords">WriteToThem Lords</a> to contact a lord.</p>
-
-            <h2>Contact the TheyWorkForYou team</h2>
-
+            <h2>I need help</h2>
             <p>
-            Tell us about any problems you've had with the site &mdash; but first, check our
-            <a href="/help/">FAQs</a> to see if your answer is there.
+            The politicians we cover on this website have a duty to help their constituents resolve problems.
             </p>
-
             <p>
-            It probably is: we reckon they cover about 90% of our normal postbag &mdash; so
-            give them a read, and you'll likely save yourself some time.
+            Contact your MP, councillors or regional representatives via <a href="https://www.writetothem.com">WriteToThem.com</a>.
             </p>
-
+            <h2>I have feedback about this website</h2>
             <p>
-            Also: please remember that <strong>we are not your MP</strong>.<br>
-            But we do provide a nifty service through which you can contact your MP: <a title="WriteToThem" href="https://www.writetothem.com">click here</a>.
+            Check our <a href="/help/">FAQs</a> first; your question might be answered there.
             </p>
-
             <p>
-            Right! You've read the FAQs and you definitely want to contact TheyWorkForYou's
-            technical support team? And not your MP? Good. You can mail us on
-            <a href="mailto:support@theyworkforyou.com">support@theyworkforyou.com</a>
+            If not, TheyWorkForYou's technical support team can be contacted on
+            <a href="mailto:support@theyworkforyou.com">support@theyworkforyou.com</a>.
             </p>
-
             <p>
-            If you are a journalist you might find what you need <a href="https://www.mysociety.org/press/">in our press area</a>. Or you can
-            get in touch with our press contact via <a href="mailto:press@mysociety.org">press@mysociety.org</a>.
+            We can only help you with this website - <b>this email will not go to your MP</b>.
             </p>
         </div>
     </div>
