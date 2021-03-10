@@ -152,7 +152,20 @@ class Subscription {
         if ($form_data['stripeToken']) {
             $cust_params['source'] = $form_data['stripeToken'];
         }
-        $obj = $this->api->createCustomer($cust_params);
+
+        # At the point the customer is created, details such as postcode and
+        # security code can be checked, and therefore fail
+        try {
+            $obj = $this->api->createCustomer($cust_params);
+        } catch (\Stripe\Error\Card $e) {
+            $body = $e->getJsonBody();
+            $err  = $body['error'];
+            $error = 'Sorry, we could not process your payment, please try again. ';
+            $error .= 'Our payment processor returned: ' . $err['message'];
+            unset($_POST['stripeToken']); # So card form is shown again
+            return [ $error ];
+        }
+
         $customer = $obj->id;
 
         if (!$form_data['stripeToken'] && !($form_data['plan'] == $this::$plans[0] && $form_data['coupon'] == 'charitable100')) {
@@ -263,7 +276,7 @@ class Subscription {
         if ($this->stripe) {
             $this->update_subscription($form_data);
         } else {
-            $this->add_subscription($form_data);
+            return $this->add_subscription($form_data);
         }
     }
 

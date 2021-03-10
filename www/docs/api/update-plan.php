@@ -19,8 +19,10 @@ if (get_http_var('plan')) {
 
     $errors = $subscription->checkForErrors();
     if (!$errors) {
-        $subscription->createOrUpdateFromForm();
-        redirect('/api/key?updated=1');
+        $errors = $subscription->createOrUpdateFromForm();
+        if (!$errors) {
+            redirect('/api/key?updated=1');
+        }
     }
 }
 

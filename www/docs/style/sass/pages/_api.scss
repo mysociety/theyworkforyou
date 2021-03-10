@@ -1,3 +1,19 @@
+.account-form__errors {
+    color: red;
+    background-color: mix(red, #fff, 10%);
+    border-radius: 0.3em;
+    padding: 0.5em 1em;
+    margin: 1em 0;
+
+    .errorlist {
+        margin: 0;
+        padding: 0;
+
+        li {
+            list-style: none;
+        }    }
+}
+
 .account-form__field--error {
     color: #f00;
     label {

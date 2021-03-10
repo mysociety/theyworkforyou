@@ -22,15 +22,15 @@ function rdio($name, $value, $text, $id, $required = false, $checked = false) {
 <h2><?= $stripe ? "Change plan" : "Subscribe to a plan" ?></h2>
 
 <?php if ($errors && $stripeToken) { ?>
-  <div class="account-form__errors">
+  <p class="account-form__errors">
     We have safely stored your payment information, and you have not yet been charged.
     Please correct the issues below, you will not need to reenter your card details.
-  </div>
+  </p>
 <?php } ?>
 
 <?php
 if ($errors) {
-    print "<ul>";
+    print "<ul class='account-form__errors'>";
     foreach ($errors as $error) {
         print "<li>$error</li>";
     }
