@@ -97,8 +97,11 @@
     }
 
     .rss-feed {
-        margin-top: 2em;
         font-size: 0.8em;
+    }
+
+    .calendar {
+        margin: 1em 0 2em 0;
     }
 }
 
@@ -114,9 +117,7 @@
     }
 }
 
-.business-section__secondary__item + .business-section__secondary__item,
-.business-section__secondary .calendar,
-.business-section__secondary .minisurvey {
+.business-section__secondary__item + .business-section__secondary__item {
     margin-top: 2em;
 
     @media (min-height: 700px) {
