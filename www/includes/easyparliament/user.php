@@ -226,12 +226,12 @@ class USER {
 
             $token = substr( password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16 );
 
-            // Full stops don't work well at the end of URLs in emails,
-            // so replace them. We won't be doing anything clever with the hash
+            // Full stops don't work well at the end of URLs in emails, so
+            // replace them. And double slash would be treated as single and
+            // not work either. We won't be doing anything clever with the hash
             // stuff, just need to match this token.
-
-            $this->registrationtoken = strtr($token, '.', 'X');
-            $this->registrationtoken = strtr($token, '/', 'x');
+            $token = strtr($token, './', 'Xx');
+            $this->registrationtoken = $token;
 
             // Add that to the DB.
             $r = $this->db->query("UPDATE users
