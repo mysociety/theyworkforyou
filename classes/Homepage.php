@@ -155,21 +155,7 @@ class Homepage {
     }
 
     private function getCalendarData() {
-        $date = date('Y-m-d');
-        $q = $this->db->query("SELECT * FROM future
-            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
-            WHERE event_date >= :date
-            AND deleted = 0
-            ORDER BY event_date, chamber, pos",
-            array( ':date' => $date )
-        );
-
-        $data = array();
-        foreach ($q as $row) {
-            $data[$row['event_date']][$row['chamber']][] = $row;
-        }
-
-        return $data;
+        return Utility\Calendar::fetchFuture();
     }
 
 }

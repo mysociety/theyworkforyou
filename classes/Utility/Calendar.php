@@ -17,6 +17,20 @@ class Calendar
         return $q['m'];
     }
 
+    public static function fetchFuture() {
+        $date = date('Y-m-d');
+        $db = new \ParlDB();
+        $q = $db->query("SELECT * FROM future
+            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+            WHERE event_date >= :date
+            AND deleted = 0
+            ORDER BY event_date, chamber, pos",
+            array( ':date' => $date )
+        );
+
+        return self::tidyData($q);
+    }
+
     public static function fetchDate($date) {
         global $DATA, $PAGE, $this_page;
         $db = new \ParlDB();
@@ -39,6 +53,10 @@ class Calendar
 
         $DATA->set_page_metadata($this_page, 'date', $date);
 
+        return self::tidyData($q);
+    }
+
+    private static function tidyData($q) {
         $data = array();
         $seen = array();
         $people = array();
@@ -57,7 +75,6 @@ class Calendar
             $data[$row['event_date']][$row['chamber']][] = $row;
             $seen[$row['id']] = true;
         }
-
         return $data;
     }
 
