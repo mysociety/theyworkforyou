@@ -40,8 +40,22 @@ class Calendar
         $DATA->set_page_metadata($this_page, 'date', $date);
 
         $data = array();
+        $seen = array();
+        $people = array();
         foreach ($q as $row) {
+            if ($row['person_id']) {
+                $people[$row['id']][] = $row['person_id'];
+            }
+        }
+        foreach ($q as $row) {
+            if (isset($seen[$row['id']])) {
+                continue;
+            }
+            if (isset($people[$row['id']])) {
+                $row['person_id'] = $people[$row['id']];
+            }
             $data[$row['event_date']][$row['chamber']][] = $row;
+            $seen[$row['id']] = true;
         }
 
         return $data;
@@ -84,10 +98,12 @@ class Calendar
             }
         } else {
             $title = $e['title'];
-            if ($pid = $e['person_id']) {
-                $MEMBER = new \MEMBER(array( 'person_id' => $pid ));
-                $name = $MEMBER->full_name();
-                $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
+            if ($pids = $e['person_id']) {
+                foreach ($pids as $pid) {
+                    $MEMBER = new \MEMBER(array( 'person_id' => $pid ));
+                    $name = $MEMBER->full_name();
+                    $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
+                }
             }
         }
 
