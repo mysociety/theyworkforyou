@@ -1097,13 +1097,13 @@ class HANSARDLIST {
             if (strstr($gid, 'calendar')) {
                 $id = fix_gid_from_db($gid);
 
-                $itemdata = $this->db->query("SELECT *, event_date as hdate, pos as hpos
-                    FROM future
-                    LEFT JOIN future_people ON id=calendar_id AND witness=0
-                    WHERE id = $id AND deleted=0")->first();
+                $itemdata = \MySociety\TheyWorkForYou\Utility\Calendar::fetchItem($id);
                 if (!$itemdata) {
                     continue;
                 }
+                $itemdata = array_pop($itemdata); # day
+                $itemdata = array_pop($itemdata); # chamber
+                $itemdata = array_pop($itemdata); # event
 
                 # Ignore past events in places that we cover (we'll have the data from Hansard)
                 if ($itemdata['event_date'] < date('Y-m-d') &&

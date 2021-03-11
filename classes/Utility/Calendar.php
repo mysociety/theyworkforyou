@@ -56,6 +56,15 @@ class Calendar
         return self::tidyData($q);
     }
 
+    public static function fetchItem($id) {
+        $db = new \ParlDB();
+        $q = $db->query("SELECT *, event_date as hdate, pos as hpos
+            FROM future
+            LEFT JOIN future_people ON id=calendar_id AND witness=0
+            WHERE id = $id AND deleted=0");
+        return self::tidyData($q);
+    }
+
     private static function tidyData($q) {
         $data = array();
         $seen = array();
