@@ -68,14 +68,16 @@
             </ul>
         </div>
         <div class="business-section__secondary">
-            <div class="business-section__what-is-this">
+            <div class="business-section__secondary__item">
                 <h3>What is this?</h3>
                 <?php include '_' . $section . '_desc.php'; ?>
             </div>
-            <?php
-                include '_calendar_section.php';
-                include( dirname(__FILE__) . '/../sidebar/looking_for.php' );
-            ?>
+            <div class="business-section__secondary__item">
+                <?php include '_calendar_section.php'; ?>
+            </div>
+            <div class="business-section__secondary__item">
+                <?php include( dirname(__FILE__) . '/../sidebar/looking_for.php' ); ?>
+            </div>
         </div>
       <?php } else { ?>
         <div class="business-section__primary">

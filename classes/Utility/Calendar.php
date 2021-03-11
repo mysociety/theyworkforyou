@@ -40,8 +40,22 @@ class Calendar
         $DATA->set_page_metadata($this_page, 'date', $date);
 
         $data = array();
+        $seen = array();
+        $people = array();
         foreach ($q as $row) {
+            if ($row['person_id']) {
+                $people[$row['id']][] = $row['person_id'];
+            }
+        }
+        foreach ($q as $row) {
+            if (isset($seen[$row['id']])) {
+                continue;
+            }
+            if (isset($people[$row['id']])) {
+                $row['person_id'] = $people[$row['id']];
+            }
             $data[$row['event_date']][$row['chamber']][] = $row;
+            $seen[$row['id']] = true;
         }
 
         return $data;
@@ -70,29 +84,26 @@ class Calendar
 
         if ($e['witnesses']) {
             print "<dd>";
-            print '<a href=" $e[link_calendar] "></a>';
-            print '<a href=" $e[link_external] "></a>';
-            print 'Witnesses: ' . $e['witnesses'];
+            print 'Witnesses: <ul><li>' . str_replace("\n", '<li>', $e['witnesses']) . '</ul>';
             print "</dd>\n";
         }
     }
 
     public static function meta($e) {
-        $private = false;
         if ($e['committee_name']) {
             $title = $e['committee_name'];
             if ($e['title'] == 'to consider the Bill') {
-            } elseif ($e['title'] && $e['title'] != 'This is a private meeting.') {
+            } elseif ($e['title']) {
                 $title .= ': ' . $e['title'];
-            } else {
-                $private = true;
             }
         } else {
             $title = $e['title'];
-            if ($pid = $e['person_id']) {
-                $MEMBER = new \MEMBER(array( 'person_id' => $pid ));
-                $name = $MEMBER->full_name();
-                $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
+            if ($pids = $e['person_id']) {
+                foreach ($pids as $pid) {
+                    $MEMBER = new \MEMBER(array( 'person_id' => $pid ));
+                    $name = $MEMBER->full_name();
+                    $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
+                }
             }
         }
 
@@ -123,10 +134,6 @@ class Calendar
             if ($e['location']) {
                 $meta[] = $e['location'];
             }
-        }
-
-        if ($private) {
-            $meta[] = 'Private meeting';
         }
 
         return array($title, $meta);
