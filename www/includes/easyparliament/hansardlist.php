@@ -2071,7 +2071,7 @@ class HANSARDLIST {
             return $this->speakers["$person_id-$hdate"];
         }
 
-        # Special exemptions for people 'speaking' after they have died
+        # Special exemptions for people 'speaking' after they have left
         # Note identical code to this in search/index.pl
         if ($person_id == 10170 && $hdate == '2014-09-08') {
             $hdate = '2014-09-07';
@@ -2079,6 +2079,8 @@ class HANSARDLIST {
             $hdate = '2008-08-13';
         } elseif ($person_id == 25394 && $hdate == '2016-07-01') {
             $hdate = '2016-06-16';
+        } elseif ($person_id == 10599 && substr($hdate, 0, 7) == '2021-02') {
+            $hdate = '2021-02-19';
         }
 
         # check for a person redirect

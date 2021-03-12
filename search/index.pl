@@ -365,11 +365,12 @@ sub get_person {
     # Map in any redirects.
     $person_id = $personredirect{$person_id} || $person_id;
 
-    # Special exemptions for people 'speaking' after they have died
+    # Special exemptions for people 'speaking' after they have left
     # Note identical code to this in hansardlist.php
     $hdate = '20140907' if $person_id == 10170 && $hdate eq '20140908';
     $hdate = '20080813' if $person_id == 11068 && substr($hdate, 0, 6) eq '200809';
     $hdate = '20160616' if $person_id == 25394 && $hdate eq '20160701';
+    $hdate = '20210219' if $person_id == 10599 && substr($hdate, 0, 6) eq '202102';
 
     my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {
