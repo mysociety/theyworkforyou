@@ -43,7 +43,7 @@ foreach($data['rows'] as $speech) { ?>
 
         preg_match_all('#<p[^>]* pwmotiontext="yes">.*?</p>#s', $body, $m);
         foreach ($m as $rrr) {
-            $begtomove = preg_replace('#(That this House |; )(\w+)#', '\1<br><strong>\2</strong>', $rrr);
+            $begtomove = preg_replace('#(That this House |[^0-9]; )(\w+)#', '\1<br><strong>\2</strong>', $rrr);
             $body = str_replace($rrr, $begtomove, $body);
         }
 
