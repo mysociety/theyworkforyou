@@ -1467,7 +1467,7 @@ sub add_standing_day {
             return if defined $ignorehistorygids{$_->att('id')};
 
             my $commhead = $_->sprint(1) =~ /(Standing Committee [A-H]|Special Standing Committee|Second Reading Committee)\s*$/;
-            if ($_->sprint(1) =~ /^\s*Public Bill Commit?tee\s*$/) {
+            if ($_->sprint(1) =~ /^\s*(Public Bill Commit?tee|Select Committee on the Armed Forces Bill)\s*$/) {
                 # All PBCs have a <bill>
                 add_standing_title($_, $bill, $bill_id, @preheadingspeech);
                 $majorheadingstate = 9; # No more headings
