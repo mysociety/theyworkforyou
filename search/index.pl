@@ -6,7 +6,7 @@
 use strict;
 use Carp;
 use File::Basename;
-use Search::Xapian qw(:standard);
+use Xapian qw(:standard);
 use HTML::Parser;
 use HTML::Entities;
 use FindBin;
@@ -86,11 +86,11 @@ if ($section && $section eq 'cronquiet') {
 }
 
 # Open Xapian database
-my $stemmer = new Search::Xapian::Stem('english');
-my $db = Search::Xapian::WritableDatabase->new($dbfile, Search::Xapian::DB_CREATE_OR_OPEN);
-my $termgenerator = new Search::Xapian::TermGenerator();
+my $stemmer = new Xapian::Stem('english');
+my $db = Xapian::WritableDatabase->new($dbfile, Xapian::DB_CREATE_OR_OPEN);
+my $termgenerator = new Xapian::TermGenerator();
 
-$termgenerator->set_flags(Search::Xapian::FLAG_SPELLING);
+$termgenerator->set_flags(Xapian::FLAG_SPELLING);
 $termgenerator->set_database($db);
 $termgenerator->set_stemmer($stemmer);
 # $termgenerator->set_stopper();
@@ -118,7 +118,8 @@ my %major_to_house = (
 # Be aware of redirected persons - code similar to xml2db.pl
 my %personredirect;
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
-my $j = decode_json(read_file($pwmembers . 'people.json'));
+my $j_members = read_file($pwmembers . 'people.json');
+my $j = decode_json($j_members);
 foreach (@{$j->{persons}}) {
     next unless $_->{redirect};
     (my $id = $_->{id}) =~ s#uk.org.publicwhip/person/##;
@@ -187,7 +188,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         my $dept = $$row{section_body} || '';
         $dept =~ s/[^a-z]//gi;
 
-        my $doc = new Search::Xapian::Document();
+        my $doc = new Xapian::Document();
         $termgenerator->set_document($doc);
 
         $doc->set_data($gid);
@@ -204,9 +205,9 @@ if ($action ne "check" && $action ne 'checkfull') {
 
         # For sort by date (although all wrans have same time of 00:00, no?)
         $doc->add_value(0, pack('N', $date+0) . pack('N', $htime+0));
-        # XXX lenny Search::Xapian doesn't have sortable_serialise
+        # XXX lenny Xapian doesn't have sortable_serialise
         #my $datetimenum = "$date$htime";
-        #$doc->add_value(0, Search::Xapian::sortable_serialise($datetimenum+0));
+        #$doc->add_value(0, Xapian::sortable_serialise($datetimenum+0));
         $doc->add_value(1, $date); # For date range searches
         $doc->add_value(2, pack('N', $$row{'created'}) . pack('N', $$row{'hpos'})); # For email alerts
         $doc->add_value(3, $subsection_or_id); # For collapsing on segment
@@ -251,7 +252,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         my $date = $row->{event_date};
         $date =~ s/-//g;
 
-        my $doc = new Search::Xapian::Document();
+        my $doc = new Xapian::Document();
         $termgenerator->set_document($doc);
 
         $doc->set_data($xid);

@@ -287,6 +287,7 @@ class Header
 
             // What gets displayed for this page.
             $menudata = $DATA->page_metadata($toppage, 'menu');
+            if(!$menudata) continue;
             $text = $menudata['text'];
             $title = $menudata['title'];
             if (!$title) continue;

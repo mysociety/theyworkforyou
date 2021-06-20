@@ -274,7 +274,8 @@ sub process_type {
 
 # Load member->person data
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
-my $j = decode_json(read_file($pwmembers . 'people.json'));
+my $j_members = read_file($pwmembers . 'people.json');
+my $j = decode_json($j_members);
 foreach (@{$j->{memberships}}) {
     next if $_->{redirect};
     (my $person_id = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
