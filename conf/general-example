@@ -25,6 +25,14 @@ if (!defined('OPTION_TWFY_DB_PORT')) {
     define ("OPTION_TWFY_DB_PORT", 3306);
 }
 
+if (!defined('OPTION_TWFY_MEMCACHED_HOST')) {
+  define('OPTION_TWFY_MEMCACHED_HOST', 'twfy-memcached');
+}
+
+if (!defined('OPTION_TWFY_MEMCACHED_PORT')) {
+  define('OPTION_TWFY_MEMCACHED_PORT', '11211');
+}
+
 // Parliamentary video database (we use PostgreSQL for this)
 define ('OPTION_BBC_DB_HOST', 'host');
 define ('OPTION_BBC_DB_PORT', 'port');
@@ -74,8 +82,8 @@ define ("DEBUGTAG", 'debug');
 define ("TIMEZONE", "Europe/London");
 
 // XML files and other scraped data stored as files
-define ("RAWDATA", "/home/twfy/pwdata/");
-define ('PWMEMBERS', '/home/twfy/parlparse/members/');
+define ("RAWDATA", "/twfy/data/raw");
+define ('PWMEMBERS', '/twfy/data/members/');
 
 define('DISSOLUTION_DATE', '');
 
@@ -103,7 +111,7 @@ define ("METADATAPATH", BASEDIR . "/../includes/easyparliament/metadata.php");
 // Location of the directory that is the Xapian search database.
 // To use the Xapian remote backend, specify server:port.
 // If non-empty will use XAPIAN search.
-define ("XAPIANDB", "");
+define ("XAPIANDB", "/twfy/data/xapian");
 // To keep changesets when the indexer runs, set a value here.
 // See https://xapian.org/docs/replication.html
 define ("XAPIAN_MAX_CHANGESETS", "");

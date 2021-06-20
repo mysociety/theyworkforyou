@@ -2,13 +2,13 @@
   ServerName 10.11.12.13
 
   ## Vhost docroot
-  DocumentRoot "/vagrant/theyworkforyou/www/docs"
+  DocumentRoot "/twfy/www/docs"
 
 
 
   ## Directories, there should at least be a declaration for /vagrant/www/docs
 
-  <Directory "/vagrant/theyworkforyou/www/docs">
+  <Directory "/twfy/www/docs">
     Options Indexes FollowSymlinks MultiViews
     AllowOverride All
     Order allow,deny
@@ -28,7 +28,7 @@
 
 
   ## Custom fragment
-Include /vagrant/theyworkforyou/conf/httpd.conf
+Include /twfy/conf/httpd.conf
 
 
 
