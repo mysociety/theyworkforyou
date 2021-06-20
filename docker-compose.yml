@@ -1,0 +1,45 @@
+version: '3.3'
+services:
+    twfy-web:
+        image: twfy
+        build: .
+        #        volumes:
+        #  - .:/twfy
+        depends_on:
+          - twfy-db
+          - twfy-memcached
+        ports:
+            - "1215:80"
+        volumes:
+            - type: bind
+              source: ./data/raw
+              target: /twfy/data
+            - type: bind
+              source: ./data/members
+              target: /twfy/data/members
+            - type: bind
+              source: ./xapian-data
+              target: /twfy/data/xapian
+    twfy-db:
+        image: mariadb:latest
+        ports:
+          - 3306:3306
+        command: '--default-authentication-plugin=mysql_native_password'
+        environment:
+          - MARIADB_ROOT_PASSWORD=topsecret
+          - MARIADB_DATABASE=theyworkforyou
+          - MARIADB_USER=twfy
+          - MARIADB_PASSWORD=middlesecret
+        volumes:
+          - type: bind
+            source: ./db/schema.sql
+            target: /docker-entrypoint-initdb.d/schema.sql
+          - type: volume
+            source: db-twfy
+            target: /var/lib/mysql
+    twfy-memcached:
+        image: memcached:1.6-alpine
+        ports:
+            - 11211:11211
+volumes:
+    db-twfy:
