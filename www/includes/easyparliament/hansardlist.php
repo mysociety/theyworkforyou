@@ -2083,6 +2083,11 @@ class HANSARDLIST {
             $hdate = '2021-02-19';
         }
 
+        # London questions answered after election
+        if ($major == 9 && ($hdate == '2021-05-11' || $hdate == '2021-05-10')) {
+            $hdate = '2021-05-07';
+        }
+
         # check for a person redirect
         $q = $this->db->query("SELECT gid_to FROM gidredirect
                 WHERE gid_from = :gid_from",
