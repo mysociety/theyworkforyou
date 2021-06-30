@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+  DocumentRoot "/twfy/www/docs"
+
+  <Directory "/twfy/www/docs">
+    Options Indexes FollowSymlinks MultiViews
+    Require all granted
+  </Directory>
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+  ## Custom fragment
+  Include /twfy/conf/httpd.conf
+
+</VirtualHost>
+

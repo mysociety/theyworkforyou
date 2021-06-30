@@ -1,0 +1,38 @@
+---
+version: '3.9'
+
+services:
+
+  twfy:
+    build:
+      context: .
+    depends_on:
+      - mariadb
+      - memcache
+    entrypoint: /twfy/bin/docker-entrypoint.sh
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/twfy
+      - xapian:/twfy/searchdb
+
+  mariadb:
+    image: mariadb:10.3
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: '1'
+      MARIADB_USER: twfy
+      MARIADB_PASSWORD: password
+      MARIADB_DATABASE: twfy
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - db:/var/lib/mysql
+
+  memcache:
+    image: memcached:1.6-alpine
+
+volumes:
+  db:
+  xapian:
+
+
+
