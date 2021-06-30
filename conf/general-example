@@ -25,6 +25,14 @@ if (!defined('OPTION_TWFY_DB_PORT')) {
     define ("OPTION_TWFY_DB_PORT", 3306);
 }
 
+if (!defined('OPTION_TWFY_MEMCACHED_HOST')) {
+  define ("OPTION_TWFY_MEMCACHED_HOST", "localhost");
+}
+
+if (!defined('OPTION_TWFY_MEMCACHED_PORT')) {
+  define ("OPTION_TWFY_MEMCACHED_PORT", 11211);
+}
+
 // Parliamentary video database (we use PostgreSQL for this)
 define ('OPTION_BBC_DB_HOST', 'host');
 define ('OPTION_BBC_DB_PORT', 'port');

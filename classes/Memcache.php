@@ -16,10 +16,10 @@ class Memcache {
         if (!self::$memcache) {
             if (class_exists('\Memcached')) {
                 self::$memcache = new \Memcached;
-                self::$memcache->addServer('localhost', 11211);
+                self::$memcache->addServer(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
             } else {
                 self::$memcache = new \Memcache;
-                self::$memcache->connect('localhost', 11211);
+                self::$memcache->connect(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
             }
         }
     }
