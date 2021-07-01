@@ -19,6 +19,7 @@ services:
 
   mariadb:
     image: mariadb:10.3
+    command: '--sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"'
     environment:
       MARIADB_RANDOM_ROOT_PASSWORD: '1'
       MARIADB_USER: twfy
