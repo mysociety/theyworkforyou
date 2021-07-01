@@ -4,6 +4,7 @@ version: '3.9'
 services:
 
   twfy:
+    image: theyworkforyou
     build:
       context: .
     depends_on:
