@@ -83,7 +83,7 @@ define ("TIMEZONE", "Europe/London");
 
 // XML files and other scraped data stored as files
 define ("RAWDATA", "/home/twfy/pwdata/");
-define ('PWMEMBERS', '/home/twfy/parlparse/members/');
+define ("PWMEMBERS", "/home/twfy/parlparse/members/");
 
 define('DISSOLUTION_DATE', '');
 
