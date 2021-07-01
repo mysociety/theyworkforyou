@@ -5,6 +5,7 @@ liberror-perl
 libfile-slurp-unicode-perl
 libhtml-parser-perl
 libjson-perl
+libjson-xs-perl
 libmagickcore-6.q16-3-extra
 libmailtools-perl
 libmime-tools-perl

@@ -16,6 +16,7 @@ RUN apt-get -qq update && apt-get -qq install \
       libhtml-parser-perl \
       libmagickcore-6.q16-3-extra \
       libjson-perl \
+      libjson-xs-perl \
       libmailtools-perl \
       libmime-tools-perl \
       libsearch-xapian-perl \
