@@ -1,45 +1,32 @@
 FROM mysocietyorg/debian:buster
 
-# This includes everything from `conf/packages`, plus some extras
-# needed for building the composer and bundler packages
+# Apache.
 RUN apt-get -qq update && apt-get -qq install \
       apache2 \
+      libapache2-mod-php \
+    --no-install-recommends && \
+    rm -r /var/lib/apt/lists/*
+
+# Build dependencies that weren't in `conf/packages`
+RUN apt-get -qq update && apt-get -qq install \
       bundler \
       gcc \
-      libapache2-mod-php \
       libc6-dev \
-      libdbd-mysql-perl \
-      libemail-localdelivery-perl \
-      liberror-perl \
       libffi-dev \
-      libfile-slurp-unicode-perl \
-      libhtml-parser-perl \
-      libmagickcore-6.q16-3-extra \
-      libjson-perl \
-      libjson-xs-perl \
-      libmailtools-perl \
-      libmime-tools-perl \
-      libsearch-xapian-perl \
-      libxml-rss-perl \
-      libxml-twig-perl \
-      libyaml-perl \
       make \
-      php-cli \
-      php-curl \
-      php-imagick \
-      php-json \
-      php-mbstring \
-      php-memcache \
-      php-mysql \
       php-xml \
       php-zip \
-      php7-xapian \
-      python-lxml \
-      python-mysqldb \
       ruby-dev \
-      snarf \
       unzip \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    --no-install-recommends && \
+    rm -r /var/lib/apt/lists/*
+
+# `conf/packages` - do last, so changes to runtime dependencies
+# don't invalidate caches for the above.
+COPY conf/packages /tmp/packages
+RUN  apt-get update -qq && \
+      xargs -a /tmp/packages apt-get install -qq --no-install-recommends && \
+      rm -r /var/lib/apt/lists/*
 
 # Apache - enable some modules redirect output to STDOUT/STDERR
 RUN /usr/sbin/a2enmod expires rewrite && \
