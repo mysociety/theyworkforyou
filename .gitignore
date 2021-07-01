@@ -15,3 +15,5 @@ puphpet/files/dot/ssh
 
 www/docs/rss/*.rss
 www/docs/rss/mp/*.rdf
+
+data/

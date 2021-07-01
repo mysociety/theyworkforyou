@@ -6,6 +6,8 @@ cd /twfy
 
 cp conf/httpd.docker /etc/apache2/sites-available/000-default.conf
 
+mkdir -p data/
+
 sed -r \
     -e 's!^(.*"OPTION_TWFY_DB_HOST", *)"[^"]*"!'"\\1'mariadb'!" \
     -e 's!^(.*"OPTION_TWFY_DB_USER", *)"[^"]*"!'"\\1'twfy'!" \
@@ -16,6 +18,8 @@ sed -r \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"XAPIANDB", *)"[^"]*"!'"\\1'/twfy/searchdb'!" \
+    -e 's!^(.*"RAWDATA", *)"[^"]*"!'"\\1'/twfy/data/pwdata/'!" \
+    -e 's!^(.*"PWMEMBERS", *)"[^"]*"!'"\\1'/twfy/data/parlparse/members/'!" \
   conf/general-example > conf/general
 
 bin/deploy.bash
