@@ -7,26 +7,28 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 ## System Requirements
 
-* Perl 5.8.1
+* Perl >= 5.8.1
 
-* PHP 5.4
+* PHP >= 7.0
 
     PHP must be configured with curl, using the `--with-curl` option.
 
-* Apache 1.3.28 or 2.2.23
+* Apache >= 2.4.25
 
-* MySQL 4.1 or 5.0
+    You may be able to use earlier versions, but some of the examples now use 2.4 syntax.
 
-    Note: it is possible to make the code with 4.0 versions of MySQL, but you
-    have to do some mucking around with character sets.
-  
-* Xapian
+* MySQL >=5.6 or MariaDB >=10.1
 
-    You should be able to run the site without installing Xapian (the search
-    engine, see below), but the site might error; if this happens to you,
-    contact us so we can make it optional better. If you do have Xapian
-    installed, you'll need to make sure PHP includes the Xapian extension by
-    adding extension=xapian.so to your php.ini file.
+    It may be possible to use earlier versions, but no longger supported.
+
+* Xapian >=1.4.18
+
+    Although you should be able to run the site without installing Xapian
+    (the search engine, see below) the site will error in places. If
+    this is a problem for you, please open an issue or send us a PR.
+
+    If you do have Xapian installed, you'll need to make sure PHP includes
+    the Xapian extension by adding extension=xapian.so to your php.ini file.
 
 * [Composer](https://getcomposer.org/)
 
@@ -39,6 +41,11 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
     Composer will automatically manage as many of its own dependencies as
     possible, but may prompt you if you need to manually install others.
 
+* Compass
+
+    Compass and Sass are currently installed via bundler. These are quite old
+    versions at present, but are needed to compile static assets.
+
 * Other libraries and modules.
 
 You will also need a few other library packages. There is a list, given as the
@@ -48,14 +55,9 @@ names of Debian packages, in `theyworkforyou/conf/packages`.
 
 Documentation and help is also available from the following:
 
-1. mySociety IRC - http://www.irc.mysociety.org/ - there are generally always
-people hanging around willing to help or point you in the right direction.
+1. We have an IRC channel on Freenode, #mysociety.
 
-2. Out of date wiki:
-
-    http://wiki.theyworkforyou.com/cgi-bin/moin.cgi
-
-3. Also look out for announcements on https://www.theyworkforyou.com/
+2. Also look out for announcements on https://www.theyworkforyou.com/
    or https://www.mysociety.org/
 
 ## Installation
@@ -66,6 +68,9 @@ possible to set it up without using its own virtual host, but I'll not cover
 that here.
 
 ### Installation Section 1: The Basics
+
+Note that if you are using the [Docker](DOCKER.md) development environment, you
+can skip section 1; it's all handled for you.
 
 1. Download the latest version of the TheyWorkForYou code from
 https://github.com/mysociety/theyworkforyou.
@@ -125,26 +130,46 @@ MPs. This will be based on XML format data published by theyworkforyou.com.
 
     You need to preserve the directory structure which exists under pwdata, but
     you don't need to get *everything*. Most of the useful stuff is under
-    scrapedxml. You'll also need the members directory in the parlparse folder,
-    which is available from https://github.com/mysociety/parlparse .
-    I recommend either using rsync or downloading the
+    `scrapedxml`.
+
+    You'll also need the members directory in the parlparse folder,
+    which is available from https://github.com/mysociety/parlparse.
+
+    We recommend either using rsync or downloading the
     zip files containing all the data if you want it - for more information,
     see http://parser.theyworkforyou.com/ under "Getting the Data".
+
+    At a minimum, we'd recommend getting some recent debates; for example you
+    could get everything in 2021 by grabbing `scrapedxml/debates/debates2021*`.
+
+    Each of the other directories has a similar structure, so you can take as
+    much or as little as you need, perhaps some recent Written Answers from
+    `scrapedxml/wrans/answers2021*` and some Lords debates from
+    `scrapedxml/lordspages/daylord2021*`.
+
+    We'd suggest that you place any data under `data/{pwdata,parlparse}/`
+    as these are the locations assumed in the development environment.
 
 2. Now you have that data, you are ready to import it into your database. You do
 this using a script called `xml2db.pl` which is in the `scripts` subdir.
 
 3. Edit the config file (conf/general) to tell it where to look for this data
 using the variables `RAWDATA` and `PWMEMBERS`. `PWMEMBERS` should point to the
-`members` subdir which you fetched above.
+`members` subdir which you fetched above. Note that this is already configured in
+the development environment.
 
-4. now import some data as follows:  
+4. now import some data as follows (see [DOCKER.md](DOCKER.md) for examples of
+   running this in the development environment):
 
-        $ ./xml2db.pl --wrans --debates --lords --all
+        $ ./xml2db.pl --wrans --debates --lordsdebates --all
         $ ./load-people
 
     That will process all written answers, debates and members. Running the
     script with no args gives usage.
+
+5. Build the Xapian index, which is in the `search/` subdirectory:
+
+       $ search/index.pl all
 
 **You should now have a working install of theyworkforyou.com**
 
@@ -156,7 +181,7 @@ using the variables `RAWDATA` and `PWMEMBERS`. `PWMEMBERS` should point to the
 
 2. Search engine:
 
-    The search engine relies uses Xapian (http://www.xapian.org/), which is a
+    The search engine relies uses Xapian (https://xapian.org/), which is a
     search toolkit written in C++. In order to use the search system, you need
     to either install the PHP bindings of Xapian from a package, or compile them
     yourself. If you don't have Xapian, you will probably get an error like this
@@ -166,9 +191,15 @@ using the variables `RAWDATA` and `PWMEMBERS`. `PWMEMBERS` should point to the
 There are some old instructions on compiling Xapian for PHP at
 http://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html  
   
-    You need to run `search/index.pl sincefile` to create the Xapian index. If
-    you get an error like this while doing it, you may have run out of disk
-    space. You can probably use `search/indexall.sh` to help.
+    You need to run `search/index.pl sincefile` to create the Xapian index.
+    The index can get quite large if you are loading all the data available,
+    perhaps in the order of ~30G as of mid-2021. It will be much smaller if
+    you are using a subset.
+    
+    
+    If you get an error like this while doing it, you may have run out of disk
+    space. You can probably use `search/indexall.sh` to help to build the index
+    incrementally.
 
         DBD::mysql::st execute failed: Incorrect key file for table '/tmp/#sql_b63_0.MYI'; try to repair it at ./index.pl line 118.
 

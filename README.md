@@ -22,13 +22,32 @@ Parliament, and the Northern Ireland Assembly.
 
 ## How on earth do I use this code?
 
-See INSTALL.md for installation questions.
+See [INSTALL.md](INSTALL.md) for installation questions.
 
 If you have questions, the best place to ask is the mySociety TheyWorkForYou
 email list at
 https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou
 
-### Developing with Vagrant
+### Developing with Docker
+
+You will need [a recent version of Docker](https://www.docker.com/products/docker-desktop).
+
+Running `docker compose up [ -d ]` will start the environment. The first time you run this it may
+take a few minutes as various images are downloaded and the application image built locally.
+
+Once it's done, you should be able to view the front page at `http://localhost:8000`. However
+the default build contains no data, so take a look at [INSTALL.md](INSTALL.md) for information
+about downloading and importing Parlparse data (members, debates, votes, etc).
+
+You can stop the environment by running `docker compose down`. Adding a `-v` will remove any
+Docker volumes that may be in use, including all their data.
+
+[DOCKER.md](DOCKER.md) has some more detailed notes on the development environment, together
+with some useful commands and more detailed Docker-specific setup notes.
+### DEPRECATED: Developing with Vagrant
+
+Please note that we are not currently supporting the Vagrant environment, and may remove it
+altogether. Please use the Docker environment instead.
 
 You will need the latest versions of VirtualBox and Vagrant, then:
 
