@@ -728,7 +728,7 @@ class PAGE {
             print " checked";
         }
         ?>>
-                <label for="remember">Keep me signed in on this device</label>
+                <label for="remember" class="remember-label">Keep me signed in on this device</label>
             </p>
 
             <p>

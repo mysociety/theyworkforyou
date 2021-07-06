@@ -1,11 +1,17 @@
 .legacy-page {
     label {
+        display: block;
+    }
+    label.remember-label {
         display: inline;
     }
     input {
         width: auto;
-        display: inline;
     }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        display: block;
+    }   
 
     .panel {
         @include grid-row(nest);
@@ -32,31 +38,54 @@
 
     .row {
         padding-top: 0.5em;
+        margin-bottom: 1.1em;
         span.label {
             padding-right: 1em;
-        }
-        span.formw {
-            small {
-                clear: both;
-                float: left;
+            label {
+                font-size: 1em;
             }
         }
+
         @media (min-width: $medium-screen) {
             span.label {
                 display: block;
-                float: left;
                 width: 10.5em;
+                margin-bottom: 0.16667em;
             }
             span.formw {
                 display: block;
-                float: left;
                 width: 15em;
                 text-align: left;
-                small {
-                    float: none;
-                    clear: none;
+            }
+        }
+    }
+    
+    .join-form {
+        .row {
+            margin-bottom: 1.1em;
+
+            label {
+                margin-bottom: -.8em;
+            }
+
+            label[for="optintrue"], label[for="optinfalse"], label[for="mp_alerttrue"], label[for="mp_alertfalse"] {
+                display: inline;
+                font-size: inherit;
+                margin-left: .5em;
+            }
+
+            @media (min-width: $medium-screen) {
+                label {
+                    margin-bottom: .5em;
                 }
             }
+        }
+    }
+
+    .password-form {
+        label[for="em"] {
+            font-size: inherit;
+            margin-bottom: 0.5em;
         }
     }
 }

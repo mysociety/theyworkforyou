@@ -228,6 +228,10 @@
     &:last-child {
         border: none;
     }
+
+    input#alertsearch {
+      margin: 0;
+    }
 }
 
 .alert-section__secondary {

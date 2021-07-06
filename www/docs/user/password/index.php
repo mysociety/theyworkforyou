@@ -100,29 +100,29 @@ function display_page ($errors=array()) {
     }
 ?>
 
-<form method="get" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page); echo $URL->generate(); ?>">
+<form method="get" class="password-form" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page); echo $URL->generate(); ?>">
 
-<?php
-    if (isset($errors["email"])) {
-        $PAGE->error_message($errors["email"]);
-    }
+    <?php
+        if (isset($errors["email"])) {
+            $PAGE->error_message($errors["email"]);
+        }
 
-    if (isset($errors["passwordchange"])) {
-        $PAGE->error_message($errors["passwordchange"]);
-    }
-    ?>
+        if (isset($errors["passwordchange"])) {
+            $PAGE->error_message($errors["passwordchange"]);
+        }
+        ?>
 
-<div class="row">
-<div class="left">Email address:</div>
-<div class="right"><input type="text" name="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form"></div>
-</div>
+    <div class="row">
+    <label for="em">Email address</label>
+    <input type="email" name="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" size="30" class="form-control">
+    </div>
 
-<div class="row">
-<div class="left">&nbsp;</div>
-<div class="right"><input type="submit" value="Send me a new password"></div>
-</div>
+    <div class="row">
+    
+    <input type="submit" value="Send me a new password" class="button"></div>
+    </div>
 
-<input type="hidden" name="submitted" value="true">
+    <input type="hidden" name="submitted" value="true">
 
 </form>
 
