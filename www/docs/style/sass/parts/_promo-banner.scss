@@ -1,0 +1,67 @@
+.promo-banner {
+    background: darken(#4faded, 42%);
+    color: #ffffff;
+}
+
+.promo-banner__container {
+    @include grid-column(12);
+    padding: 1em 1em 2em;
+    @media (min-width: $medium-screen) {
+        padding-top: 3.5em;
+        padding-bottom: 5.75em;
+        padding-left: 3em;
+    }
+    @media (min-width: $large-screen) {
+        @include grid-column(7);
+        padding-bottom: 0;
+    }
+
+    label {
+        font-size: emCalc(21);
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        margin-bottom: 0.6em;
+        display: block;
+    }
+
+    h1 {
+        line-height: 1.05em;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        letter-spacing: -0.5px;
+        @media (min-width: $medium-screen) {
+            margin-right: 1em;
+        }
+        @media (min-width: $large-screen) {
+            margin-right: 0;
+        }
+    }
+}
+
+.promo-banner__wrap {
+    padding-right: 0;
+    span {
+        color: #e4e2dc;
+    }
+    .promo-banner__more-link {
+        color: #fff;
+        font-weight: 600;
+        &:hover {
+            opacity: 0.66;
+        }
+    }
+
+    @media (min-width: $large-screen) {
+        padding-right: 2em;
+    }
+}
+
+.promo-banner--img {
+    display: none;
+    @media (min-width: $large-screen) {
+        @include grid-column(5);
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+    }
+}
