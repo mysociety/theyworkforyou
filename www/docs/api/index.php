@@ -83,8 +83,13 @@ if ($q_method = get_http_var('method')) {
             api_documentation_front($method, $explorer);
         }
     }
-} else {
+} elseif (get_http_var('docs')) {
     api_front_page();
+} else {
+    $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
+    MySociety\TheyWorkForYou\Renderer::output('static/api-index', array(
+        'subscription' => $subscription->stripe,
+    ));
 }
 
 function api_documentation_front($method, $explorer) {
@@ -191,7 +196,7 @@ function api_front_page($error = '') {
     data portal, <a href="https://data.mysociety.org">data.mysociety.org</a>.
 </p>
 
-<h3>Pricing</h3>
+<h3 id="plans">Pricing</h3>
 
 <ul>
     <li>&pound;20 per month for 1,000 calls per month (free for charitable usage)<br/>

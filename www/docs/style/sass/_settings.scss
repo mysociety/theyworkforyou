@@ -73,6 +73,7 @@ $row-width: em-calc(1140);
 $block-grid-default-spacing: 3%;
 
 $primary-color: #62b356;
+$secondary-color: #A94CA6;
 
 $body-bg: #f3f1eb;
 $body-font-color: #333333;
@@ -88,6 +89,7 @@ $alert-font-color: #fff;
 $alert-font-color-alt: #fff;
 
 $light-text: #6c6b68;
+$white-text: #ffffff;
 $borders: #e4e2dc;
 
 $topbar-link-color: #fff;
@@ -104,6 +106,14 @@ $h2-font-size: em-calc(32);
 $h3-font-size: em-calc(21);
 
 $label-font-weight: normal;
+
+$body-bg-dark: #333333;
+$body-bg-darker: #282828;
+$body-bg-white: #ffffff;
+
+$padding: 1em;
+$margin: 1em;
+
 
 // $body-bg: #fff;
 // $body-font-color: #222;
