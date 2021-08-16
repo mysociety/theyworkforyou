@@ -43,6 +43,11 @@ def get_calendar_events():
     for event in data:
         yield Entry(event)
 
+def make_time(t):
+    if t and len(t) == 5:
+        t += ":00"
+    return t or None
+
 
 class Entry(object):
     id = None
@@ -83,8 +88,8 @@ class Entry(object):
             self.id += 1000000
 
         self.event_date = event['StartDate'][0:10]
-        self.time_start = event['StartTime'] or None
-        self.time_end = event['EndTime'] or None
+        self.time_start = make_time(event['StartTime'])
+        self.time_end = make_time(event['EndTime'])
         self.link_calendar = CALENDAR_LINK % {'place': house_url, 'iso': self.event_date}
 
         if event['Category'] == "Prime Minister's Question Time":
