@@ -66,6 +66,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
                                 $policy_id = $key_vote['policy_id'];
+                                $policy_desc = strip_tags($key_vote['policy']);
+                                $policy_direction = $key_vote["position"];
+                                $policy_group = $segment['key'];
 
                                 if (isset($policy_last_update[$policy_id]) && $policy_last_update[$policy_id] > $most_recent) {
                                   $most_recent = $policy_last_update[$policy_id];
@@ -87,11 +90,17 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 );
                                 $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
 
-                                if (isset($sorted_diffs[$policy_id]) && $sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1) {
+                                if (isset($sorted_diffs[$policy_id])) {
                                     $diff = $sorted_diffs[$policy_id];
-                                    $party_voting_line = sprintf( 'Most current %s MPs %s (%s).', $party, $diff['party_position'], $diff['party_voting_summary']);
+                                    $party_position = $diff['party_position'];
+                                    $party_score_difference = $diff["score_difference"];
+                                    if ($sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1){
+                                        $party_voting_line = sprintf( 'Most current %s MPs %s (%s).', $party, $diff['party_position'], $diff['party_voting_summary']);
+                                    }
                                 } else {
                                     $party_voting_line = null;
+                                    $party_position = null;
+                                    $party_score_difference = null;
                                 }
 
                                 include '_vote_description.php';
