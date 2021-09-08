@@ -34,6 +34,8 @@ RUN /usr/sbin/a2enmod expires rewrite && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/access.log && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/other_vhosts_access.log
 
+RUN apt-get update && apt-get install php-xdebug
+
 # Bind mount your working copy here
 WORKDIR /twfy
 
