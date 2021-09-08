@@ -34,6 +34,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php endif; ?>
 
                 <?php include('_covid19_panel.php'); ?>
+                
+
+                
+                <?php if ($party <> $data["comparison_party"]): ?>
+                <?php include('_cross_party_mp_panel.php'); ?>
+                <?php endif; ?>
 
                 <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
@@ -63,6 +69,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
                             </h2>
 
+
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
                                 $policy_id = $key_vote['policy_id'];
@@ -89,13 +96,14 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     $policy_id
                                 );
                                 $show_link = $key_vote['position'] != 'has never voted on';
-
+                                $comparison_party = $data["comparison_party"];
+                                $min_diff_score = 0; // setting this to 0 means that all comparisons are displayed.
                                 if (isset($sorted_diffs[$policy_id])) {
                                     $diff = $sorted_diffs[$policy_id];
                                     $party_position = $diff['party_position'];
                                     $party_score_difference = $diff["score_difference"];
-                                    if ($sorted_diffs[$policy_id]['score_difference'] > 1 && $party_member_count > 1){
-                                        $party_voting_line = sprintf( 'Most current %s MPs %s (%s).', $party, $diff['party_position'], $diff['party_voting_summary']);
+                                    if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1){
+                                        $party_voting_line = sprintf( 'Comparable %s MPs %s (%s).', $comparison_party, $diff['party_position'], $diff['party_voting_summary']);
                                     }
                                 } else {
                                     $party_voting_line = null;

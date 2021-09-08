@@ -327,6 +327,8 @@ $data['current_assembly'] = $country[2];
 
 $data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate();
 
+$data['comparison_party'] = $MEMBER->cohortParty();
+
 // Do any necessary extra work based on the page type, and send for rendering.
 switch ($pagetype) {
 
@@ -1042,7 +1044,8 @@ function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     $policySummaries = $divisions->getMemberDivisionDetails();
 
     $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-    $data['party_positions'] = $party->getAllPolicyPositions($policiesList);
+    $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->cohortKey());
+    $data['party_positions'] = $partyCohort->getAllPolicyPositions($policiesList);
     # house hard coded as this is only used for the party position
     # comparison which is Commons only
     $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
@@ -1050,6 +1053,6 @@ function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER, [
         'summaries' => $policySummaries,
     ]);
-    $policy_diffs = $MEMBER->getPartyPolicyDiffs($party, $policiesList, $positions, $only_diffs);
+    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions, $only_diffs);
     $data['sorted_diffs'] = $policy_diffs;
 }

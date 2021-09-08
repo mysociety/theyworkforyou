@@ -58,9 +58,10 @@ if (!(defined('TESTING') && TESTING == true)) {
 
     // Decide how to handle exceptions (send to Whoops or use the legacy handler)
     if (DEVSITE) {
-        $whoops = new \Whoops\Run;
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-        $whoops->register();
+        //$whoops = new \Whoops\Run;
+        //$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        //$whoops->register();
+        set_exception_handler("exception_handler");
     } else {
         set_exception_handler("exception_handler");
     }

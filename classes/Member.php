@@ -59,6 +59,43 @@ class Member extends \MEMBER {
 
     }
 
+ 
+    /**
+     * Cohort Key
+     *
+     * Gets a key that defines the periods and party a member should be compared against
+     *
+     * @return string of party and entry dates
+     */
+
+    public function cohortKey($house = HOUSE_TYPE_COMMONS) {
+        // get the hash_id for the cohort this member belongs to
+        $person_id = $this->person_id();
+        return PartyCohort::getHashforPerson($person_id);
+    }
+
+    public function cohortParty($house = HOUSE_TYPE_COMMONS){
+        // The party being compared against for party comparison purposes
+        // Currently, the first non blank party
+
+        $person_id = $this->person_id();
+        $db = new \ParlDB;
+        $row = $db->query("SELECT REPLACE(COALESCE(party), \"/Co-operative\", \"\") as party
+        from member
+        where house = :house and person_id = :person_id
+        group by person_id
+        order by person_id
+        ", array(":house" => $house,
+                 ":person_id" => $person_id))->first();
+        
+        if ($row){
+            return $row["party"];
+        } else {
+            return NULL;
+        }
+
+    }
+
     /*
      * Determine if the member is a new member of a house where new is
      * within the last 6 months.
@@ -67,6 +104,7 @@ class Member extends \MEMBER {
      *
      * @return boolean
      */
+
 
     public function isNew($house = HOUSE_TYPE_COMMONS) {
         $date_entered = $this->getEntryDate($house);
@@ -369,9 +407,9 @@ class Member extends \MEMBER {
         }
     }
 
-    public function getPartyPolicyDiffs($party, $policiesList, $positions, $only_diffs = false) {
+    public function getPartyPolicyDiffs($partyCohort, $policiesList, $positions, $only_diffs = false) {
         $policy_diffs = array();
-        $party_positions = $party->getAllPolicyPositions($policiesList);
+        $party_positions = $partyCohort->getAllPolicyPositions($policiesList);
 
         if ( !$party_positions ) {
             return $policy_diffs;

@@ -2,22 +2,29 @@
 
 include_once dirname(__FILE__) . '/../www/includes/easyparliament/init.php';
 
-$parties = MySociety\TheyWorkForYou\Party::getParties();
+// create the cohorts table
+MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+
+// get current hashes available
+$cohorts = MySociety\TheyWorkForYou\PartyCohort::getCohorts();
 $policies = new MySociety\TheyWorkForYou\Policies;
+$n_cohorts = count($cohorts);
 
-$party_count = 0;
-foreach ( $parties as $party ) {
-    $party = new MySociety\TheyWorkForYou\Party($party);
+// iterate through all hashes and create policy positions
+$cohort_count = 0;
+foreach ( $cohorts as $cohort ) {
 
-    $positions = $party->calculateAllPolicyPositions($policies);
+    $cohort = new MySociety\TheyWorkForYou\PartyCohort($cohort, TRUE);
 
-    if ( count( $positions ) ) {
-        $party_count++;
-    }
+    $positions = $cohort->calculateAllPolicyPositions($policies);
+
+    $cohort_count++;
 
     foreach ( $positions as $position ) {
-        $party->cache_position( $position );
+        $cohort->cache_position( $position );
     }
+
+    print("$cohort_count/$n_cohorts\n");
 }
 
-print "cached positions for $party_count parties\n";
+print "cached positions for $cohort_count party cohorts\n";

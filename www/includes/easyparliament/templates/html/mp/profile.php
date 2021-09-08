@@ -115,14 +115,14 @@ $display_wtt_stats_banner = '2015';
                             $policy_group = "highlighted";
                             $party_score_difference = $key_vote["score_difference"];
                             $party_position = $key_vote['party_position'] ;
-
+                            $comparison_party = $data["comparison_party"];
                             $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
                             $description = sprintf(
-                                '%s <b>%s</b> %s; most current %s MPs <b>%s</b>.',
+                                '%s <b>%s</b> %s;Comparable %s MPs <b>%s</b>.',
                                 $full_name,
                                 $diff['person_position'],
                                 strip_tags($diff['policy_text']),
-                                $party,
+                                $comparison_party,
                                 $diff['party_position']
                             );
                             $link = $member_url . '/divisions?policy=' . $policy_id;
