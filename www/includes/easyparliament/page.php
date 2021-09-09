@@ -427,7 +427,7 @@ class PAGE {
         // $message is an array like:
         //      'title' => 'You are now logged out'.
         //      'text'  => 'Some more text here',
-        //      'linkurl' => 'http://www.easyparliament.org/debates/',
+        //      'linkurl' => '/debates/',
         //      'linktext' => 'Back to previous page'
         // All fields optional.
         // 'linkurl' should already have htmlentities done on it.
@@ -456,9 +456,13 @@ class PAGE {
 <?php
         }
 
-        if (isset($message['linkurl']) && isset($message['linktext'])) {
+        $linkurl = $message['linkurl'];
+        if (!preg_match('#^/[^/]#', $linkurl)) {
+            $linkurl = null;
+        }
+        if (isset($linkurl) && isset($message['linktext'])) {
             ?>
-            <p><a href="<?php echo $message['linkurl']; ?>"><?php echo $message['linktext']; ?></a></p>
+            <p><a href="<?php echo _htmlspecialchars($linkurl); ?>"><?php echo _htmlspecialchars($message['linktext']); ?></a></p>
 <?php
         }
 
