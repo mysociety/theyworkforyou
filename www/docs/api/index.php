@@ -264,10 +264,10 @@ and in PHP and RABX a serialised array containing one entry with key <code>error
 
 <p>These help you interface with the API more easily in a particular language:</p>
 <ul>
-<li><a href="https://github.com/rubenarakelyan/twfyapi/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi-aspnet/">ASP.net</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="https://github.com/rhinocratic/twfy">Clojure</a> (thanks to Andrew Baxter)</li>
 <li><a href="https://github.com/jamtho/twfy">Common Lisp</a> (thanks to James Thompson)</li>
-<li><a href="https://github.com/rubenarakelyan/twfyapi/">JavaScript</a> (thanks to Ruben Arakelyan)</li>
+<li><a href="https://github.com/rubenarakelyan/twfyapi-js">JavaScript</a> (thanks to Ruben Arakelyan)</li>
 <li><a href="https://sourceforge.net/projects/twfyjavaapi">Java</a> (thanks to Mitch Kent)</li>
 <li><a href="https://github.com/ifraixedes/node-theyworkforyou-api">Node</a> (thanks to Ivan Fraixedes)</li>
 <li><a href="https://metacpan.org/pod/WebService::TWFY::API">Perl</a> (thanks to Spiros Denaxas)</li>
