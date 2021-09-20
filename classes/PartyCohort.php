@@ -25,6 +25,8 @@ class PartyCohort
 
     public function __construct($hash, $pop_with_example = FALSE)
     {
+        // $pop with example option will retrieve the relevant fields from
+        // an representative member of the cohort.
         // treat Labour and Labour/Co-operative the same as that's how
         // people view them and it'll confuse the results otherwise
 
@@ -423,6 +425,32 @@ class PartyCohort
         } else {
             return null;
         }
+    }
+
+    public static function calculatePositions($quiet=true){
+        // get current hashes available
+        $cohorts = PartyCohort::getCohorts();
+        $policies = new Policies;
+        $n_cohorts = count($cohorts);
+
+        // iterate through all hashes and create policy positions
+        $cohort_count = 0;
+        foreach ( $cohorts as $cohort ) {
+
+            $cohort = new PartyCohort($cohort, TRUE);
+
+            $positions = $cohort->calculateAllPolicyPositions($policies);
+
+            $cohort_count++;
+
+            foreach ( $positions as $position ) {
+                $cohort->cache_position( $position );
+            }
+            if ($quiet == false){
+                print("$cohort_count/$n_cohorts\n");
+            }
+        }
+
     }
 
     public static function populateCohorts()

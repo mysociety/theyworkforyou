@@ -13,14 +13,9 @@ services:
     entrypoint: /twfy/bin/docker-entrypoint.sh
     ports:
       - "8000:80"
-    environment:
-      - WSL_IP
     volumes:
       - ./:/twfy
       - xapian:/twfy/searchdb
-      - ./xdebug-local.ini:/etc/php/7.3/cli/conf.d/xdebug-local.ini
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   mariadb:
     image: mariadb:10.3
@@ -40,6 +35,5 @@ services:
 volumes:
   db:
   xapian:
-
 
 

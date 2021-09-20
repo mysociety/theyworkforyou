@@ -3,7 +3,7 @@
 {
 	"name": "theyworkforyou",
 
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": "../docker-compose.dev.yml",
 	"service": "twfy",
 	"workspaceFolder": "/twfy",
 

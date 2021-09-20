@@ -46,7 +46,7 @@ recent debates from https://www.theyworkforyou.com/pwdata/ and the people data f
 https://github.com/mysociety/parlparse. Once this is done, you'll also need to run the 
 Xapian indexer for the first time for all the pages to work as expected.
 
-## Running commands inside the applicaton container
+## Running commands inside the application container
 
 When the environment is running, you have a couple of options with regards to running commands
 within the application container itself.
@@ -87,3 +87,21 @@ To load member data into the database:
 To build the Xapian index:
 
 `docker compose exec twfy search/index.pl all`
+
+### Development docker
+
+The `docker-compose.dev.yml` variant includes additional variables and setup to run tests and xdebug locally. 
+
+### Developing with VSCode
+
+The `.devcontainer.json` will be default use the development docker. Open the repo in VSCode and relaunch the repo in the container to set up the development enviroment. 
+
+### Developing on WSL
+
+If running via WSL on windows, xdebug runs into issues because of confusion about where the various services are running (Windows docker exposes the IP address of windows host, which is where vscode client is running, but the vscode server is running on the WSL instance, and docker does not by default know about this). To deal with this, add `set-ip.sh` to `/etc/profile.d` in the WSL host:
+
+```
+export WSL_IP=$(hostname -I)
+```
+
+This will add the IP of the WSL host to an enviromental variable, which is then passed in by the `docker compose` file so xdebug (running on the docker) can communicate with the vscode server (running on WSL). This allows breakpoints to be used. 
