@@ -374,6 +374,7 @@ sub get_person {
 
     # London questions answered after election
     $hdate = '20210507' if $major == 9 && ($hdate eq '20210511' || $hdate eq '20210510');
+    $hdate = '20210507' if $person_id == 25942 && $major == 9 && $hdate eq '20210917';
 
     my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {

@@ -2087,6 +2087,9 @@ class HANSARDLIST {
         if ($major == 9 && ($hdate == '2021-05-11' || $hdate == '2021-05-10')) {
             $hdate = '2021-05-07';
         }
+        if ($person_id == 25942 && $major == 9 && $hdate == '2021-09-17') {
+            $hdate = '2021-05-07';
+        }
 
         # check for a person redirect
         $q = $this->db->query("SELECT gid_to FROM gidredirect
