@@ -143,7 +143,7 @@ $display_wtt_stats_banner = '2015';
                         <?php } ?>
 
                         <p>
-                        This is a selection of <?= $full_name ?>&rsquo;s votes.
+                        This is a random selection of <?= $full_name ?>&rsquo;s votes, where they voted similarly to their party.
                         </p>
 
                         <ul class="vote-descriptions">
@@ -164,7 +164,7 @@ $display_wtt_stats_banner = '2015';
 
                         <p class="voting-information-provenance">
                             Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?>.
-                            <a href="/voting-information">Please share these votes responsibly.</a>
+                            <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                         </p>
 
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>

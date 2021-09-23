@@ -125,7 +125,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                             <p class="voting-information-provenance">
                                 Last updated: <?= format_date($most_recent, LONGDATEFORMAT) ?>.
-                                <a href="/voting-information">Please share these votes responsibly.</a>
+                                <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                             </p>
 
                         </div>
