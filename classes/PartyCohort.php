@@ -393,7 +393,6 @@ class PartyCohort
             member
             where
             house = :house and entered_house > :cut_off
-            :member_filter
             group by person_id
             order by person_id, entered_house
             )as member_periods
@@ -403,8 +402,6 @@ class PartyCohort
             GROUP_CONCAT(concat(start_date,":", end_date)) as "absence_key"
             from
             known_absences
-            where
-            :member_filter
             group by person_id
             order by person_id, start_date
             ) as absences on member_periods.person_id = absences.person_id';
@@ -459,7 +456,6 @@ class PartyCohort
         // create the cohort_assignments table from the query
         $house = 1;
         $cut_off = '1997-01-01';
-        $member_filter = " ";
         $db = new \ParlDB;
 
         $membership_query = self::getCohortQuery();
@@ -472,8 +468,7 @@ class PartyCohort
             $insert_query,
             array(
                 ':house' => $house,
-                ":cut_off" => $cut_off,
-                ":member_filter" => $member_filter,
+                ":cut_off" => $cut_off
             )
         );
 

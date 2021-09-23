@@ -118,7 +118,7 @@ $display_wtt_stats_banner = '2015';
                             $comparison_party = $data["comparison_party"];
                             $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
                             $description = sprintf(
-                                '%s <b>%s</b> %s;Comparable %s MPs <b>%s</b>.',
+                                '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
                                 $full_name,
                                 $diff['person_position'],
                                 strip_tags($diff['policy_text']),
@@ -133,7 +133,7 @@ $display_wtt_stats_banner = '2015';
                           } ?>
                         </ul>
 
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
                         <?php if (count($party_positions) && $party_member_count > 1) { ?>
