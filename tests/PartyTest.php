@@ -356,7 +356,7 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();     
         $page = $this->fetch_page(array('pid' => 4, 'url' => '/mp/4/test_mp_d/test_westminster_constituency'));
         $this->assertContains('Test MP D', $page);
-        $this->assertContains('This is a selection of Mrs Test MP D&rsquo;s votes.', $page);
+        $this->assertContains('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
         $this->assertContains('<li class = "vote-description"', $page);
         $this->assertNotContains('comparable B Party MPs voted', $page);
     }
@@ -373,6 +373,6 @@ class PartyTest extends FetchPageTestCase
         $divisions = new MySociety\TheyWorkForYou\Divisions($member);
         $recent = $divisions->getMemberDivisionsForPolicy(1113);
 
-        $this->assertContains('This is a selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
+        $this->assertContains('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
     }
 }
