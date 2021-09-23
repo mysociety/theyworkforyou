@@ -199,7 +199,7 @@
 				<field name="house">1</field>
 				<field name="constituency">Test Westminster Constituency</field>
 				<field name="party">A Party</field>
-				<field name="entered_house">1995-01-01</field>
+				<field name="entered_house">1997-05-01</field>
 				<field name="left_house">2000-01-01</field>
 				<field name="entered_reason">general_election</field>
 				<field name="left_reason">general_election</field>
@@ -470,6 +470,18 @@
 				<field name="person_id">23</field>
 				<field name="lastupdate">2013-08-07 15:06:19</field>
 			</row>
+			<row>
+				<field name="member_id">38</field>
+				<field name="house">1</field>
+				<field name="constituency">Test Westminster Constituency</field>
+				<field name="party">B Party</field>
+				<field name="entered_house">2015-01-01</field>
+				<field name="left_house">9999-12-31</field>
+				<field name="entered_reason">general_election</field>
+				<field name="left_reason">still_in_office</field>
+				<field name="person_id">24</field>
+				<field name="lastupdate">2013-08-07 15:06:19</field>
+			</row>
 		</table_data>
 		<table_data name="person_names">
 			<row>
@@ -656,6 +668,14 @@
 				<field name="person_id">23</field>
 				<field name="title">Mrs</field>
 			</row>
+			<row>
+				<field name="given_name">Test</field>
+				<field name="family_name">MP B Party 2</field>
+				<field name="start_date">2000-01-01</field>
+				<field name="end_date">9999-12-31</field>
+				<field name="person_id">24</field>
+				<field name="title">Mrs</field>
+			</row>
 		</table_data>
 		<table_data name="memberinfo" />
 		<table_data name="mentions" />
@@ -670,7 +690,53 @@
 				<field name="desc">health</field>
 			</row>
 		</table_data>
-		<table_data name="personinfo" />
+		<table_data name="personinfo">
+			<row>
+				<field name="person_id">15</field>
+				<field name="data_key">public_whip_dreammp1113_distance</field>
+				<field name="data_value">0.27</field>
+			</row>
+			<row>
+				<field name="person_id">15</field>
+				<field name="data_key">public_whip_dreammp1113_both_voted</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">15</field>
+				<field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">4</field>
+				<field name="data_key">public_whip_dreammp1113_distance</field>
+				<field name="data_value">0.27</field>
+			</row>
+			<row>
+				<field name="person_id">4</field>
+				<field name="data_key">public_whip_dreammp1113_both_voted</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">4</field>
+				<field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">16</field>
+				<field name="data_key">public_whip_dreammp1113_distance</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">16</field>
+				<field name="data_key">public_whip_dreammp1113_both_voted</field>
+				<field name="data_value">1.0</field>
+			</row>
+			<row>
+				<field name="person_id">16</field>
+				<field name="data_key">public_whip_dreammp1113_has_strong_vote</field>
+				<field name="data_value">1.0</field>
+			</row>
+		</table_data>
 		<table_data name="policies">
 			<row>
 				<field name="policy_id">1113</field>
@@ -756,7 +822,7 @@
 			</row>
 			<row>
 				<field name="division_id">2</field>
-				<field name="policy_id">900</field>
+				<field name="policy_id">996</field>
 				<field name="direction">Majority</field>
 				<field name="policy_vote">absent</field>
 			</row>
@@ -875,6 +941,36 @@
 				<field name="division_id">1</field>
 				<field name="person_id">23</field>
 				<field name="vote">no</field>
+			</row>
+			<row>
+				<field name="division_id">3</field>
+				<field name="person_id">2</field>
+				<field name="vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">4</field>
+				<field name="person_id">2</field>
+				<field name="vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">5</field>
+				<field name="person_id">2</field>
+				<field name="vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">3</field>
+				<field name="person_id">8</field>
+				<field name="vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">2</field>
+				<field name="person_id">6</field>
+				<field name="vote">absent</field>
+			</row>
+			<row>
+				<field name="division_id">2</field>
+				<field name="person_id">5</field>
+				<field name="vote">absent</field>
 			</row>
 		</table_data>
 		<table_data name="partypolicy" />
