@@ -279,14 +279,28 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();     
 
         $data = $this->positionsForPersonID(6);
-        
-        print_r($data);
 
         $data = $data['996'];
 
         $this->assertEquals(-1, $data['score']);
     }
 
+    public function testAbsentVoteDoesNotEffectPolicyDuringAbsence()
+    {
+        # Person 3 has a known absence and is part of party A
+        # they have an 'absent' vote during this period
+        # but this doesn't affect how their party otherwise voted on it (aye)
+        # Person 2 (in party A) should have a cohort policy score 
+        # that is just (aye) (0)
+
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();     
+
+        $data = $this->positionsForPersonID(2);
+        $data = $data['363'];
+
+        $this->assertEquals(0, $data['score']);
+    }
 
 
     public function testGetAllParties()
@@ -305,8 +319,6 @@ class PartyTest extends FetchPageTestCase
         $cohort = new MySociety\TheyWorkForYou\PartyCohort($cohortkey, True);
         $policies = new MySociety\TheyWorkForYou\Policies();
 
-        print_r($policies->getPolicies());
-        
         $positions = $cohort->getAllPolicyPositions($policies);
         return $positions;
     }

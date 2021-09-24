@@ -806,6 +806,12 @@
 				<field name="division_title">division in 2014</field>
 				<field name="division_date">2014-01-01</field>
 			</row>
+			<row>
+				<field name="division_id">7</field>
+				<field name="house">commons</field>
+				<field name="division_title">division in known absence with isolated policy</field>
+				<field name="division_date">2006-05-01</field>
+			</row>
 		</table_data>
 		<table_data name="policydivisions">
 			<row>
@@ -847,6 +853,12 @@
 			<row>
 				<field name="division_id">6</field>
 				<field name="policy_id">1124</field>
+				<field name="direction">Majority</field>
+				<field name="policy_vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">7</field>
+				<field name="policy_id">363</field>
 				<field name="direction">Majority</field>
 				<field name="policy_vote">aye</field>
 			</row>
@@ -971,6 +983,21 @@
 				<field name="division_id">2</field>
 				<field name="person_id">5</field>
 				<field name="vote">absent</field>
+			</row>
+			<row>
+				<field name="division_id">7</field>
+				<field name="person_id">3</field>
+				<field name="vote">absent</field>
+			</row>
+			<row>
+				<field name="division_id">7</field>
+				<field name="person_id">2</field>
+				<field name="vote">aye</field>
+			</row>
+			<row>
+				<field name="division_id">7</field>
+				<field name="person_id">1</field>
+				<field name="vote">aye</field>
 			</row>
 		</table_data>
 		<table_data name="partypolicy" />

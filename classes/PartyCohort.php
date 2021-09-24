@@ -233,6 +233,10 @@ class PartyCohort
             $params[':division_id'] = $division_id;
             $params[':division_date'] = $date;
 
+            # join on the membership a person had at the time in question
+            # exclude any absent vote if someone was during a period of known absence
+            # this means a cohorts position is calculated based on people who were a member of the
+            # party at the time, and were not effectively absent
             $votes = $this->db->query(
                 "SELECT count(*) as num_votes, vote
                 FROM persondivisionvotes
@@ -243,6 +247,15 @@ class PartyCohort
                     AND division_id = :division_id
                     AND member.entered_house <= :division_date
                     AND member.left_house >= :division_date
+                    AND NOT
+                    (persondivisionvotes.vote = 'absent' and persondivisionvotes.person_id in 
+                        ( SELECT person_id 
+                          FROM known_absences
+                          WHERE start_date <= :division_date
+                          AND end_date >= :division_date
+                        )
+                    )
+
                 GROUP BY vote",
                 $params
             );
