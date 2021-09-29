@@ -85,20 +85,9 @@ class PartyCohort
         };
         $house_id = 1;
         $person_id = $this->getExamplePerson();
-        $row = $this->db->query(
-            "SELECT COALESCE(party) as first_party
-             FROM member
-             WHERE house = :house_id and person_id = :person_id
-             GROUP BY person_id
-             ORDER BY person_id, entered_house",
-            array(":person_id" => $person_id, ":house_id" => $house_id)
-        )->first();
+        $member = new Member(array('person_id' => $person_id));
+        return $member->cohortParty();
 
-        if ($row) {
-            return $row["first_party"];
-        } else {
-            return null;
-        }
     }
 
     public function getAbsences()
@@ -420,6 +409,7 @@ class PartyCohort
             ) as absences on member_periods.person_id = absences.person_id';
         return $membership_query;
     }
+
 
     public static function getHashforPerson($person_id){
         // given a person id, return the hash for that cohort

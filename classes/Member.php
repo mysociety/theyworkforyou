@@ -7,6 +7,8 @@
 
 namespace MySociety\TheyWorkForYou;
 
+use ParlDB;
+
 /**
  * Member
  */
@@ -74,20 +76,60 @@ class Member extends \MEMBER {
         return PartyCohort::getHashforPerson($person_id);
     }
 
+    public function cohortPartyComparisonDirection() {
+        // Is this MP and their cohort compared against the
+        // first or last party they have?
+        // By default, mirroring the partycohort query, 
+        // this is the first party. 
+        // However, this is ignored for the Speaker, and additional
+        // individual overrides can be added below.
+        // This makes most sense when a party switch was a long time ago.
+        // As long as this person is in a cohort of 1 and has a unique set 
+        // of memberships (which is likely for edge cases) it doesn't matter
+        // that their original party is what is used when in the party cohort
+        // construction query. 
+
+        $person_id = $this->person_id();
+
+        $direction = "first";
+        if ($this->party() == "Speaker"){
+            $direction = "last";
+        }
+
+        // MPs who have switched parties but should be compared against their
+        // current party can go here.
+        $use_last_party = array(10172);
+
+        if (in_array($person_id, $use_last_party)){
+            $direction = "last";
+        }
+
+        return $direction;
+    }
+
     public function cohortParty($house = HOUSE_TYPE_COMMONS){
         // The party being compared against for party comparison purposes
-        // Currently, the first non blank party
+        // Unless specified by the condition in cohortPartyComparisonDirection
+        // This is the first, not last, party a person has.
 
         $person_id = $this->person_id();
         $db = new \ParlDB;
-        $row = $db->query("SELECT REPLACE(COALESCE(party), \"/Co-operative\", \"\") as party
-        from member
-        where house = :house and person_id = :person_id
-        group by person_id
-        order by person_id
-        ", array(":house" => $house,
+
+        $cohort_direction = $this->cohortPartyComparisonDirection();
+
+        if ($cohort_direction == "first"){
+            $direction = " ASC";
+        } else {
+            $direction = " DESC";
+        }
+
+        $row = $db->query("SELECT party from member
+        where house = :house
+        and person_id = :person_id
+        and party != ''
+        order by entered_house
+        " . $direction, array(":house" => $house,
                  ":person_id" => $person_id))->first();
-        
         if ($row){
             return $row["party"];
         } else {

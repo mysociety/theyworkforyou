@@ -11,7 +11,8 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"bmewburn.vscode-intelephense-client",
-		"felixfbecker.php-debug"
+		"felixfbecker.php-debug",
+		"recca0120.vscode-phpunit"
 	],
 	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

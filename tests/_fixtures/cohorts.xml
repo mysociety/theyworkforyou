@@ -482,6 +482,54 @@
 				<field name="person_id">24</field>
 				<field name="lastupdate">2013-08-07 15:06:19</field>
 			</row>
+			<row>
+				<field name="member_id">39</field>
+				<field name="house">1</field>
+				<field name="constituency">Test Westminster Constituency</field>
+				<field name="party">H Party</field>
+				<field name="entered_house">2000-01-01</field>
+				<field name="left_house">2015-01-01</field>
+				<field name="entered_reason">general_election</field>
+				<field name="left_reason">general_election</field>
+				<field name="person_id">10172</field>
+				<field name="lastupdate">2013-08-07 15:06:19</field>
+			</row>
+			<row>
+				<field name="member_id">40</field>
+				<field name="house">1</field>
+				<field name="constituency">Test Westminster Constituency</field>
+				<field name="party">I Party</field>
+				<field name="entered_house">2015-01-01</field>
+				<field name="left_house">9999-12-31</field>
+				<field name="entered_reason">general_election</field>
+				<field name="left_reason">still_in_office</field>
+				<field name="person_id">10172</field>
+				<field name="lastupdate">2013-08-07 15:06:19</field>
+			</row>
+			<row>
+				<field name="member_id">41</field>
+				<field name="house">1</field>
+				<field name="constituency">Test Westminster Constituency</field>
+				<field name="party">H Party</field>
+				<field name="entered_house">2000-01-01</field>
+				<field name="left_house">2015-01-01</field>
+				<field name="entered_reason">general_election</field>
+				<field name="left_reason">general_election</field>
+				<field name="person_id">25</field>
+				<field name="lastupdate">2013-08-07 15:06:19</field>
+			</row>
+			<row>
+				<field name="member_id">42</field>
+				<field name="house">1</field>
+				<field name="constituency">Test Westminster Constituency</field>
+				<field name="party">Speaker</field>
+				<field name="entered_house">2015-01-01</field>
+				<field name="left_house">9999-12-31</field>
+				<field name="entered_reason">general_election</field>
+				<field name="left_reason">still_in_office</field>
+				<field name="person_id">25</field>
+				<field name="lastupdate">2013-08-07 15:06:19</field>
+			</row>
 		</table_data>
 		<table_data name="person_names">
 			<row>
@@ -674,6 +722,22 @@
 				<field name="start_date">2000-01-01</field>
 				<field name="end_date">9999-12-31</field>
 				<field name="person_id">24</field>
+				<field name="title">Mrs</field>
+			</row>
+			<row>
+				<field name="given_name">Test</field>
+				<field name="family_name">Party Switcher</field>
+				<field name="start_date">2000-01-01</field>
+				<field name="end_date">9999-12-31</field>
+				<field name="person_id">10172</field>
+				<field name="title">Mrs</field>
+			</row>
+			<row>
+				<field name="given_name">Test</field>
+				<field name="family_name">Speaker</field>
+				<field name="start_date">2000-01-01</field>
+				<field name="end_date">9999-12-31</field>
+				<field name="person_id">25</field>
 				<field name="title">Mrs</field>
 			</row>
 		</table_data>

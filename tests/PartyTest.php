@@ -110,6 +110,32 @@ class PartyTest extends FetchPageTestCase
 
     }
 
+    public function testManualPartyChangerComparison()
+    {
+        // Person 10172 has changed party but has a manual override so should use their last party
+
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();        
+
+        $member = $this->getMemberFromPersonId(10172);
+        $comparison_party = $member->cohortParty();
+        $this->assertEquals($comparison_party, "I Party");
+
+    }
+
+    public function testSpeakerPartyChangerComparison()
+    {
+        // Person 25 is the speaker, and so doesn't get their former party comparison.
+
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();        
+
+        $member = $this->getMemberFromPersonId(25);
+        $comparison_party = $member->cohortParty();
+        $this->assertEquals($comparison_party, "Speaker");
+
+    }
+
     public function testComparisonDateRange()
     {
         //A policy comparison for a policy with divisions that include 1 outside an mps memberships will not include that division. 
@@ -381,10 +407,18 @@ class PartyTest extends FetchPageTestCase
         $page = $this->fetch_page(array('pid' => 16, 'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency'));
         $this->assertContains('Test MP G Party 2', $page);
 
-        $member = $this->getMemberFromPersonId(16);
-        $divisions = new MySociety\TheyWorkForYou\Divisions($member);
-        $recent = $divisions->getMemberDivisionsForPolicy(1113);
-
         $this->assertContains('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
     }
+
+
+public function testCrossPartyDisclaimer()
+{
+    // Test if the cross party disclaimer is there
+    MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+    MySociety\TheyWorkForYou\PartyCohort::calculatePositions();     
+    $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
+    print_r($page);
+    $this->assertContains('Test MP G', $page);
+    $this->assertContains('In the votes below they are compared to their original party', $page);
+}
 }
