@@ -106,7 +106,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <p class="voting-information-provenance">
                                             Vote information from <a href="https://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
                                             Last updated: <?= $policy_last_update[$policy['policy_id']] ?>.
-                                            <a href="/voting-information">Please share these votes responsibly.</a>
+                                            <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                                         </p>
                                     </div>
 

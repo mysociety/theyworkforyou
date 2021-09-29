@@ -49,7 +49,7 @@
                     <p class="voting-information-provenance">
                         Some vote information from <a href="https://www.publicwhip.org.uk/">PublicWhip</a>.
                         Last updated: <?= $last_updated ?>.
-                        <a href="/voting-information">Please share these votes responsibly.</a>
+                        <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                     </p>
                 </div>
             </div>

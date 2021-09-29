@@ -363,33 +363,62 @@ class PartyTest extends FetchPageTestCase
             return NULL;
         }
     }
+
+
     public function testMPPartyPolicyTextWhenDiffers()
     {
-        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
-        $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('is a A Party MP', $page);
+        // Checks that an MP that differs from party gets the 'sometimes differs from their party' on the profile page
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+        $page = $this->fetch_page(array('pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency'));
+        $this->assertContains('Test MP G Party 1', $page);
+        $this->assertContains('is a G Party MP', $page);
         $this->assertContains('sometimes <b>differs</b> from their party', $page);
     }
 
     public function testSingleMemberPartyPolicyText()
     {
-        $page = $this->fetch_page( array( 'pid' => 7, 'url' => '/mp/7/test_second-party-mp/test_westminster_constituency' ) );
-        $this->assertContains('Test Second-Party-MP', $page);
-        $this->assertNotContains('is a A Second Party MP', $page);
+        // this test checks it doesn't say they are an X party MP when they are the only MP of that party
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+        $page = $this->fetch_page(array('pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency'));
+        $this->assertContains('Test MP G', $page);
+        $this->assertNotContains('is a B Party MP', $page);
     }
 
     public function testMPPartyPolicyWherePartyMissingPositions()
     {
-        $page = $this->fetch_page( array( 'pid' => 3, 'url' => '/mp/3/test_current-mp/test_westminster_constituency' ) );
-        $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('is a A Party MP', $page);
-        $this->assertNotContains('most A Party MPs voted', $page);
+        // When an MP has votes, but there is no broader party policy to compare it to
+        // this goes down a funnel that shows the votes, but does not make the comparison to party.
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+        $page = $this->fetch_page(array('pid' => 4, 'url' => '/mp/4/test_mp_d/test_westminster_constituency'));
+        $this->assertContains('Test MP D', $page);
+        $this->assertContains('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
+        $this->assertContains('<li class="vote-description"', $page);
+        $this->assertNotContains('comparable B Party MPs voted', $page);
     }
 
     public function testMPPartyPolicyTextWhenAgrees()
     {
-        $page = $this->fetch_page( array( 'pid' => 6, 'url' => '/mp/6/test_further-mp/test_westminster_constituency' ) );
-        $this->assertContains('Test Further-MP', $page);
-        $this->assertContains('This is a selection of Miss Test Further-MP&rsquo;s votes', $page);
+        // Test when an MP mostly agrees with their party, as MP G Party 2 does with party G
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+        $page = $this->fetch_page(array('pid' => 16, 'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency'));
+        $this->assertContains('Test MP G Party 2', $page);
+
+        $this->assertContains('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
     }
+
+
+public function testCrossPartyDisclaimer()
+{
+    // Test if the cross party disclaimer is there
+    MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+    MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+    $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
+    print_r($page);
+    $this->assertContains('Test MP G', $page);
+    $this->assertContains('In the votes below they are compared to their original party', $page);
+}
 }

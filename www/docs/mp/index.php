@@ -327,6 +327,8 @@ $data['current_assembly'] = $country[2];
 
 $data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate();
 
+$data['comparison_party'] = $MEMBER->cohortParty();
+
 // Do any necessary extra work based on the page type, and send for rendering.
 switch ($pagetype) {
 

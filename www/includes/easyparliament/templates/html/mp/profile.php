@@ -115,14 +115,14 @@ $display_wtt_stats_banner = '2015';
                             $policy_group = "highlighted";
                             $party_score_difference = $key_vote["score_difference"];
                             $party_position = $key_vote['party_position'] ;
-
+                            $comparison_party = $data["comparison_party"];
                             $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
                             $description = sprintf(
-                                '%s <b>%s</b> %s; most current %s MPs <b>%s</b>.',
+                                '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
                                 $full_name,
                                 $diff['person_position'],
                                 strip_tags($diff['policy_text']),
-                                $party,
+                                $comparison_party,
                                 $diff['party_position']
                             );
                             $link = $member_url . '/divisions?policy=' . $policy_id;
@@ -133,7 +133,7 @@ $display_wtt_stats_banner = '2015';
                           } ?>
                         </ul>
 
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
+                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
                         <?php if (count($party_positions) && $party_member_count > 1) { ?>
@@ -143,7 +143,7 @@ $display_wtt_stats_banner = '2015';
                         <?php } ?>
 
                         <p>
-                        This is a selection of <?= $full_name ?>&rsquo;s votes.
+                        This is a random selection of <?= $full_name ?>&rsquo;s votes, where they voted similarly to their party.
                         </p>
 
                         <ul class="vote-descriptions">
@@ -164,7 +164,7 @@ $display_wtt_stats_banner = '2015';
 
                         <p class="voting-information-provenance">
                             Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?>.
-                            <a href="/voting-information">Please share these votes responsibly.</a>
+                            <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                         </p>
 
                         <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
