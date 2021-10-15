@@ -74,14 +74,6 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel--video">
-            <h2>Inform yourself, get yourself heard</h2>
-            <div>
-                <div class="flex-video">
-                    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/L_19GumEQCM?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
         <div class="panel panel--inverted">
             <div class="row nested-row">
                 <div class="home__search">
