@@ -26,17 +26,17 @@ if ($q_method = get_http_var('method')) {
     $match = 0;
     foreach ($methods as $method => $data) {
         if (strtolower($q_method) == strtolower($method)) {
-      if (isset($data['superuser']) && $data['superuser']) {
-        $super_check = api_is_superuser_key($key);
-        if (!$super_check) {
-                if (get_http_var('docs')) {
-                  api_front_page();
-                } else {
-                  api_error('Invalid API key.');
-                  exit;
-              }
+            if (isset($data['superuser']) && $data['superuser']) {
+                $super_check = api_is_superuser_key($key);
+                if (!$super_check) {
+                    if (get_http_var('docs')) {
+                        api_front_page();
+                    } else {
+                        api_error('Invalid API key.');
+                        exit;
+                    }
+                }
             }
-      }
 
             api_log_call($key);
             $match++;
@@ -122,13 +122,13 @@ function api_documentation_explorer($method, $explorer) {
 ?>
 Output:
 <input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
-<label for="output_js">JS</label>
+<label for="output_js" class="inline">JS</label>
 <input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output')=='xml') print ' checked'?>>
-<label for="output_xml">XML</label>
+<label for="output_xml" class="inline">XML</label>
 <input id="output_php" type="radio" name="output" value="php"<?php if (get_http_var('output')=='php') print ' checked'?>>
-<label for="output_php">Serialised PHP</label>
+<label for="output_php" class="inline">Serialised PHP</label>
 <input id="output_rabx" type="radio" name="output" value="rabx"<?php if (get_http_var('output')=='rabx') print ' checked'?>>
-<label for="output_rabx">RABX</label>
+<label for="output_rabx" class="inline">RABX</label>
 
 <input type="submit" value="Go">
 </p>
