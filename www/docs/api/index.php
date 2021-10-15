@@ -121,7 +121,9 @@ function api_documentation_explorer($method, $explorer) {
 }
 ?>
 Output:
-<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
+<input id="output_json" type="radio" name="output" value="json"<?php if (get_http_var('output')=='json' || !get_http_var('output')) print ' checked'?>>
+<label for="output_json" class="inline">JSON</label>
+<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js') print ' checked'?>>
 <label for="output_js" class="inline">JS</label>
 <input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output')=='xml') print ' checked'?>>
 <label for="output_xml" class="inline">XML</label>
@@ -242,9 +244,10 @@ licence and attribution requirements.</p>
 <ul>
 <li><strong>xml</strong>. XML. The root element is twfy.</li>
 <li><strong>php</strong>. Serialized PHP, that can be turned back into useful information with the unserialize() command. Quite useful in Python as well, using <a href="http://hurring.com/code/python/serialize/">PHPUnserialize</a>.</li>
-<li><strong>js</strong>. A JavaScript object. You can provide a callback
-function with the <em>callback</em> variable, and then that function will be
-called with the data as its argument.</li>
+<li><strong>json</strong>. JSON data.</li>
+<li><strong>js</strong>. A JavaScript object, with data in ISO-8859-1. You can
+provide a callback function with the <em>callback</em> variable, and then that
+function will be called with the data as its argument.</li>
 <li><strong>rabx</strong>. “RPC over Anything But XML”.</li>
 </ul>
 
