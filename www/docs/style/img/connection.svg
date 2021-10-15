@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="76px" viewBox="0 0 16 76" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>connection</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Api-page-mock-2.2" transform="translate(-565.000000, -1750.000000)">
+            <g id="What-can-do-with-it" transform="translate(0.000000, 1498.000000)">
+                <g id="items" transform="translate(155.000000, 194.000000)">
+                    <g id="item" transform="translate(285.000000, 0.000000)">
+                        <g id="connection" transform="translate(125.000000, 59.000000)">
+                            <line x1="8.5" y1="1.75640752e-16" x2="8.5" y2="57.5" id="connector-line" stroke="#E2DFD9" stroke-width="2" stroke-linecap="square" stroke-dasharray="0,5"></line>
+                            <g id="circle" transform="translate(0.000000, 59.000000)">
+                                <circle id="Oval" fill="#E2DFD9" cx="8" cy="8" r="8"></circle>
+                                <circle id="Oval-inner" fill="#333333" cx="8" cy="8" r="5"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

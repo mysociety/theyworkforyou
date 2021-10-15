@@ -1,0 +1,283 @@
+.hero-api, .intro, .example-api {
+    color: $white-text;
+
+    h1, h2 {
+        color: $white-text;
+    }
+}
+
+.hero-api {
+    background-color:$body-bg-dark;
+    background-image: url('../img/api-page/api-page-hero-background-large.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    min-height: 18em;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+    .hero-api__container {
+        @include grid-column(12);
+    }
+}
+
+.intro {
+    background-color: $body-bg-dark;
+    padding: 1em;
+
+    .intro__header {
+        @include grid-column(12);
+    }
+
+    .intro__col {
+        @include grid-column(12);
+        padding: 0.5em;
+    }
+
+    @media (min-width: $medium-screen) {
+        padding: 1em 0 2em 0;
+
+        .intro__col {
+            @include grid-column(3);
+        }
+    }
+}
+
+.try-api {
+    background-color: $body-bg;
+    padding: 2em 1em;
+
+    .mp-search__form {
+        display: block;
+        text-align: center;
+
+        label {
+            display: block;
+            font-size: 1em;
+            width: 100%;
+            margin-bottom: 1em;
+        }
+        .api-search-input-button {
+            display: inline-block;
+        }
+    }
+
+    @media (min-width: $medium-screen) {
+        .mp-search__form {
+            margin: auto;
+            max-width: 33em;
+            display: flex;
+
+            label {
+                display: flex;
+                align-items: center;
+                width: 13em;
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.simple-api {
+    background: $body-bg-white;
+    padding: 2em 0;
+
+    .simple-api__icon {
+        text-align: left;
+    }
+
+    .simple-api__info {
+        padding: 1em;
+
+        .simple-api__card {
+            box-shadow: 0 0.2rem .4rem rgba(0,0,0,0.10);
+            border: 1px solid $borders;
+            border-radius: 0.25em;
+            padding: 1em;
+            max-width: 40em;
+            text-align: center;
+            margin: auto;
+    
+            .simple-api__card-body {
+                p {
+                    font-size: 0.8em;
+                }
+            }
+        }
+    }
+
+    .simple-api__cta {
+        text-align: center;
+        margin-top: 3em;
+    }
+
+    @media (min-width: $medium-screen) {
+        .simple-api__icon {
+            text-align: right;
+        }
+
+        .columns {
+            margin: 1em 0;
+        }
+
+        .simple-api__info {
+            padding: 0;
+        }
+    }
+}
+
+.example-api {
+    background-color:$body-bg-dark;
+    text-align: center;
+    padding: ($padding * 2) ($padding / 2);
+
+    .row {
+        .example-api__col {
+            margin-bottom: ($margin *6);
+
+            &:nth-child(1) {
+                margin-top: ($margin * 2);
+            }
+
+            &:nth-last-child(1) {
+                margin-bottom: ($margin * 2);
+            }
+
+            @media (min-width: $medium-screen) {
+                margin-bottom: 0;
+
+                &:nth-child(1) {
+                    margin-top: 0;
+                }
+    
+                &:nth-last-child(1) {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .example-api__col {
+        
+        @include grid-column(12);
+
+        .input-header, .input-body {
+            border: 1px solid $borders;
+            border-radius: 4px;
+            background-color: $body-bg-darker;
+        }
+
+        .input {
+            .input-header, .input-body {
+                padding: ($padding / 2) $padding;
+                p {
+                    display: inline;
+                    vertical-align: center;
+                }
+            }
+
+            .input-body {
+                margin-top: -8px;
+            }
+        }
+
+        @media (min-width: $medium-screen) {
+            @include grid-column(3);
+        }
+    }
+}
+
+// This is part of the examples diagram
+.input-footer--mobile {
+    display: block;
+    border-bottom: 1px solid $borders;
+    padding-top: ($padding *2);
+
+    @media (min-width: $medium-screen) {
+        display: none;
+    }
+}
+
+.input-footer--desktop {
+    display: block;
+    text-align: left;
+    border-top: 1px solid $borders;
+    padding-top: ($padding *2);
+    margin-top: ($margin *2);
+
+    @media (max-width: $medium-screen) {
+        display: none;
+    }
+}
+
+.hide-from-medium {
+    @media (max-width: $medium-screen) {
+        display: none;
+    }
+}
+
+.projects {
+    padding: 2em 1em;
+    background-color: #ffffff;
+
+    .projects__col {
+        @include grid-column(12);
+
+        .projects-logo {
+            max-width: 140px;
+            margin: 1.5em 0 4em 0;
+        }
+    }
+
+    @media (min-width: $medium-screen) {
+        .projects__col {
+            @include grid-column(3);
+
+            .projects-logo {
+                margin-top: 1em;
+            }
+        }
+    }
+}
+
+.quote-block {
+    background-color: $secondary-color;
+    color: $white-text;
+    padding: 2em 0 0.5em 0;
+
+    .quote-wrap {
+        max-width: 40em;
+        margin: auto;
+    }
+
+    p {
+        font-size: 1.2em;
+        font-weight: 900;
+    }
+
+    @media (min-width: $medium-screen) {
+        p {
+            font-size: 2em;
+        }
+    }
+}
+
+.get-started {
+    padding: 2em 0;
+    
+    .get-started__list-wrap {
+        border-top: 1px solid $borders;
+        padding-bottom: 1em;
+        max-width: 40em;
+        margin: auto;
+    }
+
+    ul {
+        margin: 0;
+        list-style: none;
+        display: inline-flex;
+        align-items: center;
+        column-gap: 1em;
+        padding-top: 1em;
+    }
+}

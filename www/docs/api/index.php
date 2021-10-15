@@ -26,17 +26,17 @@ if ($q_method = get_http_var('method')) {
     $match = 0;
     foreach ($methods as $method => $data) {
         if (strtolower($q_method) == strtolower($method)) {
-      if (isset($data['superuser']) && $data['superuser']) {
-        $super_check = api_is_superuser_key($key);
-        if (!$super_check) {
-                if (get_http_var('docs')) {
-                  api_front_page();
-                } else {
-                  api_error('Invalid API key.');
-                  exit;
-              }
+            if (isset($data['superuser']) && $data['superuser']) {
+                $super_check = api_is_superuser_key($key);
+                if (!$super_check) {
+                    if (get_http_var('docs')) {
+                        api_front_page();
+                    } else {
+                        api_error('Invalid API key.');
+                        exit;
+                    }
+                }
             }
-      }
 
             api_log_call($key);
             $match++;
@@ -83,8 +83,13 @@ if ($q_method = get_http_var('method')) {
             api_documentation_front($method, $explorer);
         }
     }
-} else {
+} elseif (get_http_var('docs')) {
     api_front_page();
+} else {
+    $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
+    MySociety\TheyWorkForYou\Renderer::output('static/api-index', array(
+        'subscription' => $subscription->stripe,
+    ));
 }
 
 function api_documentation_front($method, $explorer) {
@@ -121,14 +126,16 @@ function api_documentation_explorer($method, $explorer) {
 }
 ?>
 Output:
-<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js' || !get_http_var('output')) print ' checked'?>>
-<label for="output_js">JS</label>
+<input id="output_json" type="radio" name="output" value="json"<?php if (get_http_var('output')=='json' || !get_http_var('output')) print ' checked'?>>
+<label for="output_json" class="inline">JSON</label>
+<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js') print ' checked'?>>
+<label for="output_js" class="inline">JS</label>
 <input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output')=='xml') print ' checked'?>>
-<label for="output_xml">XML</label>
+<label for="output_xml" class="inline">XML</label>
 <input id="output_php" type="radio" name="output" value="php"<?php if (get_http_var('output')=='php') print ' checked'?>>
-<label for="output_php">Serialised PHP</label>
+<label for="output_php" class="inline">Serialised PHP</label>
 <input id="output_rabx" type="radio" name="output" value="rabx"<?php if (get_http_var('output')=='rabx') print ' checked'?>>
-<label for="output_rabx">RABX</label>
+<label for="output_rabx" class="inline">RABX</label>
 
 <input type="submit" value="Go">
 </p>
@@ -189,7 +196,7 @@ function api_front_page($error = '') {
     data portal, <a href="https://data.mysociety.org">data.mysociety.org</a>.
 </p>
 
-<h3>Pricing</h3>
+<h3 id="plans">Pricing</h3>
 
 <ul>
     <li>&pound;20 per month for 1,000 calls per month (free for charitable usage)<br/>
@@ -242,9 +249,10 @@ licence and attribution requirements.</p>
 <ul>
 <li><strong>xml</strong>. XML. The root element is twfy.</li>
 <li><strong>php</strong>. Serialized PHP, that can be turned back into useful information with the unserialize() command. Quite useful in Python as well, using <a href="http://hurring.com/code/python/serialize/">PHPUnserialize</a>.</li>
-<li><strong>js</strong>. A JavaScript object. You can provide a callback
-function with the <em>callback</em> variable, and then that function will be
-called with the data as its argument.</li>
+<li><strong>json</strong>. JSON data.</li>
+<li><strong>js</strong>. A JavaScript object, with data in ISO-8859-1. You can
+provide a callback function with the <em>callback</em> variable, and then that
+function will be called with the data as its argument.</li>
 <li><strong>rabx</strong>. “RPC over Anything But XML”.</li>
 </ul>
 
