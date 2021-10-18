@@ -22,5 +22,5 @@ continue and expand:
         https://www.mysociety.org/twfy-donate/
 -------------------------------------------------------------------
 
-To manage, unsubscribe or add to your alerts, please visit the following link:
+To unsubscribe, manage or add to your alerts, please visit the following link:
     {MANAGE}
