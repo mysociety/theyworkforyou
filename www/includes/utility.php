@@ -7,6 +7,7 @@ General utility functions v1.1 (well, it was).
 
 include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
+use PHPMailer\PHPMailer\PHPMailer;
 
 # Pass it a brief header word and some debug text and it'll be output.
 # If TEXT is an array, call the user function, assuming it's a class.
@@ -701,6 +702,13 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
     $emailtext = fread($handle, filesize($filename));
     fclose($handle);
 
+    $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".html";
+    if (file_exists($filename)) {
+        $htmltext = file_get_contents($filename);
+    } else {
+        $htmltext = '';
+    }
+
     // See if there's a default subject in the template.
     $firstline = substr($emailtext, 0, strpos($emailtext, "\n"));
 
@@ -733,9 +741,10 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
     }
 
     $emailtext = preg_replace($search, $replace, $emailtext);
+    $htmltext = preg_replace($search, $replace, $htmltext);
 
     // Send it!
-    $success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN, $want_bounces);
+    $success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN, $want_bounces, $htmltext);
 
     return $success;
 
@@ -750,30 +759,44 @@ function twfy_verp_envelope_sender($recipient) {
     return $envelope_sender;
 }
 
-function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false) {
+function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bounces = false, $html='') {
     // Use this rather than PHP's mail() direct, so we can make alterations
     // easily to all the emails we send out from the site.
     // eg, we might want to add a .sig to everything here...
 
     if (!$from) $from = CONTACTEMAIL;
 
-    $headers =
-     "From: TheyWorkForYou <$from>\r\n" .
-     "Content-Type: text/plain; charset=utf-8\r\n" .
-     "MIME-Version: 1.0\r\n" .
-     "Content-Transfer-Encoding: 8bit\r\n" .
-     ($bulk ? "Precedence: bulk\r\nAuto-Submitted: auto-generated\r\n" : "" ).
-     "X-Mailer: PHP/" . phpversion();
-    twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->SMTPAutoTLS = false;
+    $mail->setFrom($from, 'TheyWorkForYou');
+    $mail->addAddress($to);
+    $mail->Subject = $subject;
+    $mail->CharSet = 'utf-8';
 
-    if ($want_bounces) {
-      $envelope_sender = twfy_verp_envelope_sender($to);
-        $success = mail ($to, $subject, $message, $headers, '-f ' . $envelope_sender);
+    if ($html) {
+        $mail->msgHTML($html, INCLUDESPATH . 'easyparliament/templates/emails');
+        $mail->AltBody = $message;
     } else {
-        $success = mail ($to, $subject, $message, $headers);
+        $mail->Body = $message;
     }
 
-    return $success;
+    if ($bulk) {
+        $mail->addCustomHeader('Precedence', 'bulk');
+        $mail->addCustomHeader('Auto-Submitted', 'auto-generated');
+    }
+
+    if ($want_bounces) {
+        $mail->Sender = twfy_verp_envelope_sender($to);
+    }
+
+    twfy_debug('EMAIL', "Sending email to $to with subject of '$subject'");
+    try {
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        return false;
+    }
 }
 
 
