@@ -55,6 +55,7 @@
 
                 <h3 class="js-toc-item" id="individual-records">Individual voting records</h3>
                 <p>On each MP’s page you’ll find a summary of their stances on important policy areas such as combating climate change or reforming the NHS, described with phrases such as <i>‘generally voted for’</i>, <i>‘always voted against’</i>, <i>‘never voted for’</i>, etc. We’ll explain more about how those statements are generated below. This section of an MP’s page also shows any votes which differ from the way the majority of their party voted.</p>
+                <p>In comparisons with their party, MPs votes are compared to what are described as "Comparable MPs". These are all MPs of the same party who had the opportunity to take part in the same divisions on a policy as this MP.</p>
 
                 <a href="https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington">
                     <img src="example-mp-stances.jpg" width="1000" height="600" alt="Example MP: Dianne Abbott" style="border-radius: 3px; border: 1px solid #ddd; margin-bottom: 2em;">
