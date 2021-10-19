@@ -102,6 +102,7 @@ $LIVEALERTS = new ALERT;
 
 $current = array('email' => '', 'token' => '');
 $email_text = '';
+$html_text = '';
 $globalsuccess = 1;
 
 # Fetch all confirmed, non-deleted alerts
@@ -178,11 +179,12 @@ foreach ($alertdata as $alertitem) {
 
     if ($email != $current['email']) {
         if ($email_text) {
-            write_and_send_email($current, $email_text, $template);
+            write_and_send_email($current, $email_text, $html_text, $template);
         }
         $current['email'] = $email;
         $current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
         $email_text = '';
+        $html_text = '';
         $q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
             ':email' => $email
             ))->first();
@@ -253,7 +255,7 @@ foreach ($alertdata as $alertitem) {
             } else {
                 $text .= "$vote$teller";
             }
-            $text .= " (division #$num; result was " . $row['yes_total'] . ' aye, ' . $row['no_total'] . ' no)';
+            $text .= " (division #$num; result was <b>" . $row['yes_total'] . '</b> aye, <b>' . $row['no_total'] . ' no</b>)';
             $data['rows'][] = [
                 'parent' => [
                     'body' => $row['division_title'],
@@ -275,7 +277,7 @@ foreach ($alertdata as $alertitem) {
             if ($major !== $row['major']) {
                 $count[$major] = $total; $total = 0;
                 $major = $row['major'];
-                $o[$major] = '';
+                $o[$major] = ['text' => '', 'html' => ''];
                 $k = 3;
             }
             #mlog($row['major'] . " " . $row['gid'] ."\n");
@@ -302,38 +304,52 @@ foreach ($alertdata as $alertitem) {
             if ($major == 'V' || $k >= 0) {
                 $any_content = true;
                 $parentbody = text_html_to_email($row['parent']['body']);
-                $body = text_html_to_email($row['extract']);
+                $body_text = text_html_to_email($row['extract']);
+                $body_html = $row['extract'];
                 if (isset($row['speaker']) && count($row['speaker'])) {
-                    $body = $row['speaker']['name'] . ': ' . $body;
+                    $body_text = $row['speaker']['name'] . ': ' . $body_text;
+                    $body_html = '<strong style="font-weight: 900;">' . $row['speaker']['name'] . '</strong>: ' . $body_html;
                 }
+                $body_html = '<p style="font-size: 16px;">' . $body_html . '</p>';
 
-                $body = wordwrap($body, 72);
-                $o[$major] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttps://www.theyworkforyou.com" . $row['listurl'] . "\n";
-                $o[$major] .= $body . "\n\n";
+                $body_text = wordwrap($body_text, 72);
+                $o[$major]['text'] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttps://www.theyworkforyou.com" . $row['listurl'] . "\n";
+                $o[$major]['text'] .= $body_text . "\n\n";
+                $o[$major]['html'] .= '<a href="https://www.theyworkforyou.com' . $row['listurl'] . '"><h2 style="line-height: 1.2; font-size: 17px; font-weight: 900;">' . $parentbody . '</h2></a> <span style="margin: 16px 0 0 0; display: block; font-size: 16px;">' . format_date($row['hdate'], SHORTDATEFORMAT) . '</span>';
+                $o[$major]['html'] .= $body_html . "\n\n";
             }
             $total++;
         }
         $count[$major] = $total;
 
         if ($any_content) {
-            # Add data to email_text
+            # Add data to email_text/html_text
             $desc = trim(html_entity_decode($data['searchdescription']));
             $desc = trim(preg_replace(['#\(B\d+( OR B\d+)*\)#', '#B\d+( OR B\d+)*#'], '', $desc));
             foreach ($o as $major => $body) {
-                if ($body) {
-                    $heading = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
-                    $email_text .= "$heading\n" . str_repeat('=', strlen($heading)) . "\n\n";
+                if ($body['text']) {
+                    $heading_text = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
+                    $heading_html = $desc . ' : <strong>' . $count[$major] . '</strong> ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
+
+                    $email_text .= "$heading_text\n" . str_repeat('=', strlen($heading_text)) . "\n\n";
                     if ($count[$major] > 3 && $major != 'V') {
                         $email_text .= "There are more results than we have shown here. See more:\nhttps://www.theyworkforyou.com/search/?s=" . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . "&o=d\n\n";
                     }
-                    $email_text .= $body;
+                    $email_text .= $body['text'];
+
+                    $html_text .= '<hr style="height:2px;border-width:0; background-color: #f7f6f5; margin: 30px 0;">';
+                    $html_text .= '<p style="font-size:16px;">' . $heading_html . '</p>';
+                    if ($count[$major] > 3 && $major != 'V') {
+                        $html_text .= '<p style="font-size:16px;">There are more results than we have shown here. <a href="https://www.theyworkforyou.com/search/?s=' . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . '&o=d">See more</a></p>';
+                    }
+                    $html_text .= $body['html'];
                 }
             }
         }
     }
 }
 if ($email_text) {
-    write_and_send_email($current, $email_text, $template);
+    write_and_send_email($current, $email_text, $html_text, $template);
 }
 
 mlog("\n");
@@ -402,15 +418,16 @@ function sort_by_stuff($a, $b) {
     return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
-function write_and_send_email($current, $data, $template) {
+function write_and_send_email($current, $text, $html, $template) {
     global $globalsuccess, $sentemails, $nomail, $start_time;
 
-    $data .= '====================';
+    $text .= '====================';
     $sentemails++;
     mlog("SEND $sentemails : Sending email to $current[email] ... ");
     $d = array('to' => $current['email'], 'template' => $template);
     $m = array(
-        'DATA' => $data,
+        'DATA' => $text,
+        '_HTML_' => $html,
         'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
     );
     if (!$nomail) {
@@ -423,7 +440,7 @@ function write_and_send_email($current, $data, $template) {
             sleep(1);
         }
     } else {
-        mlog($data);
+        mlog($text);
         $success = 1;
     }
     mlog("done\n");
@@ -433,7 +450,7 @@ function write_and_send_email($current, $data, $template) {
 }
 
 function text_html_to_email($s) {
-    $s = preg_replace('#</?(i|small)>#', '', $s);
+    $s = preg_replace('#</?(i|b|small)>#', '', $s);
     $s = preg_replace('#</?span[^>]*>#', '*', $s);
     $s = str_replace(
         array('&#163;', '&#8211;', '&#8212;', '&#8217;', '<br>'),
