@@ -18,10 +18,9 @@ if (isset ($data['rows'])) {
         if ($row['htype'] == '12') {
             if (isset($row['speaker']) && count($row['speaker']) > 0) {
                 $speaker = $row['speaker'];
-                if (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpeg')) {
-                    $row['speaker']['image'] = IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpeg';
-                } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg')) {
-                    $row['speaker']['image'] = IMAGEPATH . 'mps/' . $speaker['person_id'] . '.jpg';
+                list($image, $sz) = Utility\Member::findMemberImage($speaker['person_id'], true);
+                if ($image) {
+                    $row['speaker']['image'] = $image;
                 }
                 $desc = '';
                 if (isset($speaker['office'])) {

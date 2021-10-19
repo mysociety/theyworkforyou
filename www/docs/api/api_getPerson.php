@@ -32,7 +32,7 @@ function _api_getPerson_row($row, $has_party=FALSE) {
         $row['party'] = $parties[$row['party']];
     list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
     if ($image) {
-        list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . '/images/', $image));
+        list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . IMAGEPATH, $image));
         $row['image'] = $image;
         $row['image_height'] = $height;
         $row['image_width'] = $width;

@@ -25,22 +25,22 @@ class Member
 
     public static function findMemberImage($pid, $smallonly = false, $substitute_missing = false) {
         $image = null; $sz = null;
-        if (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.jpeg')) {
+        if (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.jpeg')) {
             $image = IMAGEPATH . 'mpsL/' . $pid . '.jpeg';
             $sz = 'L';
-        } elseif (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.jpg')) {
+        } elseif (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.jpg')) {
             $image = IMAGEPATH . 'mpsL/' . $pid . '.jpg';
             $sz = 'L';
-        } elseif (!$smallonly && is_file(BASEDIR . '/images/mpsL/' . $pid . '.png')) {
+        } elseif (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.png')) {
             $image = IMAGEPATH . 'mpsL/' . $pid . '.png';
             $sz = 'L';
-        } elseif (is_file(BASEDIR . '/images/mps/' . $pid . '.jpeg')) {
+        } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.jpeg')) {
             $image = IMAGEPATH . 'mps/' . $pid . '.jpeg';
             $sz = 'S';
-        } elseif (is_file(BASEDIR . '/images/mps/' . $pid . '.jpg')) {
+        } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.jpg')) {
             $image = IMAGEPATH . 'mps/' . $pid . '.jpg';
             $sz = 'S';
-        } elseif (is_file(BASEDIR . '/images/mps/' . $pid . '.png')) {
+        } elseif (is_file(BASEDIR . IMAGEPATH . 'mps/' . $pid . '.png')) {
             $image = IMAGEPATH . 'mps/' . $pid . '.png';
             $sz = 'S';
         }
@@ -49,16 +49,16 @@ class Member
         if (!$image && $substitute_missing) {
             if ($smallonly) {
                 if ($substitute_missing === "lord") {
-                    $image = IMAGEPATH . "unknownlord.png";
+                    $image = "/images/unknownlord.png";
                 } else {
-                    $image = IMAGEPATH . "unknownperson.png";
+                    $image = "/images/unknownperson.png";
                 }
                 $sz = 'S';
             } else {
                 if ($substitute_missing === "lord") {
-                    $image = IMAGEPATH . "unknownlord_large.png";
+                    $image = "/images/unknownlord_large.png";
                 } else {
-                    $image = IMAGEPATH . "unknownperson_large.png";
+                    $image = "/images/unknownperson_large.png";
                 }
                 $sz = 'L';
             }
