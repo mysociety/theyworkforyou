@@ -43,7 +43,7 @@
         }
 
         @media (min-width: $medium-screen) {
-            grid-template-columns: 60px 1fr;
+            grid-template-columns: 120px 1fr;
             grid-template-areas: "image about"
                                  "image search";
         }
