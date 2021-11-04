@@ -503,7 +503,7 @@ class Divisions {
             FROM persondivisionvotes
                 JOIN divisions USING(division_id)
             WHERE person_id = :person_id
-            ORDER by division_date DESC, division_id DESC LIMIT :number",
+            ORDER by division_date DESC, division_number DESC, division_id DESC LIMIT :number",
             $args
         );
 
