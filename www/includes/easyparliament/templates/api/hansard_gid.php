@@ -18,7 +18,7 @@ if (isset ($data['rows'])) {
         if ($row['htype'] == '12') {
             if (isset($row['speaker']) && count($row['speaker']) > 0) {
                 $speaker = $row['speaker'];
-                list($image, $sz) = Utility\Member::findMemberImage($speaker['person_id'], true);
+                list($image, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($speaker['person_id'], true);
                 if ($image) {
                     $row['speaker']['image'] = $image;
                 }
