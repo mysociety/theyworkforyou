@@ -44,6 +44,7 @@ Docker volumes that may be in use, including all their data.
 
 [DOCKER.md](DOCKER.md) has some more detailed notes on the development environment, together
 with some useful commands and more detailed Docker-specific setup notes.
+
 ### DEPRECATED: Developing with Vagrant
 
 Please note that we are not currently supporting the Vagrant environment, and may remove it
@@ -77,6 +78,14 @@ rebuilt during testing, so make sure it's not an important copy.
 You may find that in some versions of PHPUnit errors are thrown regarding code
 coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
 and located at `/vendor/bin/phpunit` should run correctly.
+
+The `docker-compose.dev.yaml` should correctly create and set up the test database, as well as the required dependences. 
+
+To run just one set of tests, run:
+
+`
+./vendor/bin/phpunit tests --filter PartyTest --no-coverage
+`
 
 ## Build Status
 
