@@ -20,11 +20,6 @@
                         include '_calendar_section.php';
                         ?>
                     </div>
-                  <?php if ( !isset($no_survey) ) { ?>
-                    <div class="business-section__secondary__item">
-                        <?php include( dirname(__FILE__) . '/../sidebar/looking_for.php' ); ?>
-                    </div>
-                  <?php } ?>
                   <?php if ( isset($content['rssurl']) ) { ?>
                     <div class="business-section__secondary__item">
                         <p class="rss-feed">

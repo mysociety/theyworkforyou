@@ -734,24 +734,6 @@ html.js .policy-votes-list-footer .js-show-all-votes {
     }
 }
 
-.mini-survey {
-    label {
-        font-size: 1em;
-
-        input[type="radio"] {
-            margin-right: 0.5em;
-        }
-    }
-
-    p {
-        margin-bottom: 0.5em;
-    }
-
-    input[type="submit"] {
-        margin-top: 0.5em;
-    }
-}
-
 a[href^="https://www.publicwhip.org"] {
     &:after {
         content: "";

@@ -266,8 +266,6 @@ if (!count($data)) {
                     <a href="<?= $urls['plain'] ?>?all=1">Historical list of all <?= $rep_plural ?></a>
                     </p>
                 <?php } ?>
-
-                <?php include( dirname(__FILE__) . '/../sidebar/looking_for.php' ) ?>
             </div>
         </div>
 

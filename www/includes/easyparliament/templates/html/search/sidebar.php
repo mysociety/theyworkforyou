@@ -15,6 +15,4 @@
                 </p>
                 <?php } ?>
 
-
-                <?php include( dirname(__FILE__) . '/../sidebar/looking_for.php' ) ?>
             </div>

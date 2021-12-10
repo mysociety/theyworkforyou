@@ -3,7 +3,6 @@
     <?php $content = $debates; $title = "House of Commons debates"; include '_business_section.php'; ?>
     <?php $search_title = 'Search Commons, Lords, and Westminster Hall debates'; include '_search.php'; ?>
     <?php
-        $no_survey = 1;
         $section = 'whall';
         $content = $whall;
         $title = "Westminster Hall debates";

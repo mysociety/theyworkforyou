@@ -67,14 +67,6 @@ class Renderer
 
         $data = self::addCommonURLs($data);
 
-        # mini survey
-        // we never want to display this on the front page or any
-        // other survey page we might have
-        if (!in_array($this_page, array('survey', 'overview'))) {
-            $mini = new MiniSurvey;
-            $data['mini_survey'] = $mini->get_values();
-        }
-
         ////////////////////////////////////////////////////////////
         // Unpack the data we've been passed so it's available for use in the templates.
 
