@@ -618,7 +618,7 @@ class MEMBER {
         $current = array();
         foreach (array_keys($this->houses_pretty) as $h) {
             $lh = $this->left_house($h);
-            $current[$h] = ($lh['date'] == '9999-12-31');
+            $current[$h] = ($lh && $lh['date'] == '9999-12-31');
         }
         if ($house) return $current[$house];
         return $current;

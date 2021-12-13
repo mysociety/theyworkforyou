@@ -2,10 +2,10 @@
 <phpdoc>
   <title>TheyWorkForYou</title>
   <parser>
-    <target>www/docs/docs-cache</target>
+    <target>docs-cache</target>
   </parser>
   <transformer>
-    <target>www/docs/docs</target>
+    <target>docs</target>
   </transformer>
   <transformations>
     <template name="clean" />

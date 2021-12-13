@@ -287,8 +287,11 @@ class Header
 
             // What gets displayed for this page.
             $menudata = $DATA->page_metadata($toppage, 'menu');
-            $text = $menudata['text'];
-            $title = $menudata['title'];
+            $title = '';
+            if ($menudata) {
+                $text = $menudata['text'];
+                $title = $menudata['title'];
+            }
             if (!$title) continue;
 
             //get link and description for the menu ans add it to the array

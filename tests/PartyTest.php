@@ -417,7 +417,6 @@ public function testCrossPartyDisclaimer()
     MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
     MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
     $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
-    print_r($page);
     $this->assertContains('Test MP G', $page);
     $this->assertContains('In the votes below they are compared to their original party', $page);
 }

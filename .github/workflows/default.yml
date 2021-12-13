@@ -1,0 +1,85 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on PHP ${{ matrix.php_version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php_version: ["7.0", "7.1", "7.2", "7.3", "7.4"]
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: twfy_test
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
+    steps:
+#    - name: Stop any running MySQL
+#      run: sudo systemctl stop mysql.service
+#    - uses: chhsiung/github-actions-mysql@0f348ad54f14038adafed5914b5ce775806768ab
+#      with:
+#        rootPassword: 'password'
+#        sqlMode: 'ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+
+    - uses: niden/actions-memcached@v7
+    - uses: zhulik/redis-action@1.1.0
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php_version }}
+        extensions: memcached
+
+    - run: sudo apt-get update && sudo apt-get install -y graphviz
+
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Verify MariaDB connection
+      run: |
+        while ! mysqladmin ping -h"127.0.0.1" --silent; do
+          sleep 1
+        done
+
+    - name: Set up database and code
+      run: |
+        mysql -h 127.0.0.1 -u root -ppassword twfy_test < db/schema.sql
+        php composer.phar install --no-interaction --prefer-source
+
+    - name: Run tests
+      env:
+        TWFY_TEST_DB_HOST: "127.0.0.1"
+        TWFY_TEST_DB_USER: "root"
+        TWFY_TEST_DB_PASS: "password"
+        TWFY_TEST_DB_NAME: "twfy_test"
+      run: |
+        mkdir -p build/logs
+        vendor/bin/phpunit --exclude-group xapian
+
+    - name: Afterwards
+      if: matrix.php_version == '7.0'
+      run: |
+        wget https://scrutinizer-ci.com/ocular.phar
+        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+
+    - name: Documentation
+      if: matrix.php_version == '7.0' && github.ref_name == 'master' && github.event_name == 'push'
+      run: ./build-docs.sh

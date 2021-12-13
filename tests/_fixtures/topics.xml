@@ -389,7 +389,7 @@
       <field name="slug">nhs</field>
       <field name="description">The NHS is the National Health Service</field>
       <field name="title">The NHS</field>
-      <field name="front_page">True</field>
+      <field name="front_page">1</field>
     </row>
     <row>
       <field name="id">2</field>
@@ -397,7 +397,7 @@
       <field name="description">Welfare is Welfare</field>
       <field name="title">Welfare</field>
       <field name="search_string">welfate</field>
-      <field name="front_page">False</field>
+      <field name="front_page">0</field>
     </row>
 	</table_data>
 	<table_data name="titles_ignored">
