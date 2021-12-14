@@ -43,7 +43,9 @@ function person_drop_down() {
         $house = $row['house'];
         $desc = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']) .
                 " " . $houses[$house];
-        if ($row['party']) $desc .= ' (' . $row['party'] . ')';
+        if ($row['party']) {
+            $desc .= ' (' . $row['party'] . ')';
+        }
         if ($row['constituency']) {
             $desc .= ', ' . $row['constituency'];
         }

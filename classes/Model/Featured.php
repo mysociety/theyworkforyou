@@ -53,7 +53,7 @@ class Featured {
     }
 
     private function _get($key) {
-        $text = NULL;
+        $text = null;
 
         $q = $this->db->query(
             "SELECT value FROM editorial WHERE item = :key",
@@ -65,7 +65,7 @@ class Featured {
         if ($q) {
             $text = $q['value'];
             if ( trim($text) == '' ) {
-                $text = NULL;
+                $text = null;
             }
         }
 
@@ -74,7 +74,7 @@ class Featured {
 
     private function _set($key, $value) {
         if ( trim($value) == '' ) {
-            $value = NULL;
+            $value = null;
         }
         $check_q = $this->db->query(
             "SELECT value FROM editorial WHERE item = :key",

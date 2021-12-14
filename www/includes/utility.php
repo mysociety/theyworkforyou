@@ -904,7 +904,7 @@ function entities_to_numbers($string) {
     return $string;
 }
 
-function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid = NULL) {
+function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid = null) {
 
     // Case for Elizabeth II
     if ($house == HOUSE_TYPE_ROYAL)
@@ -920,7 +920,7 @@ function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid =
     $out = '';
 
     // Insert the Person ID if known.
-    if ($pid !== NULL)
+    if ($pid !== null)
     {
         $out .= $pid . '/';
     }

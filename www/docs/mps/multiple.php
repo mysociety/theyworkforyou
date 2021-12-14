@@ -28,7 +28,9 @@ out(3, 4, 'MLA and MSP');
 
 function out($h1, $h2, $title) {
     global $out;
-    if (!isset($out[$h1][$h2])) return;
+    if (!isset($out[$h1][$h2])) {
+        return;
+    }
     print "<h3>$title</h3>\n<ul>\n";
     foreach ($out[$h1][$h2] as $m) {
         print '<li><a href="' . $m->url() . '">' . $m->full_name() . "</a></li>\n";

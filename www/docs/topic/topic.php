@@ -11,7 +11,7 @@
 namespace MySociety\TheyWorkForYou;
 
 // Disable the old PAGE class.
-$new_style_template = TRUE;
+$new_style_template = true;
 
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
@@ -27,8 +27,7 @@ global $this_page, $DATA;
 $this_page = 'topic';
 
 // Make sure the requested topic actually exists, otherwise throw a 404.
-if ($topic = $topics->getTopic($topicname))
-{
+if ($topic = $topics->getTopic($topicname)) {
 
     $data = array();
     $data['topic'] = $topic;
@@ -45,8 +44,7 @@ if ($topic = $topics->getTopic($topicname))
         include_once INCLUDESPATH . 'easyparliament/member.php';
 
         // Check to see if there's a submitted postcode to try determine policy positions.
-        if (get_http_var('pc') != '')
-        {
+        if (get_http_var('pc') != '') {
 
             // Try all this, as it might go wrong.
             try {
@@ -81,8 +79,7 @@ if ($topic = $topics->getTopic($topicname))
 
         /////////////////////////////////////////////////////////
         // DOES THE USER HAVE A POSTCODE ALREADY SET?
-        elseif ($THEUSER->postcode_is_set())
-        {
+        elseif ($THEUSER->postcode_is_set()) {
             $member = new Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
         }
 

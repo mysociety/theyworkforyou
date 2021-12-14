@@ -360,7 +360,7 @@ class PartyTest extends FetchPageTestCase
         if ($row) {
             return new MySociety\TheyWorkForYou\Member($row);
         } else {
-            return NULL;
+            return null;
         }
     }
 

@@ -144,4 +144,4 @@ of what could be done with more structured data.</p>
 <?php
 #$PAGE->block_end();
 $PAGE->stripe_end();
-$PAGE->page_end ();
+$PAGE->page_end();

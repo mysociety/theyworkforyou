@@ -57,8 +57,11 @@ function api_getCommittee_name($name) {
     $name = preg_replace('#\s+Committee#', '', $name);
 
     $date = parse_date(get_http_var('date'));
-    if ($date) $date = '"' . $date['iso'] . '"';
-    else $date = 'date(now())';
+    if ($date) {
+        $date = '"' . $date['iso'] . '"';
+    } else {
+        $date = 'date(now())';
+    }
     $q = $db->query("select distinct(dept) from moffice
         where dept like :department
         and from_date <= $date and $date <= to_date", array(
@@ -109,8 +112,11 @@ function api_getCommittee_date($date) {
     $db = new ParlDB;
 
     $date = parse_date($date);
-    if ($date) $date = '"' . $date['iso'] . '"';
-    else $date = 'date(now())';
+    if ($date) {
+        $date = '"' . $date['iso'] . '"';
+    } else {
+        $date = 'date(now())';
+    }
     $q = $db->query("select distinct(dept) from moffice
         where source = 'chgpages/selctee'
         and from_date <= $date and $date <= to_date");

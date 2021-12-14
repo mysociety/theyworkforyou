@@ -106,8 +106,9 @@ class Wikipedia
 
             # See if already matched a string this one is contained within
             foreach ($matched as $got) {
-                if (strstr($got, $phrase))
+                if (strstr($got, $phrase)) {
                     continue 2;
+                }
             }
 
             twfy_debug("WIKIPEDIA", "Matched '$phrase'");
@@ -126,8 +127,9 @@ class Wikipedia
             array_push($matched, $phrase);
         }
 
-        if (!$was_array)
+        if (!$was_array) {
             $source = join('|||', $source);
+        }
 
         return $source;
 
@@ -153,31 +155,29 @@ class Wikipedia
         {
           $nextopen = strpos( $content, '<', $walker );
           $nextclose = strpos( $content, '>', $walker );
-          if( $nextclose === false )
-            {    // ERROR! Open waka without close waka!
+          if( $nextclose === false ) {
+              // ERROR! Open waka without close waka!
               // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
               return $content;
-            }
-          if( $nextopen === false || $nextopen > $nextclose )
-            { // No more opens, but there was a close; or, a close happens before the next open.
+          }
+          if( $nextopen === false || $nextopen > $nextclose ) {
+              // No more opens, but there was a close; or, a close happens before the next open.
               // walker goes to the close+1, and open decrements
               $open --;
               $walker = $nextclose + 1;
-            }
-          elseif( $nextopen < $nextclose )
-            { // an open before the next close
+          } elseif( $nextopen < $nextclose ) {
+              // an open before the next close
               $open ++;
               $walker = $nextopen + 1;
-            }
+          }
         }
           $tagend = $walker;
-          if( $tagend > strlen( $content ) )
-        $tagend = strlen( $content );
-          else
-        {
-          $tagend --;
-          $tagstart ++;
-        }
+          if( $tagend > strlen( $content ) ) {
+              $tagend = strlen( $content );
+          } else {
+              $tagend --;
+              $tagstart ++;
+          }
           $tag = substr( $content, $tagstart, $tagend - $tagstart );
           $tags[] = '<' . $tag . '>';
 

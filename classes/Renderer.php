@@ -76,13 +76,13 @@ class Renderer
         // Require the templates and output
 
         if ($template_only) {
-          require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
+            require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
         } else {
-          header('Content-Type: text/html; charset=utf-8');
-          require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
-          require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
-          require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
-          exit;
+            header('Content-Type: text/html; charset=utf-8');
+            require_once INCLUDESPATH . 'easyparliament/templates/html/header.php';
+            require_once INCLUDESPATH . 'easyparliament/templates/html/' . $template . '.php';
+            require_once INCLUDESPATH . 'easyparliament/templates/html/footer.php';
+            exit;
         }
     }
 

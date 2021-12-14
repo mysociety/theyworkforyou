@@ -16,7 +16,7 @@ $PAGE->stripe_start();
         <p></p>
     <?php
 
-$PAGE->block_start(array ('title'=>'Share this with your friends'));
+$PAGE->block_start(array('title'=>'Share this with your friends'));
 
 #foi2009_sharethis_link();
 #foi2009_share_page();
@@ -25,4 +25,4 @@ $PAGE->block_start(array ('title'=>'Share this with your friends'));
 
 $PAGE->block_end();
 $PAGE->stripe_end();
-$PAGE->page_end ();
+$PAGE->page_end();

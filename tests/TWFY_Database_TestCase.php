@@ -28,7 +28,7 @@ abstract class TWFY_Database_TestCase extends PHPUnit_Extensions_Database_TestCa
 
     public function tearDown()
     {
-        $this->db = NULL;
+        $this->db = null;
 
         parent::tearDown();
     }

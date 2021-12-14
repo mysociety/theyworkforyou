@@ -52,9 +52,9 @@ class ALERT {
 // FUNCTION: fetch_between
 
     public function fetch_between($confirmed, $deleted, $start_date, $end_date) {
-      // Return summary data on all the alerts that were created between $start_date
-      // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
-      // passed in $confirmed and $deleted
+        // Return summary data on all the alerts that were created between $start_date
+        // and $end_date (inclusive) and whose confirmed and deleted values match the booleans
+        // passed in $confirmed and $deleted
         $q = $this->db->query("SELECT   criteria, count(*) as cnt
             FROM     alerts
             WHERE    confirmed = :confirmed
@@ -338,17 +338,20 @@ class ALERT {
     }
 
     public function check_token($token) {
-        if (!is_null($this->token_checked))
+        if (!is_null($this->token_checked)) {
             return $this->token_checked;
+        }
 
         $arg = strstr($token, '::') ? '::' : '-';
         $token_parts = explode($arg, $token);
-        if (count($token_parts) != 2)
+        if (count($token_parts) != 2) {
             return false;
+        }
 
         list($alert_id, $registrationtoken) = $token_parts;
-        if (!is_numeric($alert_id) || !$registrationtoken)
+        if (!is_numeric($alert_id) || !$registrationtoken) {
             return false;
+        }
 
         $q = $this->db->query("SELECT alert_id, email, criteria
                         FROM alerts
@@ -396,7 +399,9 @@ class ALERT {
     // If all goes well the alert will be confirmed.
     // The alert will be active when scripts run each day to send the actual emails.
     public function confirm($token) {
-        if (!($alert = $this->check_token($token))) return false;
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
         $r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = :alert_id", array(
@@ -410,7 +415,9 @@ class ALERT {
     // and the deletion page has passed the token from the URL to here.
     // If all goes well the alert will be deleted.
     public function delete($token) {
-        if (!($alert = $this->check_token($token))) return false;
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
         $r = $this->db->query("DELETE FROM alerts WHERE alert_id = :alert_id", array(
             ':alert_id' => $alert['id']
             ));
@@ -419,7 +426,9 @@ class ALERT {
     }
 
     public function delete_all($token) {
-        if (!($alert = $this->check_token($token))) return false;
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
         $r = $this->db->query("DELETE FROM alerts WHERE email = :email", array(
             ':email' => $alert['email']
             ));
@@ -428,7 +437,9 @@ class ALERT {
     }
 
     public function suspend($token) {
-        if (!($alert = $this->check_token($token))) return false;
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
         $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", array(
             ':alert_id' => $alert['id']
             ));
@@ -437,7 +448,9 @@ class ALERT {
     }
 
     public function resume($token) {
-        if (!($alert = $this->check_token($token))) return false;
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
         $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = :alert_id", array(
             ':alert_id' => $alert['id']
             ));
@@ -458,8 +471,12 @@ class ALERT {
             }
         }
         $criteria = '';
-        if (count($words)) $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . implode(' ', $words) . ']' . ($html?'</li>':'') . "\n";
-        if ($spokenby) $criteria .= ($html?'<li>':'* ') . "Things by " . implode(' or ', $spokenby) . ($html?'</li>':'') . "\n";
+        if (count($words)) {
+            $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . implode(' ', $words) . ']' . ($html?'</li>':'') . "\n";
+        }
+        if ($spokenby) {
+            $criteria .= ($html?'<li>':'* ') . "Things by " . implode(' or ', $spokenby) . ($html?'</li>':'') . "\n";
+        }
         return $criteria;
     }
 

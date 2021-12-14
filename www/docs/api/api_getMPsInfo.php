@@ -20,7 +20,9 @@ function _api_getMPsInfo_id($ids) {
     $ids = preg_split('#\s*,\s*#', $ids, -1, PREG_SPLIT_NO_EMPTY);
     $safe_ids = array(0);
     foreach ($ids as $id) {
-        if (ctype_digit($id)) $safe_ids[] = $id;
+        if (ctype_digit($id)) {
+            $safe_ids[] = $id;
+        }
     }
     $ids = join(',', $safe_ids);
 
@@ -32,13 +34,15 @@ function _api_getMPsInfo_id($ids) {
         $output = array();
         foreach ($q as $row) {
             $data_key = $row['data_key'];
-            if (count($fields) && !in_array($data_key, $fields))
+            if (count($fields) && !in_array($data_key, $fields)) {
                 continue;
+            }
             $pid = $row['person_id'];
             $output[$pid][$data_key] = $row['data_value'];
             $time = strtotime($row['lastupdate']);
-            if ($time > $last_mod)
+            if ($time > $last_mod) {
                 $last_mod = $time;
+            }
         }
         $q = $db->query("select memberinfo.*, person_id from memberinfo, member
             where memberinfo.member_id=member.member_id and person_id in (" . $ids . ")
@@ -46,16 +50,22 @@ function _api_getMPsInfo_id($ids) {
         if ($q->rows()) {
             foreach ($q as $row) {
                 $data_key = $row['data_key'];
-                if (count($fields) && !in_array($data_key, $fields))
+                if (count($fields) && !in_array($data_key, $fields)) {
                     continue;
+                }
                 $mid = $row['member_id'];
                 $pid = $row['person_id'];
-                if (!isset($output[$pid]['by_member_id'])) $output[$pid]['by_member_id'] = array();
-                if (!isset($output[$pid]['by_member_id'][$mid])) $output[$pid]['by_member_id'][$mid] = array();
+                if (!isset($output[$pid]['by_member_id'])) {
+                    $output[$pid]['by_member_id'] = array();
+                }
+                if (!isset($output[$pid]['by_member_id'][$mid])) {
+                    $output[$pid]['by_member_id'][$mid] = array();
+                }
                 $output[$pid]['by_member_id'][$mid][$data_key] = $row['data_value'];
                 $time = strtotime($row['lastupdate']);
-                if ($time > $last_mod)
+                if ($time > $last_mod) {
                     $last_mod = $time;
+                }
             }
         }
         ksort($output);

@@ -89,7 +89,9 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $mp = array();
     if ($q) {
         $mp = $q;
-        if ($mp['left_house'] != '9999-12-31') $mp['former'] = true;
+        if ($mp['left_house'] != '9999-12-31') {
+            $mp['former'] = true;
+        }
     }
 
     $a = array_values($areas);
@@ -128,7 +130,9 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     $out = '';
     $out .= '<p>That postcode has multiple results, please pick who you are interested in:</p>';
     $out .= '<ul><li>Your ';
-    if (isset($mp['former'])) $out .= 'former ';
+    if (isset($mp['former'])) {
+        $out .= 'former ';
+    }
     $out .= '<strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
     $out .= $mp['given_name'] . ' ' . $mp['family_name'] . '</a>, ' . $mp['constituency'] . '</li>';
     if ($mcon) {
@@ -138,7 +142,9 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
         $out .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, ' . $mcon['constituency'] . '</li>';
     }
     $out .= '<li>Your <strong>' . $areas[$area_type] . ' ' . $rep_type . 's</strong> ';
-    if ($rep_type=='MLA') $out .= '(Members of the Legislative Assembly)';
+    if ($rep_type=='MLA') {
+        $out .= '(Members of the Legislative Assembly)';
+    }
     $out .= ' ' . ($current ? 'are' : 'were') . ':';
     $out .= '<ul>';
     foreach ($mreg as $reg) {

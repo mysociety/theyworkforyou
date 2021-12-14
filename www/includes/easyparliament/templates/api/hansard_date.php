@@ -27,8 +27,9 @@ if (isset ($data['rows'])) {
         }
 
         $entry = $row;
-        if (isset($row['excerpt']))
+        if (isset($row['excerpt'])) {
             $entry['excerpt'] = trim_characters($entry['excerpt'], 0, 200);
+        }
         if ($has_content) {
         } else {
             unset($entry['listurl']);

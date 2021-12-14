@@ -2,20 +2,20 @@
 
 $vote_sets = array(
     'yes_votes' => array(
-      'title' => 'Aye',
-      'anchor' => 'for',
+        'title' => 'Aye',
+        'anchor' => 'for',
     ),
     'no_votes' => array(
-      'title' => 'No',
-      'anchor' => 'against',
+        'title' => 'No',
+        'anchor' => 'against',
     ),
     'absent_votes' => array(
-      'title' => 'Absent',
-      'anchor' => 'absent',
+        'title' => 'Absent',
+        'anchor' => 'absent',
     ),
     'both_votes' => array(
-      'title' => 'Abstained',
-      'anchor' => 'both',
+        'title' => 'Abstained',
+        'anchor' => 'both',
     ),
 );
 

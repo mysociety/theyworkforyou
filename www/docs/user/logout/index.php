@@ -14,7 +14,7 @@ if (get_http_var("ret") != "") {
     // So we can send the user back to where they came from.
     $URL->insert(array("ret"=>get_http_var("ret")));
 }
-$THEUSER->logout( $URL->generate() );
+$THEUSER->logout($URL->generate());
 
 $message['title'] = 'You are now logged out';
 

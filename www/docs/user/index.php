@@ -5,7 +5,7 @@
  * page so leave it like that for now.
  */
 
-$new_style_template = TRUE;
+$new_style_template = true;
 
 include_once '../../includes/easyparliament/init.php';
 # need to include this as login code uses error_message
@@ -114,7 +114,7 @@ if (
                 $data['errors'] = $results['errors'];
                 $template = 'user/form';
             } else {
-                $data['edited'] = True;
+                $data['edited'] = true;
                 if (isset($results['email_changed'])) {
                     $data['email_changed'] = $results['email_changed'];
                 }

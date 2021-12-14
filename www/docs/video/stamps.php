@@ -17,7 +17,9 @@ $subsection_id = $q['subsection_id'];
 $adate = $q['adate'];
 $atime = $q['atime'];
 $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $atime);
-if (!$video) exit;
+if (!$video) {
+    exit;
+}
 
 $start = date('H:i:s', strtotime($video['broadcast_start']. ' GMT'));
 $end = date('H:i:s', strtotime($video['broadcast_end'] . ' GMT'));
@@ -35,7 +37,9 @@ $file_offset = 0;
 print '<stamps>';
 foreach ($q as $row) {
     $gid = str_replace('uk.org.publicwhip/', '', $row['gid']);
-    if (isset($gids[$gid])) continue;
+    if (isset($gids[$gid])) {
+        continue;
+    }
     $timetoend = $row['timetoend'] - $file_offset;
     if ($timetoend>0) {
         $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $row['adate'], $row['atime']);
@@ -45,8 +49,9 @@ foreach ($q as $row) {
         $end = date('H:i:s', strtotime($video['broadcast_end'] . ' GMT'));
     }
     $timediff = $row['timediff'] - $file_offset;
-    if ($timediff>=0)
+    if ($timediff>=0) {
         print "<stamp><gid>$gid</gid><file>$video[id]</file><time>$timediff</time></stamp>\n";
+    }
     $gids[$gid] = true;
 }
 print '</stamps>';

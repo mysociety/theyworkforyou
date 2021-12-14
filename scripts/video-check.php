@@ -10,8 +10,9 @@ $q = $db->query('select hansard.gid,time_to_sec(atime) as atime,hdate,hpos
 	order by hdate, hpos');
 $last = array('hdate'=>'');
 foreach ($q as $row) {
-	if ($row['hdate'] != $last['hdate'])
+	if ($row['hdate'] != $last['hdate']) {
 		$last = array();
+	}
 	if ($last && $row['atime'] < $last['atime']-5) {
 		print "PROBLEM; current row is $row[gid] $row[hdate] $row[atime]\n";
 		print "  Last was $last[gid] $last[hdate] $last[atime]\n";

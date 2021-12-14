@@ -40,7 +40,7 @@ switch ($action) {
       $success = add_policies($topic);
       break;
     default:
-      $success = NULL;
+      $success = null;
 }
 
 if (!is_null($success)) {

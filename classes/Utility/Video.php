@@ -19,7 +19,9 @@ class Video
     }
 
     public static function fromTimestamp($videodb, $date, $time) {
-        if (!$videodb) return null;
+        if (!$videodb) {
+            return null;
+        }
         date_default_timezone_set('Europe/London');
         $epoch = strtotime("$date $time");
         $timestamp = gmdate('c', $epoch);
@@ -38,9 +40,13 @@ class Video
 
     public static function object($video_id, $start, $gid, $stamping = '', $pid = 0) {
         $flashvars = "gid=$gid&amp;file=$video_id&amp;start=$start";
-        if ($stamping) $flashvars .= '&amp;stamping=1';
-        if ($pid) $flashvars .= '&amp;pid=' . $pid;
-/*
+        if ($stamping) {
+            $flashvars .= '&amp;stamping=1';
+        }
+        if ($pid) {
+            $flashvars .= '&amp;pid=' . $pid;
+        }
+        /*
 <object width='360' height='300'
     classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
     codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0'>

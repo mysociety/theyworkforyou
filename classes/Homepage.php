@@ -50,7 +50,7 @@ class Homepage {
     }
 
     protected function getRegionalList() {
-        return NULL;
+        return null;
     }
 
     protected function getEditorialContent() {

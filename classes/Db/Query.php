@@ -92,7 +92,9 @@ class Query implements \IteratorAggregate, \ArrayAccess {
             $this->error($this->conn->errorCode() . ': ' . $this->conn->errorInfo()[2]);
         }
 
-        if (!$this->success) return;
+        if (!$this->success) {
+            return;
+        }
 
         if ((!$pdoStatement) or (empty($pdoStatement))) {
             // A failed query.
@@ -164,8 +166,9 @@ class Query implements \IteratorAggregate, \ArrayAccess {
      * @param string $column_name
      */
     public function field($row_index, $column_name) {
-        if ($this->rows > 0)
+        if ($this->rows > 0) {
             return $this->data[$row_index][$column_name];
+        }
         return "";
     }
 
@@ -179,8 +182,9 @@ class Query implements \IteratorAggregate, \ArrayAccess {
      * @param integer $row_index
      */
     public function row($row_index) {
-        if ($this->success && $this->rows > 0)
+        if ($this->success && $this->rows > 0) {
             return $this->data[$row_index];
+        }
         return array();
     }
 

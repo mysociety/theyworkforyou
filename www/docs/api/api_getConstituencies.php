@@ -108,7 +108,9 @@ function _api_getConstituencies_latitude($lat, $lon, $d) {
     $geometry = _api_getGeometry();
     $out = array();
     foreach ($geometry['data'] as $name => $data) {
-        if (!isset($data['centre_lat']) || !isset($data['centre_lon'])) continue;
+        if (!isset($data['centre_lat']) || !isset($data['centre_lon'])) {
+            continue;
+        }
         $distance = R_e * acos(
             sin(deg2rad($lat)) * sin(deg2rad($data['centre_lat']))
             + cos(deg2rad($lat)) * cos(deg2rad($data['centre_lat']))
@@ -125,8 +127,12 @@ function _api_getConstituencies_latitude($lat, $lon, $d) {
         }
     }
     usort($out, function($a, $b) {
-        if ($a['distance'] > $b['distance']) return 1;
-        if ($a['distance'] < $b['distance']) return -1;
+        if ($a['distance'] > $b['distance']) {
+            return 1;
+        }
+        if ($a['distance'] < $b['distance']) {
+            return -1;
+        }
         return 0;
     });
     return $out;
@@ -145,7 +151,9 @@ function api_getConstituencies_distance($d) {
  * smallest angle between them.
  */
 function _api_angle_between($a1, $a2) {
-    if (abs($a1 - $a2) > M_PI) return 2*M_PI - abs($a1 - $a2);
+    if (abs($a1 - $a2) > M_PI) {
+        return 2*M_PI - abs($a1 - $a2);
+    }
     return abs($a1 - $a2);
 }
 

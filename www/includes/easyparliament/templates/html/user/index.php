@@ -12,7 +12,7 @@
           <h1>Your details</h1>
           <?php if (isset($edited)) { ?>
             <p>
-              <strong>have been updated<?= isset($email_changed) && $email_changed == True ? " and we&rsquo;ve sent a confirmation email to your new email address" : '' ?>.</strong>
+              <strong>have been updated<?= isset($email_changed) && $email_changed == true ? " and we&rsquo;ve sent a confirmation email to your new email address" : '' ?>.</strong>
             </p>
           <?php } else { ?>
           <p>

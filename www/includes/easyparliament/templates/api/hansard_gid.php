@@ -14,7 +14,9 @@ $out = array();
 if (isset ($data['rows'])) {
     for ($i=0; $i<count($data['rows']); $i++) {
         $row = $data['rows'][$i];
-        if (count($row) == 0) continue;
+        if (count($row) == 0) {
+            continue;
+        }
         if ($row['htype'] == '12') {
             if (isset($row['speaker']) && count($row['speaker']) > 0) {
                 $speaker = $row['speaker'];
@@ -35,7 +37,9 @@ if (isset ($data['rows'])) {
                     $desc .= $speaker['constituency'] . ', ';
                 }
                 $desc .= _htmlentities($speaker['party']);
-                if ($desc) $row['speaker']['desc'] = $desc;
+                if ($desc) {
+                    $row['speaker']['desc'] = $desc;
+                }
             }
         }
         $out[] = $row;
@@ -51,8 +55,9 @@ if (isset ($data['rows'])) {
                 $has_content = false;
             }
             $entry = $row;
-            if (isset($row['excerpt']))
+            if (isset($row['excerpt'])) {
                 $entry['excerpt'] = trim_characters($entry['excerpt'], 0, 200);
+            }
             if ($has_content) {
             } else {
                 unset($entry['listurl']);

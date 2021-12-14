@@ -325,10 +325,10 @@ class MemberTest extends TWFY_Database_TestCase
 
         $msps = array(
             array(
-             'person_id' => "19",
-              'name' => "Mr Regional MSP1",
-              'constituency' => "Mid Scotland and Fife",
-              'house' => "4"
+                'person_id' => "19",
+                'name' => "Mr Regional MSP1",
+                'constituency' => "Mid Scotland and Fife",
+                'house' => "4"
             ),
             array(
                 'person_id' => "20",
@@ -340,10 +340,10 @@ class MemberTest extends TWFY_Database_TestCase
         $this->assertEquals($msps, \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', 4, 'SPE'));
         $mlas = array(
             array(
-              'person_id' => "21",
-              'name' => "Mr Regional MLA1",
-              'constituency' => "Belfast West",
-              'house' => "3"
+                'person_id' => "21",
+                'name' => "Mr Regional MLA1",
+                'constituency' => "Belfast West",
+                'house' => "3"
             ),
             array(
                 'person_id' => "22",

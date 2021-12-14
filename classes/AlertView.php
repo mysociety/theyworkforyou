@@ -11,7 +11,7 @@ class AlertView {
     protected $db;
     protected $alert;
 
-    public function __construct($THEUSER = NULL) {
+    public function __construct($THEUSER = null) {
         $this->user = $THEUSER;
         $this->db = new \ParlDB;
         $this->alert = new \ALERT;

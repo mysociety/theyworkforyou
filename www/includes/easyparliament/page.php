@@ -114,7 +114,10 @@ class PAGE {
         //  'foot' - For the bottom stripe on hansard debates/wrans listings.
         // $id is the value of an id for this div (if blank, not used).
         ?>
-        <div class="stripe-<?php echo $type; ?><?php if ($extra_class != '') echo ' ' . $extra_class; ?>"<?php
+        <div class="stripe-<?php echo $type; ?><?php if ($extra_class != '') {
+    echo ' ' . $extra_class;
+}
+?>"<?php
         if ($id != '') {
             print ' id="' . $id . '"';
         }
@@ -483,7 +486,9 @@ class PAGE {
 
         global $DATA, $this_page;
 
-        if ($this->page_started()) return;
+        if ($this->page_started()) {
+            return;
+        }
         // The page's HTML hasn't been started yet, so we'd better do it.
 
         // Set the page title (in the <title></title>).
@@ -639,7 +644,9 @@ class PAGE {
             $URL->insert(array('adv' => 1));
                 echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More&nbsp;options</a>';
                 echo '<br>';
-                if ($wtt) print '<input type="hidden" name="wtt" value="1">';
+                if ($wtt) {
+                    print '<input type="hidden" name="wtt" value="1">';
+                }
         } else { ?>
     <form action="https://www.writetothem.com/lords" method="get">
     <input type="hidden" name="pid" value="<?=_htmlentities(get_http_var('pid')) ?>">
@@ -749,8 +756,7 @@ class PAGE {
             // The return url for after the user has logged in.
             if (get_http_var("ret") != "") {
                 $returl = get_http_var("ret");
-            }
-            else {
+            } else {
                 $returl = $glossary_returl;
             }
             ?>
@@ -814,15 +820,13 @@ class PAGE {
                 else {
                     $letters[] = "<li class=\"on\">" . $letter . "</li>";
                 }
-            }
-            elseif (!empty($GLOSSARY->alphabet[$letter])) {
+            } elseif (!empty($GLOSSARY->alphabet[$letter])) {
                 $URL = new \MySociety\TheyWorkForYou\Url('glossary');
                 $URL->insert(array('az' => $letter));
                 $letter_link = $URL->generate('url');
 
                 $letters[] = "<li><a href=\"" . $letter_link . "\">" . $letter . "</a></li>";
-            }
-            else {
+            } else {
                 $letters[] = '<li>' . $letter . '</li>';
             }
         }
@@ -862,8 +866,7 @@ class PAGE {
             $URL->insert(array("delete_confirm" => $term['glossary_id']));
             $delete_url = $URL->generate();
             $admin_links = "<br><small><a href=\"".$delete_url."\">delete</a></small>";
-        }
-        else {
+        } else {
             $admin_links = "";
         }
 
@@ -873,8 +876,7 @@ class PAGE {
             $user_link = $URL->generate('url');
 
             $user_details = "\t\t\t\t<p><small>contributed by user <a href=\"" . $user_link . "\">" . $term['firstname'] . " " . $term['lastname'] . "</a></small>" . $admin_links . "</p>\n";
-        }
-        else {
+        } else {
             $user_details = "";
         }
 

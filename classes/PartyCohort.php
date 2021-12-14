@@ -29,9 +29,9 @@ class PartyCohort
 
         $this->hash = $hash;
         $this->db = new \ParlDB;
-        $this->memberships = NULL;
-        $this->absences = NULL;
-        $this->party = NULL;
+        $this->memberships = null;
+        $this->absences = null;
+        $this->party = null;
 
         if ($pop_with_example) {
             $this->memberships = $this->getMemberships();
@@ -248,17 +248,27 @@ class PartyCohort
             $num_votes = 0;
             foreach ($votes as $vote) {
                 $vote_dir = $vote['vote'];
-                if ($vote_dir == '') continue;
-                if ($vote_dir == 'tellno') $vote_dir = 'no';
-                if ($vote_dir == 'tellaye') $vote_dir = 'aye';
+                if ($vote_dir == '') {
+                    continue;
+                }
+                if ($vote_dir == 'tellno') {
+                    $vote_dir = 'no';
+                }
+                if ($vote_dir == 'tellaye') {
+                    $vote_dir = 'aye';
+                }
 
                 $num_votes += $vote['num_votes'];
                 $score += ($vote['num_votes'] * $weights[$vote_dir]);
             }
             # For range, only care if there were results
             if ($votes->rows()) {
-                if (!$date_min || $date_min > $date) $date_min = $date;
-                if (!$date_max || $date_max < $date) $date_max = $date;
+                if (!$date_min || $date_min > $date) {
+                    $date_min = $date;
+                }
+                if (!$date_max || $date_max < $date) {
+                    $date_max = $date;
+                }
                 $num_divisions++;
             }
 

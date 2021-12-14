@@ -133,14 +133,14 @@ $all_topics = array(
 );
 
 foreach ($all_topics as $name => $topic) {
-  $existing = $topics->getTopic($name);
-  if ($existing) {
-      print "$name already exists\n";
-  } else {
-      $topic['slug'] = $name;
-      $topic['description'] = $topic['blurb'];
-      $topic = new MySociety\TheyWorkForYou\Topic($topic);
-      $topic->save();
-      print "created $name\n";
-  }
+    $existing = $topics->getTopic($name);
+    if ($existing) {
+        print "$name already exists\n";
+    } else {
+        $topic['slug'] = $name;
+        $topic['description'] = $topic['blurb'];
+        $topic = new MySociety\TheyWorkForYou\Topic($topic);
+        $topic->save();
+        print "created $name\n";
+    }
 }

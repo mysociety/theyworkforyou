@@ -24,24 +24,24 @@ class House
     public static function house_to_members($house) {
         $house_to_members = array(
             HOUSE_TYPE_COMMONS => array(
-              'singular' => 'MP',
-              'plural'   => 'MPs'
+                'singular' => 'MP',
+                'plural'   => 'MPs'
             ),
             HOUSE_TYPE_LORDS => array(
-              'singular' => 'Member of the House of Lords',
-              'plural'   => 'Members of the House of Lords'
+                'singular' => 'Member of the House of Lords',
+                'plural'   => 'Members of the House of Lords'
             ),
             HOUSE_TYPE_NI => array(
-              'singular' => 'MLA',
-              'plural'   => 'MLAs'
+                'singular' => 'MLA',
+                'plural'   => 'MLAs'
             ),
             HOUSE_TYPE_SCOTLAND => array(
-              'singular' => 'MSP',
-              'plural'   => 'MSPs'
-          ),
+                'singular' => 'MSP',
+                'plural'   => 'MSPs'
+            ),
             HOUSE_TYPE_LONDON_ASSEMBLY => array(
-              'singular' => 'Member of the London Assembly',
-              'plural'   => 'Members of the London Assembly'
+                'singular' => 'Member of the London Assembly',
+                'plural'   => 'Members of the London Assembly'
             )
         );
 

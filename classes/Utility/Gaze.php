@@ -25,7 +25,7 @@ class Gaze
         if (defined('OPTION_GAZE_URL') && OPTION_GAZE_URL) {
             return gaze_get_country_from_ip($ip);
         } else {
-            return NULL;
+            return null;
         }
 
     }

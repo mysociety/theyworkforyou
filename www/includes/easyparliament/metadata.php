@@ -531,7 +531,7 @@ $this->page = array (
         'url'			=> 'peer/'
     ),
     'peers' => array (
-         'menu'			=> array (
+            'menu'			=> array (
             'text'			=> 'Lords',
             'title'			=> "List of all Lords"
         ),
@@ -540,7 +540,7 @@ $this->page = array (
         'url'			=> 'peers/'
     ),
 'overview' => array (
-     'menu'			=> array (
+        'menu'			=> array (
         'text'			=> 'Overview',
         'title'			=> "Overview of the UK Parliament"
     ),
@@ -592,7 +592,7 @@ $this->page = array (
         'url'			=> 'rss/mp/'
     ),
     'mps' => array (
-         'menu'			=> array (
+            'menu'			=> array (
             'text'			=> 'MPs',
             'title'			=> "List of all Members of Parliament (MPs)"
         ),

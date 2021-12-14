@@ -68,8 +68,7 @@ class GlossaryEditQueue extends EditQueue {
                             WHERE edit_id=" . $approval_id . ";");
             if (!$q->success()) {
                 break;
-            }
-            else {
+            } else {
                 // Scrub that one from the list of pending items
                 unset ($this->pending[$approval_id]);
             }

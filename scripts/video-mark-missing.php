@@ -16,7 +16,9 @@ if (!$from) {
 
 $date = substr($from, 0, 10);
 $from = 'uk.org.publicwhip/debate/' . $from;
-if ($to) $to = 'uk.org.publicwhip/debate/' . $to;
+if ($to) {
+    $to = 'uk.org.publicwhip/debate/' . $to;
+}
 
 $q = $db->query('select hpos from hansard where gid="' . $from . '"')->first();
 $hpos_from = $q['hpos'];
@@ -34,8 +36,9 @@ if ($to) {
 
 $query = "update hansard set video_status = video_status | 8
     where major=1 and hdate='$date' and hpos>=$hpos_from";
-if ($to)
+if ($to) {
     $query .= " and hpos<=$hpos_to";
+}
 
 print "Executing $query...\n";
 $q = $db->query($query);

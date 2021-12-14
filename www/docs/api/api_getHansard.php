@@ -66,7 +66,9 @@ function _api_getHansard_search($array) {
     if ($o == 'p') {
         $data = \MySociety\TheyWorkForYou\Utility\Search::searchByUsage($search);
         $out = array();
-        if (!isset($data['speakers'])) $data['speakers'] = array();
+        if (!isset($data['speakers'])) {
+            $data['speakers'] = array();
+        }
         foreach ($data['speakers'] as $pid => $s) {
             $out[$pid] = array(
                 'house' => $s['house'],

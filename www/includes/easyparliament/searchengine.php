@@ -570,7 +570,7 @@ class SEARCHENGINE {
             {
                 $wordpos = strpos( $lcbody, $matches[0] );
                 if ($wordpos) {
-                   if ( ($wordpos < $pos) || ($pos==-1) ) {
+                    if ( ($wordpos < $pos) || ($pos==-1) ) {
                         $pos = $wordpos;
                     }
                 }

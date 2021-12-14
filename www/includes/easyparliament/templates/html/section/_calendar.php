@@ -1,5 +1,5 @@
 <div class="calendar">
-  <?php if(isset($month)){
+  <?php if(isset($month)) {
     $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
     // What is the first day of the month in question?
@@ -106,11 +106,15 @@
                 // sittings - e.g. WH is only Tuesday-Thursday
                 if ($currentDay == $toDay) {
                     print '<td class="on"';
-                    if ($recess[0] && $recess[0]!=1) print ' title="'.$recess[0].'"';
+                    if ($recess[0] && $recess[0]!=1) {
+                        print ' title="'.$recess[0].'"';
+                    }
                     print '>';
                 } elseif ($recess[0]) {
                     print '<td class="no"';
-                    if ($recess[0]!=1) print ' title="'.$recess[0].'"';
+                    if ($recess[0]!=1) {
+                        print ' title="'.$recess[0].'"';
+                    }
                     print '>';
                 } else {
                     print '<td>';
@@ -127,7 +131,7 @@
                     } else {
                         $day_section = $section;
                         if ($section == 'sp') {
-                          $day_section = 'spdebates';
+                            $day_section = 'spdebates';
                         }
                         $urls[$day_section . 'day']->insert(array('d'=>$date));
                         print "<a href=\"" . $urls[$day_section . 'day']->generate() . "\">$currentDay</a></td>";

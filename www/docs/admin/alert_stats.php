@@ -48,11 +48,15 @@ $tots = array(); $name = array();
 foreach ($q as $row) {
     $c = $row['c'];
     $criteria = $row['criteria'];
-    if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) continue;
+    if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) {
+        continue;
+    }
     $person_id = $m[1];
     $MEMBER = new MEMBER(array('person_id'=>$person_id));
     if ($MEMBER->valid) {
-        if (!array_key_exists($person_id, $tots)) $tots[$person_id] = 0;
+        if (!array_key_exists($person_id, $tots)) {
+            $tots[$person_id] = 0;
+        }
         $tots[$person_id] += $c;
         $name[$person_id] = $MEMBER->full_name();
     }
@@ -62,10 +66,14 @@ $unconfirmed = array();
 foreach ($q as $row) {
     $c = $row['c'];
     $criteria = $row['criteria'];
-    if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) continue;
+    if (!preg_match('#^speaker:(\d+)#', $criteria, $m)) {
+        continue;
+    }
     $person_id = $m[1];
     if (isset($name[$person_id])) {
-        if (!array_key_exists($person_id, $unconfirmed)) $unconfirmed[$person_id] = 0;
+        if (!array_key_exists($person_id, $unconfirmed)) {
+            $unconfirmed[$person_id] = 0;
+        }
         $unconfirmed[$person_id] += $c;
     }
 }

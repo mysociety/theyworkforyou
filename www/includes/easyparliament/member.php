@@ -157,7 +157,9 @@ class MEMBER {
         $last_party = null;
         foreach ($q as $row) {
             $house = $row['house'];
-            if (!in_array($house, $this->houses)) $this->houses[] = $house;
+            if (!in_array($house, $this->houses)) {
+                $this->houses[] = $house;
+            }
             $const = $row['constituency'];
             $party = $row['party'];
             $entered_house = $row['entered_house'];
@@ -255,7 +257,9 @@ class MEMBER {
         }
 
         $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
-        if ($normalised) $constituency = $normalised;
+        if ($normalised) {
+            $constituency = $normalised;
+        }
 
         $params = array();
 
@@ -294,10 +298,12 @@ class MEMBER {
         $q = "SELECT person_id FROM person_names WHERE type = 'name' ";
         if ($this_page == 'peer') {
             $success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
-            if (!$success)
+            if (!$success) {
                 $success = preg_match('#^(.*?)() of (.*?)$#', $name, $m);
-            if (!$success)
+            }
+            if (!$success) {
                 $success = preg_match('#^(.*?) (.*?)()$#', $name, $m);
+            }
             if (!$success) {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
             }
@@ -307,8 +313,9 @@ class MEMBER {
             $q .= "AND title = :title AND family_name = :family_name AND lordofname = :lordofname";
         } elseif ($this_page == 'msp' || $this_page == 'mla' || strstr($this_page, 'mp')) {
             $success = preg_match('#^(.*?) (.*?) (.*?)$#', $name, $m);
-            if (!$success)
+            if (!$success) {
                 $success = preg_match('#^(.*?)() (.*)$#', $name, $m);
+            }
             if (!$success) {
                 throw new MySociety\TheyWorkForYou\MemberException('Sorry, that name was not recognised.');
             }
@@ -444,16 +451,17 @@ class MEMBER {
         if (array_key_exists('public_whip_rebellions', $this->extra_info)) {
             $rebellions = $this->extra_info['public_whip_rebellions'];
             $rebel_desc = "<unknown>";
-            if ($rebellions == 0)
+            if ($rebellions == 0) {
                 $rebel_desc = "never";
-            elseif ($rebellions <= 1)
+            } elseif ($rebellions <= 1) {
                 $rebel_desc = "hardly ever";
-            elseif ($rebellions <= 3)
+            } elseif ($rebellions <= 3) {
                 $rebel_desc = "occasionally";
-            elseif ($rebellions <= 5)
+            } elseif ($rebellions <= 5) {
                 $rebel_desc = "sometimes";
-            elseif ($rebellions > 5)
+            } elseif ($rebellions > 5) {
                 $rebel_desc = "quite often";
+            }
             $this->extra_info['public_whip_rebel_description'] = $rebel_desc;
         }
 
@@ -508,8 +516,9 @@ class MEMBER {
     public function family_name() { return $this->family_name; }
     public function full_name($no_mp_title = false) {
         $title = $this->title;
-        if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND))
+        if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND)) {
             $title = '';
+        }
         return member_full_name($this->house_disp, $title, $this->given_name, $this->family_name, $this->lordofname);
     }
     public function houses() {
@@ -525,8 +534,9 @@ class MEMBER {
     public function party() { return $this->party; }
     public function party_text($party = null) {
         global $parties;
-        if (!$party)
+        if (!$party) {
             $party = $this->party;
+        }
         if (isset($parties[$party])) {
             return $parties[$party];
         } else {
@@ -546,7 +556,9 @@ class MEMBER {
     }
 
     public function entered_house_text($entered_house) {
-        if (!$entered_house) return '';
+        if (!$entered_house) {
+            return '';
+        }
         list($year, $month, $day) = explode('-', $entered_house);
         if ($month==1 && $day==1 && $this->house(HOUSE_TYPE_LORDS)) {
             return $year;
@@ -571,7 +583,9 @@ class MEMBER {
     }
 
     public function left_house_text($left_house) {
-        if (!$left_house) return '';
+        if (!$left_house) {
+            return '';
+        }
         list($year, $month, $day) = explode('-', $left_house);
         if (checkdate($month, $day, $year) && $year != '9999') {
             return format_date($left_house, LONGDATEFORMAT);
@@ -620,7 +634,9 @@ class MEMBER {
             $lh = $this->left_house($h);
             $current[$h] = ($lh && $lh['date'] == '9999-12-31');
         }
-        if ($house) return $current[$house];
+        if ($house) {
+            return $current[$house];
+        }
         return $current;
     }
 
@@ -669,7 +685,9 @@ class MEMBER {
 
     private function _previous_future_mps_query($direction) {
         $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
-        if (is_null($entered_house)) return '';
+        if (is_null($entered_house)) {
+            return '';
+        }
         if ($direction == '>') {
             $order = '';
         } else {

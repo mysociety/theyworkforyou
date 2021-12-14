@@ -34,7 +34,7 @@ class PageTest extends FetchPageTestCase
         $this->assertRegexp('#<span class="person-header__about__position__role">\s*Labour\s*MP\s*</span>#', $page);
     }
 
-	public function testSittingMLA()
+    public function testSittingMLA()
     {
         $page = $this->fetch_page( array( 'pid' => 4, 'representative_type' => 'mla', 'url' => '/mp/4/test_current-mla' ) );
         $this->assertContains('Test Current-MLA', $page);
@@ -63,7 +63,7 @@ class PageTest extends FetchPageTestCase
     /**
      * Ensure that the Speaker is given the correct constituency.
      */
-	public function testSpeaker()
+    public function testSpeaker()
     {
         $page = $this->fetch_page( array( 'pid' => 13, 'url' => '/mp/13/test_speaker/buckingham' ) );
         $this->assertRegexp('#<span class="person-header__about__position__role">\s*Speaker\s*MP\s*</span>#', $page);

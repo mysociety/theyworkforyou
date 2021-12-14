@@ -141,7 +141,9 @@ class Normal extends \MySociety\TheyWorkForYou\Search {
 
     private function find_members() {
         $searchstring = trim(preg_replace('#-?[a-z]+:[a-z0-9]+#', '', $this->searchstring));
-        if (!$searchstring) return array();
+        if (!$searchstring) {
+            return array();
+        }
 
         $members = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup($searchstring);
 

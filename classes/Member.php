@@ -40,13 +40,13 @@ class Member extends \MEMBER {
 
             foreach ($house_types as $house_type) {
 
-                if (in_array($house_type, $left_house) AND
-                    $left_house[$house_type]['reason'] AND
+                if (in_array($house_type, $left_house) and
+                    $left_house[$house_type]['reason'] and
                     $left_house[$house_type]['reason'] == 'Died'
                 ) {
 
                     // This member has left a house because of death.
-                    return TRUE;
+                    return true;
                 }
 
             }
@@ -55,7 +55,7 @@ class Member extends \MEMBER {
 
         // If we get this far the member hasn't left a house due to death, and
         // is presumably alive.
-        return FALSE;
+        return false;
 
     }
 
@@ -90,7 +90,7 @@ class Member extends \MEMBER {
         $person_id = $this->person_id();
 
         $direction = "first";
-        if ($this->party() == "Speaker"){
+        if ($this->party() == "Speaker") {
             $direction = "last";
         }
 
@@ -98,7 +98,7 @@ class Member extends \MEMBER {
         // current party can go here.
         $use_last_party = array(10172, 14031, 25873);
 
-        if (in_array($person_id, $use_last_party)){
+        if (in_array($person_id, $use_last_party)) {
             $direction = "last";
         }
 
@@ -115,7 +115,7 @@ class Member extends \MEMBER {
 
         $cohort_direction = $this->cohortPartyComparisonDirection();
 
-        if ($cohort_direction == "first"){
+        if ($cohort_direction == "first") {
             $direction = " ASC";
         } else {
             $direction = " DESC";
@@ -128,10 +128,10 @@ class Member extends \MEMBER {
         order by entered_house
         " . $direction, array(":house" => $house,
                  ":person_id" => $person_id))->first();
-        if ($row){
+        if ($row) {
             return $row["party"];
         } else {
-            return NULL;
+            return null;
         }
 
     }
@@ -155,11 +155,11 @@ class Member extends \MEMBER {
 
             $diff = $date_entered->diff($now);
             if ( $diff->y == 0 && $diff->m <= 6 ) {
-                return TRUE;
+                return true;
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     /*
@@ -208,7 +208,7 @@ class Member extends \MEMBER {
             return $this->extra_info()['eu_ref_stance'];
         }
 
-        return FALSE;
+        return false;
     }
 
     /**
@@ -229,10 +229,10 @@ class Member extends \MEMBER {
         }
 
         // We can determine if the image exists or not by testing if size is set
-        if ($size !== NULL) {
-            $exists = TRUE;
+        if ($size !== null) {
+            $exists = true;
         } else {
-            $exists = FALSE;
+            $exists = false;
         }
 
         return array(
@@ -280,7 +280,7 @@ class Member extends \MEMBER {
     * @return array An array of Office objects.
     */
 
-    public function offices($include_only = NULL, $ignore_committees = FALSE) {
+    public function offices($include_only = null, $ignore_committees = false) {
 
         $out = array();
 
@@ -316,16 +316,16 @@ class Member extends \MEMBER {
     }
 
     private function includeOffice($include_only, $to_date) {
-        $include_office = TRUE;
+        $include_office = true;
 
         // If we should only include previous offices, and the to date is in the future, suppress this office.
-        if ($include_only == 'previous' AND $to_date == '9999-12-31') {
-            $include_office = FALSE;
+        if ($include_only == 'previous' and $to_date == '9999-12-31') {
+            $include_office = false;
         }
 
         // If we should only include previous offices, and the to date is in the past, suppress this office.
-        if ($include_only == 'current' AND $to_date != '9999-12-31') {
-            $include_office = FALSE;
+        if ($include_only == 'current' and $to_date != '9999-12-31') {
+            $include_office = false;
         }
 
         return $include_office;
@@ -350,7 +350,7 @@ class Member extends \MEMBER {
             $output .= join('; ', $other_parties);
             return $output;
         } else {
-            return NULL;
+            return null;
         }
 
     }
@@ -368,7 +368,7 @@ class Member extends \MEMBER {
         if ($this->other_constituencies) {
             return 'Also represented ' . join('; ', array_keys($this->other_constituencies));
         } else {
-            return NULL;
+            return null;
         }
 
     }

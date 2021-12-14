@@ -27,10 +27,10 @@ class COMMENTREPORT {
     public $firstname = '';
     public $lastname = '';
     public $body = '';
-    public $reported = NULL;	// datetime
-    public $resolved = NULL; 	// datetime
+    public $reported = null;	// datetime
+    public $resolved = null; 	// datetime
     public $resolvedby = ''; 	// user_id
-    public $locked = NULL; 	// datetime
+    public $locked = null; 	// datetime
     public $lockedby = '';		// user_id
     public $upheld = ''; 		// boolean
 
@@ -369,8 +369,8 @@ class COMMENTREPORT {
                         ");
 
         if ($q->success()) {
-            $this->locked = NULL;
-            $this->lockedby = NULL;
+            $this->locked = null;
+            $this->lockedby = null;
             return true;
         } else {
             return false;
@@ -430,8 +430,8 @@ class COMMENTREPORT {
 
                     $this->resolved = $time;
                     $this->resolvedby = $THEUSER->user_id();
-                    $this->locked = NULL;
-                    $this->lockedby = NULL;
+                    $this->locked = null;
+                    $this->lockedby = null;
                     $this->upheld = $upheld;
 
                     return true;

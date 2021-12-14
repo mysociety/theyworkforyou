@@ -66,7 +66,9 @@ class DebatesView extends SectionView {
     private $first_gid = '';
 
     protected function get_video_html($row, $heading_hpos, $speeches) {
-        if (!$this->first_gid) $this->first_gid = $row['gid'];
+        if (!$this->first_gid) {
+            $this->first_gid = $row['gid'];
+        }
 
         $video_content = '';
         if (!$this->first_video_displayed && $row['video_status']&4 && !($row['video_status']&8)) {
@@ -97,7 +99,9 @@ class DebatesView extends SectionView {
         $adate = $vq['adate'];
         $time = $vq['atime'];
         $videodb = \MySociety\TheyWorkForYou\Utility\Video::dbConnect();
-        if (!$videodb) return '';
+        if (!$videodb) {
+            return '';
+        }
         $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $adate, $time);
         $start = $video['offset'];
         $out = '';

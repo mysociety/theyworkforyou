@@ -14,7 +14,7 @@ $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
 $data = $divisions->getRecentDivisions(30);
 
 if (isset($MEMBER)) {
-  $data['mp_name'] = ucfirst($MEMBER->full_name());
+    $data['mp_name'] = ucfirst($MEMBER->full_name());
 }
 
 $data['last_updated'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate()['latest'];

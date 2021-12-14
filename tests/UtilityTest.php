@@ -6,8 +6,8 @@
 
 class UtilityTest extends PHPUnit_Framework_TestCase
 {
-	public function setUp()
-	{
+    public function setUp()
+    {
         parent::setUp();
         include_once('www/includes/utility.php');
     }
@@ -16,7 +16,7 @@ class UtilityTest extends PHPUnit_Framework_TestCase
      * Test the escaping of replacement strings for use with
      * preg_replace.
      */
-	public function testPregReplacement()
+    public function testPregReplacement()
     {
         $example = 'try \1 and $0, also backslash \ and dollar $ alone';
         $this->assertEquals(

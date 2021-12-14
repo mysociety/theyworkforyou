@@ -5,7 +5,9 @@ include_once INCLUDESPATH."easyparliament/member.php";
 
 $pc = get_http_var('pc');
 $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
-if (!$pc) exit;
+if (!$pc) {
+    exit;
+}
 
 if (validate_postcode($pc)) {
     $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));

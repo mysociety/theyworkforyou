@@ -138,8 +138,9 @@ class HANSARDLIST {
 
         global $PAGE;
 
-        if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH))
+        if ($view == 'search' && (!defined('FRONT_END_SEARCH') || !FRONT_END_SEARCH)) {
             return false;
+        }
 
         $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
         if (in_array($view, $validviews)) {
@@ -326,10 +327,11 @@ class HANSARDLIST {
             );
 
             $subsectiondata = $this->_get_hansard_data($input);
-            if (count($subsectiondata) == 0)
+            if (count($subsectiondata) == 0) {
                 $subsectiondata = null;
-            else
+            } else {
                 $subsectiondata = $subsectiondata[0];
+            }
 
         } elseif ($itemdata['htype'] == '11') {
             // It's a subsection, so use the item itself.
@@ -1005,12 +1007,12 @@ class HANSARDLIST {
         // Mainly for glossary term adding
         if (isset($args['num']) && $args['num']) {
             $results_per_page = $args['num']+0;
-        }
-        else {
+        } else {
             $results_per_page = 20;
         }
-        if ($results_per_page > 1000)
+        if ($results_per_page > 1000) {
             $results_per_page = 1000;
+        }
 
         $data['info']['results_per_page'] = $results_per_page;
 
@@ -1038,10 +1040,16 @@ class HANSARDLIST {
         // Get the gids from Xapian
         $sort_order = 'date';
         if (isset($args['o'])) {
-            if ($args['o']=='d') $sort_order = 'newest';
-            if ($args['o']=='o') $sort_order = 'oldest';
-            elseif ($args['o']=='c') $sort_order = 'created';
-            elseif ($args['o']=='r') $sort_order = 'relevance';
+            if ($args['o']=='d') {
+                $sort_order = 'newest';
+            }
+            if ($args['o']=='o') {
+                $sort_order = 'oldest';
+            } elseif ($args['o']=='c') {
+                $sort_order = 'created';
+            } elseif ($args['o']=='r') {
+                $sort_order = 'relevance';
+            }
         }
 
         $data['searchdescription'] = $SEARCHENGINE->query_description_long();
@@ -1110,8 +1118,9 @@ class HANSARDLIST {
                     in_array($itemdata['chamber'], array(
                         'Commons: Main Chamber', 'Lords: Main Chamber',
                         'Commons: Westminster Hall',
-                    )))
-                        continue;
+                    ))) {
+                    continue;
+                }
 
                 list($cal_item, $cal_meta) = \MySociety\TheyWorkForYou\Utility\Calendar::meta($itemdata);
                 $body = $this->prepare_search_result_for_display($cal_item) . '.';
@@ -1230,10 +1239,17 @@ class HANSARDLIST {
                     $section = $this->_get_section($itemdata);
                     $subsection = $this->_get_subsection($itemdata);
                     $body = $hansardmajors[$itemdata['major']]['title'] . ' &#8212; ';
-                    if (isset($section['body'])) $body .= $section['body'];
-                    if (isset($subsection['body'])) $body .= ': ' . $subsection['body'];
-                    if (isset($subsection['listurl'])) $listurl = $subsection['listurl'];
-                    else $listurl = '';
+                    if (isset($section['body'])) {
+                        $body .= $section['body'];
+                    }
+                    if (isset($subsection['body'])) {
+                        $body .= ': ' . $subsection['body'];
+                    }
+                    if (isset($subsection['listurl'])) {
+                        $listurl = $subsection['listurl'];
+                    } else {
+                        $listurl = '';
+                    }
                     $itemdata['parent'] = array (
                         'body' => $body,
                         'listurl' => $listurl
@@ -1558,7 +1574,8 @@ class HANSARDLIST {
                     'url' => $YEARURL->generate()
                 );
 
-            } else { // action is 'year'.
+            } else {
+                // action is 'year'.
 
                 $nextprev['prev'] = array ('body' => 'Previous year');
                 $nextprev['next'] = array ('body' => 'Next year');
@@ -1979,10 +1996,11 @@ class HANSARDLIST {
         // );
 
         // $url_args is an array of other key/value pairs to be appended in the GET string.
-        if ($id_data['major'])
+        if ($id_data['major']) {
             $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
-        else
+        } else {
             $LISTURL = new \MySociety\TheyWorkForYou\Url('wrans');
+        }
 
         $fragment = '';
 
@@ -2581,7 +2599,9 @@ class SPWRANSLIST extends WRANSLIST {
             array(':gid_from_spid' => 'uk.org.publicwhip/spq/' . $fixed_spid)
         )->first();
         $gid = $q['mentioned_gid'];
-        if ($gid) return $gid;
+        if ($gid) {
+            return $gid;
+        }
         return null;
     }
     public function old_get_gid_from_spid($spid) {
@@ -2590,7 +2610,9 @@ class SPWRANSLIST extends WRANSLIST {
             array(':gid_like' => 'uk.org.publicwhip/spwa/%.' . $spid . '.h')
         )->first();
         $gid = $q['gid'];
-        if ($gid) return str_replace('uk.org.publicwhip/spwa/', '', $gid);
+        if ($gid) {
+            return str_replace('uk.org.publicwhip/spwa/', '', $gid);
+        }
         return null;
     }
 }
@@ -2868,7 +2890,9 @@ class DEBATELIST extends HANSARDLIST {
 
         // Get the most recent day on which we have a debate.
         $recentday = $this->most_recent_day();
-        if (!count($recentday)) return $data;
+        if (!count($recentday)) {
+            return $data;
+        }
 
         if (!isset($args['days']) || !is_numeric($args['days'])) {
             $args['days'] = 1;
@@ -2994,8 +3018,9 @@ class DEBATELIST extends HANSARDLIST {
 
         // Get the most recent day on which we have a debate.
         $recentday = $this->most_recent_day();
-        if (!count($recentday))
+        if (!count($recentday)) {
             return array();
+        }
 
         if (!isset($args['days']) || !is_numeric($args['days'])) {
             $args['days'] = 1;
@@ -3127,8 +3152,9 @@ class WRANSLIST extends HANSARDLIST {
 
         // Get the most recent day on which we have wrans.
         $recentday = $this->most_recent_day();
-        if (!count($recentday))
+        if (!count($recentday)) {
             return $data;
+        }
 
         if (!isset($args['days']) || !is_numeric($args['days'])) {
             $args['days'] = 1;
@@ -3406,7 +3432,9 @@ class StandingCommittee extends DEBATELIST {
     }
 
     public function _get_data_by_recent_pbc_debates($args) {
-        if (!isset($args['num'])) $args['num'] = 20;
+        if (!isset($args['num'])) {
+            $args['num'] = 20;
+        }
         $q = $this->db->query('select gid, minor, hdate from hansard
             where htype=10 and major=6
             order by hdate desc limit ' . $args['num']);
@@ -3420,7 +3448,9 @@ class StandingCommittee extends DEBATELIST {
             $session = $qq['session'];
             list($sitting, $part) = $this->_get_sitting($gid);
             $sitting_txt = make_ranking($sitting) . ' sitting';
-            if ($part>0) $sitting .= ", part $part";
+            if ($part>0) {
+                $sitting .= ", part $part";
+            }
             $data[$hdate][] = array(
                 'bill'=> $title,
                 'sitting' => $sitting_txt,
@@ -3432,8 +3462,9 @@ class StandingCommittee extends DEBATELIST {
 
     # Given a GID, parse out the sitting number and optional part from it
     public function _get_sitting($gid) {
-        if (preg_match('#_(\d\d)-(\d)_#', $gid, $m))
+        if (preg_match('#_(\d\d)-(\d)_#', $gid, $m)) {
             return array($m[1]+0, $m[2]);
+        }
         return array(0, 0);
     }
 }

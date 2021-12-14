@@ -44,8 +44,9 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
         $pagetitle .= " page $pagenum";
     }
     $num = get_http_var('n');
-    if (!is_numeric($num) || $num <= 0)
+    if (!is_numeric($num) || $num <= 0) {
         $num = 20;
+    }
 
     $DATA->set_page_metadata($this_page, 'title', $pagetitle);
 

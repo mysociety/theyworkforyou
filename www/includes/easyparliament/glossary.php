@@ -47,7 +47,7 @@ class GLOSSARY {
                 $args['s'] = urldecode($args['s']);
                 $this->search_glossary($args);
             }
-        $got = $this->get_glossary_item($args);
+            $got = $this->get_glossary_item($args);
             if ($got && isset($args['sort']) && ($args['sort'] == 'regexp_replace')) {
                 // We need to sort the terms in the array by "number of words in term".
                 // This way, "prime minister" gets dealt with before "minister" when generating glossary links.
@@ -105,19 +105,19 @@ class GLOSSARY {
             if (isset($args['glossary_id']) && ($args['glossary_id'] != "")) {
                 $next = 0; $first_term = null;
                 foreach ($this->terms as $term) {
-                    if (!$first_term) $first_term = $term;
+                    if (!$first_term) {
+                        $first_term = $term;
+                    }
                     $last_term = $term;
                     if ($next == 1) {
                         $this->next_term = $term;
                         break;
-                    }
-                    elseif ($term['glossary_id'] == $args['glossary_id']) {
+                    } elseif ($term['glossary_id'] == $args['glossary_id']) {
                         $this->glossary_id = $args['glossary_id'];
                         $this->current_term = $term;
                         $next = 1;
 
-                    }
-                    else {
+                    } else {
                         $this->previous_term = $term;
                     }
                 }
@@ -132,8 +132,7 @@ class GLOSSARY {
             }
 
             return ($this->num_terms);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -276,8 +275,9 @@ class GLOSSARY {
 
         // check for any glossary terms to replace
         foreach ($this->replace_order as $glossary_id => $count) {
-            if ($glossary_id == $this->glossary_id)
+            if ($glossary_id == $this->glossary_id) {
                 continue;
+            }
 
             $term_body = $this->terms[$glossary_id]['body'];
             $term_title = $this->terms[$glossary_id]['title'];
@@ -288,12 +288,10 @@ class GLOSSARY {
             // catch glossary terms within their own definitions
             if ($glossary_id == $this->glossary_id) {
                 $replacewords[] = "<strong>\\1</strong>";
-            }
-            else {
+            } else {
                 if ($this_page == "admin_glossary") {
                     $link_url = "#gl".$glossary_id;
-                }
-                else {
+                } else {
                     $link_url = $URL->generate('url');
                 }
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
@@ -302,8 +300,9 @@ class GLOSSARY {
         }
         // Highlight all occurrences of another glossary term in the definition.
         $body = preg_replace($findwords, $replacewords, $body, 1);
-        if (isset($this->glossary_id))
+        if (isset($this->glossary_id)) {
             $body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
+        }
 
         // Replace any phrases in wikipedia
         // TODO: Merge this code into above, so our gloss and wikipedia

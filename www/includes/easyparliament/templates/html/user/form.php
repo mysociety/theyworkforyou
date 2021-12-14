@@ -34,7 +34,7 @@
                 <input type="hidden" name="pg" value="edit">
               </form>
             <?php } else { ?>
-              <?php if (isset($showall) && $showall == True && isset($user_id)) { ?>
+              <?php if (isset($showall) && $showall == true && isset($user_id)) { ?>
               <h1>Edit the user&rsquo;s details</h1>
               <?php } else { ?>
               <h1>Edit your details</h1>
@@ -122,7 +122,7 @@
                 <span class="formw"><input type="text" name="url" id="url" value="<?= _htmlentities($url) ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
                 </div>
 
-                <?php if (isset($showall) && $showall == True) { ?>
+                <?php if (isset($showall) && $showall == true) { ?>
                   <?php if (isset($errors['status'])) { ?>
                   <p class="error">
                       <?= $errors['status'] ?>
@@ -179,7 +179,7 @@
                 <input type="hidden" name="submitted" value="true">
                 <input type="hidden" name="pg" value="<?= _htmlentities($pg) ?>">
 
-                <?php if (isset($showall) && $showall == True && isset($user_id)) { ?>
+                <?php if (isset($showall) && $showall == true && isset($user_id)) { ?>
                     <input type="hidden" name="u" value="<?= _htmlentities($user_id) ?>">
                 <?php } ?>
 

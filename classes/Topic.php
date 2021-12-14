@@ -28,7 +28,7 @@ class Topic {
      *
      */
 
-    public function __construct($data = NULL)
+    public function __construct($data = null)
     {
         $this->db = new \ParlDB;
 

@@ -32,7 +32,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
             $data['postcode'] = $this->user->postcode_is_set() ? $this->user->postcode() : '';
 
             if ( $this->isEmailSignedUpForPostCode( $data['email'], $data['postcode'] ) ) {
-                $data['already_signed_up'] = True;
+                $data['already_signed_up'] = true;
                 $mp = $this->getPersonFromPostcode($data['postcode']);
                 $data['mp_name'] = $mp->full_name();
             }
@@ -67,13 +67,13 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
 
     private function createAlertForPostCode($email, $postcode) {
         if ( !$this->validateDetails($email, $postcode) ) {
-            return array('invalid-postcode-or-email' => True);
+            return array('invalid-postcode-or-email' => true);
         }
 
         try {
             $person = $this->getPersonFromPostcode($postcode);
         } catch ( \MySociety\TheyWorkForYou\MemberException $e ) {
-            return array('bad-constituency' => True);
+            return array('bad-constituency' => true);
         }
 
         $details = array(
@@ -93,19 +93,19 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
                     // no logged in user so send them an email to let them
                     // know someone tried to create an alert
                     $this->alert->send_already_signedup_email($details);
-                    $data['confirmation_sent'] = True;
+                    $data['confirmation_sent'] = true;
                 } else {
-                    $data['already_signed_up'] = True;
+                    $data['already_signed_up'] = true;
                 }
                 break;
             case self::CREATE_FAILED:
-                $data['error'] = True;
+                $data['error'] = true;
                 break;
             default: // alert created
                 if ( $not_logged_in ) {
-                    $data['confirmation_sent'] = True;
+                    $data['confirmation_sent'] = true;
                 } else {
-                    $data['signedup_no_confirm'] = True;
+                    $data['signedup_no_confirm'] = true;
                 }
         }
 
@@ -146,11 +146,11 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
             }
 
             $this->alert->delete($row['alert_id'] . '::' . $row['registrationtoken']);
-            $this->alert->add($details, False);
+            $this->alert->add($details, false);
         }
 
         return array(
-            'signedup_no_confirm' => True,
+            'signedup_no_confirm' => true,
             'new_mp' => $new_mp->full_name(),
         );
     }
@@ -183,7 +183,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
 
         if ( $this->alert->fetch_by_mp( $existing['email'], $new_mp->person_id) ) {
             $data = array(
-                'already_signed_up' => True,
+                'already_signed_up' => true,
                 'old_mp' => $old_mp->full_name(),
                 'mp_name' => $new_mp->full_name(),
             );
@@ -194,7 +194,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
             );
         }
 
-        $data['update'] = True;
+        $data['update'] = true;
         $data['confirmation'] = $confirmation;
 
         return $data;

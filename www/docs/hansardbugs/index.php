@@ -2,12 +2,12 @@
 
 $this_page = 'hansard_bugs';
 include_once '../../includes/easyparliament/init.php';
-$DATA->set_page_metadata($this_page, 'heading','Official Hansard problems');
+$DATA->set_page_metadata($this_page, 'heading', 'Official Hansard problems');
 
 $PAGE->page_start();
 $PAGE->stripe_start();
 
-$PAGE->block_start(array ('title'=>'Things currently noticeable to the user'));
+$PAGE->block_start(array('title'=>'Things currently noticeable to the user'));
 ?>
 
 <style type="text/css">
@@ -110,7 +110,7 @@ There are a couple of other minor issues, but that's the important stuff. :)
 
 <?php
 $PAGE->block_end();
-$PAGE->block_start(array ('title'=>'Things not noticeable to the user'));
+$PAGE->block_start(array('title'=>'Things not noticeable to the user'));
 ?>
 
 <ul>

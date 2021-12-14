@@ -23,14 +23,18 @@ $fromflag = false;
 $toemail = '';
 $template = 'alert_gone';
 for ($k=1; $k<$argc; $k++) {
-	if ($argv[$k] == '--nomail')
+	if ($argv[$k] == '--nomail') {
 		$nomail = true;
-	if (preg_match('#^--only=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--only=(.*)$#', $argv[$k], $m)) {
 		$onlyemail = $m[1];
-	if (preg_match('#^--from=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--from=(.*)$#', $argv[$k], $m)) {
 		$fromemail = $m[1];
-	if (preg_match('#^--to=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--to=(.*)$#', $argv[$k], $m)) {
 		$toemail = $m[1];
+	}
 	if (preg_match('#^--template=(.*)$#', $argv[$k], $m)) {
 		$template = $m[1];
 		# Tee hee
@@ -41,7 +45,9 @@ for ($k=1; $k<$argc; $k++) {
 #if (DEVSITE)
 #	$nomail = true;
 
-if ($nomail) mlog("NOT SENDING EMAIL\n");
+if ($nomail) {
+    mlog("NOT SENDING EMAIL\n");
+}
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
 	mlog("Can't have both from/to and only!\n");
 	exit;
@@ -70,13 +76,23 @@ $start_time = time();
 foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
-    if ($onlyemail && $email != $onlyemail) continue;
-    if ($fromemail && strtolower($email) == $fromemail) $fromflag = true;
-    if ($fromemail && !$fromflag) continue;
-    if ($toemail && strtolower($email) >= $toemail) continue;
+    if ($onlyemail && $email != $onlyemail) {
+        continue;
+    }
+    if ($fromemail && strtolower($email) == $fromemail) {
+        $fromflag = true;
+    }
+    if ($fromemail && !$fromflag) {
+        continue;
+    }
+    if ($toemail && strtolower($email) >= $toemail) {
+        continue;
+    }
     $criteria_raw = $alertitem['criteria'];
 
-	if (!strstr($criteria_raw, 'speaker:')) continue;
+	if (!strstr($criteria_raw, 'speaker:')) {
+	    continue;
+	}
 
 	preg_match('#speaker:(\d+)#', $criteria_raw, $m);
 	$person_id = $m[1];
@@ -85,11 +101,14 @@ foreach ($alertdata as $alertitem) {
         $members[$person_id] = new MEMBER(array('person_id' => $person_id));
 	}
     $member = $members[$person_id];
-    if ($member->current_member_anywhere()) continue;
+    if ($member->current_member_anywhere()) {
+        continue;
+    }
 
 	if ($email != $current['email']) {
-		if ($email_text)
-            write_and_send_email($current, $email_text, $template);
+		if ($email_text) {
+		    write_and_send_email($current, $email_text, $template);
+		}
 		$current['email'] = $email;
 		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
 		$email_text = array();
@@ -108,19 +127,21 @@ foreach ($alertdata as $alertitem) {
     $lh = $member->left_house();
     $lh = array_shift($lh);
     $text = '* ' . $member->full_name() . ', left ' . $lh['date_pretty'];
-    if (!in_array($text, $email_text))
-	    $email_text[] = $text;
+    if (!in_array($text, $email_text)) {
+        $email_text[] = $text;
+    }
 }
-if ($email_text)
+if ($email_text) {
     write_and_send_email($current, $email_text, $template);
+}
 
 mlog("\n");
 
 $sss = "Active alerts: $active\nEmail lookups: $registered registered, $unregistered unregistered\nQuery lookups: $queries\nSent emails: $sentemails\n";
 if ($globalsuccess) {
-      $sss .= 'Everything went swimmingly, in ';
+    $sss .= 'Everything went swimmingly, in ';
 } else {
-      $sss .= 'Something went wrong! Total time: ';
+    $sss .= 'Something went wrong! Total time: ';
 }
 $sss .= (getmicrotime()-$global_start)."\n\n";
 mlog($sss);
@@ -151,6 +172,8 @@ function write_and_send_email($current, $data, $template) {
 		$success = 1;
 	}
 	mlog("done\n");
-	if (!$success) $globalsuccess = 0;
+	if (!$success) {
+	    $globalsuccess = 0;
+	}
 }
 

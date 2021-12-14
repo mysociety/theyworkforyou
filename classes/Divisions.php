@@ -29,7 +29,7 @@ class Divisions {
      * @param Member   $member   The member to get positions for.
      */
 
-    public function __construct(Member $member = NULL, PolicyPositions $positions = NULL, Policies $policies = NULL)
+    public function __construct(Member $member = null, PolicyPositions $positions = null, Policies $policies = null)
     {
         $this->member = $member;
         $this->positions = $positions;
@@ -59,7 +59,7 @@ class Divisions {
      * @param  string|string[]  $houses  House name (eg: "commons") or array of
      *                                   house names. Optional.
      */
-    public function getRecentDivisions($number = 20, $houses = NULL) {
+    public function getRecentDivisions($number = 20, $houses = null) {
         $select = '';
         $where = '';
         $order = 'ORDER BY division_date DESC, division_number DESC';
@@ -123,7 +123,7 @@ class Divisions {
      * @param  int|int[]        $majors  Major types (e.g. 1) or array of
      *                                   major types. Optional.
      */
-    public function getRecentDebatesWithDivisions($number = 20, $majors = NULL) {
+    public function getRecentDebatesWithDivisions($number = 20, $majors = null) {
         global $hansardmajors;
 
         if (!is_array($majors)) {
@@ -276,7 +276,7 @@ class Divisions {
               $summary['absent'] += $row['total'];
           } else if ( $vote == 'both' ) {
               $summary['both'] += $row['total'];
-          } else if ( strpos($vote, 'tell') !== FALSE ) {
+          } else if ( strpos($vote, 'tell') !== false ) {
               $summary['tell'] += $row['total'];
           } else if ( $policy_vote == $vote ) {
               $summary['for'] += $row['total'];
@@ -367,7 +367,7 @@ class Divisions {
               'teller' => false
             );
 
-            if (strpos($vote['vote'], 'tell') !== FALSE) {
+            if (strpos($vote['vote'], 'tell') !== false) {
                 $detail['teller'] = true;
             }
 
@@ -584,10 +584,10 @@ class Divisions {
 
         if (array_key_exists('direction', $row)) {
             $division['direction'] = $row['direction'];
-            if ( strpos( $row['direction'], 'strong') !== FALSE ) {
-                $division['strong'] = TRUE;
+            if ( strpos( $row['direction'], 'strong') !== false ) {
+                $division['strong'] = true;
             } else {
-                $division['strong'] = FALSE;
+                $division['strong'] = false;
             }
         }
 

@@ -107,13 +107,13 @@ function preview_featured() {
     $related2 = get_http_var('related2');
     $related3 = get_http_var('related3');
 
-    $gid = $url ? get_gid_from_url($url) : NULL;
-    $related_gid1 = $related1 ? get_gid_from_url($related1) : NULL;
-    $related_gid2 = $related2 ? get_gid_from_url($related2) : NULL;
-    $related_gid3 = $related3 ? get_gid_from_url($related3) : NULL;
+    $gid = $url ? get_gid_from_url($url) : null;
+    $related_gid1 = $related1 ? get_gid_from_url($related1) : null;
+    $related_gid2 = $related2 ? get_gid_from_url($related2) : null;
+    $related_gid3 = $related3 ? get_gid_from_url($related3) : null;
 
     print "<h2>Preview Content</h2>";
-    if ( $gid !== NULL ) {
+    if ( $gid !== null ) {
         $h = new MySociety\TheyWorkForYou\Homepage;
         $featured = $h->getFeaturedDebate($gid, $title, $context, array( $related_gid1, $related_gid2, $related_gid3 ));
 
@@ -153,7 +153,7 @@ function preview_featured() {
 }
 
 function get_gid_from_url($url) {
-    $gid = NULL;
+    $gid = null;
     $parts = parse_url($url);
     parse_str($parts['query'], $query);
 

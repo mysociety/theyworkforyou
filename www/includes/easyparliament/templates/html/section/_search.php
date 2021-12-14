@@ -10,17 +10,17 @@
                         <input type="submit" value="Search" class="button search-section__submit">
                     </div>
                 </div>
-                <?php if ( isset($search_sections) ) { ?>
-                    <?php if ( count($search_sections) == 1 ) { ?>
+                <?php if (isset($search_sections)) { ?>
+                    <?php if (count($search_sections) == 1) { ?>
                     <input name="section" value="<?= $search_sections[0]['section'] ?>" type="hidden">
-                    <?php } else if ( count($search_sections) > 1 ) { ?>
+                    <?php } else if (count($search_sections) > 1) { ?>
                     <div class="search-section__filters">
-                        <?php foreach ( $search_sections as $section ) { ?>
+                        <?php foreach ($search_sections as $section) { ?>
                             <label><input name="section[]" value="<?= $section['section'] ?>" type="checkbox" checked="checked"><?= $section['title'] ?></label>
                     <?php } ?>
                     </div>
                     <?php }
-                } else if ( isset($section) ) { ?>
+                } else if (isset($section)) { ?>
                 <input name="section" value="<?= $section ?>" type="hidden">
                 <?php } ?>
             </form>

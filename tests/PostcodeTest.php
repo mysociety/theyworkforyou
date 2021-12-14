@@ -18,7 +18,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     /**
      * Test converting a postcode to a constituency
      */
-	public function testPostcodeToConstituency()
+    public function testPostcodeToConstituency()
     {
         $this->assertEquals(
             'Cities of London and Westminster',

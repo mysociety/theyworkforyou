@@ -35,28 +35,33 @@ function submit_photo() {
     $pid = intval(get_http_var('pid'));
     $errors = array();
 
-    if (!array_key_exists('photo', $_FILES))
+    if (!array_key_exists('photo', $_FILES)) {
         array_push($errors, 'Not got the photo.');
-    elseif ($_FILES['photo']['error'] > 0)
+    } elseif ($_FILES['photo']['error'] > 0) {
         array_push($errors, 'There was an error uploading the photo.');
-    elseif (!is_uploaded_file($_FILES['photo']['tmp_name']))
+    } elseif (!is_uploaded_file($_FILES['photo']['tmp_name'])) {
         array_push($errors, 'Did not get an uploaded file.');
-    else {
+    } else {
         $tmp_name = $_FILES['photo']['tmp_name'];
 
         $image = new Imagick();
         $image->readImage($tmp_name);
-        if (!$image)
+        if (!$image) {
             array_push($errors, 'Failed to read image from uploaded file');
+        }
             $imageS = clone $image;
-        if (!$image->scaleImage(0, 118))
+        if (!$image->scaleImage(0, 118)) {
             array_push($errors, 'Scaling large failed');
-        if (!$imageS->scaleImage(0, 59))
+        }
+        if (!$imageS->scaleImage(0, 59)) {
             array_push($errors, 'Scaling small failed');
-        if (!$image->writeImage("$dir/mpsL/$pid.jpeg"))
+        }
+        if (!$image->writeImage("$dir/mpsL/$pid.jpeg")) {
             array_push($errors, "Saving to $dir/mpsL/$pid.jpeg failed");
-        if (!$imageS->writeImage("$dir/mps/$pid.jpeg"))
+        }
+        if (!$imageS->writeImage("$dir/mps/$pid.jpeg")) {
             array_push($errors, "Saving to $dir/mps/$pid.jpeg failed");
+        }
         if (!$errors) {
             print "<pre>";
             chdir($dir);
@@ -69,8 +74,9 @@ function submit_photo() {
         }
     }
 
-    if ($errors)
+    if ($errors) {
         return display_photo_form($errors);
+    }
     return "<p><em>Photo uploaded and resized for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_photo_form();
 }
 
@@ -98,7 +104,9 @@ function person_drop_down() {
         $house = $row['house'];
         $desc = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']) .
                 " " . $houses[$house];
-        if ($row['party']) $desc .= ' (' . $row['party'] . ')';
+        if ($row['party']) {
+            $desc .= ' (' . $row['party'] . ')';
+        }
         if ($row['constituency']) {
             $desc .= ', ' . $row['constituency'];
         }
@@ -149,13 +157,15 @@ function submit_attribution() {
     $attr_link = get_http_var('attr_link');
     $errors = array();
 
-    if (!$pid || !$attr_text)
+    if (!$pid || !$attr_text) {
         array_push($errors, 'Missing information');
-    elseif ($attr_link && substr($attr_link, 0, 4) != 'http')
+    } elseif ($attr_link && substr($attr_link, 0, 4) != 'http') {
         array_push($errors, 'Bad link');
+    }
 
-    if ($errors)
+    if ($errors) {
         return display_attribution_form($errors);
+    }
 
     # UPDATE
     global $db;

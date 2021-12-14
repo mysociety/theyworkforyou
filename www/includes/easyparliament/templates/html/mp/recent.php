@@ -25,15 +25,15 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php
 
-                $displayed_votes = FALSE;
-                $show_all = TRUE;
+                $displayed_votes = false;
+                $show_all = true;
                 $current_date = '';
                 $sidebar_links = array();
 
                 if ( isset($divisions) && $divisions ) {
                     if ($has_voting_record) {
                         foreach ($divisions as $division) {
-                          $displayed_votes = TRUE;
+                          $displayed_votes = true;
 
                           if ($current_date != $division['date']) {
                             if ($current_date != '' ) {

@@ -73,9 +73,9 @@ if ($q_method = get_http_var('method')) {
             '". Possible functions are: ' .
             join(', ', array_keys($methods));
         if (get_http_var('output')) {
-          api_error($msg);
+            api_error($msg);
         } else {
-          api_front_page($msg);
+            api_front_page($msg);
         }
     } else {
         if (get_http_var('docs')) {

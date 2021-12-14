@@ -7,7 +7,7 @@
 namespace MySociety\TheyWorkForYou;
 
 // Disable the old PAGE class.
-$new_style_template = TRUE;
+$new_style_template = true;
 global $this_page;
 $this_page = 'topics';
 

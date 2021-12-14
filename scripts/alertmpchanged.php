@@ -22,23 +22,30 @@ $fromflag = false;
 $toemail = '';
 $template = 'alert_new_mp';
 for ($k=1; $k<$argc; $k++) {
-	if ($argv[$k] == '--nomail')
+	if ($argv[$k] == '--nomail') {
 		$nomail = true;
-	if (preg_match('#^--only=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--only=(.*)$#', $argv[$k], $m)) {
 		$onlyemail = $m[1];
-	if (preg_match('#^--from=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--from=(.*)$#', $argv[$k], $m)) {
 		$fromemail = $m[1];
-	if (preg_match('#^--to=(.*)$#', $argv[$k], $m))
+	}
+	if (preg_match('#^--to=(.*)$#', $argv[$k], $m)) {
 		$toemail = $m[1];
+	}
 }
 
-if (DEVSITE)
-  $nomail = true;
+if (DEVSITE) {
+    $nomail = true;
+}
 
 # Change this to the end date
 $END_DATE = '2017-05-03';
 
-if ($nomail) mlog("NOT SENDING EMAIL\n");
+if ($nomail) {
+    mlog("NOT SENDING EMAIL\n");
+}
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
 	mlog("Can't have both from/to and only!\n");
 	exit;
@@ -68,14 +75,24 @@ $start_time = time();
 foreach ($alertdata as $alertitem) {
 	$active++;
 	$email = $alertitem['email'];
-    if ($onlyemail && $email != $onlyemail) continue;
-    if ($fromemail && strtolower($email) == $fromemail) $fromflag = true;
-    if ($fromemail && !$fromflag) continue;
-    if ($toemail && strtolower($email) >= $toemail) continue;
+    if ($onlyemail && $email != $onlyemail) {
+        continue;
+    }
+    if ($fromemail && strtolower($email) == $fromemail) {
+        $fromflag = true;
+    }
+    if ($fromemail && !$fromflag) {
+        continue;
+    }
+    if ($toemail && strtolower($email) >= $toemail) {
+        continue;
+    }
     $criteria_raw = $alertitem['criteria'];
 
     // we only care about alerts for people speaking
-    if (!strstr($criteria_raw, 'speaker:')) continue;
+    if (!strstr($criteria_raw, 'speaker:')) {
+        continue;
+    }
 
     preg_match('#speaker:(\d+)#', $criteria_raw, $m);
     $person_id = $m[1];
@@ -86,10 +103,14 @@ foreach ($alertdata as $alertitem) {
     $member = $members[$person_id];
 
     // if they're still elected then don't send the email
-    if ($member->current_member_anywhere()) continue;
+    if ($member->current_member_anywhere()) {
+        continue;
+    }
 
     // skip if they didn't lose their westminster seat in the most recent election
-    if ($member->left_house(1)['date'] != $END_DATE) continue;
+    if ($member->left_house(1)['date'] != $END_DATE) {
+        continue;
+    }
 
     if ( !isset($cons[$member->constituency]) ) {
         $cons_member = new MEMBER(array('constituency' => $member->constituency, 'house' => 1));
@@ -102,8 +123,12 @@ foreach ($alertdata as $alertitem) {
     }
 
     // these should never happen but let's just be sure
-    if ( $cons_member->person_id == $member->person_id ) continue;
-    if (!$cons_member->current_member_anywhere()) continue;
+    if ( $cons_member->person_id == $member->person_id ) {
+        continue;
+    }
+    if (!$cons_member->current_member_anywhere()) {
+        continue;
+    }
 
     if ($email != $current['email']) {
         if ($email_text && $change_text) {
@@ -171,7 +196,8 @@ function write_and_send_email($current, $data, $change, $template) {
         $success = send_template_email($d, $m, true);
         mlog("sent ... ");
         # sleep if time between sending mails is less than a certain number of seconds on average
-        if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than
+        if (((time() - $start_time) / $sentemails) < 0.5 ) {
+            # number of seconds per mail not to be quicker than
             mlog("pausing ... ");
             sleep(1);
         }

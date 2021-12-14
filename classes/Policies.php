@@ -299,7 +299,7 @@ class Policies {
 
     private $policy_id;
 
-    public function __construct($policy_id = NULL) {
+    public function __construct($policy_id = null) {
         $this->db = new \ParlDB;
 
         if ( $policy_id ) {
@@ -315,7 +315,7 @@ class Policies {
     }
 
     public function getSetDescriptions() {
-      return $this->set_descs;
+        return $this->set_descs;
     }
 
     /**

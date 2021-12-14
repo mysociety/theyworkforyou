@@ -61,16 +61,36 @@ $name = strtolower(str_replace('_', ' ', get_http_var('n')));
 $constituency = strtolower(str_replace('_', ' ', get_http_var('c')));
 
 // Fix for names with non-ASCII characters
-if ($name == 'sion simon') $name = 'si\xf4n simon';
-if ($name == 'sian james') $name = 'si\xe2n james';
-if ($name == 'lembit opik') $name = 'lembit \xf6pik';
-if ($name == 'bairbre de brun') $name = 'bairbre de br\xfan';
-if ($name == 'daithi mckay') $name = 'daith\xed mckay';
-if ($name == 'caral ni chuilin') $name = 'car\xe1l n\xed chuil\xedn';
-if ($name == 'caledon du pre') $name = 'caledon du pr\xe9';
-if ($name == 'sean etchingham') $name = 'se\xe1n etchingham';
-if ($name == 'john tinne') $name = 'john tinn\xe9';
-if ($name == 'renee short') $name = 'ren\xe9e short';
+if ($name == 'sion simon') {
+    $name = 'si\xf4n simon';
+}
+if ($name == 'sian james') {
+    $name = 'si\xe2n james';
+}
+if ($name == 'lembit opik') {
+    $name = 'lembit \xf6pik';
+}
+if ($name == 'bairbre de brun') {
+    $name = 'bairbre de br\xfan';
+}
+if ($name == 'daithi mckay') {
+    $name = 'daith\xed mckay';
+}
+if ($name == 'caral ni chuilin') {
+    $name = 'car\xe1l n\xed chuil\xedn';
+}
+if ($name == 'caledon du pre') {
+    $name = 'caledon du pr\xe9';
+}
+if ($name == 'sean etchingham') {
+    $name = 'se\xe1n etchingham';
+}
+if ($name == 'john tinne') {
+    $name = 'john tinn\xe9';
+}
+if ($name == 'renee short') {
+    $name = 'ren\xe9e short';
+}
 
 // Fix for common misspellings, name changes etc
 $name_fix = array(
@@ -102,7 +122,9 @@ if (array_key_exists($name, $name_fix)) {
 }
 
 // Fixes for Ynys Mon, and a Unicode URL
-if ($constituency == 'ynys mon') $constituency = "ynys m\xf4n";
+if ($constituency == 'ynys mon') {
+    $constituency = "ynys m\xf4n";
+}
 if (preg_match("#^ynys m\xc3\xb4n#i", $constituency)) {
     $constituency = "ynys m\xf4n";
 }
@@ -194,8 +216,9 @@ $title = $member_name;
 $desc = "Read $member_name's contributions to Parliament, including speeches and questions";
 
 // Enhance description if this is a current member
-if ($MEMBER->current_member_anywhere())
+if ($MEMBER->current_member_anywhere()) {
     $desc .= ', investigate their voting record, and get email alerts on their activity';
+}
 
 // Enhance title if this is a member of the Commons
 if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
@@ -203,7 +226,9 @@ if ($MEMBER->house(HOUSE_TYPE_COMMONS)) {
         $title .= ', former';
     }
     $title .= ' MP';
-    if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
+    if ($MEMBER->constituency()) {
+        $title .= ', ' . $MEMBER->constituency();
+    }
 }
 
 // Enhance title if this is a member of NIA
@@ -217,7 +242,9 @@ if ($MEMBER->house(HOUSE_TYPE_NI)) {
         $title .= ', former';
     }
     $title .= ' MLA';
-    if ($MEMBER->constituency()) $title .= ', ' . $MEMBER->constituency();
+    if ($MEMBER->constituency()) {
+        $title .= ', ' . $MEMBER->constituency();
+    }
 }
 
 // Enhance title if this is a member of Scottish Parliament
@@ -243,8 +270,8 @@ if (count($current_offices_ignoring_committees) > 0) {
 // Finally, if this is a Votes page, replace the page description with
 // something more descriptive of the actual data on the page.
 if ($pagetype == 'votes') {
-  $title = "Voting record - " . $title;
-  $desc = 'See how ' . $member_name . ' voted on topics like Employment, Social Issues, Foreign Policy, and more.';
+    $title = "Voting record - " . $title;
+    $desc = 'See how ' . $member_name . ' voted on topics like Employment, Social Issues, Foreign Policy, and more.';
 }
 
 // Set page metadata
@@ -253,8 +280,9 @@ $DATA->set_page_metadata($this_page, 'meta_description', $desc);
 
 // Build the RSS link and add it to page data.
 $feedurl = $DATA->page_metadata('mp_rss', 'url') . $MEMBER->person_id() . '.rdf';
-if (file_exists(BASEDIR . '/' . $feedurl))
+if (file_exists(BASEDIR . '/' . $feedurl)) {
     $DATA->set_page_metadata($this_page, 'rss', $feedurl);
+}
 
 // Prepare data for the template
 $data['full_name'] = $MEMBER->full_name();
@@ -535,11 +563,13 @@ function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
         $url = $MEMBER->url();
         $params = array();
         foreach ($_GET as $key => $value) {
-            if (substr($key, 0, 4) == 'utm_' || $key == 'gclid')
+            if (substr($key, 0, 4) == 'utm_' || $key == 'gclid') {
                 $params[] = "$key=$value";
+            }
         }
-        if (count($params))
+        if (count($params)) {
             $url .= '?' . join('&', $params);
+        }
         if ($pagetype) {
             $pagetype = '/' . $pagetype;
         } else {
@@ -574,26 +604,26 @@ function person_list_page($ids) {
 function person_error_page($message) {
     global $this_page;
     switch($this_page) {
-    case 'mla':
-        $rep = 'MLA';
-        $SEARCHURL = '/postcode/';
-        $MPSURL = new \MySociety\TheyWorkForYou\Url('mlas');
-        break;
-    case 'msp':
-        $rep = 'MSP';
-        $SEARCHURL = '/postcode/';
-        $MPSURL = new \MySociety\TheyWorkForYou\Url('msps');
-        break;
-    case 'peer':
-        $rep = 'Lord';
-        $SEARCHURL = '';
-        $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
-        break;
-    default:
-        $rep = 'MP';
-        $SEARCHURL = new \MySociety\TheyWorkForYou\Url('mp');
-        $SEARCHURL = $SEARCHURL->generate();
-        $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
+        case 'mla':
+            $rep = 'MLA';
+            $SEARCHURL = '/postcode/';
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('mlas');
+            break;
+        case 'msp':
+            $rep = 'MSP';
+            $SEARCHURL = '/postcode/';
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('msps');
+            break;
+        case 'peer':
+            $rep = 'Lord';
+            $SEARCHURL = '';
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
+            break;
+        default:
+            $rep = 'MP';
+            $SEARCHURL = new \MySociety\TheyWorkForYou\Url('mp');
+            $SEARCHURL = $SEARCHURL->generate();
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     }
 
     $data = array(
@@ -616,16 +646,21 @@ function person_summary_description ($MEMBER) {
     $current_member = $MEMBER->current_member();
     $left_house = $MEMBER->left_house();
 
-    if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) { # Royal short-circuit
+    if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) {
+        # Royal short-circuit
         return '<strong>Acceded on ' . $entered_house[HOUSE_TYPE_ROYAL]['date_pretty']
             . '<br>Coronated on 2 June 1953</strong></li>';
     }
     $desc = '';
     foreach ($MEMBER->houses() as $house) {
-        if ($house==HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS]))
-            continue; # Same info is printed further down
+        if ($house==HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS])) {
+            # Same info is printed further down
+            continue;
+        }
 
-        if (!$current_member[$house]) $desc .= 'Former ';
+        if (!$current_member[$house]) {
+            $desc .= 'Former ';
+        }
 
         $party = $left_house[$house]['party'];
         $party_br = '';
@@ -633,8 +668,9 @@ function person_summary_description ($MEMBER) {
             $party_br = $m[2];
             $party = $m[1];
         }
-        if ($party != 'unknown')
+        if ($party != 'unknown') {
             $desc .= _htmlentities($party);
+        }
         if ($party == 'Speaker' || $party == 'Deputy Speaker') {
             $desc .= ', and ';
             # XXX: Might go horribly wrong if something odd happens
@@ -645,15 +681,23 @@ function person_summary_description ($MEMBER) {
         }
         if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND) {
             $desc .= ' ';
-            if ($house==HOUSE_TYPE_COMMONS) $desc .= '<abbr title="Member of Parliament">MP</abbr>';
-            if ($house==HOUSE_TYPE_NI) $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
-            if ($house==HOUSE_TYPE_SCOTLAND) $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
+            if ($house==HOUSE_TYPE_COMMONS) {
+                $desc .= '<abbr title="Member of Parliament">MP</abbr>';
+            }
+            if ($house==HOUSE_TYPE_NI) {
+                $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
+            }
+            if ($house==HOUSE_TYPE_SCOTLAND) {
+                $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
+            }
             if ($party_br) {
                 $desc .= " ($party_br)";
             }
             $desc .= ' for ' . $left_house[$house]['constituency'];
         }
-        if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') $desc .= ' Peer';
+        if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') {
+            $desc .= ' Peer';
+        }
         $desc .= ', ';
     }
     $desc = preg_replace('#, $#', '', $desc);
@@ -1005,11 +1049,11 @@ function policy_image($data, $MEMBER, $format) {
 
     // Generate voting segments
     $data['segment'] = array(
-      'key'   => $policy_set,
-      'title' => $policiesList->getSetDescriptions()[$policy_set],
-      'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-          $policiesList->limitToSet($policy_set), $MEMBER
-      )
+        'key'   => $policy_set,
+        'title' => $policiesList->getSetDescriptions()[$policy_set],
+        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
+            $policiesList->limitToSet($policy_set), $MEMBER
+        )
     );
 
     if ($format === 'png') {

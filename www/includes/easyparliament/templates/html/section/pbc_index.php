@@ -22,14 +22,14 @@
 
         <div class="business-section__primary">
             <ul class="business-list">
-                <?php foreach ( $content['data'] as $date => $bills ) { ?>
+                <?php foreach ($content['data'] as $date => $bills) { ?>
                 <li>
                     <span class="business-list__title">
                         <h3>
                             <?= $date ?>
                         </h3>
                     </span>
-                    <?php foreach ( $bills as $bill ) { ?>
+                    <?php foreach ($bills as $bill) { ?>
                     <p>
                     <a href="<?= $bill['url'] ?>" class="business-list__title">
                         <?= $bill['bill'] ?> &ndash; <?= $bill['sitting'] ?>

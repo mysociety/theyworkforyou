@@ -8,9 +8,9 @@ require_once(dirname(__FILE__) . '/../vendor/autoload.php');
 // Test to make sure we have the test DB environment variables. If not, this isn't testing, so abort.
 // Define the DB connection constants before we do anything else.
 if (
-    isset($_SERVER['TWFY_TEST_DB_HOST']) AND
-    isset($_SERVER['TWFY_TEST_DB_USER']) AND
-    isset($_SERVER['TWFY_TEST_DB_PASS']) AND
+    isset($_SERVER['TWFY_TEST_DB_HOST']) and
+    isset($_SERVER['TWFY_TEST_DB_USER']) and
+    isset($_SERVER['TWFY_TEST_DB_PASS']) and
     isset($_SERVER['TWFY_TEST_DB_NAME'])
 ) {
 
@@ -37,7 +37,7 @@ if (
 }
 
 // Explicitly declare we're in testing (avoids trying deploy-only things)
-define('TESTING', TRUE);
+define('TESTING', true);
 
 // Load up the init script (handles the rest of the config, DB connection etc)
 include_once('www/includes/easyparliament/init.php');

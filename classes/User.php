@@ -12,7 +12,7 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class User {
-    public function getUserDetails($user_id = False) {
+    public function getUserDetails($user_id = false) {
         global $THEUSER;
 
         $user = $THEUSER;
@@ -259,7 +259,7 @@ class User {
             }
 
             if ($details['email'] != $THEUSER->email()) {
-                $results['email_changed'] = True;
+                $results['email_changed'] = true;
             }
 
 

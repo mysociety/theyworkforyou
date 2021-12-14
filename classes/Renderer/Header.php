@@ -49,7 +49,7 @@ class Header
     private function get_page_url() {
         $protocol = 'https://';
         if (DEVSITE) {
-          $protocol = 'http://';
+            $protocol = 'http://';
         }
         $url = $protocol . DOMAIN;
         if (array_key_exists('REQUEST_URI', $_SERVER)) {
@@ -82,7 +82,9 @@ class Header
 
             $parent_page = $DATA->page_metadata($this_page, 'parent');
             if ($parent_title = $DATA->page_metadata($parent_page, 'title')) {
-                if ($this->data['page_title']) $this->data['page_title'] .= ': ';
+                if ($this->data['page_title']) {
+                    $this->data['page_title'] .= ': ';
+                }
                 $this->data['page_title'] .= $parent_title;
             }
 
@@ -109,7 +111,9 @@ class Header
         // Meta keywords
         if (!$this->data['meta_keywords'] = $DATA->page_metadata($this_page, "meta_keywords")) {
             $this->data['meta_keywords'] = $this->keywords_title;
-            if ($this->data['meta_keywords']) $this->data['meta_keywords'] .= ', ';
+            if ($this->data['meta_keywords']) {
+                $this->data['meta_keywords'] .= ', ';
+            }
             $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs, London Assembly Members';
         }
 
@@ -210,7 +214,9 @@ class Header
             $p = $parent;
             while ($p) {
                 $p = $DATA->page_metadata($p, 'parent');
-                if ($p) $parents[] = $p;
+                if ($p) {
+                    $parents[] = $p;
+                }
             }
 
             $top_highlight = array_pop($parents);
@@ -292,7 +298,9 @@ class Header
                 $text = $menudata['text'];
                 $title = $menudata['title'];
             }
-            if (!$title) continue;
+            if (!$title) {
+                continue;
+            }
 
             //get link and description for the menu ans add it to the array
             $class = $toppage == $this->nav_highlights['top'] ? 'on' : '';

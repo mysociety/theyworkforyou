@@ -96,7 +96,9 @@ function parse_bill($f) {
             }
             continue;
         }
-        if (substr($r, 0, 8)=='Bill 141') continue;
+        if (substr($r, 0, 8)=='Bill 141') {
+            continue;
+        }
         if (preg_match('#\s+([1-4]?[05])$#', $r, $m)) {
             if ($line != $m[1]) {
                 print "ERROR! $line $m[1] $r";
@@ -224,7 +226,9 @@ function parse_amendments() {
             $insert = isset($m[4]) ? $m[4] : null;
             unset($amendments[$num]);
             $bill[$page][$line] = '<del title="'.$num.'">'.$bill[$page][$line].'</del>';
-            if ($insert) $bill[$page][$line] .= '<ins title="'.$num.'">'.$insert.'</ins>';
+            if ($insert) {
+                $bill[$page][$line] .= '<ins title="'.$num.'">'.$insert.'</ins>';
+            }
         }
         # Page 8, line 24 [Clause 14], at end insert-- `...'
         if (preg_match('#Page\s+(\d+), line (\d+) \[Clause (\d+)\], (?:at end|after subsection \(\d+\)) insert--\s+`(.*?)\'#s', $amendment, $m)) {
@@ -302,8 +306,11 @@ function parse_amendments() {
                     }
                     if ($finished) {
                         for ($p = $subsubclause['startP']; $p<=$subsubclause['endP']; $p++) {
-                            if ($p>$subsubclause['startP']) $starti = 1;
-                            else $starti = $subsubclause['startL'];
+                            if ($p>$subsubclause['startP']) {
+                                $starti = 1;
+                            } else {
+                                $starti = $subsubclause['startL'];
+                            }
                             for ($i = $starti; $i<=$subsubclause['endL']; $i++) { # XXX Doesn't really work spanning pages
                                 $bill[$p][$i] = '<del title="'.$num.'">' . $bill[$p][$i] . '</del>';
                             }
@@ -321,7 +328,9 @@ function parse_amendments() {
             foreach ($clauses[$clause] as $subclause_num => $subclause) {
                 foreach ($subclause as $subsubclause_num => $subsubclause) {
                     if ($subsubclause['endP'] > $page) { $page = $subsubclause['endP']; $line = 0; }
-                    if ($subsubclause['endL'] > $line) $line = $subsubclause['endL'];
+                    if ($subsubclause['endL'] > $line) {
+                        $line = $subsubclause['endL'];
+                    }
                 }
             }
             $bill[$page][$line] .= "<ins title='$num'>$amendment</ins>\n\n";

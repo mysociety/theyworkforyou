@@ -16,7 +16,9 @@ $db = $HANSARDLIST->db;
 
 // Get all the person ids we need feeds for...
 $q = $db->query("SELECT person_id FROM member WHERE left_house='9999-12-31'");
-if ($q->rows() <= 0) exit;
+if ($q->rows() <= 0) {
+    exit;
+}
 
 $starttime = time();
 foreach ($q as $person) {
@@ -53,7 +55,7 @@ foreach ($q as $person) {
 			$contentencoded = $row['body'];
 
 			$hdate = format_date($row['hdate'], 'Y-m-d');
-			if ($row['htime'] != NULL) {
+			if ($row['htime'] != null) {
 				$htime = format_time($row['htime'], 'H:i:s');
 			} else {
 				$htime = '00:00:00';

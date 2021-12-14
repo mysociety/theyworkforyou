@@ -47,8 +47,12 @@ $hdate = $q['hdate'];
 $htime = $q['htime'];
 $atime = $q['atime'];
 $adate = $q['adate'];
-if ($atime) $htime = $atime;
-if ($adate) $hdate = $adate;
+if ($atime) {
+    $htime = $atime;
+}
+if ($adate) {
+    $hdate = $adate;
+}
 $parent_gid = str_replace('uk.org.publicwhip/debate/', '/debates/?id=', $q['parent_gid']);
 $parent_gid = str_replace('uk.org.publicwhip/lords/', '/lords/?gid=', $parent_gid);
 $parent_body = $q['parent_body'];
@@ -88,8 +92,12 @@ $gids_previous = array();
 $gids_following = array();
 $gid_actual = array();
 foreach ($q as $row) {
-    if ($row['adate']) $row['hdate'] = $row['adate'];
-    if ($row['atime']) $row['htime'] = $row['atime'];
+    if ($row['adate']) {
+        $row['hdate'] = $row['adate'];
+    }
+    if ($row['atime']) {
+        $row['htime'] = $row['atime'];
+    }
     if ($row['hpos'] < $hpos) {
         $gids_previous[] = $row;
     } elseif ($row['hpos'] > $hpos) {
@@ -132,14 +140,20 @@ if (!$videodb) {
 }
 $video = \MySociety\TheyWorkForYou\Utility\Video::fromTimestamp($videodb, $hdate, $htime);
 
-if (!$start)
+if (!$start) {
     $start = $video['offset'] - $offset;
-if ($start < 0) $start = 0;
+}
+if ($start < 0) {
+    $start = 0;
+}
 
-if (get_http_var('barcamp'))
+if (get_http_var('barcamp')) {
     $video['id'] -= 4000;
+}
 
-if (!$file) $file = $video['id'];
+if (!$file) {
+    $file = $video['id'];
+}
 
 # Start displaying
 
@@ -273,14 +287,26 @@ Registration is not needed to timestamp videos, but you can <a href="/user/?pg=j
     global $THEUSER;
     if ($THEUSER->user_id() && ($rank_today || $rank_week || $rank_overall)) {
         echo '<p align="center"><big>You are ';
-        if ($rank_today) echo make_ranking($rank_today), ' today, ';
-        if ($rank_week) echo make_ranking($rank_week), ' last 4 weeks, ';
-        if ($rank_overall) echo make_ranking($rank_overall), ' overall';
+        if ($rank_today) {
+            echo make_ranking($rank_today), ' today, ';
+        }
+        if ($rank_week) {
+            echo make_ranking($rank_week), ' last 4 weeks, ';
+        }
+        if ($rank_overall) {
+            echo make_ranking($rank_overall), ' overall';
+        }
         echo '</big></p>';
     }
-    if ($out_today) echo "<h3>Top timestampers (today)</h3> <ol>$out_today</ol>";
-    if ($out_week) echo "<h3>Top timestampers (last 4 weeks)</h3> <ol>$out_week</ol>";
-    if ($out_overall) echo "<h3>Top timestampers (overall)</h3> <ol>$out_overall</ol>";
+    if ($out_today) {
+        echo "<h3>Top timestampers (today)</h3> <ol>$out_today</ol>";
+    }
+    if ($out_week) {
+        echo "<h3>Top timestampers (last 4 weeks)</h3> <ol>$out_week</ol>";
+    }
+    if ($out_overall) {
+        echo "<h3>Top timestampers (overall)</h3> <ol>$out_overall</ol>";
+    }
     echo '</div>';
 ?>
 <div style="float: right; width: 50%">
@@ -348,18 +374,24 @@ function display_league($limit, $q = '') {
         $name = $row['firstname'] . ' ' . $row['lastname'];
         $user_id = $row['user_id'];
         #if ($user_id == -1) continue; # $name = 'CaptionerBot';
-        if ($user_id == 0) $name = 'Anonymous';
+        if ($user_id == 0) {
+            $name = 'Anonymous';
+        }
         $count = $row['c'];
         if ($THEUSER->user_id() == $user_id) {
             $rank = $i+1;
         }
-        if ($i>=$limit) continue;
+        if ($i>=$limit) {
+            continue;
+        }
         $out .= '<li>';
-        if ($THEUSER->user_id() == $user_id)
+        if ($THEUSER->user_id() == $user_id) {
             $out .= '<strong>';
+        }
         $out .= "$name : $count";
-        if ($THEUSER->user_id() == $user_id)
+        if ($THEUSER->user_id() == $user_id) {
             $out .= '</strong>';
+        }
         #if ($user_id == -1) {
         #	echo ' <small>(initial run program that tries to guess timestamp from captions, wildly variable)</small>';
         #}
@@ -379,8 +411,10 @@ function video_quote($gid_actual, $parent_gid, $parent_body) {
 
 function basic_instructions($pid) {
     $pid_url = '';
-    if ($pid) $pid_url = "&amp;pid=$pid";
-?>
+    if ($pid) {
+        $pid_url = "&amp;pid=$pid";
+    }
+    ?>
 <ol style="font-size: 150%;">
 <li>Have a quick scan of the speech under the video, then press &ldquo;Play&rdquo;.
 <li>When you hear the start of that speech, press &ldquo;Now!&rdquo;.
@@ -398,8 +432,10 @@ find the right point, don't worry, just <a href="/video/next.php?action=random<?
 function basic_hints($gid_safe, $file, $pid) {
     global $THEUSER;
     $pid_url = '';
-    if ($pid) $pid_url = "&amp;pid=$pid";
-?>
+    if ($pid) {
+        $pid_url = "&amp;pid=$pid";
+    }
+    ?>
 
 <ul>
 <?php	if (!$THEUSER->loggedin()) { ?>
@@ -429,8 +465,10 @@ over the video.
 function advanced_hints($gid_safe, $file, $pid) {
     global $THEUSER;
     $pid_url = '';
-    if ($pid) $pid_url = "&amp;pid=$pid";
-?>
+    if ($pid) {
+        $pid_url = "&amp;pid=$pid";
+    }
+    ?>
 
 <p align="center">Actions:
 <a href="/video/next.php?action=random">Skip</a> |
@@ -465,14 +503,23 @@ function previous_speeches($surrounding_speeches, $gids_previous) {
 
 function disp_speech($row, $count) {
     echo '<li';
-    if ($row['htype']==13 || $row['htype']==14) echo ' class="unspoken"';
-    elseif ($row['htype']<12) echo ' class="heading"';
-    if (!($count%2)) echo ' style="background-color: #F5FDEA;"';
-    else echo ' style="background-color: #E8FDCB;"';
+    if ($row['htype']==13 || $row['htype']==14) {
+        echo ' class="unspoken"';
+    } elseif ($row['htype']<12) {
+        echo ' class="heading"';
+    }
+    if (!($count%2)) {
+        echo ' style="background-color: #F5FDEA;"';
+    } else {
+        echo ' style="background-color: #E8FDCB;"';
+    }
     echo '>';
-    if ($count) echo "<em>$count earlier:</em> ";
-    if ($row['htype']==12)
+    if ($count) {
+        echo "<em>$count earlier:</em> ";
+    }
+    if ($row['htype']==12) {
         echo '<span class="video_name">' . $row['given_name'] . ' ' . $row['family_name'] . '</span> ';
+    }
     echo $row['body'];
     echo '</li>';
 }

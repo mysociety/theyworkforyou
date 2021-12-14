@@ -1,8 +1,8 @@
-                        <?php if ( $featured['featured'] ) { ?>
+                        <?php if ($featured['featured']) { ?>
                         <h2>In the news</h2>
-                        <?php if ( isset($featured['headline']) ) { ?>
+                        <?php if (isset($featured['headline'])) { ?>
                         <h3 class="in-the-news__topic"><a href="<?= $featured['list_url'] ?>"><?= $featured['headline'] ?></a></h3>
-                        <?php if ( isset($featured['context']) ) { ?>
+                        <?php if (isset($featured['context'])) { ?>
                         <p class="in-the-news__context"><?= $featured['context'] ?></p>
                         <?php } ?>
                         <?php } ?>
@@ -15,21 +15,21 @@
                             <p class="meta excerpt__category"><a href="<?= $featured['more_url'] ?>"><?= $featured['desc'] ?></a></p>
                             <p class="excerpt__statement">
                                 <q>
-                                <?php if ( $featured['child']['speaker'] ) { ?>
+                                <?php if ($featured['child']['speaker']) { ?>
                                 <a href="<?= $featured['child']['speaker']['url'] ?>"><?= $featured['child']['speaker']['name'] ?></a> :
                                 <?php } ?>
                                 <?= trim_characters($featured['child']['body'], 0, 200) ?>
                                 </q>
                             </p>
                         </div>
-                        <?php if ( count($featured['related']) ) { ?>
+                        <?php if (count($featured['related'])) { ?>
                         <div class="in-the-news__key-events">
                             <!-- No maximum, but less than 4 looks best -->
                             <ul class="key-events__list">
                                 <li>
                                     <h4>Key events</h4>
                                 </li>
-                                <?php foreach ( $featured['related'] as $related ) { ?>
+                                <?php foreach ($featured['related'] as $related) { ?>
                                  <li>
                                      <a href="<?= $related['list_url'] ?>"><?= $related['parent']['body'] ?></a>
                                     <p class="meta"><?= format_date($related['hdate'], SHORTDATEFORMAT) ?></p>

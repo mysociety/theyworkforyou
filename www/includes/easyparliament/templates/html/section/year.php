@@ -8,23 +8,23 @@
         </div>
         <div class="business-section__solo">
             <div class="calendar__controls">
-                <?php if ( isset( $prev ) ) { ?>
+                <?php if (isset($prev)) { ?>
                 <a href="<?= $prev['url'] ?>" class="calendar__controls__previous">&larr; <?= $prev['title'] ?></a>
                 <?php } else { ?>
                 <span class="calendar__controls__previous"></span>
                 <?php } ?>
                 <span class="calendar__controls__current"><?= $year ?></span>
-                <?php if ( isset( $next ) ) { ?>
+                <?php if (isset($next)) { ?>
                 <a href="<?= $next['url'] ?>" class="calendar__controls__next"><?= $next['title'] ?> &rarr;</a>
                 <?php } else { ?>
                 <span class="calendar__controls__next"></span>
                 <?php } ?>
             </div>
-            <?php if ( isset($years) ) {
-                foreach ( $years as $year => $months ) { ?>
+            <?php if (isset($years)) {
+                foreach ($years as $year => $months) { ?>
             <div class="calendar-year">
                 <?php foreach ($months as $month => $dates) {
-                  include '_calendar.php';
+                    include '_calendar.php';
                 } ?>
             </div>
             <?php }

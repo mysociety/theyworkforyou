@@ -13,7 +13,7 @@ while ($file = readdir($dh)) {
 rsort($files);
 
 if (!DEVSITE) {
-   header('Cache-Control: max-age=3600');
+    header('Cache-Control: max-age=3600');
 }
 
 $PAGE->page_start();

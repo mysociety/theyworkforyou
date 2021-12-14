@@ -16,7 +16,7 @@ if (get_http_var('letterthanks')) {
     <?php
 }
 
-$PAGE->block_start(array ('title'=>'Share the \'Free our Bills!\' campaign'));
+$PAGE->block_start(array('title'=>'Share the \'Free our Bills!\' campaign'));
 freeourbills_styles();
 
 freeourbills_share_page();
@@ -25,4 +25,4 @@ freeourbills_share_page();
 
 $PAGE->block_end();
 $PAGE->stripe_end();
-$PAGE->page_end ();
+$PAGE->page_end();

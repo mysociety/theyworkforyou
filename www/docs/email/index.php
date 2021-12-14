@@ -14,20 +14,25 @@ $recipient_email = get_http_var('recipient_mail');
 $sender_email = get_http_var('sender_mail');
 $sender_name = get_http_var('sender_name');
 $pid = intval(get_http_var('pid'));
-if ($pid)
+if ($pid) {
     $MEMBER = new MEMBER(array('person_id' => $pid));
+}
 
 //validate them
 $errors = array();
 
-if (!$pid)
+if (!$pid) {
     $errors[] = 'You did not get to this page from an MP or Peer page. Please go back and try again.';
-if (!preg_match('#^[^@]+@#', $recipient_email))
+}
+if (!preg_match('#^[^@]+@#', $recipient_email)) {
     $errors[] = "'$recipient_email' is not a valid recipient email address. Please have another go.";
-if (!validate_email($sender_email))
+}
+if (!validate_email($sender_email)) {
     $errors[] = "'$sender_email' is not a valid sender email address. Please have another go.";
-if (!$sender_name)
+}
+if (!$sender_name) {
     $errors[] = "If you don't give us your name, we can't tell the recipient who sent them the link. We won't store it or use for any other purpose than sending this email.";
+}
 
 if (sizeof($errors)) {
     print '<p>Please correct the following errors:</p>';
@@ -45,8 +50,11 @@ if (sizeof($errors)) {
 <?php
 } else {
     $rep_name = $MEMBER->full_name();
-    if ($MEMBER->house_disp==1) $rep_name .= ' MP';
-    elseif ($MEMBER->house_disp==3) $rep_name .= ' MLA';
+    if ($MEMBER->house_disp==1) {
+        $rep_name .= ' MP';
+    } elseif ($MEMBER->house_disp==3) {
+        $rep_name .= ' MLA';
+    }
     $data = array (
         'template'      => 'email_a_friend',
         'to'            => $recipient_email,

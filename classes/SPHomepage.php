@@ -39,7 +39,7 @@ class SPHomepage extends Homepage {
     }
 
     protected function getCalendarData() {
-        return NULL;
+        return null;
     }
 
 

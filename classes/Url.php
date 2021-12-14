@@ -173,8 +173,9 @@ class Url {
                 foreach ($var as $v) {
                     $url_args[] = "$key=" . urlencode(stripslashes($v));
                 }
-            } elseif ($var != null)
+            } elseif ($var != null) {
                 $url_args[] = "$key=" . urlencode(stripslashes($var));
+            }
         }
 
         $page_url = WEBPATH . $DATA->page_metadata($this->destinationpage, "url");

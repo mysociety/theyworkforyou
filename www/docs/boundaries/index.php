@@ -21,7 +21,8 @@ if ($pc && !validate_postcode($pc)) {
 if ($pc) {
     # current will have WMC key. If Scottish, has SPC and SPE too. If NI, has NIE.
     $mapit = mapit_call('postcode', $pc);
-    if (is_object($mapit)) { # RABX error returns an object
+    if (is_object($mapit)) {
+        # RABX error returns an object
         print '<p class="error">Afraid we couldn&rsquo;t find that postcode.</p>';
         $pc = '';
     }
@@ -134,8 +135,11 @@ $(function () {
 <li>You were in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP was <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs were <?php
         foreach ($mreg as $k => $n) {
             print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
-            if ($k < count($mreg)-2) print ', ';
-            elseif ($k == count($mreg)-2) print ' and ';
+            if ($k < count($mreg)-2) {
+                print ', ';
+            } elseif ($k == count($mreg)-2) {
+                print ' and ';
+            }
         }
         echo '.</li>';
     } elseif ($country == 'N') {

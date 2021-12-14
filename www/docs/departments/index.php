@@ -33,8 +33,9 @@ foreach ($data as $body => $arr) {
     if (isset($arr[3])) {
         print '<a href="'.$link.'/questions">Written Questions</a>';
     }
-    if (count($arr)==2)
+    if (count($arr)==2) {
         print ' | ';
+    }
     if (isset($arr[4])) {
         print '<a href="'.$link.'/statements">Written Ministerial Statements</a>';
     }

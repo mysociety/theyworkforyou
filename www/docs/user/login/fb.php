@@ -9,7 +9,7 @@
     If the input is not OK, the form is displayed again with error messages.
 */
 
-$new_style_template = TRUE;
+$new_style_template = true;
 
 include_once '../../../includes/easyparliament/init.php';
 # need to include this as login code uses error_message

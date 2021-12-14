@@ -82,45 +82,45 @@ class Search {
     private function prettify_search_section($section) {
         $name = '';
         switch ($section) {
-        case 'wrans':
-            $name = 'Written Answers';
-            break;
-        case 'uk':
-            $name = 'All UK';
-            break;
-        case 'debates':
-            $name = 'House of Commons debates';
-            break;
-        case 'whall':
-            $name = 'Westminster Hall debates';
-            break;
-        case 'lords':
-            $name = 'House of Lords debates';
-            break;
-        case 'wms':
-            $name = 'Written ministerial statements';
-            break;
-        case 'standing':
-            $name = 'Bill Committees';
-            break;
-        case 'future':
-            $name = 'Future Business';
-            break;
-        case 'ni':
-            $name = 'Northern Ireland Assembly Debates';
-            break;
-        case 'scotland':
-            $name = 'All Scotland';
-            break;
-        case 'sp':
-            $name = 'Scottish Parliament Debates';
-            break;
-        case 'spwrans':
-            $name = 'Scottish Parliament Written answers';
-            break;
-        case 'lmqs':
-            $name = 'Questions to the Mayor of London';
-            break;
+            case 'wrans':
+                $name = 'Written Answers';
+                break;
+            case 'uk':
+                $name = 'All UK';
+                break;
+            case 'debates':
+                $name = 'House of Commons debates';
+                break;
+            case 'whall':
+                $name = 'Westminster Hall debates';
+                break;
+            case 'lords':
+                $name = 'House of Lords debates';
+                break;
+            case 'wms':
+                $name = 'Written ministerial statements';
+                break;
+            case 'standing':
+                $name = 'Bill Committees';
+                break;
+            case 'future':
+                $name = 'Future Business';
+                break;
+            case 'ni':
+                $name = 'Northern Ireland Assembly Debates';
+                break;
+            case 'scotland':
+                $name = 'All Scotland';
+                break;
+            case 'sp':
+                $name = 'Scottish Parliament Debates';
+                break;
+            case 'spwrans':
+                $name = 'Scottish Parliament Written answers';
+                break;
+            case 'lmqs':
+                $name = 'Questions to the Mayor of London';
+                break;
         }
 
         return $name;

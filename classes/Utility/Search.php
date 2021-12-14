@@ -28,8 +28,9 @@ class Search
 
             return $data;
         }
-        if (count($gids) == 5000)
+        if (count($gids) == 5000) {
             $data['limit_reached'] = true;
+        }
 
         # Fetch all the speakers of the results, count them up and get min/max date usage
         $speaker_count = array();
@@ -45,8 +46,12 @@ class Search
                 $mindate[$person_id] = '9999-12-31';
             }
             $speaker_count[$person_id]++;
-            if ($hdate < $mindate[$person_id]) $mindate[$person_id] = $hdate;
-            if ($hdate > $maxdate[$person_id]) $maxdate[$person_id] = $hdate;
+            if ($hdate < $mindate[$person_id]) {
+                $mindate[$person_id] = $hdate;
+            }
+            if ($hdate > $maxdate[$person_id]) {
+                $maxdate[$person_id] = $hdate;
+            }
         }
 
         # Fetch details of all the speakers
@@ -80,8 +85,9 @@ class Search
                 $dept = $row['dept'];
                 $posn = $row['position'];
                 $moffice_id = $row['moffice_id'];
-                if ($dept && $row['to_date'] == '9999-12-31')
+                if ($dept && $row['to_date'] == '9999-12-31') {
                     $speakers[$pid]['office'][$moffice_id] = prettify_office($posn, $dept);
+                }
                 if (!isset($speakers[$pid]['name'])) {
                     $speakers[$pid]['name'] = $full_name . ($house==1?' MP':'');
                 }
@@ -139,7 +145,9 @@ class Search
      */
 
     public static function searchMemberDbLookup($searchstring, $current_only=false) {
-        if (!$searchstring) return array();
+        if (!$searchstring) {
+            return array();
+        }
         $searchwords = explode(' ', $searchstring, 3);
         $params = array();
         if (count($searchwords) == 1) {

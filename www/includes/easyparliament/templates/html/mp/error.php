@@ -6,7 +6,7 @@
 
             <p><?= $error ?></p>
 
-        <?php if ( $rep_search_url ) { ?>
+        <?php if ($rep_search_url) { ?>
         </div>
 
         <div class="full-page__unit">

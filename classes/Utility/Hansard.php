@@ -11,7 +11,7 @@ namespace MySociety\TheyWorkForYou\Utility;
 class Hansard
 {
     public static function get_gid_from_url($url) {
-        $gid = NULL;
+        $gid = null;
         $parts = parse_url($url);
         parse_str($parts['query'], $query);
 

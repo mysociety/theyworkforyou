@@ -42,7 +42,7 @@ class NiView extends SectionView {
 
         $data = array();
 
-        $data['popular_searches'] = NULL;
+        $data['popular_searches'] = null;
 
 
         $data['urls'] = $this->getURLs($data);
@@ -54,7 +54,7 @@ class NiView extends SectionView {
         $MOREURL->insert( array( 'more' => 1 ) );
 
         // this makes sure that we don't repeat this debate in the list below
-        $random_debate = NULL;
+        $random_debate = null;
         if ( isset($debates['data']) && count($debates['data']) ) {
             $random_debate = $debates['data'][0];
         }

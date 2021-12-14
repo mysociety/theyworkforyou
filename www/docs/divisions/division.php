@@ -46,11 +46,11 @@ if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
             $data['mp_vote']['with_majority'] = true;
         }
     } else {
-      if ($data['division']['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
-          $data['before_mp'] = true;
-      } else if ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
-          $data['after_mp'] = true;
-      }
+        if ($data['division']['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
+            $data['before_mp'] = true;
+        } else if ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
+            $data['after_mp'] = true;
+        }
     }
 
     $mp_data = array(
@@ -77,7 +77,7 @@ if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
 if ($data['division']['house'] == 'pbc') {
     $location = '&ndash; in a Public Bill Committee';
 }
-$data['debate_time_human'] = False;
+$data['debate_time_human'] = false;
 $data['debate_day_human'] = format_date($data['division']['date'], LONGDATEFORMAT);
 $data['location'] = $location;
 $data['current_assembly'] = $assembly;

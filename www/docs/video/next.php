@@ -5,7 +5,9 @@ include_once '../../includes/easyparliament/init.php';
 $action = get_http_var('action');
 $pid = intval(get_http_var('pid'));
 $major = intval(get_http_var('major'));
-if (!$major) $major = 1;
+if (!$major) {
+    $major = 1;
+}
 
 if ($action == 'next' || $action=='nextneeded') {
     $gid = get_http_var('gid');

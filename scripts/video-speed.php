@@ -25,9 +25,13 @@ function calculate_speed($db, $spid) {
         $body = strip_tags($row['body']);
         $qq = $db->query('select time_to_sec(atime) as atime from hansard,video_timestamps where hansard.gid=video_timestamps.gid and deleted=0 and video_status in (5,7) and hdate="' . $hdate . '" and hpos=' . ($hpos+1) . ' group by video_timestamps.gid')->first();
         $next_atime = $qq['atime'];
-        if (!$next_atime) continue;
+        if (!$next_atime) {
+            continue;
+        }
         $duration = $next_atime - $atime;
-        if ($duration<=0) continue;
+        if ($duration<=0) {
+            continue;
+        }
         $words = preg_split('/\W+/', $body, -1, PREG_SPLIT_NO_EMPTY);
         $num_words = count($words);
         $speed = $num_words / ($duration/60);

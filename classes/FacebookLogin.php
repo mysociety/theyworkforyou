@@ -16,11 +16,11 @@ class FacebookLogin {
             return;
         }
         if (!isset($this->fb)) {
-          $this->fb = new \Facebook\Facebook([
-            'app_id' => FACEBOOK_APP_ID,
-            'app_secret' => FACEBOOK_APP_SECRET,
-            'default_graph_version' => 'v2.2',
-          ]);
+            $this->fb = new \Facebook\Facebook([
+                'app_id' => FACEBOOK_APP_ID,
+                'app_secret' => FACEBOOK_APP_SECRET,
+                'default_graph_version' => 'v2.2',
+            ]);
         }
 
         return $this->fb;
@@ -37,46 +37,46 @@ class FacebookLogin {
     }
 
     public function handleFacebookRedirect() {
-      $helper = $this->getFacebookObject()->getRedirectLoginHelper();
+        $helper = $this->getFacebookObject()->getRedirectLoginHelper();
 
-      $data = array('login_url' => $this->getLoginURL());
+        $data = array('login_url' => $this->getLoginURL());
 
-      try {
-        $accessToken = $helper->getAccessToken();
-      } catch(\Facebook\Exceptions\FacebookResponseException $e) {
-        $data['error'] = 'Graph returned an error: ' . $e->getMessage();
-        return $data;
-      } catch(\Facebook\Exceptions\FacebookSDKException $e) {
-        $data['error'] = 'Facebook SDK returned an error: ' . $e->getMessage();
-        return $data;
-      }
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch(\Facebook\Exceptions\FacebookResponseException $e) {
+            $data['error'] = 'Graph returned an error: ' . $e->getMessage();
+            return $data;
+        } catch(\Facebook\Exceptions\FacebookSDKException $e) {
+            $data['error'] = 'Facebook SDK returned an error: ' . $e->getMessage();
+            return $data;
+        }
 
-      $token = $this->checkAccessToken($accessToken);
+        $token = $this->checkAccessToken($accessToken);
 
-      if ($token) {
-          return array('token' => $token);
-      } else {
-          $data['error'] = 'Problem getting Facebook token';
-          return $data;
-      }
+        if ($token) {
+            return array('token' => $token);
+        } else {
+            $data['error'] = 'Problem getting Facebook token';
+            return $data;
+        }
     }
 
 
     private function checkAccessToken($accessToken) {
-      if (!isset($accessToken)) {
-          return False;
-      }
-
-      if (! $accessToken->isLongLived()) {
-        $oAuth2Client = $this->getFacebookObject()->getOAuth2Client();
-        try {
-          $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-        } catch (\Facebook\Exceptions\FacebookSDKException $e) {
-          return False;
+        if (!isset($accessToken)) {
+            return false;
         }
-      }
 
-      return $accessToken;
+        if (! $accessToken->isLongLived()) {
+            $oAuth2Client = $this->getFacebookObject()->getOAuth2Client();
+            try {
+                $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+            } catch (\Facebook\Exceptions\FacebookSDKException $e) {
+                return false;
+            }
+        }
+
+        return $accessToken;
     }
 
     public function loginUser($accessToken) {
@@ -93,7 +93,7 @@ class FacebookLogin {
         $expires = intval($accessToken->getExpiresAt()->format('U'));
         twfy_debug("THEUSER", "Facebook access token expires at " . $expires);
 
-        $success = False;
+        $success = false;
         if ($user_id) {
             twfy_debug("THEUSER", "Faceook user exists in the database: " . $user_id);
             $success = $THEUSER->init($user_id);
@@ -119,7 +119,7 @@ class FacebookLogin {
             return $logged_in;
         }
 
-        return False;
+        return false;
     }
 
     public function createUser($accessToken, $user) {
@@ -135,8 +135,8 @@ class FacebookLogin {
             'url' => '',
             'status' => '',
             'password' => '',
-            'optin' => False,
-            'mp_alert' => False,
+            'optin' => false,
+            'mp_alert' => false,
             'facebook_id' => $user['id']
         );
         $added = $THEUSER->add($details, false);
@@ -163,7 +163,7 @@ class FacebookLogin {
             'url' => $THEUSER->url(),
             'optin' => $THEUSER->optin(),
             'password' => '',
-         );
+        );
 
         $THEUSER->update_self_no_confirm($details);
     }

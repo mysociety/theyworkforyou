@@ -11,7 +11,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/crosssell.php';
 class Standard extends \MySociety\TheyWorkForYou\AlertView {
     public $data;
 
-    public function __construct($THEUSER = NULL) {
+    public function __construct($THEUSER = null) {
         parent::__construct($THEUSER);
         $this->data = array();
     }
@@ -131,7 +131,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         $text = $this->data['alertsearch'];
-        if (!$text) $text = $this->data['keyword'];
+        if (!$text) {
+            $text = $this->data['keyword'];
+        }
 
         if ($this->data['submitted'] && !$this->data['pid'] && !$text) {
             $errors['alertsearch'] = 'Please enter what you want to be alerted about';

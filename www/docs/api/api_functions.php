@@ -138,7 +138,9 @@ $methods = array(
 # Key-related functions
 
 function api_log_call($key) {
-    if ($key=='DOCS') return;
+    if ($key=='DOCS') {
+        return;
+    }
     $ip = $_SERVER['REMOTE_ADDR'];
     $query = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
     $query = preg_replace('#key=[A-Za-z0-9]+&?#', '', $query);
@@ -152,20 +154,20 @@ function api_log_call($key) {
 }
 
 function api_is_superuser_key($key) {
-  $db = new ParlDB;
-  $q = $db->query('SELECT api_key.user_id, users.status
+    $db = new ParlDB;
+    $q = $db->query('SELECT api_key.user_id, users.status
                FROM   api_key, users
                WHERE  users.user_id = api_key.user_id
                AND    api_key.api_key = :key', array(
                 ':key' => $key
                 ))->first();
-  if (!$q) {
+    if (!$q) {
+        return false;
+    }
+    if ($q['status'] == 'Superuser') {
+        return true;
+    }
     return false;
-  }
-  if ($q['status'] == 'Superuser') {
-    return true;
-  } 
-  return false;
 }
 
 function api_check_key($key) {
@@ -217,7 +219,9 @@ function api_output($arr, $last_mod=null) {
     $output = get_http_var('output');
     if (!get_http_var('docs')) {
         $cond = api_header($output, $last_mod);
-        if ($cond) return;
+        if ($cond) {
+            return;
+        }
     }
     if ($output == 'xml') {
         $out = '<?xml version="1.0" encoding="utf-8"?>'."\n";
@@ -228,7 +232,8 @@ function api_output($arr, $last_mod=null) {
         $out = api_output_rabx($arr);
     } elseif ($output == 'json') {
         $out = json_encode($arr, JSON_PRETTY_PRINT);
-    } else { # JS
+    } else {
+        # JS
         $out = api_output_js($arr);
         $callback = get_http_var('callback');
         if (preg_match('#^[A-Za-z0-9._[\]]+$#', $callback)) {
@@ -264,8 +269,9 @@ function api_header($o, $last_mod=null) {
     }
     #$type = 'text/plain';
     header("Content-Type: $type; charset=$charset");
-    if ($last_mod>0)
+    if ($last_mod>0) {
         header('Last-Modified: ' . date('r', $last_mod));
+    }
     return false;
 }
 
@@ -275,14 +281,18 @@ function api_error($e) {
 
 function api_output_php($arr) {
     $out = serialize($arr);
-    if (get_http_var('verbose')) $out = str_replace(';', ";\n", $out);
+    if (get_http_var('verbose')) {
+        $out = str_replace(';', ";\n", $out);
+    }
     return $out;
 }
 
 function api_output_rabx($arr) {
     $out = '';
     rabx_wire_wr($arr, $out);
-    if (get_http_var('verbose')) $out = str_replace(',', ",\n", $out);
+    if (get_http_var('verbose')) {
+        $out = str_replace(',', ",\n", $out);
+    }
     return $out;
 }
 
@@ -323,7 +333,9 @@ function api_output_js($v, $level=0) {
             $out = '{' . $verbose;
             $b = false;
             foreach ($v as $k => $vv) {
-                if ($b) $out .= ",$verbose";
+                if ($b) {
+                    $out .= ",$verbose";
+                }
                 if ($verbose) {
                     $out .= str_repeat(' ', ($level+1)*2);
                     $out .= '"' . $k . '" : ';
@@ -333,7 +345,9 @@ function api_output_js($v, $level=0) {
                 $out .= api_output_js($vv, $level+1);
                 $b = true;
             }
-            if ($verbose) $out .= "\n" . str_repeat(' ', $level*2);
+            if ($verbose) {
+                $out .= "\n" . str_repeat(' ', $level*2);
+            }
             $out .= '}';
         }
     } elseif (is_null($v)) {
@@ -351,12 +365,12 @@ function api_output_js($v, $level=0) {
     // we only want to convert to iso if it's an actual API call
     // so skip this if it's a documentation page
     if (!get_http_var('docs')) {
-      // and then catch any errors in the conversion and just ignore
-      // them and return the unconverted results
-      $converted_out = @iconv('utf-8', 'iso-8859-1//TRANSLIT', $out);
-      if ($converted_out !== FALSE) {
-        $out = $converted_out;
-      }
+        // and then catch any errors in the conversion and just ignore
+        // them and return the unconverted results
+        $converted_out = @iconv('utf-8', 'iso-8859-1//TRANSLIT', $out);
+        if ($converted_out !== false) {
+            $out = $converted_out;
+        }
     }
 
     return $out;
@@ -365,12 +379,13 @@ function api_output_js($v, $level=0) {
 # Call an API function
 
 function api_call_user_func_or_error($function, $params, $error, $type) {
-    if (function_exists($function))
+    if (function_exists($function)) {
         call_user_func_array($function, $params);
-    elseif ($type == 'api')
+    } elseif ($type == 'api') {
         api_error($error);
-    else
+    } else {
         print "<p style='color:#cc0000'>$error</p>";
+    }
 }
 
 # Used for testing for conditional responses

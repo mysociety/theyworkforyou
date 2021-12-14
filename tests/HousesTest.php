@@ -9,7 +9,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the Royal edge-case house is correctly defined.
      */
-	public function testRoyalHouseDefined()
+    public function testRoyalHouseDefined()
     {
         $this->assertEquals(0, HOUSE_TYPE_ROYAL);
     }
@@ -17,7 +17,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the House of Commons is correctly defined.
      */
-	public function testCommonsHouseDefined()
+    public function testCommonsHouseDefined()
     {
         $this->assertEquals(1, HOUSE_TYPE_COMMONS);
     }
@@ -25,7 +25,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the House of Lords is correctly defined.
      */
-	public function testLordsHouseDefined()
+    public function testLordsHouseDefined()
     {
         $this->assertEquals(2, HOUSE_TYPE_LORDS);
     }
@@ -33,7 +33,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the Northern Ireland Assembly is correctly defined.
      */
-	public function testNIHouseDefined()
+    public function testNIHouseDefined()
     {
         $this->assertEquals(3, HOUSE_TYPE_NI);
     }
@@ -41,7 +41,7 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the Scottish Parliament is correctly defined.
      */
-	public function testScotlandHouseDefined()
+    public function testScotlandHouseDefined()
     {
         $this->assertEquals(4, HOUSE_TYPE_SCOTLAND);
     }
@@ -49,15 +49,15 @@ class HousesTest extends PHPUnit_Framework_TestCase
     /**
      * Test that the Welsh Parliament is correctly defined.
      */
-	public function testWalesHouseDefined()
+    public function testWalesHouseDefined()
     {
         $this->assertEquals(5, HOUSE_TYPE_WALES);
     }
 
-	/**
+    /**
      * Test that the London Assembly is correctly defined.
      */
-	public function testLondonAssemblyHouseDefined()
+    public function testLondonAssemblyHouseDefined()
     {
         $this->assertEquals(6, HOUSE_TYPE_LONDON_ASSEMBLY);
     }

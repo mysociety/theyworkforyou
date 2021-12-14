@@ -31,7 +31,7 @@ from the advanced search form, here's a selection:
 </li>
 
 <?php
-$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) ? strtolower( $_SERVER['HTTP_USER_AGENT'] ) : '';
+$user_agent = (isset($_SERVER['HTTP_USER_AGENT'])) ? strtolower($_SERVER['HTTP_USER_AGENT']) : '';
 if (stristr($user_agent, 'Firefox/')) {
 ?>
      <li>You can also add TheyWorkForYou to <a href="http://mycroft.mozdev.org/download.html?name=theyworkforyou">Firefox's search box</a>.</li>

@@ -33,16 +33,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php $displayed_votes = FALSE; ?>
+                <?php $displayed_votes = false; ?>
                 <?php if ( isset($policydivisions) && $policydivisions ) { ?>
 
                     <?php if ($has_voting_record) { ?>
 
                         <?php foreach ($policydivisions as $policy) { ?>
                             <?php
-                                $show_all = FALSE;
+                                $show_all = false;
                                 if ( $policy['weak_count'] == 0 || $policy['weak_count'] == count($policy['divisions']) ) {
-                                    $show_all = TRUE;
+                                    $show_all = true;
                                 }
                             ?>
 
@@ -95,7 +95,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     <ul class="vote-descriptions policy-votes">
                                     <?php foreach ($policy['divisions'] as $division) {
                                         include('_division_description.php');
-                                        $displayed_votes = TRUE;
+                                        $displayed_votes = true;
                                     } ?>
                                     </ul>
 

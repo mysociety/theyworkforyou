@@ -38,13 +38,17 @@ for the constituency's centroid.
 
 function api_getGeometry_name($name) {
     $out = _api_getGeometry_name($name);
-    if ($out) api_output($out);
-    else api_error('Name not recognised');
+    if ($out) {
+        api_output($out);
+    } else {
+        api_error('Name not recognised');
+    }
 }
 
 function _api_getGeometry_name($name) {
-    if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL)
+    if (!defined('OPTION_MAPIT_URL') || !OPTION_MAPIT_URL) {
         return null;
+    }
 
     $name = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($name);
 
@@ -68,8 +72,9 @@ function _api_getGeometry_name($name) {
 
 function _api_cacheCheck($fn, $arg='') {
     $cache = INCLUDESPATH . '../docs/api/cache/' . $fn;
-    if (is_file($cache))
+    if (is_file($cache)) {
         return unserialize(file_get_contents($cache));
+    }
     $out = mapit_call($fn, $arg);
     $fp = fopen($cache, 'w');
     if ($fp) {

@@ -313,7 +313,7 @@ class COMMENTLIST {
         return $data;
     }
 
-  public function _get_data_by_dates($args) {
+    public function _get_data_by_dates($args) {
     // $args should contain start_date and end_date
 
         twfy_debug (get_class($this), "getting data by recent");
@@ -333,7 +333,7 @@ class COMMENTLIST {
         $commentsdata = $this->_get_comment_data($input);
         $data['comments'] = $commentsdata;
         return $data;
-  }
+    }
 
     public function _get_data_by_search($args) {
         // $args should contain 'num', indicating how many to get.

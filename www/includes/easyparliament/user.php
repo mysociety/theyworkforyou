@@ -851,8 +851,8 @@ class THEUSER extends USER {
         if ($cookie == '') {
             $cookie = get_cookie_var("facebook_id");
             if ($cookie != '') {
-              $this->facebook_user = True;
-              twfy_debug("THEUSER", "is facebook login");
+                $this->facebook_user = true;
+                twfy_debug("THEUSER", "is facebook login");
             }
         }
 
@@ -873,36 +873,36 @@ class THEUSER extends USER {
                     // And make sure the user hasn't been "deleted".
 
                     if ($this->facebook_user) {
-                      if (md5($this->facebook_token()) == $matches[2] && $this->deleted() == false) {
-                          twfy_debug ("THEUSER", "init SUCCESS: setting as logged in");
-                          $this->loggedin = true;
-                      } elseif (md5 ($this->facebook_token()) != $matches[2]) {
-                          twfy_debug ("THEUSER", "init FAILED: Facebook token doesn't match cookie");
-                          $this->loggedin = false;
-                      } else {
-                          twfy_debug ("THEUSER", "init FAILED: User is deleted");
-                          $this->loggedin = false;
-                      }
+                        if (md5($this->facebook_token()) == $matches[2] && $this->deleted() == false) {
+                            twfy_debug ("THEUSER", "init SUCCESS: setting as logged in");
+                            $this->loggedin = true;
+                        } elseif (md5 ($this->facebook_token()) != $matches[2]) {
+                            twfy_debug ("THEUSER", "init FAILED: Facebook token doesn't match cookie");
+                            $this->loggedin = false;
+                        } else {
+                            twfy_debug ("THEUSER", "init FAILED: User is deleted");
+                            $this->loggedin = false;
+                        }
                     } else {
-                      if (md5($this->password()) == $matches[2] && $this->deleted() == false) {
-                          // The correct password is in the cookie,
-                          // and the user isn't deleted, so set the user to be logged in.
+                        if (md5($this->password()) == $matches[2] && $this->deleted() == false) {
+                            // The correct password is in the cookie,
+                            // and the user isn't deleted, so set the user to be logged in.
 
-                          // This would be an appropriate place to call other functions
-                          // that might set user info that only a logged-in user is going
-                          // to need. Their preferences and saved things or something.
+                            // This would be an appropriate place to call other functions
+                            // that might set user info that only a logged-in user is going
+                            // to need. Their preferences and saved things or something.
 
 
-                          twfy_debug ("THEUSER init SUCCEEDED", "setting as logged in");
-                          $this->loggedin = true;
+                            twfy_debug ("THEUSER init SUCCEEDED", "setting as logged in");
+                            $this->loggedin = true;
 
-                      } elseif (md5 ($this->password()) != $matches[2]) {
-                          twfy_debug ("THEUSER init FAILED", "Password doesn't match cookie");
-                          $this->loggedin = false;
-                      } else {
-                          twfy_debug ("THEUSER init FAILED", "User is deleted");
-                          $this->loggedin = false;
-                      }
+                        } elseif (md5 ($this->password()) != $matches[2]) {
+                            twfy_debug ("THEUSER init FAILED", "Password doesn't match cookie");
+                            $this->loggedin = false;
+                        } else {
+                            twfy_debug ("THEUSER init FAILED", "User is deleted");
+                            $this->loggedin = false;
+                        }
                     }
 
                 } else {
@@ -1051,7 +1051,7 @@ class THEUSER extends USER {
 
         twfy_debug("USER", "logging in user from facebook " . $this->user_id);
 
-        $this->loggedin = True;
+        $this->loggedin = true;
         $this->_login($returl, $expire, $cookie, 'facebook_id');
         return true;
     }

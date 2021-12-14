@@ -40,7 +40,9 @@ include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
 
 // Set the default timezone
-if(function_exists('date_default_timezone_set')) date_default_timezone_set(TIMEZONE);
+if(function_exists('date_default_timezone_set')) {
+    date_default_timezone_set(TIMEZONE);
+}
 
 // Only do clever things with errors if we're not testing, otherwise show as default
 
@@ -89,7 +91,7 @@ $filter = new \MySociety\TheyWorkForYou\Utility\LibFilter;
 include_once (INCLUDESPATH."easyparliament/user.php");
 
 // Test to see if this is a new-style template using the renderer class.
-if (! isset($new_style_template) OR $new_style_template !== TRUE) {
+if (! isset($new_style_template) or $new_style_template !== true) {
 
     // This is an old-style page. Use the old page classes.
     include_once (INCLUDESPATH."easyparliament/page.php");

@@ -160,9 +160,9 @@ class EditQueue {
                                     VALUES
                                     (:id, :type, :enabled);',
                                     array(
-                                      ':id' => $q->insert_id(),
-                                      ':type' => EPTYPE_GLOSSARY,
-                                      ':enabled' => 1,
+                                        ':id' => $q->insert_id(),
+                                        ':type' => EPTYPE_GLOSSARY,
+                                        ':enabled' => 1,
                                     ));
                     // Again, no point carrying on if this fails,
                     // so remove the previous entry
@@ -194,8 +194,7 @@ class EditQueue {
                             ));
             if (!$q->success()) {
                 break;
-            }
-            else {
+            } else {
                 // Now send them an email telling them they've been approved
 
 
@@ -236,8 +235,7 @@ class EditQueue {
                             WHERE edit_id=" . $decline_id . ";");
             if (!$q->success()) {
                 break;
-            }
-            else {
+            } else {
                 // Scrub that one from the list of pending items
                 unset ($this->pending[$decline_id]);
             }
@@ -263,8 +261,7 @@ class EditQueue {
             $this->update_pending_count();
 
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

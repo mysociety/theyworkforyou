@@ -80,14 +80,14 @@ class SpwransView extends WransView {
             return '';
         }
         $result = '';
-        $last_date = NULL;
-        $first_difference_output = TRUE;
+        $last_date = null;
+        $first_difference_output = true;
         // Keep the references until after the history that's in a timeline:
         $references = array();
         foreach ($row_data as $row) {
             if( ! $row["date"] ) {
                 // If this mention isn't associated with a date, the difference won't be interesting.
-                $last_date = NULL;
+                $last_date = null;
             }
             $description = '';
             if ($last_date && ($last_date != $row["date"])) {
@@ -96,17 +96,17 @@ class SpwransView extends WransView {
                 $daysstring = ($daysdiff == 1) ? "day" : "days";
                 $further = "";
                 if( $first_difference_output ) {
-                    $first_difference_output = FALSE;
+                    $first_difference_output = false;
                 } else {
                     $further = " a further";
                 }
                 $description = "\n<span class=\"question-mention-gap\">After$further $daysdiff $daysstring,</span> ";
             }
-            $reference = FALSE;
+            $reference = false;
             $inner = "BUG: Unknown mention type $row[type]";
             $date = format_date($row['date'], SHORTDATEFORMAT);
             $url = $row['url'];
-            if ( strpos($url, 'business/businessBulletin') !== FALSE ) {
+            if ( strpos($url, 'business/businessBulletin') !== false ) {
                 $url = str_replace('www.scottish', 'archive.scottish', $url);
             }
             switch ($row["type"]) {
@@ -145,7 +145,7 @@ class SpwransView extends WransView {
                         $URL->insert( array('spid' => $referencing_spid) );
                         $relative_url = $URL->generate("none");
                         $inner = "Referenced in <a href=\"$relative_url\">question $referencing_spid</a>";
-                        $reference = TRUE;
+                        $reference = true;
                     }
                     break;
             }

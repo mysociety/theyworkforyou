@@ -17,7 +17,7 @@ This will return all database entries for this person, so will include previous 
 <?php
 }
 
-function _api_getPerson_row($row, $has_party=FALSE) {
+function _api_getPerson_row($row, $has_party=false) {
     global $parties;
     $row['full_name'] = member_full_name($row['house'], $row['title'], $row['given_name'],
         $row['family_name'], $row['lordofname']);
@@ -28,8 +28,9 @@ function _api_getPerson_row($row, $has_party=FALSE) {
         $URL = new \MySociety\TheyWorkForYou\Url('mp');
         $row['url'] = $URL->generate('none') . make_member_url($row['full_name'], $row['constituency'], $row['house'], $row['person_id']);
     }
-    if ($has_party && isset($parties[$row['party']]))
+    if ($has_party && isset($parties[$row['party']])) {
         $row['party'] = $parties[$row['party']];
+    }
     list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
     if ($image) {
         list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . IMAGEPATH, $image));
@@ -49,7 +50,9 @@ function _api_getPerson_row($row, $has_party=FALSE) {
     }
 
     foreach ($row as $k => $r) {
-        if (is_string($r)) $row[$k] = html_entity_decode($r);
+        if (is_string($r)) {
+            $row[$k] = html_entity_decode($r);
+        }
     }
 
     return $row;
@@ -86,8 +89,9 @@ function _api_getPerson_output($q, $flatten=false) {
         $out = _api_getPerson_row($row, $house == HOUSE_TYPE_ROYAL ? false : true);
         $output[] = $out;
         $time = strtotime($row['lastupdate']);
-        if ($time > $last_mod)
+        if ($time > $last_mod) {
             $last_mod = $time;
+        }
     }
     # Only one MP, not an array
     if ($flatten && count($output) == 1 && $house == HOUSE_TYPE_COMMONS) {
@@ -135,13 +139,18 @@ function _api_getPerson_constituency($constituencies, $house) {
 
     $cons = array();
     foreach ($constituencies as $constituency) {
-        if ($constituency == '') continue;
-        if ($constituency == 'Orkney ')
+        if ($constituency == '') {
+            continue;
+        }
+        if ($constituency == 'Orkney ') {
             $constituency = 'Orkney & Shetland';
+        }
 
         if ($house == HOUSE_TYPE_COMMONS) {
             $normalised = MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($constituency);
-            if ($normalised) $constituency = $normalised;
+            if ($normalised) {
+                $constituency = $normalised;
+            }
         }
 
         $cons[] = $constituency;

@@ -53,7 +53,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php if ($has_voting_record): ?>
 
-                    <?php $displayed_votes = FALSE; ?>
+                    <?php $displayed_votes = false; ?>
 
                     <?php foreach ($key_votes_segments as $segment): ?>
 
@@ -100,7 +100,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     $diff = $sorted_diffs[$policy_id];
                                     $party_position = $diff['party_position'];
                                     $party_score_difference = $diff["score_difference"];
-                                    if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1){
+                                    if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1) {
                                         $party_voting_line = sprintf( 'Comparable %s MPs %s (%s).', $comparison_party, $diff['party_position'], $diff['party_voting_summary']);
                                     }
                                 } else {
@@ -129,7 +129,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                         </div>
 
-                            <?php $displayed_votes = TRUE; ?>
+                            <?php $displayed_votes = true; ?>
 
                         <?php endif; ?>
 

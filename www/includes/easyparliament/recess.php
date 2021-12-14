@@ -362,12 +362,13 @@ function recess_prettify($day, $month, $year, $body) {
         } else {
             $from = "$year-7-" . $dates[$year][7]['more'];
         }
-        if (!isset($dates[$year][9]))
+        if (!isset($dates[$year][9])) {
             $to = "$year-08-31";
-        elseif (isset($dates[$year][9]['all']))
+        } elseif (isset($dates[$year][9]['all'])) {
             $to = "$year-10-" . $dates[$year][10]['less'];
-        else
+        } else {
             $to = "$year-9-" . $dates[$year][9]['less'];
+        }
     }
     if ( (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less'])
     || (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more'])
@@ -375,11 +376,17 @@ function recess_prettify($day, $month, $year, $body) {
     || (isset($dates[$year][$month]['between'][2]) && $day > $dates[$year][$month]['between'][2] && $day < $dates[$year][$month]['between'][3]) ) {
         switch ($month) {
             case 1: case 12: $recess = 'Christmas Recess'; break;
-            case 2: if ($body==1 || $body==101) $recess = 'Half Term Week';
-                elseif ($body==4) $recess = 'February Recess';
+            case 2: if ($body==1 || $body==101) {
+                    $recess = 'Half Term Week';
+                } elseif ($body==4) {
+                    $recess = 'February Recess';
+                }
                 break;
-            case 3: if ($body==1 || $body==101) $recess = 'Easter Recess';
-                elseif ($body==4) $recess = 'Spring Recess';
+            case 3: if ($body==1 || $body==101) {
+                    $recess = 'Easter Recess';
+                } elseif ($body==4) {
+                    $recess = 'Spring Recess';
+                }
                 break;
             case 4: if (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more']) {
                     $recess = 'Election Recess';
@@ -417,9 +424,13 @@ function recess_prettify($day, $month, $year, $body) {
                     trigger_error("Argh9");
                 }
                 break;
-            case 10: if ($body==1 || $body==101) $recess = 'Conference Recess';
-                elseif ($body==4) $recess = 'Autumn Recess';
-                elseif ($body==5) $recess = 'Halloween Recess';
+            case 10: if ($body==1 || $body==101) {
+                    $recess = 'Conference Recess';
+                } elseif ($body==4) {
+                    $recess = 'Autumn Recess';
+                } elseif ($body==5) {
+                    $recess = 'Halloween Recess';
+                }
                 break;
             case 11: $recess = 'Autumn Recess';
                 break;
@@ -427,9 +438,9 @@ function recess_prettify($day, $month, $year, $body) {
         }
         if (isset($dates[$year][$month]['less']) && $day < $dates[$year][$month]['less']) {
             $to = "$year-$month-" . $dates[$year][$month]['less'];
-            if ($month==1)
+            if ($month==1) {
                 $from = ($year-1)."-12-" . $dates[$year-1][12]['more'];
-            else {
+            } else {
                 for ($newmonth = $month-1; $newmonth>=1; $newmonth--) {
                     if (isset($dates[$year][$newmonth]['more'])) {
                         $from = "$year-".($newmonth)."-" . $dates[$year][$newmonth]['more'];
@@ -440,9 +451,9 @@ function recess_prettify($day, $month, $year, $body) {
         }
         if (isset($dates[$year][$month]['more']) && $day > $dates[$year][$month]['more']) {
             $from = "$year-$month-" . $dates[$year][$month]['more'];
-            if ($month==12)
+            if ($month==12) {
                 $to = ($year+1)."-01-" . $dates[$year+1][1]['less'];
-            else {
+            } else {
                 for ($newmonth = $month+1; $newmonth<=12; $newmonth++) {
                     if (isset($dates[$year][$newmonth]['less'])) {
                         $to = "$year-".($newmonth)."-" . $dates[$year][$newmonth]['less'];

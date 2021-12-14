@@ -5,7 +5,9 @@ function optgroups($data, $current) {
         echo '<optgroup label="', $key, '">';
         foreach ($values as $k => $v) {
             echo '<option';
-            if ($current == $k) echo ' selected';
+            if ($current == $k) {
+                echo ' selected';
+            }
             echo ' value="', $k, '">', $v;
         }
         echo "</optgroup>\n";
@@ -23,7 +25,7 @@ $to = get_http_var('to');
 if (preg_match('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', $filter_ss, $m)) {
     $from = $m[1];
     $to = $m[2];
-    $filter_ss =  preg_replace('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', '', $filter_ss);
+    $filter_ss = preg_replace('#\s*([0-9/.-]*)\.\.([0-9/.-]*)#', '', $filter_ss);
 }
 $section = get_http_var('section');
 if (preg_match('#\s*section:([a-z]*)#', $filter_ss, $m)) {
@@ -36,7 +38,7 @@ if ($person) {
     $filter_ss = preg_replace('#\s*speaker:[0-9]*#', '', $filter_ss);
 }
 
-$this->block_start(array( 'title' => "Filtering your results"));
+$this->block_start(array('title' => "Filtering your results"));
 
 ?>
 <form method="get" action="/search/">

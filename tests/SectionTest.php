@@ -18,13 +18,13 @@ class SectionTest extends FetchPageTestCase
 
     var $types = array('debates', 'whall', 'wrans', 'wms', 'ni', 'sp', 'spwrans', 'lords');
 
-	public function testDebatesFront() {
+    public function testDebatesFront() {
         foreach ($this->types as $type) {
             $this->fetch_page( array( 'type' => $type ) );
         }
     }
 
-	public function testDebatesYear() {
+    public function testDebatesYear() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'y' => '2014' ) );
             $this->assertContains('<div class="calendar">', $page);
@@ -33,7 +33,7 @@ class SectionTest extends FetchPageTestCase
         }
     }
 
-	public function testDebatesDay() {
+    public function testDebatesDay() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'd' => '2014-01-01' ) );
             $this->assertContains('Wednesday, 1 January 2014', $page);
@@ -53,7 +53,7 @@ class SectionTest extends FetchPageTestCase
         }
     }
 
-	public function testDebatesHeading() {
+    public function testDebatesHeading() {
         foreach ($this->types as $type) {
             if ($type == 'spwrans') {
                 # Only one level of headings on spwrans
@@ -70,7 +70,7 @@ class SectionTest extends FetchPageTestCase
         }
     }
 
-	public function testDebatesSubheading() {
+    public function testDebatesSubheading() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.2' ) );
             $this->assertContains("HeadingA", $page);
@@ -99,7 +99,7 @@ class SectionTest extends FetchPageTestCase
         }
     }
 
-	public function testDebatesSpeech() {
+    public function testDebatesSpeech() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.3' ) );
             if ($type == 'wrans' || $type == 'spwrans' || $type == 'wms') {

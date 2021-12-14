@@ -31,8 +31,7 @@ if (get_http_var('approve')) {
         'epobject_type' => 2
     );
     $EDITQUEUE->approve($data);
-}
-elseif (get_http_var('decline')) {
+} elseif (get_http_var('decline')) {
     $decline = array (get_http_var('decline'));
     // Dump all declined items
     $data = array (
@@ -56,15 +55,13 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
     if (get_http_var('previewterm')) {
         $body	= get_http_var('definition');
         $title	= get_http_var('g');
-    }
-    else {
+    } else {
         $body = $EDITQUEUE->pending[$glossary_id]['body'];
         $title = $EDITQUEUE->pending[$glossary_id]['title'];
     }
     if (get_http_var('wikiguess')) {
         $checked = " checked";
-    }
-    else {
+    } else {
         $checked = "";
     }
 
@@ -110,8 +107,7 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
     $PAGE->glossary_display_term($GLOSSARY);
 
-}
-else {
+} else {
 
     // add a modification to the database
     if (get_http_var('submitterm') && get_http_var('modify')) {
@@ -127,8 +123,7 @@ else {
     if ($EDITQUEUE->pending_count) {
         print "<h3>" . $EDITQUEUE->pending_count . " Pending Glossary terms</h3>";
         $EDITQUEUE->display("pending");
-    }
-    else {
+    } else {
         print "<h3>Nothing pending, tap your fingers awhile.</h3>";
     }
 }

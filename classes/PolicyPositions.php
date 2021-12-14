@@ -69,7 +69,7 @@ class PolicyPositions {
         $this->summaries = isset($options['summaries']) ? $options['summaries'] : array();
         $this->divisions = new \MySociety\TheyWorkForYou\Divisions($member);
 
-        $limit = isset($options['limit']) ? $options['limit'] : NULL;
+        $limit = isset($options['limit']) ? $options['limit'] : null;
 
         // Do the actual getting of positions
         $this->getMemberPolicyPositions($limit);
@@ -83,7 +83,7 @@ class PolicyPositions {
      * @param int $limit The number of results to limit the output to.
      */
 
-    private function getMemberPolicyPositions ($limit = NULL) {
+    private function getMemberPolicyPositions ($limit = null) {
 
         // Make sure member info has actually been set.
         if (count($this->member->extra_info) === 0) {
@@ -95,8 +95,7 @@ class PolicyPositions {
         $member_houses = $this->member->houses();
 
         // Determine the policy limit.
-        if ($limit !== NULL AND is_int($limit))
-        {
+        if ($limit !== null and is_int($limit)) {
             $policy_limit = $limit;
         } else {
             $policy_limit = count($policies);
@@ -223,12 +222,12 @@ class PolicyPositions {
         $current_member = $this->member->current_member();
 
         if (count($this->policies->getPolicies()) > 0) {
-            if (in_array(HOUSE_TYPE_COMMONS, $member_houses) AND
+            if (in_array(HOUSE_TYPE_COMMONS, $member_houses) and
                 $entered_house[HOUSE_TYPE_COMMONS]['date'] > '2001-06-07'
             ) {
                 $since = '';
-            } elseif (!in_array(HOUSE_TYPE_COMMONS, $member_houses) AND
-                in_array(HOUSE_TYPE_LORDS, $member_houses) AND
+            } elseif (!in_array(HOUSE_TYPE_COMMONS, $member_houses) and
+                in_array(HOUSE_TYPE_LORDS, $member_houses) and
                 $entered_house[HOUSE_TYPE_LORDS]['date'] > '2001-06-07'
             ) {
                 $since = '';
@@ -238,9 +237,9 @@ class PolicyPositions {
                 $since = ' since 2001';
             }
             # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
-            if (!$current_member[HOUSE_TYPE_COMMONS] AND
-                !$current_member[HOUSE_TYPE_LORDS] AND
-                ( $current_member[HOUSE_TYPE_SCOTLAND] OR $current_member[HOUSE_TYPE_NI] )
+            if (!$current_member[HOUSE_TYPE_COMMONS] and
+                !$current_member[HOUSE_TYPE_LORDS] and
+                ( $current_member[HOUSE_TYPE_SCOTLAND] or $current_member[HOUSE_TYPE_NI] )
             ) {
                 $since .= ' whilst an MP';
             }
@@ -261,10 +260,10 @@ class PolicyPositions {
                 '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
         }
         if (
-            ( isset($extra_info['public_whip_division_attendance']) AND
+            ( isset($extra_info['public_whip_division_attendance']) and
             $extra_info['public_whip_division_attendance'] != 'n/a' )
-            OR
-            ( isset($extra_info['Lpublic_whip_division_attendance']) AND
+            or
+            ( isset($extra_info['Lpublic_whip_division_attendance']) and
             $extra_info['Lpublic_whip_division_attendance'] != 'n/a' )
         ) {
             $record[] = '<a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' .
