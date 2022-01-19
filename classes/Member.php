@@ -105,6 +105,16 @@ class Member extends \MEMBER {
         return $direction;
     }
 
+    public function currentPartyComparison(){
+        # Simplify the current party when being compared to the original
+        # Stops co-op and labour being seen as different
+        $party = $this->party;
+        if ( $party == 'Labour/Co-operative' ) {
+            $party = 'Labour';
+        }
+        return $party;
+    }
+
     public function cohortParty($house = HOUSE_TYPE_COMMONS){
         // The party being compared against for party comparison purposes
         // Unless specified by the condition in cohortPartyComparisonDirection
@@ -129,7 +139,11 @@ class Member extends \MEMBER {
         " . $direction, array(":house" => $house,
                  ":person_id" => $person_id))->first();
         if ($row) {
-            return $row["party"];
+            $party = $row["party"];
+            if ( $party == 'Labour/Co-operative' ) {
+                $party = 'Labour';
+            }
+            return $party;
         } else {
             return null;
         }

@@ -116,6 +116,7 @@ $display_wtt_stats_banner = '2015';
                             $party_score_difference = $key_vote["score_difference"];
                             $party_position = $key_vote['party_position'] ;
                             $comparison_party = $data["comparison_party"];
+                            $current_party_comparison = $data["current_party_comparison"];
                             $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
                             $description = sprintf(
                                 '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
@@ -137,13 +138,24 @@ $display_wtt_stats_banner = '2015';
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
                         <?php if (count($party_positions) && $party_member_count > 1) { ?>
-                        <p>
-                        <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
-                        </p>
+                            <?php if ($current_party_comparison <> $comparison_party){ ?> 
+                                <p>
+                                    <?= $full_name ?> is a <?= $party ?> MP, but has changed parties or become independent.
+                                </p>
+                                <p>
+                                    Compared to their original party (<?= $comparison_party ?>), for the <b>vast majority</b> of issues they have voted in the <b>same way</b> as other <?= $comparison_party ?> MPs.
+                                </p>
+
+                                <?php } else { ?>
+                                <p>
+                                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                                </p>
+
+                            <?php } ?>
                         <?php } ?>
 
                         <p>
-                        This is a random selection of <?= $full_name ?>&rsquo;s votes, where they voted similarly to their party.
+                            This is a random selection of <?= $full_name ?>&rsquo;s votes.
                         </p>
 
                         <ul class="vote-descriptions">

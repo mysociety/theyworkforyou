@@ -35,7 +35,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php include('_covid19_panel.php'); ?>
 
-                <?php if ($party <> $data["comparison_party"]): ?>
+                <?php if ($current_party_comparison <> $data["comparison_party"]): ?>
                 <?php include('_cross_party_mp_panel.php'); ?>
                 <?php endif; ?>
 
