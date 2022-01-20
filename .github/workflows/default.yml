@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: ["7.0", "7.1", "7.2", "7.3", "7.4"]
+        php_version: ["7.0", "7.2", "7.3", "7.4"]
 
     services:
       mariadb:
@@ -37,8 +37,6 @@ jobs:
       with:
         php-version: ${{ matrix.php_version }}
         extensions: memcached
-
-    - run: sudo apt-get update && sudo apt-get install -y graphviz
 
     - uses: actions/checkout@v2
       with:
@@ -75,11 +73,13 @@ jobs:
         vendor/bin/phpunit --exclude-group xapian
 
     - name: Afterwards
-      if: matrix.php_version == '7.0'
+      if: matrix.php_version == '7.4'
       run: |
         wget https://scrutinizer-ci.com/ocular.phar
         php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
     - name: Documentation
-      if: matrix.php_version == '7.0' && github.ref_name == 'master' && github.event_name == 'push'
-      run: ./build-docs.sh
+      if: matrix.php_version == '7.4' && github.ref_name == 'master' && github.event_name == 'push'
+      run: |
+        sudo apt-get update && sudo apt-get install -y graphviz
+        ./build-docs.sh
