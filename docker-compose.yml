@@ -10,7 +10,7 @@ services:
     depends_on:
       - mariadb
       - memcache
-    entrypoint: /twfy/bin/docker-entrypoint.sh
+    entrypoint: /workspaces/theyworkforyou/bin/docker-entrypoint.sh
     ports:
       - "8000:80"
       - TWFY_TEST_DB_HOST=mariatestdb
@@ -19,8 +19,9 @@ services:
       - TWFY_TEST_DB_PASS=password
       - DEV_MODE=true
     volumes:
-      - ./:/twfy
-      - xapian:/twfy/searchdb
+      - ./:/workspaces/theyworkforyou/
+      - xapian:/workspaces/theyworkforyou/searchdb
+      - ./xdebug-local.ini:/etc/php/7.3/cli/conf.d/xdebug-local.ini
 
   mariadb:
     image: mariadb:10.3

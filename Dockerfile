@@ -34,8 +34,10 @@ RUN /usr/sbin/a2enmod expires rewrite && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/access.log && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/other_vhosts_access.log
 
-# Bind mount your working copy here
-WORKDIR /twfy
+# Codespaces needs the working directory to be /workspaces/theyworkforyou
+# Some scripts want it in twfy, minimise changes needed for codespaces
+WORKDIR /workspaces/theyworkforyou
+RUN ln -s /workspaces/theyworkforyou /twfy
 
 # Apache will run on port 80, so expose it
 EXPOSE 80
