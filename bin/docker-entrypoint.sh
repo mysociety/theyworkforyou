@@ -23,5 +23,6 @@ sed -r \
   conf/general-example > conf/general
 
 bin/deploy.bash
+php composer.phar install
 
 /usr/sbin/apache2ctl -DFOREGROUND
