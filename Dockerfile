@@ -39,3 +39,5 @@ WORKDIR /twfy
 
 # Apache will run on port 80, so expose it
 EXPOSE 80
+
+ENV DEV_MODE=true
