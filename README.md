@@ -42,8 +42,12 @@ about downloading and importing Parlparse data (members, debates, votes, etc).
 You can stop the environment by running `docker compose down`. Adding a `-v` will remove any
 Docker volumes that may be in use, including all their data.
 
+
 [DOCKER.md](DOCKER.md) has some more detailed notes on the development environment, together
 with some useful commands and more detailed Docker-specific setup notes.
+
+To use xdebug in VS Code while using WSL, you'll need to set an environmental variable of the WSL_IP within the subsystem of the IP address of the subsystem.
+ 
 ### DEPRECATED: Developing with Vagrant
 
 Please note that we are not currently supporting the Vagrant environment, and may remove it

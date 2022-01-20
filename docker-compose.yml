@@ -13,6 +13,8 @@ services:
     entrypoint: /workspaces/theyworkforyou/bin/docker-entrypoint.sh
     ports:
       - "8000:80"
+    environment:
+      - WSL_IP
       - TWFY_TEST_DB_HOST=mariatestdb
       - TWFY_TEST_DB_NAME=twfytest
       - TWFY_TEST_DB_USER=twfytest
@@ -22,6 +24,8 @@ services:
       - ./:/workspaces/theyworkforyou/
       - xapian:/workspaces/theyworkforyou/searchdb
       - ./xdebug-local.ini:/etc/php/7.3/cli/conf.d/xdebug-local.ini
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   mariadb:
     image: mariadb:10.3
