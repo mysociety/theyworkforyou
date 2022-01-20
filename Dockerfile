@@ -19,6 +19,7 @@ RUN apt-get -qq update && apt-get -qq install \
       ruby-dev \
       unzip \
       php-xdebug \
+      rsync \
     --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
