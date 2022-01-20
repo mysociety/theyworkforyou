@@ -44,12 +44,12 @@ jobs:
 
     - name: Get Composer Cache Directory
       id: composer-cache
-      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      run: echo "::set-output name=dir::$(php composer.phar config cache-files-dir)"
     - uses: actions/cache@v2
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
+        key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-php-composer-
 
     - name: Verify MariaDB connection
       run: |
@@ -60,7 +60,7 @@ jobs:
     - name: Set up database and code
       run: |
         mysql -h 127.0.0.1 -u root -ppassword twfy_test < db/schema.sql
-        php composer.phar install --no-interaction --prefer-source
+        php composer.phar install --no-interaction
 
     - name: Run tests
       env:
