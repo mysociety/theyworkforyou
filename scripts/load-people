@@ -53,7 +53,7 @@ verbose("End");
 
 # ---
 
-my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete);
+my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete, $start_transaction, $query_commit, );
 
 sub db_connect {
     #DBI->trace(1);
@@ -78,6 +78,10 @@ sub db_connect {
 
     $gradd = $dbh->prepare("replace into gidredirect (gid_from, gid_to) values (?,?)");
     $grdelete = $dbh->prepare("delete from gidredirect where gid_from = ?");
+
+    $start_transaction = $dbh->prepare("START TRANSACTION");
+    $query_commit = $dbh->prepare("COMMIT");
+
 }
 
 my %organizations;
@@ -146,6 +150,7 @@ sub load_people {
     foreach (@{$j->{posts}}) {
         $posts{$_->{id}} = $_;
     }
+    $start_transaction->execute();
     foreach (@{$j->{memberships}}) {
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
@@ -153,6 +158,9 @@ sub load_people {
             load_member($_);
         }
     }
+    $query_commit->execute();
+
+    $start_transaction->execute();
     foreach (@{$j->{persons}}) {
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
@@ -160,6 +168,7 @@ sub load_people {
             load_names($_);
         }
     }
+    $query_commit->execute();
 }
 
 my %member_ids = ();

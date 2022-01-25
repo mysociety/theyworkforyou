@@ -158,7 +158,11 @@ my $personinfoadd    = $dbh->prepare("insert into personinfo (person_id, data_ke
 my $personinfoupdate = $dbh->prepare('update personinfo set data_value=? where person_id=? and data_key=?');
 my $consinfoadd      = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
+my $start_transaction = $dbh->prepare("START TRANSACTION");
+my $query_commit = $dbh->prepare("COMMIT");
+
 # Write to database - members
+$start_transaction->execute();
 foreach my $mp_id (keys %$memberinfohash) {
     (my $mp_id_num = $mp_id) =~ s#uk.org.publicwhip/(member|lord)/##;
     my $data = $memberinfohash->{$mp_id};
@@ -172,8 +176,10 @@ foreach my $mp_id (keys %$memberinfohash) {
         }
     }
 }
+$query_commit->execute();
 
 # Write to database - people
+$start_transaction->execute();
 foreach my $person_id (keys %$personinfohash) {
     (my $person_id_num = $person_id) =~ s#uk.org.publicwhip/person/##;
     my $data = $personinfohash->{$person_id};
@@ -187,8 +193,10 @@ foreach my $person_id (keys %$personinfohash) {
         }
     }
 }
+$query_commit->execute();
 
 # Write to database - cons
+$start_transaction->execute();
 foreach my $constituency (keys %$consinfohash) {
     my $data = $consinfohash->{$constituency};
     foreach my $key (keys %$data) {
@@ -196,6 +204,7 @@ foreach my $constituency (keys %$consinfohash) {
         $consinfoadd->execute($constituency, $key, $value, $value);
     }
 }
+$query_commit->execute();
 
 # just temporary to check cron working
 # print "mpinfoin done\n";
