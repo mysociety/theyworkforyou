@@ -54,6 +54,9 @@ Start a new codespace on Github by selecting the Code dropdown (top right), and 
 
 This will setup the Docker container and environment. Once finished, the link to the site should be avaliable in the ports tab of the terminal panel. 
 
+To populate with a minimal amount of data, run `scripts\quick-populate` (about 30-40 minutes).
+
+
 ### DEPRECATED: Developing with Vagrant
 
 Please note that we are not currently supporting the Vagrant environment, and may remove it
@@ -66,6 +69,7 @@ You will need the latest versions of VirtualBox and Vagrant, then:
 * Point your web browser at `http://10.11.12.13` and marvel at modern technology.
 
 See INSTALL.md for instructions on downloading and importing Parlparse data (members, debates, votes, etc).
+
 
 #### Compiling Static Assets
 

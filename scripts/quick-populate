@@ -1,0 +1,32 @@
+#!/bin/bash
+# For a fresh install get a basic set of data in
+
+echo 'Cloning parlparse'
+git clone https://github.com/mysociety/parlparse data/parlparse
+
+# See http://parser.theyworkforyou.com/hansard.html for details on download specific ranges
+echo 'Downloading minimal data'
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/debates/debates2022-01* data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedjson data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/people.json data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/divisionsonly/divisions2022-01* data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/regmem data/pwdata
+
+echo 'Load people into database'
+scripts/load-people
+
+echo 'Load divisions/policies from json'
+scripts/json2db.pl --verbose
+
+echo 'Load Jan 2022 debates and divisions'
+scripts/xml2db.pl --debates --all
+
+# this only imports public whip, run with different arguments to pull in members expenses
+echo 'Importing MP extra info for voting comparison'
+scripts/mpinfoin.pl publicwhip
+
+echo 'Generate party positions on issues'
+php scripts/generate_party_positions.php
+
+echo 'Generate search index'
+search/index.pl all
