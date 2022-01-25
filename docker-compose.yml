@@ -5,6 +5,7 @@ services:
 
   twfy:
     image: theyworkforyou
+    platform: linux/amd64
     build:
       context: .
     depends_on:
