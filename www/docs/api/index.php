@@ -174,11 +174,11 @@ function api_front_page($error = '') {
 
 <?php if ($subscription->stripe) { ?>
 <p align="center"><big>
-    <a href="key">Manage your keys and payments</a>
+    <a href="/api/key">Manage your keys and payments</a>
 </big></p>
 <?php } else { ?>
 <p align="center"><big>
-    To use the API you need to <a href="key">get an API key</a>.
+    To use the API you need to <a href="/api/key">get an API key</a>.
 </big></p>
 <?php } ?>
 
@@ -214,11 +214,11 @@ licence and attribution requirements.</p>
 
 <?php if ($subscription->stripe) { ?>
 <p align="center"><big>
-    <a href="key">Manage your keys and payments</a>
+    <a href="/api/key">Manage your keys and payments</a>
 </big></p>
 <?php } else { ?>
 <p align="center"><big>
-    To use the API you need to <a href="key">get an API key</a>.
+    To use the API you need to <a href="/api/key">get an API key</a>.
 </big></p>
 <?php } ?>
 

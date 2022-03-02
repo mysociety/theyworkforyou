@@ -6,9 +6,9 @@
             for your web project, campaign, research or news story 
             </p>
           <?php if ($subscription) { ?>
-            <a href="key" class="button">Manage your keys and payments &rarr;</a>
+            <a href="/api/key" class="button">Manage your keys and payments &rarr;</a>
           <?php } else { ?>
-            <a href="key" class="button">Sign up &rarr;</a>
+            <a href="/api/key" class="button">Sign up &rarr;</a>
           <?php } ?>
         </div>
     </div>
