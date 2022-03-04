@@ -64,7 +64,7 @@ function person_history($p) {
     $nil = array();
     $earliest = $files[0];
     foreach ($files as $_) {
-        $file = file_get_contents($_);
+        $file = _load_file($_);
         $date = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $_);
         $data[$_] = array();
         if (preg_match('#<regmem personid="uk.org.publicwhip/person/'.$p.'" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m)) {
@@ -163,8 +163,8 @@ function register_history($f) {
     $new = $files[$new];
     $new_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $new);
     $new_pretty = format_date($new_iso, LONGDATEFORMAT);
-    $old = file_get_contents($old);
-    $new = file_get_contents($new);
+    $old = _load_file($old);
+    $new = _load_file($new);
 
     $DATA->set_page_metadata($this_page, 'heading', 'Changes from '.$old_pretty.' to '.$new_pretty);
     $PAGE->stripe_start();
@@ -226,10 +226,16 @@ function parse_file($file, $date, $type, &$out) {
     }
 }
 
+function _load_file($f) {
+    $file = file_get_contents($f);
+    $file = utf8_encode($file);
+    return $file;
+}
+
 function front_page() {
     global $files;
     foreach ($files as $_) {
-        $file = file_get_contents($_);
+        $file = _load_file($_);
         preg_match_all('#<regmem personid="uk.org.publicwhip/person/(.*?)" (?:memberid="(.*?)" )?membername="(.*?)" date="(.*?)">(.*?)</regmem>#s', $file, $m, PREG_SET_ORDER);
         foreach ($m as $k => $v) {
             $person_id = $v[1]; $name = $v[3];
@@ -290,7 +296,7 @@ function show_register($d) {
     }
     $d_iso = preg_replace("#$dir/regmem(.*?)\.xml#", '$1', $d);
     $d_pretty = format_date($d_iso, LONGDATEFORMAT);
-    $d = file_get_contents($d);
+    $d = _load_file($d);
     $data = array();
     parse_file($d, $d_iso, 'only', $data);
     $this_page = 'regmem_date';
@@ -344,9 +350,8 @@ function canonicalise_data($cat_data) {
 }
 
 function _clean($s) {
-    $s = preg_replace("/&(pound|#163);/", "\xa3", $s);
+    $s = preg_replace("/&(pound|#163);/", "£", $s);
     $s = preg_replace("#</?(span|i|em)( [^>]*)?" . ">#i", '', $s);
-    $s = utf8_encode($s);
     $s = preg_split("/\s*\n\s*/", $s);
     return $s;
 }
