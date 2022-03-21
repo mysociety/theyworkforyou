@@ -1,12 +1,4 @@
 Subject: Your TheyWorkForYou email alert
-
----
-Do you use TheyWorkForYou as part of your work?
-We're trying to understand more about how people use TheyWorkForYou to help make the case for funding. 
-Can you take a quick five question survey to help us?
-https://www.mysociety.org/surveys/twfy-professional-use/
----
-
 {DATA}
 
 If clicking any of these links doesn't work, you may have
