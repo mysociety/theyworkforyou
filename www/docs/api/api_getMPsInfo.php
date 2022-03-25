@@ -6,7 +6,7 @@ function api_getMPsInfo_front() {
 
 <h4>Arguments</h4>
 <dl>
-<dt>ids</dt>
+<dt>id</dt>
 <dd>The person IDs, separated by commas.</dd>
 <dt>fields (optional)</dt>
 <dd>Which fields you want to return, comma separated (leave blank for all).</dd>
