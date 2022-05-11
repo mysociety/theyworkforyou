@@ -330,6 +330,13 @@ class MEMBER {
                 OR (given_name=:given_name AND family_name=:middle_and_last_names)
                 OR (title=:given_name AND given_name=:middle_name AND family_name=:family_name)
             )";
+        } elseif ($this_page == 'royal') {
+            twfy_debug ('MP', $name);
+            if (stripos($name, 'elizabeth') !== false) {
+                $q .= "AND person_id=13935";
+            } elseif (stripos($name, 'charles') !== false) {
+                $q .= "AND person_id=26065";
+            }
         }
 
         $q = $this->db->query($q, $params);

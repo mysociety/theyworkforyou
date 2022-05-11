@@ -907,9 +907,12 @@ function entities_to_numbers($string) {
 function make_member_url($name, $const = '', $house = HOUSE_TYPE_COMMONS, $pid = null) {
 
     // Case for Elizabeth II
-    if ($house == HOUSE_TYPE_ROYAL)
-    {
-        return 'elizabeth_the_second';
+    if ($house == HOUSE_TYPE_ROYAL) {
+        if (stripos($name, 'elizabeth') !== false) {
+            return 'elizabeth_the_second';
+        } elseif (stripos($name, 'charles') !== false) {
+            return 'prince_charles';
+        }
     }
 
     $s   = array(' ', '&amp;', '&ocirc;',  '&Ouml;',  '&ouml;',   '&acirc;',  '&iacute;', '&aacute;', '&uacute;', '&eacute;', '&oacute;', '&Oacute;');

@@ -522,7 +522,7 @@ function get_person_by_postcode($pc) {
 function get_person_by_name($name, $const='') {
     $MEMBER = new MySociety\TheyWorkForYou\Member(array('name' => $name, 'constituency' => $const));
     // Edge case, only attempt further detection if this isn't the Queen.
-    if ($name !== 'elizabeth the second' || $const) {
+    if (($name !== 'elizabeth the second' && $name !== 'prince charles') || $const) {
         twfy_debug ('MP', 'Redirecting for MP found by name/constituency');
         member_redirect($MEMBER);
     }
@@ -649,8 +649,12 @@ function person_summary_description ($MEMBER) {
 
     if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) {
         # Royal short-circuit
-        return '<strong>Acceded on ' . $entered_house[HOUSE_TYPE_ROYAL]['date_pretty']
-            . '<br>Coronated on 2 June 1953</strong></li>';
+        if (substr($entered_house[HOUSE_TYPE_ROYAL]['date'], 0, 4) == 1952) {
+            return '<strong>Acceded on ' . $entered_house[HOUSE_TYPE_ROYAL]['date_pretty']
+                . '<br>Coronated on 2 June 1953</strong></li>';
+        } else {
+            return '';
+        }
     }
     $desc = '';
     foreach ($MEMBER->houses() as $house) {

@@ -63,7 +63,7 @@
 			<field name="left_house">9999-12-31</field>
 			<field name="entered_reason">accession</field>
 			<field name="left_reason">still_in_office</field>
-			<field name="person_id">1</field>
+			<field name="person_id">13935</field>
 			<field name="lastupdate">2013-08-07 11:02:49</field>
 		</row>
 		<row>
@@ -361,7 +361,7 @@
 			<field name="family_name">the Second, by the Grace of God, of the United Kingdom of Great Britain and Northern Ireland and of Her other Realms and Territories Queen, Head of the Commonwealth, Defender of the Faith</field>
 			<field name="start_date">1952-02-06</field>
 			<field name="end_date">9999-12-31</field>
-			<field name="person_id">1</field>
+			<field name="person_id">13935</field>
 			<field name="title">Queen</field>
 		</row>
 		<row>

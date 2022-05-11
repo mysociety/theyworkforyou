@@ -160,7 +160,7 @@ class MemberTest extends TWFY_Database_TestCase
      */
     public function testGetElizabethIIURL()
     {
-        $MEMBER = new MEMBER(array('person_id' => 1));
+        $MEMBER = new MEMBER(array('person_id' => 13935));
 
         $this->assertEquals('/royal/elizabeth_the_second', $MEMBER->url());
     }
