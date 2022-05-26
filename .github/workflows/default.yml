@@ -22,6 +22,30 @@ jobs:
           MYSQL_DATABASE: twfy_test
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis-sentinel:
+        image: bitnami/redis-sentinel
+        env:
+          REDIS_MASTER_HOST: redis
+          REDIS_MASTER_SET: mymaster
+          REDIS_SENTINEL_QUORUM: 1
+        ports:
+          - 26379:26379
+        options: >-
+          --health-cmd "redis-cli -p 26379 ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
 #    - name: Stop any running MySQL
 #      run: sudo systemctl stop mysql.service
@@ -31,7 +55,6 @@ jobs:
 #        sqlMode: 'ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
 
     - uses: niden/actions-memcached@v7
-    - uses: zhulik/redis-action@1.1.0
 
     - uses: shivammathur/setup-php@v2
       with:
