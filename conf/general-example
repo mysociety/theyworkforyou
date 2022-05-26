@@ -191,3 +191,7 @@ define('REDIS_DB_PORT', '6379');
 define('REDIS_DB_NUMBER', '0');
 define('REDIS_DB_PASSWORD', '');
 define('REDIS_API_NAME', 'twfy');
+define('REDIS_SENTINELS', array());
+define('REDIS_SENTINEL_PORT', '26379');
+define('REDIS_SERVICE_NAME', 'mymaster');
+
