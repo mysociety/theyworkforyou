@@ -8,23 +8,39 @@ services:
     build:
       context: .
     depends_on:
-      - mariadb
-      - memcache
+      mariadb:
+        condition: service_healthy
+      memcache:
+        condition: service_started
+      redis:
+        condition: service_healthy
+      sentinel:
+        condition: service_healthy
     entrypoint: /twfy/bin/docker-entrypoint.sh
+    environment:
+      TWFY_TEST_DB_HOST: mariadb
+      TWFY_TEST_DB_NAME: twfy
+      TWFY_TEST_DB_USER: twfy
+      TWFY_TEST_DB_PASS: password
     ports:
       - "8000:80"
     volumes:
       - ./:/twfy
-      - xapian:/twfy/searchdb
+      - vendor:/twfy/vendor
 
   mariadb:
-    image: mariadb:10.3
+    image: mariadb:10.5
     command: '--sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"'
     environment:
       MARIADB_RANDOM_ROOT_PASSWORD: '1'
       MARIADB_USER: twfy
       MARIADB_PASSWORD: password
       MARIADB_DATABASE: twfy
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-utwfy", "-ppassword", "ping"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db:/var/lib/mysql
@@ -32,9 +48,30 @@ services:
   memcache:
     image: memcached:1.6-alpine
 
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
+  sentinel:
+    image: bitnami/redis-sentinel
+    environment:
+      REDIS_MASTER_HOST: redis
+      REDIS_MASTER_SET: mymaster
+      REDIS_SENTINEL_QUORUM: 1
+    ports:
+      - 26379:26379
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -p 26379 ping | grep PONG"]
+      interval: 1s
+      timeout: 5s
+      retries: 5
+
 volumes:
   db:
-  xapian:
-
-
-
+  vendor:

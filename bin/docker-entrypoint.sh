@@ -17,11 +17,14 @@ sed -r \
     -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'/twfy/www/docs'!" \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
-    -e 's!^(.*"XAPIANDB", *)"[^"]*"!'"\\1'/twfy/searchdb'!" \
     -e 's!^(.*"RAWDATA", *)"[^"]*"!'"\\1'/twfy/data/pwdata/'!" \
     -e 's!^(.*"PWMEMBERS", *)"[^"]*"!'"\\1'/twfy/data/parlparse/members/'!" \
+    -e "s/array\('127.0.0.1'\)/array\('sentinel'\)/" \
   conf/general-example > conf/general
 
 bin/deploy.bash
+
+# The regular deploy script doesn't install dev things
+php composer.phar install
 
 /usr/sbin/apache2ctl -DFOREGROUND
