@@ -174,7 +174,7 @@ define('STRIPE_ENDPOINT_SECRET', '');
 define('REDIS_DB_HOST', 'localhost');
 define('REDIS_DB_PORT', '6379');
 define('REDIS_DB_NUMBER', '0');
-define('REDIS_DB_PASSWORD', '');
+define('REDIS_DB_PASSWORD', 'password');
 define('REDIS_API_NAME', 'twfy');
 define('REDIS_SENTINELS', array('127.0.0.1'));
 define('REDIS_SENTINEL_PORT', '26379');

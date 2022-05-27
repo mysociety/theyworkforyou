@@ -23,11 +23,13 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
       redis:
-        image: redis
+        image: bitnami/redis
         ports:
           - 6379:6379
+        env:
+          REDIS_PASSWORD: password
         options: >-
-          --health-cmd "redis-cli ping"
+          --health-cmd "redis-cli -a password ping"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -37,6 +39,7 @@ jobs:
         env:
           REDIS_MASTER_HOST: redis
           REDIS_MASTER_SET: mymaster
+          REDIS_MASTER_PASSWORD: password
           REDIS_SENTINEL_QUORUM: 1
         ports:
           - 26379:26379

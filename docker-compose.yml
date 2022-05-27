@@ -49,11 +49,13 @@ services:
     image: memcached:1.6-alpine
 
   redis:
-    image: redis
+    image: bitnami/redis
     ports:
       - 6379:6379
+    environment:
+      REDIS_PASSWORD: password
     healthcheck:
-      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      test: ["CMD-SHELL", "redis-cli -a password ping | grep PONG"]
       interval: 1s
       timeout: 5s
       retries: 5
@@ -63,6 +65,7 @@ services:
     environment:
       REDIS_MASTER_HOST: redis
       REDIS_MASTER_SET: mymaster
+      REDIS_MASTER_PASSWORD: password
       REDIS_SENTINEL_QUORUM: 1
     ports:
       - 26379:26379
