@@ -1,4 +1,4 @@
-FROM mysocietyorg/debian:buster
+FROM mysocietyorg/debian:bullseye
 
 # Apache.
 RUN apt-get -qq update && apt-get -qq install \
