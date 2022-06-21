@@ -1,5 +1,5 @@
 Subject: Sorry, but we're not going to remove the annotation you reported to us
-Hi {FIRSTNAME},
+Hi,
 
 Thanks for reporting this annotation at TheyWorkForYou, which you felt was in breach of our House Rules: {COMMENTURL}
 

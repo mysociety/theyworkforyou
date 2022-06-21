@@ -266,8 +266,6 @@ class ALERT {
         );
 
         $merge = array (
-            'FIRSTNAME' 	=> 'THEY WORK FOR YOU',
-            'LASTNAME' 		=> ' ALERT CONFIRMATION',
             'CONFIRMURL'	=> $confirmurl,
             'CRITERIA'	=> $this->criteria_pretty()
         );
@@ -290,8 +288,6 @@ class ALERT {
         $this->criteria = $criteria;
 
         $merge = array (
-            'FIRSTNAME' 	=> 'THEY WORK FOR YOU',
-            'LASTNAME' 		=> ' ALERT ALREADY SIGNED UP',
             'CRITERIA'	=> $this->criteria_pretty()
         );
 

@@ -278,8 +278,6 @@ class COMMENTREPORT {
                 'template' 		=> 'report_acknowledge'
             );
             $merge = array (
-                'FIRSTNAME' 	=> $this->firstname(),
-                'LASTNAME' 		=> $this->lastname(),
                 'COMMENTURL' 	=> "https://" . DOMAIN . $COMMENT->url(),
                 'REPORTBODY' 	=> strip_tags($this->body())
             );

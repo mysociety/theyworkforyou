@@ -1,5 +1,5 @@
 Subject: Please confirm your TheyWorkForYou.com account
-Hi {FIRSTNAME},
+Hi,
 
 Welcome to TheyWorkForYou.com, the website which lets you follow proceedings in
 Parliament and devolved assemblies, discover who represents you, how they’ve

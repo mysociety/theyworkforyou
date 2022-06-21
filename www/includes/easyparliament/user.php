@@ -323,8 +323,6 @@ class USER {
         );
 
         $merge = array (
-            'FIRSTNAME'     => $details['firstname'],
-            'LASTNAME'      => $details['lastname'],
             'CONFIRMURL'    => $confirmurl
         );
 
@@ -368,8 +366,6 @@ class USER {
         );
 
         $merge = array (
-            'FIRSTNAME'     => $details['firstname'],
-            'LASTNAME'      => $details['lastname'],
             'CONFIRMURL'    => $confirmurl
         );
 

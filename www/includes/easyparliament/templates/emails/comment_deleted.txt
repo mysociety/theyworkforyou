@@ -1,5 +1,5 @@
 Subject:One of your annotations has been deleted
-Hi {FIRSTNAME},
+Hi,
 
 Thanks for taking the time to contribute to TheyWorkForYou.com. 
 

@@ -1,5 +1,5 @@
 Subject: Please confirm your email address for your TheyWorkForYou.com account
-Hi {FIRSTNAME},
+Hi,
 
 Before we change your email address we need you to confirm it by clicking the
 link below:

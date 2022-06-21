@@ -1,5 +1,5 @@
 Subject:Thanks for telling us about an annotation which concerns you
-Hi {FIRSTNAME},
+Hi,
 
 Thanks for letting us know that you think the following annotation on TheyWorkForYou breaches our House Rules: {COMMENTURL}
 

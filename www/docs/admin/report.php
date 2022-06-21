@@ -273,8 +273,6 @@ function resolve($REPORT, $COMMENT) {
                 'to' 			=> $email
             );
             $merge = array (
-                'FIRSTNAME' 	=> $REPORT->firstname(),
-                'LASTNAME' 		=> $REPORT->lastname(),
                 'REPORTBODY' 	=> strip_tags($REPORT->body())
             );
 
@@ -315,8 +313,6 @@ function resolve($REPORT, $COMMENT) {
             );
             $merge = array (
                 'REPLYBODY' => get_http_var('commentermail'),
-                'FIRSTNAME' 	=> $USER->firstname(),
-                'LASTNAME' 	=> $USER->lastname(),
 #				'DELETEDREASON'	=> get_http_var('deletedreason'),
                 'ADDCOMMENTURL'	=> $addcommentsurl,
                 'COMMENTBODY'	=> strip_tags($COMMENT->body())
