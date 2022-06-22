@@ -160,6 +160,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         if ($this->data['alertsearch']) {
             $this->data['members'] = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($this->data['alertsearch'], true);
             list ($this->data['constituencies'], $this->data['valid_postcode']) = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($this->data['alertsearch']);
+        } else {
+            $this->data['members'] = array();
         }
 
         # If the above search returned one result for constituency

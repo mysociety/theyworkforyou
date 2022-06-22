@@ -235,7 +235,7 @@ class Search
                         GROUP BY person_id
                         ORDER BY family_name, lordofname, given_name, person_id");
 
-        return $q;
+        return $q->fetchAll();
     }
 
     /**
