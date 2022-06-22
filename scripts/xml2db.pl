@@ -1397,7 +1397,7 @@ sub add_scotwrans_day {
 sub add_bill {
     my ($bill, $elt) = @_;
 
-    my $lords = $bill =~ s/\s*\[Lords\]//;
+    my $lords = $bill =~ s/\s*\[Lords\]// ? 1 : 0;
     my $url = $elt->att('url') || '';
     my $session = $elt->att('session') || '';
 
@@ -1446,8 +1446,8 @@ sub add_standing_day {
         'committee' => sub {
             my @names = $_->descendants('mpname');
             foreach (@names) {
-                my $chairman = ($_->parent()->tag() eq 'chairmen');
-                my $attending = ($_->att('attending') eq 'true');
+                my $chairman = ($_->parent()->tag() eq 'chairmen') ? 1 : 0;
+                my $attending = ($_->att('attending') eq 'true') ? 1 : 0;
                 my $person_id = person_id($_, 'memberid');
                 $current_file =~ /_(\d\d-\d)_/;
                 my $sitting = $1;
