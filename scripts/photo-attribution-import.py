@@ -31,13 +31,13 @@ db_connection = MySQLdb.connect(
 )
 db_cursor = db_connection.cursor()
 
-data_blank = [r for r in data if not r["data_value"]]
-data_blank = [(r["person_id"], r["data_key"]) for r in data_blank]
+data_blank = filter(lambda r: not r["data_value"], data)
+data_blank = map(lambda r: (r["person_id"], r["data_key"]), data_blank)
 db_cursor.executemany("""DELETE FROM personinfo
     WHERE person_id=%s AND data_key=%s""", data_blank)
 
-data = [r for r in data if r["data_value"]]
-data = [(r["person_id"], r["data_key"], r["data_value"]) for r in data]
+data = filter(lambda r: r["data_value"], data)
+data = map(lambda r: (r["person_id"], r["data_key"], r["data_value"]), data)
 db_cursor.executemany("""INSERT INTO personinfo
     (person_id, data_key, data_value) VALUES (%s, %s, %s)
     ON DUPLICATE KEY UPDATE data_value = VALUES(data_value)""", data)

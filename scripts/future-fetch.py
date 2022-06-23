@@ -5,7 +5,7 @@ import json
 import os
 import sys
 import re
-import urllib.request, urllib.error, urllib.parse
+import urllib2
 import MySQLdb
 
 import datetime
@@ -32,7 +32,7 @@ positions = {}
 
 def fetch_url(date):
     data = CALENDAR_BASE % {'date': date}
-    data = urllib.request.urlopen(data)
+    data = urllib2.urlopen(data)
     data = json.load(data)
     return data
 
@@ -272,7 +272,7 @@ for new_entry in get_calendar_events():
         if old_tuple != new_tuple:
             new_entry.update()
 
-        old_entries.discard((int(id),))
+        old_entries.discard((long(id),))
     else:
         new_entry.add()
 
