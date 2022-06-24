@@ -7,7 +7,7 @@ class Redis extends \Predis\Client {
         if (REDIS_SENTINELS) {
             $sentinels = array();
             $sentinel_port = REDIS_SENTINEL_PORT;
-            foreach (REDIS_SENTINELS as $sentinel) {
+            foreach (explode(",", REDIS_SENTINELS) as $sentinel) {
                 // Wrap IPv6 addresses in square brackets
                 if (filter_var($sentinel, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                     $sentinel = "[${sentinel}]";
