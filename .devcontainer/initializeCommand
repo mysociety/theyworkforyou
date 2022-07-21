@@ -1,0 +1,2 @@
+#!/bin/sh
+[ ! -d "foundation/docs" ] && git submodule update --init || echo "Submodules already loaded, skipping."

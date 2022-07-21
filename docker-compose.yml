@@ -1,15 +1,16 @@
 ---
-version: '3.9'
+# version: https://github.com/compose-spec/compose-spec/blob/master/spec.md
 
 services:
 
   twfy:
     image: theyworkforyou
+    platform: linux/amd64
     build:
       context: .
     depends_on:
-      mariadb:
-        condition: service_healthy
+      mariatestdb:
+        condition: service_started
       memcache:
         condition: service_started
       redis:
@@ -18,15 +19,23 @@ services:
         condition: service_healthy
     entrypoint: /twfy/bin/docker-entrypoint.sh
     environment:
-      TWFY_TEST_DB_HOST: mariadb
+      TWFY_TEST_DB_HOST: mariatestdb
       TWFY_TEST_DB_NAME: twfy
       TWFY_TEST_DB_USER: twfy
       TWFY_TEST_DB_PASS: password
+      DEV_MODE: 'true'
+      WSL_IP:
     ports:
       - "8000:80"
     volumes:
       - ./:/twfy
       - vendor:/twfy/vendor
+      - xapian:/twfy/searchdb
+      - ./xdebug-local.ini:/etc/php/7.3/cli/conf.d/xdebug-local.ini
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
+
 
   mariadb:
     image: mariadb:10.5
@@ -44,6 +53,21 @@ services:
     volumes:
       - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - db:/var/lib/mysql
+
+  mariatestdb:
+    image: mariadb:10.5
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    command: '--sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"'
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: '1'
+      MARIADB_USER: twfy
+      MARIADB_PASSWORD: password
+      MARIADB_DATABASE: twfy
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - testdb:/var/lib/mysql
 
   memcache:
     image: memcached:1.6-alpine
@@ -77,4 +101,6 @@ services:
 
 volumes:
   db:
+  testdb:
+  xapian:
   vendor:
