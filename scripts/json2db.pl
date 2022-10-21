@@ -85,9 +85,8 @@ sub process_motions {
 
     for my $motion ( @{ $policy->{aspects} } ) {
         $motion_count++;
-        my ($motion_num, $house);
-        ($motion_num = $motion->{motion}->{id}) =~ s/pw-\d+-\d+-\d+-(\d+)/$1/;
-        ($house = $motion->{motion}->{organization_id}) =~ s/uk.parliament.(\w+)/$1/;
+        my ($motion_num) = $motion->{motion}->{id} =~ /pw-\d+-\d+-\d+-(\d+)/;
+        my ($house) = $motion->{motion}->{organization_id} =~ /uk\.parliament\.(\w+)/;
 
         my $sources = $motion->{motion}->{sources};
         my $gid = '';
