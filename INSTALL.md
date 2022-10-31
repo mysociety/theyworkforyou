@@ -137,7 +137,7 @@ MPs. This will be based on XML format data published by theyworkforyou.com.
 
     We recommend either using rsync or downloading the
     zip files containing all the data if you want it - for more information,
-    see http://parser.theyworkforyou.com/ under "Getting the Data".
+    see https://parser.theyworkforyou.com/hansard.html under "Getting the Data".
 
     At a minimum, we'd recommend getting some recent debates; for example you
     could get everything in 2021 by grabbing `scrapedxml/debates/debates2021*`.
