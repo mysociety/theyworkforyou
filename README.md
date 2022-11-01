@@ -44,6 +44,15 @@ Docker volumes that may be in use, including all their data.
 
 [DOCKER.md](DOCKER.md) has some more detailed notes on the development environment, together
 with some useful commands and more detailed Docker-specific setup notes.
+
+To use xdebug in VS Code while using WSL, you'll need to set an environmental variable of the WSL_IP within the subsystem of the IP address of the subsystem.
+ 
+# Developing with codespaces
+
+Start a new codespace on Github by selecting the Code dropdown (top right), and starting a new codespace (or use the [GitHub CLI](https://github.com/cli/cli)).
+
+This will setup the Docker container and environment. Once finished, the link to the site should be avaliable in the ports tab of the terminal panel. 
+
 ### DEPRECATED: Developing with Vagrant
 
 Please note that we are not currently supporting the Vagrant environment, and may remove it

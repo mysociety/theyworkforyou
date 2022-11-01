@@ -18,6 +18,8 @@ RUN apt-get -qq update && apt-get -qq install \
       php-zip \
       ruby-dev \
       unzip \
+      php-xdebug \
+      rsync \
     --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
@@ -46,3 +48,5 @@ WORKDIR /twfy
 
 # Apache will run on port 80, so expose it
 EXPOSE 80
+
+ENV DEV_MODE=true
