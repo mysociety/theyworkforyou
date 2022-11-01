@@ -1,0 +1,25 @@
+name: Push mirror to git.mysociety.org
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
+
+    - name: Push branch to git.mysociety.org
+      id: push_to_mirror
+      uses: mysociety/action-git-pusher@v1.1.0
+      with:
+        git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
+        ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
+        tag: ${{ github.ref_name }} 
+        remote: 'ssh://gh-public@git.mysociety.org/data/git/public/theyworkforyou.git'
