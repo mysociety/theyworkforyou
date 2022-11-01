@@ -255,7 +255,7 @@ foreach ($alertdata as $alertitem) {
             } else {
                 $text .= "$vote$teller";
             }
-            $text .= " (division #$num; result was <b>" . $row['yes_total'] . '</b> aye, <b>' . $row['no_total'] . ' no</b>)';
+            $text .= " (division #$num; result was <b>" . $row['yes_total'] . '</b> aye, <b>' . $row['no_total'] . '</b> no)';
             $data['rows'][] = [
                 'parent' => [
                     'body' => $row['division_title'],
