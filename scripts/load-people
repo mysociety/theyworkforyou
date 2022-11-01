@@ -53,7 +53,7 @@ verbose("End");
 
 # ---
 
-my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete);
+my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete, $start_transaction, $query_commit, );
 
 sub db_connect {
     #DBI->trace(1);
@@ -139,6 +139,10 @@ sub load_constituencies {
 }
 
 sub load_people {
+
+    # disable autocommit to load multiple people and memberships at once
+    $dbh->{AutoCommit} = 0;
+
     my $j = decode_json(read_file($pwmembers . 'people.json'));
     foreach (@{$j->{organizations}}) {
         $organizations{$_->{id}} = $_;
@@ -146,6 +150,7 @@ sub load_people {
     foreach (@{$j->{posts}}) {
         $posts{$_->{id}} = $_;
     }
+    $dbh->commit();
     foreach (@{$j->{memberships}}) {
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
@@ -160,6 +165,10 @@ sub load_people {
             load_names($_);
         }
     }
+    $dbh->commit();
+
+    $dbh->{AutoCommit} = 1;
+
 }
 
 my %member_ids = ();

@@ -13,6 +13,14 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $parldata = mySociety::Config::get('RAWDATA');
 
+my $verbose = 0;
+for( @ARGV ){
+  if( $_ eq "--verbose" ){
+    $verbose = 1;
+    last;
+  }
+}
+
 use DBI;
 use File::Slurp::Unicode;
 use JSON::XS;
@@ -45,6 +53,9 @@ my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FRO
 my $strong_vote_add = $dbh->prepare("INSERT into personinfo ( data_key, data_value, person_id ) VALUES ( ?, ?, ? )");
 my $strong_vote_update = $dbh->prepare("UPDATE personinfo SET data_value = ? WHERE data_key = ? AND person_id = ?");
 
+my $start_transaction = $dbh->prepare("START TRANSACTION");
+my $query_commit = $dbh->prepare("COMMIT");
+
 my $motionsdir = $parldata . "scrapedjson/policy-motions/";
 
 $motion_count = $policy_count = $vote_count = 0;
@@ -67,12 +78,18 @@ foreach my $dreamid ( @policyids ) {
 
     $policy_count++;
 
+    if ($verbose){
+        print("processing motions for $dreamid\n");
+    }  
     process_motions($policy, $dreamid);
 }
 
 # And recently changed ones
 my $policy_file = $motionsdir . "recently-changed-divisions.json";
 if (-f $policy_file) {
+    if ($verbose){
+    print("processing recently changed divisions\n");
+    }
     my $policy_json = read_file($policy_file);
     my $policy = $json->decode($policy_json);
     process_motions($policy);
@@ -82,9 +99,13 @@ print "parsed $policy_count policies, $motion_count divisions and $vote_count vo
 
 sub process_motions {
     my ($policy, $dreamid) = @_;
+    $start_transaction->execute();
 
     for my $motion ( @{ $policy->{aspects} } ) {
         $motion_count++;
+        if ($verbose && $motion_count % 10 == 0){
+            print("$motion_count\n");
+        };
         my ($motion_num) = $motion->{motion}->{id} =~ /pw-\d+-\d+-\d+-(\d+)/;
         my ($house) = $motion->{motion}->{organization_id} =~ /uk\.parliament\.(\w+)/;
 
@@ -249,4 +270,5 @@ sub process_motions {
         }
 
     }
+     $query_commit->execute();
 }
