@@ -311,6 +311,7 @@ foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
 $data['profile_message'] = isset($MEMBER->extra_info['profile_message']) ? $MEMBER->extra_info['profile_message'] : '';
 $data['image'] = $MEMBER->image();
 $data['member_summary'] = person_summary_description($MEMBER);
+$data['aliases'] = person_aliases($MEMBER);
 $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
 $data['entry_date'] = $MEMBER->getEntryDate();
 $data['leave_date'] = $MEMBER->getLeftDate();
@@ -707,6 +708,19 @@ function person_summary_description ($MEMBER) {
     }
     $desc = preg_replace('#, $#', '', $desc);
     return $desc;
+}
+
+/**
+ * Aliases for a person
+ */
+function person_aliases ($MEMBER) {
+    $aliases = $MEMBER->getAliases();
+    if (count($aliases)) {
+        $imploded_aliases = implode(', ', $aliases);
+        return "Also known as: $imploded_aliases";
+    } else {
+        return null;
+    }
 }
 
 /**

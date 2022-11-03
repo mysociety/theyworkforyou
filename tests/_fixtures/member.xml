@@ -363,6 +363,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">13935</field>
 			<field name="title">Queen</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -371,6 +372,25 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">2</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
+		</row>
+		<row>
+			<field name="given_name">AliasOf</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+			<field name="type">alias</field>
+		</row>
+		<row>
+			<field name="given_name">AnotherAliasOf</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mrs</field>
+			<field name="type">alias</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -379,6 +399,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">3</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -387,6 +408,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">4</field>
 			<field name="title">Miss</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -395,6 +417,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">5</field>
 			<field name="title">Ms</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -403,6 +426,7 @@
 			<field name="end_date">1999-12-31</field>
 			<field name="person_id">6</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -411,6 +435,7 @@
 			<field name="end_date">1999-12-31</field>
 			<field name="person_id">7</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -419,6 +444,7 @@
 			<field name="end_date">1999-12-31</field>
 			<field name="person_id">8</field>
 			<field name="title">Miss</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -427,6 +453,7 @@
 			<field name="end_date">1999-12-31</field>
 			<field name="person_id">9</field>
 			<field name="title">Ms</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -435,6 +462,7 @@
 			<field name="end_date">1999-12-31</field>
 			<field name="person_id">10</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -443,6 +471,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">11</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -451,6 +480,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">12</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -459,6 +489,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">13</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -467,6 +498,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">15</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Test</field>
@@ -475,6 +507,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">16</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Recent</field>
@@ -483,6 +516,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">17</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Allthe</field>
@@ -491,6 +525,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">18</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Regional</field>
@@ -499,6 +534,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">19</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Regional</field>
@@ -507,6 +543,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">20</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Regional</field>
@@ -515,6 +552,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">21</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Regional</field>
@@ -523,6 +561,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">22</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 	</table_data>
 	<table_data name="memberinfo">

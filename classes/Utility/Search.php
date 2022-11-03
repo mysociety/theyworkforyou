@@ -187,7 +187,7 @@ class Search
         }
 
         $db = new \ParlDB;
-        $q = $db->query("SELECT person_id FROM person_names WHERE type='name' AND ($where)", $params);
+        $q = $db->query("SELECT person_id FROM person_names WHERE ($where)", $params);
 
         # Check for redirects
         $pids = array();

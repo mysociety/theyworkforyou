@@ -437,6 +437,29 @@ class Member extends \MEMBER {
         return $output;
     }
 
+    /**
+     * Get a member's informal aliases.
+     *
+     * Returns an array of person_names, of type 'alias' for this member.
+     * The names only include given_name and family_name, since aliases are typically used
+     * in informal situations.
+     *
+     * @return array An array of alias strings.
+     */
+    public function getAliases() {
+        $db = new \ParlDB;
+        $q = $db->query(
+            "SELECT given_name, family_name FROM person_names WHERE person_id = :person_id and type = 'alias'",
+            array(':person_id' => $this->person_id())
+        );
+
+        $aliases = array();
+        foreach ($q as $row) {
+            $aliases[] = $row['given_name'] . ' ' . $row['family_name'];
+        }
+        return $aliases;
+    }
+
     private function entered_house_line($house, $house_name) {
         if (isset($this->entered_house[$house]['date'])) {
             $string = "<strong>Entered the $house_name ";

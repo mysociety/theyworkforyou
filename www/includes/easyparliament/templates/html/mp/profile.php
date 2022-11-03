@@ -232,6 +232,10 @@ $display_wtt_stats_banner = '2015';
 
                     <p><?= $member_summary ?></p>
 
+                    <?php if ($aliases): ?>
+                    <p><?= $aliases ?></p>
+                    <?php endif; ?>
+
                     <?php if (count($enter_leave) > 0): ?>
                         <?php foreach ($enter_leave as $string): ?>
                             <p><?= $string ?></p>

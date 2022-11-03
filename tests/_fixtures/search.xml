@@ -173,6 +173,16 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">2</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
+		</row>
+		<row>
+			<field name="given_name">Joe</field>
+			<field name="family_name">Bloggs</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">2</field>
+			<field name="title">Mr</field>
+			<field name="type">alias</field>
 		</row>
 		<row>
 			<field name="given_name">Mary</field>
@@ -181,6 +191,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">3</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Susan</field>
@@ -189,6 +200,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">4</field>
 			<field name="title">Mrs</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Andrew</field>
@@ -197,6 +209,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">5</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 		<row>
 			<field name="given_name">Simon</field>
@@ -205,6 +218,7 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">6</field>
 			<field name="title">Mr</field>
+			<field name="type">name</field>
 		</row>
 	</table_data>
 	<table_data name="personinfo">

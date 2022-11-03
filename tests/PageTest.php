@@ -69,6 +69,18 @@ class PageTest extends FetchPageTestCase
         $this->assertRegexp('#<span class="person-header__about__position__role">\s*Speaker\s*MP\s*</span>#', $page);
     }
 
+    /**
+     * Ensure that the member page includes aliases, if available.
+     */
+    public function testMemberAliases()
+    {
+        $page = $this->fetch_page( array( 'pid' => 4, 'representative_type' => 'mla', 'url' => '/mp/4/test_current-mla' ) );
+        $this->assertNotContains('Also known as:', $page);
+
+        $page = $this->fetch_page( array( 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency' ) );
+        $this->assertContains('Also known as: AliasOf Current-MP, AnotherAliasOf Current-MP', $page);
+    }
+
     public function testBanner() {
         $banner = new MySociety\TheyWorkForYou\Model\Banner;
 

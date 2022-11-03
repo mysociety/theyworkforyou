@@ -83,6 +83,33 @@ class SearchTest extends FetchPageTestCase
     }
 
     /**
+     * Test looking up a person by alias works as expected.
+     */
+
+    public function testSearchMemberDbLookupAlias()
+    {
+
+        // Test a first name.
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Joe');
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(2, $results[0]);
+
+        // Test a full name.
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Joe Bloggs');
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(2, $results[0]);
+
+        // Test a full name with title.
+        $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mr Joe Bloggs');
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(2, $results[0]);
+
+    }
+
+    /**
      * Test that glossarising a single word works as expected.
      *
      * @group xapian
@@ -132,7 +159,7 @@ class SearchTest extends FetchPageTestCase
     {
         $page = $this->fetch_page( array( 'q' => 'Mary Smith' ) );
         $this->assertContains('Mary Smith', $page);
-        $this->assertContains('MP, Amber Valley', $page);
+        $this->assertRegexp('#MP\s+for Amber Valley#', $page);
     }
 
     /**
@@ -181,9 +208,9 @@ class SearchTest extends FetchPageTestCase
         $page = $this->fetch_page( array( 'q' => 'Liverpool' ) );
         $this->assertContains('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
         $this->assertContains('Susan Brown', $page);
-        $this->assertContains('MP, Liverpool, Riverside', $page);
+        $this->assertRegexp('#MP\s+for Liverpool, Riverside#', $page);
         $this->assertContains('Andrew Jones', $page);
-        $this->assertContains('MP, Liverpool, Walton', $page);
+        $this->assertRegexp('#MP\s+for Liverpool, Walton#', $page);
     }
 
     /**
