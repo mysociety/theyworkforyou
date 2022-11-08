@@ -1,5 +1,4 @@
 <div class="panel panel--highlight panel--covid19">
-    <h2>There are currently votes on relevant topics that are not included in the summaries below. We are working on bringing these records up to date over the next few months. </h2>
     <h2>As a result of COVID-19, some MPs were less able to vote in Parliament in certain periods, and this will be reflected by absences in their voting record.</h2>
 
     <details>
