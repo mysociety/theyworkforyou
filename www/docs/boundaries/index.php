@@ -12,7 +12,7 @@ $PAGE->page_start();
 <div id="boundaries">
 <?php
 
-$pc = get_http_var('pc');
+$pc = trim(get_http_var('pc'));
 $pc = ''; # No form submissions, please
 if ($pc && !validate_postcode($pc)) {
     print '<p class="error">Sorry, that doesn&rsquo;t appear to be a valid postcode.</p>';

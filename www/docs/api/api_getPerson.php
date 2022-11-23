@@ -105,7 +105,7 @@ function api_getPerson_constituency($constituency, $house) {
 }
 
 function api_getPerson_postcode($pc, $house) {
-    $pc = preg_replace('#[^a-z0-9 ]#i', '', $pc);
+    $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
     $types = array();
     if ($house == HOUSE_TYPE_NI) {
         $types = array('NIE');

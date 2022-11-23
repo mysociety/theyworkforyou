@@ -14,7 +14,7 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
         if (get_http_var('add-alert')) {
 
             $data['email'] = get_http_var('email');
-            $data['postcode'] = get_http_var('postcode');
+            $data['postcode'] = trim(get_http_var('postcode'));
 
             $result = $this->createAlertForPostCode($data['email'], $data['postcode']);
             $data = array_merge( $data, $result );

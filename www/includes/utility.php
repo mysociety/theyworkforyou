@@ -7,6 +7,7 @@ General utility functions v1.1 (well, it was).
 
 include_once INCLUDESPATH . '../../commonlib/phplib/email.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
+include_once INCLUDESPATH . '../../commonlib/phplib/validate.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
 # Pass it a brief header word and some debug text and it'll be output.
@@ -237,45 +238,6 @@ function adodb_backtrace($print=true)
   }
 
   return $s;
-}
-
-// Far from foolproof, but better than nothing.
-function validate_email($string) {
-    if (!preg_match('/^[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+'.
-        '@'.
-        '[-!#$%&\'*.\\+\/0-9=?A-Z^_`a-z{|}~]+\.'.
-        '[-!#$%&\'*+\\.\/0-9=?A-Z^_`a-z{|}~]+$/', $string)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function validate_postcode($postcode) {
-    // See http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
-
-    $postcode = trim($postcode);
-
-    $in  = 'ABDEFGHJLNPQRSTUWXYZ';
-    $fst = 'ABCDEFGHIJKLMNOPRSTUWYZ';
-    $sec = 'ABCDEFGHJKLMNOPQRSTUVWXY';
-    $thd = 'ABCDEFGHJKSTUW';
-    $fth = 'ABEHMNPRVWXY';
-    $num = '0123456789';
-    $nom = '0123456789';
-    $gap = '\s\.';
-
-    if (    preg_match("/^[$fst][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$num][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$num][$thd][$gap]*[$nom][$in][$in]$/i", $postcode) ||
-            preg_match("/^[$fst][$sec][$num][$fth][$gap]*[$nom][$in][$in]$/i", $postcode)
-        ) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 // Returns the unixtime in microseconds.
