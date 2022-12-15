@@ -2099,6 +2099,8 @@ class HANSARDLIST {
             $hdate = '2016-06-16';
         } elseif ($person_id == 10599 && substr($hdate, 0, 7) == '2021-02') {
             $hdate = '2021-02-19';
+        } elseif ($person_id == 11667 && substr($hdate, 0, 7) == '2022-12') {
+            $hdate = '2022-11-30';
         }
 
         # London questions answered after election
