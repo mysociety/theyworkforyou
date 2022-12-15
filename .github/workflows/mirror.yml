@@ -17,7 +17,7 @@ jobs:
 
     - name: Push branch to git.mysociety.org
       id: push_to_mirror
-      uses: mysociety/action-git-pusher@v1.1.0
+      uses: mysociety/action-git-pusher@v1.1.1
       with:
         git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
         ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
