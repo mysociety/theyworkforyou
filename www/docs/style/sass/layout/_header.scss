@@ -6,6 +6,62 @@
 .site-header__row,
 .site-nav__row {
     @include grid-row;
+    position: relative;
+}
+
+$mysoc-badge-mobile-width:       55px;
+$mysoc-badge-desktop-width:      80px;
+$badge-horizontal-shadow-mobile:  15px; 
+$badge-horizontal-shadow-desktop: -8px;
+
+.site-nav__primary {
+    position: relative;
+}
+
+
+@media (min-width: $medium-screen) {
+    .site-nav__assembly {
+    left: 95px
+    }
+    .site-nav__search {
+        left: 82px;
+        position: relative;
+    }
+}
+
+.site-nav .site-nav__general ul {
+    left: $mysoc-badge-mobile-width;
+
+    @media (min-width: $medium-screen) {
+        margin-left: $mysoc-badge-desktop-width - 10px;
+    }
+}
+
+#mysociety-badge {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: $badge-horizontal-shadow-mobile; // Align with container
+    width: $mysoc-badge-mobile-width;
+    z-index: 1;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+    .badge-desktop {
+        display: none;
+    }
+    @media (min-width: $medium-screen) {
+        width: $mysoc-badge-desktop-width;
+        left: $badge-horizontal-shadow-desktop; // Align with container
+        .badge-mobile {
+            display: none;
+        }
+        .badge-desktop {
+            display: block;
+        }
+    }
 }
 
 .site-header__logo {
@@ -14,6 +70,13 @@
     line-height: 1em;
     font-weight: normal;
     float: left;
+    position: relative;
+    left: 85px; // Badge will have the same distance on the left and right
+    z-index: 1;
+
+    @media (min-width: $medium-screen) {
+        left: $mysoc-badge-desktop-width;
+    }
 
     a {
         display: block;

@@ -106,7 +106,10 @@
 
     <header class="site-header">
         <div class="site-header__row">
-
+            <a href="https://www.mysociety.org/about/anniversary" id="mysociety-badge" aria-label="20 years of mySociety">
+              <img class="badge-desktop" src="/style/img/badge-mysociety-desktop@2x.png" width="60" height="80" alt="20 years of mySociety">
+              <img class="badge-mobile" src="/style/img/badge-mysociety-mobile@2x.png" width="48" height="60" alt="20 years of mySociety">
+            </a>
             <h1 class="site-header__logo">
                 <a href="/">TheyWorkForYou</a>
             </h1>
