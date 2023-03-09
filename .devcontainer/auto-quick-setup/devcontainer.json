@@ -1,0 +1,21 @@
+{
+	"name": "theyworkforyou",
+
+	"dockerComposeFile": "../../docker-compose.yml",
+	"service": "twfy",
+	"workspaceFolder": "/twfy",
+	"initializeCommand": [
+		".devcontainer/initializeCommand"
+	],
+	"onCreateCommand": "script/quick-populate",
+	"portsAttributes": {"8000": {"label": "TWFY"}}, 
+	"forwardPorts": [8000],
+
+	"extensions": [
+		"ms-vscode.test-adapter-converter",
+		"ms-azuretools.vscode-docker",
+		"bmewburn.vscode-intelephense-client",
+		"felixfbecker.php-debug",
+		"recca0120.vscode-phpunit"
+	]
+}

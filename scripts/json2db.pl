@@ -13,6 +13,14 @@ mySociety::Config::set_file("$FindBin::Bin/../conf/general");
 
 my $parldata = mySociety::Config::get('RAWDATA');
 
+my $verbose = 0;
+for( @ARGV ){
+    if( $_ eq "--verbose" ){
+        $verbose = 1;
+        last;
+  }
+}
+
 use DBI;
 use File::Slurp::Unicode;
 use JSON::XS;
@@ -67,12 +75,18 @@ foreach my $dreamid ( @policyids ) {
 
     $policy_count++;
 
+    if ($verbose){
+        print("processing motions for $dreamid\n");
+    }  
     process_motions($policy, $dreamid);
 }
 
 # And recently changed ones
 my $policy_file = $motionsdir . "recently-changed-divisions.json";
 if (-f $policy_file) {
+    if ($verbose){
+        print("processing recently changed divisions\n");
+    }
     my $policy_json = read_file($policy_file);
     my $policy = $json->decode($policy_json);
     process_motions($policy);
@@ -82,9 +96,13 @@ print "parsed $policy_count policies, $motion_count divisions and $vote_count vo
 
 sub process_motions {
     my ($policy, $dreamid) = @_;
-
+    # Set AutoCommit off
+    $dbh->{AutoCommit} = 0;
     for my $motion ( @{ $policy->{aspects} } ) {
         $motion_count++;
+        if ($verbose && $motion_count % 10 == 0){
+            print("$motion_count\n");
+        };
         my ($motion_num) = $motion->{motion}->{id} =~ /pw-\d+-\d+-\d+-(\d+)/;
         my ($house) = $motion->{motion}->{organization_id} =~ /uk\.parliament\.(\w+)/;
 
@@ -249,4 +267,7 @@ sub process_motions {
         }
 
     }
+    $dbh->commit();
+    # Set AutoCommit on
+    $dbh->{AutoCommit} = 1;
 }

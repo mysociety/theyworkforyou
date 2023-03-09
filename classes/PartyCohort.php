@@ -435,6 +435,7 @@ class PartyCohort
     public static function calculatePositions($quiet=true){
         // get current hashes available
         $cohorts = PartyCohort::getCohorts();
+        $db = new \ParlDB;
         $policies = new Policies;
         $n_cohorts = count($cohorts);
 
@@ -448,9 +449,11 @@ class PartyCohort
 
             $cohort_count++;
 
+            $db->conn->beginTransaction();
             foreach ( $positions as $position ) {
                 $cohort->cache_position( $position );
             }
+            $db->conn->commit();
             if (!$quiet) {
                 print("$cohort_count/$n_cohorts\n");
             }

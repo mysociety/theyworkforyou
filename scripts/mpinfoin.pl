@@ -158,6 +158,10 @@ my $personinfoadd    = $dbh->prepare("insert into personinfo (person_id, data_ke
 my $personinfoupdate = $dbh->prepare('update personinfo set data_value=? where person_id=? and data_key=?');
 my $consinfoadd      = $dbh->prepare("insert into consinfo (constituency, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
+
+# Set AutoCommit off
+$dbh->{AutoCommit} = 0;
+
 # Write to database - members
 foreach my $mp_id (keys %$memberinfohash) {
     (my $mp_id_num = $mp_id) =~ s#uk.org.publicwhip/(member|lord)/##;
@@ -172,6 +176,7 @@ foreach my $mp_id (keys %$memberinfohash) {
         }
     }
 }
+$dbh->commit();
 
 # Write to database - people
 foreach my $person_id (keys %$personinfohash) {
@@ -187,6 +192,7 @@ foreach my $person_id (keys %$personinfohash) {
         }
     }
 }
+$dbh->commit();
 
 # Write to database - cons
 foreach my $constituency (keys %$consinfohash) {
@@ -196,6 +202,11 @@ foreach my $constituency (keys %$consinfohash) {
         $consinfoadd->execute($constituency, $key, $value, $value);
     }
 }
+$dbh->commit();
+
+
+# Set AutoCommit on
+$dbh->{AutoCommit} = 1;
 
 # just temporary to check cron working
 # print "mpinfoin done\n";
