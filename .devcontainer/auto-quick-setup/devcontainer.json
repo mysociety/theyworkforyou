@@ -7,7 +7,7 @@
 	"initializeCommand": [
 		".devcontainer/initializeCommand"
 	],
-	"onCreateCommand": "script/quick-populate",
+	"onCreateCommand": "scripts/quick-populate",
 	"portsAttributes": {"8000": {"label": "TWFY"}}, 
 	"forwardPorts": [8000],
 
