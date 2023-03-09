@@ -37,3 +37,4 @@ php scripts/generate_party_positions.php
 
 echo 'Generate search index'
 search/index.pl all
+echo 'Quick setup completed'
