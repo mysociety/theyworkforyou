@@ -15,9 +15,9 @@ my $parldata = mySociety::Config::get('RAWDATA');
 
 my $verbose = 0;
 for( @ARGV ){
-  if( $_ eq "--verbose" ){
-    $verbose = 1;
-    last;
+    if( $_ eq "--verbose" ){
+        $verbose = 1;
+        last;
   }
 }
 
@@ -85,7 +85,7 @@ foreach my $dreamid ( @policyids ) {
 my $policy_file = $motionsdir . "recently-changed-divisions.json";
 if (-f $policy_file) {
     if ($verbose){
-    print("processing recently changed divisions\n");
+        print("processing recently changed divisions\n");
     }
     my $policy_json = read_file($policy_file);
     my $policy = $json->decode($policy_json);
