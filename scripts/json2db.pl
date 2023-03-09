@@ -53,9 +53,6 @@ my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FRO
 my $strong_vote_add = $dbh->prepare("INSERT into personinfo ( data_key, data_value, person_id ) VALUES ( ?, ?, ? )");
 my $strong_vote_update = $dbh->prepare("UPDATE personinfo SET data_value = ? WHERE data_key = ? AND person_id = ?");
 
-my $start_transaction = $dbh->prepare("START TRANSACTION");
-my $query_commit = $dbh->prepare("COMMIT");
-
 my $motionsdir = $parldata . "scrapedjson/policy-motions/";
 
 $motion_count = $policy_count = $vote_count = 0;
@@ -99,8 +96,8 @@ print "parsed $policy_count policies, $motion_count divisions and $vote_count vo
 
 sub process_motions {
     my ($policy, $dreamid) = @_;
-    $start_transaction->execute();
-
+    # Set AutoCommit off
+    $dbh->{AutoCommit} = 0;
     for my $motion ( @{ $policy->{aspects} } ) {
         $motion_count++;
         if ($verbose && $motion_count % 10 == 0){
@@ -270,5 +267,7 @@ sub process_motions {
         }
 
     }
-     $query_commit->execute();
+    $dbh->commit();
+    # Set AutoCommit on
+    $dbh->{AutoCommit} = 1;
 }
