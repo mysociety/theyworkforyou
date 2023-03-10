@@ -39,6 +39,10 @@ class House
                 'singular' => 'MSP',
                 'plural'   => 'MSPs'
             ),
+            HOUSE_TYPE_WALES => array(
+                'singular' => 'MS',
+                'plural'   => 'MSs'
+            ),
             HOUSE_TYPE_LONDON_ASSEMBLY => array(
                 'singular' => 'Member of the London Assembly',
                 'plural'   => 'Members of the London Assembly'
@@ -70,6 +74,13 @@ class House
                 'location' => '&ndash; in the Scottish Parliament',
                 'cons_type' => 'SPC',
                 'assembly_name' => 'Scottish Parliament',
+            ),
+            HOUSE_TYPE_WALES => array (
+                'country' => 'WALES',
+                'assembly' => 'wales',
+                'location' => '&ndash; in the Senedd',
+                'cons_type' => 'WAC',
+                'assembly_name' => 'Welsh Parliament',
             ),
             HOUSE_TYPE_LORDS => array (
                 'country' => 'UK',
@@ -105,6 +116,8 @@ class House
             7 => array(HOUSE_TYPE_SCOTLAND),
             8 => array(HOUSE_TYPE_SCOTLAND),
             9 => array(HOUSE_TYPE_LONDON_ASSEMBLY),
+            10 => array(HOUSE_TYPE_WALES),
+            11 => array(HOUSE_TYPE_WALES),
             101 => array(HOUSE_TYPE_LORDS),
         );
 

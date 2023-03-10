@@ -111,6 +111,8 @@ function api_getPerson_postcode($pc, $house) {
         $types = array('NIE');
     } elseif ($house == HOUSE_TYPE_SCOTLAND) {
         $types = array('SPC', 'SPE');
+    } elseif ($house == HOUSE_TYPE_WALES) {
+        $types = array('WAC', 'WAE');
     }
     if (validate_postcode($pc)) {
         $constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);

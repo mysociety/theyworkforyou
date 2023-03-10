@@ -161,6 +161,9 @@ switch (get_http_var('representative_type')) {
     case 'msp':
         $this_page = 'msp';
         break;
+    case 'ms':
+        $this_page = 'ms';
+        break;
     case 'london-assembly-member':
         $this_page = 'london-assembly-member';
         break;
@@ -259,6 +262,20 @@ if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
         $title .= ', former';
     }
     $title .= ' MSP, '.$MEMBER->constituency();
+}
+
+// Enhance title if this is a member of Welsh Parliament
+if ($MEMBER->house(HOUSE_TYPE_WALES)) {
+    if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
+        $desc = str_replace('Parliament', 'the UK and Welsh Parliaments', $desc);
+    } else {
+        $desc = str_replace('Parliament', 'the Welsh Parliament', $desc);
+    }
+    $desc = str_replace(', and get email alerts on their activity', '', $desc);
+    if (!$MEMBER->current_member(HOUSE_TYPE_WALES)) {
+        $title .= ', former';
+    }
+    $title .= ' MS, '.$MEMBER->constituency();
 }
 
 $known_for = '';
@@ -539,6 +556,8 @@ function get_regional_by_user_postcode($pc, $page) {
     $this_page = "your$page";
     if ($page == 'msp' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($pc)) {
         regional_list($pc, 'SPC', $page);
+    } elseif ($page == 'ms' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsWelsh($pc)) {
+        regional_list($pc, 'WAC', $page);
     } elseif ($page == 'mla' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($pc)) {
         regional_list($pc, 'NIE', $page);
     } else {
@@ -684,7 +703,7 @@ function person_summary_description ($MEMBER) {
                 $desc .= $last['from'] . ' ';
             }
         }
-        if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND) {
+        if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND || $house==HOUSE_TYPE_WALES) {
             $desc .= ' ';
             if ($house==HOUSE_TYPE_COMMONS) {
                 $desc .= '<abbr title="Member of Parliament">MP</abbr>';
@@ -694,6 +713,9 @@ function person_summary_description ($MEMBER) {
             }
             if ($house==HOUSE_TYPE_SCOTLAND) {
                 $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
+            }
+            if ($house==HOUSE_TYPE_WALES) {
+                $desc .= '<abbr title="Member of the Senedd">MS</abbr>';
             }
             if ($party_br) {
                 $desc .= " ($party_br)";
@@ -984,7 +1006,7 @@ function regional_list($pc, $area_type, $rep_type) {
         WHERE constituency IN ('" . join("','", $a) . "')
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_names.person_id = member.person_id)";
-    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . ")");
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . "," . HOUSE_TYPE_WALES . ")");
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
@@ -1005,6 +1027,12 @@ function regional_list($pc, $area_type, $rep_type) {
             } elseif ($cons == $constituencies['SPE']) {
                 $mreg[] = $row;
             }
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            if ($cons == $constituencies['WAC']) {
+                $mcon = $row;
+            } elseif ($cons == $constituencies['WAE']) {
+                $mreg[] = $row;
+            }
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Odd result returned!' . $house);
         }
@@ -1020,6 +1048,18 @@ function regional_list($pc, $area_type, $rep_type) {
             $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
             $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MSP for ' . $mcon['constituency'];
             $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
+        }
+    } elseif ($rep_type == 'ms') {
+        if ($current) {
+            $data['members_statement'] = '<p>You have one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
+            $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> is <a href="/ms/?p=' . $mcon['person_id'] . '">';
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . $mcon['constituency'];
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['WAE'] . ' region MSs</strong> are:</p>';
+        } else {
+            $data['members_statement'] = '<p>You had one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
+            $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> was <a href="/ms/?p=' . $mcon['person_id'] . '">';
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . $mcon['constituency'];
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['WAE'] . ' region MSs</strong> were:</p>';
         }
     } else {
         if ($current) {

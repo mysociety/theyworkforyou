@@ -30,6 +30,7 @@ class MEMBER {
         2 => 'House of Lords',
         3 => 'Northern Ireland Assembly',
         4 => 'Scottish Parliament',
+        5 => 'Senedd',
         6 => 'London Assembly',
     );
 
@@ -84,6 +85,7 @@ class MEMBER {
         if (! (bool) $this->house_disp) {
             if ($house == HOUSE_TYPE_LONDON_ASSEMBLY # London Assembly
                 || $house == HOUSE_TYPE_SCOTLAND     # MSPs and
+                || $house == HOUSE_TYPE_WALES        # MSs and
                 || $house == HOUSE_TYPE_NI           # MLAs have lowest priority
                 || $house == HOUSE_TYPE_COMMONS      # MPs
             ) {
@@ -359,6 +361,8 @@ class MEMBER {
             $params[':house'] = HOUSE_TYPE_LORDS;
         } elseif ($this_page == 'msp') {
             $params[':house'] = HOUSE_TYPE_SCOTLAND;
+        } elseif ($this_page == 'ms') {
+            $params[':house'] = HOUSE_TYPE_WALES;
         } elseif ($this_page == 'mla') {
             $params[':house'] = HOUSE_TYPE_NI;
         } elseif ($this_page == 'royal') {
@@ -523,7 +527,7 @@ class MEMBER {
     public function family_name() { return $this->family_name; }
     public function full_name($no_mp_title = false) {
         $title = $this->title;
-        if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND)) {
+        if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND || $this->house_disp==HOUSE_TYPE_WALES)) {
             $title = '';
         }
         return member_full_name($this->house_disp, $title, $this->given_name, $this->family_name, $this->lordofname);
@@ -663,6 +667,10 @@ class MEMBER {
 
             case HOUSE_TYPE_SCOTLAND:
                 $URL = new \MySociety\TheyWorkForYou\Url('msp');
+                break;
+
+            case HOUSE_TYPE_WALES:
+                $URL = new \MySociety\TheyWorkForYou\Url('ms');
                 break;
 
             case HOUSE_TYPE_LONDON_ASSEMBLY:

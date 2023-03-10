@@ -114,7 +114,7 @@ class Header
             if ($this->data['meta_keywords']) {
                 $this->data['meta_keywords'] .= ', ';
             }
-            $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs, London Assembly Members';
+            $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs, London Assembly Members, MS, MSs, Welsh Parliament, Senedd Cymru, Senedd, Member of the Senedd';
         }
 
         $this->data['meta_description'] = "Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates.";
@@ -278,7 +278,7 @@ class Header
             array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary'),
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home'),
+            array('wales_home', 'mss'),
             array('london_home', 'lmqsfront', 'london-assembly-members'),
         );
 

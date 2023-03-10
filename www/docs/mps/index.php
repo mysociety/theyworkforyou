@@ -12,6 +12,9 @@ switch (get_http_var('representative_type')) {
     case 'msp':
         $people = new MySociety\TheyWorkForYou\People\MSPs();
         break;
+    case 'ms':
+        $people = new MySociety\TheyWorkForYou\People\MSs();
+        break;
     case 'london-assembly-member':
         $people = new MySociety\TheyWorkForYou\People\LondonAssemblyMembers();
         break;

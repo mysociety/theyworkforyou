@@ -19,6 +19,8 @@
                           No results for Peers only
                         <?php } else if ( $house == HOUSE_TYPE_SCOTLAND) { ?>
                           No results for MSPs only
+                        <?php } else if ( $house == HOUSE_TYPE_WALES) { ?>
+                          No results for MSs only
                         <?php } else if ( $house ==  HOUSE_TYPE_NI) { ?>
                           No results for MLAs only
                         <?php } ?>
@@ -67,6 +69,12 @@
                             MSPs only
                           <?php } else { ?>
                             <a href="<?= $this_url->generate('html', array('house'=>4)) ?>">MSPs only</a>
+                          <?php } ?>
+                            |
+                          <?php if ( $house ==  HOUSE_TYPE_WALES) { ?>
+                            MSs only
+                          <?php } else { ?>
+                            <a href="<?= $this_url->generate('html', array('house'=>5)) ?>">MSs only</a>
                           <?php } ?>
                             |
                           <?php if ( $house ==  HOUSE_TYPE_NI) { ?>

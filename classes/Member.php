@@ -35,6 +35,7 @@ class Member extends \MEMBER {
                 HOUSE_TYPE_LORDS,
                 HOUSE_TYPE_SCOTLAND,
                 HOUSE_TYPE_NI,
+                HOUSE_TYPE_WALES,
                 HOUSE_TYPE_LONDON_ASSEMBLY,
             );
 
@@ -430,6 +431,8 @@ class Member extends \MEMBER {
         $output[] = $this->left_house_line(HOUSE_TYPE_NI, 'Assembly');
         $output[] = $this->entered_house_line(HOUSE_TYPE_SCOTLAND, 'Scottish Parliament');
         $output[] = $this->left_house_line(HOUSE_TYPE_SCOTLAND, 'Scottish Parliament');
+        $output[] = $this->entered_house_line(HOUSE_TYPE_WALES, 'Welsh Parliament');
+        $output[] = $this->left_house_line(HOUSE_TYPE_WALES, 'Welsh Parliament');
         $output[] = $this->entered_house_line(HOUSE_TYPE_LONDON_ASSEMBLY, 'London Assembly');
         $output[] = $this->left_house_line(HOUSE_TYPE_LONDON_ASSEMBLY, 'London Assembly');
 
@@ -583,6 +586,9 @@ class Member extends \MEMBER {
                 break;
             case HOUSE_TYPE_SCOTLAND:
                 $name = 'MSP';
+                break;
+            case HOUSE_TYPE_WALES:
+                $name = 'MS';
                 break;
             case HOUSE_TYPE_LONDON_ASSEMBLY:
                 $name = 'London Assembly Member';

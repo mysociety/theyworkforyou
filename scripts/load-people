@@ -31,6 +31,7 @@ my %slug_to_house_id = (
     'house-of-lords' => 2,
     'northern-ireland-assembly' => 3,
     'scottish-parliament' => 4,
+    'welsh-parliament' => 5,
     'london-assembly' => 6,
 );
 

@@ -1056,6 +1056,20 @@ $this->page = array (
         'url' => 'wales/',
         'parent' => 'wales_home',
     ),
+    'mss' => array (
+        'parent' => 'wales_home',
+        'menu' => array (
+            'text' => 'MSs',
+            'title' => "List of Members of the Senedd (MSs)"
+        ),
+        'title' => '',
+        'url' => 'mss/'
+    ),
+    'ms' => array (
+        'parent' => 'mss',
+        'title' => 'Find your MS',
+        'url' => 'ms/'
+    ),
 
     /* Westminster Hall */
     'whall'  => array (

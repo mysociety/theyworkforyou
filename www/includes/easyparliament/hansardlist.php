@@ -2193,6 +2193,8 @@ class HANSARDLIST {
             $URL = new \MySociety\TheyWorkForYou\Url('mla');
         } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             $URL = new \MySociety\TheyWorkForYou\Url('msp');
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            $URL = new \MySociety\TheyWorkForYou\Url('ms');
         } elseif ($house == HOUSE_TYPE_ROYAL) {
             $URL = new \MySociety\TheyWorkForYou\Url('royal');
         }
