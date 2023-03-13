@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # encoding: utf-8
 
 import json
 import os
 import sys
 import re
-import urllib2
+import urllib.request
 import MySQLdb
 
 import datetime
@@ -32,7 +32,7 @@ positions = {}
 
 def fetch_url(date):
     data = CALENDAR_BASE % {'date': date}
-    data = urllib2.urlopen(data)
+    data = urllib.request.urlopen(data)
     data = json.load(data)
     return data
 
@@ -115,9 +115,9 @@ class Entry(object):
             if not match:
                 match = lordsList.match_by_mnis(id, self.event_date)
             if match:
-		self.people.append(
-		    int(match['id'].replace('uk.org.publicwhip/person/', ''))
-		    )
+                self.people.append(
+                    int(match['id'].replace('uk.org.publicwhip/person/', ''))
+                )
 
         self.witnesses = []
         witnesses_str = []
@@ -272,7 +272,7 @@ for new_entry in get_calendar_events():
         if old_tuple != new_tuple:
             new_entry.update()
 
-        old_entries.discard((long(id),))
+        old_entries.discard((int(id),))
     else:
         new_entry.add()
 
