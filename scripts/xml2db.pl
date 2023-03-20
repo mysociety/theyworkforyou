@@ -42,7 +42,7 @@ my $outputfilter = 'safe';
 #DBI->trace(1);
 
 use vars qw($all $recent $date $datefrom $dateto $wrans $debates $westminhall
-    $wms $lordsdebates $ni $force $quiet $cronquiet $standing
+    $wms $lordsdebates $ni $wales $force $quiet $cronquiet $standing
     $scotland $scotwrans $scotqs %scotqspreloaded $lmqs
 );
 my $result = GetOptions ( "all" => \$all,
@@ -56,6 +56,7 @@ my $result = GetOptions ( "all" => \$all,
             "wms" => \$wms,
             "lordsdebates" => \$lordsdebates,
             "ni" => \$ni,
+            "wales" => \$wales,
             "scotland" => \$scotland,
             "scotwrans" => \$scotwrans,
             "scotqs" => \$scotqs,
@@ -72,7 +73,7 @@ $c++ if $recent;
 $c++ if $date;
 $c++ if ($datefrom || $dateto);
 
-if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$lordsdebates && !$ni && !$standing && !$scotland && !$scotwrans && !$scotqs && !$lmqs))
+if ((!$result) || ($c != 1) || (!$debates && !$wrans && !$westminhall && !$wms && !$lordsdebates && !$ni && !$wales && !$standing && !$scotland && !$scotwrans && !$scotqs && !$lmqs))
 {
 print <<END;
 
@@ -88,6 +89,7 @@ database id.
 --wms - process Written Ministerial Statements (C&L)
 --lordsdebates - process Lords Debates
 --ni - process Northern Ireland Assembly debates
+--wales - process Welsh Parliament / Senedd Cymru debates
 --scotland  - process Scottish Parliament debates
 --scotwrans - process Scottish Parliament written answers
 --scotqs - process mentions of Scottish Parliament question IDs
@@ -142,9 +144,16 @@ my %scotland_vote_store = (
     abstentions => 'both',
 );
 
+my %wales_vote_store = (
+    for => 'aye',
+    against => 'no',
+    abstain => 'both',
+    didnotvote => 'absent',
+);
+
 use vars qw($debatesdir $wransdir $lordswransdir $westminhalldir $wmsdir
     $lordswmsdir $lordsdebatesdir $nidir $standingdir $scotlanddir
-    $scotwransdir $scotqsdir $lmqsdir
+    $scotwransdir $scotqsdir $lmqsdir $seneddendir $seneddcydir
 );
 $debatesdir = $parldata . "scrapedxml/debates/";
 $wransdir = $parldata . "scrapedxml/wrans/";
@@ -156,6 +165,8 @@ $lordsdebatesdir = $parldata . "scrapedxml/lordspages/";
 $nidir = $parldata . 'scrapedxml/ni/';
 $scotlanddir = $parldata . 'scrapedxml/sp-new/meeting-of-the-parliament/';
 $scotwransdir = $parldata . 'scrapedxml/sp-written/';
+$seneddendir = $parldata . 'scrapedxml/senedd/en/';
+$seneddcydir = $parldata . 'scrapedxml/senedd/cy/';
 $standingdir = $parldata . 'scrapedxml/standing/';
 $scotqsdir = $parldata . 'scrapedxml/sp-questions/';
 $lmqsdir = $parldata . 'scrapedxml/london-mayors-questions/';
@@ -191,11 +202,11 @@ sub revsort {
 
 # Process debates or wrans etc
 sub process_type {
-    my ($xnames, $xdirs, $xdayfunc) = @_;
+    my ($xnames, $xdirs, $xdayfunc, $lastloadname) = @_;
 
     my $process;
     my $xsince = 0;
-    if (open FH, '<' . $lastupdatedir . $xnames->[0] . '-lastload') {
+    if (open FH, '<' . $lastupdatedir . ($lastloadname || $xnames->[0]) . '-lastload') {
         $xsince = readline FH;
         close FH;
     }
@@ -299,6 +310,8 @@ process_type(["ministerial", "lordswms"], [$wmsdir, $lordswmsdir], \&add_wms_day
 process_type(["daylord"], [$lordsdebatesdir], \&add_lordsdebates_day) if ($lordsdebates);
 process_type(['ni'], [$nidir], \&add_ni_day) if ($ni);
 process_type(['sp'], [$scotlanddir], \&add_scotland_day) if $scotland;
+process_type(['senedd'], [$seneddendir], \&add_senedd_en_day, 'senedden') if $wales;
+process_type(['senedd'], [$seneddcydir], \&add_senedd_cy_day, 'seneddcy') if $wales;
 process_type(['spwa'], [$scotwransdir], \&add_scotwrans_day) if $scotwrans;
 process_type(['standing'], [$standingdir], \&add_standing_day) if $standing;
 process_type(['lmqs'], [$lmqsdir], \&add_lmqs_day) if $lmqs;
@@ -1274,6 +1287,89 @@ sub load_ni_heading {
     }
     do_load_heading($speech, 5, $text);
     return 0; # Do not chain handlers
+}
+
+##########################################################################
+# Senedd Cymru / Welsh Parliament
+
+sub add_senedd_en_day { add_senedd_day('en', @_); }
+sub add_senedd_cy_day { add_senedd_day('cy', @_); }
+
+sub add_senedd_day {
+    my ($lang, $date) = @_;
+
+    my $major = $lang eq 'cy' ? 11 : 10;
+    my $twig = XML::Twig->new(twig_handlers => {
+        'speech' => sub {
+            my $speech = $_;
+            my $text = $speech->sprint(1);
+            $text =~ s{<div class="voteResultLinkContainer">.*?</div>}{};
+            if (!$currsection && !$currsubsection) {
+                my $overhead = XML::Twig::Elt->new('major-heading',
+                    {   id => "uk.org.publicwhip/senedd/$lang/$date.0.0.mh",
+                        url => '',
+                    }, 'Senedd');
+                do_load_heading($overhead, $major, strip_string($overhead->sprint(1)));
+            }
+            my $speech_lang = $speech->att('lang') || '';
+            my $orig_lang = $speech->att('original_lang') || '';
+            # 0 means a native speech, 1 means a translated speech, 2 means an untranslated speech in the other language
+            my $minor = $speech_lang ? 2 : $orig_lang ? 1 : 0;
+            do_load_speech($speech, $major, $minor, $text);
+        },
+        'minor-heading' => sub {
+            my $speech_lang = $_->att('lang') || '';
+            my $orig_lang = $_->att('original_lang') || '';
+            # 0 means a native speech, 1 means a translated speech, 2 means an untranslated speech in the other language
+            my $minor = $speech_lang ? 2 : $orig_lang ? 1 : 0;
+            do_load_subheading($_, $major, strip_string($_->sprint(1)), $minor);
+        },
+        'major-heading' => sub {
+            do_load_heading($_, $major, strip_string($_->sprint(1)))
+        },
+        'division' => sub {
+            load_senedd_division($_, $lang);
+        },
+        }, output_filter => $outputfilter );
+    $curdate = $date;
+
+    # find out what gids there are (using tallygidsmode)
+    $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+    $tallygidsmode = 1; %gids = (); $tallygidsmodedummycount = 10;
+    parsefile_glob($twig, $parldata . "scrapedxml/senedd/$lang/senedd" . $curdate. "*.xml");
+    # see if there are deleted gids
+    my @gids = keys %gids;
+    check_extra_gids($date, \@gids, "major = $major");
+
+    # make the modifications
+    $hpos = 0; $currsection = 0; $currsubsection = 0; $promotedheading = 0;
+    $tallygidsmode = 0; %gids = ();
+    parsefile_glob($twig, $parldata . "scrapedxml/senedd/$lang/senedd" . $curdate. "*.xml");
+
+    undef $twig;
+}
+
+sub load_senedd_division {
+    my ($division, $lang) = @_;
+    my $major = $lang eq 'cy' ? 11 : 10;
+    my $gid = $division->att('id');
+    my $divnumber = $division->att('divnumber');
+    my $title = $division->att('title');
+    my $division_id = "pw-$curdate-$divnumber-$lang-senedd";
+    my $text = $division->sprint(1);
+    my %out;
+    my %totals = (for => 0, against => 0, abstain => 0, didnotvote => 0);
+    while ($text =~ m#<msname person_id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)</msname>#g) {
+        my ($person_id, $vote, $name) = ($1, $2, $3);
+        push @{$out{$vote}}, '<a href="/ms/?m=' . $person_id . '">' . $name . '</a>';
+        $totals{$vote}++;
+        $voteupdate->execute($person_id, $division_id, $wales_vote_store{$vote}, undef);
+    }
+    $text = "<p class='divisionheading'>Division number $divnumber</p>";
+    my $majority_vote = $totals{for} > $totals{against} ? 'aye': 'no';
+    $divisionupdate->execute($division_id, 'senedd', $title, $curdate, $divnumber, $gid,
+        $totals{for}, $totals{against}, $totals{didnotvote}, $totals{abstain}, $majority_vote);
+    do_load_speech($division, $major, 0, $text);
 }
 
 ##########################################################################
