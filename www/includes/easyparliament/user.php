@@ -1014,7 +1014,7 @@ class THEUSER extends USER {
     }
 
 
-    public function facebook_login($returl="", $expire, $accessToken) {
+    public function facebook_login($returl, $expire, $accessToken) {
         global $PAGE;
 
         twfy_debug("THEUSER", "Faceook login, user_id " . $this->user_id);
@@ -1052,7 +1052,7 @@ class THEUSER extends USER {
         return true;
     }
 
-    public function login($returl="", $expire) {
+    public function login($returl, $expire) {
 
         // This is used to log the user in. Duh.
         // You should already have checked the user's email and password using

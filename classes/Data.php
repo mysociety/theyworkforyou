@@ -51,11 +51,13 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Data {
+    public $page;
+    public $section;
 
     public function __construct() {
-
         include_once METADATAPATH; // defined in config.php
-
+        $this->page = $page;
+        $this->section = $section;
     }
 
     /**
@@ -163,7 +165,7 @@ class Data {
      * @param string $type
      */
 
-    private function getMetadata($args = "", $type) {
+    private function getMetadata($args, $type) {
         // $type is either 'page' or 'section'
         global $this_page, $this_section;
 

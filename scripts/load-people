@@ -87,7 +87,7 @@ my %posts;
 sub load_moffices {
     my $moffreplace = $dbh->prepare("replace into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)");
     foreach ('ministers.json', 'ministers-2010.json') {
-        my $j = decode_json(read_file($pwmembers . $_));
+        my $j = decode_json(scalar read_file($pwmembers . $_));
         foreach (@{$j->{organizations}}) {
             $organizations{$_->{id}} = $_->{name};
         }
@@ -105,7 +105,7 @@ sub load_moffices {
 
 sub load_constituencies {
     my $constituencyadd = $dbh->prepare("replace into constituency (cons_id, name, main_name, from_date, to_date) values (?, ?, ?, ?, ?)");
-    my $j = decode_json(read_file($pwmembers . 'constituencies.json'));
+    my $j = decode_json(scalar read_file($pwmembers . 'constituencies.json'));
     my $Collator = Unicode::Collate->new(normalization => undef, level => 1);
     foreach my $cons (@$j) {
         (my $consid = $cons->{id}) =~ s#uk.org.publicwhip/cons/##;
@@ -144,7 +144,7 @@ sub load_people {
     # disable autocommit to load multiple people and memberships at once
     $dbh->{AutoCommit} = 0;
 
-    my $j = decode_json(read_file($pwmembers . 'people.json'));
+    my $j = decode_json(scalar read_file($pwmembers . 'people.json'));
     foreach (@{$j->{organizations}}) {
         $organizations{$_->{id}} = $_;
     }

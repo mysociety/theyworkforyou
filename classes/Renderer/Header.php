@@ -11,7 +11,6 @@ namespace MySociety\TheyWorkForYou\Renderer;
 class Header
 {
 
-    public $top_highlight;
     public $nav_highlights;
 
     public $data;
@@ -263,8 +262,6 @@ class Header
             'top_selected' => $selected_top_link,
             'section' => $section,
         );
-
-        $this->top_highlight = $top_highlight;
     }
 
     private function get_top_and_bottom_links() {

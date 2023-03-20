@@ -132,7 +132,7 @@ if ($action{'pw'}) {
 }
 
 if ($action{'eu_ref_position'}) {
-    my $positions = decode_json(read_file($pwmembers . 'eu_ref_positions.json'));
+    my $positions = decode_json(scalar read_file($pwmembers . 'eu_ref_positions.json'));
     foreach my $id (keys(%{$positions})) {
         $personinfohash->{$id}->{'eu_ref_stance'} = $positions->{$id};
     }

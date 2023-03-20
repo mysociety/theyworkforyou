@@ -3,7 +3,7 @@
 ## Introduction
 
 This file explains how to install a working version of theyworkforyou.com. I'll
-assume you have a basic knowledge of Apache, PHP and MySQL.
+assume you have a basic knowledge of Apache, PHP and MariaDB.
 
 ## System Requirements
 
@@ -15,13 +15,9 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 * Apache >= 2.4.25
 
-    You may be able to use earlier versions, but some of the examples now use 2.4 syntax.
+* MariaDB >= 10.1
 
-* MySQL >=5.6 or MariaDB >=10.1
-
-    It may be possible to use earlier versions, but no longger supported.
-
-* Xapian >=1.4.18
+* Xapian >= 1.4.18
 
     Although you should be able to run the site without installing Xapian
     (the search engine, see below) the site will error in places. If
@@ -50,15 +46,6 @@ assume you have a basic knowledge of Apache, PHP and MySQL.
 
 You will also need a few other library packages. There is a list, given as the
 names of Debian packages, in `theyworkforyou/conf/packages`.
-
-## Other sources of help
-
-Documentation and help is also available from the following:
-
-1. We have an IRC channel on Freenode, #mysociety.
-
-2. Also look out for announcements on https://www.theyworkforyou.com/
-   or https://www.mysociety.org/
 
 ## Installation
 

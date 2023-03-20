@@ -47,7 +47,7 @@ sub check_moffices {
     my %positions = ();
     my $mofffetch= $dbh->prepare("select moffice_id, dept, position, from_date, to_date, person, source from moffice");
     foreach ('ministers.json', 'ministers-2010.json') {
-        my $j = decode_json(read_file($pwmembers . $_));
+        my $j = decode_json(scalar read_file($pwmembers . $_));
         foreach (@{$j->{organizations}}) {
             $organizations{$_->{id}} = $_->{name};
         }

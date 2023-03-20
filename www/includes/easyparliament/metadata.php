@@ -65,7 +65,7 @@
 
 */
 
-$this->page = array (
+$page = array (
 
 // Things used on EVERY page, unless overridden for a page:
     'default' => array (
@@ -1202,7 +1202,7 @@ $this->page = array (
 // The text displayed on the page itself will also be this,
 // UNLESS the section has a 'heading', in which case that's used instead.
 
-$this->section = array (
+$section = array (
 
 
     'about' => array (

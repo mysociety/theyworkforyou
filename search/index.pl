@@ -118,7 +118,7 @@ my %major_to_house = (
 # Be aware of redirected persons - code similar to xml2db.pl
 my %personredirect;
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
-my $j = decode_json(read_file($pwmembers . 'people.json'));
+my $j = decode_json(scalar read_file($pwmembers . 'people.json'));
 foreach (@{$j->{persons}}) {
     next unless $_->{redirect};
     (my $id = $_->{id}) =~ s#uk.org.publicwhip/person/##;
