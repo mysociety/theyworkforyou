@@ -1,6 +1,7 @@
 .*.swp
 *~
 *.pyc
+*.mo
 .sass-cache
 .bundle
 vendor
