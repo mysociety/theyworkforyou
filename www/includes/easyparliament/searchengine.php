@@ -140,6 +140,7 @@ class SEARCHENGINE {
                     elseif ($value == 'lmqs') $newv = 9;
                     elseif ($value == 'uk') $newv = array(1,2,3,4,6,101);
                     elseif ($value == 'scotland') $newv = array(7,8);
+                    elseif ($value == 'wales') $newv = (LANGUAGE == 'cy') ? 11 : 10;
                     elseif ($value == 'future') $newv = 'F';
                     if (is_array($newv)) {
                         $newv = 'major:' . join(' major:', $newv);
@@ -194,6 +195,27 @@ class SEARCHENGINE {
         $flags = XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_LOVEHATE |
             XapianQueryParser::FLAG_WILDCARD | XapianQueryParser::FLAG_SPELLING_CORRECTION;
         $flags = $flags | XapianQueryParser::FLAG_PHRASE;
+
+        # Without Welsh handling first, for spelling correction
+        try {
+            $this->queryparser->parse_query($this->query, $flags);
+            $this->corrected = $this->queryparser->get_corrected_query_string();
+        } catch (Exception $e) {
+            # Nothing we can really do with a bad query
+            $this->error = _htmlspecialchars($e->getMessage());
+
+            return null;
+        }
+
+        # Now stick in an 'exclude other language' if needed
+        if (!preg_match('#major:#', $this->query)) {
+            if (LANGUAGE == 'cy') {
+                $this->query = "($this->query) -major:10";
+            } else {
+                $this->query = "($this->query) -major:11";
+            }
+        }
+
         try {
             $query = $this->queryparser->parse_query($this->query, $flags);
         } catch (Exception $e) {
@@ -211,6 +233,7 @@ class SEARCHENGINE {
         twfy_debug("SEARCH", "queryparser original description -- " . $qd);
         $qd = substr($qd, 6, -1); # Strip "Query()" around description
         $qd = preg_replace('#@[0-9]+#', '', $qd); # Strip position variable
+        $qd = preg_replace('#^\((.*) AND_NOT M1[01]\)$#', '$1', $qd); # Strip Welsh handling
         # Date range
         $qd = preg_replace_callback('#VALUE_RANGE 1 (\d+) (\d+)#', function($m) {
             return preg_replace("#(\d{4})(\d\d)(\d\d)#", '$3/$2/$1', $m[1])
@@ -344,11 +367,10 @@ class SEARCHENGINE {
     }
 
     public function get_spelling_correction() {
-         if (!defined('XAPIANDB') || !XAPIANDB)
+        if (!defined('XAPIANDB') || !XAPIANDB) {
             return null;
-
-        $qd = $this->queryparser->get_corrected_query_string();
-        return $qd;
+        }
+        return $this->corrected;
     }
 
     // Perform partial query to get a count of number of matches
