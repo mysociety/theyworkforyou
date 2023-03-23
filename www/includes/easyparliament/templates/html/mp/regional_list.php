@@ -1,6 +1,6 @@
 <div class="full-page">
     <div class="full-page__row">
-        <div class="full-page__unit">
+	<div class="panel">
 
             <?= $members_statement ?>
 
