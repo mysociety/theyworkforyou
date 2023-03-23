@@ -92,6 +92,8 @@ foreach($data['rows'] as $speech) { ?>
         $source['url'] = $speech['source_url'];
         if ($hansardmajors[$major]['location'] == 'Scotland') {
             $source['text'] = gettext('Official Report source');
+        } elseif ($hansardmajors[$major]['location'] == 'Wales') {
+            $source['text'] = gettext('Record source');
         } else {
             $source['text'] = gettext('Hansard source');
         }
@@ -165,6 +167,7 @@ foreach($data['rows'] as $speech) { ?>
                     <?= "Question $m[1]" ?>
                     </small></p>
               <?php } ?>
+
             </h2>
 
 
@@ -200,7 +203,14 @@ foreach($data['rows'] as $speech) { ?>
                   <?php include dirname(__FILE__) . '/../divisions/_votes.php'; ?>
                 </div>
             <?php } else { ?>
-            <div class="debate-speech__content"><?=$body ?></div>
+            <div class="debate-speech__content"><?php
+                if (($speech['major'] == 10 || $speech['major'] == 11) && $speech['minor'] == 1) {
+                    echo '<i>' . gettext('(Translated)') . '</i>';
+                } elseif (($speech['major'] == 10 || $speech['major'] == 11) && $speech['minor'] == 2) {
+                    echo '<i>' . gettext('(Not translated)') . '</i>';
+                } ?>
+                <?=$body ?>
+            </div>
             <?php } ?>
 
             <?php if ( $section ) {

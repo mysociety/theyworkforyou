@@ -112,6 +112,8 @@ my %major_to_house = (
     7 => { 4 => 1 },
     8 => { 4 => 1 },
     9 => { 6 => 1 },
+    10 => { 5 => 1 },
+    11 => { 5 => 1 },
     101 => { 2 => 1 },
 );
 
@@ -201,6 +203,7 @@ if ($action ne "check" && $action ne 'checkfull') {
         $doc->add_term("D$date");
         $doc->add_term("G\L$dept") if $$row{major} == 3 || $$row{major} == 4 || $$row{major} == 8;
         $doc->add_term("C$$row{colnum}") if $$row{colnum};
+        $doc->add_term("Lcy") if $row->{major} == 11;
 
         # For sort by date (although all wrans have same time of 00:00, no?)
         $doc->add_value(0, pack('N', $date+0) . pack('N', $htime+0));

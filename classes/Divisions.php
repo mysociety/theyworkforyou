@@ -74,6 +74,10 @@ class Divisions {
 
         if ( is_array($houses) && count($houses) > 0 ) {
             $where = 'WHERE house IN ("' . implode('", "', $houses) . '")';
+        } elseif (LANGUAGE == 'cy') {
+            $where = "WHERE divisions.division_id NOT LIKE '%-en-%'";
+        } else {
+            $where = "WHERE divisions.division_id NOT LIKE '%-cy-%'";
         }
 
         if ( $this->member ) {

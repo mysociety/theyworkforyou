@@ -249,6 +249,9 @@ class Header
         } elseif ($top_highlight == 'sp_home') {
             $section = 'scotland';
             $selected_top_link['text'] = 'Scotland';
+        } elseif ($top_highlight == 'wales_home') {
+            $section = 'wales';
+            $selected_top_link['text'] = gettext('Wales');
         } elseif ($top_highlight == 'london_home') {
             $section = 'london';
             $selected_top_link['text'] = 'London Assembly';
@@ -275,7 +278,7 @@ class Header
             array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary'),
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home', 'mss'),
+            array('wales_home', 'seneddoverview', 'mss'),
             array('london_home', 'lmqsfront', 'london-assembly-members'),
         );
 

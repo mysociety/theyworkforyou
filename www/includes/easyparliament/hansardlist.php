@@ -2571,6 +2571,20 @@ class NILIST extends DEBATELIST {
     public $gidprefix = 'uk.org.publicwhip/ni/';
 }
 
+class SENEDDENLIST extends DEBATELIST {
+    public $major = 10;
+    public $listpage = 'senedddebates';
+    public $commentspage = 'senedddebate';
+    public $gidprefix = 'uk.org.publicwhip/senedd/en/';
+}
+
+class SENEDDCYLIST extends DEBATELIST {
+    public $major = 11;
+    public $listpage = 'senedddebates';
+    public $commentspage = 'senedddebate';
+    public $gidprefix = 'uk.org.publicwhip/senedd/cy/';
+}
+
 class LMQLIST extends WRANSLIST {
     public $major = 9;
     public $listpage = 'lmqs';

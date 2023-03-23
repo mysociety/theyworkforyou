@@ -469,6 +469,16 @@ class SectionView {
                 'assembly' => 'london-assembly',
                 'location' => 'Questions to the Mayor of London &ndash; answered'
             ),
+            10 => array (
+                'country' => 'WALES',
+                'assembly' => 'senedd',
+                'location' => '&ndash; in the Welsh Parliament'
+            ),
+            11 => array (
+                'country' => 'WALES',
+                'assembly' => 'senedd',
+                'location' => '&ndash; Senedd Cymru'
+            ),
             101 => array (
                 'country' => 'UK',
                 'assembly' => 'uk-lords',
@@ -598,6 +608,8 @@ class SectionView {
             7 => 'sp',
             8 => 'spwrans',
             9 => 'lmqs',
+            10 => 'senedd',
+            11 => 'senedd',
             101 => 'lords'
         );
 

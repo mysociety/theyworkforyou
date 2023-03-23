@@ -35,6 +35,8 @@ debates_rss(1, 'House of Commons debates', 'debates/', 'rss/debates.rss');
 debates_rss(101, 'House of Lords debates', 'lords/', 'rss/lords.rss');
 debates_rss(2, 'Westminster Hall debates', 'whall/', 'rss/whall.rss');
 debates_rss(5, 'Northern Ireland Assembly debates', 'ni/', 'rss/ni.rss');
+debates_rss(10, 'Senedd (English)', 'senedd/', 'rss/senedd-en.rss');
+debates_rss(11, 'Senedd (Cymraeg)', 'senedd/', 'rss/senedd-cy.rss');
 wms_rss();
 # wrans_rss();
 pbc_rss();

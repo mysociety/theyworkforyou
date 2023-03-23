@@ -130,6 +130,30 @@ $hansardmajors = array(
         'sidebar_short'=>'lmqs_short',
         'location' => 'London',
     ),
+    10 => array(
+        'type'=>'debate',
+        'title'=>'Welsh Parliament record',
+        'singular' => gettext('debate'),
+        'plural' => gettext('debates'),
+        'page'=>'senedddebate',
+        'page_all'=>'senedddebates',
+        'page_year'=>'senedddebatesyear',
+        'sidebar'=>'senedddebates',
+        'sidebar_short'=>'senedddebates_short',
+        'location' => 'Wales',
+    ),
+    11 => array(
+        'type'=>'debate',
+        'title'=>'Senedd Cymru Cofnod',
+        'singular' => gettext('debate'),
+        'plural' => gettext('debates'),
+        'page'=>'senedddebate',
+        'page_all'=>'senedddebates',
+        'page_year'=>'senedddebatesyear',
+        'sidebar'=>'senedddebates',
+        'sidebar_short'=>'senedddebates_short',
+        'location' => 'Wales',
+    ),
 );
 $hansardmajors[104] = $hansardmajors[4];
 

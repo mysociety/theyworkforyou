@@ -16,6 +16,7 @@ class House
             'lords' => HOUSE_TYPE_LORDS,
             'scotland' => HOUSE_TYPE_SCOTLAND,
             'pbc' => HOUSE_TYPE_COMMONS,
+            'senedd' => HOUSE_TYPE_WALES,
         );
 
         return $name_to_number[$name];

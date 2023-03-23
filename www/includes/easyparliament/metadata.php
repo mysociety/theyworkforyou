@@ -1031,12 +1031,7 @@ $page = array (
             'title' => 'Welsh economic development, transport, finance, local government, health, housing, the Welsh Language and other devolved areas',
         ),
         'title' => 'Senedd Cymru / Welsh Parliament',
-        'url' => 'wales/',
-    ),
-    'wales_overview' => array(
-        'title' => 'Senedd Cymru / Welsh Parliament',
-        'url' => 'wales/',
-        'parent' => 'wales_home',
+        'url' => 'senedd/'
     ),
     'mss' => array (
         'parent' => 'wales_home',
@@ -1051,6 +1046,46 @@ $page = array (
         'parent' => 'mss',
         'title' => gettext('Find your MS'),
         'url' => 'ms/'
+    ),
+
+    'seneddoverview' => array (
+        'parent' => 'wales_home',
+        'menu' => array (
+            'text' => gettext('Record'),
+            'title' => gettext("Overview of the Senedd debates")
+        ),
+        'title' => '',
+        'rss' => 'rss/senedd.rss',
+        'url' => 'senedd/'
+    ),
+    'senedddebate'  => array (
+        'parent' => 'senedddebatesfront',
+        'url' => 'senedd/',
+        'session_vars' => array ('id'),
+    ),
+    'senedddebates'  => array (
+        'parent' => 'senedddebatesfront',
+        'url' => 'senedd/',
+        'session_vars' => array ('id'),
+    ),
+    'senedddebatesday' => array (
+        'parent' => 'senedddebatesfront',
+        'session_vars' => array ('d'),
+        'url' => 'senedd/',
+    ),
+    'senedddebatesfront' => array (
+        'menu' => array (
+            'text' => 'Debates',
+            'title' => gettext("Senedd debates")
+        ),
+        'parent' => 'seneddoverview',
+        'title' => gettext('Senedd debates'),
+        'rss' => 'rss/senedd.rss',
+        'url' => 'senedd/'
+    ),
+    'senedddebatesyear' => array (
+        'parent' => 'senedddebatesfront',
+        'url' => 'senedd/'
     ),
 
     /* Westminster Hall */

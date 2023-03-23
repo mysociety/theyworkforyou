@@ -27,6 +27,17 @@
     }
 }
 
+
+.regional-header--senedd {
+    background-image: url('../img/senedd-mobile.jpg');
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/senedd-tablet.jpg');
+    }
+    @media (min-width: $large-screen) {
+        background-image: url('../img/senedd-desktop.jpg');
+    }
+}
+
 .regional-header--uk-commons {
     background-image: url('../img/uk-commons-mobile.jpg');
     @media (min-width: $medium-screen) {
