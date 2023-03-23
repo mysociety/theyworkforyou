@@ -214,7 +214,7 @@
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
                             <input type="hidden" name="keyword" value="<?= _htmlspecialchars($member_alertsearch) ?>">
-                            <?= sprintf(gettext('Mentions of [%s] by %s'), _htmlspecialchars($member_displaysearch), $mp_display_text . $member->full_name()) ?>
+                            <?= sprintf(gettext('Mentions of [%s] by your MP, %s'), _htmlspecialchars($member_displaysearch), $member->full_name()) ?>
                             <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>">
                         </form>
                     </li>
@@ -227,6 +227,18 @@
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
                             <input type="hidden" name="keyword" value="<?= _htmlspecialchars($scottish_alertsearch) ?>">
                             <?= sprintf(gettext('Mentions of [%s] by your MSP, %s'), _htmlspecialchars($member_displaysearch), $scottish_member->full_name()) ?>
+                            <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>">
+                        </form>
+                    </li>
+                  <?php } ?>
+
+                  <?php if (isset($welsh_alertsearch)) { ?>
+                    <li>
+                        <form action="<?= $actionurl ?>" method="post">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
+                            <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+                            <input type="hidden" name="keyword" value="<?= _htmlspecialchars($welsh_alertsearch) ?>">
+                            <?= sprintf(gettext('Mentions of [%s] by your MS, %s'), _htmlspecialchars($member_displaysearch), $welsh_member->full_name()) ?>
                             <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>">
                         </form>
                     </li>

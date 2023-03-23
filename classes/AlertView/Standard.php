@@ -255,10 +255,6 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 validate_postcode($m[1])
         ) {
             $this->data['postcode'] = $m[1];
-            $this->data['mp_display_text'] = '';
-            if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($m[1])) {
-                $this->data['mp_display_text'] = 'your MP, ';
-            }
             $mistakes['postcode_and'] = 1;
         }
 
@@ -279,12 +275,16 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['member_displaysearch'] = $alertsearch_display;
                 $this->data['member'] = $MEMBER;
 
-                if ( $this->data['mp_display_text'] ) {
+                if ( isset($this->data['mistakes']['postcode_and']) ) {
                     $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
                     if ( isset($constituencies['SPC']) ) {
-                        $MEMBER = new \MEMBER(array('constituency' => $constituencies['SPC'], 'house' => 4));
+                        $MEMBER = new \MEMBER(array('constituency' => $constituencies['SPC'], 'house' => HOUSE_TYPE_SCOTLAND));
                         $this->data['scottish_alertsearch'] = str_replace("$postcode", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
                         $this->data['scottish_member'] = $MEMBER;
+                    } elseif ( isset($constituencies['WAC']) ) {
+                        $MEMBER = new \MEMBER(array('constituency' => $constituencies['WAC'], 'house' => HOUSE_TYPE_WALES));
+                        $this->data['welsh_alertsearch'] = str_replace("$postcode", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
+                        $this->data['welsh_member'] = $MEMBER;
                     }
                 }
             } catch ( \MySociety\TheyWorkForYou\MemberException $e ) {

@@ -63,6 +63,14 @@
           <field name="postcode">SW1A 1AA</field>
           <field name="name">Cities of London and Westminster</field>
       </row>
+      <row>
+          <field name="postcode">EH1 0AA</field>
+          <field name="name">S;Edinburgh|Edinburgh|Edinburgh</field>
+      </row>
+      <row>
+          <field name="postcode">BT1 0AA</field>
+          <field name="name">N;Belfast|Belfast</field>
+      </row>
 	</table_data>
 	<table_data name="search_query_log">
 	</table_data>

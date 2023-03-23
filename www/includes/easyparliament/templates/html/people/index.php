@@ -125,6 +125,11 @@ if (!count($data)) {
                 During the period from the dissolution of the Northern Ireland Assembly to the election, there are no Members of the Northern Ireland Assembly.
                 <a href="/mlas/?date=<?=$dissolution[3] ?>">View list of MLAs as it was when the Northern Ireland Assembly was dissolved</a>
             </div>
+        <?php } elseif ($type == 'mss') { ?>
+            <div class="search-page__section__primary">
+                <?= gettext('During the period from the dissolution of the Welsh Parliament to the election, there are no Members of the Senedd.') ?>
+                <a href="/mss/?date=<?=$dissolution[5] ?>"><?= gettext('View list of MSs as it was when the Welsh Parliament was dissolved') ?></a>
+            </div>
         <?php
             }
         } else { ?>

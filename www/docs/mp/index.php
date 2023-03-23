@@ -183,7 +183,7 @@ try {
         $MEMBER = get_person_by_name($name, $constituency);
     } elseif ($constituency) {
         get_mp_by_constituency($constituency);
-    } elseif (($this_page == 'msp' || $this_page == 'mla') && $THEUSER->postcode_is_set()) {
+    } elseif (($this_page == 'msp' || $this_page == 'mla' || $this_page == 'ms') && $THEUSER->postcode_is_set()) {
         get_regional_by_user_postcode($THEUSER->postcode(), $this_page);
         exit;
     } elseif ($THEUSER->postcode_is_set()) {
@@ -554,11 +554,12 @@ function get_mp_by_constituency($constituency) {
 function get_regional_by_user_postcode($pc, $page) {
     global $this_page;
     $this_page = "your$page";
-    if ($page == 'msp' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($pc)) {
+    $areas = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
+    if ($page == 'msp' && isset($areas['SPC'])) {
         regional_list($pc, 'SPC', $page);
-    } elseif ($page == 'ms' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsWelsh($pc)) {
+    } elseif ($page == 'ms' && isset($areas['WAC'])) {
         regional_list($pc, 'WAC', $page);
-    } elseif ($page == 'mla' && \MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($pc)) {
+    } elseif ($page == 'mla' && isset($areas['NIE'])) {
         regional_list($pc, 'NIE', $page);
     } else {
         throw new MySociety\TheyWorkForYou\MemberException('Your set postcode is not in the right region.');
@@ -788,7 +789,7 @@ function person_recent_appearances($member) {
     // benefit unfortunately.
     twfy_debug_timestamp();
 
-    $person_id= $member->person_id();
+    $person_id = $member->person_id();
 
     $memcache = new MySociety\TheyWorkForYou\Memcache;
     $recent = $memcache->get('recent_appear:' . $person_id);

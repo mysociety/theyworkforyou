@@ -500,6 +500,8 @@ class SectionView {
             6 => 'WMC',
             7 => 'SPC',
             8 => 'SPC',
+            10 => 'WAC',
+            11 => 'WAC',
             101 => '',
         );
 

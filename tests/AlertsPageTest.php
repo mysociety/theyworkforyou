@@ -39,7 +39,7 @@ class AlertsPageTest extends FetchPageTestCase
     {
         $page = $this->fetch_page( array( 'alertsearch' => 'SE17 3HE elephant') );
         $this->assertContains('You have used a postcode and something else', $page);
-        $this->assertContains('Mentions of [elephant] by Mrs Test Current-MP', $page);
+        $this->assertContains('Mentions of [elephant] by your MP, Mrs Test Current-MP', $page);
         $this->assertNotContains('by your MSP', $page);
     }
 

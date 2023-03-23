@@ -29,11 +29,15 @@ $out = ''; $sidebars = array();
 if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
     $multi = "scotland";
     $MEMBER = fetch_mp($pc, $constituencies);
-    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
+    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
+} elseif (isset($constituencies['WAE']) || isset($constituencies['WAC'])) {
+    $multi = "wales";
+    $MEMBER = fetch_mp($pc, $constituencies);
+    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'WAE', HOUSE_TYPE_WALES);
 } elseif (isset($constituencies['NIE'])) {
     $multi = "northern-ireland";
     $MEMBER = fetch_mp($pc, $constituencies);
-    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
+    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
 } else {
     # Just have an MP, redirect instantly to the canonical page
     $multi = "uk";
@@ -78,9 +82,20 @@ function fetch_mp($pc, $constituencies, $house=null) {
     return $MEMBER;
 }
 
-function pick_multiple($pc, $areas, $area_type, $rep_type) {
+function pick_multiple($pc, $areas, $area_type, $house) {
     global $PAGE;
     $db = new ParlDB;
+
+    $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
+    if ($house == HOUSE_TYPE_SCOTLAND) {
+        $urlp = 'msp';
+    } elseif ($house == HOUSE_TYPE_WALES) {
+        $urlp = 'ms';
+    } elseif ($house == HOUSE_TYPE_NI) {
+        $urlp = 'mla';
+    }
+    $urlpl = $urlp . 's';
+    $urlp = "/$urlp/?p=";
 
     $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, left_house
         FROM member, person_names pn
@@ -104,8 +119,9 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
         FROM member, person_names pn
         WHERE constituency IN ('" . join("','", $a) . "')
             AND member.person_id = pn.person_id AND pn.type = 'name'
-            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)";
-    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (3,4)");
+            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
+            AND house = $house";
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office'");
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
@@ -115,14 +131,19 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 
     $mcon = array(); $mreg = array();
     foreach ($q as $row) {
-        $house = $row['house'];
         $cons = $row['constituency'];
-        if ($house==3) {
+        if ($house == HOUSE_TYPE_NI) {
             $mreg[] = $row;
-        } elseif ($house==4) {
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
             if ($cons == $areas['SPC']) {
                 $mcon = $row;
             } elseif ($cons == $areas['SPE']) {
+                $mreg[] = $row;
+            }
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            if ($cons == $areas['WAC']) {
+                $mcon = $row;
+            } elseif ($cons == $areas['WAE']) {
                 $mreg[] = $row;
             }
         } else {
@@ -142,31 +163,58 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     }
     $out .= '</li>';
     if ($mcon) {
-        $out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) ';
-        $out .= $current ? 'is' : 'was';
-        $out .= ' <a href="/msp/?p=' . $mcon['person_id'] . '">';
-        $out .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, ' . $mcon['constituency'] . '</li>';
+        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
+        $out .= '<li>';
+        if ($house == HOUSE_TYPE_SCOTLAND) {
+            $url = $urlp . $mcon['person_id'];
+            $cons = $mcon['constituency'];
+            if ($current) {
+                $out .= sprintf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
+            } else {
+                $out .= sprintf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
+            }
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            $url = $urlp . $mcon['person_id'];
+            $cons = $mcon['constituency'];
+            if ($current) {
+                # First %s is URL, second %s is name, third %s is constituency
+                $out .= sprintf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
+            } else {
+                # First %s is URL, second %s is name, third %s is constituency
+                $out .= sprintf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
+            }
+        }
+        $out .= '</li>';
     }
-    $out .= '<li>Your <strong>' . $areas[$area_type] . ' ' . $rep_type . 's</strong> ';
-    if ($rep_type=='MLA') {
-        $out .= '(Members of the Legislative Assembly)';
+    if ($current) {
+        if ($house == HOUSE_TYPE_NI) {
+            $out .= sprintf(gettext('<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
+        } else {
+            $out .= sprintf(gettext('<li>Your <strong>%s %s</strong> are:'), $areas[$area_type], $member_names['plural']);
+        }
+    } else {
+        if ($house == HOUSE_TYPE_NI) {
+            $out .= sprintf(gettext('<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
+        } else {
+            $out .= sprintf(gettext('<li>Your <strong>%s %s</strong> were:'), $areas[$area_type], $member_names['plural']);
+        }
     }
-    $out .= ' ' . ($current ? 'are' : 'were') . ':';
     $out .= '<ul>';
     foreach ($mreg as $reg) {
-        $out .= '<li><a href="/' . strtolower($rep_type) . '/?p=' . $reg['person_id'] . '">';
+        $out .= '<li><a href="' . $urlp . $reg['person_id'] . '">';
         $out .= $reg['given_name'] . ' ' . $reg['family_name'];
         $out .= '</a>';
     }
     $out .= '</ul></ul>';
 
     $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
-    $REGURL = new \MySociety\TheyWorkForYou\Url(strtolower($rep_type) . 's');
+    $REGURL = new \MySociety\TheyWorkForYou\Url($urlpl);
+    $browse_text = sprintf(gettext('Browse all %s'), $member_names['plural']);
     $sidebar = array(array(
         'type' => 'html',
-        'content' => '<div class="block"><h4>Browse people</h4>
-            <ul><li><a href="' . $MPSURL->generate() . '">Browse all MPs</a></li>
-            <li><a href="' . $REGURL->generate() . '">Browse all ' . $rep_type . 's</a></li>
+        'content' => '<div class="block"><h4>' . gettext('Browse people') . '</h4>
+            <ul><li><a href="' . $MPSURL->generate() . '">' . gettext('Browse all MPs') . '</a></li>
+            <li><a href="' . $REGURL->generate() . '">' . $browse_text . '</a></li>
             </ul></div>'
     ));
     return array($out, $sidebar);

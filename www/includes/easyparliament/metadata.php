@@ -1047,6 +1047,16 @@ $page = array (
         'title' => gettext('Find your MS'),
         'url' => 'ms/'
     ),
+    'yourms' => array (
+        'menu'			=> array (
+            'text'		=> gettext('Your MSs'),
+            'title'		=> gettext("Find out about your Members of the Welsh Parliament")
+        ),
+        #'parent'		=> 'yourreps',
+        'sidebar'		=> 'yourms',
+        'title'			=> gettext('Your MSs'),
+        'url'			=> 'ms/'
+    ),
 
     'seneddoverview' => array (
         'parent' => 'wales_home',

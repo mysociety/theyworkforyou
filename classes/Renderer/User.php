@@ -169,11 +169,14 @@ class User
     private function addRepLinks() {
         if ($this->user->postcode_is_set()) {
 
+            $areas = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($this->user->postcode());
             $items = array('yourmp');
-            if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($this->user->postcode())) {
+            if (isset($areas['SPC'])) {
                 $items[] = 'yourmsp';
-            } elseif (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi($this->user->postcode())) {
+            } elseif (isset($areas['NIE'])) {
                 $items[] = 'yourmla';
+            } elseif (isset($areas['WAC'])) {
+                $items[] = 'yourms';
             }
 
             foreach ($items as $item) {

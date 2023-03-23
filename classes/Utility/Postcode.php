@@ -73,16 +73,21 @@ class Postcode
 
         if ($q) {
             $name = $q['name'];
-            if (self::postcodeIsScottish($postcode)) {
-                $name = explode('|', $name);
-                if (count($name)==3)
-                    return array('WMC' => $name[0], 'SPC' => $name[1], 'SPE' => $name[2]);
-            } elseif (self::postcodeIsNi($postcode)) {
-                $name = explode('|', $name);
-                if (count($name)==2)
-                    return array('WMC' => $name[0], 'NIE' => $name[1]);
+            $country = '';
+            $parts = explode(';', $name);
+            if (count($parts) > 1) {
+                $country = $parts[0];
+                $name = $parts[1];
+            }
+            $name = explode('|', $name);
+            if ($country == 'W') {
+                return array('WMC' => $name[0], 'WAC' => $name[1], 'WAE' => $name[2]);
+            } elseif ($country == 'S' || count($name)==3) {
+                return array('WMC' => $name[0], 'SPC' => $name[1], 'SPE' => $name[2]);
+            } elseif ($country == 'N' || count($name)==2) {
+                return array('WMC' => $name[0], 'NIE' => $name[1]);
             } else {
-                return array('WMC' => $name);
+                return array('WMC' => $name[0]);
             }
         }
     }
@@ -121,7 +126,7 @@ class Postcode
         }
         $areas = array();
         foreach ($r['areas'] as $row) {
-            if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE')))
+            if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE')))
                 $areas[$row['type']] = $row['name'];
         }
 
@@ -133,12 +138,14 @@ class Postcode
         $normalised = Constituencies::normaliseConstituencyName(strtolower($areas['WMC']));
         if ($normalised) {
             $areas['WMC'] = $normalised;
-            if (self::postcodeIsScottish($postcode)) {
-                $serialized = "$areas[WMC]|$areas[SPC]|$areas[SPE]";
-            } elseif (self::postcodeIsNi($postcode)) {
-                $serialized = "$areas[WMC]|$areas[NIE]";
+            if (isset($areas['SPC'])) {
+                $serialized = "S;$areas[WMC]|$areas[SPC]|$areas[SPE]";
+            } elseif (isset($areas['NIE'])) {
+                $serialized = "N;$areas[WMC]|$areas[NIE]";
+            } elseif (isset($areas['WAC'])) {
+                $serialized = "W;$areas[WMC]|$areas[WAC]|$areas[WAE]";
             } else {
-                $serialized = $normalised;
+                $serialized = "E;$areas[WMC]";
             }
             $db = new \ParlDB;
             $db->query('replace into postcode_lookup values(:postcode, :serialized)',
@@ -165,59 +172,6 @@ class Postcode
         $pc = strtoupper($pc);
         $pc = preg_replace('#(\d[A-Z]{2})#', ' $1', $pc);
         return $pc;
-    }
-
-    /**
-     * Is Postcode Scottish?
-     */
-
-    public static function postcodeIsScottish($pc) {
-        if (!preg_match('#^([A-Z]{1,2})(\d+) (\d)([A-Z]{2})#', self::canonicalisePostcode($pc), $m))
-            return false;
-
-        # Check for Scottish postal areas
-        if (in_array($m[1], array('AB', 'DD', 'EH', 'FK', 'G', 'HS', 'IV', 'KA', 'KW', 'KY', 'ML', 'PA', 'PH', 'ZE')))
-            return true;
-
-        if ($m[1]=='DG') {
-            if ($m[2]==16 && $m[3]==5 && in_array($m[4], array('HT','HU','HZ','JA','JB'))) return false; # A few postcodes in England
-            return true;
-        }
-
-        # Damn postcodes crossing country boundaries
-        if ($m[1]=='TD') {
-            if ($m[2]!=15 && $m[2]!=12 && $m[2]!=9) return true; # TD1-8, 10-11, 13-14 all in Scotland
-            if ($m[2]==9) {
-                if ($m[3]!=0) return true; # TD9 1-9 all in Scotland
-                if (!in_array($m[4], array('TJ','TP','TR','TS','TT','TU','TW'))) return true; # Nearly all of TD9 0 in Scotland
-            }
-            $m[5] = substr($m[4], 0, 1);
-            if ($m[2]==12) { # $m[3] will be 4 currently.
-                if ($m[4]=='XE') return true;
-                if (in_array($m[5], array('A','B','D','E','H','J','L','N','W','Y'))) return true; # These bits of TD12 4 are in Scotland, others (Q, R, S, T, U, X) in England
-            }
-            # TD15 is mostly England
-            if ($m[2]==15) {
-                if ($m[3]!=1) return false; # TD15 2 and 9 are in England
-                if (in_array($m[4], array('BT','SU','SZ','UF','UG','UH','UJ','UL','US','UZ','WY','WZ'))) return true;
-                if ($m[5]=='T' && $m[4]!='TA' && $m[4]!='TB') return true; # Most of TD15 1T* in Scotland
-                if ($m[5]=='X' && $m[4]!='XX') return true; # TD15 1XX in England, rest of TD15 1X* in Scotland
-            }
-        }
-
-        # Not in Scotland
-        return false;
-    }
-
-    /**
-     * Is Postcode Northern Irish?
-     */
-
-    public static function postcodeIsNi($pc) {
-        $prefix = substr(self::canonicalisePostcode($pc), 0, 2);
-        if ($prefix == 'BT')
-            return true;
-        return false;
     }
 
 }

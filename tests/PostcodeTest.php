@@ -70,12 +70,8 @@ class PostcodeTest extends TWFY_Database_TestCase
     public function testPostcodeIsScottish()
     {
         $this->assertEquals(
-            true,
-            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish('EH1 0AA')
-        );
-        $this->assertEquals(
-            false,
-            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish('SW1A 1AA')
+            "Edinburgh",
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('EH1 0AA')
         );
     }
 
@@ -85,12 +81,8 @@ class PostcodeTest extends TWFY_Database_TestCase
     public function testPostcodeIsNi()
     {
         $this->assertEquals(
-            true,
-            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi('BT1 0AA')
-        );
-        $this->assertEquals(
-            false,
-            MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsNi('SW1A 1AA')
+            "Belfast",
+            MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('BT1 0AA')
         );
     }
 
