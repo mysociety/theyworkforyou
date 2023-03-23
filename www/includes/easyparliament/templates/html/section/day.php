@@ -44,7 +44,7 @@
                         </h3>
                       <?php if ( isset($row['contentcount']) && $row['contentcount'] > 0 ) { ?>
                         <span class="business-list__meta">
-                            <?= $row['contentcount'] == 1 ? '1 speech' : $row['contentcount'] . ' speeches' ?>
+                            <?= sprintf(ngettext('%s speech', '%s speeches', $row['contentcount']), $row['contentcount']) ?>
                         </span>
                       <?php } ?>
                     </a>
@@ -69,7 +69,7 @@
         </div>
         <div class="business-section__secondary">
             <div class="business-section__secondary__item">
-                <h3>What is this?</h3>
+                <h3><?= gettext('What is this?') ?></h3>
                 <?php include '_' . $section . '_desc.php'; ?>
             </div>
             <div class="business-section__secondary__item">
@@ -78,11 +78,11 @@
         </div>
       <?php } else { ?>
         <div class="business-section__primary">
-            No data to display.
+            <?= gettext('No data to display.') ?>
         </div>
       <?php } ?>
     </div>
 
-    <?php $search_title = "Search $title"; include '_search.php'; ?>
+    <?php $search_title = sprintf(gettext("Search %s"), $title); include '_search.php'; ?>
 
 </div>

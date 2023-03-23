@@ -91,9 +91,9 @@ foreach($data['rows'] as $speech) { ?>
     if (isset($speech['source_url']) && $speech['source_url'] != '') {
         $source['url'] = $speech['source_url'];
         if ($hansardmajors[$major]['location'] == 'Scotland') {
-            $source['text'] = 'Official Report source';
+            $source['text'] = gettext('Official Report source');
         } else {
-            $source['text'] = 'Hansard source';
+            $source['text'] = gettext('Hansard source');
         }
     }
 
@@ -153,9 +153,9 @@ foreach($data['rows'] as $speech) { ?>
                 <?php if ($previous_speech_time != $speech['htime']) { ?>
                     <a href="<?= $speech['listurl'] ?>" class="debate-speech__meta__link time">
                       <?php if ($speech['htime']) { ?>
-                        <?= format_time($speech['htime'], 'g:i a') ?>,
+                        <?= format_time($speech['htime'], '%l:%M') ?>,
                       <?php } ?>
-                        <?= format_date($speech['hdate'], 'jS F Y') ?>
+                        <?= format_date($speech['hdate'], LONGDATEFORMAT) ?>
                     </a>
               <?php } ?>
 
@@ -174,7 +174,7 @@ foreach($data['rows'] as $speech) { ?>
                 ?>
                 <h2 class="debate-speech__division__header">
                     <img src="/images/bell.png">
-                    <small class="debate-speech__division__number">Division number <?= $division['number'] ?></small>
+                    <small class="debate-speech__division__number"><?= sprintf(gettext('Division number %s'), $division['number']) ?></small>
                     <strong class="debate-speech__division__title"><?= $division['division_title'] ?></strong>
                 </h2>
 
@@ -218,7 +218,7 @@ foreach($data['rows'] as $speech) { ?>
                         </p>
 
                         <p class="subtle">
-                            Would you like to <strong>ask a question like this yourself</strong>? Use our <a href="http://www.whatdotheyknow.com">Freedom of Information site</a>.
+                            Would you like to <strong>ask a question like this yourself</strong>? Use our <a href="https://www.whatdotheyknow.com">Freedom of Information site</a>.
                         </p>
                     </div>
                 </div>
@@ -231,9 +231,9 @@ foreach($data['rows'] as $speech) { ?>
                     <div class="comment-teaser__avatar">
                         <span class="initial"><?= substr($speech['commentteaser']['username'], 0, 1); ?></span>
                     </div>
-                    <blockquote><p><?= $speech['commentteaser']['body'] ?></p><cite>Submitted by <?= $speech['commentteaser']['username'] ?></cite>
+                    <blockquote><p><?= $speech['commentteaser']['body'] ?></p><cite><?= sprintf(gettext('Submitted by %s'), $speech['commentteaser']['username']) ?></cite>
 
-                    <a class="morecomments" href="<?= $speech['commentteaser']['commentsurl'] ?>#c<?= $speech['commentteaser']['comment_id'] ?>" title="See any annotations posted about this"><?= $speech['commentteaser']['linktext'] ?></a>
+                    <a class="morecomments" href="<?= $speech['commentteaser']['commentsurl'] ?>#c<?= $speech['commentteaser']['comment_id'] ?>" title="<?= gettext('See any annotations posted about this') ?>"><?= $speech['commentteaser']['linktext'] ?></a>
                     </blockquote>
 
                  </div>
@@ -245,26 +245,30 @@ foreach($data['rows'] as $speech) { ?>
             <ul class="debate-speech__meta debate-speech__links">
                 <?php
                     if ($speech['htype'] == '12') {
-                        $thing = 'speech';
+                        $in_context = gettext('See this speech in context');
+                        $link_to = gettext('Link to this speech');
                     } elseif ($speech['htype'] == '14') {
-                        $thing = 'vote';
+                        $in_context = gettext('See this vote in context');
+                        $link_to = gettext('Link to this vote');
                     } elseif ($speech['htype'] == '13') {
-                        $thing = 'item';
+                        $in_context = gettext('See this item in context');
+                        $link_to = gettext('Link to this item');
                     } else {
-                        $thing = 'item';
+                        $in_context = gettext('See this item in context');
+                        $link_to = gettext('Link to this item');
                     }
                 ?>
                 <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) { ?>
                 <li class="link-to-speech">
-                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">See this <?= $thing ?> in context</a>
+                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= $in_context ?></a>
                 </li>
                 <?php
                 }
                 if (!$section || !$individual_item) { ?>
                 <li class="link-to-speech">
-                    <span class="link-to-speech__label">Link to this <?= $thing ?></span>
-                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link">In context</a>
-                    <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link">Individually</a>
+                    <span class="link-to-speech__label"><?= $link_to ?></span>
+                    <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= gettext('In context') ?></a>
+                    <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
                 </li>
                 <?php
                 }
@@ -282,8 +286,8 @@ foreach($data['rows'] as $speech) { ?>
                         urlencode($speech['socialteaser'])
                     ); ?>
                 <li class="link-to-speech">
-                    <a href="<?=htmlspecialchars($twitter_href)?>" class="twitter debate-speech__meta__link js-twitter-share" target="_blank">Tweet</a>
-                    <a href="<?=htmlspecialchars($facebook_href)?>" data-url="<?=htmlspecialchars($speech['socialurl'])?>" data-text="<?=htmlspecialchars($speech['socialteaser'])?>" class="facebook debate-speech__meta__link js-facebook-share">Share</a>
+                    <a href="<?=htmlspecialchars($twitter_href)?>" class="twitter debate-speech__meta__link js-twitter-share" target="_blank"><?= gettext('Tweet') ?></a>
+                    <a href="<?=htmlspecialchars($facebook_href)?>" data-url="<?=htmlspecialchars($speech['socialurl'])?>" data-text="<?=htmlspecialchars($speech['socialteaser'])?>" class="facebook debate-speech__meta__link js-facebook-share"><?= gettext('Share') ?></a>
                 </li>
                 <?php
                 }
@@ -331,12 +335,10 @@ foreach($data['rows'] as $speech) { ?>
                 if ($hansardmajors[$row['major']]['type'] != 'other') {
                     // All wrans have 2 speeches, so no need for this.
                     // All WMS have 1 speech
-                    $plural = $row['contentcount'] == 1 ? 'speech' : 'speeches';
-                    $moreinfo[] = $row['contentcount'] . " $plural";
+                    $moreinfo[] = sprintf(ngettext('%s speech', '%s speeches', $row['contentcount']), $row['contentcount']);
                 }
                 if ($row['totalcomments'] > 0) {
-                    $plural = $row['totalcomments'] == 1 ? 'annotation' : 'annotations';
-                    $moreinfo[] = $row['totalcomments'] . " $plural";
+                    $moreinfo[] = sprintf(ngettext('%s annotation', '%s annotations', $row['totalcomments']), $row['totalcomments']);
                 }
                 if (count($moreinfo) > 0) {
                     print "<small>(" . implode (', ', $moreinfo) . ") </small>";

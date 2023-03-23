@@ -682,50 +682,59 @@ function person_summary_description ($MEMBER) {
             continue;
         }
 
-        if (!$current_member[$house]) {
-            $desc .= 'Former ';
-        }
-
         $party = $left_house[$house]['party'];
         $party_br = '';
         if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
-            $party_br = $m[2];
+            $party_br = " ($m[2])";
             $party = $m[1];
         }
-        if ($party != 'unknown') {
-            $desc .= _htmlentities($party);
-        }
-        if ($party == 'Speaker' || $party == 'Deputy Speaker') {
-            $desc .= ', and ';
-            # XXX: Might go horribly wrong if something odd happens
-            if ($party == 'Deputy Speaker') {
-                $last = end($MEMBER->other_parties);
-                $desc .= $last['from'] . ' ';
+        $pparty = $party != 'unknown' ? _htmlentities($party) : '';
+
+        if ($house != HOUSE_TYPE_LORDS) {
+            if ($house == HOUSE_TYPE_COMMONS) {
+                $type = gettext('<abbr title="Member of Parliament">MP</abbr>');
+            } elseif ($house == HOUSE_TYPE_NI) {
+                $type = gettext('<abbr title="Member of the Legislative Assembly">MLA</abbr>');
+            } elseif ($house == HOUSE_TYPE_SCOTLAND) {
+                $type = gettext('<abbr title="Member of the Scottish Parliament">MSP</abbr>');
+            } elseif ($house == HOUSE_TYPE_WALES) {
+                $type = gettext('<abbr title="Member of the Senedd">MS</abbr>');
+            } elseif ($house == HOUSE_TYPE_LONDON_ASSEMBLY) {
+                $type = gettext('Member of the London Assembly');
+            }
+
+            if ($party == 'Speaker' || $party == 'Deputy Speaker') {
+                # XXX: Might go horribly wrong if something odd happens
+                if ($party == 'Deputy Speaker') {
+                    $last = end($MEMBER->other_parties);
+                    $oparty = $last['from'];
+                } else {
+                    $oparty = '';
+                }
+                if ($current_member[$house]) {
+                    $line = sprintf(gettext('%s, and %s %s for %s'), $pparty, $oparty, $type, $left_house[$house]['constituency']);
+                } else {
+                    $line = sprintf(gettext('Former %s, and %s %s for %s'), $pparty, $oparty, $type, $left_house[$house]['constituency']);
+                }
+            } elseif ($current_member[$house]) {
+                $line = sprintf(gettext('%s %s %s for %s'), $pparty, $type, $party_br, $left_house[$house]['constituency']);
+            } else {
+                $line = sprintf(gettext('Former %s %s %s for %s'), $pparty, $type, $party_br, $left_house[$house]['constituency']);
+            }
+        } elseif ($house == HOUSE_TYPE_LORDS && $party != 'Bishop') {
+            if ($current_member[$house]) {
+                $line = sprintf(gettext('%s Peer'), $pparty);
+            } else {
+                $line = sprintf(gettext('Former %s Peer'), $pparty);
+            }
+        } else {
+            if ($current_member[$house]) {
+                $line = $pparty;
+            } else {
+                $line = sprintf(gettext('Former %s'), $pparty);
             }
         }
-        if ($house==HOUSE_TYPE_COMMONS || $house==HOUSE_TYPE_NI || $house==HOUSE_TYPE_SCOTLAND || $house==HOUSE_TYPE_WALES) {
-            $desc .= ' ';
-            if ($house==HOUSE_TYPE_COMMONS) {
-                $desc .= '<abbr title="Member of Parliament">MP</abbr>';
-            }
-            if ($house==HOUSE_TYPE_NI) {
-                $desc .= '<abbr title="Member of the Legislative Assembly">MLA</abbr>';
-            }
-            if ($house==HOUSE_TYPE_SCOTLAND) {
-                $desc .= '<abbr title="Member of the Scottish Parliament">MSP</abbr>';
-            }
-            if ($house==HOUSE_TYPE_WALES) {
-                $desc .= '<abbr title="Member of the Senedd">MS</abbr>';
-            }
-            if ($party_br) {
-                $desc .= " ($party_br)";
-            }
-            $desc .= ' for ' . $left_house[$house]['constituency'];
-        }
-        if ($house==HOUSE_TYPE_LORDS && $party != 'Bishop') {
-            $desc .= ' Peer';
-        }
-        $desc .= ', ';
+        $desc .= $line . ', ';
     }
     $desc = preg_replace('#, $#', '', $desc);
     return $desc;
@@ -808,7 +817,7 @@ function person_recent_appearances($member) {
     $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
-    $out['more_text'] = 'More of ' . ucfirst($member->full_name()) . '&rsquo;s recent appearances';
+    $out['more_text'] = sprintf(gettext('More of %s’s recent appearances'), ucfirst($member->full_name()));
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.

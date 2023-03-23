@@ -7,9 +7,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         <div class="full-page__unit">
             <div class="person-navigation">
                 <ul>
-                    <li><a href="<?= $member_url ?>">Overview</a></li>
-                    <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
-                    <li class="active"><a href="<?= $member_url ?>/recent">Recent Votes</a></li>
+                    <li><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
+                    <li><a href="<?= $member_url ?>/votes"><?= gettext('Voting Record') ?></a></li>
+                    <li class="active"><a href="<?= $member_url ?>/recent"><?= gettext('Recent Votes') ?></a></li>
                 </ul>
             </div>
         </div>
@@ -54,7 +54,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php if (!$displayed_votes) { ?>
                     <div class="panel">
-                        <p>This person has not voted recently.</p>
+                        <p><?= gettext('This person has not voted recently.') ?></p>
                     </div>
                 <?php }
                 include('_covid19_panel.php');

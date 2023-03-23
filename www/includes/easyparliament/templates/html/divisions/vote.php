@@ -21,7 +21,7 @@
 
                     <h2 class="debate-speech__division__header">
                         <img src="/images/bell.png">
-                        <small class="debate-speech__division__number">Division number <?= $division['number'] ?></small>
+                        <small class="debate-speech__division__number"><?= sprintf(gettext('Division number %s'), $division['number']) ?></small>
                         <strong class="debate-speech__division__title"><?= $division['division_title'] ?></strong>
                     </h2>
 
@@ -46,8 +46,8 @@
 
                       <?php if (isset($division['debate_url'])) { ?>
                         <p class="link-to-speech">
-                            Want to understand more about this vote?
-                            <a href="<?= $division['debate_url'] ?>">Read the debate that it was part of</a>.
+                            <?= gettext('Want to understand more about this vote?') ?>
+                            <a href="<?= $division['debate_url'] ?>"><?= gettext('Read the debate that it was part of') ?></a>.
                         </p>
                       <?php } ?>
 
@@ -62,12 +62,12 @@
                 <ul class="debate-speech__meta debate-speech__links">
                   <?php if (isset($division['debate_url'])) { ?>
                     <li class="link-to-speech">
-                        <a class="link debate-speech__meta__link" href="<?= $division['debate_url'] ?>">Show full debate</a>
+                        <a class="link debate-speech__meta__link" href="<?= $division['debate_url'] ?>"><?= gettext('Show full debate') ?></a>
                     </li>
                   <?php } ?>
                   <?php if (isset($mp_data) && isset($mp_vote)) { ?>
                     <li>
-                        <a class="internal-link debate-speech__meta__link" href="<?= $mp_data['mp_url'] ?>/votes"><?= $mp_data['name'] ?>&rsquo;s full voting record</a>
+                        <a class="internal-link debate-speech__meta__link" href="<?= $mp_data['mp_url'] ?>/votes"><?= sprintf(gettext('%s’s full voting record'), $mp_data['name']) ?></a>
                     </li>
                   <?php } ?>
                 </ul>

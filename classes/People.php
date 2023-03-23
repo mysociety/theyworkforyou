@@ -91,16 +91,16 @@ class People {
         global $this_page, $DATA;
 
         if (isset($args['date'])) {
-            $DATA->set_page_metadata($this_page, 'title', $this->rep_plural . ', as on ' . format_date($args['date'], LONGDATEFORMAT));
+            $DATA->set_page_metadata($this_page, 'title', sprintf(gettext('%s, as on %s'), $this->rep_plural, format_date($args['date'], LONGDATEFORMAT)));
         } elseif (isset($args['all'])) {
-            $DATA->set_page_metadata($this_page, 'title', 'All ' . $this->rep_plural . ', including former ones');
+            $DATA->set_page_metadata($this_page, 'title', sprintf(gettext('All %s, including former ones'), $this->rep_plural));
         } else {
-            $DATA->set_page_metadata($this_page, 'title', 'All ' . $this->rep_plural);
+            $DATA->set_page_metadata($this_page, 'title', sprintf(gettext('All %s'), $this->rep_plural));
         }
     }
 
     protected function getCSVHeaders() {
-        return array('Person ID', 'Name', 'Party', 'Constituency', 'URI');
+        return array(gettext('Person ID'), gettext('Name'), gettext('Party'), gettext('Constituency'), gettext('URI'));
     }
 
     protected function getCSVRow($details) {

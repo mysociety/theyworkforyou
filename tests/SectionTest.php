@@ -36,7 +36,7 @@ class SectionTest extends FetchPageTestCase
     public function testDebatesDay() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'd' => '2014-01-01' ) );
-            $this->assertContains('Wednesday, 1 January 2014', $page);
+            $this->assertContains('Wednesday,  1 January 2014', $page);
             $this->assertContains('HeadingA', $page);
             if ($type == 'wrans') {
                 $this->assertContains('DepartmentA', $page);
@@ -62,7 +62,7 @@ class SectionTest extends FetchPageTestCase
 
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.1' ) );
             if ($type == 'wrans') {
-                $this->assertRegexp("#All .*?written answers on 1 Jan 2014#i", $page);
+                $this->assertRegexp("#All .*?written answers on  1 Jan 2014#i", $page);
                 $this->assertContains("QuestionA", $page);
             } else {
                 $this->assertRegexp("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
@@ -93,8 +93,8 @@ class SectionTest extends FetchPageTestCase
                 $this->assertContains("SubheadingA", $page);
                 $this->assertContains("SpeechA", $page);
             }
-            $this->assertContains("2:30 pm", $page);
-            $this->assertRegexp('#All.*?on 1 Jan 2014#', $page);
+            $this->assertContains("2:30 PM", $page);
+            $this->assertRegexp('#All.*?on  1 Jan 2014#', $page);
             $this->assertContains("Mp Mp", $page);
         }
     }
@@ -107,7 +107,7 @@ class SectionTest extends FetchPageTestCase
             } else {
                 $this->assertContains("HeadingA", $page);
                 $this->assertContains("SubheadingA", $page);
-                $this->assertContains("2:30 pm", $page);
+                $this->assertContains("2:30 PM", $page);
                 $this->assertContains('See the whole debate', $page);
                 $this->assertContains('See this speech in context', $page);
                 $this->assertContains("Mp Mp", $page);

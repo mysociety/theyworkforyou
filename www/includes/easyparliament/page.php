@@ -54,7 +54,7 @@ class PAGE {
                 $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
                 $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
 
-                $text = "<a href=\"" . $LOGINURL->generate() . "\">You'd better sign in!</a>";
+                $text = "<a href=\"" . $LOGINURL->generate() . '">' . gettext('You’d better sign in!') . '</a>';
             } else {
                 $text = "That's all folks!";
             }
@@ -364,13 +364,13 @@ class PAGE {
             $FORGETURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
             $FORGETURL->insert(array('forget'=>'t'));
             ?>
-                        <p>Your current postcode: <strong><?php echo $THEUSER->postcode(); ?></strong> &nbsp; <small>(<a href="<?php echo $FORGETURL->generate(); ?>" title="The cookie storing your postcode will be erased">Forget this postcode</a>)</small></p>
+                        <p><?= gettext('Your current postcode:') ?> <strong><?php echo $THEUSER->postcode(); ?></strong> &nbsp; <small>(<a href="<?php echo $FORGETURL->generate(); ?>" title="<?= gettext('The cookie storing your postcode will be erased') ?>"><?= gettext('Forget this postcode') ?></a>)</small></p>
 <?php
         }
         ?>
-                        <p><strong>Enter your UK postcode: </strong>
+                        <p><strong><?= gettext('Enter your UK postcode:') ?> </strong>
 
-                        <input type="text" name="pc" value="<?php echo _htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="GO" class="submit"> <small>(e.g. BS3 1QP)</small>
+                        <input type="text" name="pc" value="<?php echo _htmlentities(get_http_var('pc')); ?>" maxlength="10" size="10"> <input type="submit" value="<?= gettext('GO') ?>" class="submit"> <small><?= gettext('(e.g. BS3 1QP)') ?></small>
                         </p>
                         </form>
 <?php
@@ -572,7 +572,7 @@ class PAGE {
             $uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
             if (get_http_var('s')) {
                 $URL = new \MySociety\TheyWorkForYou\Url($this_page);
-                $uplink .= '<br><a href="' . $URL->generate() . '">Remove highlighting</a>';
+                $uplink .= '<br><a href="' . $URL->generate() . '">' . gettext('Remove highlighting') . '</a>';
             }
             $uplink .= '</span>';
         }
@@ -640,10 +640,10 @@ class PAGE {
                     echo '<input type="hidden" name="house" value="', _htmlentities(get_http_var('house')), '">';
                 }
                 echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
-                echo '<input type="submit" value=" ', ($wtt?'Modify search':'Search'), ' ">';
+                echo '<input type="submit" value=" ', ($wtt ? gettext('Modify search') : gettext('Search')), ' ">';
                 $URL = new \MySociety\TheyWorkForYou\Url('search');
             $URL->insert(array('adv' => 1));
-                echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">More&nbsp;options</a>';
+                echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">' . gettext('More&nbsp;options') . '</a>';
                 echo '<br>';
                 if ($wtt) {
                     print '<input type="hidden" name="wtt" value="1">';
@@ -665,34 +665,40 @@ class PAGE {
                 }
 
                 if ($ordering=='r') {
-                print '<strong>Sorted by relevance</strong>';
+                print '<strong>' . gettext('Sorted by relevance') . '</strong>';
                 } else {
-                printf("<a href='%s'>Sort by relevance</a>", $orderUrl->generate('html', array('o'=>'r')));
+                printf(gettext("<a href='%s'>Sort by relevance</a>"), $orderUrl->generate('html', array('o'=>'r')));
                 }
 
                 print "&nbsp;|&nbsp;";
                 if ($ordering=='d') {
-                print '<strong>Sorted by date: newest</strong> / <a href="' . $orderUrl->generate('html', array('o'=>'o')) . '">oldest</a>';
+                print '<strong>' . gettext('Sorted by date:') . ' ' . gettext('newest') . '</strong> / <a href="' . $orderUrl->generate('html', array('o'=>'o')) . '">' . gettext('oldest') . '</a>';
                 } elseif ($ordering=='o') {
-                print '<strong>Sorted by date:</strong> <a href="' . $orderUrl->generate('html', array('o'=>'d')) . '">newest</a> / <strong>oldest</strong>';
+                print '<strong>' . gettext('Sorted by date:') . '</strong> <a href="' . $orderUrl->generate('html', array('o'=>'d')) . '">' . gettext('newest') . '</a> / <strong>' . gettext('oldest') . '</strong>';
                 } else {
-                printf("Sort by date: <a href='%s'>newest</a> / <a href='%s'>oldest</a>",
-                    $orderUrl->generate('html', array('o'=>'d')), $orderUrl->generate('html', array('o'=>'o')));
+                print gettext("Sort by date:") . ' ';
+                printf("<a href='%s'>", $orderUrl->generate('html', array('o'=>'d')));
+                print gettext("newest");
+                print '</a> / ';
+                printf("<a href='%s'>", $orderUrl->generate('html', array('o'=>'o')));
+                print gettext('oldest');
+                print '</a>';
                 }
 
             print "&nbsp;|&nbsp;";
             if ($ordering=='p') {
-                print '<strong>Use by person</strong>';
+                print '<strong>' . gettext('Use by person') . '</strong>';
             } else {
-                printf('<a href="%s">Show use by person</a>', $orderUrl->generate('html', array('o'=>'p')));
+                printf('<a href="%s">', $orderUrl->generate('html', array('o'=>'p')));
+                print gettext('Show use by person') . '</a>';
             }
             echo '</div>';
 
             if ($person_name) {
                 ?>
                     <p>
-                    <input type="radio" name="pid" value="<?php echo _htmlentities($person_id) ?>" checked>Search only <?php echo _htmlentities($person_name) ?>
-                    <input type="radio" name="pid" value="">Search all speeches
+                    <input type="radio" name="pid" value="<?php echo _htmlentities($person_id) ?>" checked><?= sprintf(gettext('Search only %s'), _htmlentities($person_name)) ?>
+                    <input type="radio" name="pid" value=""><?= gettext('Search all speeches') ?>
                     </p>
                 <?php
                 }
@@ -716,7 +722,7 @@ class PAGE {
         }
 ?>
             <p>
-                <label for="email">Email address:</label></span>
+                <label for="email"><?= gettext('Email address:') ?></label></span>
                 <input type="text" name="email" id="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" class="form-control"></span>
             </p>
 
@@ -729,7 +735,7 @@ class PAGE {
         }
 ?>
             <p>
-                <label for="password">Password:</label>
+                <label for="password"><?= gettext('Password:') ?></label>
                 <input type="password" name="password" id="password" maxlength="30" class="form-control">
             </p>
 
@@ -740,11 +746,11 @@ class PAGE {
             print " checked";
         }
         ?>>
-                <label for="remember" class="remember-label">Keep me signed in on this device</label>
+                <label for="remember" class="remember-label"><?= gettext('Keep me signed in on this device') ?></label>
             </p>
 
             <p>
-                <input type="submit" value="Sign in" class="button">
+                <input type="submit" value="<?= gettext('Sign in') ?>" class="button">
             </p>
 
             <input type="hidden" name="submitted" value="true">
@@ -767,17 +773,17 @@ class PAGE {
         ?>
 
             <p>
-                Forgotten your password?
+                <?= gettext('Forgotten your password?') ?>
                 <a href="<?php
                     $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
                     $URL->insert(array("email"=>get_http_var("email")));
                     echo $URL->generate();
-                ?>">Set a new one!</a>
+                ?>"><?= gettext('Set a new one!') ?></a>
             </p>
 
             <p>
-                Not yet a member?
-                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin"); echo $URL->generate(); ?>">Join now!</a>
+                <?= gettext('Not yet a member?') ?>
+                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin"); echo $URL->generate(); ?>"><?= gettext('Join now!') ?></a>
             </p>
 
         </form>
@@ -795,7 +801,7 @@ class PAGE {
                     <p>
                     <input name="q" size="12">
                     <input type="hidden" name="pid" value="<?=$person_id ?>">
-                    <input type="submit" class="submit" value="GO"></p>
+                    <input type="submit" class="submit" value="<?= gettext('GO') ?>"></p>
                     </form>
                 </div>
 <?php
@@ -999,14 +1005,14 @@ class PAGE {
 
             ?>
                 <div class="pagelinks">
-                    Result page:
+                    <?= gettext('Result page:') ?>
 <?php
 
             if ($page != 1) {
                 $prevpage = $page - 1;
                 $URL->insert(array('p'=>$prevpage));
                 ?>
-                    <big><strong><a href="<?php echo $URL->generate(); ?>"><big>&laquo;</big> Previous</a></strong></big>
+                    <big><strong><a href="<?php echo $URL->generate(); ?>"><big>&laquo;</big> <?=gettext('Previous') ?></a></strong></big>
 <?php
             }
 
@@ -1017,7 +1023,7 @@ class PAGE {
                 $URL->insert(array('p'=>$nextpage));
                 ?>
 
-                    <big><strong><a href="<?php echo $URL->generate(); ?>">Next <big>&raquo;</big></a></strong></big> <?php
+                    <big><strong><a href="<?php echo $URL->generate(); ?>"><?= gettext('Next') ?> <big>&raquo;</big></a></strong></big> <?php
             }
 
             ?>

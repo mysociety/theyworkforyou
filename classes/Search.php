@@ -70,10 +70,10 @@ class Search {
     private function validate_search_string() {
         $warning = '';
         if (preg_match('#^\s*[^\s]+\.\.[^\s]+\s*$#', $this->searchstring)) {
-            $warning = 'You cannot search for just a date range, please select some other criteria as well.';
+            $warning = gettext('You cannot search for just a date range, please select some other criteria as well.');
         }
         if (preg_match('#\.\..*?\.\.#', $this->searchstring)) {
-            $warning = 'You cannot search for more than one date range.';
+            $warning = gettext('You cannot search for more than one date range.');
         }
 
         return $warning;

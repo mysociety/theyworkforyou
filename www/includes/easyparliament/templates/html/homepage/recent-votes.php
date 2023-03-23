@@ -1,7 +1,7 @@
 <?php if ( count($divisions) > 0 ) { ?>
     <h2 style="position: relative;">
-        Recent Votes
-        <div class="meta excerpt__category"><a href="/divisions/">Show all recent votes</a></div>
+        <?= gettext('Recent Votes') ?>
+        <div class="meta excerpt__category"><a href="/divisions/"><?= gettext('Show all recent votes') ?></a></div>
     </h2>
     <ul class="recently__list">
       <?php foreach ($divisions as $debate) { ?>

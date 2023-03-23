@@ -241,8 +241,8 @@ class SectionView {
 
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
-        $data['debate_time_human'] = format_time($first_speech['htime'], 'g:i a');
-        $data['debate_day_human'] = format_date($first_speech['hdate'], 'jS F Y');
+        $data['debate_time_human'] = format_time($first_speech['htime'], TIMEFORMAT);
+        $data['debate_day_human'] = format_date($first_speech['hdate'], LONGDATEFORMAT);
 
         $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
         $URL->insert(array('d' => $first_speech['hdate']));

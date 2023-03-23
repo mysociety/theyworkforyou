@@ -27,6 +27,6 @@ class VotesTest extends FetchPageTestCase
 
     public function testLastUpdate() {
         $page = $this->fetch_votes_page();
-        $this->assertContains('Last updated: 1 January 2013', $page);
+        $this->assertContains('Last updated:  1 January 2013', $page);
     }
 }

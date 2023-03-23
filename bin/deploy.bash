@@ -10,5 +10,6 @@ bundle install --deployment --binstubs "vendor/bundle-bin"
 export PATH="$DIR/vendor/bundle-bin:$PATH"
 
 # Now use compass to compile the SCSS:
-cd "$DIR/www/docs/style"
-bundle exec compass compile
+(cd "$DIR/www/docs/style" && bundle exec compass compile)
+
+commonlib/bin/gettext-makemo --quiet TheyWorkForYou

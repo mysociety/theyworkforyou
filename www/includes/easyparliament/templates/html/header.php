@@ -144,13 +144,13 @@
 
                 <div class="site-nav__search">
                     <form action="/search/">
-                        <label for="site-header-search">Search TheyWorkForYou</label>
+                        <label for="site-header-search"><?= gettext('Search TheyWorkForYou') ?></label>
                         <div class="row collapse">
                             <div class="small-9 columns">
-                                <input type="search" id="site-header-search" name="q" placeholder="e.g. a postcode, person, or topic">
+                                <input type="search" id="site-header-search" name="q" placeholder="<?= gettext('e.g. a postcode, person, or topic') ?>">
                             </div>
                             <div class="small-3 columns">
-                                <button type="submit" class="prefix">Search</button>
+                                <button type="submit" class="prefix"><?= gettext('Search') ?></button>
                             </div>
                         </div>
                     </form>

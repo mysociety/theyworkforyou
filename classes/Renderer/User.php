@@ -26,8 +26,27 @@ class User
     }
 
     private function setupNavLinks() {
-
         $this->data['user_nav_links'] = array();
+        if (preg_match('#^(senedd|wales|ms(?!p))#', $this->page)) {
+            $href = $_SERVER['REQUEST_URI'];
+            if (LANGUAGE == 'cy') {
+                $text = 'English';
+                $href = "//" . DOMAIN . $href;
+            } else {
+                $text = 'Cymraeg';
+                if (strpos(DOMAIN, 'www') !== false) {
+                    $href = "//" . str_replace('www.', 'cy.', DOMAIN) . $href;
+                } else {
+                    $href = "//cy." . DOMAIN . $href;
+                }
+            }
+            $this->data['user_nav_links'][] = array(
+                'href' => $href,
+                'classes' => '',
+                'title' => '',
+                'text' => $text,
+            );
+        }
 
         // We may want to send the user back to this current page after they've
         // joined, logged out or logged in. So we put the URL in $returl.

@@ -8,9 +8,9 @@
             <?= $latest_membership['party'] == 'Bishop' ? '' : $latest_membership['party'] ?>
             <?= $latest_membership['rep_name'] ?>
             <?php if ( $latest_membership['constituency'] ) { ?>
-                for <?= $latest_membership['constituency'] ?>
+                <?= sprintf(gettext('for %s'), $latest_membership['constituency']) ?>
             <?php } ?>
-            (<?= format_date($latest_membership['start_date'], SHORTDATEFORMAT) ?> – <?= $latest_membership['current'] ? 'current' : format_date($latest_membership['end_date'], SHORTDATEFORMAT); ?>)
+            (<?= format_date($latest_membership['start_date'], SHORTDATEFORMAT) ?> – <?= $latest_membership['current'] ? gettext('current') : format_date($latest_membership['end_date'], SHORTDATEFORMAT); ?>)
         </p>
     <?php } ?>
 </div>

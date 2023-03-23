@@ -1,19 +1,13 @@
 <div class="calendar">
   <?php if(isset($month)) {
-    $daysOfWeek = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
-
     // What is the first day of the month in question?
     $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
 
     // How many days does this month contain?
     $numberDays = date('t',$firstDayOfMonth);
 
-    // Retrieve some information about the first day of the
-    // month in question.
-    $dateComponents = getdate($firstDayOfMonth);
-
     // What is the name of the month in question?
-    $monthName = $dateComponents['month'];
+    $monthName = strftime('%B', $firstDayOfMonth);
 
     if (isset($info['onday'])) {
         // 'onday' is like 'yyyy-mm-dd'.
@@ -35,7 +29,7 @@
         }
     }
 
-    $dayOfWeek = $dateComponents['wday'] - 1;
+    $dayOfWeek = strftime('%w', $firstDayOfMonth) - 1;
 
     // Adjusted to cope with the week starting on Monday.
     if ($dayOfWeek < 0) {
@@ -68,13 +62,13 @@
     <table>
         <thead>
             <tr>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-                <th>Sun</th>
+                <th><?= gettext('Mon') ?></th>
+                <th><?= gettext('Tue') ?></th>
+                <th><?= gettext('Wed') ?></th>
+                <th><?= gettext('Thu') ?></th>
+                <th><?= gettext('Fri') ?></th>
+                <th><?= gettext('Sat') ?></th>
+                <th><?= gettext('Sun') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -168,7 +162,7 @@
         $y->insert(array( 'y' => $year ));
         $url = $y->generate();
     ?>
-    <a href="<?= $url ?>">See all of <?= $year ?></a>
+    <a href="<?= $url ?>"><?= sprintf(gettext('See all of %s'), $year) ?></a>
     </div>
   <?php } ?>
 </div>

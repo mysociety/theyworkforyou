@@ -24,14 +24,14 @@ if (count($divisions_to_link)) {
             <div class="debate-speech__division">
                 <h2 class="debate-speech__division__header">
                     <img src="/images/bell.png" alt="">
-                    <strong class="debate-speech__division__title">Votes in this debate</strong>
+                    <strong class="debate-speech__division__title"><?= gettext('Votes in this debate') ?></strong>
                 </h2>
 
                 <ul class="debate-speech__division__details">
                     <?php foreach ($divisions_to_link as $speech) {
                         $division = $speech['division'];
                     ?>
-                    <li><a href="#g<?= gid_to_anchor($speech['gid']) ?>">Division number <?= $division['number'] ?></a>
+                    <li><a href="#g<?= gid_to_anchor($speech['gid']) ?>"><?= sprintf(gettext('Division number %s'), $division['number']) ?></a>
                         <?php if ($division['has_description']) { ?>
                             <br><span class="policy-vote__text">
                                 <?php include( dirname(__FILE__) . '/../divisions/_vote_description.php'); ?>

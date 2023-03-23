@@ -4,10 +4,10 @@
             <label for="q" class="search-section__label"><?= $search_title ?></label>
                 <div class="row collapse">
                     <div class="medium-9 columns">
-                        <input name="q" id="q" class="search-section__input" type="text" placeholder="Enter a keyword, phrase, or person">
+                        <input name="q" id="q" class="search-section__input" type="text" placeholder="<?= gettext('Enter a keyword, phrase, or person') ?>">
                     </div>
                     <div class="medium-3 columns">
-                        <input type="submit" value="Search" class="button search-section__submit">
+                        <input type="submit" value="<?= gettext('Search') ?>" class="button search-section__submit">
                     </div>
                 </div>
                 <?php if (isset($search_sections)) { ?>
@@ -27,7 +27,7 @@
         </div>
         <div class="business-section__secondary search-section__secondary">
             <?php if (count($popular_searches)) { ?>
-            <h3>Popular searches today</h3>
+            <h3><?= gettext('Popular searches today') ?></h3>
             <ul class="search-section__suggestions">
                 <?php foreach ($popular_searches as $i => $popular_search) { ?>
                 <li><?= $popular_search['display']; ?></li>

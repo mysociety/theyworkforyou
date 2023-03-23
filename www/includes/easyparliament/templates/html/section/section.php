@@ -12,11 +12,15 @@
             <h1><?= $heading ?></h1>
             <p class="lead">
                 <?= $intro ?> <?= $location ?>
-                <?php if ($debate_time_human) { ?>at <?= $debate_time_human ?><?php } ?>
-                on <a href="<?= $debate_day_link ?>"><?= $debate_day_human ?></a>.
+                <?php if ($debate_time_human) {
+                    printf(gettext("at %s"), $debate_time_human);
+                }
+                print ' ';
+                printf(gettext('on <a href="%s">%s</a>'), $debate_day_link, $debate_day_human);
+                ?>.
             </p>
             <p class="cta">
-                <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>">Alert me about debates like this</a>
+                <a class="button alert" href="/alerts/?alertsearch=<?= urlencode($email_alert_text) ?>"><?= gettext('Alert me about debates like this') ?></a>
             </p>
         </div>
     </div>

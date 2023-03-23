@@ -10,18 +10,19 @@
             <div class="search-page__section__primary">
               <?php if ( $cons ) { ?>
                 <?php if ( count($cons) > 1 ) {
-                    $types = array();
-                    if ( $mp_types['mp'] > 0 ) {
-                        $types[] = 'MPs';
+                    if ( $mp_types['mp'] > 0 && $mp_types['former'] > 0 ) {
+                        $desc = gettext('MPs and former MPs');
+                    } elseif ( $mp_types['mp'] > 0 ) {
+                        $desc = gettext('MPs');
+                    } elseif ( $mp_types['former'] > 0 ) {
+                        $desc = gettext('Former MPs');
                     }
-                    if ( $mp_types['former'] > 0 ) {
-                        $types[] = 'former MPs';
-                    }
-                    $desc = ucfirst(implode(' and ', $types));
                 ?>
-                  <h2><?= $desc ?> in constituencies matching <em class="current-search-term"><?= _htmlentities($searchstring) ?></em></h2>
+                  <h2><?= sprintf(gettext('%s in constituencies matching <em class="current-search-term">%s</em>'), $desc, _htmlentities($searchstring)) ?></h2>
+                <?php } elseif ($mp_types['former']) { // count($cons) <= 1 ?>
+                  <h2><?= sprintf(gettext('Former MP for <em class="current-search-term">%s</em>'), _htmlentities($searchstring)) ?></h2>
                 <?php } else { // count($cons) <= 1 ?>
-                  <h2><?= $mp_types['former'] ? 'Former ' : '' ?>MP for <em class="current-search-term"><?= _htmlentities($searchstring) ?></em></h2>
+                  <h2><?= sprintf(gettext('MP for <em class="current-search-term">%s</em>'), _htmlentities($searchstring)) ?></h2>
                 <?php } ?>
                 <?php foreach ( $cons as $member ) { ?>
                   <?php include('person.php'); ?>
@@ -29,7 +30,7 @@
               <?php } ?>
 
               <?php if ( $members ) { ?>
-                <h2>People matching <em class="current-search-term"><?= _htmlentities($searchstring) ?></em></h2>
+                <h2><?= sprintf(gettext('People matching <em class="current-search-term">%s</em>'), _htmlentities($searchstring)) ?></h2>
                 <?php foreach ( $members as $member ) { ?>
                     <?php include('person.php'); ?>
                 <?php } ?>
@@ -52,35 +53,36 @@
                 There was an error &ndash; <?= $error ?> &ndash; searching for <em class="current-search-term"><?= _htmlentities($searchstring) ?></em>.
               <?php } else { ?>
                 <h2>
-                  <?php if ( $pagination_links ) { ?>
-                    Results <?= $pagination_links['first_result'] ?>&ndash;<?= $pagination_links['last_result'] ?> of <?= $info['total_results'] ?>
+                  <?php
+                        $term = sprintf('<em class="current-search-term">%s</em>', _htmlentities($searchdescription));
+                        if ( $pagination_links ) { ?>
+                    <?= sprintf(gettext('Results %s–%s of %s for %s'), $pagination_links['first_result'], $pagination_links['last_result'], $info['total_results'], $term) ?>
                   <?php } else if ( $info['total_results'] == 1 ) { ?>
-                    The only result
+                    <?= sprintf(gettext('The only result for %s'), $term) ?>
                   <?php } else if ( $info['total_results'] == 0 ) { ?>
-                    There were no results
+                    <?= sprintf(gettext('There were no results for %s'), $term) ?>
                   <?php } else { ?>
-                    All <?= $info['total_results'] ?> results
+                    <?= sprintf(gettext('All %s results for %s'), $info['total_results'], $term) ?>
                   <?php } ?>
-                    for <em class="current-search-term"><?= _htmlentities($searchdescription) ?></em>
                 </h2>
 
                   <?php if ( $info['spelling_correction'] ) { ?>
-                    <p>Did you mean <a href="/search/?q=<?= urlencode($info['spelling_correction']) ?>"><?= _htmlentities( $info['spelling_correction_display'] ) ?></a>?</p>
+                    <p><?= sprintf(gettext('Did you mean %s?'), '<a href="/search/?q=' . urlencode($info['spelling_correction']) . '">' . _htmlentities( $info['spelling_correction_display'] ) . '</a>') ?></p>
                   <?php } ?>
 
                   <?php if ( $info['total_results'] ) { ?>
                     <ul class="search-result-display-options">
                       <?php if ( $sort_order == 'relevance' ) { ?>
-                        <li>Sorted by relevance</li>
-                        <li>Sort by date: <a href="<?= $urls['newest'] ?>">newest</a> / <a href="<?= $urls['oldest'] ?>">oldest</a></li>
+                        <li><?= gettext('Sorted by relevance') ?></li>
+                        <li><?= gettext('Sort by date') ?>: <a href="<?= $urls['newest'] ?>"><?= gettext('newest') ?></a> / <a href="<?= $urls['oldest'] ?>"><?= gettext('oldest') ?></a></li>
                       <?php } else if ( $sort_order == 'oldest' ) { ?>
-                        <li>Sort by <a href="<?= $urls['relevance'] ?>">relevance</a></li>
-                        <li>Sorted by date: <a href="<?= $urls['newest'] ?>">newest</a> / oldest</li>
+                        <li><?= sprintf(gettext('Sort by <a href="%s">relevance</a>'), $urls['relevance']) ?></li>
+                        <li><?= gettext('Sorted by date') ?>: <a href="<?= $urls['newest'] ?>"><?= gettext('newest') ?></a> / <?= gettext('oldest') ?></li>
                       <?php } else { ?>
-                        <li>Sort by <a href="<?= $urls['relevance'] ?>">relevance</a></li>
-                        <li>Sorted by date: newest / <a href="<?= $urls['oldest'] ?>">oldest</a></li>
+                        <li><?= sprintf(gettext('Sort by <a href="%s">relevance</a>'), $urls['relevance']) ?></li>
+                        <li><?= gettext('Sorted by date') ?>: <?= gettext('newest') ?> / <a href="<?= $urls['oldest'] ?>"><?= gettext('oldest') ?></a></li>
                       <?php } ?>
-                        <li><a href="<?= $urls['by-person'] ?>">Group by person</a></li>
+                        <li><a href="<?= $urls['by-person'] ?>"><?= gettext('Group by person') ?></a></li>
                     </ul>
                   <?php } ?>
 
@@ -96,15 +98,15 @@
                   <?php if ( $pagination_links ) { ?>
                     <div class="search-result-pagination">
                       <?php if ( isset($pagination_links['prev']) ) { ?>
-                        <a href="<?= $pagination_links['firstpage']['url'] ?>" title="First page">&lt;&lt;</a>
-                        <a href="<?= $pagination_links['prev']['url'] ?>" title="Previous page">&lt;</a>
+                        <a href="<?= $pagination_links['firstpage']['url'] ?>" title="<?= gettext('First page') ?>">&lt;&lt;</a>
+                        <a href="<?= $pagination_links['prev']['url'] ?>" title="<?= gettext('Previous page') ?>">&lt;</a>
                       <?php } ?>
                       <?php foreach ( $pagination_links['nums'] as $link ) { ?>
                         <a href="<?= $link['url'] ?>"<?= $link['current'] ? ' class="search-result-pagination__current-page"' : '' ?>><?= $link['page'] ?></a>
                       <?php } ?>
                       <?php if ( isset($pagination_links['next']) ) { ?>
-                        <a href="<?= $pagination_links['next']['url'] ?>" title="Next page">&gt;</a>
-                        <a href="<?= $pagination_links['lastpage']['url'] ?>" title="Final page">&gt;&gt;</a>
+                        <a href="<?= $pagination_links['next']['url'] ?>" title="<?= gettext('Next page') ?>">&gt;</a>
+                        <a href="<?= $pagination_links['lastpage']['url'] ?>" title="<?= gettext('Final page') ?>">&gt;&gt;</a>
                       <?php } ?>
                     </div>
                   <?php } ?>

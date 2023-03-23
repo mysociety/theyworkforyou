@@ -515,18 +515,16 @@ class Divisions {
         return $divisions;
     }
 
-
     private function constructYesNoVoteDescription($direction, $title, $short_text) {
-        $text = ' voted ';
+        $text = ' ' ;
         if ( $short_text ) {
-            $text .= $short_text;
+            $text .= sprintf(gettext('voted %s'), $short_text);
         } else {
-            $text .= "$direction on <em>$title</em>";
+            $text .= sprintf(gettext('voted %s on <em>%s</em>'), $direction, $title);
         }
 
         return $text;
     }
-
 
     private function constructVoteDescription($vote, $yes_text, $no_text, $division_title) {
         /*

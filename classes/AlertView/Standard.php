@@ -136,20 +136,20 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         if ($this->data['submitted'] && !$this->data['pid'] && !$text) {
-            $errors['alertsearch'] = 'Please enter what you want to be alerted about';
+            $errors['alertsearch'] = gettext('Please enter what you want to be alerted about');
         }
 
         if (strpos($text, '..')) {
-            $errors['alertsearch'] = 'You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!';
+            $errors['alertsearch'] = gettext('You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!');
         }
 
         $se = new \SEARCHENGINE($text);
         if (!$se->valid) {
-            $errors['alertsearch'] = 'That search appears to be invalid - ' . $se->error . ' - please check and try again.';
+            $errors['alertsearch'] = sprintf(gettext('That search appears to be invalid - %s - please check and try again.'), $se->error);
         }
 
         if (strlen($text) > 255) {
-            $errors['alertsearch'] = 'That search is too long for our database; please split it up into multiple smaller alerts.';
+            $errors['alertsearch'] = gettext('That search is too long for our database; please split it up into multiple smaller alerts.');
         }
 
         $this->data['errors'] = $errors;
@@ -255,11 +255,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 validate_postcode($m[1])
         ) {
             $this->data['postcode'] = $m[1];
-            $this->data['scottish_text'] = '';
             $this->data['mp_display_text'] = '';
             if (\MySociety\TheyWorkForYou\Utility\Postcode::postcodeIsScottish($m[1])) {
                 $this->data['mp_display_text'] = 'your MP, ';
-                $this->data['scottish_text'] = ' or MSP';
             }
             $mistakes['postcode_and'] = 1;
         }
@@ -281,7 +279,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['member_displaysearch'] = $alertsearch_display;
                 $this->data['member'] = $MEMBER;
 
-                if ( $this->data['scottish_text'] ) {
+                if ( $this->data['mp_display_text'] ) {
                     $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
                     if ( isset($constituencies['SPC']) ) {
                         $MEMBER = new \MEMBER(array('constituency' => $constituencies['SPC'], 'house' => 4));

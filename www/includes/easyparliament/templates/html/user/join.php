@@ -6,10 +6,10 @@
                 <?php } ?>
 
             <div class="main">
-				<h1>Join TheyWorkForYou</h1>
+				<h1><?= gettext('Join TheyWorkForYou') ?></h1>
 
-        <p>Joining TheyWorkForYou makes it easier to manage your email alerts&hellip;</p>
-        <p>Already joined? <a href="/user/login/">Then sign in!</a></p>
+        <p><?= gettext('Joining TheyWorkForYou makes it easier to manage your email alerts…') ?></p>
+        <p><?= gettext('Already joined? <a href="/user/login/">Then sign in!</a>') ?></p>
 
                 <form method="post" class="join-form" action="/user/index.php">
                 <?php if (isset($errors['firstname'])) { ?>
@@ -19,7 +19,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="firstname">Your first name:</label></span>
+                <span class="label"><label for="firstname"><?= gettext('Your first name:') ?></label></span>
                 <span class="formw"><input type="text" name="firstname" id="firstname" class="form-control" value="<?= isset($firstname) ? _htmlentities($firstname) : '' ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -30,7 +30,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="lastname">Your last name:</label></span>
+                <span class="label"><label for="lastname"><?= gettext('Your last name:') ?></label></span>
                 <span class="formw"><input type="text" name="lastname" id="lastname" class="form-control" value="<?= isset($lastname) ? _htmlentities($lastname) : '' ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -41,7 +41,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="em">Email address:</label></span>
+                <span class="label"><label for="em"><?= gettext('Email address:') ?></label></span>
                 <span class="formw"><input type="email" name="em" id="em" class="form-control" value="<?= isset($email) ? _htmlentities($email) : '' ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -52,8 +52,8 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="password">Password:</label></span>
-                <span class="formw"><input type="password" name="password" id="password" class="form-control" value="" maxlength="30" size="20" class="form"> <small>At least six characters</small></span>
+                <span class="label"><label for="password"><?= gettext('Password:') ?></label></span>
+                <span class="formw"><input type="password" name="password" id="password" class="form-control" value="" maxlength="30" size="20" class="form"> <small><?= gettext('At least six characters') ?></small></span>
                 </div>
 
                 <?php if (isset($errors['password2'])) { ?>
@@ -63,7 +63,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="password2">Repeat password:</label></span>
+                <span class="label"><label for="password2"><?= gettext('Repeat password:') ?></label></span>
                 <span class="formw"><input type="password" name="password2" id="password2" class="form-control" value="" maxlength="30" size="20" class="form"></span>
                 </div>
 
@@ -75,8 +75,8 @@
 
                 <br style="clear: left;">&nbsp;<br>
                 <div class="row">
-                <span class="label"><label for="postcode">Your UK postcode:</label></span>
-                <span class="formw"><input type="text" name="postcode" id="postcode" class="form-control" value="<?= isset($postcode) ? _htmlentities($postcode) : '' ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
+                <span class="label"><label for="postcode"><?= gettext('Your UK postcode:') ?></label></span>
+                <span class="formw"><input type="text" name="postcode" id="postcode" class="form-control" value="<?= isset($postcode) ? _htmlentities($postcode) : '' ?>" maxlength="10" size="10" class="form"> <small><?= gettext('Optional and not public') ?></small></span>
                 </div>
 
                 <?php if (isset($errors['url'])) { ?>
@@ -86,7 +86,7 @@
                 <?php } ?>
 
                 <div class="row">
-                &nbsp;<br>Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?
+                &nbsp;<br><?= gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?") ?>
                 </div>
 
                 <?php if (isset($errors['optin'])) { ?>
@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="row">
-                Would you like to receive email updates on your MP&rsquo;s activity in Parliament?
-                <br><small>(if you&rsquo;re already getting email alerts to your address, don&rsquo;t worry about this)</small>
+                <?= gettext("Would you like to receive email updates on your MP&rsquo;s activity in Parliament?") ?>
+                <br><small><?= gettext("(if you&rsquo;re already getting email alerts to your address, don&rsquo;t worry about this)") ?></small>
                 </div>
 
                 <div class="row">
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="row">
-                <span class="formw"><input type="submit" class="button" value="Join TheyWorkForYou"></span>
+                <span class="formw"><input type="submit" class="button" value="<?= gettext("Join TheyWorkForYou") ?>"></span>
                 </div>
 
                 <input type="hidden" name="submitted" value="true">

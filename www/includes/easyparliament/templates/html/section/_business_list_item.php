@@ -9,7 +9,7 @@
     </h3>
     <span class="business-list__meta">
       <?= format_date($item['hdate'], LONGERDATEFORMAT) ?>
-      <?=  isset($item['contentcount']) ? '&middot; ' . $item['contentcount'] . ( $item['contentcount'] == 1 ? ' speech' : ' speeches' ) : '' ?>
+      <?=  isset($item['contentcount']) ? '&middot; ' . sprintf(ngettext('%s speech', '%s speeches', $item['contentcount']), $item['contentcount']) : '' ?>
     </span>
 </a>
 <?php if ( isset( $item['child'] ) ) { ?>

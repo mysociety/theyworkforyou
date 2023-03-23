@@ -253,9 +253,9 @@ class SEARCHENGINE {
         $qd = preg_replace_callback('#\bM(\d+)\b#', function($m) {
             global $hansardmajors;
             $title = isset($hansardmajors[$m[1]]["title"]) ? $hansardmajors[$m[1]]["title"] : $m[1];
-            return "in the '$title'";
+            return sprintf(gettext("in the '%s'"), $title);
         }, $qd);
-        $qd = preg_replace('#\bMF\b#', 'in Future Business', $qd);
+        $qd = preg_replace('#\bMF\b#', gettext('in Future Business'), $qd);
 
         # Replace stemmed things with their unstemmed terms from the query
         $used = array();
@@ -298,9 +298,9 @@ class SEARCHENGINE {
         foreach ($this->prefixed as $items) {
             if ($items[0] == 'groupby') {
                 if ($items[1] == 'debate') {
-                    $qd .= ' grouped by debate';
+                    $qd .= ' ' . gettext('grouped by debate');
                 } elseif ($items[1] == 'speech') {
-                    $qd .= ' showing all speeches';
+                    $qd .= ' ' . gettext('showing all speeches');
                 } else {
                     $PAGE->error_message("Unknown group by '$items[1]' ignored");
                 }

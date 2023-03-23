@@ -164,7 +164,8 @@ $(function(){
           fold();
 
           $trigger.addClass('hidden-print');
-          $trigger.html('<span class="button button--secondary button--small">Show All</span>');
+          var show_all = $votes.data('show-all');
+          $trigger.html('<span class="button button--secondary button--small">' + show_all + '</span>');
           $trigger.on('click', unfold);
           $trigger.appendTo($votes);
         }

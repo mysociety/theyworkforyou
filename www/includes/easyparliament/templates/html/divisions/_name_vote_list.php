@@ -14,9 +14,9 @@ if (!function_exists('print_voter')) {
 
 if (count($votes) > 0) { ?>
   <div class="division-section__vote division-section__vote__names">
-      <h3><?= $vote_title ?>s: A-Z by last name</h3>
+      <h3><?= $vote_title ?>: <?= gettext('A-Z by last name') ?></h3>
       <?php $tellers = array(); ?>
-      <ul class="division-names js-vote-accordion">
+      <ul class="division-names js-vote-accordion" data-show-all="<?= gettext('Show All') ?>">
         <?php foreach ($votes as $vote) {
           if ($vote['teller']) {
               $tellers[] = $vote;
@@ -26,7 +26,7 @@ if (count($votes) > 0) { ?>
         } ?>
       </ul>
     <?php if (count($tellers) > 0) { ?>
-      <h4>Tellers</h4>
+      <h4><?= gettext('Tellers') ?></h4>
       <ul class="division-names">
         <?php foreach($tellers as $teller) {
           print_voter($teller);

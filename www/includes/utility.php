@@ -171,8 +171,8 @@ function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
         // On live sites we display a nice message and email the problem.
 
         $message = array(
-            'title' => "Sorry, an error has occurred",
-            'text' => "We've been notified by email and will try to fix the problem soon!"
+            'title' => gettext("Sorry, an error has occurred"),
+            'text' => gettext("We've been notified by email and will try to fix the problem soon!")
         );
 
         if (is_object($PAGE)) {
@@ -270,7 +270,7 @@ function format_timestamp($timestamp, $format) {
     if (preg_match("/^(\d\d\d\d)(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/", $timestamp, $matches)) {
         list($string, $year, $month, $day, $hour, $min, $sec) = $matches;
 
-        return gmdate ($format, gmmktime($hour, $min, $sec, $month, $day, $year));
+        return strftime($format, mktime($hour, $min, $sec, $month, $day, $year));
     } else {
         return "";
     }
@@ -297,7 +297,7 @@ function format_date($date, $format) {
             }
         }
 
-        return gmdate ($format, gmmktime(0, 0, 0, $month, $day, $year));
+        return strftime($format, mktime(0, 0, 0, $month, $day, $year));
     } else {
         return "";
     }
@@ -313,7 +313,7 @@ function format_time($time, $format) {
     if (preg_match("/^(\d\d):(\d\d):(\d\d)$/", $time, $matches)) {
         list($string, $hour, $min, $sec) = $matches;
 
-        return gmdate ($format, gmmktime($hour, $min, $sec));
+        return strftime($format, mktime($hour, $min, $sec));
     } else {
         return "";
     }

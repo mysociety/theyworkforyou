@@ -468,10 +468,10 @@ class ALERT {
         }
         $criteria = '';
         if (count($words)) {
-            $criteria .= ($html?'<li>':'* ') . 'Mentions of [' . implode(' ', $words) . ']' . ($html?'</li>':'') . "\n";
+            $criteria .= ($html?'<li>':'* ') . sprintf(gettext('Mentions of [%s]'), implode(' ', $words)) . ($html?'</li>':'') . "\n";
         }
         if ($spokenby) {
-            $criteria .= ($html?'<li>':'* ') . "Things by " . implode(' or ', $spokenby) . ($html?'</li>':'') . "\n";
+            $criteria .= ($html?'<li>':'* ') . sprintf(gettext("Things by %s"), implode(' or ', $spokenby)) . ($html?'</li>':'') . "\n";
         }
         return $criteria;
     }

@@ -432,7 +432,7 @@ class HANSARDLIST {
                     // Linking to the prev (sub)section.
                     $thing = $hansardmajors[$this->major]['singular'];
                     $nextprevdata['prev'] = array (
-                        'body'		=> "Previous $thing",
+                        'body'		=> sprintf(gettext("Previous %s"), $thing),
                         'url'		=> $prevdata[0]['listurl'],
                         'title'		=> $prevdata[0]['body']
                     );
@@ -445,7 +445,7 @@ class HANSARDLIST {
                         $title = '';
                     }
                     $nextprevdata['prev'] = array (
-                        'body'		=> 'Previous speaker',
+                        'body'		=> gettext('Previous speaker'),
                         'url'		=> $prevdata[0]['commentsurl'],
                         'title'		=> $title
                     );
@@ -476,7 +476,7 @@ class HANSARDLIST {
                     // Linking to the next (sub)section.
                     $thing = $hansardmajors[$this->major]['singular'];
                     $nextprevdata['next'] = array (
-                        'body'		=> "Next $thing",
+                        'body'		=> sprintf(gettext("Next %s"), $thing),
                         'url'		=> $nextdata[0]['listurl'],
                         'title'		=> $nextdata[0]['body']
                     );
@@ -489,7 +489,7 @@ class HANSARDLIST {
                         $title = '';
                     }
                     $nextprevdata['next'] = array (
-                        'body'		=> 'Next speaker',
+                        'body'		=> gettext('Next speaker'),
                         'url'		=> $nextdata[0]['commentsurl'],
                         'title'		=> $title
                     );
@@ -512,7 +512,7 @@ class HANSARDLIST {
             $URL->remove(array('id'));
             $things = $hansardmajors[$itemdata['major']]['title'];
             $nextprevdata['up'] = array(
-                'body'	=> "All $things on " . format_date($itemdata['hdate'], SHORTDATEFORMAT),
+                'body'	=> sprintf(gettext("All %s on %s"), $things, format_date($itemdata['hdate'], SHORTDATEFORMAT)),
                 'title'	=> '',
                 'url' 	=> $URL->generate()
             );
@@ -566,9 +566,9 @@ class HANSARDLIST {
                 $URL->insert( array( 'd' => $q['hdate'] ) );
 
                 if ($nextorprev == 'next') {
-                    $body = 'Next day';
+                    $body = gettext('Next day');
                 } else {
-                    $body = 'Previous day';
+                    $body = gettext('Previous day');
                 }
 
                 $title = format_date($q['hdate'], SHORTDATEFORMAT);
@@ -588,7 +588,7 @@ class HANSARDLIST {
         $URL->insert(array('y'=>$year));
 
         $nextprevdata['up'] = array (
-            'body' 	=> "All of $year's $thing",
+            'body' 	=> sprintf(gettext("All of %s’s %s"), $year, $thing),
             'title'	=> '',
             'url' 	=> $URL->generate()
         );
@@ -874,7 +874,7 @@ class HANSARDLIST {
             );
         }
 
-        $data['info']['text'] = 'Recent dates';
+        $data['info']['text'] = gettext('Recent dates');
 
         return $data;
     }
@@ -1218,11 +1218,11 @@ class HANSARDLIST {
 #                            $itemdata['parent']['listurl'] = $subsection['listurl'];
                         }
                         if ($itemdata['major'] == 5) {
-                            $itemdata['parent']['body'] = 'Northern Ireland Assembly: ' . $itemdata['parent']['body'];
+                            $itemdata['parent']['body'] = gettext('Northern Ireland Assembly') . ': ' . $itemdata['parent']['body'];
                         } elseif ($itemdata['major'] == 6) {
-                            $itemdata['parent']['body'] = 'Public Bill Committee: ' . $itemdata['parent']['body'];
+                            $itemdata['parent']['body'] = gettext('Public Bill Committee') . ': ' . $itemdata['parent']['body'];
                         } elseif ($itemdata['major'] == 7) {
-                            $itemdata['parent']['body'] = 'Scottish Parliament: ' . $itemdata['parent']['body'];
+                            $itemdata['parent']['body'] = gettext('Scottish Parliament') . ': ' . $itemdata['parent']['body'];
                         }
 
                     } else {
@@ -2436,7 +2436,7 @@ class HANSARDLIST {
                 $nextprev['up']['url'] 		= $sectionrow['listurl'];
                 $nextprev['up']['title'] 	= $sectionrow['body'];
             }
-            $nextprev['up']['body']		= 'See the whole debate';
+            $nextprev['up']['body']		= gettext('See the whole debate');
         }
 
         // We can then access this from $PAGE and the templates.

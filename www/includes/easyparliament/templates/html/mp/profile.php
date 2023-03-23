@@ -17,9 +17,9 @@ $covid_policy_list = $policies_obj->getCovidAffected();
             <?php if (count($policyPositions->positions) > 0): ?>
             <div class="person-navigation">
                 <ul>
-                    <li class="active"><a href="<?= $member_url ?>">Overview</a></li>
-                    <li><a href="<?= $member_url ?>/votes">Voting Record</a></li>
-                    <li><a href="<?= $member_url ?>/recent">Recent Votes</a></li>
+                    <li class="active"><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
+                    <li><a href="<?= $member_url ?>/votes"><?= gettext('Voting Record') ?></a></li>
+                    <li><a href="<?= $member_url ?>/recent"><?= gettext('Recent Votes') ?></a></li>
                 </ul>
             </div>
             <?php endif; ?>
@@ -27,17 +27,17 @@ $covid_policy_list = $policies_obj->getCovidAffected();
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <h3 class="browse-content">Browse content</h3>
+                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
                         <?php if (count($policyPositions->positions) > 0): ?>
-                          <li><a href="#votes">Votes</a></li>
+                          <li><a href="#votes"><?= gettext('Votes') ?></a></li>
                         <?php endif; ?>
                         <?php if (count($recent_appearances['appearances'])): ?>
-                          <li><a href="#appearances">Appearances</a></li>
+                          <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
                         <?php endif; ?>
-                          <li><a href="#profile">Profile</a></li>
+                          <li><a href="#profile"><?= gettext('Profile') ?></a></li>
                         <?php if ($register_interests): ?>
-                          <li><a href="#register">Register of Interests</a></li>
+                          <li><a href="#register"><?= gettext('Register of Interests') ?></a></li>
                         <?php endif; ?>
                       </ul>
                       <?php include '_featured_content.php'; ?>
@@ -203,7 +203,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 <?php if (count($recent_appearances['appearances'])): ?>
                 <div class="panel">
                     <a name="appearances"></a>
-                    <h2>Recent appearances</h2>
+                    <h2><?=gettext('Recent appearances') ?></h2>
 
                     <?php if (count($recent_appearances['appearances']) > 0): ?>
 
@@ -228,7 +228,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php else: ?>
 
-                        <p>No recent appearances to display.</p>
+                        <p><?=gettext('No recent appearances to display.') ?></p>
 
                     <?php endif; ?>
 
@@ -237,7 +237,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                 <div class="panel">
                     <a name="profile"></a>
-                    <h2>Profile</h2>
+                    <h2><?=gettext('Profile') ?></h2>
 
                     <p><?= $member_summary ?></p>
 
@@ -271,7 +271,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <?php endif; ?>
 
                     <?php if (count($social_links) > 0): ?>
-                    <h3>Social Media</h3>
+                    <h3><?=gettext('Social Media') ?></h3>
                     <ul>
                         <?php foreach ($social_links as $link): ?>
                         <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'social_link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
@@ -295,7 +295,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php if (count($topics_of_interest) > 0 || $eu_stance): ?>
 
-                    <h3>Topics of interest</h3>
+                    <h3><?= gettext('Topics of interest') ?></h3>
 
                     <?php if ($eu_stance): ?>
                         <p>
@@ -320,7 +320,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php if (count($current_offices) > 0): ?>
 
-                    <h3>Currently held offices</h3>
+                    <h3><?=gettext('Currently held offices') ?></h3>
 
                     <ul class='list-dates'>
 
@@ -334,7 +334,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php if (count($previous_offices) > 0): ?>
 
-                    <h3>Other offices held in the past</h3>
+                    <h3><?=gettext('Other offices held in the past') ?></h3>
 
                     <ul class='list-dates'>
 
@@ -416,21 +416,19 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 <?php endif; ?>
 
                 <div class="panel panel--secondary">
-                    <p>Note for journalists and researchers: The data on this page may be used freely,
-                       on condition that TheyWorkForYou.com is cited as the source.</p>
+                    <p><?= gettext('Note for journalists and researchers: The data on this page may be used freely, on condition that TheyWorkForYou.com is cited as the source.') ?></p>
 
-                    <p>This data was produced by TheyWorkForYou from a variety
-                        of sources. Voting information from
-                        <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/<?= $member_id ?>&amp;showall=yes">Public Whip</a>.</p>
+                    <p><?php print gettext('This data was produced by TheyWorkForYou from a variety of sources.') . ' ';
+                        printf(gettext('Voting information from <a href="%s">Public Whip</a>.'), "https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/ $member_id&amp;showall=yes"); ?></p>
 
                   <?php if($image && $image['exists']) {
                       if(isset($data['photo_attribution_text'])) { ?>
                     <p>
                       <?php if(isset($data['photo_attribution_link'])) { ?>
-                        Profile photo:
+                        <?= gettext('Profile photo:') ?>
                         <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
                       <?php } else { ?>
-                        Profile photo: <?= $data['photo_attribution_text'] ?>
+                        <?= gettext('Profile photo:') ?> <?= $data['photo_attribution_text'] ?>
                       <?php } ?>
                     </p>
                   <?php }

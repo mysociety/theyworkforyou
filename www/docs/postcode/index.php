@@ -133,12 +133,14 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
 
     $out = '';
     $out .= '<h1>' . gettext("Your representatives") . '</h1>';
-    $out .= '<ul><li>Your ';
+    $out .= '<ul><li>';
+    $name = $mp['given_name'] . ' ' . $mp['family_name'];
     if (isset($mp['former'])) {
-        $out .= 'former ';
+        $out .= sprintf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $name, $mp['constituency']);
+    } else {
+        $out .= sprintf(gettext('Your <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $name, $mp['constituency']);
     }
-    $out .= '<strong>MP</strong> (Member of Parliament) is <a href="/mp/?p=' . $mp['person_id'] . '">';
-    $out .= $mp['given_name'] . ' ' . $mp['family_name'] . '</a>, ' . $mp['constituency'] . '</li>';
+    $out .= '</li>';
     if ($mcon) {
         $out .= '<li>Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) ';
         $out .= $current ? 'is' : 'was';

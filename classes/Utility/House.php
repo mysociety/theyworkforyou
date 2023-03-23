@@ -40,8 +40,8 @@ class House
                 'plural'   => 'MSPs'
             ),
             HOUSE_TYPE_WALES => array(
-                'singular' => 'MS',
-                'plural'   => 'MSs'
+                'singular' => gettext('MS'),
+                'plural'   => gettext('MSs')
             ),
             HOUSE_TYPE_LONDON_ASSEMBLY => array(
                 'singular' => 'Member of the London Assembly',

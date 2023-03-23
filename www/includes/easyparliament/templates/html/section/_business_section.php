@@ -1,7 +1,7 @@
     <div class="business-section">
         <div class="business-section__header">
             <h1 class="business-section__header__title">
-            Recent <?= $title ?>
+            <?= sprintf(gettext('Recent %s'), $title) ?>
             </h1>
         </div>
 
@@ -11,7 +11,7 @@
                 include '_business_list.php'; ?>
                 <div class="business-section__secondary">
                     <div class="business-section__secondary__item">
-                        <h3>What is this?</h3>
+                        <h3><?= gettext('What is this?') ?></h3>
                         <?php include '_' . $section . '_desc.php'; ?>
                     </div>
                     <div class="business-section__secondary__item">
@@ -23,7 +23,7 @@
                   <?php if ( isset($content['rssurl']) ) { ?>
                     <div class="business-section__secondary__item">
                         <p class="rss-feed">
-                            <a href="<?= WEBPATH . $content['rssurl'] ?>">RSS feed of <?= $title ?></a>
+                            <a href="<?= WEBPATH . $content['rssurl'] ?>"><?= sprintf(gettext('RSS feed of %s'), $title) ?></a>
                         </p>
                     </div>
                   <?php } ?>

@@ -3,11 +3,13 @@
 $dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
 if (!count($data)) {
     if ($type == 'mps' && isset($dissolution[1])) {
-        $former = 'former';
+        $former = true;
     } elseif ($type == 'msps' && isset($dissolution[4])) {
-        $former = 'former';
+        $former = true;
+    } elseif ($type == 'mss' && isset($dissolution[5])) {
+        $former = true;
     } elseif ($type == 'mlas' && isset($dissolution[3])) {
-        $former = 'former';
+        $former = true;
     }
 }
 
@@ -23,11 +25,17 @@ if (!count($data)) {
                 <div class="people-list__your-mp">
                     <div class="people-list__your-mp__header">
                       <p>
-                          Based on postcode <strong><?= $mp_data['postcode'] ?></strong>
-                          <a href="<?= $mp_data['change_url'] ?>">(Change postcode)</a>
+                          <?= sprintf(gettext('Based on postcode <strong>%s</strong>'), $mp_data['postcode']) ?>
+                          <a href="<?= $mp_data['change_url'] ?>"><?= gettext('(Change postcode)') ?></a>
                       </p>
                     <?php if ( isset( $mp_data ) && $type != 'mlas' ) { ?>
-                      <h3>Your <?= $mp_data['former'] ? $mp_data['former'] . ' ' : '' ?><?= $rep_name ?> is</h3>
+                      <h3><?php
+                        if ($mp_data['former']) {
+                            printf(gettext('Your former %s is'), $rep_name);
+                        } else {
+                            printf(gettext('Your %s is'), $rep_name);
+                        }
+                        ?></h3>
                     </div>
                     <a href="<?= $mp_data['mp_url'] ?>" class="people-list__person">
                     <img class="people-list__person__image" src="<?= $mp_data['image'] ?>">
@@ -42,7 +50,21 @@ if (!count($data)) {
                         if ( isset($mp_data) && $type != 'mlas' ) { ?>
                     <div class="people-list__your-mp__replist-header">
                         <?php } ?>
-                      <h3>Your <?=$former ?> <?= $rep_plural == 'MSPs' ? 'regional ' : '' ?><?= $rep_plural ?> are</h3>
+                      <h3><?php
+                        if (isset($former)) {
+                            if ($type == 'msps' || $type == 'mss') {
+                                printf(gettext('Your former regional %s are'), $rep_plural);
+                            } else {
+                                printf(gettext('Your former %s are'), $rep_plural);
+                            }
+                        } else {
+                            if ($type == 'msps' || $type == 'mss') {
+                                printf(gettext('Your regional %s are'), $rep_plural);
+                            } else {
+                                printf(gettext('Your %s are'), $rep_plural);
+                            }
+                        }
+                        ?></h3>
                     </div>
                         <?php foreach ( $reps as $rep ) { ?>
                     <a href="<?= $rep['mp_url'] ?>" class="people-list__person">
@@ -59,21 +81,23 @@ if (!count($data)) {
             </div>
         </div>
 
-      <?php } else { ?>
+      <?php } else {
+      $pc_form = ($type == 'mlas' || $type == 'msps' || $type == 'mss');
+?>
 
-        <form action="/<?= ($type == 'mlas' || $type == 'msps') ? 'postcode' : 'search' ?>/">
+        <form action="/<?= $pc_form ? 'postcode' : 'search' ?>/">
             <div class="search-page__section search-page__section--search">
                 <div class="search-page__section__primary">
                     <p class="search-page-main-inputs">
                     <?php if ( $type == 'peers' ) { ?>
-                        <label for="find-mp-by-name-or-postcode">Find <?= $rep_plural ?> by name:</label>
-                    <?php } elseif ( $type == 'mlas' || $type == 'msps' ) { ?>
-                        <label for="find-mp-by-name-or-postcode">Find your <?= $rep_name ?> by postcode:</label>
+                        <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find %s by name:'), $rep_plural) ?></label>
+                    <?php } elseif ($pc_form) { ?>
+                        <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find your %s by postcode:'), $rep_name) ?></label>
                     <?php } else { ?>
-                        <label for="find-mp-by-name-or-postcode">Find your <?= $rep_name ?> by name or postcode:</label>
+                        <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find your %s by name or postcode:'), $rep_name) ?></label>
                     <?php } ?>
                         <input type="text" class="form-control" name="<?= ($type == 'mlas' || $type == 'msps') ? 'pc' : 'q' ?>" id="find-mp-by-name-or-postcode">
-                        <button type="submit" class="button">Find</button>
+                        <button type="submit" class="button"><?= gettext('Find') ?></button>
                     </p>
                 </div>
             </div>
@@ -106,29 +130,29 @@ if (!count($data)) {
         } else { ?>
 
             <div class="search-page__section__primary">
-            <h2>All <?= $rep_plural ?></h2>
+            <h2><?= sprintf(gettext('All %s'), $rep_plural) ?></h2>
 
                 <?php if ( $type != 'peers' ) { ?>
                 <ul class="search-result-display-options">
                     <?php if ( $order == 'given_name' ) { ?>
-                    <li><strong>Sorted by</strong> First name</li>
-                    <li>Sort by <a href="<?= $urls['by_last'] ?>">Last name</a> / <a href="<?= $urls['by_party'] ?>">Party</a></li>
+                    <li><?= gettext('<strong>Sorted by</strong> First name') ?></li>
+                    <li><?= gettext('Sort by') ?> <a href="<?= $urls['by_last'] ?>"><?= gettext('Last name') ?></a> / <a href="<?= $urls['by_party'] ?>"><?= gettext('Party') ?></a></li>
                     <?php } else if ( $order == 'party' ) { ?>
-                    <li><strong>Sorted by</strong> Party</li>
-                    <li>Sort by <a href="<?= $urls['by_first'] ?>">First name</a> / <a href="<?= $urls['by_last'] ?>">Last name</a></li>
+                    <li><?= gettext('<strong>Sorted by</strong> Party') ?></li>
+                    <li><?= gettext('Sort by') ?> <a href="<?= $urls['by_first'] ?>"><?= gettext('First name') ?></a> / <a href="<?= $urls['by_last'] ?>"><?= gettext('Last name') ?></a></li>
                     <?php } else { ?>
-                    <li><strong>Sorted by</strong> Last name</li>
-                    <li>Sort by <a href="<?= $urls['by_first'] ?>">First name</a> / <a href="<?= $urls['by_party'] ?>">Party</a></li>
+                    <li><?= gettext('<strong>Sorted by</strong> Last name') ?></li>
+                    <li><?= gettext('Sort by') ?> <a href="<?= $urls['by_first'] ?>"><?= gettext('First name') ?></a> / <a href="<?= $urls['by_party'] ?>"><?= gettext('Party') ?></a></li>
                     <?php } ?>
                 </ul>
                 <?php } else { ?>
                 <ul class="search-result-display-options">
                     <?php if ( $order == 'party' ) { ?>
-                    <li><strong>Sorted by</strong> Party</li>
-                    <li>Sort by <a href="<?= $urls['by_name'] ?>">Name</a></li>
+                    <li><?= gettext('<strong>Sorted by</strong> Party') ?></li>
+                    <li>Sort by <a href="<?= $urls['by_name'] ?>"><?= gettext('Name') ?></a></li>
                     <?php } else { ?>
-                    <li><strong>Sorted by</strong> Name</li>
-                    <li>Sort by <a href="<?= $urls['by_party'] ?>">Party</a></li>
+                    <li><?= gettext('<strong>Sorted by</strong> Name') ?></li>
+                    <li>Sort by <a href="<?= $urls['by_party'] ?>"><?= gettext('Party') ?></a></li>
                     <?php } ?>
                 </ul>
                 <?php } ?>
@@ -203,10 +227,10 @@ if (!count($data)) {
             <?php } ?>
 
             <div class="search-page__section__secondary search-page-sidebar">
-                <h2>Download data</h2>
+                <h2><?= gettext('Download data') ?></h2>
                 <p class="sidebar-item-with-icon sidebar-item-with-icon--excel">
-                <a href="<?= $urls['by_csv'] ?>">Download this list as a CSV</a>
-                    suitable for Excel
+                <a href="<?= $urls['by_csv'] ?>"><?= gettext('Download this list as a CSV') ?></a>
+                    <?= gettext('suitable for Excel') ?>
                 </p>
                 <?php if ( $type == 'mps' ) { ?>
                 <style>
@@ -263,7 +287,7 @@ if (!count($data)) {
                     </p>
                 <?php } else { ?>
                     <p class="past-list-dates" id="past-list-dates">
-                    <a href="<?= $urls['plain'] ?>?all=1">Historical list of all <?= $rep_plural ?></a>
+                    <a href="<?= $urls['plain'] ?>?all=1"><?= sprintf(gettext('Historical list of all %s'), $rep_plural) ?></a>
                     </p>
                 <?php } ?>
             </div>

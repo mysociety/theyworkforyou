@@ -4,23 +4,23 @@
         <div class="medium-5 columns">
             <h2 class="mysoc-footer__site-name">TheyWorkForYou</h2>
             <div class="mysoc-footer__site-description">
-                <p>Making it easy to keep an eye on the UK&rsquo;s parliaments. Discover who represents you, how they&rsquo;ve voted and what they&rsquo;ve said in debates &ndash; simply and clearly.</p>
+                <p><?= gettext('Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates – simply and clearly.') ?></p>
             </div>
             <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
-                <p>Sign up to mySociety's newsletter</p>
+                <p><?= gettext('Sign up to mySociety’s newsletter') ?></p>
                 <div class="row collapse">
                     <div class="small-8 columns">
-                        <input type="email" placeholder="Your email address" name="EMAIL"/>
+                        <input type="email" placeholder="<?= gettext('Your email address') ?>" name="EMAIL"/>
                     </div>
                     <div class="small-4 columns">
                         <label style="position: absolute; left: -5000px;">
                           Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
                         </label>
                         <input type="hidden" name="group[11745][32]" value="1">
-                        <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
+                        <input type="submit" value="<?=gettext('Subscribe') ?>" name="subscribe" class="button prefix">
                     </div>
                 </div>
-                <p><a href="https://www.mysociety.org/privacy#newsletter">Your data</a></p>
+                <p><a href="https://www.mysociety.org/privacy#newsletter"><?= gettext('Your data') ?></a></p>
             </form>
         </div>
 
@@ -41,8 +41,8 @@
 
         <div class="medium-3 columns">
             <div class="mysoc-footer__donate">
-                <p>Your donations keep this site and others like it running</p>
-                <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=footer+donate+now&utm_medium=link&utm_campaign=mysoc_footer" class="mysoc-footer__donate__button">Donate now</a>
+                <p><?= gettext('Your donations keep this site and others like it running') ?></p>
+                <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=footer+donate+now&utm_medium=link&utm_campaign=mysoc_footer" class="mysoc-footer__donate__button"><?= gettext('Donate now') ?></a>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
         <div class="medium-5 columns">
             <div class="mysoc-footer__orgs">
                 <p class="mysoc-footer__org">
-                    Built by
+                    <?= gettext('Built by') ?>
                     <a href="https://www.mysociety.org?utm_source=theyworkforyou.com&utm_content=footer+logo&utm_medium=link&utm_campaign=mysoc_footer" class="mysoc-footer__org__logo mysoc-footer__org__logo--mysociety">mySociety</a>
                 </p>
             </div>
@@ -65,7 +65,7 @@
 
         <div class="medium-4 columns">
             <div class="mysoc-footer__legal">
-                <p><a href="https://www.mysociety.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">mySociety</a> is a registered charity in England and Wales (1076346) and a limited company (03277032). We provide commercial services through our wholly owned subsidiary <a href="https://www.societyworks.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">SocietyWorks Ltd</a> (05798215).</p>
+            <p><?= sprintf(gettext('%s is a registered charity in England and Wales (1076346) and a limited company (03277032). We provide commercial services through our wholly owned subsidiary %s (05798215).'), '<a href="https://www.mysociety.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">mySociety</a>', '<a href="https://www.societyworks.org?utm_source=theyworkforyou.com&utm_content=footer+full+legal+details&utm_medium=link&utm_campaign=mysoc_footer">SocietyWorks Ltd</a>') ?></p>
             </div>
         </div>
 

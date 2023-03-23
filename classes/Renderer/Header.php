@@ -116,7 +116,7 @@ class Header
             $this->data['meta_keywords'] .= 'Hansard, Official Report, Parliament, government, House of Commons, House of Lords, MP, Peer, Member of Parliament, MPs, Peers, Lords, Commons, Scottish Parliament, Northern Ireland Assembly, MSP, MLA, MSPs, MLAs, London Assembly Members, MS, MSs, Welsh Parliament, Senedd Cymru, Senedd, Member of the Senedd';
         }
 
-        $this->data['meta_description'] = "Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates.";
+        $this->data['meta_description'] = gettext("Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates.");
         if ($DATA->page_metadata($this_page, "meta_description")) {
             $this->data['meta_description'] = $DATA->page_metadata($this_page, "meta_description");
         }

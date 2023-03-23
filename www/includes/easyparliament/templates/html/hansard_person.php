@@ -28,8 +28,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
         $text .= '<small>' . format_date($row['hdate'], SHORTDATEFORMAT);
 
         if ($hansardmajors[$row['major']]['type'] == 'debate') {
-            $plural = $row['total_speeches'] == 1 ? 'speech' : 'speeches';
-            $text .= ' (' . $row['total_speeches'] . " $plural)";
+            $text .= ' (' . sprintf(ngettext('%s speech', '%s speeches', $row['total_speeches']), $row['total_speeches']) . ')';
         }
 
         $text .= '</small>';
@@ -44,7 +43,7 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
 else {
 
     ?>
-<p>No data to display.</p>
+<p><?= gettext('No data to display.') ?></p>
 <?php
 }
 

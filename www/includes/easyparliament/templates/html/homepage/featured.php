@@ -1,5 +1,5 @@
                           <?php if ($featured['featured']) { ?>
-                            <h2>In the news</h2>
+                          <h2><?= gettext('In the news') ?></h2>
                             <?php if (isset($featured['headline'])) { ?>
                             <h3 class="in-the-news__topic"><a href="<?= $featured['list_url'] ?>"><?= $featured['headline'] ?></a></h3>
                             <?php if (isset($featured['context'])) { ?>
@@ -7,7 +7,7 @@
                             <?php } ?>
                             <?php } ?>
                             <?php } else { ?>
-                            <h2>Random debate</h2>
+                            <h2><?= gettext('Random debate') ?></h2>
                             <?php } ?>
                             <div class="parliamentary-excerpt">
                             <h3 class="excerpt__title"><a href="<?= $featured['list_url'] ?>"><?= $featured['parent']['body'] ?></a></h3>
@@ -27,7 +27,7 @@
                                 <!-- No maximum, but less than 4 looks best -->
                                 <ul class="key-events__list">
                                     <li>
-                                        <h4>Key events</h4>
+                                        <h4><?= gettext('Key events') ?></h4>
                                     </li>
                                     <?php foreach ($featured['related'] as $related) { ?>
                                     <li>

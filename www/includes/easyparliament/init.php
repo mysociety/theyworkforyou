@@ -17,10 +17,10 @@ define ("ALLOWCOMMENTS", true);
 // These variables are so we can keep date/time formats consistent across the site
 // and change them easily.
 // Formats here: http://www.php.net/manual/en/function.date.php
-define ("LONGERDATEFORMAT",		"l, j F Y");// Monday, 31 December 2003
-define ("LONGDATEFORMAT", 		"j F Y"); 	// 31 December 2003
-define ("SHORTDATEFORMAT", 		"j M Y");	// 31 Dec 2003
-define ("TIMEFORMAT", 			"g:i a");	// 11:59 pm
+define ("LONGERDATEFORMAT",		"%A, %e %B %Y");// Monday, 31 December 2003
+define ("LONGDATEFORMAT", 		"%e %B %Y"); 	// 31 December 2003
+define ("SHORTDATEFORMAT", 		"%e %b %Y");	// 31 Dec 2003
+define ("TIMEFORMAT", 			"%l:%M %p");	// 11:59 pm
 
 define ("SHORTDATEFORMAT_SQL",	"%e %b %Y"); // 31 Dec 2003
 define ("TIMEFORMAT_SQL", 		"%l:%i %p"); // 11:59 PM
@@ -38,6 +38,18 @@ require_once dirname(__FILE__) . '/../../../vendor/autoload.php';
 include_once dirname(__FILE__) . '/../../../conf/general';
 include_once INCLUDESPATH . 'utility.php';
 twfy_debug_timestamp("after including utility.php");
+
+bindtextdomain('TheyWorkForYou', BASEDIR . '/../../locale');
+if (substr($_SERVER['SERVER_NAME'] ?? '', 0, 2) == 'cy') {
+    define('LANGUAGE', 'cy');
+    setlocale(LC_ALL, 'cy_GB.UTF-8');
+    putenv('LC_ALL=cy_GB.UTF-8');
+} else {
+    define('LANGUAGE', 'en');
+    setlocale(LC_ALL, 'en_GB.UTF-8');
+    putenv('LC_ALL=en_GB.UTF-8');
+}
+textdomain('TheyWorkForYou');
 
 // Set the default timezone
 if(function_exists('date_default_timezone_set')) {

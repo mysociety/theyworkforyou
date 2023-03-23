@@ -9,7 +9,7 @@
           </div>
         </div>
         <?php } else { ?>
-          <h1>Your details</h1>
+          <h1><?= gettext('Your details') ?></h1>
           <?php if (isset($edited)) { ?>
             <p>
               <strong>have been updated<?= isset($email_changed) && $email_changed == true ? " and we&rsquo;ve sent a confirmation email to your new email address" : '' ?>.</strong>
@@ -25,18 +25,18 @@
             </p>
 
             <?php } else { ?>
-                <a href="/user/?pg=edit">Edit your details</a>.
+                <a href="/user/?pg=edit"><?= gettext('Edit your details') ?></a>.
             <?php } ?>
           </p>
           <?php } ?>
 
           <div class="row">
-            <span class="label">Name</span>
+            <span class="label"><?= gettext('Name') ?></span>
             <span class="formw"><?= _htmlentities($name) ?></span>
           </div>
 
           <div class="row">
-            <span class="label">Website</span>
+            <span class="label"><?= gettext('Website') ?></span>
             <span class="formw"><?= $website == '' ? 'none' : '<a rel="nofollow" href="' . _htmlentities($website) . '">'. _htmlentities($website) . '</a>' ?></span>
           </div>
 
@@ -48,12 +48,12 @@
           <?php } ?>
 
           <div class="row">
-            <span class="label">Status</span>
+            <span class="label"><?= gettext('Status') ?></span>
             <span class="formw"><?= _htmlentities($status) ?></span>
           </div>
 
           <div class="row">
-            <span class="label">Joined</span>
+            <span class="label"><?= gettext('Joined') ?></span>
             <span class="formw"><?= _htmlentities($registrationtime) ?></span>
           </div>
         </div> <!-- end .main -->

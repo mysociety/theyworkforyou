@@ -79,7 +79,7 @@ $page = array (
 // KEEP THE PAGES IN ALPHABETICAL ORDER! TA.
 
     'about' => array (
-        'title'			=> 'About us',
+        'title'			=> gettext('About us'),
         'url'			=> 'about/'
     ),
     'parliaments' => array (
@@ -328,14 +328,14 @@ $page = array (
 
     'contact' => array (
         'menu'			=> array (
-            'text'			=> 'Contact',
+            'text'			=> gettext('Contact'),
             'title'			=> '',
         ),
-        'title'			=> 'Contact',
+        'title'			=> gettext('Contact'),
         'url'			=> 'contact/'
     ),
     'news' => array(
-        'title' => 'News',
+        'title' => gettext('News'),
         'url' => 'https://www.mysociety.org/category/projects/theyworkforyou/'
     ),
     'debate'  => array (
@@ -426,7 +426,7 @@ $page = array (
                 'url'                   => 'search-hansard/',
         ),
     'help' => array (
-        'title'			=> 'Help - Frequently Asked Questions',
+        'title'			=> gettext('Help - Frequently Asked Questions'),
         'url'			=> 'help/'
     ),
     'help_us_out' => array (
@@ -450,28 +450,27 @@ $page = array (
     ),
 
     'linktous' => array (
-        'title'			=> 'Link to us',
-        'heading'		=> 'How to link to us',
+        'title'			=> gettext('Link to us'),
+        'heading'		=> gettext('How to link to us'),
         'url'			=> 'help/linktous/'
     ),
     'api' => array (
-        'title'			=> 'API',
-        'heading'		=> 'API - Query the TheyWorkForYou database',
+        'title'			=> gettext('API'),
+        'heading'		=> gettext('API - Query the TheyWorkForYou database'),
         'url'			=> 'api/'
     ),
     'data' => array (
-        'title'			=> 'Raw Data',
-        'heading'		=> 'Raw data (XML) - the data behind TheyWorkForYou and Public Whip',
+        'title'			=> gettext('Raw Data'),
+        'heading'		=> gettext('Raw data (XML) - the data behind TheyWorkForYou and Public Whip'),
         'url'			=> 'http://parser.theyworkforyou.com'
     ),
     'devmailinglist' => array (
-        'title'			=> 'Developer mailing list',
-        'heading'		=> 'Developer mailing list',
+        'title'			=> gettext('Developer mailing list'),
         'url'			=> 'https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou'
     ),
     'code' => array (
-        'title'			=> 'Source code',
-        'heading'		=> 'TheyWorkForYou Source code',
+        'title'			=> gettext('Source code'),
+        'heading'		=> gettext('TheyWorkForYou Source code'),
         'url'			=> 'https://github.com/mysociety/theyworkforyou'
     ),
     'irc' => array (
@@ -711,7 +710,7 @@ $page = array (
         'url'			=> 'user/'
     ),
     'privacy' => array (
-        'title'			=> 'Privacy Policy',
+        'title'			=> gettext('Privacy Policy'),
         'url'			=> 'privacy/'
     ),
 
@@ -976,21 +975,21 @@ $page = array (
     ),
     'userjoin' => array (
                 'menu'                  => array (
-                        'text'                  => 'Join',
-                        'title'                 => "Joining is free and allows you to manage your email alerts"
+                        'text'                  => gettext('Join'),
+                        'title'                 => gettext("Joining is free and allows you to manage your email alerts")
                 ),
                 'pg'                    => 'join',
                 'sidebar'               => 'userjoin',
-                'title'                 => 'Join TheyWorkForYou',
+                'title'                 => gettext('Join TheyWorkForYou'),
                 'url'                   => 'user/'
         ),
     'userlogin' => array (
         'menu'			=> array (
-            'text'			=> 'Sign in',
-            'title'			=> "If you've already joined , sign in to your account"
+            'text'			=> gettext('Sign in'),
+            'title'			=> gettext("If you've already joined, sign in to your account")
         ),
         'sidebar'		=> 'userlogin',
-        'title'			=> 'Sign in',
+        'title'			=> gettext('Sign in'),
         'url'			=> 'user/login/'
     ),
 
@@ -1042,15 +1041,15 @@ $page = array (
     'mss' => array (
         'parent' => 'wales_home',
         'menu' => array (
-            'text' => 'MSs',
-            'title' => "List of Members of the Senedd (MSs)"
+            'text' => gettext('MSs'),
+            'title' => gettext("List of Members of the Senedd (MSs)")
         ),
         'title' => '',
         'url' => 'mss/'
     ),
     'ms' => array (
         'parent' => 'mss',
-        'title' => 'Find your MS',
+        'title' => gettext('Find your MS'),
         'url' => 'ms/'
     ),
 
@@ -1158,11 +1157,11 @@ $page = array (
     ),
     'yourmp' => array (
         'menu'			=> array (
-            'text'			=> 'Your MP',
-            'title'			=> "Find out about your Member of Parliament"
+            'text'			=> gettext('Your MP'),
+            'title'			=> gettext("Find out about your Member of Parliament")
         ),
         'sidebar'		=> 'yourmp',
-        'title'			=> 'Your MP',
+        'title'			=> gettext('Your MP'),
         'url'			=> 'mp/',
         'parent'			=> 'mps',
     ),

@@ -173,7 +173,7 @@ class MemberTest extends TWFY_Database_TestCase
         $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 9));
 
         $this->assertEquals(array(
-            "<strong>Entered the Scottish Parliament on 1 January 1990</strong> &mdash; General election",
+            "<strong>Entered the Scottish Parliament on  1 January 1990</strong> &mdash; General election",
             "<strong>Left the Scottish Parliament on 31 December 1999</strong> &mdash; General election"
         ), $MEMBER->getEnterLeaveStrings());
     }

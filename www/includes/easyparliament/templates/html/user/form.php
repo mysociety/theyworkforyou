@@ -17,16 +17,16 @@
 
                 <br style="clear: left;">&nbsp;<br>
                 <div class="row">
-                <span class="label"><label for="postcode">Your UK postcode:</label></span>
-                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?= _htmlentities($postcode) ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
+                <span class="label"><label for="postcode"><?= gettext('Your UK postcode:') ?></label></span>
+                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?= _htmlentities($postcode) ?>" maxlength="10" size="10" class="form"> <small><?= gettext('Optional and not public') ?></small></span>
                 </div>
 
                 <p>
-                We use this to show you information about your MP.
+                <?= gettext('We use this to show you information about your MP.') ?>
                 </p>
 
                 <div class="row">
-                <span class="formw"><input type="submit" class="submit" value="Update details"></span>
+                <span class="formw"><input type="submit" class="submit" value="<?= gettext('Update details') ?>"></span>
                 </div>
 
                 <input type="hidden" name="submitted" value="true">
@@ -37,7 +37,7 @@
               <?php if (isset($showall) && $showall == true && isset($user_id)) { ?>
               <h1>Edit the user&rsquo;s details</h1>
               <?php } else { ?>
-              <h1>Edit your details</h1>
+              <h1><?= gettext('Edit your details') ?></h1>
               <?php } ?>
 
               <form method="post" action="/user/index.php">
@@ -48,7 +48,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="firstname">Your first name:</label></span>
+                <span class="label"><label for="firstname"><?= gettext('Your first name:') ?></label></span>
                 <span class="formw"><input type="text" name="firstname" id="firstname" value="<?= _htmlentities($firstname) ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -59,7 +59,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="lastname">Your last name:</label></span>
+                <span class="label"><label for="lastname"><?= gettext('Your last name:') ?></label></span>
                 <span class="formw"><input type="text" name="lastname" id="lastname" value="<?= _htmlentities($lastname) ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -70,7 +70,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="em">Email address:</label></span>
+                <span class="label"><label for="em"><?= gettext('Email address:') ?></label></span>
                 <span class="formw"><input type="text" name="em" id="em" value="<?= _htmlentities($email) ?>" maxlength="255" size="30" class="form"></span>
                 </div>
 
@@ -81,11 +81,11 @@
                 <?php } ?>
 
                 <div class="row">
-                &nbsp;<br><small>To change your password enter a new one twice below (otherwise, leave blank).</small>
+                &nbsp;<br><small><?= gettext('To change your password enter a new one twice below (otherwise, leave blank).') ?></small>
                 </div>
                 <div class="row">
-                <span class="label"><label for="password">Password:</label></span>
-                <span class="formw"><input type="password" name="password" id="password" value="" maxlength="30" size="20" class="form"> <small>At least six characters</small></span>
+                <span class="label"><label for="password"><?= gettext('Password:') ?></label></span>
+                <span class="formw"><input type="password" name="password" id="password" value="" maxlength="30" size="20" class="form"> <small><?= gettext('At least six characters') ?></small></span>
                 </div>
 
                 <?php if (isset($errors['password2'])) { ?>
@@ -95,7 +95,7 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="password2">Repeat password:</label></span>
+                <span class="label"><label for="password2"><?= gettext('Repeat password:') ?></label></span>
                 <span class="formw"><input type="password" name="password2" id="password2" value="" maxlength="30" size="20" class="form"></span>
                 </div>
 
@@ -107,8 +107,8 @@
 
                 <br style="clear: left;">&nbsp;<br>
                 <div class="row">
-                <span class="label"><label for="postcode">Your UK postcode:</label></span>
-                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?= _htmlentities($postcode) ?>" maxlength="10" size="10" class="form"> <small>Optional and not public</small></span>
+                <span class="label"><label for="postcode"><?= gettext('Your UK postcode:') ?></label></span>
+                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?= _htmlentities($postcode) ?>" maxlength="10" size="10" class="form"> <small><?= gettext('Optional and not public') ?></small></span>
                 </div>
 
                 <?php if (isset($errors['url'])) { ?>
@@ -118,8 +118,8 @@
                 <?php } ?>
 
                 <div class="row">
-                <span class="label"><label for="url">Your website:</label></span>
-                <span class="formw"><input type="text" name="url" id="url" value="<?= _htmlentities($url) ?>" maxlength="255" size="20" class="form"> <small>Optional and public</small></span>
+                <span class="label"><label for="url"><?= gettext('Your website:') ?></label></span>
+                <span class="formw"><input type="text" name="url" id="url" value="<?= _htmlentities($url) ?>" maxlength="255" size="20" class="form"> <small><?= gettext('Optional and public') ?></small></span>
                 </div>
 
                 <?php if (isset($showall) && $showall == true) { ?>
@@ -158,7 +158,7 @@
                 <?php } ?>
 
                 <div class="row">
-                &nbsp;<br>Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?
+                &nbsp;<br><?= gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?") ?>
                 </div>
 
                 <?php if (isset($errors['optin'])) { ?>
@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="row">
-                <span class="formw"><input type="submit" class="submit" value="Update details"></span>
+                <span class="formw"><input type="submit" class="submit" value="<?= gettext('Update details') ?>"></span>
                 </div>
 
                 <input type="hidden" name="submitted" value="true">

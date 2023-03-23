@@ -7,7 +7,7 @@
 
         <div class="search-page__section search-page__section--results">
             <div class="search-page__section__primary">
-                <h2>Who says <em class="current-search-term"><?= _htmlentities($searchstring) ?></em> the most?</h2>
+                <h2><?= sprintf(gettext('Who says <em class="current-search-term">%s</em> the most?'), _htmlentities($searchstring)) ?></h2>
 
               <?php if ( isset($error) ) { ?>
                 <?php if ( $error == 'No results' && isset( $house ) && $house != HOUSE_TYPE_ROYAL ) { ?>
@@ -20,12 +20,12 @@
                         <?php } else if ( $house == HOUSE_TYPE_SCOTLAND) { ?>
                           No results for MSPs only
                         <?php } else if ( $house == HOUSE_TYPE_WALES) { ?>
-                          No results for MSs only
+                          <?= gettext('No results for MSs only') ?>
                         <?php } else if ( $house ==  HOUSE_TYPE_NI) { ?>
                           No results for MLAs only
                         <?php } ?>
                           |
-                          <a href="<?= $this_url->generate('html') ?>">Show results for all speakers</a>
+                          <a href="<?= $this_url->generate('html') ?>"><?= gettext('Show results for all speakers') ?></a>
                       </li>
                   </ul>
                 <?php } else { ?>
@@ -45,12 +45,12 @@
 
                   <?php if ( !$wtt ) { ?>
                     <ul class="search-result-display-options">
-                        <li>Results grouped by person</li>
+                        <li><?= gettext('Results grouped by person') ?></li>
                         <li>
                           <?php if ( $house ==  HOUSE_TYPE_ROYAL) { ?>
-                            Show All
+                            <?= gettext('Show All') ?>
                           <?php } else { ?>
-                            <a href="<?= $this_url->generate('html') ?>">Show All</a>
+                            <a href="<?= $this_url->generate('html') ?>"><?= gettext('Show All') ?></a>
                           <?php } ?>
                             |
                           <?php if ( $house ==  HOUSE_TYPE_COMMONS) { ?>
@@ -72,9 +72,9 @@
                           <?php } ?>
                             |
                           <?php if ( $house ==  HOUSE_TYPE_WALES) { ?>
-                            MSs only
+                            <?= gettext('MSs only') ?>
                           <?php } else { ?>
-                            <a href="<?= $this_url->generate('html', array('house'=>5)) ?>">MSs only</a>
+                            <a href="<?= $this_url->generate('html', array('house'=>5)) ?>"><?= gettext('MSs only') ?></a>
                           <?php } ?>
                             |
                           <?php if ( $house ==  HOUSE_TYPE_NI) { ?>
@@ -83,7 +83,7 @@
                             <a href="<?= $this_url->generate('html', array('house'=>HOUSE_TYPE_NI)) ?>">MLAs only</a>
                           <?php } ?>
                         </li>
-                        <li><a href="<?= $ungrouped_url->generate() ?>">Ungroup results</a></li>
+                        <li><a href="<?= $ungrouped_url->generate() ?>"><?= gettext('Ungroup results') ?></a></li>
                     </ul>
 
                     <p class="search-results-legend">The <?= isset($limit_reached) ? '5000 ' : '' ?>most recent mentions of the exact phrase <em class="current-search-term"><?= _htmlentities($searchstring) ?></em>, grouped by speaker name.</p>
@@ -92,9 +92,9 @@
                 <table class="search-results-grouped">
                     <thead>
                         <tr>
-                            <th>Occurences</th>
-                            <th>Speaker</th>
-                            <th>Date range</th>
+                            <th><?= gettext('Occurences') ?></th>
+                            <th><?= gettext('Speaker') ?></th>
+                            <th><?= gettext('Date range') ?></th>
                         </tr>
                     </thead>
                     <tbody>

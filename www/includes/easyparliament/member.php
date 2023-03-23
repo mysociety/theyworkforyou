@@ -24,37 +24,40 @@ class MEMBER {
     public $house_disp = 0; # Which house we should display this person in
 
     // Mapping member table 'house' numbers to text.
-    public $houses_pretty = array(
-        0 => 'Royal Family',
-        1 => 'House of Commons',
-        2 => 'House of Lords',
-        3 => 'Northern Ireland Assembly',
-        4 => 'Scottish Parliament',
-        5 => 'Senedd',
-        6 => 'London Assembly',
-    );
+    private function houses_pretty() {
+        return array(
+            0 => gettext('Royal Family'),
+            1 => gettext('House of Commons'),
+            2 => gettext('House of Lords'),
+            3 => gettext('Northern Ireland Assembly'),
+            4 => gettext('Scottish Parliament'),
+            5 => gettext('Senedd'),
+            6 => gettext('London Assembly'),
+        );
+    }
 
     // Mapping member table reasons to text.
-    public $reasons = array(
-        'became_peer'		=> 'Became peer',
-        'by_election'		=> 'Byelection',
-        'changed_party'		=> 'Changed party',
-        'changed_name' 		=> 'Changed name',
-        'declared_void'		=> 'Declared void',
-        'died'			=> 'Died',
-        'disqualified'		=> 'Disqualified',
-        'general_election' 	=> 'General election',
-        'general_election_standing' 	=> array('General election (standing again)', 'General election (stood again)'),
-        'general_election_not_standing' 	=> 'did not stand for re-election',
-        'reinstated'		=> 'Reinstated',
-        'resigned'		=> 'Resigned',
-        'recall_petition'   => 'Removed from office by a recall petition',
-        'still_in_office'	=> 'Still in office',
-        'dissolution'		=> 'Dissolved for election',
-        'regional_election'	=> 'Election', # Scottish Parliament
-        'replaced_in_region'	=> 'Appointed, regional replacement',
-
-    );
+    private function reasons() {
+        return array(
+            'became_peer'		=> gettext('Became peer'),
+            'by_election'		=> gettext('Byelection'),
+            'changed_party'		=> gettext('Changed party'),
+            'changed_name' 		=> gettext('Changed name'),
+            'declared_void'		=> gettext('Declared void'),
+            'died'			=> gettext('Died'),
+            'disqualified'		=> gettext('Disqualified'),
+            'general_election' 	=> gettext('General election'),
+            'general_election_standing' 	=> array(gettext('General election (standing again)'), gettext('General election (stood again)')),
+            'general_election_not_standing' 	=> gettext('did not stand for re-election'),
+            'reinstated'		=> gettext('Reinstated'),
+            'resigned'		=> gettext('Resigned'),
+            'recall_petition'   => gettext('Removed from office by a recall petition'),
+            'still_in_office'	=> gettext('Still in office'),
+            'dissolution'		=> gettext('Dissolved for election'),
+            'regional_election'	=> gettext('Election'), # Scottish Parliament
+            'replaced_in_region'	=> gettext('Appointed, regional replacement'),
+        );
+    }
 
     private $db;
 
@@ -539,7 +542,7 @@ class MEMBER {
         return in_array($house, $this->houses) ? true : false;
     }
     public function house_text($house) {
-        return $this->houses_pretty[$house];
+        return $this->houses_pretty()[$house];
     }
     public function constituency() { return $this->constituency; }
     public function party() { return $this->party; }
@@ -610,8 +613,8 @@ class MEMBER {
 
     public function entered_reason() { return $this->entered_reason; }
     public function entered_reason_text($entered_reason) {
-        if (isset($this->reasons[$entered_reason])) {
-            return $this->reasons[$entered_reason];
+        if (isset($this->reasons()[$entered_reason])) {
+            return $this->reasons()[$entered_reason];
         } else {
             return $entered_reason;
         }
@@ -619,8 +622,8 @@ class MEMBER {
 
     public function left_reason() { return $this->left_reason; }
     public function left_reason_text($left_reason, $left_house, $house) {
-        if (isset($this->reasons[$left_reason])) {
-            $left_reason = $this->reasons[$left_reason];
+        if (isset($this->reasons()[$left_reason])) {
+            $left_reason = $this->reasons()[$left_reason];
             if (is_array($left_reason)) {
                 $q = $this->db->query("SELECT MAX(left_house) AS max FROM member WHERE house=$house")->first();
                 $max = $q['max'];
@@ -641,7 +644,7 @@ class MEMBER {
 
     public function current_member($house = 0) {
         $current = array();
-        foreach (array_keys($this->houses_pretty) as $h) {
+        foreach (array_keys($this->houses_pretty()) as $h) {
             $lh = $this->left_house($h);
             $current[$h] = ($lh && $lh['date'] == '9999-12-31');
         }
