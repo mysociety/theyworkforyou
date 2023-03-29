@@ -805,11 +805,6 @@ $this->page = array (
         'heading'		=> '',
         'session_vars'	=> array ('q', 's', 'pid', 'o', 'pop')
     ),
-    'search_help'		=> array (
-        'sidebar'		=> 'search',
-        'title'			=> 'Help with searching',
-        'url'			=> 'search/'
-    ),
 
     'sitenews'		=> array (
         'menu'			=> array (
@@ -989,16 +984,6 @@ $this->page = array (
                 'title'                 => 'Join TheyWorkForYou',
                 'url'                   => 'user/'
         ),
-    'getinvolved' => array (
-        'menu'			=> array (
-            'text'			=> 'Get involved',
-            'title'			=> "Contribute to TheyWorkForYou"
-        ),
-        'pg'			=> 'getinvolved',
-        'sidebar'		=> 'userjoin',
-        'title'			=> 'Contribute to TheyWorkForYou',
-        'url'			=> 'getinvolved/'
-    ),
     'userlogin' => array (
         'menu'			=> array (
             'text'			=> 'Sign in',
