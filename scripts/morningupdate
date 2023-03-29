@@ -63,9 +63,6 @@ print "Xapian indexing\n" if $verbose;
 chdir "$FindBin::Bin/../search";
 system "./index.pl sincefile $cronquiet";
 
-# Video - updating GIDs that have video available according to parlvid database
-system "php $path/theyworkforyou/scripts/video-availability.php";
-
 # Create new RSS files.
 if ($verbose) {
     print "Running rssgenerate\n";

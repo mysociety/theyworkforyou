@@ -399,10 +399,6 @@ class SectionView {
                     $data['rows'][$i]['mentions'] = $this->get_question_mentions_html($row['mentions']);
                 }
 
-                if ($this->major == 1) {
-                    $data['rows'][$i]['video'] = $this->get_video_html($row, $heading_hpos, $speeches);
-                }
-
                 if (array_key_exists('name', $data['rows'][$i]['speaker'])) {
                     $data['rows'][$i]['socialteaser'] = sprintf(
                         '%s on %s, at TheyWorkForYou',

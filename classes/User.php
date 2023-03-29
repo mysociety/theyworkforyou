@@ -41,16 +41,6 @@ class User {
         $data["status"] = $user->status();
         $data["facebook_id"] = $user->facebook_id();
         $data['facebook_user'] = $user->facebook_user();
-
-        $db = new \ParlDB;
-        $q = $db->query(
-            'select count(*) as c from video_timestamps where deleted=0 and user_id = :user_id',
-            array(
-                ':user_id' => $user->user_id()
-            )
-        )->first();
-        $data['video'] = $q['c'];
-
         return $data;
     }
 
