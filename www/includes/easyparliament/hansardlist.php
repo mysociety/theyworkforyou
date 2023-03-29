@@ -142,7 +142,7 @@ class HANSARDLIST {
             return false;
         }
 
-        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'search_video', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
+        $validviews = array ('calendar', 'date', 'gid', 'person', 'search', 'recent', 'recent_mostvotes', 'biggest_debates', 'recent_wrans', 'recent_wms', 'column', 'mp', 'bill', 'session', 'recent_debates', 'recent_pbc_debates', 'featured_gid');
         if (in_array($view, $validviews)) {
 
             // What function do we call for this view?
@@ -972,9 +972,6 @@ class HANSARDLIST {
         return $data;
     }
 
-    public function _get_data_by_search_video($args) {
-        return $this->_get_data_by_search($args);
-    }
     public function _get_data_by_search($args) {
 
         // Creates a fairly standard $data structure for the search function.
@@ -1157,7 +1154,7 @@ class HANSARDLIST {
                 $q = $this->db->query("SELECT hansard.gid, hansard.hdate,
                     hansard.htime, hansard.section_id, hansard.subsection_id,
                     hansard.htype, hansard.major, hansard.minor,
-                    hansard.person_id, hansard.hpos, hansard.video_status,
+                    hansard.person_id, hansard.hpos,
                     epobject.epobject_id, epobject.body
                 FROM hansard, epobject
                 WHERE hansard.gid = :gid
@@ -1674,7 +1671,7 @@ class HANSARDLIST {
 
         // The fields to fetch from db. 'table' => array ('field1', 'field2').
         $fieldsarr = array (
-            'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'video_status', 'colnum')
+            'hansard' => array ('epobject_id', 'htype', 'gid', 'hpos', 'section_id', 'subsection_id', 'hdate', 'htime', 'source_url', 'major', 'minor', 'colnum')
         );
 
         $params = array();

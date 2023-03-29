@@ -653,16 +653,6 @@ sub delete_redirected_gids {
              }
         }
 
-        # Maintain video bits
-        if ($matchtype eq 'missing') {
-            $dbh->do('update video_timestamps set deleted=2 where gid=?', {}, $from_gid);
-        } else {
-            $dbh->do('update video_timestamps set gid=? where gid=?', {}, $to_gid, $from_gid);
-        }
-        my $video_update = $dbh->selectrow_array('select video_status from hansard where gid=?', {}, $from_gid);
-        $dbh->do('update hansard set video_status=? where gid=?', {}, $video_update, $to_gid)
-            if defined $video_update;
-
         # delete the now obsolete "from record" (which is replaced by its "to record")
         my $c = $hdeletegid->execute($from_gid);
         if ($c > 0) {

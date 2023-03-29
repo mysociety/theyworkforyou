@@ -587,64 +587,6 @@ span.hi {
   color: $body-font-color;
 }
 
-/* Video */
-
-.debate__video-wrapper {
-  display: none;
-  visibility: hidden;
-  z-index: 9999;
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  height: auto;
-  max-width: 380px;
-  background-color: #333;
-  color: #fff;
-  padding: 1.4em 1.4em 1em;
-  border-radius: 5px;
-  @media (min-width: $medium-screen) {
-    display: block;
-    visibility: visible;
-  }
-  input {
-    font-family: monospace;
-    background-color: #444;
-    color: #9d9195;
-    border: 0;
-    margin-top: 0.5em;
-    &:focus {
-      background-color: #444;
-      color: #9d9195;
-    }
-    &::selection {
-      background-color: #2688dc;
-      color: #fff;
-    }
-    &::-moz-selection {
-      background-color: #2688dc;
-      color: #fff;
-    }
-  }
-}
-
-.debate__video {
-  > div {
-    position: relative;
-  }
-}
-
-.debate__video__object {
-  width: 330px;
-  height: 230px;
-  margin-bottom: 1em;
-  text-align: center;
-}
-
-.video-instructions {
-  margin-bottom: 0;
-  font-size: emCalc(13);
-}
-
 .debate-speech__meta__link.watch {
   display: block;
 
@@ -657,29 +599,4 @@ span.hi {
   @media (min-width: $large-screen) {
     margin-bottom: 0;
   }
-}
-
-.vidOn {
-  /* This is the class added by the JS watch along functionality*/
-  background-color: #f7efd9 !important;
-}
-
-.hide-video {
-  position: absolute;
-  bottom: -40px;
-  right: 0;
-  font-size: emCalc(13);
-}
-
-.show-video {
-  z-index: 9999;
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  height: auto;
-  max-width: 380px;
-  background-color: #333;
-  color: #fff;
-  padding: 1.4em 1.4em 1em;
-  border-radius: 5px;
 }
