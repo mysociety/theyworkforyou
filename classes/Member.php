@@ -573,7 +573,7 @@ class Member extends \MEMBER {
                     'person_id' => $row['person_id'],
                     'name' => $name,
                     'house' => $row['house'],
-                    'constituency' => $row['constituency']
+                    'constituency' => gettext($row['constituency'])
                 );
             }
         }
