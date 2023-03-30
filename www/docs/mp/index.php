@@ -1063,13 +1063,13 @@ function regional_list($pc, $area_type, $rep_type) {
         if ($current) {
             $data['members_statement'] = '<p>You have one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
             $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> is <a href="/ms/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . $mcon['constituency'];
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['WAE'] . ' region MSs</strong> are:</p>';
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . gettext($mcon['constituency']);
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . gettext($constituencies['WAE']) . ' region MSs</strong> are:</p>';
         } else {
             $data['members_statement'] = '<p>You had one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
             $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> was <a href="/ms/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . $mcon['constituency'];
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['WAE'] . ' region MSs</strong> were:</p>';
+            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . gettext($mcon['constituency']);
+            $data['members_statement'] .= '.</p> <p>Your <strong>' . gettext($constituencies['WAE']) . ' region MSs</strong> were:</p>';
         }
     } else {
         if ($current) {

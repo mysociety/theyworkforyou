@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-30 20:51+0100\n"
+"POT-Creation-Date: 2023-03-30 21:42+0100\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -161,6 +161,186 @@ msgstr ""
 msgid "voted %s on <em>%s</em>"
 msgstr ""
 
+#: locale/welsh-constituencies.php:2
+msgid "Aberavon"
+msgstr "Aberafan"
+
+#: locale/welsh-constituencies.php:3
+msgid "Aberconwy"
+msgstr ""
+
+#: locale/welsh-constituencies.php:4
+msgid "Alyn and Deeside"
+msgstr "Alun a Glannau Dyfrdwy"
+
+#: locale/welsh-constituencies.php:5
+msgid "Arfon"
+msgstr ""
+
+#: locale/welsh-constituencies.php:6
+msgid "Blaenau Gwent"
+msgstr ""
+
+#: locale/welsh-constituencies.php:7
+msgid "Brecon and Radnorshire"
+msgstr "Brycheiniog a Sir Faesyfed"
+
+#: locale/welsh-constituencies.php:8
+msgid "Bridgend"
+msgstr "Pen-y-bont ar Ogwr"
+
+#: locale/welsh-constituencies.php:9
+msgid "Caerphilly"
+msgstr "Caerffili"
+
+#: locale/welsh-constituencies.php:10
+msgid "Cardiff Central"
+msgstr "Canol Caerdydd"
+
+#: locale/welsh-constituencies.php:11
+msgid "Cardiff North"
+msgstr "Gogledd Caerdydd"
+
+#: locale/welsh-constituencies.php:12
+msgid "Cardiff South and Penarth"
+msgstr "De Caerdydd a Phenarth"
+
+#: locale/welsh-constituencies.php:13
+msgid "Cardiff West"
+msgstr "Gorllewin Caerdydd"
+
+#: locale/welsh-constituencies.php:14
+msgid "Carmarthen East and Dinefwr"
+msgstr "Dwyrain Caerfyrddin a Dinefwr"
+
+#: locale/welsh-constituencies.php:15
+msgid "Carmarthen West and South Pembrokeshire"
+msgstr "Gorllewin Caerfyrddin a De Sir Benfro"
+
+#: locale/welsh-constituencies.php:16
+msgid "Ceredigion"
+msgstr ""
+
+#: locale/welsh-constituencies.php:17
+msgid "Clwyd South"
+msgstr "De Clwyd"
+
+#: locale/welsh-constituencies.php:18
+msgid "Clwyd West"
+msgstr "Gorllewin Clwyd"
+
+#: locale/welsh-constituencies.php:19
+msgid "Cynon Valley"
+msgstr "Cwm Cynon"
+
+#: locale/welsh-constituencies.php:20
+msgid "Delyn"
+msgstr ""
+
+#: locale/welsh-constituencies.php:21
+msgid "Dwyfor Meirionnydd"
+msgstr ""
+
+#: locale/welsh-constituencies.php:22
+msgid "Gower"
+msgstr "Gŵyr"
+
+#: locale/welsh-constituencies.php:23
+msgid "Islwyn"
+msgstr ""
+
+#: locale/welsh-constituencies.php:24
+msgid "Llanelli"
+msgstr ""
+
+#: locale/welsh-constituencies.php:25
+msgid "Merthyr Tydfil and Rhymney"
+msgstr "Merthyr Tudful a Rhymni"
+
+#: locale/welsh-constituencies.php:26
+msgid "Monmouth"
+msgstr "Sir Fynwy"
+
+#: locale/welsh-constituencies.php:27
+msgid "Montgomeryshire"
+msgstr "Sir Drefaldwyn"
+
+#: locale/welsh-constituencies.php:28
+msgid "Neath"
+msgstr "Castell-nedd"
+
+#: locale/welsh-constituencies.php:29
+msgid "Newport East"
+msgstr "Dwyrain Casnewydd"
+
+#: locale/welsh-constituencies.php:30
+msgid "Newport West"
+msgstr "Gorllewin Casnewydd"
+
+#: locale/welsh-constituencies.php:31
+msgid "Ogmore"
+msgstr "Ogwr"
+
+#: locale/welsh-constituencies.php:32
+msgid "Pontypridd"
+msgstr ""
+
+#: locale/welsh-constituencies.php:33
+msgid "Preseli Pembrokeshire"
+msgstr "Preseli Sir Benfro"
+
+#: locale/welsh-constituencies.php:34
+msgid "Rhondda"
+msgstr ""
+
+#: locale/welsh-constituencies.php:35
+msgid "Swansea East"
+msgstr "Dwyrain Abertawe"
+
+#: locale/welsh-constituencies.php:36
+msgid "Swansea West"
+msgstr "Gorllewin Abertawe"
+
+#: locale/welsh-constituencies.php:37
+msgid "Torfaen"
+msgstr ""
+
+#: locale/welsh-constituencies.php:38
+msgid "Vale of Clwyd"
+msgstr "Dyffryn Clwyd"
+
+#: locale/welsh-constituencies.php:39
+msgid "Vale of Glamorgan"
+msgstr "Bro Morgannwg"
+
+#: locale/welsh-constituencies.php:40
+msgid "Wrexham"
+msgstr "Wrecsam"
+
+#: locale/welsh-constituencies.php:41
+msgid "Ynys Môn"
+msgstr ""
+
+#: locale/welsh-constituencies.php:42
+msgid "Mid and West Wales"
+msgstr "Canolbarth a Gorllewin Cymru"
+
+#: locale/welsh-constituencies.php:43
+msgid "North Wales"
+msgstr "Gogledd Cymru"
+
+#: locale/welsh-constituencies.php:44
+msgid "South Wales Central"
+msgstr "Canol De Cymru"
+
+#: locale/welsh-constituencies.php:45
+msgid "South Wales East"
+msgstr "Dwyrain De Cymru"
+
+#: locale/welsh-constituencies.php:46
+msgid "South Wales West"
+msgstr "Gorllewin De Cymru"
+
 #: www/docs/freeourbills/sharethis.php:61
 msgid "E-mail this, post to del.icio.us, etc."
 msgstr ""
@@ -254,47 +434,47 @@ msgid "Your <strong>constituency MSP</strong> (Member of the Scottish Parliament
 msgstr ""
 
 #. First %s is URL, second %s is name, third %s is constituency
-#: www/docs/postcode/index.php:175
+#: www/docs/postcode/index.php:176
 #, php-format
 msgid "Your <strong>constituency MS</strong> (Member of the Senedd) is <a href=\"%s\">%s</a>, %s"
 msgstr ""
 
 #. First %s is URL, second %s is name, third %s is constituency
-#: www/docs/postcode/index.php:178
+#: www/docs/postcode/index.php:179
 #, php-format
 msgid "Your <strong>constituency MS</strong> (Member of the Senedd) was <a href=\"%s\">%s</a>, %s"
 msgstr ""
 
-#: www/docs/postcode/index.php:185
+#: www/docs/postcode/index.php:186
 #, php-format
 msgid "<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:"
 msgstr ""
 
-#: www/docs/postcode/index.php:187
+#: www/docs/postcode/index.php:188
 #, php-format
 msgid "<li>Your <strong>%s %s</strong> are:"
 msgstr ""
 
-#: www/docs/postcode/index.php:191
+#: www/docs/postcode/index.php:192
 #, php-format
 msgid "<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:"
 msgstr ""
 
-#: www/docs/postcode/index.php:193
+#: www/docs/postcode/index.php:194
 #, php-format
 msgid "<li>Your <strong>%s %s</strong> were:"
 msgstr ""
 
-#: www/docs/postcode/index.php:206
+#: www/docs/postcode/index.php:207
 #, php-format
 msgid "Browse all %s"
 msgstr ""
 
-#: www/docs/postcode/index.php:209
+#: www/docs/postcode/index.php:210
 msgid "Browse people"
 msgstr ""
 
-#: www/docs/postcode/index.php:210
+#: www/docs/postcode/index.php:211
 #: www/includes/easyparliament/templates/html/mp/list.php:15
 msgid "Browse all MPs"
 msgstr ""

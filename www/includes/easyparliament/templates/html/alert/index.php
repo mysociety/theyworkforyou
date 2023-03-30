@@ -142,7 +142,7 @@
                             <?php
                             $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                             if ($row['constituency']) {
-                                $name .= ' (' . $row['constituency'] . ')';
+                                $name .= ' (' . gettext($row['constituency']) . ')';
                             }
                             printf(gettext('When %s speaks.'), $name);
                             ?>
