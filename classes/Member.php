@@ -314,6 +314,20 @@ class Member extends \MEMBER {
 
     }
 
+
+    public function getPolicyURL($args = array()) {
+        $base_url = $this->url();
+        if (isset($args['policy_number'])) {
+            $url = $base_url . '/divisions?policy=' . $args['policy_number'];
+        } else if (isset($args['policy_set'])) {
+            $url = $base_url . '/votes?policy=' . $args['policy_set'];
+        } else {
+            $url = $base_url . '/votes';
+        }
+
+        return $url;
+    }
+
     private function getOfficeObject($include_only, $ignore_committees, $row) {
         if (!$this->includeOffice($include_only, $row['to_date'])) {
             return null;

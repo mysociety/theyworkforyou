@@ -440,6 +440,7 @@ switch ($pagetype) {
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
 
         if ( $policyID ) {
+            $data['policy'] = $policiesList->getPolicyDetails($policyID);
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
         } else {
             $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();

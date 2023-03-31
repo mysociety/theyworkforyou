@@ -26,16 +26,19 @@ if ($constituencies == 'CONNECTION_TIMED_OUT') {
 }
 
 $out = ''; $sidebars = array();
-if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
+$options = get_policy_array();
+// if there is a policy set or a policy number then assume we want the MP
+// as those arguments only make sense for MPs
+if (count($options) == 0 && (isset($constituencies['SPE']) || isset($constituencies['SPC']))) {
     $MEMBER = fetch_mp($pc, $constituencies);
     list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
-} elseif (isset($constituencies['NIE'])) {
+} elseif (count($options) == 0 && isset($constituencies['NIE'])) {
     $MEMBER = fetch_mp($pc, $constituencies);
     list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
 } else {
     # Just have an MP, redirect instantly to the canonical page
     $MEMBER = fetch_mp($pc, $constituencies, 1);
-    member_redirect($MEMBER);
+    member_redirect($MEMBER, $options);
 }
 
 $PAGE->page_start();
@@ -48,10 +51,27 @@ $PAGE->page_end();
 
 function postcode_error($error) {
     global $PAGE;
+    $hidden = get_policy_array();
+    $title = '';
+    if (count($hidden) > 0 ) {
+        $policies = new \MySociety\TheyWorkForYou\Policies();
+
+        if (isset($hidden['policy_number'])) {
+            $policies = $policies->getPolicies();
+            if (isset($policies[$hidden['policy_number']])) {
+                $title = "Find out how your MP voted on " . $policies[$hidden['policy_number']] . ".";
+            }
+        } else if (isset($hidden['policy_set'])) {
+            $sets = $policies->getSetDescriptions();
+            if (isset($sets[$hidden['policy_set']])) {
+                $title = "Find out how your MP voted on " . $sets[$hidden['policy_set']] . ".";
+            }
+        }
+    }
     $PAGE->page_start();
     $PAGE->stripe_start();
     $PAGE->error_message($error);
-    $PAGE->postcode_form();
+    $PAGE->postcode_form($hidden, $title);
     $PAGE->stripe_end();
     $PAGE->page_end();
     exit;
@@ -64,7 +84,7 @@ function fetch_mp($pc, $constituencies, $house=null) {
         $args['house'] = $house;
     }
     try {
-        $MEMBER = new MEMBER($args);
+        $MEMBER = new \MySociety\TheyWorkForYou\Member($args);
     } catch (MySociety\TheyWorkForYou\MemberException $e){
         postcode_error($e->getMessage());
     }
@@ -166,10 +186,32 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     return array($out, $sidebar);
 }
 
-function member_redirect(&$MEMBER) {
+function member_redirect(&$MEMBER, $options = array()) {
     if ($MEMBER->valid) {
-        $url = $MEMBER->url();
-        header("Location: $url");
+        if (count($options) > 0 ) {
+            $url = $MEMBER->getPolicyURL($options);
+        } else {
+            $url = $MEMBER->url();
+        }
+        // awfulness so we can test this works becuase we use the CLI
+        // in our test framework for page requests and the CLI doesn't
+        // print out headers
+        if (php_sapi_name() === 'cli') {
+            print("Location: $url");
+        } else {
+            header("Location: $url");
+        }
         exit;
     }
+}
+
+function get_policy_array() {
+    $policy_options = array();
+    if ($policy_set = get_http_var('policy_set')) {
+        $policy_options['policy_set'] = $policy_set;
+    } else if ($policy_number = get_http_var('policy_number')) {
+        $policy_options['policy_number'] = $policy_number;
+    }
+
+    return $policy_options;
 }
