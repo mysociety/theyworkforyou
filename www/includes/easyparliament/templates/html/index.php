@@ -8,7 +8,7 @@
     <div class="hero__mp-search">
         <div class="hero__mp-search__wrap">
             <?php if (count($mp_data)) { ?>
-            <h1>Does <?= $mp_data['former'] ? 'your former MP ' : '' ?><?= $mp_data['name'] ?> represent you?</h1>
+            <h1>Find out more about <?= $mp_data['former'] ? 'your former MP ' : 'your MP' ?><?= $mp_data['name'] ?></h1>
             <div class="row collapse">
                 <div class="medium-4 columns">
                     <a href="<?= $mp_data['mp_url']?>" class="button homepage-search__button" />Find out &rarr;</a>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <?php } else { ?>
-            <h1>Does your MP represent you?</h1>
+            <h1>Find out more about your MP</h1>
             <div class="row collapse">
                 <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'Home'); return false;">
                     <label for="postcode">Your postcode</label>
@@ -38,9 +38,9 @@
     <div class="hero__site-intro">
         <div class="hero__site-intro__wrap">
             <h2>Democracy: it&rsquo;s for everyone</h2>
-            <p>You shouldn&rsquo;t have to be an expert to understand what goes on in Parliament. Your politicians represent you&hellip; but what exactly do they do in your name?</p>
-            <p>TheyWorkForYou takes open data from the UK Parliament, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone. So now you can check, with just a few clicks: are They Working For You?</p>
-            <a href="/about/" class="site-intro__more-link">Find out more about TheyWorkForYou <i>&rarr;</i></a>
+            <p>You shouldn&rsquo;t have to be an expert to understand what goes on in Parliament.</p>
+            <p>TheyWorkForYou takes open data from the UK's Parliaments, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone.</p>
+            <a href="/about/" class="site-intro__more-link">About TheyWorkForYou <i>&rarr;</i></a>
         </div>
     </div>
     </div>

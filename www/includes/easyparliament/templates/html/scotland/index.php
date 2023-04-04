@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <?php } else { ?>
-                <h1>Do your MSPs represent you?</h1>
+                <h1>Find out more about your MSPs</h1>
                 <div class="row collapse">
                     <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'ScotlandHome'); return false;">
                         <label for="postcode">Your Scottish postcode</label>
@@ -45,8 +45,8 @@
         <div class="hero__site-intro">
             <div class="hero__site-intro__wrap">
                 <h2>Democracy: it&rsquo;s for everyone</h2>
-                <p>You shouldn&rsquo;t have to be an expert to understand what goes on in the Scottish Parliament. Your politicians represent you&hellip; but what exactly do they do in your name?</p>
-                <p>TheyWorkForYou takes open data from the Scottish Parliament, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone. So now you can check, with just a few clicks: are They Working For You?</p>
+                <p>You shouldn&rsquo;t have to be an expert to understand what goes on in the Scottish Parliament.</p>
+                <p>TheyWorkForYou takes open data from the Scottish Parliament, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone.</p>
                 <a href="/about/" class="site-intro__more-link">Find out more about TheyWorkForYou <i>&rarr;</i></a>
             </div>
         </div>
