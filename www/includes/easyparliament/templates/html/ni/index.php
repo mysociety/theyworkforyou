@@ -2,7 +2,7 @@
         <div class="row">
         <div class="hero__mp-search">
             <div class="hero__mp-search__wrap">
-                <h1>Do your MLAs represent you?</h1>
+                <h1>Find out more about your MLAs</h1>
                 <div class="row collapse">
                     <?php if ( count($data['regional']) > 0 ) { ?>
                         <ul class="homepage-rep-list">
@@ -28,8 +28,8 @@
         <div class="hero__site-intro">
             <div class="hero__site-intro__wrap">
                 <h2>Democracy: it&rsquo;s for everyone</h2>
-                <p>You shouldn&rsquo;t have to be an expert to understand what goes on in the Northern Ireland Assembly. Your politicians represent you&hellip; but what exactly do they do in your name?</p>
-                <p>TheyWorkForYou takes open data from the Northern Ireland Assembly, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone. So now you can check, with just a few clicks: are They Working For You?</p>
+                <p>You shouldn&rsquo;t have to be an expert to understand what goes on in the Northern Ireland Assembly.</p>
+                <p>TheyWorkForYou takes open data from the Northern Ireland Assembly, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone.</p>
                 <a href="/about/" class="site-intro__more-link">Find out more about TheyWorkForYou <i>&rarr;</i></a>
             </div>
         </div>
