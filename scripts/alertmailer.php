@@ -113,18 +113,36 @@ $alertdata = $alertdata['data'];
 $DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
 
 $sects = array(
-    1 => 'Commons debate',
-    2 => 'Westminster Hall debate',
-    3 => 'Written Answer',
-    4 => 'Written Ministerial Statement',
-    5 => 'Northern Ireland Assembly debate',
-    6 => 'Public Bill committee',
-    7 => 'Scottish Parliament debate',
-    8 => 'Scottish Parliament written answer',
-    9 => 'London Mayoral question',
-    101 => 'Lords debate',
-    'F' => 'event',
-    'V' => 'vote',
+    1 => gettext('Commons debate'),
+    2 => gettext('Westminster Hall debate'),
+    3 => gettext('Written Answer'),
+    4 => gettext('Written Ministerial Statement'),
+    5 => gettext('Northern Ireland Assembly debate'),
+    6 => gettext('Public Bill committee'),
+    7 => gettext('Scottish Parliament debate'),
+    8 => gettext('Scottish Parliament written answer'),
+    9 => gettext('London Mayoral question'),
+    10 => gettext('Senedd debate'),
+    11 => gettext('Senedd debate'),
+    101 => gettext('Lords debate'),
+    'F' => gettext('event'),
+    'V' => gettext('vote'),
+);
+$sects_plural = array(
+    1 => gettext('Commons debates'),
+    2 => gettext('Westminster Hall debates'),
+    3 => gettext('Written Answers'),
+    4 => gettext('Written Ministerial Statements'),
+    5 => gettext('Northern Ireland Assembly debates'),
+    6 => gettext('Public Bill committees'),
+    7 => gettext('Scottish Parliament debates'),
+    8 => gettext('Scottish Parliament written answers'),
+    9 => gettext('London Mayoral questions'),
+    10 => gettext('Senedd debates'),
+    11 => gettext('Senedd debates'),
+    101 => gettext('Lords debate'),
+    'F' => gettext('event'),
+    'V' => gettext('vote'),
 );
 $sects_gid = array(
     1 => 'debate',
@@ -136,6 +154,8 @@ $sects_gid = array(
     7 => 'sp',
     8 => 'spwa',
     9 => 'london-mayors-questions',
+    10 => 'senedd/en',
+    11 => 'senedd/cy',
     101 => 'lords',
     'F' => 'calendar',
 );
@@ -149,11 +169,13 @@ $sects_search = array(
     7 => 'sp',
     8 => 'spwrans',
     9 => 'lmqs',
+    10 => 'wales',
+    11 => 'wales',
     101 => 'lords',
     'F' => 'future',
 );
-$results = array();
 
+$domain = '';
 $outof = count($alertdata);
 $start_time = time();
 foreach ($alertdata as $alertitem) {
@@ -177,6 +199,15 @@ foreach ($alertdata as $alertitem) {
     }
     $criteria_batch = $criteria_raw . " " . $batch_query_fragment;
 
+    $lang = $alertitem['lang'];
+    if (!$domain) {
+        if ($lang == 'cy') {
+            $domain = 'cy.theyworkforyou.com';
+        } else {
+            $domain = 'www.theyworkforyou.com';
+        }
+    }
+
     if ($email != $current['email']) {
         if ($email_text) {
             write_and_send_email($current, $email_text, $html_text, $template);
@@ -198,35 +229,22 @@ foreach ($alertdata as $alertitem) {
         mlog("\nEMAIL: $email, uid $user_id; memory usage : " . memory_get_usage() . "\n");
     }
 
-    $data = null;
-    if (!isset($results[$criteria_batch])) {
-        mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
-        $start = getmicrotime();
-        $SEARCHENGINE = new SEARCHENGINE($criteria_batch);
-        #mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
-        $args = array(
-            's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch
-            'threshold' => $lastupdated, # Return everything added since last time this script was run
-            'o' => 'c',
-            'num' => 1000, // this is limited to 1000 in hansardlist.php anyway
-            'pop' => 1,
-            'e' => 1 # Don't escape ampersands
-        );
-        $data = $DEBATELIST->_get_data_by_search($args);
-        # add to cache (but only for speaker queries, which are commonly repeated)
-        # Don't cache, it's very quick, and we'd prefer low memory usage
-        #if (preg_match('#^speaker:\d+$#', $criteria_raw, $m)) {
-        #    mlog(", caching");
-        #    $results[$criteria_batch] = $data;
-        #}
-        #        unset($SEARCHENGINE);
-        $total_results = $data['info']['total_results'];
-        $queries++;
-        mlog(", hits " . $total_results . ", time " . (getmicrotime()-$start) . "\n");
-    } else {
-        mlog("  ACTION $active/$outof CACHE HIT : Using cached result for '$criteria_batch'\n");
-        $data = $results[$criteria_batch];
-    }
+    mlog("  ALERT $active/$outof QUERY $queries : Xapian query '$criteria_batch'");
+    $start = getmicrotime();
+    $SEARCHENGINE = new SEARCHENGINE($criteria_batch, $lang);
+    #mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
+    $args = array(
+        's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch
+        'threshold' => $lastupdated, # Return everything added since last time this script was run
+        'o' => 'c',
+        'num' => 1000, // this is limited to 1000 in hansardlist.php anyway
+        'pop' => 1,
+        'e' => 1 # Don't escape ampersands
+    );
+    $data = $DEBATELIST->_get_data_by_search($args);
+    $total_results = $data['info']['total_results'];
+    $queries++;
+    mlog(", hits " . $total_results . ", time " . (getmicrotime()-$start) . "\n");
 
     # Divisions
     if (preg_match('#^speaker:(\d+)$#', $criteria_raw, $m)) {
@@ -237,25 +255,45 @@ foreach ($alertdata as $alertitem) {
                 ':time' => date('Y-m-d H:i:s', $lastupdated),
             ));
         foreach ($q as $row) {
+            # Skip other-language divisions if needed, set locale
+            if (strpos($row['division_id'], '-cy-')) {
+                if ($lang == 'en') {
+                    continue;
+                }
+                change_locale('cy');
+            } elseif (strpos($row['division_id'], '-en-')) {
+                if ($lang == 'cy') {
+                    continue;
+                }
+                change_locale('en');
+            } else {
+                change_locale('en');
+            }
+
             $vote = $row['vote'];
             $num = $row['division_number'];
             $teller = '';
             if (strpos($vote, 'tell') !== false) {
-                $teller = ', as a teller';
+                $teller = ', ' . gettext('as a teller');
                 $vote = str_replace('tell', '', $vote);
             }
             if ($vote == 'absent') {
                 continue;
             }
-            $text = "Voted ";
             if ($vote == 'aye' && $row['yes_text']) {
-                $text .= "($vote$teller) " . $row['yes_text'];
+                $text = "Voted ($vote$teller) " . $row['yes_text'];
             } elseif ($vote == 'no' && $row['no_text']) {
-                $text .= "($vote$teller) " . $row['no_text'];
+                $text = "Voted ($vote$teller) " . $row['no_text'];
+            } elseif ($vote == 'aye') {
+                $text = gettext("Voted aye") . $teller;
+            } elseif ($vote == 'no') {
+                $text = gettext("Voted no") . $teller;
+            } elseif ($vote == 'both') {
+                $text = gettext("Voted abstain") . $teller;
             } else {
-                $text .= "$vote$teller";
+                $text = sprintf(gettext("Voted %s"), $vote) . $teller;
             }
-            $text .= " (division #$num; result was <b>" . $row['yes_total'] . '</b> aye, <b>' . $row['no_total'] . '</b> no)';
+            $text .= " " . sprintf(gettext("(division #%s; result was <b>%s</b> aye, <b>%s</b> no)"), $num, $row['yes_total'], $row['no_total']);
             $data['rows'][] = [
                 'parent' => [
                     'body' => $row['division_title'],
@@ -282,15 +320,6 @@ foreach ($alertdata as $alertitem) {
             }
             #mlog($row['major'] . " " . $row['gid'] ."\n");
 
-            # Due to database server failure and restoring from day
-            # old backup, 17th January 2012 is being newly
-            # inserted, but has already been alerted upon. So
-            # manually now stop anything from before 18th January
-            # 2012 from sending an email alert again.
-            if ($row['hdate'] < '2012-01-18') {
-                continue;
-            }
-
             if (isset($sects_gid[$major])) {
                 $q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', array(
                     ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid']
@@ -298,6 +327,12 @@ foreach ($alertdata as $alertitem) {
                 if ($q->rows() > 0) {
                     continue;
                 }
+            }
+
+            if ($major == 11) {
+                change_locale('cy');
+            } else {
+                change_locale('en');
             }
 
             --$k;
@@ -313,9 +348,9 @@ foreach ($alertdata as $alertitem) {
                 $body_html = '<p style="font-size: 16px;">' . $body_html . '</p>';
 
                 $body_text = wordwrap($body_text, 72);
-                $o[$major]['text'] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttps://www.theyworkforyou.com" . $row['listurl'] . "\n";
+                $o[$major]['text'] .= $parentbody . ' (' . format_date($row['hdate'], SHORTDATEFORMAT) . ")\nhttps://$domain" . $row['listurl'] . "\n";
                 $o[$major]['text'] .= $body_text . "\n\n";
-                $o[$major]['html'] .= '<a href="https://www.theyworkforyou.com' . $row['listurl'] . '"><h2 style="line-height: 1.2; font-size: 17px; font-weight: 900;">' . $parentbody . '</h2></a> <span style="margin: 16px 0 0 0; display: block; font-size: 16px;">' . format_date($row['hdate'], SHORTDATEFORMAT) . '</span>';
+                $o[$major]['html'] .= '<a href="https://' . $domain . $row['listurl'] . '"><h2 style="line-height: 1.2; font-size: 17px; font-weight: 900;">' . $parentbody . '</h2></a> <span style="margin: 16px 0 0 0; display: block; font-size: 16px;">' . format_date($row['hdate'], SHORTDATEFORMAT) . '</span>';
                 $o[$major]['html'] .= $body_html . "\n\n";
             }
             $total++;
@@ -328,19 +363,20 @@ foreach ($alertdata as $alertitem) {
             $desc = trim(preg_replace(['#\(B\d+( OR B\d+)*\)#', '#B\d+( OR B\d+)*#'], '', $desc));
             foreach ($o as $major => $body) {
                 if ($body['text']) {
-                    $heading_text = $desc . ' : ' . $count[$major] . ' ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
-                    $heading_html = $desc . ' : <strong>' . $count[$major] . '</strong> ' . $sects[$major] . ($count[$major] != 1 ? 's' : '');
+                    $heading_text = $desc . ' : ' . $count[$major] . ' ' . ngettext($sects[$major], $sects_plural[$major], $count[$major]);
+                    $heading_html = $desc . ' : <strong>' . $count[$major] . '</strong> ' . ngettext($sects[$major], $sects_plural[$major], $count[$major]);
 
                     $email_text .= "$heading_text\n" . str_repeat('=', strlen($heading_text)) . "\n\n";
                     if ($count[$major] > 3 && $major != 'V') {
-                        $email_text .= "There are more results than we have shown here. See more:\nhttps://www.theyworkforyou.com/search/?s=" . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . "&o=d\n\n";
+                        $url = "https://$domain/search/?s=" . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . "&o=d";
+                        $email_text .= gettext('There are more results than we have shown here.') . ' ' . gettext('See more') . ":\n$url\n\n";
                     }
                     $email_text .= $body['text'];
 
                     $html_text .= '<hr style="height:2px;border-width:0; background-color: #f7f6f5; margin: 30px 0;">';
                     $html_text .= '<p style="font-size:16px;">' . $heading_html . '</p>';
                     if ($count[$major] > 3 && $major != 'V') {
-                        $html_text .= '<p style="font-size:16px;">There are more results than we have shown here. <a href="https://www.theyworkforyou.com/search/?s=' . urlencode($criteria_raw) . "+section:" . $sects_search[$major] . '&o=d">See more</a></p>';
+                        $html_text .= '<p style="font-size:16px;">' . gettext('There are more results than we have shown here.') . ' <a href="' . $url . '">' . gettext('See more') . '</a></p>';
                     }
                     $html_text .= $body['html'];
                 }
@@ -419,7 +455,7 @@ function sort_by_stuff($a, $b) {
 }
 
 function write_and_send_email($current, $text, $html, $template) {
-    global $globalsuccess, $sentemails, $nomail, $start_time;
+    global $globalsuccess, $sentemails, $nomail, $start_time, $domain;
 
     $text .= '====================';
     $sentemails++;
@@ -428,7 +464,7 @@ function write_and_send_email($current, $text, $html, $template) {
     $m = array(
         'DATA' => $text,
         '_HTML_' => $html,
-        'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
+        'MANAGE' => "https://$domain/D/" . $current['token'],
     );
     if (!$nomail) {
         $success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces
@@ -460,3 +496,13 @@ function text_html_to_email($s) {
     return $s;
 }
 
+# Switch the language to that of the data/alert
+function change_locale($lang) {
+    if ($lang == 'cy') {
+        setlocale(LC_ALL, 'cy_GB.UTF-8');
+        putenv('LC_ALL=cy_GB.UTF-8');
+    } else {
+        setlocale(LC_ALL, 'en_GB.UTF-8');
+        putenv('LC_ALL=en_GB.UTF-8');
+    }
+}

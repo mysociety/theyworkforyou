@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-30 21:42+0100\n"
+"POT-Creation-Date: 2023-04-04 12:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -356,6 +356,135 @@ msgstr ""
 msgid "South Wales West"
 msgstr ""
 
+#: scripts/alertmailer.php:116
+msgid "Commons debate"
+msgstr ""
+
+#: scripts/alertmailer.php:117
+msgid "Westminster Hall debate"
+msgstr ""
+
+#: scripts/alertmailer.php:118
+msgid "Written Answer"
+msgstr ""
+
+#: scripts/alertmailer.php:119
+msgid "Written Ministerial Statement"
+msgstr ""
+
+#: scripts/alertmailer.php:120
+msgid "Northern Ireland Assembly debate"
+msgstr ""
+
+#: scripts/alertmailer.php:121
+msgid "Public Bill committee"
+msgstr ""
+
+#: scripts/alertmailer.php:122
+msgid "Scottish Parliament debate"
+msgstr ""
+
+#: scripts/alertmailer.php:123
+msgid "Scottish Parliament written answer"
+msgstr ""
+
+#: scripts/alertmailer.php:124
+msgid "London Mayoral question"
+msgstr ""
+
+#: scripts/alertmailer.php:125 scripts/alertmailer.php:126
+msgid "Senedd debate"
+msgstr ""
+
+#: scripts/alertmailer.php:127 scripts/alertmailer.php:143
+msgid "Lords debate"
+msgstr ""
+
+#: scripts/alertmailer.php:128 scripts/alertmailer.php:144
+msgid "event"
+msgstr ""
+
+#: scripts/alertmailer.php:129 scripts/alertmailer.php:145
+msgid "vote"
+msgstr ""
+
+#: scripts/alertmailer.php:132
+msgid "Commons debates"
+msgstr ""
+
+#: scripts/alertmailer.php:133
+#: www/includes/easyparliament/templates/html/search/form_options.php:58
+msgid "Westminster Hall debates"
+msgstr ""
+
+#: scripts/alertmailer.php:134
+msgid "Written Answers"
+msgstr ""
+
+#: scripts/alertmailer.php:135
+msgid "Written Ministerial Statements"
+msgstr ""
+
+#: scripts/alertmailer.php:136
+msgid "Northern Ireland Assembly debates"
+msgstr ""
+
+#: scripts/alertmailer.php:137
+msgid "Public Bill committees"
+msgstr ""
+
+#: scripts/alertmailer.php:138
+msgid "Scottish Parliament debates"
+msgstr ""
+
+#: scripts/alertmailer.php:139
+msgid "Scottish Parliament written answers"
+msgstr ""
+
+#: scripts/alertmailer.php:140
+msgid "London Mayoral questions"
+msgstr ""
+
+#: scripts/alertmailer.php:141 scripts/alertmailer.php:142
+#: www/includes/easyparliament/metadata.php:1085
+#: www/includes/easyparliament/metadata.php:1088
+msgid "Senedd debates"
+msgstr ""
+
+#: scripts/alertmailer.php:266
+msgid "as a teller"
+msgstr ""
+
+#: scripts/alertmailer.php:277
+msgid "Voted aye"
+msgstr ""
+
+#: scripts/alertmailer.php:279
+msgid "Voted no"
+msgstr ""
+
+#: scripts/alertmailer.php:281
+msgid "Voted abstain"
+msgstr ""
+
+#: scripts/alertmailer.php:283
+#, php-format
+msgid "Voted %s"
+msgstr ""
+
+#: scripts/alertmailer.php:285
+#, php-format
+msgid "(division #%s; result was <b>%s</b> aye, <b>%s</b> no)"
+msgstr ""
+
+#: scripts/alertmailer.php:364 scripts/alertmailer.php:371
+msgid "There are more results than we have shown here."
+msgstr ""
+
+#: scripts/alertmailer.php:364 scripts/alertmailer.php:371
+msgid "See more"
+msgstr ""
+
 #: www/docs/freeourbills/sharethis.php:61
 msgid "E-mail this, post to del.icio.us, etc."
 msgstr ""
@@ -627,11 +756,6 @@ msgstr ""
 
 #: www/includes/easyparliament/metadata.php:1061
 msgid "Overview of the Senedd debates"
-msgstr ""
-
-#: www/includes/easyparliament/metadata.php:1085
-#: www/includes/easyparliament/metadata.php:1088
-msgid "Senedd debates"
 msgstr ""
 
 #: www/includes/easyparliament/metadata.php:1201
@@ -1794,10 +1918,6 @@ msgstr ""
 msgid "House of Commons debates"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/form_options.php:58
-msgid "Westminster Hall debates"
-msgstr ""
-
 #: www/includes/easyparliament/templates/html/search/form_options.php:59
 msgid "House of Lords debates"
 msgstr ""
@@ -2304,20 +2424,20 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:278
+#: www/includes/easyparliament/searchengine.php:281
 #, php-format
 msgid "in the '%s'"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:280
+#: www/includes/easyparliament/searchengine.php:283
 msgid "in Future Business"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:323
+#: www/includes/easyparliament/searchengine.php:326
 msgid "grouped by debate"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:325
+#: www/includes/easyparliament/searchengine.php:328
 msgid "showing all speeches"
 msgstr ""
 

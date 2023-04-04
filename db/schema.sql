@@ -302,6 +302,7 @@ CREATE TABLE `alerts` (
   `confirmed` tinyint(1) NOT NULL default '0',
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `postcode` varchar(10) NOT NULL default '',
+  `lang` varchar(2) NOT NULL default 'en',
   PRIMARY KEY  (`alert_id`),
   KEY `email` (`email`),
   KEY `confirmed` (`confirmed`,`deleted`)

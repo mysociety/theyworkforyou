@@ -90,6 +90,7 @@ class ALERT {
                         email,
                         criteria,
                         registrationtoken,
+                        lang,
                         deleted,
                         confirmed
                         FROM alerts
@@ -97,19 +98,7 @@ class ALERT {
                         " AND deleted=" . $deleted .
                         ' ORDER BY email');
 
-        $data = array();
-
-        foreach ($q as $row) {
-            $contents = array(
-                'alert_id' => $row['alert_id'],
-                'email' => $row['email'],
-                'criteria' => $row['criteria'],
-                'registrationtoken' => $row['registrationtoken'],
-                'confirmed' => $row['confirmed'],
-                'deleted' => $row['deleted']
-            );
-            $data[] = $contents;
-        }
+        $data = $q->fetchAll();
         $info = "Alert";
         $data = array ('info' => $info, 'data' => $data);
 
@@ -152,17 +141,19 @@ class ALERT {
         }
 
         $q = $this->db->query("INSERT INTO alerts (
-                email, criteria, postcode, deleted, confirmed, created
+                email, criteria, postcode, lang, deleted, confirmed, created
             ) VALUES (
                 :email,
                 :criteria,
                 :pc,
+                :lang,
                 '0', '0', NOW()
             )
         ", array(
             ':email' => $details['email'],
             ':criteria' => $criteria,
             ':pc' => $details['pc'],
+            ':lang' => LANGUAGE,
             ));
 
         if ($q->success()) {
