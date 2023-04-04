@@ -7,7 +7,7 @@
                 <p>Making it easy to keep an eye on the UK&rsquo;s parliaments. Discover who represents you, how they&rsquo;ve voted and what they&rsquo;ve said in debates &ndash; simply and clearly.</p>
             </div>
             <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
-                <p>Get insights on TheyWorkForYou and other mySociety sites, in our popular newsletter</p>
+                <p>Sign up to mySociety's newsletter</p>
                 <div class="row collapse">
                     <div class="small-8 columns">
                         <input type="email" placeholder="Your email address" name="EMAIL"/>
