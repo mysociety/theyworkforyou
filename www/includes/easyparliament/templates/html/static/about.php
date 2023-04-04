@@ -1,55 +1,60 @@
 <div class="full-page static-page about-page">
     <div class="full-page__row">
-        <div class="panel">
-            <h1>TheyWorkForYou makes Parliament easier to understand</h1>
+        <div class="panel about-page__mysociety">
 
-            <p>Most people don&rsquo;t know the name of their MP, let alone
-            what they&rsquo;ve been saying in Parliament, or how they&rsquo;ve
-            voted.</p>
+            <h1>About TheyWorkForYou</h1>
 
-            <p>TheyWorkForYou aims to get that changed.</p>
+            <p>TheyWorkForYou was founded <a href="https://www.mysociety.org/anniversary/">twenty years ago</a> to make Parliament more accessible.</p>
 
-            <hr>
+            <p>We believe that information about our elected representatives should be easily understandable and accessible to everyone, and not just insiders or those who can pay.</p>
 
-            <h2>Why bother? It&rsquo;s just a load of boring old politicians</h2>
+            <p>We now work across the UK's Parliaments to bring information together in one place, and make it accessible to both citizens and to civil society.</p>
 
-            <p>We know that Parliament can be dry, fusty, and even
-            intimidating. And there&rsquo;s the problem: keeping up just
-            involves too much effort.</p>
+            <p>Through <a href="https://www.theyworkforyou.com/">TheyWorkForYou</a> and <a href="https://writetothem.com">WriteToThem</a>, we want to make it easy to understand what the UK's
+              different layers of representation do, and make the actions of our
+            representatives and governments more transparent.</p>
 
-            <p>Once you get past those barriers, though, you&rsquo;ll find
-            information that can entertain you, educate you and&mdash;no
-            exaggeration&mdash;give you the power to get things changed.
-            We think that should be available to everyone.</p>
+            <p>We do this by:</p>
 
-            <h2>That&rsquo;s where TheyWorkForYou comes in</h2>
-
-            <p>TheyWorkForYou launched in 2004, taking data and information
-            from official parliamentary sources and adding features that make
-            them easier to understand, like:</p>
-
-            <ul class="about-page__features">
-                <li>A search box, so you can find mentions of any topic, in debates as recent as yesterday or as far back as the 1930s.</li>
-                <li>Not just the name, but the party, photo and position of each person who speaks, right next to their contribution to any debate.</li>
-                <li>A unique link for every statement, so you can share precisely what someone said, by email, Twitter or Facebook.</li>
-                <li>An alert sign-up, so you don&rsquo;t have to come to the site to see what your MP is saying: it&rsquo;ll drop straight into your email inbox instead.</li>
+            <ul>
+              <li>Making parliamentary debates searchable for all Parliaments.</li>
+              <li>Making it easy for people to write to their representatives at any layer of government.</li>
+              <li>Powering <a href="https://www.theyworkforyou.com/alert/">email alerts</a> that let <a href="https://www.mysociety.org/2022/07/28/theyworkforyou-quietly-provides-essential-services-for-civil-society-and-beyond/">citizens and civil society</a> stay informed about their representatives or areas of interest.</li>
+              <li>Adding new information and summaries that build on the information that Parliament releases (such as voting record summaries and more accessible registers of members interests).</li>
             </ul>
 
-            <p>And that&rsquo;s, basically, what we&rsquo;re all about: making it so easy to follow Parliament, that you, and everyone else, will know exactly what&rsquo;s going on.</p>
+            <p>If you support TheyWorkForYou's goals, you can help us do more by making a <a href="https://www.mysociety.org/donate/?utm_source=theyworkforyou&utm_medium=website&utm_campaign=theyworkforyou-about-page">donation</a>.</p>
+
+            <p>For more information about how we run the site, please read <a href="/help">our FAQs.</a></p>
+
+
+        </div>
+        <div class="panel about-page__mysociety">
+            <h1>About mySociety</h1>
+            <p>TheyWorkForYou is run by <a href="https://www.mysociety.org/">mySociety</a>, a UK charity that puts <a href="https://www.mysociety.org/2021/11/24/the-need-to-repower-democracy/">power in more people's hands</a> through the use of digital tools and data.</p>
+            <p>Through <strong>TheyWorkForYou</strong> and <strong>WriteToThem</strong> we have made elected representatives more transparent and contactable. Every year, hundreds of thousands of reports are made through <strong>FixMyStreet</strong>, and over a million Freedom of Information requests have been made through <strong>WhatDoTheyKnow</strong>.</p>
+
+            <p><a href="https://www.mysociety.org/about/funding/">Find out more about how mySociety is funded.</a></p>
+
+            <h3>Sign up for updates from mySociety</h3>
+            <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
+                <div class="row collapse">
+                    <div class="small-8 columns">
+                        <input type="email" placeholder="Your email address" name="EMAIL"/>
+                    </div>
+                    <div class="small-4 columns">
+                        <label style="position: absolute; left: -5000px;">
+                          Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                        </label>
+                        <input type="hidden" name="group[11745][32]" value="1">
+                        <input type="submit" value="Subscribe" name="subscribe" class="button prefix">
+                    </div>
+                </div>
+            </form>
+          <hr>
 
           </div>
 
-          <div class="panel about-page__mysociety">
-
-            <h2>Who runs this site?</h2>
-
-            <p>TheyWorkForYou is run by <a href="https://www.mysociety.org/">mySociety</a>, a UK charity. We build web tools that make democracy a little more accessible. mySociety is not politically-aligned, and its projects are for everyone to use.</p>
-
-            <p class="about-page__donate">We are funded, in part, by donations from people like you. <a href="https://www.mysociety.org/donate/">Here&rsquo;s how to help support our projects.</a></p>
-
-            <p>Still got questions? <a href="/help">Check our FAQs.</a></p>
-
-          </div>
 
           <div class="panel">
 
