@@ -37,7 +37,7 @@ class SEARCHENGINE {
     public $valid = false;
     public $error;
 
-    public function __construct($query) {
+    public function __construct($query, $lang='') {
         if (!defined('XAPIANDB') || !XAPIANDB)
             return null;
 
@@ -140,7 +140,7 @@ class SEARCHENGINE {
                     elseif ($value == 'lmqs') $newv = 9;
                     elseif ($value == 'uk') $newv = array(1,2,3,4,6,101);
                     elseif ($value == 'scotland') $newv = array(7,8);
-                    elseif ($value == 'wales') $newv = (LANGUAGE == 'cy') ? 11 : 10;
+                    elseif ($value == 'wales') $newv = ($lang == 'cy' || LANGUAGE == 'cy') ? 11 : 10;
                     elseif ($value == 'future') $newv = 'F';
                     if (is_array($newv)) {
                         $newv = 'major:' . join(' major:', $newv);
@@ -209,7 +209,7 @@ class SEARCHENGINE {
 
         # Now stick in an 'exclude other language' if needed
         if (!preg_match('#major:#', $this->query)) {
-            if (LANGUAGE == 'cy') {
+            if ($lang == 'cy' || LANGUAGE == 'cy') {
                 $this->query = "($this->query) -major:10";
             } else {
                 $this->query = "($this->query) -major:11";
