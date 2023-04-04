@@ -5,29 +5,14 @@
         </div>
 
         <div class="business-section__primary">
-            <h1>We need you!</h1>
+            <h1>Coming soon!</h1>
 
-            <p>It&rsquo;d be fantastic if TheyWorkForYou also covered the
-            Senedd, as we do with the
-            <a href="/ni/">Northern Ireland Assembly</a> and the
-            <a href="/scotland/">Scottish Parliament</a>.
+            <p>The Welsh Government is funding mySociety to add the proceedings and Members of the Welsh Parliament to TheyWorkForYou, and to provide a Welsh language version of the site.</p>
+            
+            <p>The Record can be accessed through the <a href="https://senedd.wales/">Senedd Cymru website</a>, and intergrating this data into TheyWorkForYou will allow citizens in Wales to access information about their representatives in the same way that Scottish and NI citizens can, with the same search and email alerts.</p>
+            
+            <p>This is part of the Welsh Government's efforts to promote democratic engagement, by enabling Welsh citizens to access information about the Senedd alongside the UK Parliament.</p>
 
-            <p>But we don&rsquo;t currently have the time or resources
-            to add the Senedd ourselves. In fact, because the
-            code that runs TheyWorkForYou is
-            <a href="https://github.com/mysociety/theyworkforyou">open
-            source</a>, both Scotland and Northern Ireland were mainly
-            added by volunteers.</p>
-        </div>
-
-        <div class="business-section__secondary">
-            <h2>Next steps</h2>
-
-            <p>If you can help us add the Senedd to TheyWorkForYou,
-            <a href="https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou">join
-            our discussion list</a> and say hello.</p>
-
-            <p>If not, maybe you can get the information you need on <a href="https://senedd.wales/">the official Senedd website</a>.</p>
         </div>
     </div>
 </div>
