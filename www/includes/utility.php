@@ -615,7 +615,7 @@ function preg_replacement_quote($s) {
     return preg_replace('/(\$|\\\\)(?=\d)/', '\\\\\1', $s);
 }
 
-function send_template_email($data, $merge, $bulk = false, $want_bounces = false) {
+function send_template_email($data, $merge, $bulk = false, $want_bounces = false, $lang = '') {
     // We should have some email templates in INCLUDESPATH/easyparliament/templates/emails/.
 
     // $data is like:
@@ -652,7 +652,15 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
         return false;
     }
 
-    $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".txt";
+    $lang = '';
+    if ($lang == 'cy' || LANGUAGE == 'cy') {
+        $lang = 'cy/';
+    }
+
+    $filename = INCLUDESPATH . "easyparliament/templates/emails/$lang" . $data['template'] . ".txt";
+    if (!file_exists($filename) && $lang == 'cy/') {
+        $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".txt";
+    }
 
     if (!file_exists($filename)) {
         $PAGE->error_message("Sorry, we could not find the email template '" . _htmlentities($data['template']) . "'.");
@@ -664,7 +672,11 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
     $emailtext = fread($handle, filesize($filename));
     fclose($handle);
 
-    $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".html";
+    $filename = INCLUDESPATH . "easyparliament/templates/emails/$lang" . $data['template'] . ".html";
+    if (!file_exists($filename) && $lang == 'cy/') {
+        $filename = INCLUDESPATH . "easyparliament/templates/emails/" . $data['template'] . ".html";
+    }
+
     if (file_exists($filename)) {
         $htmltext = file_get_contents($filename);
     } else {
@@ -704,6 +716,16 @@ function send_template_email($data, $merge, $bulk = false, $want_bounces = false
 
     $emailtext = preg_replace($search, $replace, $emailtext);
     $htmltext = preg_replace($search, $replace, $htmltext);
+
+    if ($lang == 'cy' || LANGUAGE == 'cy') {
+        if (strpos(DOMAIN, 'www') !== false) {
+            $repl = "https://" . str_replace('www.', 'cy.', DOMAIN);
+        } else {
+            $repl = "https://cy." . DOMAIN;
+        }
+        $emailtext = str_replace('https://' . DOMAIN, $repl, $emailtext);
+        $htmltext = str_replace('https://' . DOMAIN, $repl, $htmltext);
+    }
 
     // Send it!
     $success = send_email ($data['to'], $subject, $emailtext, $bulk, 'twfy-DO-NOT-REPLY@' . EMAILDOMAIN, $want_bounces, $htmltext);
