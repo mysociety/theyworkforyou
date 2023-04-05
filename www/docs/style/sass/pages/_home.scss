@@ -1,6 +1,6 @@
 .hero {
     background-color: $primary-color;
-    color: #fff;
+    color: #000;
 }
 
 .hero__mp-search {
@@ -56,7 +56,7 @@
         @include grid-column(5);
     }
     h2 {
-        color: #fff;
+        color: #000;
         line-height: 1.05em;
         font-size: emCalc(32);
     }
@@ -64,7 +64,7 @@
         line-height: 1.4em;
     }
     a {
-        color: #fff;
+        color: #000;
     }
 }
 
