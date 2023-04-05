@@ -1,0 +1,15 @@
+Subject: Cadarnhewch eich cyfeiriad e-bost ar gyfer eich cyfrif TheyWorkForYou.com os gwelwch yn dda 
+
+S'mae,
+Cyn i ni newid eich cyfeiriad e-bost mae angen i chi ei gadarnhau
+trwy glicio'r ddolen isod:
+
+
+{CONFIRMURL}
+
+Os nad yw clicio'r ddolen uchod yn gweithio, efallai y bydd yn rhaid i chi 
+ei gopïo ac yna ei gludo i mewn i flwch 'Cyfeiriad' neu 'Lleoliad' eich 
+porwr gwe, ac yna pwyso 'Enter' neu 'Return' ar eich bysellfwrdd.
+
+Dymuniadau gorau,
+TheyWorkForYou

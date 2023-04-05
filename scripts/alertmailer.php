@@ -100,7 +100,7 @@ $sentemails = 0;
 
 $LIVEALERTS = new ALERT;
 
-$current = array('email' => '', 'token' => '');
+$current = array('email' => '', 'token' => '', 'lang' => '');
 $email_text = '';
 $html_text = '';
 $globalsuccess = 1;
@@ -214,6 +214,7 @@ foreach ($alertdata as $alertitem) {
         }
         $current['email'] = $email;
         $current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
+        $current['lang'] = $lang;
         $email_text = '';
         $html_text = '';
         $q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
@@ -467,7 +468,7 @@ function write_and_send_email($current, $text, $html, $template) {
         'MANAGE' => "https://$domain/D/" . $current['token'],
     );
     if (!$nomail) {
-        $success = send_template_email($d, $m, true, true); # true = "Precedence: bulk", want bounces
+        $success = send_template_email($d, $m, true, true, $current['lang']); # true = "Precedence: bulk", want bounces
         mlog("sent ... ");
         # sleep if time between sending mails is less than a certain number of seconds on average
         # 0.25 is number of seconds per mail not to be quicker than

@@ -1,0 +1,31 @@
+Subject: Eich hysbysiad TheyWorkForYou
+{DATA}
+
+Os nad yw clicio unrhyw rai o'r dolenni yn gweithio, 
+efallai y bydd yn rhaid i chi eu copïo ac yna eu cludo 
+i mewn i flwch 'Cyfeiriad' neu 'Lleoliad' eich porwr gwe, 
+ac yna pwyso 'Enter' neu 'Return' ar eich bysellfwrdd.
+
+Cofion cynnes,
+TheyWorkForYou
+
+mySociety,
+483 Green Lanes,
+London,
+N13 4BS
+
+-------------------------------------------------------------------
+
+Mae hysbysiadau TheyWorkForYou angen cariad a chefnogaeth.
+Os gwelwch yn dda, ystyriwch rhodd i mySociety er mwyn
+ein helpu ni barhau a thyfu:
+
+https://www.mysociety.org/twfy-donate/
+
+-------------------------------------------------------------------
+
+
+I dad-gofrestru, rheoli neu ychwanegu at eich hysbysiadau, 
+os gwelwch yn dda cyrchwch y ddolen canlynol:
+
+{MANAGE}
