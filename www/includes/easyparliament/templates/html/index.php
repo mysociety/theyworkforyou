@@ -8,7 +8,7 @@
     <div class="hero__mp-search">
         <div class="hero__mp-search__wrap">
             <?php if (count($mp_data)) { ?>
-            <h1>Find out more about <?= $mp_data['former'] ? 'your former MP ' : 'your MP' ?><?= $mp_data['name'] ?></h1>
+            <h1>Find out more about <?= $mp_data['former'] ? 'your former MP ' : 'your MP ' ?><?= $mp_data['name'] ?></h1>
             <div class="row collapse">
                 <div class="medium-4 columns">
                     <a href="<?= $mp_data['mp_url']?>" class="button homepage-search__button" />Find out &rarr;</a>

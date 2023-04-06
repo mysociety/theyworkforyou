@@ -3,7 +3,7 @@
         <div class="hero__mp-search">
             <div class="hero__mp-search__wrap">
                 <?php if (count($mp_data)) { ?>
-                <h1>Does <?= $mp_data['former'] ? 'your former MSP ' : '' ?><?= $mp_data['name'] ?> represent you?</h1>
+                <h1>Find out more about your <?= $mp_data['former'] ? 'your former MSP ' : 'your MSP ' ?><?= $mp_data['name'] ?></h1>
                 <div class="row collapse">
                     <div class="medium-4 columns">
                         <a href="<?= $mp_data['mp_url']?>" class="button homepage-search__button" />Find out &rarr;</a>
