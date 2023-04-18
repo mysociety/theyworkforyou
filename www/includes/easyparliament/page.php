@@ -458,10 +458,11 @@ class PAGE {
             <p<?php echo $class; ?>><?php echo $message['text']; ?></p>
 <?php
         }
-
-        $linkurl = $message['linkurl'];
-        if (!preg_match('#^/[^/]#', $linkurl)) {
-            $linkurl = null;
+        if (isset($message['linktext'])) {
+            $linkurl = $message['linkurl'];
+            if (!preg_match('#^/[^/]#', $linkurl)) {
+                $linkurl = null;
+            }
         }
         if (isset($linkurl) && isset($message['linktext'])) {
             ?>
