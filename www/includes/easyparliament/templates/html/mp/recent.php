@@ -15,7 +15,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         </div>
         <div class="person-panels">
             <div class="primary-content__unit">
-                <?php include('_covid19_panel.php'); ?>
+
 
                 <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
@@ -57,6 +57,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <p>This person has not voted recently.</p>
                     </div>
                 <?php }
+                include('_covid19_panel.php');
                 include('_vote_footer.php'); ?>
             </div>
 

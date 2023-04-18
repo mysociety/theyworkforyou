@@ -33,8 +33,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php include('_covid19_panel.php'); ?>
-
                 <?php if ($current_party_comparison <> $data["comparison_party"]): ?>
                 <?php include('_cross_party_mp_panel.php'); ?>
                 <?php endif; ?>
@@ -71,6 +69,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
                                 $policy_id = $key_vote['policy_id'];
+
+                                # policies where a vote is in our affected early june 2020 windows
+                                $covid_affected = in_array($policy_id, [1136, 6860]);
                                 $policy_desc = strip_tags($key_vote['policy']);
                                 $policy_direction = $key_vote["position"];
                                 $policy_group = $segment['key'];
@@ -154,6 +155,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php endif; ?>
 
                 <?php endif; ?>
+                <?php include('_covid19_panel.php'); ?>
 
                 <?php include('_vote_footer.php'); ?>
             </div>

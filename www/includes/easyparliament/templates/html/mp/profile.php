@@ -44,8 +44,6 @@ $display_wtt_stats_banner = '2015';
                 </div>
               <?php endif; ?>
 
-              <?php include('_covid19_panel.php'); ?>
-
               <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
