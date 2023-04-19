@@ -162,10 +162,14 @@ a {
     color: $links;
 }
 
-a:hover,
-a:focus {
+a:hover {
     text-decoration: underline;
     color: darken($colour_primary, 10%);
+}
+
+a:focus {
+    background-color: #ffe500;
+    color: #333 !important; // Overrides specific rules like .people-list-alphabet a
 }
 
 /* Buttons */
