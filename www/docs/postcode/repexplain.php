@@ -6,7 +6,7 @@
 
 <?php } elseif ($multi == "northern-ireland") { ?>
 
-    <p><?= gettext("Your MLAs represent you on the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over \"transferred matters\", which include agriculture, education, employment, the environment and health.")?></p>
+    <p><?= gettext("Your MLAs represent you on the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over “transferred matters”, which include agriculture, education, employment, the environment and health.")?></p>
 
 <?php } elseif ($multi == "wales") { ?>
 
