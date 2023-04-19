@@ -7,7 +7,7 @@
         <?= isset($key_vote) ? "$key_vote[summary]." : '' ?>
         <?= isset($party_voting_line) ? $party_voting_line : '' ?>
     </a>
-    <?php if ($covid_affected) { ?>
+    <?php if (isset($covid_affected) && $covid_affected) { ?>
     <span style="font-size:60%">Absences for this policy may be affected <a href="#covid-19">COVID-19 restrictions</a>.</span>
     <?php } ?>
     <?php } ?>
