@@ -77,16 +77,6 @@
 
 <body>
 
-  <?php if ( $banner_text ) { ?>
-    <div class="banner">
-        <div class="full-page__row">
-            <div class="banner__content">
-                <?= $banner_text ?>
-            </div>
-        </div>
-    </div>
-  <?php } ?>
-
   <?php if (isset($country) && in_array($country, array('AU', 'IE', 'CA'))) { ?>
     <div class="banner">
         <div class="full-page__row">
@@ -184,6 +174,16 @@
             </div>
         </div>
     </nav>
+
+    <?php if ( $banner_text ) { ?>
+      <div class="banner">
+          <div class="full-page__row">
+              <div class="banner__content">
+                  <?= $banner_text ?>
+              </div>
+          </div>
+      </div>
+    <?php } ?>
 
     <?php if (isset($page_errors)) { ?>
     <div class="full-page legacy-page static-page">

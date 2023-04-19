@@ -283,6 +283,17 @@ $weight_bold: 700;
   }
 }
 
+.button--white {
+    background-color: $colour_off_white;
+    color: #333;
+    &:hover,
+    &:active,
+    &:focus {
+      color: #333;
+      background-color: darken($colour_off_white, 10%);
+  }
+}
+
 .button--facebook {
     background: #3b5998 url(../img/icon-facebook-f.png) 1em 50% no-repeat;
     background-size: 10px 20px;

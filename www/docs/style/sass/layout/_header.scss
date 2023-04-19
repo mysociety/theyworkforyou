@@ -383,17 +383,22 @@ $badge-horizontal-shadow-desktop: -8px;
     color: #fff;
 
     .banner__content {
-        font-size: 1.2em;
+        font-size: 1em;
         line-height: 1.2em;
-        padding: 0.75em;
+        padding: 1em;
     }
 
-    a {
+    a:not(.button) {
         color: lighten($links, 5%);
 
         &:hover,
         &:focus {
             color: lighten($primary-color, 5%);
         }
+    }
+
+    a.button {
+        margin-bottom: 0;
+        margin-left: 0.5em;
     }
 }
