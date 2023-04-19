@@ -186,8 +186,25 @@ input.homepage-search__button {
     }
 }
 
+.in-the-news__wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    @media (min-width: $large-screen) {
+        row-gap: 0;
+        flex-direction: row;
+        column-gap: 1.5em;
+    }
+}
+
+.in-the-news__image {
+    max-width: 300px;
+    object-fit: cover;
+}
+
 .in-the-news__topic {
     font-size: 1.77778em;
+    margin-bottom: 0;
 }
 
 .in-the-news__key-events {
@@ -290,7 +307,7 @@ input.homepage-search__button {
     h2 {
         font-size: 1em;
         color: $colour_dark_grey;
-        font-weight: normal;
+        margin-bottom: 1em;
     }
 
     // Extra space above when not first child
@@ -338,7 +355,6 @@ html.js .recently__list-more {
     font-size: 1.125em;
     @media (min-width: $medium-screen) {
         font-size: 1em;
-        padding-right: 14em; // leave space for long categories like "Northern Ireland Assembly debate"
 
         .parliamentary-excerpt--no-category & {
             padding-right: 0;
@@ -349,7 +365,7 @@ html.js .recently__list-more {
 .meta {
     font-size: emCalc(14);
     color: $colour_grey;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
 }
 
 .excerpt__category {
