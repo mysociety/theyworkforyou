@@ -8,7 +8,7 @@
         <?= isset($party_voting_line) ? $party_voting_line : '' ?>
     </a>
     <?php if (isset($covid_affected) && $covid_affected) { ?>
-    <span style="font-size:60%">Absences for this policy may be affected <a href="votes#covid-19">COVID-19 restrictions</a>.</span>
+    <span style="font-size:60%">Absences for this policy may be affected <a href="<?= $member_url ?>/votes#covid-19">COVID-19 restrictions</a>.</span>
     <?php } ?>
     <?php } ?>
 </li>
