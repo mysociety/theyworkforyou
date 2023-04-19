@@ -71,7 +71,8 @@ $display_wtt_stats_banner = '2015';
                         <ul class="vote-descriptions">
                           <?php foreach ($policyPositions->positions as $key_vote) {
                             $policy_id = $key_vote['policy_id'];
-                            $covid_affected = in_array($policy_id, [1136, 6860]);
+                            $policies_obj = new MySociety\TheyWorkForYou\Policies();
+                            $covid_affected = in_array($policy_id, $policies_obj->getCovidAffected());
                             $description = ucfirst($key_vote['desc']);
                             $link = sprintf(
                                 '%s/divisions?policy=%s',
@@ -108,7 +109,8 @@ $display_wtt_stats_banner = '2015';
                           <?php foreach ($sorted_diffs as $policy_id => $diff) {
 
                             $key_vote = $diff;
-                            $covid_affected = in_array($policy_id, [1136, 6860]);
+                            $policies_obj = new MySociety\TheyWorkForYou\Policies();
+                            $covid_affected = in_array($policy_id, $policies_obj->getCovidAffected());
                             $policy_desc = strip_tags($key_vote['policy_text']);
                             $policy_direction = $key_vote["person_position"];
                             $policy_group = "highlighted";
@@ -161,7 +163,8 @@ $display_wtt_stats_banner = '2015';
                           <?php foreach ($policyPositions->positions as $key_vote) {
                             
                             $policy_id = $key_vote['policy_id'];
-                            $covid_affected = in_array($policy_id, [1136, 6860]);
+                            $policies_obj = new MySociety\TheyWorkForYou\Policies();
+                            $covid_affected = in_array($policy_id, $policies_obj->getCovidAffected());
                             $description = ucfirst($key_vote['desc']);
                             $link = sprintf(
                                 '%s/divisions?policy=%s',

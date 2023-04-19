@@ -69,9 +69,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
                                 $policy_id = $key_vote['policy_id'];
-
-                                # policies where a vote is in our affected early june 2020 windows
-                                $covid_affected = in_array($policy_id, [1136, 6860]);
+                                $policies_obj = new MySociety\TheyWorkForYou\Policies();
+                                $covid_affected = in_array($policy_id, $policies_obj->getCovidAffected());
                                 $policy_desc = strip_tags($key_vote['policy']);
                                 $policy_direction = $key_vote["position"];
                                 $policy_group = $segment['key'];

@@ -279,6 +279,9 @@ class Policies {
         )
     );
 
+    # policies where votes affected by covid voting restrictions
+    protected $covid_affected = [1136, 6860];
+
     protected $set_descs = array(
         'social' => 'Social Issues',
         'foreignpolicy' => 'Foreign Policy and Defence',
@@ -308,6 +311,10 @@ class Policies {
                 $policy_id => $this->policies[$policy_id]
             );
         }
+    }
+
+    public function getCovidAffected() {
+        return $this->covid_affected;
     }
 
     public function getPolicies() {
