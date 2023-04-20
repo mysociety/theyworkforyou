@@ -1,0 +1,27 @@
+{"banners":[{
+    "id": "basic-donate",
+    "content": "Donate to mySociety",
+    "button_text": "Donate",
+    "button_link": "https://www.mysociety.org/donate/",
+    "weight": 1,
+    "published": true
+},
+{
+    "id": "Read our blog",
+    "content":"New blog on the blog",
+    "button_text": "Read now",
+    "button_link": "https://www.mysociety.org/blog/",
+    "weight": 1,
+    "published": true
+}
+],
+"annoucements":[{
+    "id": "basic-annoucement",
+    "title": "Annoucement text",
+    "content": "This is the content",
+    "url": "https://www.mysociety.org/",
+    "thumbnail_image": "https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
+    "format": "link",
+    "published": true,
+    "weight": 1
+}]}
