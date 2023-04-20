@@ -1,0 +1,113 @@
+#!/usr/bin/php
+
+<?php
+
+// create-superuser.php
+
+// This script creates a superuser account in the database.
+// It is intended to be be used to create a test superuser in dev
+
+// Running the file will prompt for a username and password
+// or these can be passed in with -u and -p arguments.
+
+include_once dirname(__FILE__) . "/../www/includes/easyparliament/init.php";
+
+// Parse command line arguments
+$options = getopt("u:p:");
+
+// Check if username and password were passed
+if (isset($options["u"]) && isset($options["p"])) {
+    $email = $options["u"];
+    $password = $options["p"];
+    // if username isn't set, prompt for it
+}
+if (!isset($options["u"])) {
+    echo "Enter username (email address): ";
+    $email = trim(fgets(STDIN));
+    // if password isn't set, prompt for it
+}
+
+if (!isset($options["p"])) {
+    echo "Enter password: ";
+    system("stty -echo");
+    $password = trim(fgets(STDIN));
+    system("stty echo");
+}
+
+$details = [
+    "firstname" => "Test Admin",
+    "lastname" => "User",
+    "email" => $email,
+    "postcode" => "N13 4BS",
+    "url" => "https://mysociety.org",
+    "password" => $password,
+    "optin" => 1,
+    "status" => "Administrator",
+    "confirmed" => 1,
+];
+
+$registrationtime = gmdate("YmdHis");
+$passwordforDB = password_hash($details["password"], PASSWORD_BCRYPT);
+
+# get database connection
+$db = new ParlDB();
+
+$q = $db->query(
+    "INSERT INTO users (
+    firstname,
+    lastname,
+    email,
+    postcode,
+    url,
+    password,
+    optin,
+    status,
+    registrationtime,
+    registrationip,
+    facebook_id,
+    deleted,
+    confirmed
+) VALUES (
+    :firstname,
+    :lastname,
+    :email,
+    :postcode,
+    :url,
+    :password,
+    :optin,
+    :status,
+    :registrationtime,
+    :registrationip,
+    :facebook_id,
+    '0',
+    :confirmed
+)
+",
+    [
+        ":firstname" => $details["firstname"],
+        ":lastname" => $details["lastname"],
+        ":email" => $details["email"],
+        ":postcode" => $details["postcode"],
+        ":url" => $details["url"],
+        ":password" => $passwordforDB,
+        ":optin" => $details["optin"],
+        ":status" => $details["status"],
+        ":registrationtime" => $registrationtime,
+        ":facebook_id" => "",
+        ":registrationip" => "127.0.0.1",
+        ":confirmed" => $details["confirmed"],
+    ]
+);
+
+$q = $db->query("select * from users");
+
+if ($q->success()) {
+    echo "\nUser created: Use the following details to log in:\n";
+    echo "Username: twfytestadmin@mysociety.org\n";
+    echo "Password: password\n";
+} else {
+    echo "Error creating user";
+}
+
+
+?>
