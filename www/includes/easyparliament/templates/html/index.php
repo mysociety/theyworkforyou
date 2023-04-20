@@ -50,12 +50,9 @@
     <div class="homepage-panels">
         <div class="panel panel--flushtop clearfix">
             <div class="row nested-row">
-                <div class="homepage-in-the-news homepage-content-section">
-                    <?php if ( count($featured) > 0 ) {
-                        include 'homepage/featured.php';
-                    } else { ?>
-                        No debates found.
-                    <?php } ?>
+                <div class="homepage-featured-content homepage-content-section">
+                    <!-- TODO  Add conditional -->
+                    <?php include 'homepage/featured.php'; ?>
 
                     <?php if (count($topics) > 0) { ?>
                         <h2>Topics in the news</h2>

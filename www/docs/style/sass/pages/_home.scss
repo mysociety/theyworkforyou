@@ -177,16 +177,17 @@ input.homepage-search__button {
     margin-top: emCalc(40);
 }
 
-.homepage-in-the-news {
+.homepage-featured-content {
     @include grid-column(12);
     padding-top: 2em;
     padding-bottom: 2em;
     @media (min-width: $large-screen) {
         @include grid-column(9);
+        border-right: 1px solid $colour_off_white;
     }
 }
 
-.in-the-news__wrapper {
+.featured-content__wrapper {
     display: flex;
     flex-direction: column;
     row-gap: 1em;
@@ -197,17 +198,30 @@ input.homepage-search__button {
     }
 }
 
-.in-the-news__image {
+.featured-content__image {
     max-width: 300px;
     object-fit: cover;
 }
 
-.in-the-news__topic {
+.featured-content__title {
     font-size: 1.77778em;
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
 }
 
-.in-the-news__key-events {
+.featured-content__description {
+    margin-bottom: 0.5em;
+    font-size: 1.125em;
+    @media (min-width: $medium-screen) {
+        font-size: 1em;
+
+        .parliamentary-excerpt--no-category & {
+            padding-right: 0;
+        }
+    }
+}
+
+.featured-content__button {
+    margin-bottom: 0;
 }
 
 .key-events__list {
@@ -238,7 +252,6 @@ input.homepage-search__button {
     @media (min-width: $large-screen) {
         @include grid-column(3);
         border-top: 0;
-        border-left: 1px solid $colour_off_white;
     }
     p {
         line-height: 1.4em;
