@@ -233,12 +233,9 @@ $weight_bold: 700;
     font-weight: $weight_semibold;
     border: 0;
     @include border-radius(3px);
-    &:hover{
-        background-color: darken($colour_primary, 10%);
-    } 
+    &:hover,
     &:focus {
-        background-color: #ffe500;
-        color: #333;
+        background-color: darken($colour_primary, 10%);
     }
 }
 
@@ -247,7 +244,8 @@ $weight_bold: 700;
     background-color: $colour_off_white;
     border: 1px solid $colour_light_grey;
     color: $colour_dark_grey;
-    &:hover {
+    &:hover,
+    &:focus {
         background-color: darken($colour_off_white, 5%);
         color: $colour_black;
         border-color: darken($colour_light_grey, 10%);
@@ -256,7 +254,8 @@ $weight_bold: 700;
 
 .button--negative {
   background-color: $colour_pale_red;
-  &:hover {
+  &:hover,
+  &:focus {
       background-color: darken($colour_pale_red, 10%);
   }
 }
@@ -278,7 +277,8 @@ $weight_bold: 700;
 .button--violet {
     background-color: $colour_violet;
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       background-color: darken($colour_violet, 10%);
   }
 }
@@ -287,7 +287,8 @@ $weight_bold: 700;
     background-color: $colour_off_white;
     color: #333;
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       color: #333;
       background-color: darken($colour_off_white, 10%);
   }
@@ -303,7 +304,8 @@ $weight_bold: 700;
     }
 
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
         background-color: darken(#3b5998, 10%);
     }
 }
