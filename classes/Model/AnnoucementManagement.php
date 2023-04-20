@@ -57,21 +57,23 @@ class AnnoucementManagement {
             return null;
         }
 
-        # annoucements have a weight attribute, which is the probability of being selected
+        # banners have a weight attribute, which is the probability of being selected
         # the higher the weight, the higher the probability
         $total_weight = 0;
-
-        foreach($annoucements as $annoucement){
-            $total_weight += $annoucement->weight;
+        foreach($annoucements as $item){
+            $total_weight += $item->weight;
         }
 
+        $random_number = rand(0, $total_weight);
 
-
-
+        $current_weight = 0;
+        foreach($annoucements as $item){
+            $current_weight += $item->weight;
+            if($random_number <= $current_weight){
+                return $item;
+            }
+        }
     }
-
-
-
 }
 
 ?>

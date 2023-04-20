@@ -20,7 +20,8 @@
     "title": "Annoucement text",
     "content": "This is the content",
     "url": "https://www.mysociety.org/",
-    "thumbnail_image": "https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
+    "thumbnail_image_url": "https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
+    "thumbnail_image_alt_text": "Image alt text",
     "format": "link",
     "published": true,
     "weight": 1
