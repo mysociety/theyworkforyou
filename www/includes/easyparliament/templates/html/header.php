@@ -175,11 +175,12 @@
         </div>
     </nav>
 
-    <?php if ( $banner_text ) { ?>
+    <?php if ( $random_banner ) { ?>
       <div class="banner">
           <div class="full-page__row">
               <div class="banner__content">
-                  <?= $banner_text ?>
+                  <?= $random_banner->content ?>
+                  <a class="button" href="<?= $random_banner->button_link ?>"><?= $random_banner->button_text ?></a>
               </div>
           </div>
       </div>
