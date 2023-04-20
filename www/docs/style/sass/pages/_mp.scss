@@ -343,9 +343,11 @@
             }
         }
 
-        .featured_side__content {
+        .featured_side__content,
+        .sidebar__unit__donation {
             background-color: white;
             padding: 0.5em 1em 1em;
+            margin-bottom: 1.11111em;
         }
 
         .content__button {

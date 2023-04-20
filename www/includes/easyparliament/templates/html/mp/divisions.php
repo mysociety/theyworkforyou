@@ -25,6 +25,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
                         </ul>
                         <?php include '_featured_content.php'; ?>
+                        <?php include '_donation.php'; ?>
                 </div>
             </div>
 

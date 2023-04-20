@@ -26,6 +26,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <?php endif; ?>
                     </ul>
                     <?php include '_featured_content.php'; ?>
+                    <?php include '_donation.php'; ?>
                 </div>
             </div>
             <div class="primary-content__unit">

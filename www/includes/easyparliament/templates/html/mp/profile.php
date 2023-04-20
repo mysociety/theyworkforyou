@@ -37,6 +37,7 @@ $display_wtt_stats_banner = '2015';
                         <?php endif; ?>
                       </ul>
                       <?php include '_featured_content.php'; ?>
+                      <?php include '_donation.php'; ?>
                 </div>
             </div>
 
