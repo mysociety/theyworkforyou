@@ -27,13 +27,16 @@ if ($constituencies == 'CONNECTION_TIMED_OUT') {
 
 $out = ''; $sidebars = array();
 if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
+    $multi = "scotland";
     $MEMBER = fetch_mp($pc, $constituencies);
     list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', 'MSP');
 } elseif (isset($constituencies['NIE'])) {
+    $multi = "northern-ireland";
     $MEMBER = fetch_mp($pc, $constituencies);
     list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', 'MLA');
 } else {
     # Just have an MP, redirect instantly to the canonical page
+    $multi = "uk";
     $MEMBER = fetch_mp($pc, $constituencies, 1);
     member_redirect($MEMBER);
 }
@@ -41,6 +44,7 @@ if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
 $PAGE->page_start();
 $PAGE->stripe_start();
 echo $out;
+include("repexplain.php");
 $PAGE->stripe_end($sidebars);
 $PAGE->page_end();
 
@@ -128,7 +132,7 @@ function pick_multiple($pc, $areas, $area_type, $rep_type) {
     }
 
     $out = '';
-    $out .= '<p>That postcode has multiple results, please pick who you are interested in:</p>';
+    $out .= '<h1>' . gettext("Your representatives") . '</h1>';
     $out .= '<ul><li>Your ';
     if (isset($mp['former'])) {
         $out .= 'former ';
