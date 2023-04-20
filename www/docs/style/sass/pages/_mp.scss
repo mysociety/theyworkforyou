@@ -314,23 +314,24 @@
 
         & > * {
             @include radius(3px);
-            background-color: white;
-            margin-left: 0px;
             margin-bottom: 0px;
             font-size: em-calc(16);
-
             position: sticky;
             top: 1rem;
             margin-bottom: 2.22222rem;
         }
 
+        ul {
+            background-color: white;
+            margin-left: 0;
+        }
+
         li {
             list-style-position: inside;
-            padding: 0.5em 0.5em 0.5em 1.5em;
+            padding: 0.5em 0.5em 0.5em 1em;
             line-height: 1.3em;
             border-bottom: 1px solid $body-bg;
             color: $borders;
-            text-indent: -1em;
             &.active {
                 color: $primary-color;
             }
@@ -340,6 +341,15 @@
             a {
                 color: $body-font-color;
             }
+        }
+
+        .featured_side__content {
+            background-color: white;
+            padding: 0.5em 1em 1em;
+        }
+
+        .content__button {
+            margin-bottom: 0;
         }
     }
 

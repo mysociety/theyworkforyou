@@ -61,15 +61,18 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
 
             <div class="sidebar__unit in-page-nav">
-                <ul>
-                  <?php foreach($sidebar_links as $date) { ?>
-                    <li>
-                        <a href="#<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
-                            <?= strftime('%e %b %Y', strtotime($date)) ?>
-                        </a>
-                    </li>
-                  <?php } ?>
-                </ul>
+                <div>
+                    <ul>
+                        <?php foreach($sidebar_links as $date) { ?>
+                          <li>
+                              <a href="#<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
+                                  <?= strftime('%e %b %Y', strtotime($date)) ?>
+                              </a>
+                          </li>
+                        <?php } ?>
+                      </ul>
+                      <?php include '_featured_content.php'; ?>
+                </div>
             </div>
         </div>
     </div>

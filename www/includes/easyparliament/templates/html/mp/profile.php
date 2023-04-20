@@ -23,19 +23,23 @@ $display_wtt_stats_banner = '2015';
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <ul>
-                  <?php if (count($policyPositions->positions) > 0): ?>
-                    <li><a href="#votes">Votes</a></li>
-                  <?php endif; ?>
-                  <?php if (count($recent_appearances['appearances'])): ?>
-                    <li><a href="#appearances">Appearances</a></li>
-                  <?php endif; ?>
-                    <li><a href="#profile">Profile</a></li>
-                  <?php if ($register_interests): ?>
-                    <li><a href="#register">Register of Interests</a></li>
-                  <?php endif; ?>
-                </ul>
+                <div>
+                    <ul>
+                        <?php if (count($policyPositions->positions) > 0): ?>
+                          <li><a href="#votes">Votes</a></li>
+                        <?php endif; ?>
+                        <?php if (count($recent_appearances['appearances'])): ?>
+                          <li><a href="#appearances">Appearances</a></li>
+                        <?php endif; ?>
+                          <li><a href="#profile">Profile</a></li>
+                        <?php if ($register_interests): ?>
+                          <li><a href="#register">Register of Interests</a></li>
+                        <?php endif; ?>
+                      </ul>
+                      <?php include '_featured_content.php'; ?>
+                </div>
             </div>
+
             <div class="primary-content__unit">
 
               <?php if ($profile_message): ?>

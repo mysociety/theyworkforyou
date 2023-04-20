@@ -15,15 +15,18 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <ul>
-                    <?php if ($has_voting_record): ?>
-                    <?php foreach ($key_votes_segments as $segment): ?>
-                    <?php if (count($segment['votes']->positions) > 0): ?>
-                    <li><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </ul>
+                <div>
+                    <ul>
+                        <?php if ($has_voting_record): ?>
+                        <?php foreach ($key_votes_segments as $segment): ?>
+                        <?php if (count($segment['votes']->positions) > 0): ?>
+                        <li><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+                    <?php include '_featured_content.php'; ?>
+                </div>
             </div>
             <div class="primary-content__unit">
 
