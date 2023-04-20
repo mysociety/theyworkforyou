@@ -17,8 +17,8 @@
 ],
 "annoucements":[{
     "id": "basic-annoucement",
-    "title": "Annoucement text",
-    "content": "This is the content",
+    "title": "Annoucement text, this will be longer probably so that's why I'm adding more text",
+    "content": "This is the content but I'm adding more info to make it more realistic",
     "url": "https://www.mysociety.org/",
     "thumbnail_image_url": "https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
     "thumbnail_image_alt_text": "Image alt text",

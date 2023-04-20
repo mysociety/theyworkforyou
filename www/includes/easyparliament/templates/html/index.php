@@ -52,7 +52,12 @@
             <div class="row nested-row">
                 <div class="homepage-featured-content homepage-content-section">
                     <!-- TODO  Add conditional -->
-                    <?php include 'homepage/featured.php'; ?>
+                    <?php include 'homepage/featured-content.php'; ?>
+                    <?php if ( count($featured) > 0 ) {
+                        include 'homepage/featured.php';
+                    } else { ?>
+                        No debates found.
+                    <?php } ?>
 
                     <?php if (count($topics) > 0) { ?>
                         <h2>Topics in the news</h2>
