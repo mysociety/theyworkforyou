@@ -1,5 +1,5 @@
 
-<?php $featured_item = $annoucement_manager->get_random_valid_annoucement(); ?>
+<?php $featured_item = $annoucement_manager->get_random_valid_item("homepage"); ?>
 
 <?php if ( $featured_item ) { ?>
 <h2>The latest</h2>
