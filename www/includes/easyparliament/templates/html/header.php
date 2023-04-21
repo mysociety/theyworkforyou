@@ -175,7 +175,7 @@
         </div>
     </nav>
 
-    <?php if ( $random_banner ) { ?>
+    <?php if (isset($random_banner) && $random_banner ) { ?>
       <div class="banner">
           <div class="full-page__row">
               <div class="banner__content">
