@@ -5,7 +5,7 @@ include_once '../../includes/easyparliament/init.php';
 $this_page = 'admin_banner';
 
 $db = new ParlDB;
-$banner = new MySociety\TheyWorkForYou\Model\Banner;
+$banner = new MySociety\TheyWorkForYou\Model\AnnoucementManagement;
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -52,9 +52,10 @@ function edit_banner_form() {
 
     $out = '<form action="banner.php" method="post">';
     $out .= '<input name="action" type="hidden" value="Save">';
-    $out .= '<p><label for="banner">Contents (HTML permitted)</label><br>';
-    $out .= '<textarea id="banner_text" name="banner" rows="5" cols="80">' . htmlentities($text) . "</textarea></p>\n";
-    $out .= '<span class="formw"><input type="button" id="preview" value="Preview"> <input name="btnaction" type="submit" value="Save"></span>';
+    $out .= '<p><label for="banner">JSON input for annoucements and sidebars.<br>';
+    $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
+    $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
+    $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
     $out .= '</form>';
 
     return $out;
@@ -66,9 +67,9 @@ function update_banner() {
 
     if ( $banner->set_text($banner_text) ) {
         $out = "<h4>update successful</h4>";
-        $out .= "<p>Banner text is now:</p><p>$banner_text</p>";
+        $out .= "<p>Banner json is now:</p><p>$banner_text</p>";
     } else {
-        $out = "<h4>Failed to update banner text</h4>";
+        $out = "<h4>Failed to update banner text - possibly invalid json</h4>";
     }
 
     return $out;

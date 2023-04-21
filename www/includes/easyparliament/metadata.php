@@ -174,7 +174,7 @@ $this->page = array (
         'url'			=> 'admin/policies.php',
     ),
     'admin_banner' => array (
-        'title'			=> 'Edit Banner',
+        'title'			=> 'Edit Annoucements',
         'parent'		=> 'admin',
         'url'			=> 'admin/banner.php',
     ),
