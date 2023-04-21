@@ -1,9 +1,6 @@
-<!-- In here I'm assuming we are reusing the same text for donation, but 
-probably it would be better not to, because we have more space available.-->
-<!--Also by having it separate we could active/deactivate one in case we wanted to.-->
+
 <div class="sidebar__unit__donation">
-    <!-- Following the earlier comment we could have a more catchy title -->
-    <h3 class="content__title">Donate to mySociety</h3>
-    <p class="content__description"><?= $random_banner->content ?></p>
-    <a class="button content__button" href="<?= $random_banner->button_link ?>"><?= $random_banner->button_text ?></a>
+    <h3 class="content__title">Donate to TheyWorkForYou</h3>
+    <p class="content__description">We believe that information about our  representatives should be accessible to everyone.</p>
+    <a class="button content__button button--negative" href="https://www.mysociety.org/donate/?utm_source=theyworkforyou&utm_medium=website&utm_campaign=rep-sidebar">Can you support us?</a>
 </div>
