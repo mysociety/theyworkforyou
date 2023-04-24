@@ -321,9 +321,19 @@
             margin-bottom: 2.22222rem;
         }
 
+        h3.browse-content {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0.5em 0.75em;
+            background: #9ddc93;
+        }
+
         ul {
             background-color: white;
             margin-left: 0;
+            @media (min-width: $medium-screen) {
+                margin-bottom: 2.22222em;
+            }
         }
 
         li {
@@ -343,11 +353,20 @@
             }
         }
 
+        .featured_side__mysociety {
+            color: white;
+            background: #333333;
+            padding: 0.75em 1em;
+        }
+
         .featured_side__content,
         .sidebar__unit__donation {
             background-color: white;
             padding: 0.5em 1em 1em;
             margin-bottom: 1.11111em;
+            @media (min-width: $medium-screen) {
+                margin-bottom: 2.22222em;
+            }
         }
 
         .content__button {

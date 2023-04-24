@@ -4,6 +4,9 @@
 <?php if ( $featured_item ) { ?>
 
 <div class="sidebar__unit__featured_side">
+  <div class="featured_side__mysociety">
+      <img src="/style/img/logo-mysociety.png" alt="mySociety logo" width="150">
+  </div>
   <img class="featured_side__image" src="<?= $featured_item->thumbnail_image_url ?>" alt="<?= $featured_item->thumbnail_image_alt_text ?>">
   <div class="featured_side__content">
       <h3 class="content__title"><?= $featured_item->title ?></h3>

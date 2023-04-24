@@ -21,6 +21,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             How <?= $full_name ?> voted on <?= $policydivisions[array_keys($policydivisions)[0]]['desc'] ?>.
                         </p>
                         <?php } ?>
+                        <h3 class="browse-content">Browse content</h3>
                         <ul>
                             <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
                         </ul>

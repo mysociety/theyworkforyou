@@ -16,6 +16,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
+                    <h3 class="browse-content">Browse content</h3>
                     <ul>
                         <?php if ($has_voting_record): ?>
                         <?php foreach ($key_votes_segments as $segment): ?>
