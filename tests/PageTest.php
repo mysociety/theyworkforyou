@@ -70,11 +70,11 @@ class PageTest extends FetchPageTestCase
     }
 
     public function testBanner() {
-        $banner = new MySociety\TheyWorkForYou\Model\Banner;
+        $banner = new MySociety\TheyWorkForYou\Model\AnnoucementManagement;
 
         # makes sure it is empty in case there's something hanging
         # about in memcached
-        $banner->set_text('');
+        $banner->set_text('', "banner");
         $page = $this->fetch_page( array( 'url' => '/' ) );
         $this->assertNotContains('<div class="banner">', $page);
         $this->assertNotContains('This is a banner', $page);
@@ -94,11 +94,11 @@ class PageTest extends FetchPageTestCase
         ]
         ';
         
-        $banner->set_text($banner_config);
+        $banner->set_text($banner_config, "banner");
         $page = $this->fetch_page( array( 'url' => '/' ) );
         $this->assertContains('This is a banner', $page);
 
-        $banner->set_text('');
+        $banner->set_text('', "banner");
         $page = $this->fetch_page( array( 'url' => '/' ) );
         $this->assertNotContains('<div class="banner">', $page);
         $this->assertNotContains('This is a banner', $page);
