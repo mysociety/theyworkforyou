@@ -67,11 +67,11 @@ function edit_banner_form() {
     if ($editoral_option == "banner") {
         $out .= "<h1>Edit banner</h1>";
         $out .= '<p><label for="banner">JSON input for banner.<br>';
-        $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
+        $out .= '<span><a href="https://gist.github.com/ajparsons/778e752ac110f595e1230ee908be9c5e">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
     } else if ($editoral_option == "announcements") {
         $out .= "<h1>Edit Annoucements</h1>";
         $out .= '<p><label for="banner">JSON input for announcements and sidebars.<br>';
-        $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
+        $out .= '<span><a href="https://gist.github.com/ajparsons/ff8029afd333122775864b58fbe29433">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
     };
      $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
     $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
