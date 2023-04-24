@@ -79,7 +79,22 @@ class PageTest extends FetchPageTestCase
         $this->assertNotContains('<div class="banner">', $page);
         $this->assertNotContains('This is a banner', $page);
 
-        $banner->set_text('This is a banner');
+        $banner_config = '
+        [
+            {
+               "id":"basic-donate",
+               "content":"This is a banner",
+               "button_text":"Donate",
+               "button_link":"https://www.mysociety.org/donate/",
+               "button_class": "button--negative",
+               "weight":1,
+               "lang": "en",
+               "published":true
+            }
+        ]
+        ';
+        
+        $banner->set_text($banner_config);
         $page = $this->fetch_page( array( 'url' => '/' ) );
         $this->assertContains('This is a banner', $page);
 
