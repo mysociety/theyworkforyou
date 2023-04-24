@@ -792,7 +792,7 @@ function person_recent_appearances($member) {
     $person_id = $member->person_id();
 
     $memcache = new MySociety\TheyWorkForYou\Memcache;
-    $recent = $memcache->get('recent_appear:' . $person_id);
+    $recent = $memcache->get("recent_appear:$person_id:" . LANGUAGE);
 
     if (!$recent) {
         // Initialise the search engine
