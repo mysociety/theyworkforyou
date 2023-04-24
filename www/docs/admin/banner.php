@@ -2,7 +2,6 @@
 
 include_once '../../includes/easyparliament/init.php';
 
-$this_page = 'admin_banner';
 
 $db = new ParlDB;
 $banner = new MySociety\TheyWorkForYou\Model\AnnoucementManagement;
@@ -10,10 +9,22 @@ $banner = new MySociety\TheyWorkForYou\Model\AnnoucementManagement;
 $PAGE->page_start();
 $PAGE->stripe_start();
 
+$editoral_option = 'banner';
+if (get_http_var('editoral_option')) {
+    $editoral_option = get_http_var('editoral_option');
+}
+
+if ($editoral_option == "banner"){
+    $this_page = 'admin_banner';
+} else if ($editoral_option == "annoucements") {
+    $this_page = 'admin_annoucement';
+};
+
 $out = '';
 if (get_http_var('action') === 'Save') {
     $out = update_banner();
 }
+
 
 $out .= edit_banner_form();
 
@@ -48,13 +59,21 @@ print '</div>';
 
 function edit_banner_form() {
     global $banner;
-    $text = $banner->get_text();
+    global $editoral_option;
+    $text = $banner->get_text($editoral_option);
 
-    $out = '<form action="banner.php" method="post">';
+    $out = '<form action="banner.php?editoral_option=' . $editoral_option . '" method="post">';
     $out .= '<input name="action" type="hidden" value="Save">';
-    $out .= '<p><label for="banner">JSON input for annoucements and sidebars.<br>';
-    $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
-    $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
+    if ($editoral_option == "banner") {
+        $out .= "<h1>Edit banner</h1>";
+        $out .= '<p><label for="banner">JSON input for banner.<br>';
+        $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
+    } else if ($editoral_option == "announcements") {
+        $out .= "<h1>Edit Annoucements</h1>";
+        $out .= '<p><label for="banner">JSON input for announcements and sidebars.<br>';
+        $out .= '<span><a href="">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
+    };
+     $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
     $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
     $out .= '</form>';
 
@@ -63,11 +82,12 @@ function edit_banner_form() {
 
 function update_banner() {
     global $banner;
+    global $editoral_option;
     $banner_text = get_http_var('banner');
-
-    if ( $banner->set_text($banner_text) ) {
+    
+    if ( $banner->set_json($banner_text, $editoral_option) ) {
         $out = "<h4>update successful</h4>";
-        $out .= "<p>Banner json is now:</p><p>$banner_text</p>";
+        $out .= "<p>Json is now:</p><p>$banner_text</p>";
     } else {
         $out = "<h4>Failed to update banner text - possibly invalid json</h4>";
     }

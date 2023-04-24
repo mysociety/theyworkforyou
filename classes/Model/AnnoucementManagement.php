@@ -27,11 +27,64 @@ function select_based_on_weight($items)
     }
 }
 
-class AnnoucementManagement extends Banner
+class AnnoucementManagement
 // We're extending Banner so we can dump json into the current banner system
 {
 
-    public function set_text($text)
+        /**
+     * DB handle
+     */
+    private $db;
+
+    /*
+     * Memcache handle
+     */
+    private $mem;
+
+    public function __construct()
+    {
+        $this->db = new \ParlDB;
+        $this->mem = new \MySociety\TheyWorkForYou\Memcache();
+    }
+
+    public function get_text($editoral_option) {
+        $text = $this->mem->get($editoral_option);
+
+        if ( $text === false ) {
+            $q = $this->db->query("SELECT value FROM editorial WHERE item = :editoral_option", array(":editoral_option" => $editoral_option))->first();
+
+            if ($q) {
+                $text = $q['value'];
+                if ( trim($text) == '' ) {
+                    $text = NULL;
+                }
+                $this->mem->set($editoral_option, $text, 86400);
+            }
+        }
+
+        return $text;
+    }
+
+    public function set_text($text, $editoral_option) {
+        $q = $this->db->query("REPLACE INTO editorial set item = :editoral_option, value = :banner_text",
+            array(
+                ':banner_text' => $text,
+                ':editoral_option' => $editoral_option
+            )
+        );
+
+        if ( $q->success() ) {
+            if ( trim($text) == '' ) {
+                $text = NULL;
+            }
+            $this->mem->set('banner', $text, 86400);
+            return true;
+        }
+        return false;
+    }
+
+
+    public function set_json($text, $editoral_option)
     {
         // check text is valid json
         $json_obj = json_decode($text);
@@ -40,19 +93,20 @@ class AnnoucementManagement extends Banner
             return false;
         }
 
-        return parent::set_text($text);
+        return $this->set_text($text, $editoral_option);
     }
 
-    private function get_json()
+    private function get_json($editoral_option)
     {
-        // get the json from the database
-        $use_json = false;
+        // for debugging, can use json files instead of db
+        $use_json_file = false;
 
-        if ($use_json) {
-            $json_str = file_get_contents(__DIR__ . "/announcements.json");
+        if ($use_json_file) {
+            $json_str = file_get_contents(__DIR__ . "/announcements/" . $editoral_option . ".json");
         } else {
-            $json_str = $this->get_text();
+            $json_str = $this->get_text($editoral_option);
         }
+
 
         if (!$json_str) {
             return null;
@@ -65,13 +119,11 @@ class AnnoucementManagement extends Banner
     public function get_random_valid_banner()
     {   
         // get banners stored in json
-        $json_obj = $this->get_json();
+        $banners  = $this->get_json("banner");
 
-        if (!$json_obj) {
+        if (!$banners ) {
             return null;
         }
-
-        $banners = $json_obj->banners;
 
         # discard any banners where published is false
         $banners = array_filter($banners, function ($banner) {
@@ -88,23 +140,21 @@ class AnnoucementManagement extends Banner
 
     public function get_random_valid_item($location)
     {
-        // get annoucements stored in json
-        $json_obj = $this->get_json();
+        // get announcements stored in json
+        $items = $this->get_json("announcements");
 
-        if (!$json_obj) {
+        if (!$items) {
             return null;
         }
 
-        $items = $json_obj->items;
-
-        # discard any annoucements where published is false
+        # discard any announcements where published is false
         $items = array_filter($items, function ($item) {
             return $item->published;
         });
 
-        # limit to annoucements with the correct location
+        # limit to announcements with the correct location
         $items = array_filter($items, function ($item) use ($location) {
-            return in_array($location, $item->location) || in_array("all", $item->location);
+            return in_array($location, $item->location);
         });
 
         # if none left return null
