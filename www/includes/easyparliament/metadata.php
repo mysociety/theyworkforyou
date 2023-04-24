@@ -174,9 +174,14 @@ $this->page = array (
         'url'			=> 'admin/policies.php',
     ),
     'admin_banner' => array (
-        'title'			=> 'Edit Banner',
+        'title'			=> 'Edit Banners',
         'parent'		=> 'admin',
-        'url'			=> 'admin/banner.php',
+        'url'			=> 'admin/banner.php?editorial_option=banner',
+    ),
+    'admin_announcement' => array (
+        'title'			=> 'Edit Announcements',
+        'parent'		=> 'admin',
+        'url'			=> 'admin/banner.php?editorial_option=announcements',
     ),
     'admin_featured' => array (
         'title'			=> 'Featured debates',
