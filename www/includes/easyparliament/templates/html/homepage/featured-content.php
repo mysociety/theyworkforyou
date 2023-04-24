@@ -12,4 +12,11 @@
 </div>
 </div>
 
+<?php } else { ?>
+
+    <?php if ( count($featured) > 0 ) {
+                        include 'featured.php';
+                    } else { ?>
+                        No debates found.
+    <?php } ?>
 <?php }; ?>
