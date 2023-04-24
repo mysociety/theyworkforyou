@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This script is used to set the cookie domain when in codespaces
+# rather than localhost, this will be something like ajparsons-fluffy-umbrella-wqwwwg9w7q3g694-80.preview.app.github.dev
+# we can get the first bit from the CODESPACE_NAME environment variable
+
+# if we're not in a codespace, then we don't need to do anything
+if [ -z "$CODESPACES" ]; then
+    echo "Not in a codespace, skipping cookie domain setting"
+    exit 0
+fi
+
+CODESPACE_URL="$CODESPACE_NAME.preview.app.github.dev"
+
+# we need to modify conf/general - where it currently says "localhost" we need to replace it with the above
+sed -i "s/(\"COOKIEDOMAIN\", 'localhost')/(\"COOKIEDOMAIN\", 'github.dev')/g" conf/general
+
+echo "Cookie domain set to github.dev"
