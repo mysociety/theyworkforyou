@@ -62,9 +62,8 @@ class Renderer
         $data['footer_links'] = $footer->data;
 
         # banner text
-        $b = new Model\Banner;
-        $data['banner_text'] = $b->get_text();
-
+        $announcement_manager = new Model\AnnouncementManagement;
+        $data['random_banner'] = $announcement_manager->get_random_valid_banner();
         $data = self::addCommonURLs($data);
 
         ////////////////////////////////////////////////////////////

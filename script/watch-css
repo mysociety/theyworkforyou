@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd  www/docs/style
+bundle exec compass watch
