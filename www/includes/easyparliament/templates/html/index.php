@@ -53,29 +53,19 @@
                 <div class="homepage-featured-content homepage-content-section">
                     <!-- TODO  Add conditional -->
                     <?php include 'homepage/featured-content.php'; ?>
-                    <?php if ( count($featured) > 0 ) {
-                        include 'homepage/featured.php';
-                    } else { ?>
-                        No debates found.
-                    <?php } ?>
-
-                    <?php if (count($topics) > 0) { ?>
-                        <h2>Topics in the news</h2>
-                        <ul class="inline-list">
-                        <?php foreach ($topics as $topic) { ?>
-                            <li><a href="<?= $topic->url() ?>" class="button tertiary"><?= $topic->title() ?></a></li>
-                        <?php } ?>
-                        </ul>
-                    <?php } ?>
-                </div>
-                <div class="homepage-create-alert homepage-content-section">
+            </div>
+            
+            <div class="homepage-create-alert homepage-content-section">
                     <h2>Create an alert</h2>
                     <h3 class="create-alert__heading">Stay informed!</h3>
                     <p>Get an email every time an issue you care about is mentioned in Parliament (and more)</p>
                     <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet">Create an alert &rarr;</a>
                 </div>
-            </div>
+                </div>
         </div>
+
+
+
         <div class="panel panel--inverted">
             <div class="row nested-row">
                 <div class="home__search">
@@ -103,6 +93,29 @@
                 </div>
             </div>
         </div>
+
+        <div class="panel panel--flushtop clearfix">
+            <div class="row nested-row">
+                <div class="homepage-featured-content homepage-content-section">
+                    <?php if ( count($featured) > 0 ) {
+                        include 'homepage/featured.php';
+                    } else { ?>
+                        No debates found.
+                    <?php } ?>
+
+                    <?php if (count($topics) > 0) { ?>
+                        <h2>Topics in the news</h2>
+                        <ul class="inline-list">
+                        <?php foreach ($topics as $topic) { ?>
+                            <li><a href="<?= $topic->url() ?>" class="button tertiary"><?= $topic->title() ?></a></li>
+                        <?php } ?>
+                        </ul>
+                    <?php } ?>
+                </div>
+                
+            </div>
+        </div>
+
         <div class="panel panel--flushtop clearfix">
             <div class="row nested-row">
                 <div class="homepage-recently homepage-content-section">
