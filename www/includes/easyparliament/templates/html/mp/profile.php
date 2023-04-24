@@ -26,19 +26,25 @@ $covid_policy_list = $policies_obj->getCovidAffected();
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <ul>
-                  <?php if (count($policyPositions->positions) > 0): ?>
-                    <li><a href="#votes">Votes</a></li>
-                  <?php endif; ?>
-                  <?php if (count($recent_appearances['appearances'])): ?>
-                    <li><a href="#appearances">Appearances</a></li>
-                  <?php endif; ?>
-                    <li><a href="#profile">Profile</a></li>
-                  <?php if ($register_interests): ?>
-                    <li><a href="#register">Register of Interests</a></li>
-                  <?php endif; ?>
-                </ul>
+                <div>
+                    <h3 class="browse-content">Browse content</h3>
+                    <ul>
+                        <?php if (count($policyPositions->positions) > 0): ?>
+                          <li><a href="#votes">Votes</a></li>
+                        <?php endif; ?>
+                        <?php if (count($recent_appearances['appearances'])): ?>
+                          <li><a href="#appearances">Appearances</a></li>
+                        <?php endif; ?>
+                          <li><a href="#profile">Profile</a></li>
+                        <?php if ($register_interests): ?>
+                          <li><a href="#register">Register of Interests</a></li>
+                        <?php endif; ?>
+                      </ul>
+                      <?php include '_featured_content.php'; ?>
+                      <?php include '_donation.php'; ?>
+                </div>
             </div>
+
             <div class="primary-content__unit">
 
               <?php if ($profile_message): ?>

@@ -15,14 +15,19 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
-                <?php if ( isset($policydivisions) && $policydivisions && count($policydivisions) == 1 ) { ?>
-                <p class="policy-votes-intro">
-                    How <?= $full_name ?> voted on <?= $policydivisions[array_keys($policydivisions)[0]]['desc'] ?>.
-                </p>
-                <?php } ?>
-                <ul>
-                    <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
-                </ul>
+                <div>
+                    <?php if ( isset($policydivisions) && $policydivisions && count($policydivisions) == 1 ) { ?>
+                        <p class="policy-votes-intro">
+                            How <?= $full_name ?> voted on <?= $policydivisions[array_keys($policydivisions)[0]]['desc'] ?>.
+                        </p>
+                    <?php } ?>
+                    <h3 class="browse-content">Browse content</h3>
+                    <ul>
+                        <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
+                    </ul>
+                    <?php include '_featured_content.php'; ?>
+                    <?php include '_donation.php'; ?>
+                </div>
             </div>
 
             <div class="primary-content__unit">
