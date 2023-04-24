@@ -180,7 +180,7 @@
           <div class="full-page__row">
               <div class="banner__content">
                   <?= $random_banner->content ?>
-                  <a class="button content__button <?= $random_banner->button_class ?>" href="<?= $random_banner->button_link ?>"><?= $random_banner->button_text ?></a>
+                  <a class="button button--small content__button <?= $random_banner->button_class ?>" href="<?= $random_banner->button_link ?>"><?= $random_banner->button_text ?></a>
               </div>
           </div>
       </div>
