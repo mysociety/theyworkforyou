@@ -1,28 +1,36 @@
-{"banners":[{
-    "id": "basic-donate",
-    "content": "Donate to mySociety",
-    "button_text": "Donate",
-    "button_link": "https://www.mysociety.org/donate/",
-    "weight": 1,
-    "published": true
-},
 {
-    "id": "Read our blog",
-    "content":"New blog on the blog",
-    "button_text": "Read now",
-    "button_link": "https://www.mysociety.org/blog/",
-    "weight": 1,
-    "published": true
-}
-],
-"annoucements":[{
-    "id": "basic-annoucement",
-    "title": "Annoucement text, this will be longer probably so that's why I'm adding more text",
-    "content": "This is the content but I'm adding more info to make it more realistic",
-    "url": "https://www.mysociety.org/",
-    "thumbnail_image_url": "https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
-    "thumbnail_image_alt_text": "Image alt text",
-    "format": "link",
-    "published": true,
-    "weight": 1
-}]}
+    "banners":[
+       {
+          "id":"basic-donate",
+          "content":"Donate to mySociety",
+          "button_text":"Donate",
+          "button_link":"https://www.mysociety.org/donate/",
+          "weight":1,
+          "published":true
+       },
+       {
+          "id":"Read our blog",
+          "content":"New blog on the blog",
+          "button_text":"Read now",
+          "button_link":"https://www.mysociety.org/blog/",
+          "weight":1,
+          "published":true
+       }
+    ],
+    "items":[
+       {
+          "title":"New on the blog: Post by Alex Parsons on why this announcement system was a great idea",
+          "content":"This is the content but I'm adding more info to make it more realistic",
+          "url":"https://www.mysociety.org/",
+          "thumbnail_image_url":"https://www.mysociety.org/files/2023/04/FOI-Act-book-1.jpg",
+          "thumbnail_image_alt_text":"Image alt text",
+          "format":"link",
+          "published":true,
+          "weight":1,
+          "location":[
+             "sidebar",
+             "homepage"
+          ]
+       }
+    ]
+ }
