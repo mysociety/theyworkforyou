@@ -1313,7 +1313,8 @@ class HANSARDLIST {
         $extract = trim_characters(html_entity_decode($extract), $startpos, $length_of_extract);
 
         // Highlight search words
-        $extract = $SEARCHENGINE->highlight(htmlentities($extract));
+        $extract = mb_encode_numericentity( htmlentities($extract, ENT_QUOTES, 'UTF-8'), [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
+        $extract = $SEARCHENGINE->highlight($extract);
 
         return $extract;
     }
