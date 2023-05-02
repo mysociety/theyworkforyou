@@ -2,7 +2,7 @@
         <div class="row">
         <div class="hero__mp-search">
             <div class="hero__mp-search__wrap">
-                <h1><?= gettext('Do your MSs represent you?') ?></h1>
+                <h1><?= gettext('Find out more about your MSs') ?></h1>
                 <div class="row collapse">
                     <?php if ( count($data['regional']) > 0 ) { ?>
                         <ul class="homepage-rep-list">
@@ -28,9 +28,9 @@
         <div class="hero__site-intro">
             <div class="hero__site-intro__wrap">
                 <h2><?= gettext('Democracy: it’s for everyone') ?></h2>
-                <p><?= gettext('You shouldn’t have to be an expert to understand what goes on in the Welsh Parliament. Your politicians represent you… but what exactly do they do in your name?') ?></p>
-                <p><?= gettext('TheyWorkForYou takes open data from the Welsh Parliament, and presents it in a way that’s easy to follow – for everyone. So now you can check, with just a few clicks: are They Working For You?') ?></p>
-                <a href="/about/" class="site-intro__more-link"><?= gettext('Find out more about TheyWorkForYou') ?> <i>&rarr;</i></a>
+                <p><?= gettext('You shouldn’t have to be an expert to understand what goes on in the Senedd.') ?></p>
+                <p><?= gettext('TheyWorkForYou takes open data from the Senedd, and presents it in a way that’s easy to follow – for everyone.') ?></p>
+                <a href="/about/" class="site-intro__more-link"><?= gettext('About TheyWorkForYou') ?><i>&rarr;</i></a>
             </div>
         </div>
         </div>
@@ -47,7 +47,7 @@
                     <div class="homepage-create-alert homepage-content-section">
                         <h2><?= gettext('Create an alert') ?></h2>
                         <h3 class="create-alert__heading"><?= gettext('Stay informed!') ?></h3>
-                        <p><?= gettext('Get an email every time an issue you care about is mentioned in the Welsh Parliament (and more)') ?></p>
+                        <p><?= gettext('Get an email every time an issue you care about is mentioned in the Senedd (and more)') ?></p>
                         <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet"><?= gettext('Create an alert') ?> &rarr;</a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-recently homepage-content-section">
-                        <h2><?= gettext('Recently in the Welsh Parliament') ?></h2>
+                        <h2><?= gettext('Recently in the Senedd') ?></h2>
                         <ul class="recently__list"><?php
                             foreach ( $debates['recent'] as $recent ) {
                                 include dirname(__FILE__) . '/../homepage/recent-debates.php';
