@@ -16,4 +16,8 @@
 
 <p><?= gettext("Your MP represents you in the House of Commons. The House of Commons is responsible for making laws in the UK and for overall scrutiny of all aspects of government.")?></p>
 
-<p><?= gettext("You can write to any representative, or your local councillors through <a href=\"https://www.writetothem.com/who?pc=" . $pc . "\">WriteToThem.com</a>")?>.</p>
+<p>
+<?php
+$url = "https://www.writetothem.com/who?pc=" . $pc;
+?>
+<p><?= sprintf(gettext('You can write to any representative, or your local councillors through <a href="%s">WriteToThem.com</a>.'), $url) ?></p>
