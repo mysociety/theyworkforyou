@@ -12,6 +12,10 @@ rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkf
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/divisionsonly/divisions2022-01* data/pwdata
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/regmem data/pwdata
 
+echo 'Downloading minimal Senedd'
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/senedd/en/senedd2022-01* data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/senedd/cy/senedd2022-01* data/pwdata
+
 echo 'Load people into database'
 scripts/load-people
 
@@ -19,7 +23,7 @@ echo 'Load divisions/policies from json'
 scripts/json2db.pl --verbose
 
 echo 'Load Jan 2022 debates and divisions'
-scripts/xml2db.pl --debates --all
+scripts/xml2db.pl --debates --wales --all
 
 # this only imports public whip, run with different arguments to pull in members expenses
 echo 'Importing MP extra info for voting comparison'
