@@ -19,6 +19,7 @@ sed -r \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"RAWDATA", *)"[^"]*"!'"\\1'/twfy/data/pwdata/'!" \
     -e 's!^(.*"PWMEMBERS", *)"[^"]*"!'"\\1'/twfy/data/parlparse/members/'!" \
+    -e 's!^(.*"XAPIANDB", *)"[^"]*"!'"\\1'/twfy/searchdb/'!" \
     -e "s/array\('127.0.0.1'\)/array\('sentinel'\)/" \
   conf/general-example > conf/general
 

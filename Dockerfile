@@ -19,6 +19,7 @@ RUN apt-get -qq update && apt-get -qq install \
       ruby-dev \
       unzip \
       php-xdebug \
+      gettext \
       rsync \
     --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
@@ -42,6 +43,9 @@ RUN /usr/sbin/a2enmod expires rewrite && \
       ln -sfT /proc/self/fd/2 /var/log/apache2/error.log && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/access.log && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/other_vhosts_access.log
+
+RUN echo "cy_GB.UTF-8 UTF-8" >> /etc/locale.gen
+RUN /usr/sbin/locale-gen
 
 # Bind mount your working copy here
 WORKDIR /twfy
