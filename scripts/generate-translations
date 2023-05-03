@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Helper script to regenerate the Welsh translation file
+# if '--test' is added as a command parameter, this script should fail if there are any untranslated strings
+
+# Find all PHP files
+find . -name '*.php' |grep -v commonlib|grep -v vendor |sort > POTFILES
+# Use that list to generate .pot file
+xgettext -c --from-code=UTF-8 --files-from=POTFILES -d TheyWorkForYou -o locale/TheyWorkForYou.pot
+# Merge with existing Welsh file
+msgmerge --no-wrap -o New.po locale/cy_GB.UTF-8/LC_MESSAGES/TheyWorkForYou.po locale/TheyWorkForYou.pot
+# Move on top of old Welsh file
+mv New.po locale/cy_GB.UTF-8/LC_MESSAGES/TheyWorkForYou.po
+# Remove temporary files
+rm POTFILES
+
+if [ "$1" == "--test" ]; then
+    # Check for untranslated or fuzzy strings
+    OUTPUT=$(msgfmt --output=/dev/null --statistics locale/cy_GB.UTF-8/LC_MESSAGES/TheyWorkForYou.po 2>&1)
+    echo $OUTPUT
+    # if 'untranslated' or 'fuzzy' are found in the output, there are untranslated strings
+    echo $OUTPUT | grep -q "untranslated"
+    if [ $? -eq 0 ]; then
+        echo "There are untranslated strings in the Welsh translation file"
+        exit 1
+    fi
+    echo $OUTPUT | grep -q "fuzzy"
+    if [ $? -eq 0 ]; then
+        echo "There are fuzzy strings in the Welsh translation file"
+        exit 1
+    fi
+fi
+
+commonlib/bin/gettext-makemo TheyWorkForYou

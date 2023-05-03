@@ -1,4 +1,5 @@
 bundler
+gettext
 libdbd-mysql-perl
 libemail-localdelivery-perl
 liberror-perl
