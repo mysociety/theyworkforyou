@@ -20,6 +20,7 @@ sed -r \
     -e 's!^(.*"RAWDATA", *)"[^"]*"!'"\\1'/twfy/data/pwdata/'!" \
     -e 's!^(.*"PWMEMBERS", *)"[^"]*"!'"\\1'/twfy/data/parlparse/members/'!" \
     -e 's!^(.*"XAPIANDB", *)"[^"]*"!'"\\1'/twfy/searchdb/'!" \
+    -e "s!^(.*define\('OPTION_MAPIT_URL', *)'[^']*"!"\\1'https://mapit.mysociety.org/!" \
     -e "s/array\('127.0.0.1'\)/array\('sentinel'\)/" \
   conf/general-example > conf/general
 
