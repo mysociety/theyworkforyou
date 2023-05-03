@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 12:32+0000\n"
+"POT-Creation-Date: 2023-05-03 17:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -493,64 +493,120 @@ msgstr ""
 msgid "Share this"
 msgstr ""
 
-#: www/docs/mp/index.php:696
+#: www/docs/mp/index.php:193
+msgid "Sorry, but we can’t tell which representative to display."
+msgstr ""
+
+#: www/docs/mp/index.php:196
+msgid "You haven’t provided a way of identifying which representative you want"
+msgstr ""
+
+#: www/docs/mp/index.php:519
+#, php-format
+msgid "Sorry, %s isn’t a valid postcode"
+msgstr ""
+
+#: www/docs/mp/index.php:524
+msgid ""
+"Sorry, we couldn’t check your postcode right now, as our postcode lookup "
+"server is under quite a lot of load."
+msgstr ""
+
+#: www/docs/mp/index.php:527
+#, php-format
+msgid "Sorry, %s isn’t a known postcode"
+msgstr ""
+
+#: www/docs/mp/index.php:706
 msgid "<abbr title=\"Member of Parliament\">MP</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:698
+#: www/docs/mp/index.php:708
 msgid "<abbr title=\"Member of the Legislative Assembly\">MLA</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:700
+#: www/docs/mp/index.php:710
 msgid "<abbr title=\"Member of the Scottish Parliament\">MSP</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:702
+#: www/docs/mp/index.php:712
 msgid "<abbr title=\"Member of the Senedd\">MS</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:704
+#: www/docs/mp/index.php:714
 msgid "Member of the London Assembly"
 msgstr ""
 
-#: www/docs/mp/index.php:716
+#: www/docs/mp/index.php:726
 #, php-format
 msgid "%s, and %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:718
+#: www/docs/mp/index.php:728
 #, php-format
 msgid "Former %s, and %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:721
+#: www/docs/mp/index.php:731
 #, php-format
 msgid "%s %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:723
+#: www/docs/mp/index.php:733
 #, php-format
 msgid "Former %s %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:727
+#: www/docs/mp/index.php:737
 #, php-format
 msgid "%s Peer"
 msgstr ""
 
-#: www/docs/mp/index.php:729
+#: www/docs/mp/index.php:739
 #, php-format
 msgid "Former %s Peer"
 msgstr ""
 
-#: www/docs/mp/index.php:735
+#: www/docs/mp/index.php:745
 #, php-format
 msgid "Former %s"
 msgstr ""
 
-#: www/docs/mp/index.php:821
+#: www/docs/mp/index.php:831
 #, php-format
 msgid "More of %s’s recent appearances"
+msgstr ""
+
+#: www/docs/mp/index.php:1080
+msgid ""
+"You have one constituency MS (Member of the Senedd) and multiple region MSs."
+msgstr ""
+
+#: www/docs/mp/index.php:1081
+#, php-format
+msgid ""
+"Your <strong>constituency MS</strong> is <a href=\"%s\">%s</a>, MS for %s."
+msgstr ""
+
+#: www/docs/mp/index.php:1082
+#, php-format
+msgid "Your <strong>%s region MSs</strong> are:"
+msgstr ""
+
+#: www/docs/mp/index.php:1084
+msgid ""
+"You had one constituency MS (Member of the Senedd) and multiple region MSs."
+msgstr ""
+
+#: www/docs/mp/index.php:1085
+#, php-format
+msgid ""
+"Your <strong>constituency MS</strong> was <a href=\"%s\">%s</a>, MS for %s."
+msgstr ""
+
+#: www/docs/mp/index.php:1086
+#, php-format
+msgid "Your <strong>%s region MSs</strong> were:"
 msgstr ""
 
 #: www/docs/postcode/index.php:156
@@ -1112,6 +1168,17 @@ msgstr ""
 msgid "showing all speeches"
 msgstr ""
 
+#. This sidebar is on the login page.
+#: www/includes/easyparliament/sidebars/userlogin.php:4
+msgid "Why do I need to sign in?"
+msgstr ""
+
+#: www/includes/easyparliament/sidebars/userlogin.php:6
+msgid ""
+"Signing in allows you to manage your email alerts, and change your password "
+"or email address."
+msgstr ""
+
 #: www/includes/easyparliament/templates/html/alert/index.php:19
 msgid "Your alert has been confirmed"
 msgstr ""
@@ -1622,6 +1689,33 @@ msgstr ""
 
 #: www/includes/easyparliament/templates/html/homepage/recent-votes.php:4
 msgid "Show all recent votes"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:5
+msgid "Whoops..."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:14
+#, php-format
+msgid "Enter your postcode to see who your %s is, and what they’ve been doing"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:20
+msgid "Your postcode"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:23
+msgid "Go"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:31
+#, php-format
+msgid "Or <a href=\"%s\">browse all %s</a>?"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/error.php:34
+#, php-format
+msgid "Why not <a href=\"%s\">browse all %s</a>?"
 msgstr ""
 
 #.  First %s is party, second is type of rep (e.g. MS), third is constituency name
