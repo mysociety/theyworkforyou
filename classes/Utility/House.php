@@ -81,7 +81,7 @@ class House
                 'assembly' => 'wales',
                 'location' => '&ndash; in the Senedd',
                 'cons_type' => 'WAC',
-                'assembly_name' => 'Welsh Parliament',
+                'assembly_name' => 'Senedd',
             ),
             HOUSE_TYPE_LORDS => array (
                 'country' => 'UK',

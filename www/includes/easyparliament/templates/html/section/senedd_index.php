@@ -7,6 +7,6 @@
         ?>
     </div>
 
-    <?php $search_title = gettext('Search Senedd Cymru / Welsh Parliament debates'); include '_search.php'; ?>
+    <?php $search_title = gettext('Search Senedd debates'); include '_search.php'; ?>
 
 </div>

@@ -431,8 +431,8 @@ class Member extends \MEMBER {
         $output[] = $this->left_house_line(HOUSE_TYPE_NI, gettext('Assembly'));
         $output[] = $this->entered_house_line(HOUSE_TYPE_SCOTLAND, gettext('Scottish Parliament'));
         $output[] = $this->left_house_line(HOUSE_TYPE_SCOTLAND, gettext('Scottish Parliament'));
-        $output[] = $this->entered_house_line(HOUSE_TYPE_WALES, gettext('Welsh Parliament'));
-        $output[] = $this->left_house_line(HOUSE_TYPE_WALES, gettext('Welsh Parliament'));
+        $output[] = $this->entered_house_line(HOUSE_TYPE_WALES, gettext('Senedd'));
+        $output[] = $this->left_house_line(HOUSE_TYPE_WALES, gettext('Senedd'));
         $output[] = $this->entered_house_line(HOUSE_TYPE_LONDON_ASSEMBLY, gettext('London Assembly'));
         $output[] = $this->left_house_line(HOUSE_TYPE_LONDON_ASSEMBLY, gettext('London Assembly'));
 

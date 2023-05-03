@@ -269,7 +269,7 @@ if ($MEMBER->house(HOUSE_TYPE_WALES)) {
     if ($MEMBER->house(HOUSE_TYPE_COMMONS) || $MEMBER->house(HOUSE_TYPE_LORDS)) {
         $desc = str_replace('Parliament', 'the UK and Welsh Parliaments', $desc);
     } else {
-        $desc = str_replace('Parliament', 'the Welsh Parliament', $desc);
+        $desc = str_replace('Parliament', 'the Senedd', $desc);
     }
     $desc = str_replace(', and get email alerts on their activity', '', $desc);
     if (!$MEMBER->current_member(HOUSE_TYPE_WALES)) {

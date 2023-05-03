@@ -91,7 +91,7 @@
                         ?></ul>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
-                        <h2><?= gettext('What is the Welsh Parliament?') ?></h2>
+                        <h2><?= gettext('What is the Senedd?') ?></h2>
                         <?php include dirname(__FILE__) . '/../section/_senedd_desc.php'; ?>
                     </div>
                 </div>
