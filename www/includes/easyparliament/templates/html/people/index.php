@@ -127,8 +127,8 @@ if (!count($data)) {
             </div>
         <?php } elseif ($type == 'mss') { ?>
             <div class="search-page__section__primary">
-                <?= gettext('During the period from the dissolution of the Welsh Parliament to the election, there are no Members of the Senedd.') ?>
-                <a href="/mss/?date=<?=$dissolution[5] ?>"><?= gettext('View list of MSs as it was when the Welsh Parliament was dissolved') ?></a>
+                <?= gettext('During the period from the dissolution of the Senedd to the election, there are no Members of the Senedd.') ?>
+                <a href="/mss/?date=<?=$dissolution[5] ?>"><?= gettext('View list of MSs as it was when the Senedd was dissolved') ?></a>
             </div>
         <?php
             }

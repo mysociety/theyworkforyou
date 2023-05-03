@@ -70,7 +70,7 @@
                         <option value="sp"<?= $search_section == 'sp' ? ' selected' : '' ?>><?= gettext('Debates') ?></option>
                         <option value="spwrans"<?= $search_section == 'spwrans' ? ' selected' : '' ?>><?= gettext('Written answers') ?></option>
                     </optgroup>
-                    <optgroup label="<?= gettext('Welsh Parliament') ?>">
+                    <optgroup label="<?= gettext('Senedd / Welsh Parliament') ?>">
                         <option value="wales"<?= $search_section == 'wales' ? ' selected' : '' ?>><?= gettext('Debates') ?></option>
                     </optgroup>
                     <optgroup label="<?= gettext('London Assembly') ?>">

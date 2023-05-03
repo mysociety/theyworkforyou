@@ -472,7 +472,7 @@ class SectionView {
             10 => array (
                 'country' => 'WALES',
                 'assembly' => 'senedd',
-                'location' => '&ndash; in the Welsh Parliament'
+                'location' => '&ndash; in the Senedd'
             ),
             11 => array (
                 'country' => 'WALES',

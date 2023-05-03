@@ -1050,7 +1050,7 @@ $page = array (
     'yourms' => array (
         'menu'			=> array (
             'text'		=> gettext('Your MSs'),
-            'title'		=> gettext("Find out about your Members of the Welsh Parliament")
+            'title'		=> gettext("Find out about your Members of the Senedd")
         ),
         #'parent'		=> 'yourreps',
         'sidebar'		=> 'yourms',

@@ -44,7 +44,7 @@
                 <div class="business-section__secondary__item">
                     <h3><?= gettext('What is this?') ?></h3>
 
-                    <p><?= gettext('This list contains votes from the House of Commons, House of Lords, Public Bill Committees, and the Scottish and Welsh Parliaments.') ?></p>
+                    <p><?= gettext('This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament.') ?></p>
 
                     <p class="voting-information-provenance">
                         <?= gettext('Some vote information from <a href="https://www.publicwhip.org.uk/">PublicWhip</a>.') ?>
