@@ -190,10 +190,10 @@ try {
         get_mp_by_user_postcode($THEUSER->postcode());
     } else {
         twfy_debug ('MP', "We don't have any way of telling what MP to display");
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, but we can&rsquo;t tell which representative to display.');
+        throw new MySociety\TheyWorkForYou\MemberException(gettext('Sorry, but we can’t tell which representative to display.'));
     }
     if (!isset($MEMBER) || !$MEMBER->valid) {
-        throw new MySociety\TheyWorkForYou\MemberException('You haven&rsquo;t provided a way of identifying which representative you want');
+        throw new MySociety\TheyWorkForYou\MemberException(gettext('You haven’t provided a way of identifying which representative you want'));
     }
 } catch (MySociety\TheyWorkForYou\MemberMultipleException $e) {
     person_list_page($e->ids);
@@ -516,15 +516,15 @@ function get_person_by_postcode($pc) {
     $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
     if (!validate_postcode($pc)) {
         twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a valid postcode');
+        throw new MySociety\TheyWorkForYou\MemberException(sprintf(gettext('Sorry, %s isn’t a valid postcode'), _htmlentities($pc)));
     }
     twfy_debug ('MP', "MP lookup by postcode");
     $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
     if ($constituency == "connection_timed_out") {
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
+        throw new MySociety\TheyWorkForYou\MemberException(gettext('Sorry, we couldn’t check your postcode right now, as our postcode lookup server is under quite a lot of load.'));
     } elseif ($constituency == "") {
         twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
-        throw new MySociety\TheyWorkForYou\MemberException('Sorry, '._htmlentities($pc) .' isn&rsquo;t a known postcode');
+        throw new MySociety\TheyWorkForYou\MemberException(sprintf(gettext('Sorry, %s isn’t a known postcode'), _htmlentities($pc)));
     } else {
         // Redirect to the canonical MP page, with a person id.
         $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
@@ -624,24 +624,33 @@ function person_list_page($ids) {
 
 function person_error_page($message) {
     global $this_page;
+    $SEARCHURL = '';
     switch($this_page) {
+        case 'peer':
+            $people = new MySociety\TheyWorkForYou\People\Peers();
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
+            break;
         case 'mla':
-            $rep = 'MLA';
+            $people = new MySociety\TheyWorkForYou\People\MLAs();
             $SEARCHURL = '/postcode/';
             $MPSURL = new \MySociety\TheyWorkForYou\Url('mlas');
             break;
         case 'msp':
-            $rep = 'MSP';
+            $people = new MySociety\TheyWorkForYou\People\MSPs();
             $SEARCHURL = '/postcode/';
             $MPSURL = new \MySociety\TheyWorkForYou\Url('msps');
             break;
-        case 'peer':
-            $rep = 'Lord';
-            $SEARCHURL = '';
-            $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
+        case 'ms':
+            $people = new MySociety\TheyWorkForYou\People\MSs();
+            $SEARCHURL = '/postcode/';
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('mss');
+            break;
+        case 'london-assembly-member':
+            $people = new MySociety\TheyWorkForYou\People\LondonAssemblyMembers();
+            $MPSURL = new \MySociety\TheyWorkForYou\Url('london-assembly-members');
             break;
         default:
-            $rep = 'MP';
+            $people = new MySociety\TheyWorkForYou\People\MPs();
             $SEARCHURL = new \MySociety\TheyWorkForYou\Url('mp');
             $SEARCHURL = $SEARCHURL->generate();
             $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
@@ -649,7 +658,8 @@ function person_error_page($message) {
 
     $data = array(
         'error' => $message,
-        'rep_name' => $rep,
+        'rep_name' => $people->rep_name,
+        'rep_name_plural' => $people->rep_plural,
         'all_mps_url' => $MPSURL->generate(),
         'rep_search_url' => $SEARCHURL,
     );
@@ -1048,28 +1058,32 @@ function regional_list($pc, $area_type, $rep_type) {
         }
     }
     if ($rep_type == 'msp') {
+        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
+        $cons = $mcon['constituency'];
+        $reg = $constituencies['SPE'];
+        $url = '/msp/?p=' . $mcon['person_id'];
         if ($current) {
             $data['members_statement'] = '<p>You have one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
-            $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> is <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MSP for ' . $mcon['constituency'];
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> are:</p>';
+            $data['members_statement'] .= '<p>' . sprintf('Your <strong>constituency MSP</strong> is <a href="%s">%s</a>, MSP for %s.', $url, $name, $cons) . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf('Your <strong>%s region MSPs</strong> are:', $reg) . '</p>';
         } else {
-            $data['members_statement'] = '<p>You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.</p>';
-            $data['members_statement'] .= '<p>Your <strong>constituency MSP</strong> was <a href="/msp/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MSP for ' . $mcon['constituency'];
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . $constituencies['SPE'] . ' region MSPs</strong> were:</p>';
+            $data['members_statement'] = '<p>' . 'You had one constituency MSP (Member of the Scottish Parliament) and multiple region MSPs.' . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf('Your <strong>constituency MSP</strong> was <a href="%s">%s</a>, MSP for %s.', $url, $name, $cons) . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf('Your <strong>%s region MSPs</strong> were:', $reg) . '</p>';
         }
     } elseif ($rep_type == 'ms') {
+        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
+        $cons = gettext($mcon['constituency']);
+        $reg = gettext($constituencies['WAE']);
+        $url = '/ms/?p=' . $mcon['person_id'];
         if ($current) {
-            $data['members_statement'] = '<p>You have one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
-            $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> is <a href="/ms/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . gettext($mcon['constituency']);
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . gettext($constituencies['WAE']) . ' region MSs</strong> are:</p>';
+            $data['members_statement'] = '<p>' . gettext('You have one constituency MS (Member of the Senedd) and multiple region MSs.') . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>constituency MS</strong> is <a href="%s">%s</a>, MS for %s.'), $url, $name, $cons) . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), $reg) . '</p>';
         } else {
-            $data['members_statement'] = '<p>You had one constituency MS (Member of the Senedd) and multiple region MSs.</p>';
-            $data['members_statement'] .= '<p>Your <strong>constituency MS</strong> was <a href="/ms/?p=' . $mcon['person_id'] . '">';
-            $data['members_statement'] .= $mcon['given_name'] . ' ' . $mcon['family_name'] . '</a>, MS for ' . gettext($mcon['constituency']);
-            $data['members_statement'] .= '.</p> <p>Your <strong>' . gettext($constituencies['WAE']) . ' region MSs</strong> were:</p>';
+            $data['members_statement'] = '<p>' . gettext('You had one constituency MS (Member of the Senedd) and multiple region MSs.') . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>constituency MS</strong> was <a href="%s">%s</a>, MS for %s.'), $url, $name, $cons) . '</p>';
+            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), $reg) . '</p>';
         }
     } else {
         if ($current) {
