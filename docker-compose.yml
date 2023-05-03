@@ -17,7 +17,7 @@ services:
         condition: service_healthy
       sentinel:
         condition: service_healthy
-    entrypoint: /twfy/bin/docker-entrypoint.sh
+    command: /twfy/bin/docker-entrypoint.sh
     environment:
       TWFY_TEST_DB_HOST: mariatestdb
       TWFY_TEST_DB_NAME: twfy
