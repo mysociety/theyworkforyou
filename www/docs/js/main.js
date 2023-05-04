@@ -257,13 +257,6 @@ $(function(){
 
   });
 
-  $('[data-track-click]').on('click', function(e){
-    if ( window.analytics ) {
-      window.analytics.trackLinkClick(e, {
-        eventCategory: $(this).attr('data-track-click')
-      });
-    }
-  });
 
   if ( ! ( 'open' in document.createElement('details') ) ) {
     $('summary').siblings().hide();
