@@ -61,6 +61,25 @@
     <script async src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
 
   <?php if (!DEVSITE): ?>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8M9N1MJFT"></script>
+  
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag("consent", "default", {
+            ad_storage: "denied",
+            analytics_storage: "denied",
+            functionality_storage: "denied",
+            personalization_storage: "denied",
+            security_storage: "denied"
+        });
+      gtag('config', 'G-W8M9N1MJFT');
+      gtag("measurement_protocol", "G-W8M9N1MJFT", "BAQyGdKSTUyeDjwSxG9V-w" );
+    </script>
+
     <script>
         (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
