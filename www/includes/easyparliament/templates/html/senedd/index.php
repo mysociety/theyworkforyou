@@ -11,6 +11,7 @@
                             <li class="homepage-rep-list__rep"><a href="/ms/?p=<?= $ms['person_id'] ?>"><?= $ms['name'] ?></a></li>
                         <?php } ?>
                         </ul>
+                        <a class="homepage-search__change-postcode" href="<?= $mp_data['change_url'] ?>"><?= gettext("Change postcode")?></a>
                     <?php } else { ?>
                     <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'WalesHome'); return false;">
                         <label for="postcode"><?= gettext('Your Welsh postcode') ?></label>
