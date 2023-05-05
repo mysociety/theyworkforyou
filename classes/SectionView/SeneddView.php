@@ -52,6 +52,8 @@ class SeneddView extends SectionView {
 
         $data['popular_searches'] = null;
 
+        $user = new \MySociety\TheyWorkForYou\User();
+        $data['mp_data'] = $user->getRep("WMC", 1);
 
         $data['urls'] = $this->getURLs($data);
 

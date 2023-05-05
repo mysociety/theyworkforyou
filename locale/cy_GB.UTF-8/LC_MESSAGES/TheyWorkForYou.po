@@ -2372,7 +2372,11 @@ msgstr "Mwy o wybodaeth am eich Aelodau o’r Senedd"
 msgid "Your MSs:"
 msgstr "Eich ASau:"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:16
+#: www/includes/easyparliament/templates/html/senedd/index.php:14
+msgid "Change postcode"
+msgstr "Newid côd post"
+
+#: www/includes/easyparliament/templates/html/senedd/index.php:17
 msgid "Your Welsh postcode"
 msgstr "Eich côd post yng Nghymru"
 
