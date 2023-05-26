@@ -81,6 +81,7 @@
             <li>Sam Smith</li>
             <li>Matthew Somerville</li>
             <li>Tom Steinberg</li>
+            <li>Richard Taylor</li>
             <li>Stuart Tily</li>
             <li>Julian Todd</li>
             <li>Denise Wilton</li>
