@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-11 10:55+0000\n"
+"POT-Creation-Date: 2023-06-02 14:08+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -1535,7 +1535,7 @@ msgstr "%s absennol"
 
 #: www/includes/easyparliament/templates/html/footer.php:7
 msgid "Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates – simply and clearly."
-msgstr "Gwneud hi'n hawdd cadw llygad barcud ar seneddau'r Deyrnas Unedig.  Darganfyddwch pwy sy'n eich cynrychioli chi, sut maen nhw wedi pleidleisio a beth maen nhw wedi'i ddweud mewn dadleuon - yn syml ac yn glir."
+msgstr "Yn gwneud hi'n hawdd cadw llygad barcud ar seneddau'r Deyrnas Unedig.  Darganfyddwch pwy sy'n eich cynrychioli chi, sut maen nhw wedi pleidleisio a beth maen nhw wedi'i ddweud mewn dadleuon - yn syml ac yn glir."
 
 #: www/includes/easyparliament/templates/html/footer.php:10
 msgid "Sign up to mySociety’s newsletter"
@@ -1560,7 +1560,7 @@ msgstr "Adeiladwyd gan"
 #: www/includes/easyparliament/templates/html/footer.php:68
 #, php-format
 msgid "%s is a registered charity in England and Wales (1076346) and a limited company (03277032). We provide commercial services through our wholly owned subsidiary %s (05798215)."
-msgstr "%s yn elusen gofrestredig yng Nghymru a Lloegr (1076346) a chwmni cyfyngedig  (03277032). Rydym yn darparu gwasanaethau masnachol trwy is-gwmni o’n heiddo llwyr %s (05798215)."
+msgstr "Elusen gofrestredig yng Nghymru a Lloegr (1076346) a chwmni cyfyngedig (03277032) yw %s. Rydym yn darparu gwasanaethau masnachol trwy is-gwmni o’n heiddo llwyr %s (05798215)."
 
 #. All wrans have 2 speeches, so no need for this.
 #. All WMS have 1 speech
@@ -2386,7 +2386,7 @@ msgstr "Democratiaeth: mae hi i bawb"
 
 #: www/includes/easyparliament/templates/html/senedd/index.php:32
 msgid "You shouldn’t have to be an expert to understand what goes on in the Senedd."
-msgstr "Ddylech chi ddim gorfod bod yn arbenigwr i ddeall beth sy'n digwydd yn Senedd Cymru."
+msgstr "Ni ddylech chi orfod bod yn arbenigwr i ddeall beth sy'n digwydd yn Senedd Cymru."
 
 #: www/includes/easyparliament/templates/html/senedd/index.php:33
 msgid "TheyWorkForYou takes open data from the Senedd, and presents it in a way that’s easy to follow – for everyone."
