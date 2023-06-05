@@ -15,7 +15,7 @@ class Footer
     public $data;
 
     private $about_links = array ('help', 'about', 'linktous', 'news', 'privacy');
-    private $assemblies_links = array('hansard', 'sp_home', 'ni_home', 'wales_home', 'london_home');
+    private $assemblies_links = array('hansard', 'sp_home', 'wales_home', 'ni_home', 'london_home');
     private $international_links = array('australia', 'ireland', 'mzalendo');
     private $tech_links = array('code', 'api', 'data', 'devmailinglist', 'contact');
 

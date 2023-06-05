@@ -1028,7 +1028,7 @@ $page = array (
     /* Welsh Parliament */
     'wales_home' => array(
         'menu' => array(
-            'text' => 'Welsh Parliament/Senedd',
+            'text' => 'Senedd / Welsh Parliament',
             'title' => 'Welsh economic development, transport, finance, local government, health, housing, the Welsh Language and other devolved areas',
         ),
         'title' => 'Senedd Cymru / Welsh Parliament',
