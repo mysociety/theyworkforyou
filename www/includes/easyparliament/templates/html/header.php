@@ -114,7 +114,11 @@
               <img class="badge-mobile" src="/style/img/badge-mysociety-mobile@2x.png" width="48" height="60" alt="20 years of mySociety">
             </a>
             <h1 class="site-header__logo">
-                <a href="/">TheyWorkForYou</a>
+                <?php if (LANGUAGE == 'cy') { ?>
+                    <a href="/senedd/">TheyWorkForYou</a>
+                <?php } else { ?>
+                  <a href="/">TheyWorkForYou</a>
+                <?php } ?>
             </h1>
 
             <a href="#main-nav" class="site-header__mobile-nav-toggle js-toggle">
