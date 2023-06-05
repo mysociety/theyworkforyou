@@ -304,9 +304,17 @@ class Header
 
             //get link and description for the menu ans add it to the array
             $class = $toppage == $this->nav_highlights['top'] ? 'on' : '';
+
+            // if current language is cy and the page does not start with /senedd/
+            // we need to escape back to the english site
             $URL = new \MySociety\TheyWorkForYou\Url($toppage);
+            $url = $URL->generate();
+            if (LANGUAGE == 'cy' && strpos($url, '/senedd/') === false ) {
+                $url = "//" . DOMAIN . $url;
+            }
+
             $top_link = array(
-                'href'    => $URL->generate(),
+                'href'    => $url,
                 'title'   => $title,
                 'classes' => $class,
                 'text'    => $text
