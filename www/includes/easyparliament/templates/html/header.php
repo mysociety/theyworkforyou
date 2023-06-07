@@ -63,21 +63,15 @@
   <?php if (!DEVSITE): ?>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8M9N1MJFT"></script>
+    <script defer>var capturedCookies={};Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);for(var e in capturedCookies)t+=" "+e+"="+capturedCookies[e]+";";return t},set:function(t){var e=t.split("="),o=e[0].trim(),r=e[1].trim();o.startsWith("_ga")?capturedCookies[o]=r:Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-W8M9N1MJFT"></script>
   
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag("consent", "default", {
-            ad_storage: "denied",
-            analytics_storage: "denied",
-            functionality_storage: "denied",
-            personalization_storage: "denied",
-            security_storage: "denied"
-        });
-      gtag('config', 'G-W8M9N1MJFT');
-      gtag("measurement_protocol", "G-W8M9N1MJFT", "BAQyGdKSTUyeDjwSxG9V-w" );
+        var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config','G-W8M9N1MJFT', {'client_id': client_id, 'cookie_expires': 0 });
     </script>
 
     <script>
