@@ -63,7 +63,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <h3 class="browse-content">Browse content</h3>
+                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
                         <?php foreach($sidebar_links as $date) { ?>
                           <li>
