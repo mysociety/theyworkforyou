@@ -11,9 +11,6 @@ function is_valid_item($item)
 {
     // used in an array sort to filter out invalid items
 
-    // update this when merging with the language aware branch
-    $current_language = "en";
-
     // set default language
     if (isset($item->lang)) {
         $language = $item->lang;
@@ -43,7 +40,7 @@ function is_valid_item($item)
     }
 
     return $published &&
-        $language == $current_language &&
+        $language == LANGUAGE &&
         $start_time < date("Y-m-d\TH:i:s") &&
         $end_time > date("Y-m-d\TH:i:s");
 }
