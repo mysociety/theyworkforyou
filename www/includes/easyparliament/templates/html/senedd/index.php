@@ -40,7 +40,7 @@
         <div class="homepage-panels">
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
-                    <div class="homepage-in-the-news homepage-content-section">
+                    <div class="homepage-featured-content homepage-content-section">
                         <?php if ( $featured ) {
                              include dirname(__FILE__) . "/../homepage/featured.php";
                         } ?>
