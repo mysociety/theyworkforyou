@@ -1,7 +1,11 @@
     <div class="business-section">
         <div class="business-section__header">
             <h1 class="business-section__header__title">
+            <?php if ($title == "Dadleuon y Senedd"){ ?>
+            Dadleuon diweddar Y Senedd
+            <?php } else { ?>
             <?= sprintf(gettext('Recent %s'), $title) ?>
+            <?php } ?>
             </h1>
         </div>
 
