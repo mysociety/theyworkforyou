@@ -162,18 +162,18 @@ class User {
 
                 // Only *must* enter a password if they're joining.
                 if ($details["password"] == "") {
-                    $errors["password"] = "Please enter a password";
+                    $errors["password"] = gettext("Please enter a password");
 
                 } elseif (strlen($details["password"]) < 6) {
-                    $errors["password"] = "Please enter at least six characters";
+                    $errors["password"] = gettext("Please enter at least six characters");
                 }
 
                 if ($details["password2"] == "") {
-                    $errors["password2"] = "Please enter a password again";
+                    $errors["password2"] = gettext("Please enter a password again");
                 }
 
                 if ($details["password"] != "" && $details["password2"] != "" && $details["password"] != $details["password2"]) {
-                    $errors["password"] = "The passwords did not match. Please try again.";
+                    $errors["password"] = gettext("The passwords did not match. Please try again.");
                 }
 
             } else {
@@ -181,11 +181,11 @@ class User {
                 // Update details pages.
 
                 if ($details["password"] != "" && strlen($details["password"]) < 6) {
-                    $errors["password"] = "Please enter at least six characters";
+                    $errors["password"] = gettext("Please enter at least six characters");
                 }
 
                 if ($details["password"] != $details["password2"]) {
-                    $errors["password"] = "The passwords did not match. Please try again.";
+                    $errors["password"] = gettext("The passwords did not match. Please try again.");
                 }
             }
         }
@@ -193,7 +193,7 @@ class User {
         // Check postcode (which is not a compulsory field).
         if ($details["postcode"] != "") {
             if (!validate_postcode($details["postcode"])) {
-                $errors["postcode"] = "Sorry, this isn't a valid UK postcode.";
+                $errors["postcode"] = gettext("Sorry, this isn't a valid UK postcode.");
             } else {
                 try {
                     new \MySociety\TheyWorkForYou\Member(array(
@@ -201,7 +201,7 @@ class User {
                         'house' => HOUSE_TYPE_COMMONS,
                     ));
                 } catch (MemberException $e) {
-                    $errors["postcode"] = "Sorry, we could not find an MP for that postcode.";
+                    $errors["postcode"] = gettext("Sorry, we could not find an MP for that postcode.");
                 }
             }
         }

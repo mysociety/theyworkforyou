@@ -31,12 +31,12 @@ if (get_http_var("submitted") == "true") {
     $errors = array();
 
     if ($email == "") {
-        $errors["email"] = "Please enter your email address";
+        $errors["email"] = gettext("Please enter your email address");
     } elseif (!validate_email($email)) {
-        $errors["email"] = "Please enter a valid email address";
+        $errors["email"] = gettext("Please enter a valid email address");
     }
     if ($password == "") {
-        $errors["password"] = "Please enter your password";
+        $errors["password"] = gettext("Please enter your password");
     }
 
     if (sizeof($errors) > 0) {
@@ -83,8 +83,8 @@ if (get_http_var("submitted") == "true") {
         $PAGE->page_start();
         $PAGE->stripe_start();
         $message = array(
-            'title' => "Confirmation email resent",
-            'text' => "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks."
+            'title' => gettext("Confirmation email resent"),
+            'text' => gettext("You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks.")
         );
         $PAGE->message($message);
         $PAGE->stripe_end();

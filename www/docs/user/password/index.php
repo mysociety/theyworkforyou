@@ -30,9 +30,9 @@ if (get_http_var("submitted")) {
 
 
     if ($email == "") {
-        $errors["email"] = "Please enter your email address";
+        $errors["email"] = gettext("Please enter your email address");
     } elseif (!validate_email($email)) {
-        $errors["email"] = "Please enter a valid email address";
+        $errors["email"] = gettext("Please enter a valid email address");
     } else {
 
         $USER = new USER;

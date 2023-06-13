@@ -120,10 +120,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         // Check email address is valid and unique.
         if (!$this->data['email']) {
-            $errors["email"] = "Please enter your email address";
+            $errors["email"] = gettext("Please enter your email address");
         } elseif (!validate_email($this->data["email"])) {
             // validate_email() is in includes/utilities.php
-            $errors["email"] = "Please enter a valid email address";
+            $errors["email"] = gettext("Please enter a valid email address");
         }
 
         if ($this->data['pid'] && !ctype_digit($this->data['pid'])) {

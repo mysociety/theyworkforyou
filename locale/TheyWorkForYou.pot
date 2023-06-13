@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-13 09:38+0000\n"
+"POT-Creation-Date: 2023-06-13 15:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: classes/AlertView/Standard.php:123 www/docs/user/login/index.php:34
+#: www/docs/user/password/index.php:33
+msgid "Please enter your email address"
+msgstr ""
+
+#. validate_email() is in includes/utilities.php
+#: classes/AlertView/Standard.php:126 www/docs/user/login/index.php:36
+#: www/docs/user/password/index.php:35
+msgid "Please enter a valid email address"
+msgstr ""
 
 #: classes/AlertView/Standard.php:139
 msgid "Please enter what you want to be alerted about"
@@ -166,6 +177,30 @@ msgstr ""
 
 #: classes/Search.php:76
 msgid "You cannot search for more than one date range."
+msgstr ""
+
+#: classes/User.php:165
+msgid "Please enter a password"
+msgstr ""
+
+#: classes/User.php:168 classes/User.php:184
+msgid "Please enter at least six characters"
+msgstr ""
+
+#: classes/User.php:172
+msgid "Please enter a password again"
+msgstr ""
+
+#: classes/User.php:176 classes/User.php:188
+msgid "The passwords did not match. Please try again."
+msgstr ""
+
+#: classes/User.php:196
+msgid "Sorry, this isn't a valid UK postcode."
+msgstr ""
+
+#: classes/User.php:204
+msgid "Sorry, we could not find an MP for that postcode."
 msgstr ""
 
 #: classes/Utility/House.php:44
@@ -733,6 +768,22 @@ msgid ""
 "href=\"%s\">WriteToThem.com</a>."
 msgstr ""
 
+#: www/docs/user/login/index.php:39
+msgid "Please enter your password"
+msgstr ""
+
+#: www/docs/user/login/index.php:86
+msgid "Confirmation email resent"
+msgstr ""
+
+#: www/docs/user/login/index.php:87
+#: www/includes/easyparliament/templates/html/user/welcome.php:7
+msgid ""
+"You should receive an email shortly which will contain a link. You will need "
+"to follow that link to confirm your email address before you can log in. "
+"Thanks."
+msgstr ""
+
 #: www/docs/user/login/index.php:123
 msgid "Or sign in by email:"
 msgstr ""
@@ -1043,7 +1094,7 @@ msgstr ""
 #. end of isset($speakers)
 #: www/includes/easyparliament/page.php:642
 #: www/includes/easyparliament/templates/html/alert/index.php:324
-#: www/includes/easyparliament/templates/html/header.php:144
+#: www/includes/easyparliament/templates/html/header.php:157
 #: www/includes/easyparliament/templates/html/mp/header.php:58
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
@@ -1528,7 +1579,7 @@ msgid "Division number %s"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:45
-#: www/includes/easyparliament/templates/html/section/_business_section.php:14
+#: www/includes/easyparliament/templates/html/section/_business_section.php:18
 #: www/includes/easyparliament/templates/html/section/day.php:72
 msgid "What is this?"
 msgstr ""
@@ -1672,11 +1723,11 @@ msgstr[1] ""
 msgid "No data to display."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/header.php:138
+#: www/includes/easyparliament/templates/html/header.php:151
 msgid "Search TheyWorkForYou"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/header.php:141
+#: www/includes/easyparliament/templates/html/header.php:154
 msgid "e.g. a postcode, person, or topic"
 msgstr ""
 
@@ -2313,12 +2364,12 @@ msgstr ""
 msgid "What is RSS?"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_business_section.php:4
+#: www/includes/easyparliament/templates/html/section/_business_section.php:7
 #, php-format
 msgid "Recent %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_business_section.php:26
+#: www/includes/easyparliament/templates/html/section/_business_section.php:30
 #, php-format
 msgid "RSS feed of %s"
 msgstr ""
@@ -2828,13 +2879,6 @@ msgstr ""
 
 #: www/includes/easyparliament/templates/html/user/view_user.php:3
 msgid "User details"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/user/welcome.php:7
-msgid ""
-"You should receive an email shortly which will contain a link. You will need "
-"to follow that link to confirm your email address before you can log in. "
-"Thanks."
 msgstr ""
 
 #: www/includes/utility.php:174
