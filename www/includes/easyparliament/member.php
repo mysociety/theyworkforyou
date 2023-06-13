@@ -165,7 +165,7 @@ class MEMBER {
             if (!in_array($house, $this->houses)) {
                 $this->houses[] = $house;
             }
-            $const = gettext($row['constituency']);
+            $const = $row['constituency'] ? gettext($row['constituency']) : '';
             $party = $row['party'];
             $entered_house = $row['entered_house'];
             $left_house = $row['left_house'];
