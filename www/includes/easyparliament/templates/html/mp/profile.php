@@ -64,7 +64,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <p>When <?= $full_name ?> starts to speak in debates and vote on bills, that information will appear on this page.</p>
 
                   <?php if ($has_email_alerts) { ?>
-                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
+                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
                   <?php } ?>
                 </div>
               <?php endif; ?>
@@ -274,7 +274,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <h3>Social Media</h3>
                     <ul>
                         <?php foreach ($social_links as $link): ?>
-                        <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'Social-Link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
+                        <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'social_link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                     <?php endif; ?>

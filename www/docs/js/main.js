@@ -1,3 +1,27 @@
+var trackEvent = function(eventName, params) {
+  // We'll return a promise, and resolve it when either Gtag handles
+  // our event, or a maximum fallback period elapses. Promises can
+  // only be resolved once, so this also ensures whatever callbacks
+  // are attached to the promise only execute once.
+  var dfd = $.Deferred();
+
+  var callback = function(){
+      dfd.resolve();
+  };
+
+  // Tell Gtag to resolve our promise when it's done.
+  var params = $.extend(params, {
+      event_callback: callback
+  });
+
+  gtag('event', eventName, params);
+
+  // Wait a maximum of 2 seconds for Gtag to resolve promise.
+  setTimeout(callback, 2000);
+
+  return dfd.promise();
+};
+
 function swapCalendar(direction) {
   var current = $('.cal-wrapper.visible');
   var num = parseInt(current.attr('data-count'), 10);
@@ -257,13 +281,6 @@ $(function(){
 
   });
 
-  $('[data-track-click]').on('click', function(e){
-    if ( window.analytics ) {
-      window.analytics.trackLinkClick(e, {
-        eventCategory: $(this).attr('data-track-click')
-      });
-    }
-  });
 
   if ( ! ( 'open' in document.createElement('details') ) ) {
     $('summary').siblings().hide();
@@ -330,19 +347,18 @@ $(function(){
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
 function trackFormSubmit(form, category, name, value) {
-  window.analytics.trackEvent({
-    eventCategory: category,
-    eventAction: name,
-    eventLabel: value
+  trackEvent("form_submit",
+    { category: category,
+      event_action: name,
+      event_label: value
   }).always(function(){
     form.submit();
   });
 }
 function trackLinkClick(link, category, name, value) {
-  window.analytics.trackEvent({
-    eventCategory: category,
-    eventAction: name,
-    eventLabel: value
+  trackEvent(category, {
+    event_action: name,
+    event_label: value
   }).always(function(){
     document.location.href = link.href;
   })

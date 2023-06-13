@@ -34,7 +34,7 @@
               <?php if (count($social_links) > 0) { ?>
                 <p class="person-header__about__media">
                   <?php foreach ($social_links as $link){ ?>
-                      <a href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'Social-Link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a>
+                      <a href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'social_link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a>
                   <?php } ?>
                 </p>
               <?php } ?>
@@ -60,10 +60,10 @@
                     $wtt_url = $wtt_url . "?a=WMC&amp;pc=" . _htmlentities(urlencode($user_postcode));
                 }
               ?>
-                <a href="<?= $wtt_url ?>" class="button" onclick="trackLinkClick(this, 'Links', 'WriteToThem', 'Person'); return false;">Send a message</a>
+                <a href="<?= $wtt_url ?>" class="button" onclick="trackLinkClick(this, 'link_click', 'WriteToThem', 'Person'); return false;">Send a message</a>
               <?php } ?>
               <?php if ($has_email_alerts) { ?>
-                <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>" class="button tertiary" onclick="trackLinkClick(this, 'Alert', 'Search', 'Person'); return false;">Get email updates</a>
+                <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>" class="button tertiary" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Get email updates</a>
               <?php } ?>
             </div>
           <?php } ?>

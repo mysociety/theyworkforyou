@@ -61,6 +61,19 @@
     <script async src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
 
   <?php if (!DEVSITE): ?>
+
+    <!-- Google tag (gtag.js) -->
+    <script defer>Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);return t.trim().length>0&&(t+="; "),t+="_ga=GA1.1."+Math.floor(1e9*Math.random())+"."+Math.floor(1e9*Math.random())},set:function(t){t.trim().startsWith("_ga")||Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-W8M9N1MJFT"></script>
+  
+    <script>
+        var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config','G-W8M9N1MJFT', {'client_id': client_id, 'cookie_expires': 1 });
+    </script>
+
     <script>
         (function (i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function () {
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
