@@ -57,7 +57,7 @@
                 <div class="row nested-row">
                     <div class="home__search">
                         <form action="<?= $urls['search'] ?>" method="GET"onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
-                        <input type="hidden" name="section" value="ni">
+                        <input type="hidden" name="section" value="wales">
                             <label for="q"><?= gettext('Search debates') ?></label>
                             <div class="row collapse">
                                 <div class="medium-9 columns">
