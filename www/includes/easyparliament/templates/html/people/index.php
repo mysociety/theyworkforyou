@@ -96,7 +96,7 @@ if (!count($data)) {
                     <?php } else { ?>
                         <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find your %s by name or postcode:'), $rep_name) ?></label>
                     <?php } ?>
-                        <input type="text" class="form-control" name="<?= ($type == 'mlas' || $type == 'msps') ? 'pc' : 'q' ?>" id="find-mp-by-name-or-postcode">
+                        <input type="text" class="form-control" name="<?= $pc_form ? 'pc' : 'q' ?>" id="find-mp-by-name-or-postcode">
                         <button type="submit" class="button"><?= gettext('Find') ?></button>
                     </p>
                 </div>
