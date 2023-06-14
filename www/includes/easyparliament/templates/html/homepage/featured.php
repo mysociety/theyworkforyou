@@ -10,7 +10,7 @@
                             <h2><?= gettext('Random debate') ?></h2>
                             <?php } ?>
                             <div class="parliamentary-excerpt">
-                            <h3 class="excerpt__title"><a href="<?= $featured['list_url'] ?>"><?= $featured['parent']['body'] ?></a></h3>
+                            <h3 class="excerpt__title"><a href="<?= $featured['list_url'] ?>"><?= $featured['parent']['body'] ? $featured['parent']['body'] . ' : ' : '' ?><?= $featured['body'] ?></a></h3>
                             <p class="meta"><?= isset($featured['htime']) && $featured['htime'] != '00:00:00' ? format_time($featured['htime'], TIMEFORMAT) : '' ?> <?= format_date($featured['hdate'], LONGERDATEFORMAT) ?></p>
                                 <p class="meta excerpt__category"><a href="<?= $featured['more_url'] ?>"><?= $featured['desc'] ?></a></p>
                                 <p class="excerpt__statement">
