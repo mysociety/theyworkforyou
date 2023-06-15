@@ -188,15 +188,19 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     }
     if ($current) {
         if ($house == HOUSE_TYPE_NI) {
-            $out .= sprintf(gettext('<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
+        } elseif ($house == HOUSE_TYPE_WALES){
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), gettext($areas[$area_type]));
         } else {
-            $out .= sprintf(gettext('<li>Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
         }
     } else {
         if ($house == HOUSE_TYPE_NI) {
-            $out .= sprintf(gettext('<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
+        } elseif ($house == HOUSE_TYPE_WALES){
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), gettext($areas[$area_type]));
         } else {
-            $out .= sprintf(gettext('<li>Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
+            $out .= '<li>' . sprintf(gettext('Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
         }
     }
     $out .= '<ul>';

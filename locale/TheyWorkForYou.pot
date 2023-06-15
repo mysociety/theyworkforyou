@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-13 15:56+0000\n"
+"POT-Creation-Date: 2023-06-15 10:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -623,7 +623,7 @@ msgid ""
 "Your <strong>constituency MS</strong> is <a href=\"%s\">%s</a>, MS for %s."
 msgstr ""
 
-#: www/docs/mp/index.php:1082
+#: www/docs/mp/index.php:1082 www/docs/postcode/index.php:193
 #, php-format
 msgid "Your <strong>%s region MSs</strong> are:"
 msgstr ""
@@ -639,7 +639,7 @@ msgid ""
 "Your <strong>constituency MS</strong> was <a href=\"%s\">%s</a>, MS for %s."
 msgstr ""
 
-#: www/docs/mp/index.php:1086
+#: www/docs/mp/index.php:1086 www/docs/postcode/index.php:201
 #, php-format
 msgid "Your <strong>%s region MSs</strong> were:"
 msgstr ""
@@ -694,35 +694,35 @@ msgstr ""
 #: www/docs/postcode/index.php:191
 #, php-format
 msgid ""
-"<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:"
+"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:"
 msgstr ""
 
-#: www/docs/postcode/index.php:193
+#: www/docs/postcode/index.php:195
 #, php-format
-msgid "<li>Your <strong>%s %s</strong> are:"
-msgstr ""
-
-#: www/docs/postcode/index.php:197
-#, php-format
-msgid ""
-"<li>Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:"
+msgid "Your <strong>%s %s</strong> are:"
 msgstr ""
 
 #: www/docs/postcode/index.php:199
 #, php-format
-msgid "<li>Your <strong>%s %s</strong> were:"
+msgid ""
+"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:"
 msgstr ""
 
-#: www/docs/postcode/index.php:212
+#: www/docs/postcode/index.php:203
+#, php-format
+msgid "Your <strong>%s %s</strong> were:"
+msgstr ""
+
+#: www/docs/postcode/index.php:216
 #, php-format
 msgid "Browse all %s"
 msgstr ""
 
-#: www/docs/postcode/index.php:215
+#: www/docs/postcode/index.php:219
 msgid "Browse people"
 msgstr ""
 
-#: www/docs/postcode/index.php:216
+#: www/docs/postcode/index.php:220
 #: www/includes/easyparliament/templates/html/mp/list.php:15
 msgid "Browse all MPs"
 msgstr ""
