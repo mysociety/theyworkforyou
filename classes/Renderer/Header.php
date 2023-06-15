@@ -259,6 +259,45 @@ class Header
             $section = '';
         }
 
+        // if we're searching within a parliament, put this in the top bar
+        if ($this_page == "search") {
+            if (isset($_GET['section'])) {
+                $section = $_GET['section'];
+                if ($section == 'scotland') {
+                    $selected_top_link['text'] = 'Scotland';
+                } elseif ($section == 'ni') {
+                    $selected_top_link['text'] = 'Northern Ireland';
+                } elseif ($section == 'wales') {
+                    $selected_top_link['text'] = gettext('Wales');
+                } elseif ($section == 'london') {
+                    $selected_top_link['text'] = 'London Assembly';
+                } else {
+                    $selected_top_link['text'] = 'UK';
+                }
+            }
+        }
+
+        // for the alerts page, put the most recent membership's house
+        // in the top bar
+        if ($this_page == "alert"){
+            if (isset($_GET['pid'])) {
+                $pid = $_GET['pid'];
+                $person = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
+                $membership = $person->getMostRecentMembership();
+                $parliament = $membership['house'];
+                if ($parliament == 'ni') {
+                    $selected_top_link['text'] = 'Northern Ireland';
+                } elseif ($parliament == HOUSE_TYPE_SCOTLAND) {
+                    $selected_top_link['text'] = 'Scotland';
+                } elseif ($parliament == HOUSE_TYPE_WALES) {
+                    $selected_top_link['text'] = gettext('Wales');
+                } elseif ($parliament == HOUSE_TYPE_LONDON_ASSEMBLY) {
+                    $selected_top_link['text'] = 'London Assembly';
+                }
+            }
+
+        }
+
         $this->nav_highlights = array(
             'top' => $top_highlight,
             'bottom' => $bottom_highlight,
