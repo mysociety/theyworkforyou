@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 10:28+0000\n"
+"POT-Creation-Date: 2023-06-16 05:24+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -152,7 +152,8 @@ msgstr "URI"
 msgid "Making it easy to keep an eye on the UK’s parliaments. Discover who represents you, how they’ve voted and what they’ve said in debates."
 msgstr "Yn gwneud hi'n hawdd cadw llygad barcud ar seneddau'r DU.  Darganfyddwch pwy sy'n eich cynrychioli chi, sut maen nhw wedi pleidleisio a beth maen nhw wedi dweud mewn dadleuon."
 
-#: classes/Renderer/Header.php:254
+#: classes/Renderer/Header.php:254 classes/Renderer/Header.php:271
+#: classes/Renderer/Header.php:293
 msgid "Wales"
 msgstr "Cymru"
 
@@ -466,8 +467,8 @@ msgid "London Mayoral questions"
 msgstr "Cwestiynau Maer Llundain"
 
 #: scripts/alertmailer.php:141 scripts/alertmailer.php:142
-#: www/includes/easyparliament/metadata.php:1089
-#: www/includes/easyparliament/metadata.php:1092
+#: www/includes/easyparliament/metadata.php:1098
+#: www/includes/easyparliament/metadata.php:1101
 msgid "Senedd debates"
 msgstr "Dadleuon y Senedd"
 
@@ -970,22 +971,26 @@ msgid "List of Members of the Senedd (MSs)"
 msgstr "Rhestr Aelodau o'r Senedd (ASau)"
 
 #: www/includes/easyparliament/metadata.php:1048
-msgid "Recent debates"
-msgstr "Dadleuon diweddar Y Senedd"
+#: www/includes/easyparliament/templates/html/search/form_options.php:66
+#: www/includes/easyparliament/templates/html/search/form_options.php:70
+#: www/includes/easyparliament/templates/html/search/form_options.php:74
+msgid "Debates"
+msgstr "Dadleuon"
 
 #: www/includes/easyparliament/metadata.php:1049
-msgid "Recent Senedd debates"
-msgstr "Dadleuon diweddar Y Senedd"
+msgid "Debates in the Senedd"
+msgstr "Ddadleuon y Senedd"
 
+#: www/includes/easyparliament/metadata.php:1056
 msgid "Find your MS"
 msgstr "Dewch o hyd i'ch Aelod o’r Senedd"
 
-#: www/includes/easyparliament/metadata.php:1052
-#: www/includes/easyparliament/metadata.php:1057
+#: www/includes/easyparliament/metadata.php:1061
+#: www/includes/easyparliament/metadata.php:1066
 msgid "Your MSs"
 msgstr "Eich ASau"
 
-#: www/includes/easyparliament/metadata.php:1053
+#: www/includes/easyparliament/metadata.php:1062
 msgid "Find out about your Members of the Senedd"
 msgstr "Dysgwch am eich Aelodau Senedd Cymru"
 
@@ -995,16 +1000,16 @@ msgstr "Dysgwch am eich Aelodau Senedd Cymru"
 msgid "Overview"
 msgstr "Trosolwg"
 
-#: www/includes/easyparliament/metadata.php:1065
+#: www/includes/easyparliament/metadata.php:1074
 msgid "Overview of the Senedd debates"
 msgstr "Trosolwg o ddadleuon y Senedd"
 
-#: www/includes/easyparliament/metadata.php:1205
-#: www/includes/easyparliament/metadata.php:1209
+#: www/includes/easyparliament/metadata.php:1214
+#: www/includes/easyparliament/metadata.php:1218
 msgid "Your MP"
 msgstr "Eich AS"
 
-#: www/includes/easyparliament/metadata.php:1206
+#: www/includes/easyparliament/metadata.php:1215
 msgid "Find out about your Member of Parliament"
 msgstr "Dysgwch am eich Aelod Seneddol"
 
@@ -1055,7 +1060,7 @@ msgstr "Addasu’r chwilio"
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
 #: www/includes/easyparliament/templates/html/section/_search.php:10
-#: www/includes/easyparliament/templates/html/senedd/index.php:67
+#: www/includes/easyparliament/templates/html/senedd/index.php:52
 msgid "Search"
 msgstr "Chwilio"
 
@@ -1736,11 +1741,6 @@ msgstr "Derbyn diweddariadau e-bost"
 msgid "That name is not unique. Please select from the following:"
 msgstr " Nid yw'r enw hwnnw'n unigryw.  Dewiswch o'r canlynol:"
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:20
-#: www/includes/easyparliament/templates/html/mp/recent.php:10
-msgid "Overview"
-msgstr "Trosolwg"
-
 #: www/includes/easyparliament/templates/html/mp/profile.php:21
 #: www/includes/easyparliament/templates/html/mp/recent.php:11
 msgid "Voting Record"
@@ -2087,12 +2087,6 @@ msgstr "Pwyllgorau"
 msgid "Future Business"
 msgstr "Busnes y Dyfodol"
 
-#: www/includes/easyparliament/templates/html/search/form_options.php:66
-#: www/includes/easyparliament/templates/html/search/form_options.php:70
-#: www/includes/easyparliament/templates/html/search/form_options.php:74
-msgid "Debates"
-msgstr "Dadleuon"
-
 #: www/includes/easyparliament/templates/html/search/form_options.php:69
 msgid "All Scotland"
 msgstr "Alban i gyd"
@@ -2222,8 +2216,8 @@ msgstr "Tudalen olaf"
 
 #. end of !isset($error)
 #: www/includes/easyparliament/templates/html/search/sidebar.php:3
-#: www/includes/easyparliament/templates/html/senedd/index.php:49
-#: www/includes/easyparliament/templates/html/senedd/index.php:52
+#: www/includes/easyparliament/templates/html/senedd/index.php:77
+#: www/includes/easyparliament/templates/html/senedd/index.php:80
 msgid "Create an alert"
 msgstr "Creu hysbysiad"
 
@@ -2297,12 +2291,12 @@ msgid "Search %s"
 msgstr "Chwilio %s"
 
 #: www/includes/easyparliament/templates/html/section/_search.php:7
-#: www/includes/easyparliament/templates/html/senedd/index.php:64
+#: www/includes/easyparliament/templates/html/senedd/index.php:49
 msgid "Enter a keyword, phrase, or person"
 msgstr "Nodwch allweddair, ymadrodd, neu berson"
 
 #: www/includes/easyparliament/templates/html/section/_search.php:30
-#: www/includes/easyparliament/templates/html/senedd/index.php:74
+#: www/includes/easyparliament/templates/html/senedd/index.php:59
 msgid "Popular searches today"
 msgstr "Chwiliadau poblogaidd heddiw"
 
@@ -2419,7 +2413,7 @@ msgstr ""
 "\n"
 "Senedd Cymru (Saesneg: Welsh Parliament) neu'r Senedd yw'r corff datganoledig sy'n cael ei ethol yn ddemocrataidd i drafod polisïau ac sy'n cymeradwyo deddfwriaeth sy'n ymwneud â Chymru. Rhan o'i waith yw dwyn Llywodraeth Cymru i gyfrif. Rhwng mis Mai 1999 a mis Mai 2020, enw'r sefydliad oedd Cynulliad Cenedlaethol Cymru (Saesneg: National Assembly for Wales). &ndash; <a href=\"https://cy.wikipedia.org/wiki/Senedd_Cymru\">Wicipedia</a>\n"
 
-#: www/includes/easyparliament/templates/html/section/senedd_index.php:10
+#: www/includes/easyparliament/templates/html/section/senedd_index.php:9
 msgid "Search Senedd debates"
 msgstr "Dadleuon y Senedd"
 
@@ -2465,17 +2459,17 @@ msgstr "Mae TheyWorkForYou yn cymryd data agored o Seneddau'r Deyrnas Unedig, ac
 msgid "About TheyWorkForYou"
 msgstr "Ynglŷn â TheyWorkForYou"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:50
+#: www/includes/easyparliament/templates/html/senedd/index.php:46
+msgid "Search debates"
+msgstr "Chwilio dadleuon"
+
+#: www/includes/easyparliament/templates/html/senedd/index.php:78
 msgid "Stay informed!"
 msgstr "Byddwch wybodus!"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:51
+#: www/includes/easyparliament/templates/html/senedd/index.php:79
 msgid "Get an email every time an issue you care about is mentioned in the Senedd (and more)"
 msgstr "Hawliwch e-bost bob tro mae mater yr ydych yn poeni amdano yn cael ei grybwyll yn Y Senedd (a mwy)"
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:61
-msgid "Search debates"
-msgstr "Chwilio dadleuon"
 
 #: www/includes/easyparliament/templates/html/senedd/index.php:87
 msgid "Recently in the Senedd"
@@ -2711,6 +2705,15 @@ msgstr "Ymddiheuriadau, mae gwall wedi digwydd"
 #: www/includes/utility.php:175
 msgid "We've been notified by email and will try to fix the problem soon!"
 msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y broblem yn fuan!"
+
+#~ msgid "Recent debates"
+#~ msgstr "Dadleuon diweddar Y Senedd"
+
+#~ msgid "Recent Senedd debates"
+#~ msgstr "Dadleuon diweddar Y Senedd"
+
+#~ msgid "Record"
+#~ msgstr "Cofnod"
 
 #~ msgid "What is the Welsh Parliament?"
 #~ msgstr "Beth yw Senedd Cymru?"
