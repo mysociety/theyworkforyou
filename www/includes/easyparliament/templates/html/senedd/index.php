@@ -38,21 +38,6 @@
     </div>
     <div class="full-page__row">
         <div class="homepage-panels">
-            <div class="panel panel--flushtop clearfix">
-                <div class="row nested-row">
-                    <div class="homepage-featured-content homepage-content-section">
-                        <?php if ( $featured ) {
-                             include dirname(__FILE__) . "/../homepage/featured.php";
-                        } ?>
-                    </div>
-                    <div class="homepage-create-alert homepage-content-section">
-                        <h2><?= gettext('Create an alert') ?></h2>
-                        <h3 class="create-alert__heading"><?= gettext('Stay informed!') ?></h3>
-                        <p><?= gettext('Get an email every time an issue you care about is mentioned in the Senedd (and more)') ?></p>
-                        <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet"><?= gettext('Create an alert') ?> &rarr;</a>
-                    </div>
-                </div>
-            </div>
             <div class="panel panel--inverted">
                 <div class="row nested-row">
                     <div class="home__search">
@@ -78,6 +63,21 @@
                             <?php } ?>
                         </ul>
                         <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel--flushtop clearfix">
+                <div class="row nested-row">
+                    <div class="homepage-featured-content homepage-content-section">
+                        <?php if ( $featured ) {
+                             include dirname(__FILE__) . "/../homepage/featured.php";
+                        } ?>
+                    </div>
+                    <div class="homepage-create-alert homepage-content-section">
+                        <h2><?= gettext('Create an alert') ?></h2>
+                        <h3 class="create-alert__heading"><?= gettext('Stay informed!') ?></h3>
+                        <p><?= gettext('Get an email every time an issue you care about is mentioned in the Senedd (and more)') ?></p>
+                        <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet"><?= gettext('Create an alert') ?> &rarr;</a>
                     </div>
                 </div>
             </div>
