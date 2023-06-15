@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 10:28+0000\n"
+"POT-Creation-Date: 2023-06-16 05:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,7 +165,8 @@ msgid ""
 "represents you, how they’ve voted and what they’ve said in debates."
 msgstr ""
 
-#: classes/Renderer/Header.php:254
+#: classes/Renderer/Header.php:254 classes/Renderer/Header.php:271
+#: classes/Renderer/Header.php:293
 msgid "Wales"
 msgstr ""
 
@@ -481,8 +482,8 @@ msgid "London Mayoral questions"
 msgstr ""
 
 #: scripts/alertmailer.php:141 scripts/alertmailer.php:142
-#: www/includes/easyparliament/metadata.php:1089
-#: www/includes/easyparliament/metadata.php:1092
+#: www/includes/easyparliament/metadata.php:1098
+#: www/includes/easyparliament/metadata.php:1101
 msgid "Senedd debates"
 msgstr ""
 
@@ -1033,15 +1034,16 @@ msgstr ""
 msgid "Debates in the Senedd"
 msgstr ""
 
+#: www/includes/easyparliament/metadata.php:1056
 msgid "Find your MS"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1052
-#: www/includes/easyparliament/metadata.php:1057
+#: www/includes/easyparliament/metadata.php:1061
+#: www/includes/easyparliament/metadata.php:1066
 msgid "Your MSs"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1053
+#: www/includes/easyparliament/metadata.php:1062
 msgid "Find out about your Members of the Senedd"
 msgstr ""
 
@@ -1051,16 +1053,16 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1065
+#: www/includes/easyparliament/metadata.php:1074
 msgid "Overview of the Senedd debates"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1205
-#: www/includes/easyparliament/metadata.php:1209
+#: www/includes/easyparliament/metadata.php:1214
+#: www/includes/easyparliament/metadata.php:1218
 msgid "Your MP"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1206
+#: www/includes/easyparliament/metadata.php:1215
 msgid "Find out about your Member of Parliament"
 msgstr ""
 
@@ -1111,7 +1113,7 @@ msgstr ""
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
 #: www/includes/easyparliament/templates/html/section/_search.php:10
-#: www/includes/easyparliament/templates/html/senedd/index.php:67
+#: www/includes/easyparliament/templates/html/senedd/index.php:52
 msgid "Search"
 msgstr ""
 
@@ -1835,11 +1837,6 @@ msgstr ""
 msgid "That name is not unique. Please select from the following:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:20
-#: www/includes/easyparliament/templates/html/mp/recent.php:10
-msgid "Overview"
-msgstr ""
-
 #: www/includes/easyparliament/templates/html/mp/profile.php:21
 #: www/includes/easyparliament/templates/html/mp/recent.php:11
 msgid "Voting Record"
@@ -2208,12 +2205,6 @@ msgstr ""
 msgid "Future Business"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/form_options.php:66
-#: www/includes/easyparliament/templates/html/search/form_options.php:70
-#: www/includes/easyparliament/templates/html/search/form_options.php:74
-msgid "Debates"
-msgstr ""
-
 #: www/includes/easyparliament/templates/html/search/form_options.php:69
 msgid "All Scotland"
 msgstr ""
@@ -2350,8 +2341,8 @@ msgstr ""
 
 #. end of !isset($error)
 #: www/includes/easyparliament/templates/html/search/sidebar.php:3
-#: www/includes/easyparliament/templates/html/senedd/index.php:49
-#: www/includes/easyparliament/templates/html/senedd/index.php:52
+#: www/includes/easyparliament/templates/html/senedd/index.php:77
+#: www/includes/easyparliament/templates/html/senedd/index.php:80
 msgid "Create an alert"
 msgstr ""
 
@@ -2427,12 +2418,12 @@ msgid "Search %s"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/section/_search.php:7
-#: www/includes/easyparliament/templates/html/senedd/index.php:64
+#: www/includes/easyparliament/templates/html/senedd/index.php:49
 msgid "Enter a keyword, phrase, or person"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/section/_search.php:30
-#: www/includes/easyparliament/templates/html/senedd/index.php:74
+#: www/includes/easyparliament/templates/html/senedd/index.php:59
 msgid "Popular searches today"
 msgstr ""
 
@@ -2547,7 +2538,7 @@ msgid ""
 "&ndash; <a href=\"https://en.wikipedia.org/wiki/Senedd\">Wikipedia</a>\n"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/senedd_index.php:10
+#: www/includes/easyparliament/templates/html/section/senedd_index.php:9
 msgid "Search Senedd debates"
 msgstr ""
 
@@ -2596,18 +2587,17 @@ msgstr ""
 msgid "About TheyWorkForYou"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:50
+#: www/includes/easyparliament/templates/html/senedd/index.php:46
+msgid "Search debates"
+msgstr ""
+
 msgid "Stay informed!"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:51
+#: www/includes/easyparliament/templates/html/senedd/index.php:79
 msgid ""
 "Get an email every time an issue you care about is mentioned in the Senedd "
 "(and more)"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:61
-msgid "Search debates"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/senedd/index.php:87
