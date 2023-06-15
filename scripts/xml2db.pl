@@ -275,7 +275,7 @@ sub process_type {
             # (when there was an rsync from parlparse it might have only got one of
             # two files set in # the same second, and next time it might get the other)
             #print "$xname since: $xsince new max $xmaxtime from changedates\n";
-            my $xname = $xnames->[0];
+            my $xname = ($lastloadname || $xnames->[0]);
             open FH, ">$lastupdatedir$xname-lastload" or die "couldn't open $lastupdatedir$xname-lastload for writing";
             print FH $xxmaxtime;
             close FH;
