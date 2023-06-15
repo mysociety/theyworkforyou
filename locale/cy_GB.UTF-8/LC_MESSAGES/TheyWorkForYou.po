@@ -969,7 +969,14 @@ msgstr "Pe baech chi eisoes wedi ymuno, mewngofnodwch  i'ch  cyfrif"
 msgid "List of Members of the Senedd (MSs)"
 msgstr "Rhestr Aelodau o'r Senedd (ASau)"
 
-#: www/includes/easyparliament/metadata.php:1047
+#: www/includes/easyparliament/metadata.php:1048
+msgid "Recent debates"
+msgstr "Dadleuon diweddar Y Senedd"
+
+#: www/includes/easyparliament/metadata.php:1049
+msgid "Recent Senedd debates"
+msgstr "Dadleuon diweddar Y Senedd"
+
 msgid "Find your MS"
 msgstr "Dewch o hyd i'ch Aelod o’r Senedd"
 
