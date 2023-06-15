@@ -989,13 +989,15 @@ msgstr "Eich ASau"
 msgid "Find out about your Members of the Senedd"
 msgstr "Dysgwch am eich Aelodau Senedd Cymru"
 
-#: www/includes/easyparliament/metadata.php:1064
-msgid "Record"
-msgstr "Cofnod"
+#: www/includes/easyparliament/metadata.php:1073
+#: www/includes/easyparliament/templates/html/mp/profile.php:20
+#: www/includes/easyparliament/templates/html/mp/recent.php:10
+msgid "Overview"
+msgstr "Trosolwg"
 
 #: www/includes/easyparliament/metadata.php:1065
 msgid "Overview of the Senedd debates"
-msgstr "Trosolwg o ddadleuon  y Senedd"
+msgstr "Trosolwg o ddadleuon y Senedd"
 
 #: www/includes/easyparliament/metadata.php:1205
 #: www/includes/easyparliament/metadata.php:1209

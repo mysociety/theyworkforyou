@@ -177,6 +177,34 @@ input.homepage-search__button {
     margin-top: emCalc(40);
 }
 
+.parl-top-link{
+    font-weight: 600;
+}
+
+.top-level-parl{
+    list-style-type: none;
+}
+
+
+.homepage-parl-column {
+    @include grid-column(12);
+    padding-top: 0em;
+    padding-bottom: 0em;
+    @media (min-width: $large-screen) {
+        @include grid-column(3);
+        border-right: 1px solid $colour_off_white;
+    }
+}
+
+.homepage-parl-list {
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+.homepage-parl-nav {
+    margin:0px 0px 0px 0px
+}
+
 .homepage-featured-content {
     @include grid-column(12);
     padding-top: 2em;

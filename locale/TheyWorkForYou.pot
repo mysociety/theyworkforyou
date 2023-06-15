@@ -1022,7 +1022,17 @@ msgstr ""
 msgid "List of Members of the Senedd (MSs)"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1047
+#: www/includes/easyparliament/metadata.php:1048
+#: www/includes/easyparliament/templates/html/search/form_options.php:66
+#: www/includes/easyparliament/templates/html/search/form_options.php:70
+#: www/includes/easyparliament/templates/html/search/form_options.php:74
+msgid "Debates"
+msgstr ""
+
+#: www/includes/easyparliament/metadata.php:1049
+msgid "Debates in the Senedd"
+msgstr ""
+
 msgid "Find your MS"
 msgstr ""
 
@@ -1035,8 +1045,10 @@ msgstr ""
 msgid "Find out about your Members of the Senedd"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1064
-msgid "Record"
+#: www/includes/easyparliament/metadata.php:1073
+#: www/includes/easyparliament/templates/html/mp/profile.php:20
+#: www/includes/easyparliament/templates/html/mp/recent.php:10
+msgid "Overview"
 msgstr ""
 
 #: www/includes/easyparliament/metadata.php:1065
