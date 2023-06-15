@@ -537,7 +537,7 @@ $page = array (
     'peers' => array (
             'menu'			=> array (
             'text'			=> 'Lords',
-            'title'			=> "List of all Lords"
+            'title'			=> "List of Lords"
         ),
         'parent'		=> 'hansard',
         'title'			=> '',
@@ -562,7 +562,7 @@ $page = array (
         'parent'		=> 'ni_home',
         'menu'			=> array (
             'text'			=> 'MLAs',
-            'title'			=> "List of all Members of the Northern Ireland Assembly (MLAs)"
+            'title'			=> "List of Members of the Northern Ireland Assembly (MLAs)"
         ),
         'title'			=> '',
         'url'			=> 'mlas/'
@@ -598,7 +598,7 @@ $page = array (
     'mps' => array (
             'menu'			=> array (
             'text'			=> 'MPs',
-            'title'			=> "List of all Members of Parliament (MPs)"
+            'title'			=> "List of Members of Parliament (MPs)"
         ),
         'parent'		=> 'hansard',
         'title'			=> '',
@@ -618,7 +618,7 @@ $page = array (
         'parent'		=> 'ni_home',
         'menu'			=> array (
             'text'			=> 'Debates',
-            'title'			=> "Overview of the Northern Ireland Assembly debates"
+            'title'			=> "Debates in the Northern Ireland Assembly"
         ),
         'title'			=> '',
         'rss'			=> 'rss/ni.rss',
@@ -879,7 +879,7 @@ $page = array (
     'spdebatesfront' => array (
         'menu'			=> array (
             'text'			=> 'Debates',
-            'title'			=> ''
+            'title'			=> 'Debates in the Scottish Parliament'
         ),
         'parent'		=> 'sp_home',
         'title'			=> 'Scottish Parliament debates',
@@ -902,7 +902,7 @@ $page = array (
     'spwransfront'  => array (
         'menu'			=> array (
             'text'			=> 'Written Answers',
-            'title'			=> ''
+            'title'			=> 'Written Answers and Statements'
         ),
         'parent'		=> 'sp_home',
         'title'			=> 'Scottish Parliament Written answers',
