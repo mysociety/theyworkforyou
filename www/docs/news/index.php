@@ -38,7 +38,7 @@ if (preg_match("#/(\d\d\d\d)/(\d\d)/(\d\d)/([a-z0-9_]+)(\.php)?$#", $uri, $match
     // Month index
     list($all, $year, $month) = $matches;
     $this_page = 'sitenews_date';
-    $DATA->set_page_metadata($this_page, 'title', format_date("$year-$month-01", "F Y"));
+    $DATA->set_page_metadata($this_page, 'title', format_date("$year-$month-01", "%B %Y"));
     $PAGE->page_start();
     $PAGE->stripe_start();
     foreach (array_reverse($all_news) as $id => $news_row) {

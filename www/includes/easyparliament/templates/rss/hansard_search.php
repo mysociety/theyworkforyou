@@ -24,9 +24,9 @@ if (isset ($data['rows']) && count($data['rows']) > 0) {
     for ($i=0; $i<count($data['rows']); $i++) {
         $row = $data['rows'][$i];
 
-        $hdate = format_date($row['hdate'], 'D, d M Y');
+        $hdate = format_date($row['hdate'], '%a, %d %b %Y');
         if (isset($row['htime']) && $row['htime'] != null) {
-            $htime = format_time($row['htime'], 'H:i:s');
+            $htime = format_time($row['htime'], '%H:%M:%S');
         } else {
             $htime = '00:00:00';
         }

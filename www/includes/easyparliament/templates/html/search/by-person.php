@@ -124,10 +124,10 @@
                               <?php } ?>
                             </td>
                             <td>
-                              <?php if ( format_date($speaker['pmindate'], 'M Y') == format_date($speaker['pmaxdate'], 'M Y') ) { ?>
-                                <?= format_date($speaker['pmindate'], 'M Y') ?>
+                              <?php if ( format_date($speaker['pmindate'], '%b %Y') == format_date($speaker['pmaxdate'], '%b %Y') ) { ?>
+                                <?= format_date($speaker['pmindate'], '%b %Y') ?>
                               <?php } else { ?>
-                                <?= format_date($speaker['pmindate'], 'M Y') ?>&nbsp;&ndash;&nbsp;<?= format_date($speaker['pmaxdate'], 'M Y') ?>
+                                <?= format_date($speaker['pmindate'], '%b %Y') ?>&nbsp;&ndash;&nbsp;<?= format_date($speaker['pmaxdate'], '%b %Y') ?>
                               <?php } ?>
                             </td>
                         </tr>

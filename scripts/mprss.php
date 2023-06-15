@@ -54,7 +54,7 @@ foreach ($q as $person) {
 			$description = _htmlentities(trim_characters($row['body'], 0, 200));
 			$contentencoded = $row['body'];
 
-			$hdate = format_date($row['hdate'], 'Y-m-d');
+			$hdate = format_date($row['hdate'], '%Y-%m-%d');
 			if ($row['htime'] != null) {
 				$htime = format_time($row['htime'], 'H:i:s');
 			} else {
