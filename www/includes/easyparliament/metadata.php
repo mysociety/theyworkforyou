@@ -1042,6 +1042,15 @@ $page = array (
         'title' => '',
         'url' => 'mss/'
     ),
+    'wales_debates' => array (
+        'parent' => 'wales_home',
+        'menu' => array (
+            'text' => gettext('Debates'),
+            'title' => gettext("Debates in the Senedd")
+        ),
+        'title' => '',
+        'url' => 'senedd/?more=1'
+    ),
     'ms' => array (
         'parent' => 'mss',
         'title' => gettext('Find your MS'),

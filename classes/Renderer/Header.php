@@ -278,7 +278,7 @@ class Header
             array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary'),
             array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
             array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home', 'seneddoverview', 'mss'),
+            array('wales_home', 'seneddoverview', 'mss', 'wales_debates'),
             array('london_home', 'lmqsfront', 'london-assembly-members'),
         );
 
