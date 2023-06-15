@@ -2231,7 +2231,7 @@ msgstr "(neu dim ond <a href=\"%s\">%s</a>)"
 #: www/includes/easyparliament/templates/html/search/sidebar.php:11
 #, php-format
 msgid "Or <a href=\"%s\">get an RSS feed</a> of new matches as they happen."
-msgstr "Neu <a href=\"%s\">cael ffrwd RSS</a> o gemau newydd fel maen nhw'n digwydd."
+msgstr "Neu derbyn <a href=\"%s\">ffrwd RSS</a> o ganlyniadau newydd fel maen nhw'n digwydd."
 
 #: www/includes/easyparliament/templates/html/search/sidebar.php:12
 msgid "What is RSS?"
