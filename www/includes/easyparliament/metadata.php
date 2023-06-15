@@ -622,7 +622,7 @@ $page = array (
         ),
         'title'			=> '',
         'rss'			=> 'rss/ni.rss',
-        'url'			=> 'ni/'
+        'url'			=> 'ni/?more=1'
     ),
     'nidebate'  => array (
         'parent'		=> 'nidebatesfront',
@@ -1070,7 +1070,7 @@ $page = array (
     'seneddoverview' => array (
         'parent' => 'wales_home',
         'menu' => array (
-            'text' => gettext('Record'),
+            'text' => gettext('Overview'),
             'title' => gettext("Overview of the Senedd debates")
         ),
         'title' => '',
