@@ -37,22 +37,7 @@
     </div>
     <div class="full-page__row">
         <div class="homepage-panels">
-            <div class="panel panel--flushtop clearfix">
-                <div class="row nested-row">
-                    <div class="homepage-featured-content homepage-content-section">
-                        <?php if ( $featured ) {
-                             include dirname(__FILE__) . "/../homepage/featured.php";
-                        } ?>
-                    </div>
-                    <div class="homepage-create-alert homepage-content-section">
-                        <h2>Create an alert</h2>
-                        <h3 class="create-alert__heading">Stay informed!</h3>
-                        <p>Get an email every time an issue you care about is mentioned in the Northern Ireland Assembly (and more)</p>
-                        <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet">Create an alert &rarr;</a>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel--inverted">
+        <div class="panel panel--inverted">
                 <div class="row nested-row">
                     <div class="home__search">
                         <form action="<?= $urls['search'] ?>" method="GET"onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
@@ -77,6 +62,21 @@
                             <?php } ?>
                         </ul>
                         <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel--flushtop clearfix">
+                <div class="row nested-row">
+                    <div class="homepage-featured-content homepage-content-section">
+                        <?php if ( $featured ) {
+                             include dirname(__FILE__) . "/../homepage/featured.php";
+                        } ?>
+                    </div>
+                    <div class="homepage-create-alert homepage-content-section">
+                        <h2>Create an alert</h2>
+                        <h3 class="create-alert__heading">Stay informed!</h3>
+                        <p>Get an email every time an issue you care about is mentioned in the Northern Ireland Assembly (and more)</p>
+                        <a href="<?= $urls['alert'] ?>" class="button create-alert__button button--violet">Create an alert &rarr;</a>
                     </div>
                 </div>
             </div>
