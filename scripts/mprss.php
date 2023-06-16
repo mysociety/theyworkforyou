@@ -56,7 +56,7 @@ foreach ($q as $person) {
 
 			$hdate = format_date($row['hdate'], '%Y-%m-%d');
 			if ($row['htime'] != null) {
-				$htime = format_time($row['htime'], 'H:i:s');
+				$htime = format_time($row['htime'], '%H:%M:%S');
 			} else {
 				$htime = '00:00:00';
 			}
