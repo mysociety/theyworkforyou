@@ -5,7 +5,6 @@
             $urls['day'] = $urls['seneddday'];
             include '_business_section.php';
         ?>
-    </div>
 
     <?php $search_title = gettext('Search Senedd debates'); include '_search.php'; ?>
 
