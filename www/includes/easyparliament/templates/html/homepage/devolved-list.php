@@ -28,7 +28,12 @@ $nav_items = array (
                     $menu_data = $DATA->page_metadata('wales_home', 'menu');
                     $menu_data["title"] = "Welsh language / Cymraeg";
                     $URL = new \MySociety\TheyWorkForYou\Url('wales_home');
-                    $url = "//cy." . DOMAIN . $URL->generate();
+                    $url = $URL->generate();
+                    if (strpos(DOMAIN, 'www') !== false) {
+                        $url = "//" . str_replace('www.', 'cy.', DOMAIN) . $url;
+                    } else {
+                        $url = "//cy." . DOMAIN . $url;
+                    }
                 } else {
                     $menu_data = $DATA->page_metadata($item, 'menu');
                     $URL = new \MySociety\TheyWorkForYou\Url($item);
