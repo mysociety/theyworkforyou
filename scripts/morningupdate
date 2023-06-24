@@ -42,7 +42,7 @@ system "./xml2db.pl $cronquiet --recent --westminhall --quiet";
 system "./xml2db.pl $cronquiet --recent --wrans --quiet";
 system "./xml2db.pl $cronquiet --recent --wms --quiet";
 system "./xml2db.pl $cronquiet --recent --lordsdebates --quiet";
-system "./xml2db.pl $cronquiet --recent --wales --quiet";
+system "./xml2db.pl $cronquiet --recent --wales --quiet --force";
 system "./xml2db.pl $cronquiet --recent --ni --quiet";
 system "./xml2db.pl $cronquiet --recent --scotland --quiet";
 system "./xml2db.pl $cronquiet --recent --scotwrans --quiet";

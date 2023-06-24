@@ -338,7 +338,7 @@ sub parsefile_glob {
 # Database
 
 my ($dbh,
-    $epadd, $epcheck, $epupdate,
+    $epadd, $epcheck, $epupdate, $epdelete,
     $hadd, $hcheck, $hupdate, $hdelete, $hdeletegid,
     $divisionupdate, $voteupdate,
     $gradd, $grdeletegid,
@@ -357,6 +357,7 @@ sub db_connect
         values ('', ?, 1, NOW(), NOW())");
     $epcheck = $dbh->prepare("select body from epobject where epobject_id = ?");
     $epupdate = $dbh->prepare("update epobject set body = ?, modified = NOW() where epobject_id = ?");
+    $epdelete = $dbh->prepare("delete from epobject where epobject_id = (select epobject_id from hansard where gid = ?)");
 
     # hansard object queries
     $hadd = $dbh->prepare("insert into hansard (epobject_id, gid, colnum, htype, person_id, major, minor, section_id, subsection_id, hpos, hdate, htime, source_url, created, modified)
@@ -511,10 +512,8 @@ sub delete_lonely_epobjects()
         my $delids = join(", ", @array);
         my $qq = $dbh->prepare("delete from epobject where epobject_id in (" . $delids . ")");
         my $delrows = $qq->execute();
-        $qq->finish();
         die "deleted " . $delrows . " but thought " . $rows if $delrows != $rows;
     }
-    $q->finish();
 }
 
 # Check that there are no extra gids in db that weren't in xml
@@ -527,11 +526,9 @@ sub check_extra_gids
     my $q = $dbh->prepare("select gid from hansard where hdate = ? and gid not like '%L' and $where");
     my $rows = $q->execute($date);
     my $array_ref1 = $q->fetchall_arrayref();
-    $q->finish();
     $q = $dbh->prepare("select gid_from from gidredirect where hdate = ? and $where");
     $rows = $q->execute($date);
     my $array_ref2 = $q->fetchall_arrayref();
-    $q->finish();
 
     my @mysql_gids1 = map $_->[0], @$array_ref1;
     my @mysql_gids2 = map $_->[0], @$array_ref2;
@@ -565,7 +562,6 @@ sub check_extra_gids
                     hansard.gid = ?");
                 $epuse_comments->execute($gid);
                 my $num_rows = $epuse_comments->fetchrow_array();
-                $epuse_comments->finish();
                 if ($num_rows > 0) {
                     if ($gid =~ /wrans/ && !$cronquiet) {
                         my $search_gid = $gid;
@@ -577,7 +573,6 @@ sub check_extra_gids
                             my $hgetid = $dbh->prepare("select epobject_id from hansard where gid = ?");
                             $hgetid->execute($gid);
                             my $old_epobjectid = $hgetid->fetchrow_array();
-                            $hgetid->finish();
                             print "POSSIBLE FIX: $gid -> $new_gid, $old_epobjectid -> $new_epobjectid ?\n";
                             my $yes = <STDIN>;
                             if ($yes =~ /^y$/i) {
@@ -595,10 +590,9 @@ sub check_extra_gids
                 if ($vital > 0) {
                     die "Refusing to even force delete, when there are references in other tables\n";
                 } else {
+                    $epdelete->execute($gid);
                     $hdeletegid->execute($gid);
-                    $hdeletegid->finish();
                     $grdeletegid->execute($gid);
-                    $grdeletegid->finish();
                     print "FORCED deleting $gid from db, wasn't in XML\n";
                 }
             }
@@ -636,7 +630,6 @@ sub delete_redirected_gids {
         } while ($loop);
         $hcheck->execute($to_gid);
         my $new_epobjectid = ($hcheck->fetchrow_array())[0];
-        $hcheck->finish();
         unless ($new_epobjectid) {
             #print "PROBLEM: $from_gid\n";
             next;
@@ -655,11 +648,9 @@ sub delete_redirected_gids {
                 hansard.gid = ?");
             $epuse_comments->execute($from_gid);
             my $num_rows = $epuse_comments->fetchrow_array();
-            $epuse_comments->finish();
             if ($num_rows > 0) {
                 $hgetid->execute($from_gid);
                 my $old_epobjectid = $hgetid->fetchrow_array();
-                $hgetid->finish();
 
                 print "gid $from_gid has $num_rows " . ($num_rows==1?'entry':'entries') . " in table $table, new gid $to_gid\n" unless $cronquiet;
                 update_eid($table, $field, $old_epobjectid, $new_epobjectid);
@@ -672,7 +663,6 @@ sub delete_redirected_gids {
             print "deleted $from_gid which is now redirected to $to_gid\n" unless $cronquiet;
             print FP "$from_gid\n";
         }
-        $hdeletegid->finish();
      }
      close FP;
 }
@@ -687,17 +677,14 @@ sub update_eid {
         if ($arr[0]) {
             my $epdelete = $dbh->prepare('delete from anonvotes where epobject_id=?');
             $epdelete->execute($new_epobjectid);
-            $epdelete->finish();
             my $epuse_updateid = $dbh->prepare("update anonvotes set yes_votes=yes_votes+$arr[1],
                 no_votes=no_votes+$arr[2], epobject_id=? where epobject_id = ?");
             $epuse_updateid->execute($new_epobjectid, $old_epobjectid);
-            $epuse_updateid->finish();
             return;
         }
     }
     my $epuse_updateid = $dbh->prepare("update $table set $field = ? where $field = ?");
     $epuse_updateid->execute($new_epobjectid, $old_epobjectid);
-    $epuse_updateid->finish();
 }
 
 
@@ -720,7 +707,6 @@ sub db_addpair
 
     # Delete any redirect of this, should there be one
     $grdeletegid->execute($gid);
-    $grdeletegid->finish();
 
     # See if we already have a hansard object with this global identifier (gid)
     my $q = $hcheck->execute($gid);
@@ -729,7 +715,6 @@ sub db_addpair
     if ($q == 1)
     {
         my @hvals = $hcheck->fetchrow_array();
-        $hcheck->finish();
         my $epid = shift @hvals;
         if ($hvals[9] gt $hparams->[9]) { # the hdate column
             print "not updating hansard object $gid, db date of $hvals[9] greater than $hparams->[9]\n";
@@ -739,14 +724,12 @@ sub db_addpair
         # Check matching epobject exists
         my $q = $epcheck->execute($epid);
         my @epvals = $epcheck->fetchrow_array();
-        $epcheck->finish();
         die "More than one existing epobject of same id " . $epid if ($q > 1);
         if ($q != 1)
         {
             print "strange, missing epobject $epid for gid $gid - part of db unexpectedly missing\n";
             print "deleting hansard object $gid and rebuilding\n";
             my $delcount = $hdelete->execute($gid, $epid);
-            $hdelete->finish();
             die "Deleted " . $delcount . " rows when expected to delete one for " . $gid if $delcount != 1;
         } else {
             # Check to see if the existing hansard object and new one are the same
@@ -759,7 +742,6 @@ sub db_addpair
                     print describe_compare_arrays(\@hvals, $hparams) . "\n";
                 }
                 $hupdate->execute(@$hparams, $epid, $gid);
-                $hupdate->finish();
             }
 
             # Check epobject is also the same
@@ -771,7 +753,6 @@ sub db_addpair
                     print "updating epobject epid " . $epid . " for gid " . $gid . "\n";
                 }
                 $epupdate->execute(@$epparams, $epid);
-                $epupdate->finish();
             }
 
             # Happy new and old objects are the same
@@ -779,13 +760,10 @@ sub db_addpair
             return $epid;
         }
     }
-    $hcheck->finish();
 
     $epadd->execute(@$epparams);
     my $epid = last_id();
-    $epadd->finish();
     $hadd->execute($epid, @$hparams);
-    $hadd->finish();
 
     # print "added " . $gid . "\n";
 
@@ -797,7 +775,6 @@ sub last_id
 {
     $lastid->execute();
     my @arr = $lastid->fetchrow_array();
-    $lastid->finish();
     return $arr[0];
 }
 
@@ -1706,35 +1683,30 @@ sub loadspq {
                     die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentionurl";
                 }
                 my @row = $scotqbusinessexist->fetchrow_array();
-                $scotqbusinessexist->finish();
             } elsif ($mentiontype == 4) { # 'answer'
                 $rows = $scotqdategidexist->execute($gid,$mentiontype,$mentiondate,$mentiongid);
                 if ($rows > 1) {
                     die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentiongid";
                 }
                 my @row = $scotqdategidexist->fetchrow_array();
-                $scotqdategidexist->finish();
             } elsif ($mentiontype == 5) { # 'holding'
                 $rows = $scotqholdingexist->execute($gid,$mentiontype,$mentiondate);
                 if ($rows > 1) {
                     die "Multiple rows matched $gid, $mentiontype, $mentiondate";
                 }
                 my @row = $scotqholdingexist->fetchrow_array();
-                $scotqholdingexist->finish();
             } elsif ($mentiontype == 6) { # 'oral-asked-in-official-report'
                 $rows = $scotqdategidexist->execute($gid,$mentiontype,$mentiondate,$mentiongid);
                 if ($rows > 1) {
                     die "Multiple rows matched $gid, $mentiontype, $mentiondate, $mentiongid";
                 }
                 my @row = $scotqdategidexist->fetchrow_array();
-                $scotqdategidexist->finish();
             } elsif ($mentiontype == 7) { # 'referenced-in-question-text'
                 $rows = $scotqreferenceexist->execute($gid,$mentiontype,$mentiongid);
                 if ($rows > 1) {
                     die "Multiple rows matched $gid, $mentiontype, $mentiongid";
                 }
                 my @row = $scotqreferenceexist->fetchrow_array();
-                $scotqreferenceexist->finish();
             }
         }
 
@@ -1743,7 +1715,6 @@ sub loadspq {
         } else {
             if (!$quiet) { print "inserting\n"; }
             $scotqadd->execute($gid,$mentiontype,$mentiondate,$mentionurl,$mentiongid);
-            $scotqadd->finish();
             if (%scotqspreloaded) {
                 $scotqspreloaded{$preload_hash_key} = 1;
             }
@@ -1923,7 +1894,6 @@ sub do_load_gidredirect
     }
 
     $gradd->execute($oldgid, $newgid, $curdate, $major);
-    $gradd->finish();
 }
 
 # TODO
