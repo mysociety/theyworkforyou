@@ -122,7 +122,7 @@
             </h1>
 
             <a href="#main-nav" class="site-header__mobile-nav-toggle js-toggle">
-                Menu
+                <?=gettext('Menu') ?>
                 <span></span>
             </a>
 

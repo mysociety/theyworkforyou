@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-16 05:24+0000\n"
+"POT-Creation-Date: 2023-06-27 12:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1735,6 +1735,10 @@ msgstr[1] ""
 #: www/includes/easyparliament/templates/html/hansard_person.php:46
 #: www/includes/easyparliament/templates/html/section/day.php:81
 msgid "No data to display."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/header.php:125
+msgid "Menu"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/header.php:151

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-16 05:24+0000\n"
+"POT-Creation-Date: 2023-06-27 12:21+0100\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -1645,6 +1645,10 @@ msgstr[1] "%s areithiau"
 #: www/includes/easyparliament/templates/html/section/day.php:81
 msgid "No data to display."
 msgstr "Dim data i'w arddangos."
+
+#: www/includes/easyparliament/templates/html/header.php:125
+msgid "Menu"
+msgstr "Dewislen"
 
 #: www/includes/easyparliament/templates/html/header.php:151
 msgid "Search TheyWorkForYou"
