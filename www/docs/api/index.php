@@ -248,7 +248,7 @@ licence and attribution requirements.</p>
 <p>The <em>output</em> argument can take any of the following values:
 <ul>
 <li><strong>xml</strong>. XML. The root element is twfy.</li>
-<li><strong>php</strong>. Serialized PHP, that can be turned back into useful information with the unserialize() command. Quite useful in Python as well, using <a href="http://hurring.com/code/python/serialize/">PHPUnserialize</a>.</li>
+<li><strong>php</strong>. Serialized PHP, that can be turned back into useful information with the unserialize() command. Quite useful in Python as well, using e.g. <a href="https://pypi.org/project/phpserialize/">phpserialize</a>.</li>
 <li><strong>json</strong>. JSON data.</li>
 <li><strong>js</strong>. A JavaScript object, with data in ISO-8859-1. You can
 provide a callback function with the <em>callback</em> variable, and then that
@@ -295,6 +295,13 @@ to discuss things.</p>
 <ul>
 <li><a href="javascript:function foo(r) {if (r.twfy.url)window.location=r.twfy.url;};(function () {var s=document.createElement('script');s.setAttribute('src','https://www.theyworkforyou.com/api/convertURL?key=Gbr9QgCDzHExFzRwPWGAiUJ5&callback=foo&url='+encodeURIComponent(window.location));s.setAttribute('type','text/javascript');document.getElementsByTagName('head')[0].appendChild(s);})()">Hansard prettifier</a> - drag this bookmarklet to your bookmarks bar, or bookmark it. Then if you ever find yourself on the official site, clicking this will try and take you to the equivalent page on TheyWorkForYou. (Tested in IE, Firefox, Opera.)</li>
 </ul>
+
+<h3>Bulk Analysis</h3>
+
+<p>
+If you are doing analysis over long periods of time, or generating statistical data then you might find our <a href="https://parser.theyworkforyou.com/">raw data</a>
+more suitable that using the API.
+</p>
 
 <?php
     $sidebar = api_sidebar($subscription);

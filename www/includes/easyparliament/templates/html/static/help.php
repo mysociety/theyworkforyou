@@ -110,7 +110,7 @@
                 </h3>
                 <p>
 					In 2020, we removed some statistics from MPs' individual pages.
-					You can read an explanation in <a href="http://mysociety.org/?p=47612">this blog post</a>.
+					You can read an explanation in <a href="https://www.mysociety.org/2020/11/16/publishing-less-our-current-thinking-about-comparative-statistics/">this blog post</a>.
 
                 </p>
 
@@ -323,6 +323,11 @@
 
                 <p>
                     And lots more &ndash; see the whole list on the <a href="/api">API page</a>.
+                </p>
+
+                <p>
+                    If you are doing large scale analysis of our data, e.g. all uses of a term over a Parliamentary session, then you
+                    will probably find our <a href="https://parser.theyworkforyou.com/">raw data</a> more suitable than the API.
                 </p>
 
                 <h3 class="js-toc-item" id="use">How do people use TheyWorkForYou?</h3>
