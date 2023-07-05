@@ -6,7 +6,7 @@ if (!function_exists('print_voter')) {
       '<li><a href="/mp/?p=%d">%s</a> <span class="party">%s%s</span></li>',
       $vote['person_id'],
       $vote['name'],
-      $vote['party'],
+      gettext($vote['party']),
       $vote['proxy'] ? " (proxy vote cast by $vote[proxy])" : ''
     );
   }

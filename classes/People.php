@@ -212,6 +212,7 @@ class People {
             if (!isset($data[$p_id])) {
                 $name = member_full_name($this->house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                 $constituency = $row['constituency'] ? gettext($row['constituency']) : '';
+                $party = $row['party'] ? gettext($row['party']) : '';
                 $url = make_member_url($name, $constituency, $this->house, $p_id);
                 $narray = array (
                     'person_id' 	=> $p_id,
@@ -221,7 +222,7 @@ class People {
                     'name' => $name,
                     'url' => $url,
                     'constituency' 	=> $constituency,
-                    'party' 	=> $row['party'],
+                    'party' 	=> $party,
                     'left_reason' 	=> $row['left_reason'],
                 );
                 $data[$p_id] = $narray;

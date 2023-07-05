@@ -4,7 +4,7 @@
       <ul class="division-dots">
         <?php foreach ($votes as $vote) { ?>
         <li class="people-list__person__party <?= slugify($vote['party']) ?>" title="<?= $vote['name']
-            ?>, <?= $vote['party']
+            ?>, <?= gettext($vote['party'])
             ?><?= $vote['teller'] ? ' (teller)' : ''
             ?><?= $vote['proxy'] ? " (proxy vote cast by $vote[proxy])" : ''
             ?>"></li>

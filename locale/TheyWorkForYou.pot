@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-27 12:21+0100\n"
+"POT-Creation-Date: 2023-07-05 12:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,6 +390,26 @@ msgstr ""
 
 #: locale/welsh-constituencies.php:46
 msgid "South Wales West"
+msgstr ""
+
+#: locale/welsh-parties.php:2
+msgid "Conservative"
+msgstr ""
+
+#: locale/welsh-parties.php:3
+msgid "Independent"
+msgstr ""
+
+#: locale/welsh-parties.php:4
+msgid "Labour"
+msgstr ""
+
+#: locale/welsh-parties.php:5
+msgid "Liberal Democrat"
+msgstr ""
+
+#: locale/welsh-parties.php:6
+msgid "Plaid Cymru"
 msgstr ""
 
 #: scripts/alertmailer.php:116

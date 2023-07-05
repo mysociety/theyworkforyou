@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-27 12:21+0100\n"
+"POT-Creation-Date: 2023-07-05 12:13+0100\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -376,6 +376,26 @@ msgstr "Dwyrain De Cymru"
 #: locale/welsh-constituencies.php:46
 msgid "South Wales West"
 msgstr "Gorllewin De Cymru"
+
+#: locale/welsh-parties.php:2
+msgid "Conservative"
+msgstr "Ceidwadwyr"
+
+#: locale/welsh-parties.php:3
+msgid "Independent"
+msgstr "Annibynnol"
+
+#: locale/welsh-parties.php:4
+msgid "Labour"
+msgstr "Llafur"
+
+#: locale/welsh-parties.php:5
+msgid "Liberal Democrat"
+msgstr "Democratiaid Rhyddfrydol"
+
+#: locale/welsh-parties.php:6
+msgid "Plaid Cymru"
+msgstr "Plaid Cymru"
 
 #: scripts/alertmailer.php:116
 msgid "Commons debate"

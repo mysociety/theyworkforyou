@@ -166,7 +166,7 @@ class MEMBER {
                 $this->houses[] = $house;
             }
             $const = $row['constituency'] ? gettext($row['constituency']) : '';
-            $party = $row['party'];
+            $party = $row['party'] ? gettext($row['party']) : '';
             $entered_house = $row['entered_house'];
             $left_house = $row['left_house'];
             $entered_reason = $row['entered_reason'];

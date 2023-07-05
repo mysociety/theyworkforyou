@@ -2141,7 +2141,7 @@ class HANSARDLIST {
             "name" => $name,
             'house' => $member['house'],
             "constituency" => $member["constituency"] ? gettext($member["constituency"]) : '',
-            "party" => $member["party"],
+            "party" => $member["party"] ? gettext($member["party"]) : '',
             "person_id" => $person_id,
             "url" => $URL->generate(),
         );

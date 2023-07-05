@@ -572,15 +572,18 @@ table.search-results-grouped {
     vertical-align: 0.05em;
   }
 
+  &.ceidwadwyr:before,
   &.conservative:before {
     background-color: rgb(22,111,210);
   }
 
   &.labour:before,
+  &.llafur:before,
   &.labour-co-operative:before {
     background-color: rgb(238, 50, 36);
   }
 
+  &.democratiaid-rhyddfrydol:before,
   &.liberal-democrat:before {
     background-color: rgb(255, 187, 51);
     border: 1px solid mix(#000, rgb(255, 187, 51), 10%);
