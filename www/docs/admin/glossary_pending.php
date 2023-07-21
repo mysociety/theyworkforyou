@@ -21,7 +21,7 @@ $EDITQUEUE->get_pending();
 // 'approve' can be an array or a single value depending on whether or not it was a form submission.
 // 'decline' will always be a single value.
 if (get_http_var('approve')) {
-    $approve = get_http_var('approve');
+    $approve = get_http_var('approve', '', true);
     if (!is_array($approve)) {
         $approve = array ( $approve );
     }

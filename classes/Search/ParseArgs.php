@@ -104,7 +104,7 @@ class ParseArgs {
             $searchstring .= ' party:' . join(' party:', explode(',', $advparty));
         }
 
-        $advsection = get_http_var('section');
+        $advsection = get_http_var('section', '', true);
         if (!$advsection) {
             # Old URLs had this
             $advsection = get_http_var('maj');

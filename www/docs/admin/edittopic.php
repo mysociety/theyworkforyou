@@ -230,7 +230,7 @@ function delete_content($topic) {
 }
 
 function add_policy_sets($topic) {
-    $sets = get_http_var('sets');
+    $sets = get_http_var('sets', '', true);
 
     if ($sets[0] == '' && count($sets) == 1) {
         $sets = array();
@@ -240,7 +240,7 @@ function add_policy_sets($topic) {
 }
 
 function add_policies($topic) {
-    $policies = get_http_var('policies');
+    $policies = get_http_var('policies', '', true);
 
     if ($policies[0] == '' && count($policies) == 1) {
         $policies = array();

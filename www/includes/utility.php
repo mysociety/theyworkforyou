@@ -789,35 +789,24 @@ function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bo
 // http://www.iamcal.com/publish/article.php?id=13
 
 // Call this with a key name to get a GET or POST variable.
-function get_http_var($name, $default='') {
-    if (array_key_exists($name, $_GET)) {
-        return clean_var($_GET[$name]);
-    }
+function get_http_var($name, $default='', $allow_array=false) {
+    $val = $default;
     if (array_key_exists($name, $_POST)) {
-        return clean_var($_POST[$name]);
+        $val = $_POST[$name];
     }
-    return $default;
-}
-
-function clean_var($a) {
-    return (ini_get("magic_quotes_gpc") == 1) ? recursive_strip($a) : $a;
-}
-
-function recursive_strip($a) {
-    if (is_array($a)) {
-        foreach ($a as $key => $val) {
-            $a[$key] = recursive_strip($val);
-        }
-    } else {
-        $a = StripSlashes($a);
+    if (array_key_exists($name, $_GET)) {
+        $val = $_GET[$name];
     }
-    return $a;
+    if (is_array($val) && !$allow_array) {
+        $val = $val[0];
+    }
+    return $val;
 }
 
 // Call this with a key name to get a COOKIE variable.
 function get_cookie_var($name, $default='') {
     if (array_key_exists($name, $_COOKIE)) {
-        return clean_var($_COOKIE[$name]);
+        return $_COOKIE[$name];
     }
     return $default;
 }

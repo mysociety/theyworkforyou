@@ -64,7 +64,7 @@ if ($action == 'frontpage') {
 <?php
 
 function update_frontpage($topics) {
-    $frontpage = get_http_var('frontpage');
+    $frontpage = get_http_var('frontpage', '', true);
 
     $is_success = $topics->updateFrontPageTopics($frontpage);
 
