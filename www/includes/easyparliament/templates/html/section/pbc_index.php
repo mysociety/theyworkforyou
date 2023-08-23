@@ -42,7 +42,7 @@
         </div>
         <div class="business-section__secondary">
             <p class="rss-feed">
-                <a href="<?= $content['rssurl'] ?>">RSS feed of <?= $title ?></a>
+                <a href="<?= WEBPATH . $content['rssurl'] ?>"><?= sprintf(gettext('RSS feed of %s'), $title) ?></a>
             </p>
         </div>
     </div>
