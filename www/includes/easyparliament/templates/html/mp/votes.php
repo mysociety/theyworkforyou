@@ -38,6 +38,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
+                <?php include('_stale_data_panel.php'); ?>
+
                 <?php if ($current_party_comparison <> $data["comparison_party"]): ?>
                 <?php include('_cross_party_mp_panel.php'); ?>
                 <?php endif; ?>
