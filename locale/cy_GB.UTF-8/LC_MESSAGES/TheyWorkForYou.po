@@ -2504,7 +2504,7 @@ msgid "What is the Senedd?"
 msgstr "Beth yw hwn?"
 
 #: www/includes/easyparliament/templates/html/static/about.php:7
-msgid "TheyWorkForYou was founded <a href=\"https://www.mysociety.org/anniversary/\">twenty years ago</a> to make Parliament more accessible."
+msgid "TheyWorkForYou was founded <a href=\"https://www.mysociety.org/anniversary/\">twenty years ago</a> to make Parliament more accessible and accountable."
 msgstr "Sefydlwyd TheyWorkForYou ugain mlynedd yn ôl i wneud y Senedd yn San Steffan yn fwy hygyrch."
 
 #: www/includes/easyparliament/templates/html/static/about.php:9

@@ -4,7 +4,7 @@
 
             <h1><?= gettext("About TheyWorkForYou") ?></h1>
 
-            <p><?= gettext('TheyWorkForYou was founded <a href="https://www.mysociety.org/anniversary/">twenty years ago</a> to make Parliament more accessible.') ?></p>
+            <p><?= gettext('TheyWorkForYou was founded <a href="https://www.mysociety.org/anniversary/">twenty years ago</a> to make Parliament more accessible and accountable.') ?></p>
 
             <p><?= gettext('We believe that information about our elected representatives should be easily understandable and accessible to everyone, and not just insiders or those who can pay.') ?></p>
 
