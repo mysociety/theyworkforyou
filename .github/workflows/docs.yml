@@ -8,6 +8,7 @@ permissions:
 on:
   push:
     branches: ["ga-docs"]
+  workflow_dispatch: 
 
 jobs:
   docs:
@@ -39,7 +40,6 @@ jobs:
       uses: actions/upload-pages-artifact@v2
       with:
         path: docs
-
 
   deploy:
     environment:
