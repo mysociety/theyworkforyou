@@ -50,43 +50,22 @@ jobs:
           --health-retries 5
 
     steps:
-#    - name: Stop any running MySQL
-#      run: sudo systemctl stop mysql.service
-#    - uses: chhsiung/github-actions-mysql@0f348ad54f14038adafed5914b5ce775806768ab
-#      with:
-#        rootPassword: 'password'
-#        sqlMode: 'ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
 
-    - uses: niden/actions-memcached@v7
-
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php_version }}
-        extensions: memcached
-
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: true
 
-    - name: Get Composer Cache Directory
-      id: composer-cache
-      run: echo "::set-output name=dir::$(php composer.phar config cache-files-dir)"
-    - uses: actions/cache@v2
+    - name: Setup TWFY Project
+      uses: ./.github/actions/setup-twfy
       with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-php-composer-
+        php_version: ${{ matrix.php_version }}
 
-    - name: Verify MariaDB connection
+    - name: Verify MariaDB connection and setup database
       run: |
         while ! mysqladmin ping -h"127.0.0.1" --silent; do
           sleep 1
         done
-
-    - name: Set up database and code
-      run: |
         mysql -h 127.0.0.1 -u root -ppassword twfy_test < db/schema.sql
-        php composer.phar install --no-interaction
 
     - name: Run tests
       env:
@@ -103,9 +82,3 @@ jobs:
       run: |
         wget https://scrutinizer-ci.com/ocular.phar
         php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-
-    - name: Documentation
-      if: matrix.php_version == '7.4' && github.ref_name == 'master' && github.event_name == 'push'
-      run: |
-        sudo apt-get update && sudo apt-get install -y graphviz
-        ./build-docs.sh

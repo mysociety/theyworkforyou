@@ -1,0 +1,33 @@
+name: 'Setup TWFY'
+version: 1.0.0
+description: |
+  Common actions to be shared between github Actions.
+  till relies on the services being defined in the original action'
+inputs:
+  php_version:
+    description: "Path to action being checked."
+
+runs:
+  using: "composite"
+  steps:
+
+    - uses: niden/actions-memcached@v7
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php_version }}
+        extensions: memcached
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "dir=$(php composer.phar config cache-files-dir)" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-php-composer-
+
+    - name: Set up database and code
+      run: |
+        php composer.phar install --no-interaction
