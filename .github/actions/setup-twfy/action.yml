@@ -20,6 +20,7 @@ runs:
 
     - name: Get Composer Cache Directory
       id: composer-cache
+      shell: bash
       run: echo "dir=$(php composer.phar config cache-files-dir)" >> $GITHUB_OUTPUT
 
     - uses: actions/cache@v3
@@ -29,5 +30,6 @@ runs:
         restore-keys: ${{ runner.os }}-php-composer-
 
     - name: Set up database and code
+      shell: bash
       run: |
         php composer.phar install --no-interaction
