@@ -63,7 +63,7 @@
         }
     }
     
-    .join-form {
+    .join-form, .edit-form {
         .row {
             margin-bottom: 1.1em;
 
@@ -71,7 +71,7 @@
                 margin-bottom: -.8em;
             }
 
-            label[for="optintrue"], label[for="optinfalse"], label[for="mp_alerttrue"], label[for="mp_alertfalse"] {
+            label.option_yesno {
                 display: inline;
                 font-size: inherit;
                 margin-left: .5em;

@@ -8,7 +8,7 @@
             <div class="main">
             <?php if ($facebook_user) { ?>
               <h1>Edit your details</h1>
-              <form method="post" action="/user/index.php">
+              <form method="post" class="edit-form" action="/user/index.php">
                 <?php if (isset($errors['postcode'])) { ?>
                 <p class="error">
                     <?= $errors['postcode'] ?>
@@ -40,7 +40,7 @@
               <h1><?= gettext('Edit your details') ?></h1>
               <?php } ?>
 
-              <form method="post" action="/user/index.php">
+              <form method="post" class="edit-form" action="/user/index.php">
                 <?php if (isset($errors['firstname'])) { ?>
                 <p class="error">
                     <?= $errors['firstname'] ?>
@@ -157,20 +157,36 @@
 
                 <?php } ?>
 
+
+                <?php
+                $optin_options = array(
+                    "optin_service" => "Do you wish to receive occasional update emails about TheyWorkForYou.com?",
+                    "optin_stream" => "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?",
+                    "optin_org" => gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"),
+                );
+                
+                for ($i = 0; $i < count($optin_options); $i++) { 
+                $optin_key = array_keys($optin_options)[$i];
+                $optin_txt = array_values($optin_options)[$i];
+                $optin_value = isset($$optin_key) ? $$optin_key : null;  
+                ?>
+
                 <div class="row">
-                &nbsp;<br><?= gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?") ?>
+                &nbsp;<br><?= $optin_txt ?>
                 </div>
 
-                <?php if (isset($errors['optin'])) { ?>
+                <?php if (isset($errors[$optin_key])) { ?>
                 <p class="error">
-                    <?= $errors['optin'] ?>
+                    <?= $errors[$optin_key] ?>
                 </p>
                 <?php } ?>
 
                 <div class="row">
-                <span class="formw"><input type="radio" name="optin" id="optintrue" value="true" <?= $optin == 'Yes' ? ' checked' : '' ?>> <label for="optintrue">Yes</label><br>
-                <input type="radio" name="optin" id="optinfalse" value="false" <?= $optin == 'No' ? ' checked' : '' ?>> <label for="optinfalse">No</label></span>
+                <span class="formw"><input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>true" value="true" <?= $optin_value == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="<?= $optin_key ?>true">Yes</label><br>
+                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' : '' ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
                 </div>
+
+                <?php } ?>
 
                 <div class="row">
                 <span class="formw"><input type="submit" class="submit" value="<?= gettext('Update details') ?>"></span>

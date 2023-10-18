@@ -11,6 +11,30 @@ namespace MySociety\TheyWorkForYou;
  * User
  */
 
+ function calculateOptinValue($optin_service, $optin_stream, $optin_org) {
+    // combine three booleans into a single integer to store in the database
+    // +1 = optin_service
+    // +2 = optin_stream
+    // +4 = optin_org
+
+    $value = 0;
+
+    $value += $optin_service ? 1 : 0;
+    $value += $optin_stream ? 2 : 0;
+    $value += $optin_org ? 4 : 0;
+
+    return $value;
+}
+
+function extractOptinValues($value) {
+    // convert an integer into three seperate optin values ('Yes', 'No')
+        return [
+            'optin_service' => ($value & 1) ? "Yes" : "No",
+            'optin_stream' => ($value & 2) ? "Yes" : "No",
+            'optin_org' => ($value & 4) ? "Yes" : "No",
+        ];
+    }
+
 class User {
     public function getUserDetails($user_id = false) {
         global $THEUSER;
@@ -31,7 +55,10 @@ class User {
         $data['name'] = $user->firstname() . " " . $user->lastname();
         $data['url'] = $user->url();
         $data['email'] = $user->email();
-        $data['optin'] = $user->optin() == true ? "Yes" : "No";
+        $optin_values = extractOptinValues($user->optin());
+        $data['optin_service'] = $optin_values['optin_service'];
+        $data['optin_stream'] = $optin_values['optin_stream'];
+        $data['optin_org'] = $optin_values['optin_org'];
         $data['postcode']	= $user->postcode();
         $data['website']	= $user->url();
         $data['registrationtime']	= $user->registrationtime();
@@ -61,7 +88,11 @@ class User {
 
             $details["url"] = trim(get_http_var("url"));
 
-            $details["optin"] = get_http_var("optin") == "true" ? true : false;
+            $optin_service = get_http_var("optin_service") == "true" ? true : false;
+            $optin_stream = get_http_var("optin_stream") == "true" ? true : false;
+            $optin_org = get_http_var("optin_org") == "true" ? true : false;
+
+            $details["optin"] = calculateOptinValue($optin_service, $optin_stream, $optin_org);
 
             if (get_http_var("remember") != "") {
                 $remember = get_http_var("remember");

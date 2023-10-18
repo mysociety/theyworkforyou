@@ -85,20 +85,35 @@
                 </p>
                 <?php } ?>
 
+                <?php
+                $optin_options = array(
+                    "optin_service" => "Do you wish to receive occasional update emails about TheyWorkForYou.com?",
+                    "optin_stream" => "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?",
+                    "optin_org" => gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"),
+                );
+                
+                for ($i = 0; $i < count($optin_options); $i++) { 
+                $optin_key = array_keys($optin_options)[$i];
+                $optin_txt = array_values($optin_options)[$i];
+                $optin_value = isset($$optin_key) ? $$optin_key : null;  
+                ?>
+
                 <div class="row">
-                &nbsp;<br><?= gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?") ?>
+                &nbsp;<br><?= $optin_txt ?>
                 </div>
 
-                <?php if (isset($errors['optin'])) { ?>
+                <?php if (isset($errors[$optin_key])) { ?>
                 <p class="error">
-                    <?= $errors['optin'] ?>
+                    <?= $errors[$optin_key] ?>
                 </p>
                 <?php } ?>
 
                 <div class="row">
-                <span class="formw"><input type="radio" name="optin" id="optintrue" value="true" <?= isset($optin) && $optin == 'Yes' ? ' checked' : '' ?>> <label for="optintrue">Yes</label><br>
-                <input type="radio" name="optin" id="optinfalse" value="false" <?= isset($optin) && $optin == 'No' ? ' checked' : !isset($optin) ? ' checked' : '' ?>> <label for="optinfalse">No</label></span>
+                <span class="formw"><input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>true" value="true" <?= $optin_value == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="<?= $optin_key ?>true">Yes</label><br>
+                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' :  !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
                 </div>
+
+                <?php } ?>
 
                 <div class="row">
                 <?= gettext("Would you like to receive email updates on your MP&rsquo;s activity in Parliament?") ?>
@@ -106,8 +121,8 @@
                 </div>
 
                 <div class="row">
-                <span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true" <?= isset($mp_alert) && $mp_alert == 'Yes' ? ' checked' : '' ?>> <label for="mp_alerttrue">Yes</label><br>
-                <input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?= isset($mp_alert) && $mp_alert == 'No' ? ' checked' : !isset($mp_alert) ? ' checked' : '' ?>> <label for="mp_alertfalse">No</label></span>
+                <span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true" <?= isset($mp_alert) && $mp_alert == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="mp_alerttrue">Yes</label><br>
+                <input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?= isset($mp_alert) && $mp_alert == 'No' ? ' checked' : !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno" for="mp_alertfalse">No</label></span>
                 </div>
 
                 <div class="row">
