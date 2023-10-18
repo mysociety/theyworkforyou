@@ -66,7 +66,7 @@ class USER {
     public $lastvisit = "";        // Last time the logged-in user loaded a page (GMT).
     public $registrationtime = ""; // When they registered (GMT).
     public $registrationip = "";   // Where they registered from.
-    public $optin = "";            // boolean - Do they want emails from us?
+    public $optin = "";            // Int containing multiple binary opt-ins. (See top of User.php)
     public $deleted = "";          // User can't log in or have their info displayed.
     public $confirmed = '';        // boolean - Has the user confirmed via email?
     public $facebook_id = '';      // Facebook ID for users who login with FB
@@ -128,7 +128,7 @@ class USER {
             $this->registrationtoken    = $q['registrationtoken'];
             $this->registrationtime     = $q["registrationtime"];
             $this->registrationip       = $q["registrationip"];
-            $this->optin = $q["optin"] == 1 ? true : false;
+            $this->optin                = $q["optin"];
             $this->status               = $q["status"];
             $this->deleted = $q["deleted"] == 1 ? true : false;
             $this->confirmed = $q["confirmed"] == 1 ? true : false;
@@ -169,8 +169,6 @@ class USER {
             $details["facebook_id"] = "";
         }
 
-        $optin = $details["optin"] == true ? 1 : 0;
-
         $q = $this->db->query("INSERT INTO users (
                 firstname,
                 lastname,
@@ -205,7 +203,7 @@ class USER {
             ':postcode' => $details["postcode"],
             ':url' => $details["url"],
             ':password' => $passwordforDB,
-            ':optin' => $optin,
+            ':optin' => $details["optin"],
             ':status' => $details["status"],
             ':registrationtime' => $registrationtime,
             ':facebook_id' => $details["facebook_id"],
@@ -766,9 +764,6 @@ class USER {
             $params[':email'] = $details['email'];
         }
 
-        // Convert internal true/false variables to MySQL BOOL 1/0 variables.
-        $optin = $details["optin"] == true ? 1 : 0;
-
         $q = $this->db->query("UPDATE users
                         SET     firstname   = :firstname,
                                 lastname    = :lastname,
@@ -786,7 +781,7 @@ class USER {
                             ':lastname' => $details['lastname'],
                             ':postcode' => $details['postcode'],
                             ':url' => $details['url'],
-                            ':optin' => $optin,
+                            ':optin' => $details['optin'],
                             ':user_id' => $details['user_id']
                         )));
 
@@ -1445,7 +1440,6 @@ class THEUSER extends USER {
                 unset($details['email']);
             }
             $details["user_id"] = $this->user_id;
-
             $newdetails = $this->_update($details);
 
             // $newdetails will be an array of details if all went well,
