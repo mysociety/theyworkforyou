@@ -27,6 +27,21 @@ class User
 
     private function setupNavLinks() {
         $this->data['user_nav_links'] = array();
+
+        // We may want to send the user back to this current page after they've
+        // joined, logged out or logged in. So we put the URL in $returl.
+        $URL = new \MySociety\TheyWorkForYou\Url($this->page);
+        $this->returl = $URL->generate('none');
+
+        //user logged in
+        if ($this->user->isloggedin()) {
+            $this->addLoggedInLinks();
+        } else {
+            $this->addLoggedOutLinks();
+        }
+    }
+
+    private function AddLangSwitcher(){
         if (preg_match('#^(senedd|wales|ms(?!p))#', $this->page)) {
             $href = $_SERVER['REQUEST_URI'];
             if (LANGUAGE == 'cy') {
@@ -46,18 +61,6 @@ class User
                 'title' => '',
                 'text' => $text,
             );
-        }
-
-        // We may want to send the user back to this current page after they've
-        // joined, logged out or logged in. So we put the URL in $returl.
-        $URL = new \MySociety\TheyWorkForYou\Url($this->page);
-        $this->returl = $URL->generate('none');
-
-        //user logged in
-        if ($this->user->isloggedin()) {
-            $this->addLoggedInLinks();
-        } else {
-            $this->addLoggedOutLinks();
         }
     }
 
@@ -105,6 +108,7 @@ class User
 
         $this->addContactLink();
         $this->addDonateLink();
+        $this->AddLangSwitcher();
     }
 
     private function addLoggedOutLinks() {
@@ -165,6 +169,7 @@ class User
         $this->addRepLinks();
         $this->addContactLink();
         $this->addDonateLink();
+        $this->AddLangSwitcher();
     }
 
     // add links to your MP etc if postcode set
