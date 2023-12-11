@@ -141,6 +141,8 @@ define ("BUGSLIST", CONTACTEMAIL);
 // Email addresses that alertmailer.php sends stats to
 define('ALERT_STATS_EMAILS', CONTACTEMAIL);
 
+define('ALERT_NO_EMAIL', []);
+
 // Problems with loading in the morning etc.
 define('PROBLEM_EMAIL', CONTACTEMAIL);
 

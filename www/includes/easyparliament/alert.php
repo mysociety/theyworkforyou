@@ -228,6 +228,10 @@ class ALERT {
 
     public function send_confirmation_email($details) {
 
+        if (in_array($details['email'], ALERT_NO_EMAIL)) {
+            return false;
+        }
+
         // After we've add()ed an alert we'll be sending them
         // a confirmation email with a link to confirm their address.
         // $details is the array we just sent to add(), and which it's
