@@ -802,7 +802,7 @@ $page = array (
         'url'			=> 'search/',
         'robots'		=> 'noindex, nofollow',
         'heading'		=> '',
-        'session_vars'	=> array ('q', 's', 'pid', 'o', 'pop')
+        'session_vars'	=> array ('q', 'o', 'pop')
     ),
 
     'sitenews'		=> array (
