@@ -23,6 +23,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php } ?>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
+                        <li><a href="#scoring">Major votes</a></li>
+                        <li><a href="#informative">Minor votes</a></li>
                         <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
                     </ul>
                     <?php include '_featured_content.php'; ?>
@@ -39,19 +41,31 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php endif; ?>
 
                 <?php $displayed_votes = false; ?>
-                <?php if ( isset($policydivisions) && $policydivisions ) { ?>
 
-                    <?php if ($has_voting_record) { ?>
+                <?php
+                    # $policydivisions contains all the relevant divisions for this MP
+                    # $has_voting_record is true if the MP has voted on any policy
+                    if (isset($policydivisions) && $policydivisions && $has_voting_record) {
+                        # for some historical reason, the divisions page actually
+                        # does all divisions, but generally this is an array of one
+                        # (the current policy)
+                        foreach ($policydivisions as $policy) { ?>
 
-                        <?php foreach ($policydivisions as $policy) { ?>
                             <?php
-                                $show_all = false;
-                                if ( $policy['weak_count'] == 0 || $policy['weak_count'] == count($policy['divisions']) ) {
-                                    $show_all = true;
+                                $divisions_scoring = [];
+                                $divisions_informative = [];
+                                foreach ($policy['divisions'] as $division) {
+                                    if ($division['strong']) {
+                                        $divisions_scoring[] = $division;
+                                    } else {
+                                        $divisions_informative[] = $division;
+                                    }
                                 }
                             ?>
 
-                            <?php if ( isset($policy['header']) ) { ?>
+                            <?php
+                                # a header dict is used to give human information about the specific policy
+                                if ( isset($policy['header']) ) { ?>
                                 <div class="panel policy-votes-hero" style="background-image: url('<?php echo $policy['header']['image']; ?>');">
                                     <h2><?php echo $policy['header']['title']; ?></h2>
                                     <p><?php echo $policy['header']['description']; ?>.</p>
@@ -69,8 +83,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 </div>
                             <?php } ?>
 
-
-                            <?php if ( isset($policy['position']) ) { ?>
+                            <?php
+                                # display the calculated position for the policy on this page
+                                if ( isset($policy['position']) ) { ?>
                                 <div class="panel">
                                     <?php if ( $policy['position']['has_strong'] ) { ?>
                                         <h3 class="policy-vote-overall-stance">
@@ -84,9 +99,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                             data on PublicWhip.org.uk</a>.
                                         </p>
 
-                                        <h3 class="policy-votes-list-header"><span id="policy-votes-type"><?=
-                                            $show_all ? 'All' : 'Key';
-                                        ?></span> votes about <?= $policy['desc'] ?>:</h3>
                                     <?php } else { ?>
                                         <h3 class="policy-vote-overall-stance">
                                             We don&rsquo;t have enough information to calculate <?= $full_name ?>&rsquo;s position on this issue
@@ -97,17 +109,28 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         </p>
                                     <?php } ?>
 
+                                <?php if ($divisions_scoring) { ?>
+                                    <a name="scoring"></a>
+                                    <h3 class="policy-votes-list-header">Major votes</h3>
                                     <ul class="vote-descriptions policy-votes">
-                                    <?php foreach ($policy['divisions'] as $division) {
+                                    <?php foreach ($divisions_scoring as $division) {
                                         include('_division_description.php');
                                         $displayed_votes = true;
                                     } ?>
                                     </ul>
+                                <?php } ?>
+                                <?php if ($divisions_informative) { ?>
+                                    <a name="informative"></a>
+                                    <h3 class="policy-votes-list-header">Minor votes</h3>
+                                    <ul class="vote-descriptions policy-votes">
+                                        <?php foreach ($divisions_informative as $division) {
+                                            include('_division_description.php');
+                                            $displayed_votes = true;
+                                        } ?>
+                                    </ul>
+                                <?php } ?>
 
                                     <div class="policy-votes-list-footer">
-                                      <?php if ( !$show_all && $policy['weak_count'] > 0 ) { ?>
-                                        <p><button class="button secondary-button small js-show-all-votes">Show all votes, including <?= $policy['weak_count'] ?> less important <?= $policy['weak_count'] == 1 ? 'vote' : 'votes' ?></button></p>
-                                      <?php } ?>
                                         <p class="voting-information-provenance">
                                             Vote information from <a href="https://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
                                             Last updated: <?= $policy_last_update[$policy['policy_id']] ?>.
@@ -117,7 +140,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                                 </div>
                             <?php } ?>
-                        <?php } ?>
                     <?php } ?>
 
                 <?php } ?>

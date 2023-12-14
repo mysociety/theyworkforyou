@@ -621,7 +621,6 @@ class Divisions {
             if ( !array_key_exists($policy_id, $policies) ) {
                 $policies[$policy_id] = array(
                     'policy_id' => $policy_id,
-                    'weak_count' => 0,
                     'divisions' => array()
                 );
                 if ( $this->policies ) {
@@ -633,11 +632,8 @@ class Divisions {
                 }
             }
 
+            
             $division = $this->getDivisionDetails($row);
-
-            if ( !$division['strong'] ) {
-                $policies[$policy_id]['weak_count']++;
-            }
 
             $policies[$policy_id]['divisions'][] = $division;
         };

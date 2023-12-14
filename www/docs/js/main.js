@@ -308,12 +308,6 @@ $(function(){
     t.parent().next(".nav-menu").toggleClass('closed');
   });
 
-  $('.js-show-all-votes').on('click', function(){
-    $(this).fadeOut();
-    $('.policy-vote--minor').slideDown();
-    $('#policy-votes-type').text('All');
-  });
-
   $('a[href="#past-list-dates"]').on('click', function(e){
     e.preventDefault();
     $(this).trigger('blur');

@@ -26,7 +26,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php
 
                 $displayed_votes = false;
-                $show_all = true;
                 $current_date = '';
                 $sidebar_links = array();
 

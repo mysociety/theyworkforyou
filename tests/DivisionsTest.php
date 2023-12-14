@@ -101,15 +101,14 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testStrongIndicators() {
         $page = $this->fetch_division_page();
-        $this->assertContains('<li id="pw-2013-01-01-3-commons" class="policy-vote--minor', $page);
-        $this->assertContains('<li id="pw-2013-01-01-4-commons" class="policy-vote--major', $page);
-        $this->assertContains('<li id="pw-2013-01-01-5-commons" class="policy-vote--major', $page);
-        $this->assertContains('<li id="pw-2013-01-01-6-commons" class="policy-vote--minor', $page);
-    }
-
-    public function testWeakCount() {
-        $page = $this->fetch_division_page();
-        $this->assertContains('including 5 less important votes', $page);
+        preg_match('#Major votes</h3>.*?</ul>#s', $page, $m);
+        $major = $m[0];
+        $this->assertContains('<li id="pw-2013-01-01-4-commons"', $major);
+        $this->assertContains('<li id="pw-2013-01-01-5-commons"', $major);
+        preg_match('#Minor votes</h3>.*?</ul>#s', $page, $m);
+        $minor = $m[0];
+        $this->assertContains('<li id="pw-2013-01-01-3-commons"', $minor);
+        $this->assertContains('<li id="pw-2013-01-01-6-commons"', $minor);
     }
 
     public function testNotEnoughInfoStatement() {
@@ -119,8 +118,8 @@ class DivisionsTest extends FetchPageTestCase
 
     public function testRecentDivisionsForMP() {
         $page = $this->fetch_mp_recent_page();
-        $this->assertContains('<li id="pw-2013-01-01-3-commons" class="policy-vote--major', $page);
-        $this->assertNotContains('<li id="pw-2012-01-01-13-commons" class="policy-vote--major', $page);
+        $this->assertContains('<li id="pw-2013-01-01-3-commons"', $page);
+        $this->assertNotContains('<li id="pw-2012-01-01-13-commons"', $page);
     }
 
     public function testSingleDivision() {

@@ -1,4 +1,4 @@
-<li id="<?= $division['division_id'] ?>" class="<?= $show_all || $division['strong'] ? 'policy-vote--major' : 'policy-vote--minor' ?>">
+<li id="<?= $division['division_id'] ?>">
     <span class="policy-vote__date">On <?= strftime('%e %b %Y', strtotime($division['date'])) ?>:</span>
     <span class="policy-vote__text"><?= $full_name ?><?= $division['text'] ?></span>
     <?php if ($division['date'] > '2020-06-01' && $division['date'] < '2020-06-10' && $division['vote'] == 'absent') { ?>

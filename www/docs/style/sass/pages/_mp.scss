@@ -610,26 +610,6 @@
   }
 }
 
-html.js {
-    .policy-vote--minor {
-        display: none;
-    }
-}
-
-.policy-vote--minor {
-    padding-left: 1.5em;
-    line-height: 1.3em !important; // override .vote-descriptions .policy-votes > li
-
-    .policy-vote__text,
-    .policy-vote__date {
-        font-size: 0.9em;
-    }
-
-    .policy-vote__text {
-        color: #666;
-    }
-}
-
 .policy-vote__date {
     display: block;
     color: #b5af9d; // desaturated taupe colour
@@ -709,14 +689,6 @@ html.js {
             margin-bottom: 0;
         }
     }
-
-    .js-show-all-votes {
-        display: none;
-    }
-}
-
-html.js .policy-votes-list-footer .js-show-all-votes {
-    display: block;
 }
 
 .voting-information-provenance {
