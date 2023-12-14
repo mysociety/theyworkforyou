@@ -507,6 +507,16 @@
     line-height: 1.2em;
 }
 
+.policy-vote__related-policies-title {
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+.policy-vote__related-policies, .policy-vote__opposing-policies {
+    font-size: 0.8em;
+    margin-left: 1.5em;
+    list-style-type: disc;
+}
+
 .policy-votes-hero {
     position: relative;
     margin-bottom: 0;

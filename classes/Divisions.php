@@ -29,11 +29,11 @@ class Divisions {
      * @param Member   $member   The member to get positions for.
      */
 
-    public function __construct(Member $member = null, PolicyPositions $positions = null, Policies $policies = null)
+    public function __construct(Member $member = null, PolicyPositions $positions = null)
     {
         $this->member = $member;
         $this->positions = $positions;
-        $this->policies = $policies;
+        $this->policies = new Policies;
         $this->db = new \ParlDB;
     }
 
@@ -231,7 +231,7 @@ class Divisions {
             ORDER by policy_id, division_date DESC",
             $args
         );
-
+        # possibly add another query here to get related policies that use the same votes
         return $this->divisionsByPolicy($q);
     }
 
@@ -584,6 +584,29 @@ class Divisions {
 
         # Policy-related information
 
+        # So one option is just to query for it here
+        # we want to add an array of policies aside the current policy
+        # and if they have the same or different direction as thie current division
+        # in the row
+
+        # fetch related policies from database
+        $q = $this->db->query(
+            "SELECT policy_id, direction
+            FROM policydivisions
+            WHERE division_id = :division_id",
+            array(':division_id' => $row['division_id'])
+        );
+        $division['related_policies'] = array();
+
+        $policy_lookup = $this->policies->getPolicies();
+        foreach ($q as $policy) {
+            $division['related_policies'][] = array(
+                'policy_id' => $policy['policy_id'],
+                'policy_title' => preg_replace('#</?a[^>]*>#', '', $policy_lookup[$policy['policy_id']]),
+                'direction' => $policy['direction'],
+            );
+        }
+
         if (array_key_exists('direction', $row)) {
             $division['direction'] = $row['direction'];
             if ( strpos( $row['direction'], 'strong') !== false ) {
@@ -615,18 +638,19 @@ class Divisions {
     private function divisionsByPolicy($q) {
         $policies = array();
 
+        # iterate through each division, and adds it to an array of policies
+        # if there is only one policy being queried, it will be an array of 1
         foreach ($q as $row) {
             $policy_id = $row['policy_id'];
 
+            # if this policy hasn't come up yet, create the key for it
             if ( !array_key_exists($policy_id, $policies) ) {
                 $policies[$policy_id] = array(
                     'policy_id' => $policy_id,
                     'divisions' => array()
                 );
-                if ( $this->policies ) {
-                    $policies[$policy_id]['desc'] = $this->policies->getPolicies()[$policy_id];
-                    $policies[$policy_id]['header'] = $this->policies->getPolicyDetails($policy_id);
-                }
+                $policies[$policy_id]['desc'] = $this->policies->getPolicies()[$policy_id];
+                $policies[$policy_id]['header'] = $this->policies->getPolicyDetails($policy_id);
                 if ( $this->positions ) {
                     $policies[$policy_id]['position'] = $this->positions->positionsById[$policy_id];
                 }
