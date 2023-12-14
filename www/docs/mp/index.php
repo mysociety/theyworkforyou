@@ -437,7 +437,7 @@ switch ($pagetype) {
             $policiesList = new MySociety\TheyWorkForYou\Policies;
         }
         $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
-        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions, $policiesList);
+        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions);
 
         if ( $policyID ) {
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
