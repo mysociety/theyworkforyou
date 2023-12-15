@@ -88,7 +88,7 @@
                     <li>House of Lords Hansard (except Grand Committees) back to around November 1999;
                     <li>Data on Lords back to the House of Lords Act 1999;
                     <li>Everything in the various Northern Ireland (Transitional) Assembly debates, and all MLAs;
-                    <li>Everything in the Scottish Parliament official report, and all MSPs.
+                    <li>Everything in the Scottish Parliament official report plenary sessions, and all MSPs.
                 </ul>
 
                 <p>
