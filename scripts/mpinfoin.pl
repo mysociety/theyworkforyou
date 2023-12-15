@@ -23,10 +23,6 @@ use Syllable;
 use JSON;
 use File::Slurp;
 
-use vars qw(@policyids);
-
-require 'policyids.pl';
-
 my %action;
 my $verbose;
 foreach (@ARGV) {
@@ -122,13 +118,9 @@ if ($action{'links'}) {
 
 if ($action{'pw'}) {
     my $ua = LWP::UserAgent->new( agent => 'mySociety/1.0 (TheyWorkForYou)' );
-    print "Parsing Public Whip attendance and policies\n" if $verbose;
+    print "Parsing Public Whip attendance\n" if $verbose;
     $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
     $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
-    # Various policy IDs, see https://www.publicwhip.org.uk/policies.php for what they are
-    foreach my $dreamid (@policyids) {
-      $twig->parseurl("https://www.publicwhip.org.uk/feeds/mpdream-info.xml?id=$dreamid", $ua);
-    }
 }
 
 if ($action{'eu_ref_position'}) {

@@ -125,6 +125,7 @@ define ("RECESSFILE","https://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 // AND amend your global php.ini to 'allow_url_fopen = On'
 //define ("RECESSFILE", RAWDATA . "/parl-recesses.txt");
 
+define('TWFY_VOTES_URL', '');
 
 
 // *******************************************************************************
