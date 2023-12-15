@@ -41,7 +41,7 @@ class TopicsTest extends FetchPageTestCase
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
         $this->assertContains('NHS', $page);
         $this->assertNotContains('Welfare', $page);
-        $this->assertContains('Test Hansard Section', $page);
+        $this->assertContains('Test Hansard SubSection', $page);
         $this->assertNotContains('foundation hospitals', $page);
         $this->assertNotContains('Sign up for email alerts', $page);
     }
@@ -50,7 +50,7 @@ class TopicsTest extends FetchPageTestCase
         $page = $this->fetch_topic_page(array('topic' => 'welfare', 'url' => '/topic/welfare'));
         $this->assertContains('Welfare', $page);
         $this->assertNotContains('NHS', $page);
-        $this->assertNotContains('Test Hansard Section', $page);
+        $this->assertNotContains('Test Hansard SubSection', $page);
     }
 
     public function testTopicPageWithMP() {
@@ -58,7 +58,7 @@ class TopicsTest extends FetchPageTestCase
         $this->assertContains('NHS', $page);
         $this->assertNotContains('Welfare', $page);
         $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('Test Hansard Section', $page);
+        $this->assertContains('Test Hansard SubSection', $page);
         $this->assertContains('foundation hospitals', $page);
     }
 
@@ -77,6 +77,6 @@ class TopicsTest extends FetchPageTestCase
 
     public function testTopicPageContent() {
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('Test Hansard Section', $page);
+        $this->assertContains('Test Hansard SubSection', $page);
     }
 }

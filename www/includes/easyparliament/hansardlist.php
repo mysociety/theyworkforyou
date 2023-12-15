@@ -2810,9 +2810,8 @@ class DEBATELIST extends HANSARDLIST {
             // If this is a subsection, we're going to prepend the title
             // of the parent section, so let's get that.
             $parentbody = '';
-            if ($item_data['htype'] == 11 || $item_data['htype'] == 12) {
-                $r = $this->db->query("SELECT sec.body as sec_body, sec.title as sec_title,
-                                              sub.body as sub_body, sub.title as sub_title
+            if ($item_data['htype'] == 12) {
+                $r = $this->db->query("SELECT sec.body as sec_body, sub.body as sub_bod
                                 FROM    epobject sec, epobject sub
                                 WHERE   sec.epobject_id = :section_id
                                 AND     sub.epobject_id = :subsection_id",
@@ -2821,13 +2820,20 @@ class DEBATELIST extends HANSARDLIST {
                                     ':subsection_id' => $item_data['subsection_id'],
                                 )
                             )->first();
-                $section_body  = $r['sec_body'];
+                $section_body = $r['sec_body'];
                 $subsection_body = $r['sub_body'];
-                if ( $section_body && $subsection_body ) {
+                if ( $section_body != $subsection_body ) {
                     $parentbody = "$section_body : $subsection_body";
                 } else {
-                    $parentbody = "$section_body$subsection_body";
+                    $parentbody = $section_body;
                 }
+            } elseif ($item_data['htype'] == 11) {
+                $r = $this->db->query("SELECT body FROM epobject WHERE epobject_id = :section_id",
+                                array(
+                                    ':section_id' => $item_data['section_id'],
+                                )
+                            )->first();
+                $parentbody = $r['body'];
             } else if ( $item_data['htype'] == 10 ) {
                 $parentbody = $body;
             }

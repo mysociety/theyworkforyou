@@ -12,7 +12,7 @@
             <h1><?= $heading ?></h1>
             <p class="lead">
                 <?= $intro ?> <?= $location ?>
-                <?php if ($debate_time_human) {
+                <?php if (isset($debate_time_human)) {
                     printf(gettext("at %s"), $debate_time_human);
                 }
                 print ' ';

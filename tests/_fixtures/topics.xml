@@ -35,6 +35,14 @@
             <field name="epobject_id">1</field>
             <field name="body">Test Hansard Section</field>
         </row>
+        <row>
+            <field name="epobject_id">2</field>
+            <field name="body">Test Hansard SubSection</field>
+        </row>
+        <row>
+            <field name="epobject_id">3</field>
+            <field name="body">Test Hansard Body</field>
+        </row>
 	</table_data>
 	<table_data name="future">
 	</table_data>
@@ -48,10 +56,36 @@
         <row>
             <field name="epobject_id">1</field>
             <field name="gid">com.theyworkforyou/test/hansard/1</field>
-            <field name="htype">11</field>
+            <field name="htype">10</field>
             <field name="hdate">2014-01-01</field>
             <field name="htime">10:00</field>
             <field name="hpos">1</field>
+            <field name="person_id">0</field>
+            <field name="major">1</field>
+            <field name="minor">0</field>
+            <field name="section_id">0</field>
+            <field name="subsection_id">0</field>
+        </row>
+        <row>
+            <field name="epobject_id">2</field>
+            <field name="gid">com.theyworkforyou/test/hansard/2</field>
+            <field name="htype">11</field>
+            <field name="hdate">2014-01-01</field>
+            <field name="htime">10:00</field>
+            <field name="hpos">2</field>
+            <field name="person_id">0</field>
+            <field name="major">1</field>
+            <field name="minor">0</field>
+            <field name="section_id">1</field>
+            <field name="subsection_id">0</field>
+        </row>
+        <row>
+            <field name="epobject_id">3</field>
+            <field name="gid">com.theyworkforyou/test/hansard/3</field>
+            <field name="htype">12</field>
+            <field name="hdate">2014-01-01</field>
+            <field name="htime">10:00</field>
+            <field name="hpos">3</field>
             <field name="person_id">0</field>
             <field name="major">1</field>
             <field name="minor">0</field>
@@ -417,7 +451,7 @@
 	<table_data name="topic_epobjects">
     <row>
       <field name="topic_key">1</field>
-      <field name="epobject_id">1</field>
+      <field name="epobject_id">2</field>
     </row>
 	</table_data>
 	<table_data name="users">

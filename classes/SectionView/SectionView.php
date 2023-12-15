@@ -241,11 +241,13 @@ class SectionView {
 
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
-        $data['debate_time_human'] = format_time($first_speech['htime'], TIMEFORMAT);
-        $data['debate_day_human'] = format_date($first_speech['hdate'], LONGDATEFORMAT);
+        if ($first_speech) {
+            $data['debate_time_human'] = format_time($first_speech['htime'], TIMEFORMAT);
+        }
+        $data['debate_day_human'] = format_date($data['info']['date'], LONGDATEFORMAT);
 
         $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
-        $URL->insert(array('d' => $first_speech['hdate']));
+        $URL->insert(array('d' => $data['info']['date']));
         $URL->remove(array('id'));
         $data['debate_day_link'] = $URL->generate();
 
@@ -261,7 +263,7 @@ class SectionView {
             "%s %s%s %s",
             $data['intro'],
             $this->location,
-            $data['debate_time_human'] ? " at $data[debate_time_human]" : '',
+            isset($data['debate_time_human']) ? " at $data[debate_time_human]" : '',
             $data['debate_day_human']
         ));
 
