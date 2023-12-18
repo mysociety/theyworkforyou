@@ -17,7 +17,7 @@ class UserTest extends TWFY_Database_TestCase
     /**
      * Ensures the database is prepared and the user class is included for every test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -88,38 +88,36 @@ class UserTest extends TWFY_Database_TestCase
         // email should not change as user needs to confirm
         $this->assertEquals( 'user@example.org', $u->email() );
 
-        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.com"');
+        $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.com"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
 
         // token is based on the time so we can't test for it
-        $queryTable = $this->getConnection()->createQueryTable(
-            'tokens', 'SELECT type, data FROM tokens WHERE data = "1::user@example.com"'
-        );
+        $queryTable = self::$db->query(
+            'SELECT type, data FROM tokens WHERE data = "1::user@example.com"'
+        )->fetch();
 
-        $expectedTable = $this->createXmlDataSet(dirname(__FILE__).'/_fixtures/expectedTokens.xml')
-                              ->getTable("tokens");
-        $this->assertTablesEqual($expectedTable, $queryTable);
+        $this->assertEquals('E', $queryTable['type']);
+        $this->assertEquals('1::user@example.com', $queryTable['data']);
 
-        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.org"');
+        $alertCount = $this->getRowCount('alerts', 'email = "user@example.org"');
         $this->assertEquals(1, $alertCount, 'correct number of alerts');
 
-        $queryTable = $this->getConnection()->createQueryTable(
-            'tokens', 'SELECT token, type, data FROM tokens WHERE data = "1::user@example.com"'
-        );
+        $tokenRow = self::$db->query(
+            'SELECT token, type, data FROM tokens WHERE data = "1::user@example.com"'
+        )->fetch();
 
-        $tokenRow = $queryTable->getRow(0);
         $token = '2-' . $tokenRow['token'];
 
         $u->confirm_email($token,false);
 
         $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
-        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.com"');
+        $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.com"');
         $this->assertEquals(0, $tokenCount, 'token deleted once email confirmed');
 
-        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.com"');
+        $alertCount = $this->getRowCount('alerts', 'email = "user@example.com"');
         $this->assertEquals(1, $alertCount, 'one alert for new email address');
 
-        $alertCount = $this->getConnection()->getRowCount('alerts', 'email = "user@example.org"');
+        $alertCount = $this->getRowCount('alerts', 'email = "user@example.org"');
         $this->assertEquals(0, $alertCount, 'no alerts for old email address');
     }
 
@@ -130,7 +128,7 @@ class UserTest extends TWFY_Database_TestCase
 
         $this->assertEquals( 'user@example.org', $u->email(), 'confirming inital email address' );
 
-        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.net"');
+        $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.net"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
 
         $token = '2-lkdsjafhsadjhf';
@@ -138,7 +136,7 @@ class UserTest extends TWFY_Database_TestCase
         $u->confirm_email($token,false);
         $this->assertEquals( 'user@example.org', $u->email(), 'expired token does not update email address' );
 
-        $tokenCount = $this->getConnection()->getRowCount('tokens', 'data = "1::user@example.net"');
+        $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.net"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
     }
 

@@ -26,57 +26,57 @@ class TopicsTest extends FetchPageTestCase
 
     public function testTopicsPage() {
         $page = $this->fetch_topics_page(array('url' => '/topic/'));
-        $this->assertContains('Topics', $page);
-        $this->assertContains('NHS', $page);
-        $this->assertContains('Welfare', $page);
+        $this->assertStringContainsString('Topics', $page);
+        $this->assertStringContainsString('NHS', $page);
+        $this->assertStringContainsString('Welfare', $page);
     }
 
     public function testTopicsOnFrontPage() {
         return $this->base_fetch_page(array('url' => '/'), '/');
-        $this->assertContains('NHS', $page);
-        $this->assertNotContains('Welfare', $page);
+        $this->assertStringContainsString('NHS', $page);
+        $this->assertStringNotContainsString('Welfare', $page);
     }
 
     public function testTopicPage() {
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('NHS', $page);
-        $this->assertNotContains('Welfare', $page);
-        $this->assertContains('Test Hansard SubSection', $page);
-        $this->assertNotContains('foundation hospitals', $page);
-        $this->assertNotContains('Sign up for email alerts', $page);
+        $this->assertStringContainsString('NHS', $page);
+        $this->assertStringNotContainsString('Welfare', $page);
+        $this->assertStringContainsString('Test Hansard SubSection', $page);
+        $this->assertStringNotContainsString('foundation hospitals', $page);
+        $this->assertStringNotContainsString('Sign up for email alerts', $page);
     }
 
     public function testTopicPageWithSearch() {
         $page = $this->fetch_topic_page(array('topic' => 'welfare', 'url' => '/topic/welfare'));
-        $this->assertContains('Welfare', $page);
-        $this->assertNotContains('NHS', $page);
-        $this->assertNotContains('Test Hansard SubSection', $page);
+        $this->assertStringContainsString('Welfare', $page);
+        $this->assertStringNotContainsString('NHS', $page);
+        $this->assertStringNotContainsString('Test Hansard SubSection', $page);
     }
 
     public function testTopicPageWithMP() {
         $page = $this->fetch_topic_page(array('pc' => 'SW1 1AA', 'topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('NHS', $page);
-        $this->assertNotContains('Welfare', $page);
-        $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('Test Hansard SubSection', $page);
-        $this->assertContains('foundation hospitals', $page);
+        $this->assertStringContainsString('NHS', $page);
+        $this->assertStringNotContainsString('Welfare', $page);
+        $this->assertStringContainsString('Test Current-MP', $page);
+        $this->assertStringContainsString('Test Hansard SubSection', $page);
+        $this->assertStringContainsString('foundation hospitals', $page);
     }
 
     public function testTopicPageWithMPAndPolicy() {
         $page = $this->fetch_topic_page(array('pc' => 'SW1 1AA', 'topic' => 'welfare', 'url' => '/topic/welfare'));
-        $this->assertContains('Welfare', $page);
-        $this->assertContains('Test Current-MP', $page);
-        $this->assertContains('foundation hospitals', $page);
+        $this->assertStringContainsString('Welfare', $page);
+        $this->assertStringContainsString('Test Current-MP', $page);
+        $this->assertStringContainsString('foundation hospitals', $page);
     }
 
     public function testTopicPageRecentVotes() {
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('pw-2013-01-01-1-commons">', $page);
-        $this->assertContains('The majority of MPs  voted Agreed', $page);
+        $this->assertStringContainsString('pw-2013-01-01-1-commons">', $page);
+        $this->assertStringContainsString('The majority of MPs  voted Agreed', $page);
     }
 
     public function testTopicPageContent() {
         $page = $this->fetch_topic_page(array('topic' => 'nhs', 'url' => '/topic/nhs'));
-        $this->assertContains('Test Hansard SubSection', $page);
+        $this->assertStringContainsString('Test Hansard SubSection', $page);
     }
 }

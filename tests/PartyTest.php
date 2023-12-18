@@ -371,9 +371,9 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
         $page = $this->fetch_page(array('pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency'));
-        $this->assertContains('Test MP G Party 1', $page);
-        $this->assertContains('is a G Party MP', $page);
-        $this->assertContains('sometimes <b>differs</b> from their party', $page);
+        $this->assertStringContainsString('Test MP G Party 1', $page);
+        $this->assertStringContainsString('is a G Party MP', $page);
+        $this->assertStringContainsString('sometimes <b>differs</b> from their party', $page);
     }
 
     public function testSingleMemberPartyPolicyText()
@@ -382,8 +382,8 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
         $page = $this->fetch_page(array('pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency'));
-        $this->assertContains('Test MP G', $page);
-        $this->assertNotContains('is a B Party MP', $page);
+        $this->assertStringContainsString('Test MP G', $page);
+        $this->assertStringNotContainsString('is a B Party MP', $page);
     }
 
     public function testMPPartyPolicyWherePartyMissingPositions()
@@ -393,10 +393,10 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
         $page = $this->fetch_page(array('pid' => 4, 'url' => '/mp/4/test_mp_d/test_westminster_constituency'));
-        $this->assertContains('Test MP D', $page);
-        $this->assertContains('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
-        $this->assertContains('<li class="vote-description"', $page);
-        $this->assertNotContains('comparable B Party MPs voted', $page);
+        $this->assertStringContainsString('Test MP D', $page);
+        $this->assertStringContainsString('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
+        $this->assertStringContainsString('<li class="vote-description"', $page);
+        $this->assertStringNotContainsString('comparable B Party MPs voted', $page);
     }
 
     public function testMPPartyPolicyTextWhenAgrees()
@@ -405,9 +405,9 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
         $page = $this->fetch_page(array('pid' => 16, 'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency'));
-        $this->assertContains('Test MP G Party 2', $page);
+        $this->assertStringContainsString('Test MP G Party 2', $page);
 
-        $this->assertContains('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
+        $this->assertStringContainsString('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
     }
 
 
@@ -417,7 +417,7 @@ public function testCrossPartyDisclaimer()
     MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
     MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
     $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
-    $this->assertContains('Test MP G', $page);
-    $this->assertContains('In the votes below they are compared to their original party', $page);
+    $this->assertStringContainsString('Test MP G', $page);
+    $this->assertStringContainsString('In the votes below they are compared to their original party', $page);
 }
 }

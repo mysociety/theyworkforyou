@@ -4,12 +4,12 @@
  * Testing for LibFilter
  */
 
-class LibFilterTest extends PHPUnit_Framework_TestCase
+class LibFilterTest extends PHPUnit\Framework\TestCase
 {
 
     private $libFilter;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->libFilter = new \MySociety\TheyWorkForYou\Utility\LibFilter;

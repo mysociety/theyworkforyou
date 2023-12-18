@@ -27,28 +27,28 @@ class SectionTest extends FetchPageTestCase
     public function testDebatesYear() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'y' => '2014' ) );
-            $this->assertContains('<div class="calendar">', $page);
-            $this->assertContains('January', $page);
-            $this->assertRegExp('/<td colspan="2">&nbsp;<\/td><td[^>]*><a href="\/' . $type . '\/\?d=2014-01-01">1<\/a><\/td><td[^>]*><span>2<\/span><\/td>/', $page);
+            $this->assertStringContainsString('<div class="calendar">', $page);
+            $this->assertStringContainsString('January', $page);
+            $this->assertMatchesRegularExpression('/<td colspan="2">&nbsp;<\/td><td[^>]*><a href="\/' . $type . '\/\?d=2014-01-01">1<\/a><\/td><td[^>]*><span>2<\/span><\/td>/', $page);
         }
     }
 
     public function testDebatesDay() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'd' => '2014-01-01' ) );
-            $this->assertContains('Wednesday,  1 January 2014', $page);
-            $this->assertContains('HeadingA', $page);
+            $this->assertStringContainsString('Wednesday,  1 January 2014', $page);
+            $this->assertStringContainsString('HeadingA', $page);
             if ($type == 'wrans') {
-                $this->assertContains('DepartmentA', $page);
-                $this->assertContains('QuestionA', $page);
+                $this->assertStringContainsString('DepartmentA', $page);
+                $this->assertStringContainsString('QuestionA', $page);
             } elseif ($type == 'spwrans') {
-                $this->assertContains('QuestionA', $page);
+                $this->assertStringContainsString('QuestionA', $page);
             } elseif ($type == 'wms') {
-                $this->assertContains('DepartmentA', $page);
-                $this->assertContains('StatementA', $page);
+                $this->assertStringContainsString('DepartmentA', $page);
+                $this->assertStringContainsString('StatementA', $page);
             } else {
-                $this->assertContains('SubheadingA', $page);
-                $this->assertContains('SpeechA', $page);
+                $this->assertStringContainsString('SubheadingA', $page);
+                $this->assertStringContainsString('SpeechA', $page);
             }
         }
     }
@@ -62,10 +62,10 @@ class SectionTest extends FetchPageTestCase
 
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.1' ) );
             if ($type == 'wrans') {
-                $this->assertRegexp("#All .*?written answers on  1 Jan 2014#i", $page);
-                $this->assertContains("QuestionA", $page);
+                $this->assertMatchesRegularExpression("#All .*?written answers on  1 Jan 2014#i", $page);
+                $this->assertStringContainsString("QuestionA", $page);
             } else {
-                $this->assertRegexp("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
+                $this->assertMatchesRegularExpression("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
             }
         }
     }
@@ -73,29 +73,30 @@ class SectionTest extends FetchPageTestCase
     public function testDebatesSubheading() {
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.2' ) );
-            $this->assertContains("HeadingA", $page);
+            $this->assertStringContainsString("HeadingA", $page);
             if ($type == 'spwrans') {
-                $this->assertContains("QuestionA", $page);
-                $this->assertContains("AnswerA", $page);
+                $this->assertStringContainsString("QuestionA", $page);
+                $this->assertStringContainsString("AnswerA", $page);
             } elseif ($type == 'wrans') {
-                $this->assertContains("DepartmentA", $page);
-                $this->assertContains("QuestionA", $page);
-                $this->assertContains("AnswerA", $page);
-                $this->assertContains('Mp Mp', $page);
-                $this->assertContains('Highlands and Islands', $page);
-                $this->assertContains('Mp2 Mp2', $page);
-                $this->assertContains('Birmingham', $page);
-                $this->assertContains('Independent', $page);
+                $this->assertStringContainsString("DepartmentA", $page);
+                $this->assertStringContainsString("QuestionA", $page);
+                $this->assertStringContainsString("AnswerA", $page);
+                $this->assertStringContainsString('Mp Mp', $page);
+                $this->assertStringContainsString('Highlands and Islands', $page);
+                $this->assertStringContainsString('Mp2 Mp2', $page);
+                $this->assertStringContainsString('Birmingham', $page);
+                $this->assertStringContainsString('Independent', $page);
             } elseif ($type == 'wms') {
-                $this->assertContains('DepartmentA', $page);
-                $this->assertContains('StatementA', $page);
+                $this->assertStringContainsString('DepartmentA', $page);
+                $this->assertStringContainsString('StatementA', $page);
             } else {
-                $this->assertContains("SubheadingA", $page);
-                $this->assertContains("SpeechA", $page);
+                $this->assertStringContainsString("SubheadingA", $page);
+                $this->assertStringContainsString("SpeechA", $page);
             }
-            $this->assertContains("2:30 PM", $page);
-            $this->assertRegexp('#All.*?on  1 Jan 2014#', $page);
-            $this->assertContains("Mp Mp", $page);
+            $time = strftime('2:30 %p', mktime(14, 30));
+            $this->assertStringContainsString($time, $page);
+            $this->assertMatchesRegularExpression('#All.*?on  1 Jan 2014#', $page);
+            $this->assertStringContainsString("Mp Mp", $page);
         }
     }
 
@@ -103,15 +104,16 @@ class SectionTest extends FetchPageTestCase
         foreach ($this->types as $type) {
             $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.3' ) );
             if ($type == 'wrans' || $type == 'spwrans' || $type == 'wms') {
-                $this->assertRegexp("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
+                $this->assertMatchesRegularExpression("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
             } else {
-                $this->assertContains("HeadingA", $page);
-                $this->assertContains("SubheadingA", $page);
-                $this->assertContains("2:30 PM", $page);
-                $this->assertContains('See the whole debate', $page);
-                $this->assertContains('See this speech in context', $page);
-                $this->assertContains("Mp Mp", $page);
-                $this->assertContains("SpeechA", $page);
+                $this->assertStringContainsString("HeadingA", $page);
+                $this->assertStringContainsString("SubheadingA", $page);
+                $time = strftime('2:30 %p', mktime(14, 30));
+                $this->assertStringContainsString($time, $page);
+                $this->assertStringContainsString('See the whole debate', $page);
+                $this->assertStringContainsString('See this speech in context', $page);
+                $this->assertStringContainsString("Mp Mp", $page);
+                $this->assertStringContainsString("SpeechA", $page);
             }
         }
     }
@@ -126,12 +128,12 @@ class SectionTest extends FetchPageTestCase
      */
     public function testGlossaryAndSearchHighlights() {
             $page = $this->fetch_page( array( 'type' => 'lords', 's' => 'constituency', 'id' => '2014-02-02b.1.3' ) );
-            $this->assertContains("constituency", $page);
-            $this->assertContains("<span class=\"hi\"><a href=\"/glossary/?gl=1\" title=\"In a general election, each Constituency chooses an MP to represent them....\" class=\"glossary\">constituency</a></span>", $page);
+            $this->assertStringContainsString("constituency", $page);
+            $this->assertStringContainsString("<span class=\"hi\"><a href=\"/glossary/?gl=1\" title=\"In a general election, each Constituency chooses an MP to represent them....\" class=\"glossary\">constituency</a></span>", $page);
     }
 
     public function testGidRedirect() {
         $page = $this->fetch_page( array( 'type' => 'wrans', 'id' => '2014-01-01a.187335.h' ) );
-        $this->assertRegexp("#Location: .*?/wrans/\?id=2014-01-01b\.1\.2#", $page);
+        $this->assertMatchesRegularExpression("#Location: .*?/wrans/\?id=2014-01-01b\.1\.2#", $page);
     }
 }

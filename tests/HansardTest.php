@@ -17,7 +17,7 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Ensures the database is prepared and the alert class is included for every test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

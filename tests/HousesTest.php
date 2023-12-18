@@ -3,7 +3,7 @@
 /**
  * Provides test methods to ensure constants are available and as expected for all houses.
  */
-class HousesTest extends PHPUnit_Framework_TestCase
+class HousesTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

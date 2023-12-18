@@ -24,7 +24,7 @@ class UserPageTest extends FetchPageTestCase
     public function testLoginPageLoads()
     {
         $page = $this->base_fetch_page( array(), 'user/login' );
-        $this->assertContains('Sign in', $page);
+        $this->assertStringContainsString('Sign in', $page);
     }
 
     public function testLoginPage()
@@ -43,16 +43,16 @@ class UserPageTest extends FetchPageTestCase
     public function testUserInfoPageLoads()
     {
         $page = $this->fetch_user_page();
-        $this->assertContains('Your details', $page);
-        $this->assertContains('Test User', $page);
+        $this->assertStringContainsString('Your details', $page);
+        $this->assertStringContainsString('Test User', $page);
     }
 
     public function testEditUserInfo()
     {
         $page = $this->fetch_user_page( array('pg' => 'edit' ) );
-        $this->assertContains('Edit your details', $page);
-        $this->assertContains('name="pg" value="edit"', $page);
-        $this->assertContains('value="Test"', $page);
+        $this->assertStringContainsString('Edit your details', $page);
+        $this->assertStringContainsString('name="pg" value="edit"', $page);
+        $this->assertStringContainsString('value="Test"', $page);
 
         $vars = array(
             'pg' => 'edit',
@@ -63,6 +63,6 @@ class UserPageTest extends FetchPageTestCase
             'submitted' => 'true',
         );
         $page = $this->fetch_user_page( $vars );
-        $this->assertContains('Example User', $page);
+        $this->assertStringContainsString('Example User', $page);
     }
 }

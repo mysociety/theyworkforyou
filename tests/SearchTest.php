@@ -7,7 +7,7 @@
 
 class SearchTest extends FetchPageTestCase
 {
-	public function setUp()
+	public function setUp(): void
 	{
         parent::setUp();
         include_once('www/includes/easyparliament/searchengine.php');
@@ -120,7 +120,7 @@ class SearchTest extends FetchPageTestCase
     public function testSearchPage()
     {
         $page = $this->fetch_page( array( ) );
-        $this->assertContains('Search', $page);
+        $this->assertStringContainsString('Search', $page);
     }
 
     /**
@@ -131,8 +131,8 @@ class SearchTest extends FetchPageTestCase
     public function testSearchPageMP()
     {
         $page = $this->fetch_page( array( 'q' => 'Mary Smith' ) );
-        $this->assertContains('Mary Smith', $page);
-        $this->assertContains('MP, Amber Valley', $page);
+        $this->assertStringContainsString('Mary Smith', $page);
+        $this->assertStringContainsString('MP, Amber Valley', $page);
     }
 
     /**
@@ -143,9 +143,9 @@ class SearchTest extends FetchPageTestCase
     public function testSearchPageMultipleMP()
     {
         $page = $this->fetch_page( array( 'q' => 'Jones' ) );
-        $this->assertContains('People matching <em class="current-search-term">Jones</em>', $page);
-        $this->assertContains('Andrew Jones', $page);
-        $this->assertContains('Simon Jones', $page);
+        $this->assertStringContainsString('People matching <em class="current-search-term">Jones</em>', $page);
+        $this->assertStringContainsString('Andrew Jones', $page);
+        $this->assertStringContainsString('Simon Jones', $page);
     }
 
     /**
@@ -155,8 +155,8 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageCons() {
         $page = $this->fetch_page( array( 'q' => 'Amber' ) );
-        $this->assertContains('MP for <em class="current-search-term">Amber</em>', $page);
-        $this->assertContains('Mary Smith', $page);
+        $this->assertStringContainsString('MP for <em class="current-search-term">Amber</em>', $page);
+        $this->assertStringContainsString('Mary Smith', $page);
     }
 
     /**
@@ -167,8 +167,8 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageConsWithNoMp() {
         $page = $this->fetch_page( array( 'q' => 'Alyn' ) );
-        $this->assertNotContains('MP for <em class="current-search-term">Alyn</em>', $page);
-        $this->assertNotContains('MPs in constituencies matching', $page);
+        $this->assertStringNotContainsString('MP for <em class="current-search-term">Alyn</em>', $page);
+        $this->assertStringNotContainsString('MPs in constituencies matching', $page);
     }
 
     /**
@@ -179,11 +179,11 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageMultipleCons() {
         $page = $this->fetch_page( array( 'q' => 'Liverpool' ) );
-        $this->assertContains('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
-        $this->assertContains('Susan Brown', $page);
-        $this->assertContains('MP, Liverpool, Riverside', $page);
-        $this->assertContains('Andrew Jones', $page);
-        $this->assertContains('MP, Liverpool, Walton', $page);
+        $this->assertStringContainsString('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
+        $this->assertStringContainsString('Susan Brown', $page);
+        $this->assertStringContainsString('MP, Liverpool, Riverside', $page);
+        $this->assertStringContainsString('Andrew Jones', $page);
+        $this->assertStringContainsString('MP, Liverpool, Walton', $page);
     }
 
     /**
@@ -193,8 +193,8 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageGlossary() {
         $page = $this->fetch_page( array( 'q' => 'other place' ) );
-        $this->assertContains('Glossary items matching', $page);
-        $this->assertContains('<a href="/glossary/?gl=1">&ldquo;other place', $page);
+        $this->assertStringContainsString('Glossary items matching', $page);
+        $this->assertStringContainsString('<a href="/glossary/?gl=1">&ldquo;other place', $page);
     }
 
     /**
@@ -204,7 +204,7 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageSpellCorrect() {
         $page = $this->fetch_page( array( 'q' => 'plice' ) );
-        $this->assertContains('Did you mean <a href="/search/?q=place">place', $page);
+        $this->assertStringContainsString('Did you mean <a href="/search/?q=place">place', $page);
     }
 
     /**
@@ -214,8 +214,8 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchBySpeakerNoResults() {
         $page = $this->fetch_page( array( 'q' => 'splice', 'o' => 'p' ) );
-        $this->assertContains('Who says splice the most', $page);
-        $this->assertContains('No results', $page);
+        $this->assertStringContainsString('Who says splice the most', $page);
+        $this->assertStringContainsString('No results', $page);
     }
 
     /**
@@ -241,7 +241,7 @@ class SearchTest extends FetchPageTestCase
      */
     public function testSearchPageRSS() {
         $page = $this->fetch_page( array( 'q' => 'test' ) );
-        $this->assertContains('<a href="/search/rss/?s=test">get an RSS feed', $page);
+        $this->assertStringContainsString('<a href="/search/rss/?s=test">get an RSS feed', $page);
     }
 
 }
