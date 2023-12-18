@@ -25,9 +25,9 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testHome()
     {
         $page = $this->fetch_page('');
-        $this->assertContains('Find out more', $page);
-        $this->assertContains('Create an alert', $page);
-        $this->assertContains('Upcoming', $page);
+        $this->assertStringContainsString('Find out more', $page);
+        $this->assertStringContainsString('Create an alert', $page);
+        $this->assertStringContainsString('Upcoming', $page);
     }
 
     /**
@@ -36,8 +36,8 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testMPList()
     {
         $page = $this->fetch_page('mps');
-        $this->assertContains('All MPs', $page);
-        $this->assertContains('Test Current-MP', $page);
+        $this->assertStringContainsString('All MPs', $page);
+        $this->assertStringContainsString('Test Current-MP', $page);
     }
 
     /**
@@ -46,8 +46,8 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testLordsList()
     {
         $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'peer'));
-        $this->assertContains('All Members of the House of Lords', $page);
-        $this->assertContains('Mr Current-Lord', $page);
+        $this->assertStringContainsString('All Members of the House of Lords', $page);
+        $this->assertStringContainsString('Mr Current-Lord', $page);
     }
 
     /**
@@ -56,9 +56,9 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testMSPList()
     {
         $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'msp'));
-        $this->assertContains('Scottish Parliament', $page);
-        $this->assertContains('All MSPs', $page);
-        $this->assertContains('Test Current-MSP', $page);
+        $this->assertStringContainsString('Scottish Parliament', $page);
+        $this->assertStringContainsString('All MSPs', $page);
+        $this->assertStringContainsString('Test Current-MSP', $page);
     }
 
     /**
@@ -67,9 +67,9 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testMLAList()
     {
         $page = $this->fetch_page('mps', 'index.php', array('representative_type' => 'mla'));
-        $this->assertContains('Northern Ireland Assembly', $page);
-        $this->assertContains('All MLAs', $page);
-        $this->assertContains('Test Current-MLA', $page);
+        $this->assertStringContainsString('Northern Ireland Assembly', $page);
+        $this->assertStringContainsString('All MLAs', $page);
+        $this->assertStringContainsString('Test Current-MLA', $page);
     }
 
     /**
@@ -78,12 +78,12 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testDebatesList()
     {
         $page = $this->fetch_page('', 'section.php', array('type' => 'debates'));
-        $this->assertContains('UK Parliament Hansard Debates', $page);
-        $this->assertContains('Recent House of Commons debates', $page);
-        $this->assertContains('Test Hansard Section', $page);
-        $this->assertContains('Test Hansard Subsection', $page);
-        $this->assertContains('6 speeches', $page);
-        $this->assertContains('Wednesday,  1 January 2014', $page);
+        $this->assertStringContainsString('UK Parliament Hansard Debates', $page);
+        $this->assertStringContainsString('Recent House of Commons debates', $page);
+        $this->assertStringContainsString('Test Hansard Section', $page);
+        $this->assertStringContainsString('Test Hansard Subsection', $page);
+        $this->assertStringContainsString('6 speeches', $page);
+        $this->assertStringContainsString('Wednesday,  1 January 2014', $page);
     }
 
 }

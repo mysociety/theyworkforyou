@@ -4,7 +4,7 @@
 First some things to help make our PHP nicer and betterer
 ********************************************************************************/
 
-error_reporting (E_ALL);
+error_reporting (E_ALL ^ E_DEPRECATED);
 
 /********************************************************************************
 Now some constants that are the same for live and dev versions

@@ -17,7 +17,7 @@ class MemberTest extends TWFY_Database_TestCase
     /**
      * Ensures the database is prepared and the member class is included for every test.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -302,7 +302,7 @@ class MemberTest extends TWFY_Database_TestCase
 
         $this->assertNotTrue($MEMBER->isNew());
 
-        $this->db->query("UPDATE member SET entered_house = NOW() WHERE person_id = 17");
+        self::$db->query("UPDATE member SET entered_house = NOW() WHERE person_id = 17");
 
         // do this to force a reload
         $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => 17));

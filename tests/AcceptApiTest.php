@@ -121,7 +121,7 @@ class AcceptApiTest extends FetchPageTestCase
 
     public function testApiKeySignup() {
         $page = $this->post_page('key');
-        $this->assertContains('Subscribe to a plan', $page);
+        $this->assertStringContainsString('Subscribe to a plan', $page);
         $page = $this->post_page('update-plan', array(
             'plan' => 'twfy-1k',
             'charitable_tick' => 'on',
@@ -131,8 +131,8 @@ class AcceptApiTest extends FetchPageTestCase
         ));
         $this->assertEquals('Location: /api/key?updated=1', $page);
         $page = $this->get_page('key', ['updated' => 1]);
-        $this->assertContains('Your current plan is <strong>Some calls per month</strong>.', $page);
-        $this->assertContains('It costs you £0/month.', $page);
-        $this->assertContains('100% discount applied.', $page);
+        $this->assertStringContainsString('Your current plan is <strong>Some calls per month</strong>.', $page);
+        $this->assertStringContainsString('It costs you £0/month.', $page);
+        $this->assertStringContainsString('100% discount applied.', $page);
     }
 }

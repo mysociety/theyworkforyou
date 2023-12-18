@@ -4,9 +4,9 @@
  * Testing for some functions in utility.php
  */
 
-class UtilityTest extends PHPUnit_Framework_TestCase
+class UtilityTest extends PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         include_once('www/includes/utility.php');
