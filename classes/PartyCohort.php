@@ -395,14 +395,25 @@ class PartyCohort
         from 
             (select
             person_id,
-            REPLACE(COALESCE(party), "/Co-operative", "") as "start_party",
-            GROUP_CONCAT(concat(entered_house,":", left_house)) as "membership_key"
+            REPLACE(COALESCE(m2party), "/Co-operative", "") as "start_party",
+            GROUP_CONCAT(concat(entered_house,":", left_house) ORDER BY entered_house) as "membership_key"
             from
             member
+
+inner join
+(
+select party m2party, person_id m2pid
+from member
+where
+            house = :house and entered_house > :cut_off
+and entered_house = (select min(entered_house) from member m3 where house=:house and entered_house > :cut_off and member.person_id=m3.person_id)
+) m2
+ON member.person_id = m2.m2pid
+
             where
             house = :house and entered_house > :cut_off
             group by person_id
-            order by person_id, entered_house
+            order by person_id
             )as member_periods
         left join 
             (select

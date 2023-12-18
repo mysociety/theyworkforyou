@@ -142,8 +142,8 @@ class Divisions {
         # Fetch any division speech, its subsection gid for the link, and
         # section/subsection bodies to construct a debate title
         $q = $this->db->query(
-            "SELECT eps.body as section_body, epss.body as subsection_body,
-                ss.gid as debate_gid, h.gid, h.hdate, h.major, count(h.gid) AS c
+            "SELECT min(eps.body) as section_body, min(epss.body) as subsection_body,
+                min(ss.gid) as debate_gid, min(h.gid), min(h.hdate), min(h.major), count(h.gid) AS c
             FROM hansard h, hansard ss, epobject eps, epobject epss
             WHERE h.section_id = eps.epobject_id
                 AND h.subsection_id = epss.epobject_id

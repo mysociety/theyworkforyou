@@ -60,7 +60,7 @@ class UserTest extends TWFY_Database_TestCase
             'postcode' => 'EH1 99SP',
             'password' => '',
             'url' => '',
-            'optin' => '',
+            'optin' => 0,
             'user_id' => 1
         ) );
 
@@ -81,7 +81,7 @@ class UserTest extends TWFY_Database_TestCase
             'postcode' => 'EH1 99SP',
             'password' => '',
             'url' => '',
-            'optin' => '',
+            'optin' => 0,
             'user_id' => 1
         ), false );
 
