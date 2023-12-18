@@ -17,7 +17,7 @@ class Memcache {
             if (class_exists('\Memcached')) {
                 self::$memcache = new \Memcached;
                 self::$memcache->addServer(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
-            } else {
+            } elseif (class_exists('\Memcache')) {
                 self::$memcache = new \Memcache;
                 self::$memcache->connect(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
             }
@@ -25,6 +25,9 @@ class Memcache {
     }
 
     public function set($key, $value, $timeout = 3600) {
+        if (!self::$memcache) {
+            return;
+        }
         if (class_exists('\Memcached')) {
             self::$memcache->set(OPTION_TWFY_DB_NAME.':'.$key, $value, $timeout);
         } else {
@@ -37,7 +40,7 @@ class Memcache {
         $was_found = false;
         if (class_exists('\Memcached')) {
             $value = self::$memcache->get(OPTION_TWFY_DB_NAME.':'.$key, null, $was_found);
-        } else {
+        } elseif (class_exists('\Memcache')) {
             $value = self::$memcache->get(OPTION_TWFY_DB_NAME.':'.$key, $was_found);
         }
         if ($was_found === false) {
