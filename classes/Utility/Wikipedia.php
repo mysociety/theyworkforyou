@@ -83,6 +83,13 @@ class Wikipedia
             $params[':phrase' . $i] = $phrase;
         }
 
+        if (!$params) {
+            if ($was_array) {
+                $source = explode('|||', $source);
+            }
+            return $source;
+        }
+
         # Open up a db connection, and whittle our list down even further, against
         # the real titles.
         $matched = array();
