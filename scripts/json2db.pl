@@ -23,10 +23,10 @@ for( @ARGV ){
 use DBI;
 use JSON::XS;
 use LWP::Simple;
+use LWP::UserAgent;
 
-use vars qw($motion_count $policy_count $align_count @policyids);
+use vars qw($motion_count $policy_count $align_count);
 
-require 'policyids.pl';
 my $json = JSON::XS->new->latin1;
 
 my $dsn = 'DBI:mysql:database=' . mySociety::Config::get('TWFY_DB_NAME'). ':host=' . mySociety::Config::get('TWFY_DB_HOST');
@@ -45,13 +45,19 @@ my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FRO
 
 $motion_count = $policy_count = $align_count = 0;
 
+my @policyids = fetch_policies();
+
+my $ua = LWP::UserAgent->new;
+$ua->timeout(10);  # 10 second timeout
+
 foreach my $dreamid ( @policyids ) {
     my $policy_url = mySociety::Config::get('TWFY_VOTES_URL') . '/twfy-compatible/popolo/' . $dreamid . '.json';
-    my $policy_json = get($policy_url);
-    if (!$policy_json) {
+    my $response = $ua->get($policy_url);
+    unless ($response->is_success) {
         warn "no json file for policy $dreamid at $policy_url";
         next;
     }
+    my $policy_json = $response->decoded_content; 
     my $policy = $json->decode($policy_json);
 
     my $curr_policy = $dbh->selectrow_hashref($policycheck, {}, $dreamid);
@@ -70,6 +76,33 @@ foreach my $dreamid ( @policyids ) {
 }
 
 print "parsed $policy_count policies, $motion_count divisions, and $align_count alignments from JSON\n";
+
+# ---
+
+sub fetch_policies {
+    my $policies_url = mySociety::Config::get('TWFY_VOTES_URL') . '/policies/commons/active/all.json';
+    my $policies_json = get($policies_url);
+    my $policies = $json->decode($policies_json);
+
+    my @ids;
+    my $out = {};
+    foreach my $policy (@{$policies->{policies}}) {
+        say "Processing policy $policy->{id} $policy->{name}" if $verbose;
+        push @ids, $policy->{id};
+        foreach (@{$policy->{groups}}) {
+            push @{$out->{sets}{$_->{slug}}}, $policy->{id};
+            $out->{set_descs}{$_->{slug}} = $_->{name};
+        }
+        $out->{policies}{$policy->{id}} = $policy->{context_description};
+    }
+
+    $out = $json->encode($out);
+    open(my $fp, '>', mySociety::Config::get('RAWDATA') . '/scrapedjson/policies.json');
+    $fp->write($out);
+    close $fp;
+
+    return @ids;
+}
 
 sub process_motions {
     my ($aspects, $dreamid) = @_;
