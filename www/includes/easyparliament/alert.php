@@ -228,7 +228,7 @@ class ALERT {
 
     public function send_confirmation_email($details) {
 
-        if (in_array($details['email'], ALERT_NO_EMAIL)) {
+        if (in_array($details['email'], explode(',', ALERT_NO_EMAIL))) {
             return false;
         }
 
