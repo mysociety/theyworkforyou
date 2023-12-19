@@ -32,9 +32,6 @@ scripts/xml2db.pl --debates --wales --scotland --all
 echo 'Importing MP extra info for voting comparison'
 scripts/mpinfoin.pl publicwhip
 
-echo 'Generate party positions on issues'
-php scripts/generate_party_positions.php
-
 echo 'Generate search index'
 search/index.pl all
 echo 'Quick setup completed'

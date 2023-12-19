@@ -43,6 +43,10 @@ my $personinfo_set = $dbh->prepare('INSERT INTO personinfo (person_id, data_key,
 my $personinfo_check = $dbh->prepare("SELECT data_value from personinfo where data_key = ? and person_id = ?");
 my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FROM persondivisionvotes JOIN policydivisions USING (division_id) WHERE policy_id = ? AND person_id = ? AND policy_vote LIKE '%3'");
 
+my $partypolicy_replace = $dbh->prepare("REPLACE INTO partypolicy
+    (party, house, policy_id, score, divisions, date_min, date_max)
+    VALUES (?, 1, ?, ?, ?, ?, ?)");
+
 $motion_count = $policy_count = $align_count = 0;
 
 my @policyids = fetch_policies();
@@ -189,5 +193,16 @@ sub process_alignments {
             my $val = $_->{$term->[1]};
             $personinfo_set->execute($person_id, $pw_id, $val, $val);
         }
+
+        unless ($_->{no_party_comparision}) {
+            my $hash = "$person_id-$_->{comparison_party}";
+            my $divisions = $_->{count_present} + $_->{count_absent};
+            my $start_date = "$_->{start_year}-00-00";
+            my $end_date = "$_->{end_year}-00-00";
+            $partypolicy_replace->execute(
+                $hash, $dreamid, $_->{comparison_distance_from_policy},
+                $divisions, $start_date, $end_date);
+        }
+
     }
 }
