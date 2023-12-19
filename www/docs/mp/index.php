@@ -416,7 +416,12 @@ switch ($pagetype) {
             );
         }
 
-        person_party_policy_diffs($MEMBER, $policiesList, false);
+        person_party_policy_diffs($MEMBER, $policiesList);
+
+        $data['sorted_diffs_only'] = array_filter(
+            $data['sorted_diffs'],
+            function($k) { return $k['score_difference'] >= 2; }
+        );
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
@@ -470,8 +475,6 @@ switch ($pagetype) {
 
         // Generate limited voting record list
         $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, $policyOptions);
-
-        person_party_policy_diffs($MEMBER, $policiesList, true);
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -1150,7 +1153,7 @@ function policy_image($data, $MEMBER, $format) {
 }
 
 // generate party policy diffs
-function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
+function person_party_policy_diffs($MEMBER, $policiesList) {
     global $data;
 
     $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
@@ -1166,6 +1169,6 @@ function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER, [
         'summaries' => $policySummaries,
     ]);
-    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions, $only_diffs);
+    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions);
     $data['sorted_diffs'] = $policy_diffs;
 }

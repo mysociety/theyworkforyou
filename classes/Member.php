@@ -472,7 +472,7 @@ class Member extends \MEMBER {
         }
     }
 
-    public function getPartyPolicyDiffs($partyCohort, $policiesList, $positions, $only_diffs = false) {
+    public function getPartyPolicyDiffs($partyCohort, $policiesList, $positions) {
         $policy_diffs = array();
         $party_positions = $partyCohort->getAllPolicyPositions($policiesList);
 
@@ -495,10 +495,6 @@ class Member extends \MEMBER {
 
                 $score_diff = $this->calculatePolicyDiffScore($mp_score, $party_score);
 
-                // skip anything that isn't a yes vs no diff
-                if ( $only_diffs && $score_diff < 2 ) {
-                    continue;
-                }
                 $policy_diffs[$policy_id] = [
                     'policy_text' => $details['policy'],
                     'score_difference' => $score_diff,

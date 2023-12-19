@@ -5,10 +5,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 // it'll display a banner with the MPs stats, assuming we have them for the
 // year
 $display_wtt_stats_banner = '2015';
-
-# fetch covid_policy_list
-$policies_obj = new MySociety\TheyWorkForYou\Policies();
-$covid_policy_list = $policies_obj->getCovidAffected();
 ?>
 
 <div class="full-page">
@@ -29,9 +25,6 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                        <?php if (count($policyPositions->positions) > 0): ?>
-                          <li><a href="#votes"><?= gettext('Votes') ?></a></li>
-                        <?php endif; ?>
                         <?php if (count($recent_appearances['appearances'])): ?>
                           <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
                         <?php endif; ?>
@@ -68,137 +61,6 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                   <?php } ?>
                 </div>
               <?php endif; ?>
-
-                <?php if ( !$current_member[HOUSE_TYPE_COMMONS] ) { ?>
-                    <?php if (count($policyPositions->positions) > 0) { ?>
-                    <div class="panel">
-                        <a name="votes"></a>
-                        <h2>A selection of <?= $full_name ?>&rsquo;s votes</h2>
-
-                        <p><a href="<?= $member_url ?>/votes">See full list of topics voted on</a></p>
-
-                        <ul class="vote-descriptions">
-                          <?php foreach ($policyPositions->positions as $key_vote) {
-                            $policy_id = $key_vote['policy_id'];
-                            $covid_affected = in_array($policy_id, $covid_policy_list);
-                            $description = ucfirst($key_vote['desc']);
-                            $link = sprintf(
-                                '%s/divisions?policy=%s',
-                                $member_url,
-                                $key_vote['policy_id']
-                            );
-                            $link_text = ($key_vote['position'] != 'has never voted on') ? 'Show votes' : 'Details';
-
-                            include '_vote_description.php';
-
-                          } ?>
-                        </ul>
-
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
-
-                    </div>
-                    <?php } ?>
-                <?php } else if (count($policyPositions->positions) > 0 || count($sorted_diffs) > 0): ?>
-                <div class="panel">
-                    <a name="votes"></a>
-                    <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
-
-                    <?php if (count($sorted_diffs) > 0 && $party_member_count > 1): ?>
-
-                        <p>
-                        <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
-                        </p>
-
-                        <p>
-                        However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
-                        </p>
-
-                        <ul class="vote-descriptions">
-                          <?php foreach ($sorted_diffs as $policy_id => $diff) {
-
-                            $key_vote = $diff;
-                            $covid_affected = in_array($policy_id, $covid_policy_list);
-                            $policy_desc = strip_tags($key_vote['policy_text']);
-                            $policy_direction = $key_vote["person_position"];
-                            $policy_group = "highlighted";
-                            $party_score_difference = $key_vote["score_difference"];
-                            $party_position = $key_vote['party_position'] ;
-                            $comparison_party = $data["comparison_party"];
-                            $current_party_comparison = $data["current_party_comparison"];
-                            $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
-                            $description = sprintf(
-                                '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
-                                $full_name,
-                                $diff['person_position'],
-                                strip_tags($diff['policy_text']),
-                                $comparison_party,
-                                $diff['party_position']
-                            );
-                            $link = $member_url . '/divisions?policy=' . $policy_id;
-                            $link_text = 'Show votes';
-
-                            include '_vote_description.php';
-
-                          } ?>
-                        </ul>
-
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
-
-                    <?php elseif (count($policyPositions->positions) > 0 ): ?>
-                        <?php if (count($party_positions) && $party_member_count > 1) { ?>
-                            <?php if ($current_party_comparison <> $comparison_party){ ?> 
-                                <p>
-                                    <?= $full_name ?> is a <?= $party ?> MP, but has changed parties or become independent.
-                                </p>
-                                <p>
-                                    Compared to their original party (<?= $comparison_party ?>), for the <b>vast majority</b> of issues they have voted in the <b>same way</b> as other <?= $comparison_party ?> MPs.
-                                </p>
-
-                                <?php } else { ?>
-                                <p>
-                                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
-                                </p>
-
-                            <?php } ?>
-                        <?php } ?>
-
-                        <p>
-                            This is a random selection of <?= $full_name ?>&rsquo;s votes.
-                        </p>
-
-                        <ul class="vote-descriptions">
-                          <?php foreach ($policyPositions->positions as $key_vote) {
-                            
-                            $policy_id = $key_vote['policy_id'];
-                            $covid_affected = in_array($policy_id, $covid_policy_list);                            $description = ucfirst($key_vote['desc']);
-                            $link = sprintf(
-                                '%s/divisions?policy=%s',
-                                $member_url,
-                                $key_vote['policy_id']
-                            );
-                            $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
-
-                            include '_vote_description.php';
-
-                          } ?>
-                        </ul>
-
-                        <p class="voting-information-provenance">
-                            Last updated: <?= format_date($policy_last_update['latest'], SHORTDATEFORMAT) ?>.
-                            <a href="/voting-information">Learn more about our voting records and what they mean.</a>
-                        </p>
-
-                        <p>We have <b>lots more</b> plain English analysis of <?= $full_name ?>&rsquo;s voting record  on issues like health, welfare, taxation and more. Visit <a href="<?= $member_url ?>/votes"><?= $full_name ?>&rsquo;s full vote analysis page</a> for more.</p>
-                    <?php elseif (count($policyPositions->positions) == 0 ): ?>
-
-                        <p>No votes to display.</p>
-
-                    <?php endif; ?>
-
-                    <p><?= $full_name ?> <?= $rebellion_rate ?></p>
-
-                </div>
-                <?php endif; ?>
 
                 <?php if (count($recent_appearances['appearances'])): ?>
                 <div class="panel">

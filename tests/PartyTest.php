@@ -364,7 +364,6 @@ class PartyTest extends FetchPageTestCase
         }
     }
 
-
     public function testMPPartyPolicyTextWhenDiffers()
     {
         // Checks that an MP that differs from party gets the 'sometimes differs from their party' on the profile page
@@ -372,7 +371,15 @@ class PartyTest extends FetchPageTestCase
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
         $page = $this->fetch_page(array('pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency'));
         $this->assertStringContainsString('Test MP G Party 1', $page);
+    }
+
+    public function testMPPartyPolicyTextWhenDiffersVotes()
+    {
+        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
+        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
+        $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency/votes'));
         $this->assertStringContainsString('is a G Party MP', $page);
+        $this->assertStringContainsString('Test MP G Party 1', $page);
         $this->assertStringContainsString('sometimes <b>differs</b> from their party', $page);
     }
 
@@ -386,38 +393,13 @@ class PartyTest extends FetchPageTestCase
         $this->assertStringNotContainsString('is a B Party MP', $page);
     }
 
-    public function testMPPartyPolicyWherePartyMissingPositions()
+    public function testCrossPartyDisclaimer()
     {
-        // When an MP has votes, but there is no broader party policy to compare it to
-        // this goes down a funnel that shows the votes, but does not make the comparison to party.
+        // Test if the cross party disclaimer is there
         MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
         MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
-        $page = $this->fetch_page(array('pid' => 4, 'url' => '/mp/4/test_mp_d/test_westminster_constituency'));
-        $this->assertStringContainsString('Test MP D', $page);
-        $this->assertStringContainsString('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
-        $this->assertStringContainsString('<li class="vote-description"', $page);
-        $this->assertStringNotContainsString('comparable B Party MPs voted', $page);
+        $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
+        $this->assertStringContainsString('Test MP G', $page);
+        $this->assertStringContainsString('In the votes below they are compared to their original party', $page);
     }
-
-    public function testMPPartyPolicyTextWhenAgrees()
-    {
-        // Test when an MP mostly agrees with their party, as MP G Party 2 does with party G
-        MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
-        MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
-        $page = $this->fetch_page(array('pid' => 16, 'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency'));
-        $this->assertStringContainsString('Test MP G Party 2', $page);
-
-        $this->assertStringContainsString('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
-    }
-
-
-public function testCrossPartyDisclaimer()
-{
-    // Test if the cross party disclaimer is there
-    MySociety\TheyWorkForYou\PartyCohort::populateCohorts();
-    MySociety\TheyWorkForYou\PartyCohort::calculatePositions();
-    $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_mp_g/test_westminster_constituency/votes'));
-    $this->assertStringContainsString('Test MP G', $page);
-    $this->assertStringContainsString('In the votes below they are compared to their original party', $page);
-}
 }
