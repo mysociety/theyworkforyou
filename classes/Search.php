@@ -75,6 +75,9 @@ class Search {
         if (preg_match('#\.\..*?\.\.#', $this->searchstring)) {
             $warning = gettext('You cannot search for more than one date range.');
         }
+        if (preg_match('#\S{256}#', $this->searchstring)) {
+            $warning = gettext('Maximum term length is 255 characters.');
+        }
 
         return $warning;
     }
