@@ -3355,8 +3355,8 @@ class StandingCommittee extends DEBATELIST {
             'order' => 'hdate,hpos'
         );
         $sections = $this->_get_hansard_data($input);
+        $data['rows'] = array();
         if (count($sections) > 0) {
-            $data['rows'] = array();
             $num_sections = count($sections);
             for ($n=0; $n<$num_sections; $n++) {
                 $sectionrow = $sections[$n];
