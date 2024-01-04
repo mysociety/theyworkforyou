@@ -59,7 +59,16 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <p>When <?= $full_name ?> starts to vote on bills, that information will appear on this page.</p>
                 </div>
                 <?php endif; ?>
+                <?php if ($current_member[HOUSE_TYPE_COMMONS] && count($sorted_diffs_only) == 0 && $party_member_count > 1) { ?>
+                <div class="panel">
+                    <a name="votes"></a>
+                    <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
+                    <p>
+                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                    </p>
+                </div>
+                <?php } ?>
                 <?php if ($current_member[HOUSE_TYPE_COMMONS] && count($sorted_diffs_only) > 0 && $party_member_count > 1) { ?>
                 <div class="panel">
                     <a name="votes"></a>
