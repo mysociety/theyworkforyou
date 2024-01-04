@@ -55,6 +55,7 @@ my $ua = LWP::UserAgent->new;
 $ua->timeout(10);  # 10 second timeout
 
 foreach my $dreamid ( @policyids ) {
+    say "fetching data for $dreamid" if $verbose;
     my $policy_url = mySociety::Config::get('TWFY_VOTES_URL') . '/twfy-compatible/popolo/' . $dreamid . '.json';
     my $response = $ua->get($policy_url);
     unless ($response->is_success) {
