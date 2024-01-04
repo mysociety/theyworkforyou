@@ -35,9 +35,9 @@ my $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::
 my $policycheck = $dbh->prepare("SELECT policy_id from policies where policy_id = ?");
 my $policyadd = $dbh->prepare("INSERT INTO policies (policy_id, title, description) VALUES (?, ?, ?)");
 
-my $motioncheck = $dbh->prepare("SELECT direction, policy_vote FROM policydivisions WHERE division_id = ? AND policy_id = ?");
-my $motionadd = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, direction, policy_vote) VALUES (?, ?, ?, ?)");
-my $motionupdate = $dbh->prepare("UPDATE policydivisions SET direction = ?, policy_vote = ? WHERE division_id = ? AND policy_id = ?");
+my $policydivision_check = $dbh->prepare("SELECT direction, policy_vote FROM policydivisions WHERE division_id = ? AND policy_id = ?");
+my $policydivision_add = $dbh->prepare("INSERT INTO policydivisions (division_id, policy_id, direction, policy_vote) VALUES (?, ?, ?, ?)");
+my $policydivision_update = $dbh->prepare("UPDATE policydivisions SET direction = ?, policy_vote = ? WHERE division_id = ? AND policy_id = ?");
 
 my $personinfo_set = $dbh->prepare('INSERT INTO personinfo (person_id, data_key, data_value) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE data_value=?');
 my $personinfo_check = $dbh->prepare("SELECT data_value from personinfo where data_key = ? and person_id = ?");
@@ -69,8 +69,8 @@ foreach my $dreamid ( @policyids ) {
 
     $policy_count++;
 
-    say "processing motions for $dreamid" if $verbose;
-    process_motions($policy->{aspects}, $dreamid);
+    say "processing policydivisions for $dreamid" if $verbose;
+    process_policydivisions($policy->{aspects}, $dreamid);
     say "processing alignments for $dreamid" if $verbose;
     process_alignments($policy->{alignments}, $dreamid);
 }
@@ -104,7 +104,7 @@ sub fetch_policies {
     return @ids;
 }
 
-sub process_motions {
+sub process_policydivisions {
     my ($aspects, $dreamid) = @_;
     # Set AutoCommit off
     $dbh->{AutoCommit} = 0;
@@ -116,13 +116,13 @@ sub process_motions {
         my $motion_id = $motion->{motion}->{id};
 
         my $curr_motion;
-        $curr_motion = $dbh->selectrow_hashref($motioncheck, {}, $motion_id, $dreamid);
+        $curr_motion = $dbh->selectrow_hashref($policydivision_check, {}, $motion_id, $dreamid);
         if ($curr_motion) {
             $curr_motion->{direction} ||= '';
         }
 
         if ( !defined $curr_motion ) {
-            my $r = $motionadd->execute($motion_id, $dreamid, $motion->{direction}, $motion->{motion}->{policy_vote});
+            my $r = $policydivision_add->execute($motion_id, $dreamid, $motion->{direction}, $motion->{motion}->{policy_vote});
             unless ( $r > 0 ) {
                 warn "problem creating policydivision for $motion_id / $dreamid, skipping motions\n";
                 next;
@@ -130,7 +130,7 @@ sub process_motions {
         } elsif ( $motion->{direction} ne $curr_motion->{direction} ||
                   $motion->{motion}->{policy_vote} ne $curr_motion->{policy_vote}
         ) {
-            my $r = $motionupdate->execute($motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
+            my $r = $policydivision_update->execute($motion->{direction}, $motion->{motion}->{policy_vote}, $motion_id, $dreamid);
             unless ( $r > 0 ) {
                 warn "problem updating policydivision $motion_id / $dreamid from $curr_motion->{direction} to $motion->{direction}\n";
             }
