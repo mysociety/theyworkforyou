@@ -178,6 +178,8 @@ sub process_policydivisions {
 
 sub process_alignments {
     my ($alignments, $dreamid) = @_;
+    # Set AutoCommit off
+    $dbh->{AutoCommit} = 0;
     foreach (@$alignments) {
         $align_count++;
         say $align_count if $verbose && $align_count % 100 == 0;
@@ -206,4 +208,7 @@ sub process_alignments {
         }
 
     }
+    $dbh->commit();
+    # Set AutoCommit on
+    $dbh->{AutoCommit} = 1;
 }
