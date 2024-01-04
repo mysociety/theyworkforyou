@@ -1,3 +1,5 @@
+# TheyWorkForYou 
+
 Hello everyone,
 
 This is the source code that powers the TheyWorkForYou.com website. It's
@@ -49,7 +51,11 @@ To use xdebug in VS Code while using WSL, you'll need to set an environmental va
  
 # Developing with codespaces
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/mysociety/theyworkforyou?devcontainer_path=.devcontainer%2Fauto-quick-setup%2Fdevcontainer.json)
+
 Start a new codespace on Github by selecting the Code dropdown (top right), and starting a new codespace (or use the [GitHub CLI](https://github.com/cli/cli)).
+
+You can also use the badge above to use a prebuild with a basic amount of data.
 
 This will setup the Docker container and environment. Once finished, the link to the site should be avaliable in the ports tab of the terminal panel. 
 
