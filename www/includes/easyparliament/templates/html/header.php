@@ -109,9 +109,9 @@
 
     <header class="site-header">
         <div class="site-header__row">
-            <a href="https://www.mysociety.org/about/anniversary" id="mysociety-badge" aria-label="20 years of mySociety">
-              <img class="badge-desktop" src="/style/img/badge-mysociety-desktop@2x.png" width="60" height="80" alt="20 years of mySociety">
-              <img class="badge-mobile" src="/style/img/badge-mysociety-mobile@2x.png" width="48" height="60" alt="20 years of mySociety">
+            <a href="https://www.mysociety.org/" id="mysociety-badge" aria-label="A service from mySociety">
+              <img class="badge-desktop" src="/style/img/badge-mysociety-desktop@2x.png" width="60" height="80" alt="A service from mySociety">
+              <img class="badge-mobile" src="/style/img/badge-mysociety-mobile@2x.png" width="48" height="60" alt="A service from mySociety">
             </a>
             <h1 class="site-header__logo">
                 <?php if (LANGUAGE == 'cy') { ?>
