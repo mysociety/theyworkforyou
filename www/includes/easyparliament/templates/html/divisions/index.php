@@ -46,6 +46,15 @@
 
                     <p><?= gettext('This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament.') ?></p>
 
+                    <p><?= gettext('Only show votes from:') ?></p>
+                    <ul>
+                        <li><a href="?house=commons"><?= gettext('House of Commons') ?></a>
+                        <li><a href="?house=lords"><?= gettext('House of Lords') ?></a>
+                        <li><a href="?house=pbc"><?= gettext('Public Bill Committees') ?></a>
+                        <li><a href="?house=scotland"><?= gettext('Scottish Parliament') ?></a>
+                        <li><a href="?house=senedd"><?= gettext('Senedd') ?></a>
+                    </ul>
+
                     <p class="voting-information-provenance">
                         <?= gettext('Some vote information from <a href="https://www.publicwhip.org.uk/">PublicWhip</a>.') ?>
                         <?= gettext('Last updated:') ?> <?= $last_updated ?>.

@@ -10,8 +10,9 @@ if ($THEUSER->postcode_is_set()) {
     $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
 }
 
+$houses = get_http_var('house', '', true);
 $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-$data = $divisions->getRecentDivisions(30);
+$data = $divisions->getRecentDivisions(30, $houses);
 
 if (isset($MEMBER)) {
     $data['mp_name'] = ucfirst($MEMBER->full_name());

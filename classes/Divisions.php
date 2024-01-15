@@ -61,24 +61,27 @@ class Divisions {
      */
     public function getRecentDivisions($number = 20, $houses = null) {
         $select = '';
-        $where = '';
         $order = 'ORDER BY division_date DESC, division_number DESC';
         $limit = 'LIMIT :count';
         $params = array(
             ':count' => $number
         );
 
-        if ( is_string($houses) ) {
-            $houses = array( $houses );
+        $where = [];
+        if ($houses) {
+            if ( is_string($houses) ) {
+                $houses = array( $houses );
+            }
+            $where[] = 'house IN ("' . implode('", "', $houses) . '")';
         }
-
-        if ( is_array($houses) && count($houses) > 0 ) {
-            $where = 'WHERE house IN ("' . implode('", "', $houses) . '")';
-        } elseif (LANGUAGE == 'cy') {
-            $where = "WHERE divisions.division_id NOT LIKE '%-en-%'";
-        } else {
-            $where = "WHERE divisions.division_id NOT LIKE '%-cy-%'";
+        if (!$houses || in_array('senedd', $houses)) {
+            if (LANGUAGE == 'cy') {
+                $where[] = "divisions.division_id NOT LIKE '%-en-%'";
+            } else {
+                $where[] = "divisions.division_id NOT LIKE '%-cy-%'";
+            }
         }
+        $where = 'WHERE ' . join(' AND ', $where);
 
         if ( $this->member ) {
             $select = "SELECT divisions.*, vote FROM divisions
