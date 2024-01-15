@@ -593,7 +593,7 @@ sub check_extra_gids
                     $epdelete->execute($gid);
                     $hdeletegid->execute($gid);
                     $grdeletegid->execute($gid);
-                    print "FORCED deleting $gid from db, wasn't in XML\n";
+                    print "FORCED deleting $gid from db, wasn't in XML\n" unless $gid =~ /senedd/;
                 }
             }
             else {
