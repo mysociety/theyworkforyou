@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-05 12:13+0100\n"
+"POT-Creation-Date: 2024-01-16 13:13+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -39,18 +39,19 @@ msgstr "Mae'n ymddangos bod y chwiliad hwnnw'n annilys -  %s - gwiriwch a cheisi
 msgid "That search is too long for our database; please split it up into multiple smaller alerts."
 msgstr "Mae'r chwiliad hwnnw'n rhy hir i'n cronfa ddata;  os gwelwch yna dda rhannwch i nifer o hysbysiadau llai."
 
-#: classes/Divisions.php:525
+#: classes/Divisions.php:528
 #, php-format
 msgid "voted %s"
 msgstr "wedi pleidleisio %s"
 
-#: classes/Divisions.php:527
+#: classes/Divisions.php:530
 #, php-format
 msgid "voted %s on <em>%s</em>"
 msgstr "Fe wnaeth pleidleisio  % s ar <em>%s</EM>"
 
 #: classes/Member.php:403 classes/Member.php:415
 #: www/includes/easyparliament/member.php:31
+#: www/includes/easyparliament/templates/html/divisions/index.php:52
 msgid "House of Lords"
 msgstr "Tŷ'r Arglwyddi"
 
@@ -61,6 +62,7 @@ msgstr "Yn flaenorol AS am %s tan %s"
 
 #: classes/Member.php:423 classes/Member.php:427
 #: www/includes/easyparliament/member.php:30
+#: www/includes/easyparliament/templates/html/divisions/index.php:51
 msgid "House of Commons"
 msgstr "Tŷ'r Cyffredin"
 
@@ -71,12 +73,14 @@ msgstr "Cynulliad"
 #: classes/Member.php:432 classes/Member.php:433
 #: www/includes/easyparliament/hansardlist.php:1225
 #: www/includes/easyparliament/member.php:33
+#: www/includes/easyparliament/templates/html/divisions/index.php:54
 #: www/includes/easyparliament/templates/html/search/form_options.php:68
 msgid "Scottish Parliament"
 msgstr "Senedd yr Alban"
 
 #: classes/Member.php:434 classes/Member.php:435
 #: www/includes/easyparliament/member.php:34
+#: www/includes/easyparliament/templates/html/divisions/index.php:55
 msgid "Senedd"
 msgstr "Senedd"
 
@@ -165,27 +169,31 @@ msgstr "Ni allwch chwilio am ystod dyddiad yn unig, dewiswch rai meini prawf era
 msgid "You cannot search for more than one date range."
 msgstr "Ni allwch chwilio am fwy nag un ystod o ddyddiadau."
 
-#: classes/User.php:165
+#: classes/Search.php:79
+msgid "Maximum term length is 255 characters."
+msgstr ""
+
+#: classes/User.php:196
 msgid "Please enter a password"
 msgstr "Rhowch eich cyfrinair"
 
-#: classes/User.php:168 classes/User.php:184
+#: classes/User.php:199 classes/User.php:215
 msgid "Please enter at least six characters"
 msgstr "Mae angen o leiaf chwe mewnbwn"
 
-#: classes/User.php:172
+#: classes/User.php:203
 msgid "Please enter a password again"
 msgstr "Nodwch eich cyfrinair eto"
 
-#: classes/User.php:176 classes/User.php:188
+#: classes/User.php:207 classes/User.php:219
 msgid "The passwords did not match. Please try again."
 msgstr "Mae’n rhaid i’r cyfrineiriau fod yr un fath. Ceisiwch eto os gwelwch yn dda."
 
-#: classes/User.php:196
+#: classes/User.php:227
 msgid "Sorry, this isn't a valid UK postcode."
 msgstr "Mae'n ddrwg gennym, nid yw hwn yn gôd post dilys"
 
-#: classes/User.php:204
+#: classes/User.php:235
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr "Mae'n ddrwg gennym, ni allwn ddod o hyd i AS ar gyfer y côd post hwnnw."
 
@@ -471,6 +479,7 @@ msgid "Northern Ireland Assembly debates"
 msgstr "Dadleuon Cynulliad Gogledd Iwerddon"
 
 #: scripts/alertmailer.php:137
+#: www/includes/easyparliament/templates/html/divisions/index.php:53
 msgid "Public Bill committees"
 msgstr "Pwyllgorau Mesur Cyhoeddus"
 
@@ -764,12 +773,12 @@ msgstr "Dadl"
 msgid "debates"
 msgstr "dadleuon"
 
-#: www/includes/easyparliament/alert.php:462
+#: www/includes/easyparliament/alert.php:466
 #, php-format
 msgid "Mentions of [%s]"
 msgstr "Sôn am [%s]"
 
-#: www/includes/easyparliament/alert.php:465
+#: www/includes/easyparliament/alert.php:469
 #, php-format
 msgid "Things by %s"
 msgstr "Pethau gan %s"
@@ -824,7 +833,7 @@ msgstr "Cynulliad Gogledd Iwerddon"
 msgid "Public Bill Committee"
 msgstr "Pwyllgor Mesur Cyhoeddus"
 
-#: www/includes/easyparliament/hansardlist.php:2439
+#: www/includes/easyparliament/hansardlist.php:2441
 msgid "See the whole debate"
 msgstr "Gweler yr holl ddadl"
 
@@ -972,7 +981,7 @@ msgstr "Mae ymuno yn rhad ac am ddim ac yn caniatáu ichi reoli eich hysbysiadau
 
 #: www/includes/easyparliament/metadata.php:983
 #: www/includes/easyparliament/templates/html/user/join.php:9
-#: www/includes/easyparliament/templates/html/user/join.php:114
+#: www/includes/easyparliament/templates/html/user/join.php:129
 msgid "Join TheyWorkForYou"
 msgstr "Ymunwch â TheyWorkForYou"
 
@@ -1541,15 +1550,19 @@ msgstr "Beth yw hwn?"
 msgid "This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament."
 msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Dŷ'r Cyffredin, Tŷ'r Arglwyddi, Pwyllgorau Cyhoeddus, Seneddau Cymru a’r Alban."
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:50
+#: www/includes/easyparliament/templates/html/divisions/index.php:49
+msgid "Only show votes from:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:59
 msgid "Some vote information from <a href=\"https://www.publicwhip.org.uk/\">PublicWhip</a>."
 msgstr "Mae rhywfaint o wybodaeth pleidleisio gan <a href=\"https://www.publicwhip.org.uk/\">PublicWhip</a>."
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:51
+#: www/includes/easyparliament/templates/html/divisions/index.php:60
 msgid "Last updated:"
 msgstr "Diweddarwyd ddiwethaf:"
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:52
+#: www/includes/easyparliament/templates/html/divisions/index.php:61
 msgid "Learn more about our voting records and what they mean."
 msgstr "Dysgwch fwy am ein  cofnodion pleidleisio a'r hyn maen nhw'n ei olygu."
 
@@ -1696,7 +1709,7 @@ msgstr "Dangos yr holl  bleidleisiau diweddar"
 
 #: www/includes/easyparliament/templates/html/mp/divisions.php:24
 #: www/includes/easyparliament/templates/html/mp/profile.php:30
-#: www/includes/easyparliament/templates/html/mp/recent.php:66
+#: www/includes/easyparliament/templates/html/mp/recent.php:65
 #: www/includes/easyparliament/templates/html/mp/votes.php:19
 msgid "Browse content"
 msgstr "Pori cynnwys"
@@ -1832,7 +1845,7 @@ msgstr "Gwybodaeth bleidleisio o <a href=\"%s\">Chwip Cyhoeddus</a>."
 msgid "Profile photo:"
 msgstr "Llun proffil:"
 
-#: www/includes/easyparliament/templates/html/mp/recent.php:57
+#: www/includes/easyparliament/templates/html/mp/recent.php:56
 msgid "This person has not voted recently."
 msgstr "Nid yw'r person yma wedi pleidleisio'n ddiweddar."
 
@@ -2270,6 +2283,7 @@ msgid "Recent %s"
 msgstr "%s diweddar"
 
 #: www/includes/easyparliament/templates/html/section/_business_section.php:30
+#: www/includes/easyparliament/templates/html/section/pbc_index.php:45
 #, php-format
 msgid "RSS feed of %s"
 msgstr "Porthiant RSS o %s"
@@ -2637,7 +2651,7 @@ msgid "We use this to show you information about your MP."
 msgstr "Rydym yn defnyddio hyn i ddangos gwybodaeth i chi am eich AS."
 
 #: www/includes/easyparliament/templates/html/user/form.php:29
-#: www/includes/easyparliament/templates/html/user/form.php:176
+#: www/includes/easyparliament/templates/html/user/form.php:192
 msgid "Update details"
 msgstr "Diweddaru manylion"
 
@@ -2678,8 +2692,8 @@ msgstr "Eich gwefan:"
 msgid "Optional and public"
 msgstr "Dewisol a chyhoeddus"
 
-#: www/includes/easyparliament/templates/html/user/form.php:161
-#: www/includes/easyparliament/templates/html/user/join.php:89
+#: www/includes/easyparliament/templates/html/user/form.php:165
+#: www/includes/easyparliament/templates/html/user/join.php:92
 msgid "Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"
 msgstr "Ydych chi am dderbyn y cylchlythyr misol gan mySociety, gyda newyddion am TheyWorkForYou a'n prosiectau eraill?"
 
@@ -2710,11 +2724,11 @@ msgstr "Mae ymuno â TheyWorkForYou yn ei gwneud hi'n haws i reoli eich hysbysia
 msgid "Already joined? <a href=\"/user/login/\">Then sign in!</a>"
 msgstr "Eisoes wedi ymuno? <a href=\"/user/login/\">Yna mewngofnodwch!</a>"
 
-#: www/includes/easyparliament/templates/html/user/join.php:104
+#: www/includes/easyparliament/templates/html/user/join.php:119
 msgid "Would you like to receive email updates on your MP&rsquo;s activity in Parliament?"
 msgstr "Hoffech chi dderbyn diweddariadau e-bost am weithgarwch eich Aelod Seneddol yn Senedd San Steffan?"
 
-#: www/includes/easyparliament/templates/html/user/join.php:105
+#: www/includes/easyparliament/templates/html/user/join.php:120
 msgid "(if you&rsquo;re already getting email alerts to your address, don&rsquo;t worry about this)"
 msgstr "(Os ydych eisoes yn derbyn hysbysiadau e-bost, peidiwch â phoeni am hyn)"
 

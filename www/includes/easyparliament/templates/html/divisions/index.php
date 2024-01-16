@@ -50,7 +50,7 @@
                     <ul>
                         <li><a href="?house=commons"><?= gettext('House of Commons') ?></a>
                         <li><a href="?house=lords"><?= gettext('House of Lords') ?></a>
-                        <li><a href="?house=pbc"><?= gettext('Public Bill Committees') ?></a>
+                        <li><a href="?house=pbc"><?= gettext('Public Bill committees') ?></a>
                         <li><a href="?house=scotland"><?= gettext('Scottish Parliament') ?></a>
                         <li><a href="?house=senedd"><?= gettext('Senedd') ?></a>
                     </ul>
