@@ -14,6 +14,7 @@ sed -r \
     -e 's!^(.*"OPTION_TWFY_DB_PASS", *)"[^"]*"!'"\\1'password'!" \
     -e 's!^(.*"OPTION_TWFY_DB_NAME", *)"[^"]*"!'"\\1'twfy'!" \
     -e 's!^(.*"OPTION_TWFY_MEMCACHED_HOST", *)"[^"]*"!'"\\1'memcache'!" \
+    -e 's!^(.*"TWFY_VOTES_URL", *)"[^"]*"!'"\\1'$TWFY_VOTES_URL'!" \
     -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'/twfy/www/docs'!" \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \

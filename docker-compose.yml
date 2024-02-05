@@ -23,6 +23,7 @@ services:
       TWFY_TEST_DB_NAME: twfy
       TWFY_TEST_DB_USER: twfy
       TWFY_TEST_DB_PASS: password
+      TWFY_VOTES_URL: ${TWFY_VOTES_URL}
       DEV_MODE: 'true'
       WSL_IP:
     ports:
