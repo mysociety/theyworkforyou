@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-16 13:13+0000\n"
+"POT-Creation-Date: 2024-02-06 16:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,38 +50,38 @@ msgid ""
 "smaller alerts."
 msgstr ""
 
-#: classes/Divisions.php:528
+#: classes/Divisions.php:529
 #, php-format
 msgid "voted %s"
 msgstr ""
 
-#: classes/Divisions.php:530
+#: classes/Divisions.php:531
 #, php-format
 msgid "voted %s on <em>%s</em>"
 msgstr ""
 
-#: classes/Member.php:403 classes/Member.php:415
+#: classes/Member.php:390 classes/Member.php:402
 #: www/includes/easyparliament/member.php:31
 #: www/includes/easyparliament/templates/html/divisions/index.php:52
 msgid "House of Lords"
 msgstr ""
 
-#: classes/Member.php:407
+#: classes/Member.php:394
 #, php-format
 msgid "Previously MP for %s until %s"
 msgstr ""
 
-#: classes/Member.php:423 classes/Member.php:427
+#: classes/Member.php:410 classes/Member.php:414
 #: www/includes/easyparliament/member.php:30
 #: www/includes/easyparliament/templates/html/divisions/index.php:51
 msgid "House of Commons"
 msgstr ""
 
-#: classes/Member.php:430 classes/Member.php:431
+#: classes/Member.php:417 classes/Member.php:418
 msgid "Assembly"
 msgstr ""
 
-#: classes/Member.php:432 classes/Member.php:433
+#: classes/Member.php:419 classes/Member.php:420
 #: www/includes/easyparliament/hansardlist.php:1225
 #: www/includes/easyparliament/member.php:33
 #: www/includes/easyparliament/templates/html/divisions/index.php:54
@@ -89,34 +89,34 @@ msgstr ""
 msgid "Scottish Parliament"
 msgstr ""
 
-#: classes/Member.php:434 classes/Member.php:435
+#: classes/Member.php:421 classes/Member.php:422
 #: www/includes/easyparliament/member.php:34
 #: www/includes/easyparliament/templates/html/divisions/index.php:55
 msgid "Senedd"
 msgstr ""
 
-#: classes/Member.php:436 classes/Member.php:437
+#: classes/Member.php:423 classes/Member.php:424
 #: www/includes/easyparliament/member.php:35
 #: www/includes/easyparliament/templates/html/search/form_options.php:76
 msgid "London Assembly"
 msgstr ""
 
-#: classes/Member.php:447
+#: classes/Member.php:434
 #, php-format
 msgid "Entered the %s in %s"
 msgstr ""
 
-#: classes/Member.php:449
+#: classes/Member.php:436
 #, php-format
 msgid "Entered the %s on %s"
 msgstr ""
 
-#: classes/Member.php:463
+#: classes/Member.php:450
 #, php-format
 msgid "Left the %s in %s"
 msgstr ""
 
-#: classes/Member.php:465
+#: classes/Member.php:452
 #, php-format
 msgid "Left the %s on %s"
 msgstr ""
@@ -2870,6 +2870,16 @@ msgstr ""
 
 #: www/includes/easyparliament/templates/html/user/form.php:122
 msgid "Optional and public"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/user/form.php:163
+msgid "Can we send you occasional emails about TheyWorkForYou.com?"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/user/form.php:164
+msgid ""
+"Do you want to receive our newsletter about our wider democracy work, "
+"including our research and campaigns?"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/user/form.php:165

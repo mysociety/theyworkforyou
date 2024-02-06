@@ -160,8 +160,8 @@
 
                 <?php
                 $optin_options = array(
-                    "optin_service" => "Do you wish to receive occasional update emails about TheyWorkForYou.com?",
-                    "optin_stream" => "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?",
+                    "optin_service" => gettext("Can we send you occasional emails about TheyWorkForYou.com?"),
+                    "optin_stream" => gettext("Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?"),
                     "optin_org" => gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"),
                 );
                 
