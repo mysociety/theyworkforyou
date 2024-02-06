@@ -96,6 +96,33 @@ sub fetch_policies {
         $out->{policies}{$policy->{id}} = $policy->{context_description};
     }
 
+    # get agreement information to store in the json
+    # agreements by definition don't have anything specific for indiv MPs
+    # so can be just be simply stored for reference in policy page.
+    my $out_agreements = {};
+
+    foreach my $policy (@{$policies->{policies}}) {
+        my $policy_id = $policy->{"id"};
+        foreach my $agreement (@{$policy->{"agreement_links"}}) {
+            my $decision = $agreement->{"decision"};
+            my $chamber = $decision->{"chamber"};
+            my $data = {
+                "house" => $chamber->{"slug"},
+                "date" => $decision->{"date"},
+                "gid" => $decision->{"date"} . $decision->{"decision_ref"},
+                "url" => $decision->{"twfy_link"} =~ s/https:\/\/www.theyworkforyou.com//r,
+                "division_name" => $decision->{"division_name"},
+                "strength" => $agreement->{"strength"},
+                "alignment" => $agreement->{"alignment"},
+            };
+            push(@{$out_agreements->{$policy_id}}, $data);
+        };
+    };
+
+    # add the agreements to the output
+    $out->{agreements} = $out_agreements;
+
+
     $out = $json->encode($out);
     open(my $fp, '>', mySociety::Config::get('RAWDATA') . '/scrapedjson/policies.json');
     $fp->write($out);

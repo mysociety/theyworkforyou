@@ -61,6 +61,8 @@ class Policies {
             6672,
         );
 
+        $this->all_policy_agreements = $policy_data['agreements'];
+
         if ( $policy_id ) {
             $this->policy_id = $policy_id;
             $this->policies = array(
