@@ -441,9 +441,21 @@ switch ($pagetype) {
 
         if ( $policyID ) {
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
+            $rel_agreements = $policiesList->all_policy_agreements[$policyID] ?? [];
+            // filter down to where 'date' is within the member's term
+            // This won't be perfect where the member has been in and out of the house
+            // But it doesn't affect their score.
+            $rel_agreements = array_filter($rel_agreements, function($agreement) use ($MEMBER) {
+                return $MEMBER->date_in_memberships(HOUSE_TYPE_COMMONS, $agreement['date']);
+            });
+            $data['policyagreements'] = array($policyID => $rel_agreements);
         } else {
             $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
+            $data['policyagreements'] = $policiesList->all_policy_agreements;
         }
+
+
+
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);

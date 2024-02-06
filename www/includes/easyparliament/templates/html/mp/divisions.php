@@ -24,7 +24,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
                         <li><a href="#scoring">Major votes</a></li>
+                        <li><a href="#scoring-agreements">Major agreements</a></li>
                         <li><a href="#informative">Minor votes</a></li>
+                        <li><a href="#informative-agreements">Minor agreements</a></li>
                         <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
                     </ul>
                     <?php include '_featured_content.php'; ?>
@@ -50,10 +52,13 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         # does all divisions, but generally this is an array of one
                         # (the current policy)
                         foreach ($policydivisions as $policy) { ?>
-
+                        
                             <?php
+                                $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
                                 $divisions_scoring = [];
                                 $divisions_informative = [];
+                                $agreements_scoring = [];
+                                $agreements_informative = [];
                                 foreach ($policy['divisions'] as $division) {
                                     if ($division['strong']) {
                                         $divisions_scoring[] = $division;
@@ -61,6 +66,15 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         $divisions_informative[] = $division;
                                     }
                                 }
+
+                                foreach ($current_policy_agreements as $agreement) {
+                                    if ($agreement['strength'] == 'strong') {
+                                        $agreements_scoring[] = $agreement;
+                                    } else {
+                                        $agreements_informative[] = $agreement;
+                                    }
+                                }
+
                             ?>
 
                             <?php
@@ -119,9 +133,27 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     } ?>
                                     </ul>
                                 <?php } ?>
+                                
+                                    <a name="scoring-agreements"></a>
+                                    <h3 class="policy-votes-list-header">Scoring Agreements</h3>
+                                    <p>Agreements are when Parliament takes a decision without holding a vote.</p>
+                                    <p>This does not necessarily mean universal approval, but does mean there were no objections made to the decision being made</p>
+                                    
+                                    <?php if ($agreements_scoring) { ?>
+                                    <p>The following agreements were made while this member was elected:</p>
+                                    <ul class="vote-descriptions policy-votes">
+                                        <?php foreach ($agreements_scoring as $division) {
+                                            include('_agreement_description.php');
+                                            $displayed_votes = true;
+                                        } ?>
+                                    </ul>
+                                    <?php } else { ?>
+                                        <p>No scoring agreements are part of this policy while this member was elected.</p>
+                                <?php } ?>
                                 <?php if ($divisions_informative) { ?>
                                     <a name="informative"></a>
                                     <h3 class="policy-votes-list-header">Minor votes</h3>
+
                                     <ul class="vote-descriptions policy-votes">
                                         <?php foreach ($divisions_informative as $division) {
                                             include('_division_description.php');
@@ -130,6 +162,21 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     </ul>
                                 <?php } ?>
 
+                                    <a name="informative-agreements"></a>
+                                    <h3 class="policy-votes-list-header">Informative Agreements</h3>
+                                    <p>Agreements are when Parliament takes a decision without holding a vote.</p>
+                                    <p>This may or may not mean universal approval, but does mean there were no objections made to the decision being made.</p>
+                                    
+                                    <?php if ($agreements_informative) { ?>
+                                    <ul class="vote-descriptions policy-votes">
+                                        <?php foreach ($agreements_informative as $division) {
+                                            include('_agreement_description.php');
+                                            $displayed_votes = true;
+                                        } ?>
+                                    </ul>
+                                    <?php } else { ?>
+                                        <p>No informative agreements are part of this policy while this member was elected.</p>
+                                <?php } ?>
                                     <div class="policy-votes-list-footer">
                                         <p class="voting-information-provenance">
                                             Vote information from <a href="https://www.publicwhip.org.uk/mp.php?mpid=<?= $member_id ?>&amp;dmp=<?= $policy['policy_id'] ?>">PublicWhip</a>.
