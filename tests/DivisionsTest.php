@@ -54,6 +54,22 @@ class DivisionsTest extends FetchPageTestCase
 
     }
 
+    public function testMPPageContainsAgreement()
+    {
+        // Checks this MP contains a reference to the agreement
+        $page = $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
+        $this->assertStringContainsString('Example Agreement', $page);
+    }
+
+    public function testMPPageDoesNotContainsAgreement()
+    {
+        // Checks this MP does not contain agreement - should be out of time scope
+        $page = $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 6, 'policy' => 363, 'url' => '/mp/6/test_current-mp/test_westminster_constituency/divisions' ) );
+        $this->assertStringNotContainsString('Example Agreement', $page);
+        $this->assertStringNotContainsString('This person has not voted on this policy', $page);
+
+    }
+
     public function testVoteDirection() {
         $page = $this->fetch_division_page();
         $this->assertStringContainsString('Test Current-MP voted Agreed', $page);
