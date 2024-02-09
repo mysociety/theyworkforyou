@@ -103,9 +103,3 @@ jobs:
       run: |
         wget https://scrutinizer-ci.com/ocular.phar
         php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
-
-    - name: Documentation
-      if: matrix.php_version == '7.4' && github.ref_name == 'master' && github.event_name == 'push'
-      run: |
-        sudo apt-get update && sudo apt-get install -y graphviz
-        ./build-docs.sh
