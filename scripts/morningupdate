@@ -49,7 +49,15 @@ system "./xml2db.pl $cronquiet --recent --scotwrans --quiet";
 system "./xml2db.pl $cronquiet --recent --scotqs --quiet";
 system "./xml2db.pl $cronquiet --recent --standing --quiet";
 system "./xml2db.pl $cronquiet --recent --lmqs --quiet";
-system "python3 ./future-fetch.py";
+system "../.venv/bin/python future-fetch.py";
+
+# Update division names from Parliament
+print "Updating division names\n" if $verbose;
+system "../.venv/bin/python division_io.py update-from-commons-votes" . ($verbose ? " --verbose" : "");
+
+# Export divisions to parquet
+print "Exporting divisions to parquet\n" if $verbose;
+system "../.venv/bin/python division_io.py export-division-data" . ($verbose ? " --verbose" : "");
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
 
