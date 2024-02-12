@@ -171,7 +171,7 @@ msgstr "Ni allwch chwilio am fwy nag un ystod o ddyddiadau."
 
 #: classes/Search.php:79
 msgid "Maximum term length is 255 characters."
-msgstr "Maximum term length is 255 characters."
+msgstr "Yr hyd term mwyaf yw 255 nod."
 
 #: classes/User.php:196
 msgid "Please enter a password"
@@ -1552,7 +1552,7 @@ msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Dŷ'r Cyffredin, Tŷ'r Arglwy
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:49
 msgid "Only show votes from:"
-msgstr "Only show votes from:"
+msgstr "Dangos y pleidleisiau o:"
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:59
 msgid "Some vote information from <a href=\"https://www.publicwhip.org.uk/\">PublicWhip</a>."
@@ -2694,11 +2694,11 @@ msgstr "Dewisol a chyhoeddus"
 
 #: www/includes/easyparliament/templates/html/user/form.php:163
 msgid "Can we send you occasional emails about TheyWorkForYou.com?"
-msgstr "Can we send you occasional emails about TheyWorkForYou.com?"
+msgstr "A ydych chi am dderbyn e-byst achlysurol ynglŷn â TheyWorkForYou.com?"
 
 #: www/includes/easyparliament/templates/html/user/form.php:164
 msgid "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?"
-msgstr "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?"
+msgstr "A ydych chi am dderbyn ein cylchlythyr am ein gwaith democratiaeth ehangach, gan gynnwys ein hymchwil a'n hymgyrchoedd?"
 
 #: www/includes/easyparliament/templates/html/user/form.php:165
 #: www/includes/easyparliament/templates/html/user/join.php:92
