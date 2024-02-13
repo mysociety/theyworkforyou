@@ -1,8 +1,8 @@
 <?php 
 $nav_items = array (
-    array('hansard', 'alldebatesfront', 'mps', 'peers', 'wranswmsfront'),
-    array('sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront'),
-    array('wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage'),
+    array('hansard', 'alldebatesfront', 'mps', 'peers', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'),
+    array('sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront', 'divisions_recent_sp'),
+    array('wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage', 'divisions_recent_wales'),
     array('ni_home', 'ni_home', 'nioverview', 'mlas'),
 );
 
