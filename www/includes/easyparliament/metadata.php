@@ -386,6 +386,42 @@ $page = array (
         'title'			=> 'Recent Votes',
         'url'			=> 'divisions/'
     ),
+    'divisions_recent_commons' => array (
+        'menu'			=> array (
+            'text'			=> 'Recent Votes (Commons)',
+            'title'			=> 'Recent Votes (Commons)'
+        ),
+        'parent'		=> 'hansard',
+        'title'			=> 'Recent Votes',
+        'url'			=> 'divisions/?house=commons'
+    ),
+    'divisions_recent_lords' => array (
+        'menu'			=> array (
+            'text'			=> 'Recent Votes (Lords)',
+            'title'			=> 'Recent Votes (Lords)'
+        ),
+        'parent'		=> 'hansard',
+        'title'			=> 'Recent Votes',
+        'url'			=> 'divisions/?house=lords'
+    ),
+    'divisions_recent_wales' => array (
+        'menu'			=> array (
+            'text'			=> gettext('Recent Votes'),
+            'title'			=> gettext('Recent Votes')
+        ),
+        'parent'		=> 'wales_home',
+        'title'			=> gettext('Recent Votes'),
+        'url'			=> 'divisions/?house=senedd'
+    ),
+    'divisions_recent_sp' => array (
+        'menu'			=> array (
+            'text'			=> 'Recent Votes',
+            'title'			=> 'Recent Votes'
+        ),
+        'parent'		=> 'sp_home',
+        'title'			=> 'Recent Votes',
+        'url'			=> 'divisions/?house=scotland'
+    ),
     'divisions_vote' => array (
         'parent'		=> 'divisions_recent',
         'title'			=> 'Vote',
