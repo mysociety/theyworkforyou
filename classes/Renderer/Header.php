@@ -314,10 +314,10 @@ class Header
         // we're within that section.
         $nav_items = array (
             array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent', 'calendar_summary'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront'),
+            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'),
+            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'spwransfront', 'divisions_recent_sp'),
             array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home', 'seneddoverview', 'mss', 'wales_debates'),
+            array('wales_home', 'seneddoverview', 'mss', 'wales_debates', 'divisions_recent_wales'),
             array('london_home', 'lmqsfront', 'london-assembly-members'),
         );
 
