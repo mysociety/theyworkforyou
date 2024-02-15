@@ -1628,6 +1628,26 @@ msgid "What is this?"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:47
+msgid "This list contains votes from the House of Commons."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:49
+msgid "This list contains votes from the House of Lords."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:51
+msgid "This list contains votes from Public Bill Committees."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:53
+msgid "This list contains votes from the Scottish Parliament."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:55
+msgid "This list contains votes from the Senedd."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:57
 msgid ""
 "This list contains votes from the House of Commons, House of Lords, Public "
 "Bill Committees, Senedd, and the Scottish Parliament."

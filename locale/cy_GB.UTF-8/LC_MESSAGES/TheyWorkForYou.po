@@ -1547,6 +1547,26 @@ msgid "What is this?"
 msgstr "Beth yw hwn?"
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:47
+msgid "This list contains votes from the House of Commons."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Tŷ'r Arglwyddi"
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:49
+msgid "This list contains votes from the House of Lords."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Pwyllgorau Cyhoeddus"
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:51
+msgid "This list contains votes from Public Bill Committees."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Pwyllgorau Cyhoeddus"
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:53
+msgid "This list contains votes from the Scottish Parliament."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o'r Senedd Cymru"
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:55
+msgid "This list contains votes from the Senedd."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o'r Senedd yr Alban"
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:57
 msgid "This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament."
 msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Dŷ'r Cyffredin, Tŷ'r Arglwyddi, Pwyllgorau Cyhoeddus, Seneddau Cymru a’r Alban."
 

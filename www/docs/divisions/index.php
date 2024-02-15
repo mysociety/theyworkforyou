@@ -32,6 +32,7 @@ if (isset($MEMBER)) {
 }
 
 $data['last_updated'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate()['latest'];
+$data["houses"] = $houses;
 
 $template = 'divisions/index';
 MySociety\TheyWorkForYou\Renderer::output($template, $data);
