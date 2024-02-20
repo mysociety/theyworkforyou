@@ -9,6 +9,12 @@ php composer.phar install --no-dev --optimize-autoloader
 bundle install --deployment --binstubs "vendor/bundle-bin"
 export PATH="$DIR/vendor/bundle-bin:$PATH"
 
+# setup venv and python packages
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+
 # Now use compass to compile the SCSS:
 (cd "$DIR/www/docs/style" && bundle exec compass compile)
 
