@@ -17,7 +17,6 @@ class Markdown
         $Parsedown = new \Parsedown();
         
         $text = file_get_contents($markdown_file);
-        $html = $text;
         $html = $Parsedown->text($text);
         
         # title is the first h1
