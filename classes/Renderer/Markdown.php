@@ -28,7 +28,12 @@ class Markdown
             $level = $matches[1];
             $htitle = $matches[2];
             $slug = slugify($htitle);
-            return "<h$level id=\"$slug\" class=\"js-toc-item\">$htitle</h$level>";
+            if ($level == 1){
+                $title_class = "js-toc-title";
+            } else {
+                $title_class = "js-toc-item";
+            }
+            return "<h$level id=\"$slug\" class=\"$title_class\">$htitle</h$level>";
         }, $html);
         
         
