@@ -35,8 +35,10 @@ class Markdown
             }
             return "<h$level id=\"$slug\" class=\"$title_class\">$htitle</h$level>";
         }, $html);
-        
-        
+
+        // Create new panel when horizontal line used
+        $html = preg_replace('/<hr \/>/i', '</div><div class="panel">', $html);
+
         \MySociety\TheyWorkForYou\Renderer::output('static/markdown_template', array(
             'html' => $html,
             'this_page' => $this_page,
