@@ -1157,7 +1157,7 @@ function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     $policySummaries = $divisions->getMemberDivisionDetails();
 
     $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-    $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->cohortKey());
+    $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->person_id(), $MEMBER->cohortParty());
     $data['party_positions'] = $partyCohort->getAllPolicyPositions($policiesList);
     # house hard coded as this is only used for the party position
     # comparison which is Commons only

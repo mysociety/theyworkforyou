@@ -20,12 +20,20 @@ for( @ARGV ){
   }
 }
 
+my $dev_populate = 0;
+for( @ARGV ){
+    if( $_ eq "--dev-populate" ){
+        $dev_populate = 1;
+        last;
+  }
+}
+
 use DBI;
 use JSON::XS;
 use LWP::Simple;
 use LWP::UserAgent;
 
-use vars qw($motion_count $policy_count $align_count);
+use vars qw($motion_count $policy_count $align_count $vote_count %motions_seen);
 
 my $json = JSON::XS->new->latin1;
 
@@ -43,21 +51,49 @@ my $personinfo_set = $dbh->prepare('INSERT INTO personinfo (person_id, data_key,
 my $personinfo_check = $dbh->prepare("SELECT data_value from personinfo where data_key = ? and person_id = ?");
 my $strong_for_policy_check = $dbh->prepare("SELECT count(*) as strong_votes FROM persondivisionvotes JOIN policydivisions USING (division_id) WHERE policy_id = ? AND person_id = ? AND policy_vote LIKE '%3'");
 
+my $divisioncheck = $dbh->prepare("SELECT division_title, gid, yes_text, no_text, yes_total, no_total, absent_total, both_total, majority_vote FROM divisions WHERE division_id = ?");
+my $divisionadd = $dbh->prepare("INSERT INTO divisions (division_id, house, division_title, yes_text, no_text, division_date, division_number, gid, yes_total, no_total, absent_total, both_total, majority_vote) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+my $divisionupdate = $dbh->prepare("UPDATE divisions SET gid = ?, division_title = ?, yes_text = ?, no_text = ?, yes_total = ?, no_total = ?, absent_total = ?, both_total = ?, majority_vote = ? WHERE division_id = ?");
+
+my $votecheck = $dbh->prepare("SELECT person_id, vote FROM persondivisionvotes WHERE division_id = ?");
+my $voteadd = $dbh->prepare("INSERT INTO persondivisionvotes (person_id, division_id, vote) VALUES (?, ?, ?)");
+my $voteupdate= $dbh->prepare("UPDATE persondivisionvotes SET vote = ? WHERE person_id = ? AND division_id = ?");
+
+my $partypolicy_replace = $dbh->prepare("REPLACE INTO partypolicy
+    (party, house, policy_id, score, divisions, date_min, date_max)
+    VALUES (?, 1, ?, ?, ?, ?, ?)");
+
 $motion_count = $policy_count = $align_count = 0;
 
 my @policyids = fetch_policies();
 
-my $ua = LWP::UserAgent->new;
-$ua->timeout(10);  # 10 second timeout
+sub get_url {
+    # simplify retrying urls if they fail
+    my ($url, $retries) = @_;
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout(10);  # 10 second timeout
+    my $response = $ua->get($url);
+    if ($response->is_success) {
+        return $response->decoded_content;
+    } else {
+        if ($retries > 0) {
+            sleep(30);
+            say "retrying $url" if $verbose;
+            return get_url($url, $retries - 1);
+        } else {
+            return undef;
+        }
+    }
+}
 
 foreach my $dreamid ( @policyids ) {
+    say "fetching data for $dreamid" if $verbose;
     my $policy_url = mySociety::Config::get('TWFY_VOTES_URL') . '/twfy-compatible/popolo/' . $dreamid . '.json';
-    my $response = $ua->get($policy_url);
-    unless ($response->is_success) {
-        warn "no json file for policy $dreamid at $policy_url";
+    my $policy_json = get_url($policy_url, 3);
+    unless ($policy_json) {
+        warn "no json file for policy $dreamid at $policy_url\n";
         next;
     }
-    my $policy_json = $response->decoded_content; 
     my $policy = $json->decode($policy_json);
 
     my $curr_policy = $dbh->selectrow_hashref($policycheck, {}, $dreamid);
@@ -73,6 +109,10 @@ foreach my $dreamid ( @policyids ) {
     process_policydivisions($policy->{aspects}, $dreamid);
     say "processing alignments for $dreamid" if $verbose;
     process_alignments($policy->{alignments}, $dreamid);
+    if ( $dev_populate ) {
+        say "Dev mode - Populating divisions for $dreamid" if $verbose;
+        process_motions($policy, $dreamid);
+    }
 }
 
 print "parsed $policy_count policies, $motion_count divisions, and $align_count alignments from JSON\n";
@@ -81,7 +121,7 @@ print "parsed $policy_count policies, $motion_count divisions, and $align_count 
 
 sub fetch_policies {
     my $policies_url = mySociety::Config::get('TWFY_VOTES_URL') . '/policies/commons/active/all.json';
-    my $policies_json = get($policies_url);
+    my $policies_json = get_url($policies_url, 3);
     my $policies = $json->decode($policies_json);
 
     my @ids;
@@ -173,6 +213,8 @@ sub process_policydivisions {
 
 sub process_alignments {
     my ($alignments, $dreamid) = @_;
+    # Set AutoCommit off
+    $dbh->{AutoCommit} = 0;
     foreach (@$alignments) {
         $align_count++;
         say $align_count if $verbose && $align_count % 100 == 0;
@@ -189,5 +231,151 @@ sub process_alignments {
             my $val = $_->{$term->[1]};
             $personinfo_set->execute($person_id, $pw_id, $val, $val);
         }
+
+        unless ($_->{no_party_comparision}) {
+            my $hash = "$person_id-$_->{comparison_party}";
+            my $divisions = $_->{count_present} + $_->{count_absent};
+            my $start_date = "$_->{start_year}-00-00";
+            my $end_date = "$_->{end_year}-00-00";
+            $partypolicy_replace->execute(
+                $hash, $dreamid, $_->{comparison_distance_from_policy},
+                $divisions, $start_date, $end_date);
+        }
+
     }
+    $dbh->commit();
+    # Set AutoCommit on
+    $dbh->{AutoCommit} = 1;
+}
+
+
+
+sub process_motions {
+    my ($policy, $dreamid) = @_;
+    # Set AutoCommit off
+    $dbh->{AutoCommit} = 0;
+    for my $motion ( @{ $policy->{aspects} } ) {
+        $motion_count++;
+        if ($verbose && $motion_count % 10 == 0){
+            print("$motion_count\n");
+        };
+        my ($motion_num) = $motion->{motion}->{id} =~ /pw-\d+-\d+-\d+-(\d+)/;
+        my ($house) = $motion->{motion}->{organization_id} =~ /uk\.parliament\.(\w+)/;
+
+        my $sources = $motion->{motion}->{sources};
+        my $gid = '';
+        foreach my $source (@$sources) {
+            if ( defined $source->{gid} ) {
+                $gid = $source->{gid};
+            }
+        }
+
+        my $motion_id = $motion->{motion}->{id};
+        my $text = $motion->{motion}->{text};
+
+        my $curr_division = $dbh->selectrow_hashref($divisioncheck, {}, $motion_id);
+        if ( $curr_division ) {
+            $curr_division->{yes_text} ||= '';
+            $curr_division->{no_text} ||= '';
+        }
+
+
+        my $yes_text = '';
+        my $no_text = '';
+        if ( $motion->{motion}->{actions} ) {
+            $yes_text = $motion->{motion}->{actions}->{yes};
+            $no_text = $motion->{motion}->{actions}->{no};
+        }
+
+        my $totals = {
+            yes => 0,
+            no => 0,
+            absent => 0,
+            both => 0,
+        };
+        my $majority_vote = '';
+
+        if ( $motion->{motion}->{vote_events}->[0]->{counts} ) {
+            for my $count ( @{ $motion->{motion}->{vote_events}->[0]->{counts} } ) {
+                $totals->{$count->{option}} = $count->{value};
+            }
+
+            if ($totals->{yes} > $totals->{no}) {
+                $majority_vote = 'aye';
+            } else {
+                $majority_vote = 'no';
+            }
+        }
+
+        # Ignore tellers in totals
+        $totals->{yes} -= grep { $_->{option} =~ /tellaye/ } @{ $motion->{motion}->{ vote_events }->[0]->{votes} };
+        $totals->{no} -= grep { $_->{option} =~ /tellno/ } @{ $motion->{motion}->{ vote_events }->[0]->{votes} };
+
+        if ( !defined $curr_division ) {
+            my $r = $divisionadd->execute($motion_id, $house, $motion->{motion}->{text}, $yes_text, $no_text, $motion->{motion}->{date}, $motion_num, $gid, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote);
+            unless ( $r > 0 ) {
+                warn "problem creating division $motion_id, skipping motions\n";
+                next;
+            }
+        } elsif ( $curr_division->{division_title} ne $text ||
+                  $curr_division->{gid} ne $gid ||
+                  $curr_division->{yes_text} ne $yes_text ||
+                  $curr_division->{no_text} ne $no_text ||
+                  $curr_division->{yes_total} ne $totals->{yes} ||
+                  $curr_division->{no_total} ne $totals->{no} ||
+                  $curr_division->{absent_total} ne $totals->{absent} ||
+                  $curr_division->{both_total} ne $totals->{both} ||
+                  $curr_division->{majority_vote} ne $majority_vote
+        ) {
+            my $r = $divisionupdate->execute($gid, $text, $yes_text, $no_text, $totals->{yes}, $totals->{no}, $totals->{absent}, $totals->{both}, $majority_vote, $motion_id);
+            unless ( $r > 0 ) {
+                warn "problem updating division $motion_id from $curr_division->{division_title} to $text AND $curr_division->{gid} to $gid\n";
+            }
+        }
+
+
+        my $curr_votes = $dbh->selectall_hashref($votecheck, 'person_id', {}, $motion_id);
+
+        for my $vote ( @{ $motion->{motion}->{ vote_events }->[0]->{votes} } ) {
+            my $mp_id_num;
+            $mp_id_num = $vote->{id};
+            $mp_id_num =~ s:uk.org.publicwhip/person/::;
+            next unless $mp_id_num;
+            if ( $mp_id_num !~ /^[1-9]\d+$/ ) {
+                print "$mp_id_num doesn't look like a valid person id - skipping vote for $motion_id - " . ($dreamid || "") . "\n";
+                next;
+            }
+
+            # if we've seen this motion before then don't process it, however we want
+            # to make sure that the strong vote processing below happens so we still
+            # need to look at all the votes, just not update the details of them in
+            # the database
+            if ( !$motions_seen{$motion_id} ) {
+                $vote_count++;
+
+                if ( !defined $curr_votes->{$mp_id_num} ) {
+                    $voteadd->execute($mp_id_num, $motion_id, $vote->{option});
+                    $curr_votes->{$mp_id_num} = { vote => $vote->{option}};
+                } elsif ( $curr_votes->{$mp_id_num}->{vote} ne $vote->{option} ) {
+                    # because we probably want to know if this ever happens
+                    print "updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n";
+                    my $r = $voteupdate->execute($vote->{option}, $mp_id_num, $motion_id);
+                    unless ( $r > 0 ) {
+                        warn "problem updating $motion_id vote for $mp_id_num from " . $curr_votes->{$mp_id_num}->{vote} . " to " . $vote->{option} . "\n"
+                             . DBI->errstr . "\n";
+                     }
+                }
+            }
+        }
+
+        # some divisions are in more than one policy and we want to take note of
+        # this so we can skip processing of them
+        if ( !$motions_seen{$motion_id} ) {
+            $motions_seen{$motion_id} = 1;
+        }
+
+    }
+    $dbh->commit();
+    # Set AutoCommit on
+    $dbh->{AutoCommit} = 1;
 }

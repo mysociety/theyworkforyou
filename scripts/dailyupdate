@@ -30,12 +30,3 @@ system './mpinfoin.pl';
 
 # update individual division votes
 system "./json2db.pl >> $cron_log";
-
-# update party positions
-system "php ./generate_party_positions.php >> $cron_log";
-
-#unless ($staging) {
-#    chdir $pwmembers;
-#    system 'svn commit -m "apply updates from twfy"';
-#}
-

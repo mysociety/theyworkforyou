@@ -745,15 +745,6 @@
 		<table_data name="mentions" />
 		<table_data name="moffice" />
 		<table_data name="pbc_members" />
-		<table_data name="known_absences">
-			<row>
-				<field name="id">1</field>
-				<field name="person_id">3</field>
-				<field name="start_date">2006-01-01</field>
-				<field name="end_date">2007-01-01</field>
-				<field name="desc">health</field>
-			</row>
-		</table_data>
 		<table_data name="personinfo">
 			<row>
 				<field name="person_id">15</field>
@@ -1064,7 +1055,107 @@
 				<field name="vote">aye</field>
 			</row>
 		</table_data>
-		<table_data name="partypolicy" />
+        <table_data name="partypolicy">
+            <row>
+                <field name="house">1</field>
+                <field name="party">1-a-party</field>
+                <field name="policy_id">1120</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2002-00-00</field>
+                <field name="date_max">2006-00-00</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">3-a-party</field>
+                <field name="policy_id">1120</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2002-00-00</field>
+                <field name="date_max">2002-00-00</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">8-a-party</field>
+                <field name="policy_id">1120</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">1998-00-00</field>
+                <field name="date_max">2006-00-00</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">10-d-party</field>
+                <field name="policy_id">1124</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">12-e-party</field>
+                <field name="policy_id">1124</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">13-e-party</field>
+                <field name="policy_id">1124</field>
+                <field name="score">0.5</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">1-a-party</field>
+                <field name="policy_id">1113</field>
+                <field name="score">0.5</field>
+                <field name="divisions">1</field>
+                <field name="date_min">2021-00-00</field>
+                <field name="date_max">2021-00-00</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">1-a-party</field>
+                <field name="policy_id">810</field>
+                <field name="score">0.5</field>
+                <field name="divisions">1</field>
+                <field name="date_min">2021-00-00</field>
+                <field name="date_max">2021-00-00</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">6-labour</field>
+                <field name="policy_id">996</field>
+                <field name="score">-1</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">2-a-party</field>
+                <field name="policy_id">363</field>
+                <field name="score">0</field>
+                <field name="divisions">10</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+            <row>
+                <field name="house">1</field>
+                <field name="party">15-g-party</field>
+                <field name="policy_id">1113</field>
+                <field name="score">0.87</field>
+                <field name="divisions">1</field>
+                <field name="date_min">2022-01-01</field>
+                <field name="date_max">2023-01-01</field>
+            </row>
+        </table_data>
 		<table_data name="postcode_lookup" />
 		<table_data name="search_query_log" />
 		<table_data name="survey" />

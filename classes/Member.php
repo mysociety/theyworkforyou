@@ -60,21 +60,6 @@ class Member extends \MEMBER {
 
     }
 
- 
-    /**
-     * Cohort Key
-     *
-     * Gets a key that defines the periods and party a member should be compared against
-     *
-     * @return string of party and entry dates
-     */
-
-    public function cohortKey($house = HOUSE_TYPE_COMMONS) {
-        // get the hash_id for the cohort this member belongs to
-        $person_id = $this->person_id();
-        return PartyCohort::getHashforPerson($person_id);
-    }
-
     public function cohortPartyComparisonDirection() {
         // Is this MP and their cohort compared against the
         // first or last party they have?
@@ -143,8 +128,10 @@ class Member extends \MEMBER {
             $party = $row["party"];
             if ( $party == 'Labour/Co-operative' ) {
                 $party = 'Labour';
+            } elseif ($party == 'Sinn Féin') {
+                $party = 'Sinn Fein';
             }
-            return $party;
+            return slugify($party);
         } else {
             return null;
         }
