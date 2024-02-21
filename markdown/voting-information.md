@@ -8,7 +8,9 @@ Presenting such information in a simple way requires us to distill an often comp
 
 In order to do that, we manually review each vote in the House of Commons (at the time of writing, we’ve researched every one of over 2,000 votes since the start of the 2010 Parliament), determine what the impact of voting each way was each time, and collect votes together so we can present a statement made on the basis of a number of votes on the same subject.
 
-![](mp-theresa-may-last-questions.jpg)
+<div class="full-width">
+    <img src="mp-theresa-may-last-questions.jpg" width="870" height="350" alt="">
+</div>
 
 ## How to find the vote you’re interested in
 
@@ -41,6 +43,8 @@ Since we introduced representatives’ voting records to TheyWorkForYou, it has 
 Ideally, when sharing voting records, **you should link back to the source on TheyWorkForYou** so that readers can see the context we provide, including the list of individual votes we took into account when determining how to describe an MP's stance on a matter, and the full text of the debates leading up to those votes.
 
 And because we know that with this kind of sharing subtleties can sometimes be lost, we’ve put together this page to try and make things as clear as possible. So please also feel free to [link to this page](.) and let people know it’s here, especially if you’re sharing voting records and you want to ensure people understand how they were put together.
+
+***
 
 ## What voting information we publish
 
@@ -90,7 +94,11 @@ Sometimes an MPs' votes won't align with what they've said in public. The best w
 
 We don’t currently present these in the same way as House of Commons votes or include them in MPs’ voting records: not every MP is on a committee, and including these votes would make it hard to compare like with like.
 
-![](parliament-clock-mechanism.jpg)
+***
+
+<div class="full-width">
+    <img src="parliament-clock-mechanism.jpg" width="870" height="350" alt="" style="margin-top: 0; border-radius: 3px 3px 0 0">
+</div>
 
 ## Interpreting voting data on TheyWorkForYou
 
@@ -164,6 +172,8 @@ Finally, our code will take all of this data into TheyWorkForYou and use it to d
 *   **Why representatives are absent from a vote** — we’ve tried to address this to some extent by inviting those who are absent due to maternity or sickness leave (or any other reason) to give us explanatory text that we’ll then publish at the top of their page to say that they weren’t present and why. If you are a representative who would like to take advantage of this, please drop us a line at [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
 *   **If MPs have been paired** — ie two MPs who would have voted opposingly make an agreement that neither of them will vote: this is useful for when an MP is travelling or sick, but again is not officially recorded anywhere.
 
+***
+
 ## Common misunderstandings and how to avoid them
 
 ### What ‘for’ and ‘against’ mean for a specific vote
@@ -205,6 +215,8 @@ By now, if you’ve read all of the above, you should understand that we’re on
 Decisions are rarely final, even when enshrined in law: the whole way that our Parliament is set up means that topics can come back to the table to be voted on again and again over the years — and a good thing too, given how society’s views change over time on matters such as women getting the vote, the death penalty, or gay marriage.
 
 With some exceptions for particularly notable individual votes, we only include topics in an MP’s voting record on which there have been multiple votes. As a result you should be able to see a more accurate picture of their votes over time.
+
+***
 
 ## Feedback
 
