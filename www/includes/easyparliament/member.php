@@ -236,7 +236,8 @@ class MEMBER {
             if ($membership['entered_house'] <= $date && $membership['left_house'] >= $date) {
                 if ($membership['house'] == $house) {
                     return true;
-                }            }
+                }
+            }
         }
         return false;
     }
