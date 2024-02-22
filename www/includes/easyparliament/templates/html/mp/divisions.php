@@ -137,7 +137,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     <a name="scoring-agreements"></a>
                                     <h3 class="policy-votes-list-header">Scoring Agreements</h3>
                                     <p>Agreements are when Parliament takes a decision without holding a vote.</p>
-                                    <p>This does not necessarily mean universal approval, but does mean there were no objections made to the decision being made</p>
+                                    <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
                                     
                                     <?php if ($agreements_scoring) { ?>
                                     <p>The following agreements were made while this member was elected:</p>
@@ -165,7 +165,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     <a name="informative-agreements"></a>
                                     <h3 class="policy-votes-list-header">Informative Agreements</h3>
                                     <p>Agreements are when Parliament takes a decision without holding a vote.</p>
-                                    <p>This may or may not mean universal approval, but does mean there were no objections made to the decision being made.</p>
+                                    <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
                                     
                                     <?php if ($agreements_informative) { ?>
                                     <ul class="vote-descriptions policy-votes">
