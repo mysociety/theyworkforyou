@@ -57,6 +57,18 @@
 			<field name="person_id">5</field>
 			<field name="lastupdate">2013-08-07 11:15:47</field>
 		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">XB</field>
+			<field name="entered_house">2000-01-01</field>
+			<field name="left_house">2015-01-01</field>
+			<field name="entered_reason">appointed</field>
+			<field name="left_reason">retired</field>
+			<field name="person_id">6</field>
+			<field name="lastupdate">2013-08-07 15:06:22</field>
+		</row>
 	</table_data>
 	<table_data name="person_names">
 		<row>
@@ -90,6 +102,14 @@
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">5</field>
 			<field name="title">Ms</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Current-MP</field>
+			<field name="start_date">2000-01-01</field>
+			<field name="end_date">2015-01-01</field>
+			<field name="person_id">6</field>
+			<field name="title">Mrs</field>
 		</row>
 	</table_data>
 	<table_data name="persondivisionvotes">
@@ -203,6 +223,117 @@
           <field name="division_id">pw-3012-01-01-1-commons</field>
           <field name="vote">aye</field>
       </row>
+ 
+     <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-1-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-2-commons</field>
+          <field name="vote">No</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-3-commons</field>
+          <field name="vote">absent</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-4-commons</field>
+          <field name="vote">both</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-5-commons</field>
+          <field name="vote">yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-6-commons</field>
+          <field name="vote">no</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-7-commons</field>
+          <field name="vote">tellno</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2013-01-01-8-commons</field>
+          <field name="vote">tellaye</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-1-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-2-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-3-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-4-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-5-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-6-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-7-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-8-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-9-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-10-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-11-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-12-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-2012-01-01-13-commons</field>
+          <field name="vote">Yes</field>
+      </row>
+      <row>
+          <field name="person_id">6</field>
+          <field name="division_id">pw-3012-01-01-1-commons</field>
+          <field name="vote">aye</field>
+      </row>
 	</table_data>
 	<table_data name="memberinfo">
 		<row>
@@ -232,6 +363,36 @@
 		</row>
 		<row>
 			<field name="member_id">1</field>
+			<field name="data_key">public_whip_dreammp810_has_strong_vote</field>
+			<field name="data_value">0</field>
+		</row>
+<row>
+			<field name="member_id">5</field>
+			<field name="data_key">public_whip_dreammp363_distance</field>
+			<field name="data_value">0.87</field>
+		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="data_key">public_whip_dreammp363_both_voted</field>
+			<field name="data_value">8</field>
+		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="data_key">public_whip_dreammp363_has_strong_vote</field>
+			<field name="data_value">1</field>
+		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="data_key">public_whip_dreammp810_distance</field>
+			<field name="data_value">0.87</field>
+		</row>
+		<row>
+			<field name="member_id">5</field>
+			<field name="data_key">public_whip_dreammp810_both_voted</field>
+			<field name="data_value">1</field>
+		</row>
+		<row>
+			<field name="member_id">5</field>
 			<field name="data_key">public_whip_dreammp810_has_strong_vote</field>
 			<field name="data_value">0</field>
 		</row>

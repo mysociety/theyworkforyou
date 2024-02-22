@@ -15,6 +15,7 @@ class MEMBER {
     public $party;
     public $other_parties = array();
     public $other_constituencies;
+    public $memberships = array();
     public $houses = array();
     public $entered_house = array();
     public $left_house = array();
@@ -165,6 +166,8 @@ class MEMBER {
             if (!in_array($house, $this->houses)) {
                 $this->houses[] = $house;
             }
+            # add the entire row into the memberships array
+            $this->memberships[] = $row;
             $const = $row['constituency'] ? gettext($row['constituency']) : '';
             $party = $row['party'] ? gettext($row['party']) : '';
             $entered_house = $row['entered_house'];
@@ -225,6 +228,18 @@ class MEMBER {
         // $this->load_extra_info();
 
         $this->set_users_mp();
+    }
+
+    public function date_in_memberships($house, $date){
+        // Given a date, see if they had any memberships during that time
+        foreach ($this->memberships as $membership) {
+            if ($membership['entered_house'] <= $date && $membership['left_house'] >= $date) {
+                if ($membership['house'] == $house) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public function member_id_to_person_id($member_id) {
