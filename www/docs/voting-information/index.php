@@ -1,7 +1,8 @@
 <?php
-
 include_once '../../includes/easyparliament/init.php';
 
-$this_page = 'voting-information';
+use MySociety\TheyWorkForYou\Renderer\Markdown;
 
-MySociety\TheyWorkForYou\Renderer::output('static/voting_information', array());
+$markdown = new Markdown;
+$markdown->markdown_document('voting-information');
+?>
