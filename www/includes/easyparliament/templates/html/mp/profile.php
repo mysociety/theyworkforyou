@@ -23,10 +23,10 @@ $display_wtt_stats_banner = '2015';
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
+                        <li><a href="#profile"><?= gettext('Profile') ?></a></li>
                         <?php if (count($recent_appearances['appearances'])): ?>
                           <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
                         <?php endif; ?>
-                          <li><a href="#profile"><?= gettext('Profile') ?></a></li>
                         <?php if ($register_interests): ?>
                           <li><a href="#register"><?= gettext('Register of Interests') ?></a></li>
                         <?php endif; ?>
@@ -60,40 +60,7 @@ $display_wtt_stats_banner = '2015';
                 </div>
               <?php endif; ?>
 
-                <?php if (count($recent_appearances['appearances'])): ?>
-                <div class="panel">
-                    <a name="appearances"></a>
-                    <h2><?=gettext('Recent appearances') ?></h2>
-
-                    <?php if (count($recent_appearances['appearances']) > 0): ?>
-
-                        <ul class="appearances">
-
-                        <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
-
-                            <li>
-                                <h4><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></span></h4>
-                                <blockquote><?= $recent_appearance['extract'] ?></blockquote>
-                            </li>
-
-                        <?php endforeach; ?>
-
-                        </ul>
-
-                        <p><a href="<?= $recent_appearances['more_href'] ?>"><?= $recent_appearances['more_text'] ?></a></p>
-
-                        <?php if (isset($recent_appearances['additional_links'])): ?>
-                        <?= $recent_appearances['additional_links'] ?>
-                        <?php endif; ?>
-
-                    <?php else: ?>
-
-                        <p><?=gettext('No recent appearances to display.') ?></p>
-
-                    <?php endif; ?>
-
-                </div>
-                <?php endif; ?>
+                <?php include "_chamber_info_panel.php"; ?>
 
                 <div class="panel">
                     <a name="profile"></a>
@@ -253,6 +220,42 @@ $display_wtt_stats_banner = '2015';
                     <?php endif; ?>
 
                 </div>
+
+
+                <?php if (count($recent_appearances['appearances'])): ?>
+                <div class="panel">
+                    <a name="appearances"></a>
+                    <h2><?=gettext('Recent appearances') ?></h2>
+
+                    <?php if (count($recent_appearances['appearances']) > 0): ?>
+
+                        <ul class="appearances">
+
+                        <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
+
+                            <li>
+                                <h4><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></span></h4>
+                                <blockquote><?= $recent_appearance['extract'] ?></blockquote>
+                            </li>
+
+                        <?php endforeach; ?>
+
+                        </ul>
+
+                        <p><a href="<?= $recent_appearances['more_href'] ?>"><?= $recent_appearances['more_text'] ?></a></p>
+
+                        <?php if (isset($recent_appearances['additional_links'])): ?>
+                        <?= $recent_appearances['additional_links'] ?>
+                        <?php endif; ?>
+
+                    <?php else: ?>
+
+                        <p><?=gettext('No recent appearances to display.') ?></p>
+
+                    <?php endif; ?>
+
+                </div>
+                <?php endif; ?>
 
                 <?php if ($register_interests): ?>
                 <div class="panel register">
