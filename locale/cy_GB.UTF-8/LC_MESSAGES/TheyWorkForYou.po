@@ -1798,9 +1798,7 @@ msgstr "Derbyn diweddariadau e-bost"
 msgid "That name is not unique. Please select from the following:"
 msgstr " Nid yw'r enw hwnnw'n unigryw.  Dewiswch o'r canlynol:"
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:21
-#: www/includes/easyparliament/templates/html/mp/recent.php:11
-msgid "Voting Record"
+msgid "Voting Summary"
 msgstr "Record bleidleisio"
 
 #: www/includes/easyparliament/templates/html/mp/profile.php:33
