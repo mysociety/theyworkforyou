@@ -1,5 +1,9 @@
 <?php
 include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
+
+# fetch covid_policy_list
+$policies_obj = new MySociety\TheyWorkForYou\Policies();
+$covid_policy_list = $policies_obj->getCovidAffected();
 ?>
 
 <div class="full-page">
@@ -55,6 +59,55 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <p>When <?= $full_name ?> starts to vote on bills, that information will appear on this page.</p>
                 </div>
                 <?php endif; ?>
+
+                <?php if ($current_member[HOUSE_TYPE_COMMONS] && count($sorted_diffs_only) > 0 && $party_member_count > 1) { ?>
+                <div class="panel">
+                    <a name="votes"></a>
+                    <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
+
+                    <p>
+                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                    </p>
+
+                    <p>
+                    However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
+                    </p>
+
+                    <ul class="vote-descriptions">
+                      <?php foreach ($sorted_diffs_only as $policy_id => $diff) {
+
+                        $key_vote = $diff;
+                        $covid_affected = in_array($policy_id, $covid_policy_list);
+                        $policy_desc = strip_tags($key_vote['policy_text']);
+                        $policy_direction = $key_vote["person_position"];
+                        $policy_group = "highlighted";
+                        $party_score_difference = $key_vote["score_difference"];
+                        $party_position = $key_vote['party_position'] ;
+                        $comparison_party = $data["comparison_party"];
+                        $current_party_comparison = $data["current_party_comparison"];
+                        $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
+                        $description = sprintf(
+                            '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
+                            $full_name,
+                            $diff['person_position'],
+                            strip_tags($diff['policy_text']),
+                            $comparison_party,
+                            $diff['party_position']
+                        );
+                        $link = $member_url . '/divisions?policy=' . $policy_id;
+                        $link_text = 'Show votes';
+
+                        include '_vote_description.php';
+
+                      } ?>
+                    </ul>
+
+                <?php if ($rebellion_rate) { ?>
+                    <p><?= $full_name ?> <?= $rebellion_rate ?></p>
+                <?php } ?>
+
+                </div>
+                <?php } ?>
 
                 <?php if ($has_voting_record): ?>
                     
@@ -146,7 +199,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                     <?php if ($displayed_votes): ?>
 
-                        <?php if (isset($segment['votes']->moreLinksString)): ?>
+                        <?php if ($segment['votes']->moreLinksString): ?>
 
                             <div class="panel">
                                 <p><?= $segment['votes']->moreLinksString ?></p>

@@ -416,7 +416,12 @@ switch ($pagetype) {
             );
         }
 
-        person_party_policy_diffs($MEMBER, $policiesList, false);
+        person_party_policy_diffs($MEMBER, $policiesList);
+
+        $data['sorted_diffs_only'] = array_filter(
+            $data['sorted_diffs'],
+            function($k) { return $k['score_difference'] >= 2; }
+        );
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
@@ -472,18 +477,7 @@ switch ($pagetype) {
 
     case '':
     default:
-
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
-        $policies = $policiesList->limitToSet('summary');
-        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-        $policySummaries = $divisions->getMemberDivisionDetails();
-
-        $policyOptions = array('limit' => 6, 'summaries' => $policySummaries);
-
-        // Generate limited voting record list
-        $data['policyPositions'] = new MySociety\TheyWorkForYou\PolicyPositions($policies, $MEMBER, $policyOptions);
-
-        person_party_policy_diffs($MEMBER, $policiesList, true);
+        // if extra detail needed for overview page in future
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/profile', $data);
@@ -1162,7 +1156,7 @@ function policy_image($data, $MEMBER, $format) {
 }
 
 // generate party policy diffs
-function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
+function person_party_policy_diffs($MEMBER, $policiesList) {
     global $data;
 
     $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
@@ -1178,6 +1172,6 @@ function person_party_policy_diffs($MEMBER, $policiesList, $only_diffs) {
     $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER, [
         'summaries' => $policySummaries,
     ]);
-    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions, $only_diffs);
+    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions);
     $data['sorted_diffs'] = $policy_diffs;
 }
