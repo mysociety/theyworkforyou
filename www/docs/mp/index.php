@@ -897,13 +897,6 @@ function person_useful_links($member) {
         );
     }
 
-    if ($member->house(HOUSE_TYPE_COMMONS)) {
-        $out[] = array(
-                'href' => 'http://www.edms.org.uk/mps/' . $member->person_id(),
-                'text' => 'Early Day Motions signed by this MP'
-        );
-    }
-
     if (isset($links['journa_list_link'])) {
         $out[] = array(
                 'href' => $links['journa_list_link'],
