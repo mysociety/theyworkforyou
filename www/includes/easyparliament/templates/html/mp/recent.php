@@ -30,7 +30,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 $sidebar_links = array();
 
                 if ( isset($divisions) && $divisions ) {
-                    if ($has_voting_record) {
                         foreach ($divisions as $division) {
                           $displayed_votes = true;
 
@@ -48,7 +47,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                           include('_division_description.php');
                         }
                         echo('</div>');
-                    }
                 } ?>
 
                 <?php if (!$displayed_votes) { ?>
