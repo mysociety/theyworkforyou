@@ -302,6 +302,7 @@ if (file_exists(BASEDIR . '/' . $feedurl)) {
 }
 
 // Prepare data for the template
+$data["pagetype"] = $pagetype;
 $data['full_name'] = $MEMBER->full_name();
 $data['person_id'] = $MEMBER->person_id();
 $data['member_id'] = $MEMBER->member_id();

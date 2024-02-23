@@ -10,13 +10,7 @@ $display_wtt_stats_banner = '2015';
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
-            <div class="person-navigation">
-                <ul>
-                    <li class="active"><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
-                    <li><a href="<?= $member_url ?>/votes"><?= gettext('Voting Record') ?></a></li>
-                    <li><a href="<?= $member_url ?>/recent"><?= gettext('Recent Votes') ?></a></li>
-                </ul>
-            </div>
+            <?php include '_person_navigation.php'; ?>
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
