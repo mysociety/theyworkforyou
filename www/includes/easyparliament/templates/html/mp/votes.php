@@ -9,13 +9,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
-            <div class="person-navigation">
-                <ul>
-                    <li><a href="<?= $member_url ?>">Overview</a></li>
-                    <li class="active"><a href="<?= $member_url ?>/votes">Voting Record</a></li>
-                    <li><a href="<?= $member_url ?>/recent">Recent Votes</a></li>
-                </ul>
-            </div>
+            <?php include '_person_navigation.php'; ?>
         </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">

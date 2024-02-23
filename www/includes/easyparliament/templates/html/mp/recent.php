@@ -5,13 +5,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 <div class="full-page">
     <div class="full-page__row">
         <div class="full-page__unit">
-            <div class="person-navigation">
-                <ul>
-                    <li><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
-                    <li><a href="<?= $member_url ?>/votes"><?= gettext('Voting Record') ?></a></li>
-                    <li class="active"><a href="<?= $member_url ?>/recent"><?= gettext('Recent Votes') ?></a></li>
-                </ul>
-            </div>
+            <?php include '_person_navigation.php'; ?>
         </div>
         <div class="person-panels">
             <div class="primary-content__unit">
