@@ -146,7 +146,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php elseif (count($policyPositions->positions) > 0 ): ?>
                         <?php if (count($party_positions) && $party_member_count > 1) { ?>
-                            <?php if ($current_party_comparison <> $comparison_party){ ?> 
+                            <?php if (slugify($current_party_comparison) <> slugify($comparison_party)){ ?> 
                                 <p>
                                     <?= $full_name ?> is a <?= $party ?> MP, but has changed parties or become independent.
                                 </p>
