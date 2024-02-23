@@ -252,13 +252,18 @@ class PartyTest extends FetchPageTestCase
         return new MySociety\TheyWorkForYou\Member([ "person_id" => $person_id ]);
     }
 
-
     public function testMPPartyPolicyTextWhenDiffers()
     {
         // Checks that an MP that differs from party gets the 'sometimes differs from their party' on the profile page
         $page = $this->fetch_page(array('pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency'));
         $this->assertStringContainsString('Test MP G Party 1', $page);
+    }
+
+    public function testMPPartyPolicyTextWhenDiffersVotes()
+    {
+        $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency/votes'));
         $this->assertStringContainsString('is a G Party MP', $page);
+        $this->assertStringContainsString('Test MP G Party 1', $page);
         $this->assertStringContainsString('sometimes <b>differs</b> from their party', $page);
     }
 
