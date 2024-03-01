@@ -82,7 +82,7 @@ class Member extends \MEMBER {
 
         // MPs who have switched parties but should be compared against their
         // current party can go here.
-        $use_last_party = array(10172, 14031, 25873);
+        $use_last_party = array(10172, 14031, 25873, 10218);
 
         if (in_array($person_id, $use_last_party)) {
             $direction = "last";
