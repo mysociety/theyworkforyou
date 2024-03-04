@@ -42,7 +42,23 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 </div>
                 <?php endif; ?>
 
-                <?php include('_stale_data_panel.php'); ?>
+
+                <div class="panel">
+                    <h2>Voting summaries</h2>
+                    <p>
+                        MPs have many roles, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
+                        One of the ways MPs make decisions is by voting.
+                    </p>
+                    <p>
+                        On TheyWorkForYou, we create voting summaries that group a set of decisions together, show how an MP has generally voted on a set of related votes, and if they differ from their party.
+                    </p>
+                    <p>
+                        You can read more about <a href="/voting-information/#voting-summaries">how this works</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
+                    </p>
+                    <p>
+                        If you want to support and help us improve this work, please consider <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=vote-desc&utm_medium=link&utm_campaign=voting_page">donating</a>.
+                    </p>
+                </div>
 
                 <?php if (slugify($current_party_comparison) <> slugify($data["comparison_party"])): ?>
                 <?php include('_cross_party_mp_panel.php'); ?>
