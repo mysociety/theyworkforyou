@@ -21,12 +21,51 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             How <?= $full_name ?> voted on <?= $policydivisions[array_keys($policydivisions)[0]]['desc'] ?>.
                         </p>
                     <?php } ?>
-                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
+                <h3 class="browse-content"><?= gettext('Browse content') ?></h3>          
+                <?php
+                    # because the loop below goes through all votes, we need to run through it first to
+                    # see if there are any votes to display for the menu before the loop starts
+                    if (isset($policydivisions) && $policydivisions && $has_voting_record) {
+
+                        $has_strong_votes = false;
+                        $has_weak_votes = false;
+                        $has_strong_agreements = false;
+                        $has_weak_agreements = false;
+                        foreach ($policydivisions as $policy) { 
+                                $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
+
+                                foreach ($policy['divisions'] as $division) {
+                                    if ($division['strong']) {
+                                        $has_strong_votes = true;
+                                    } else {
+                                        $has_weak_votes = true;
+                                    }
+                                }
+
+                                foreach ($current_policy_agreements as $agreement) {
+                                    if ($agreement['strength'] == 'strong') {
+                                        $has_strong_agreements = true;
+                                    } else {
+                                        $has_weak_agreements = true;
+                                    }
+                                }
+                        }
+                    }?>
+
+                    
                     <ul>
-                        <li><a href="#scoring">Major votes</a></li>
-                        <li><a href="#scoring-agreements">Major agreements</a></li>
-                        <li><a href="#informative">Minor votes</a></li>
-                        <li><a href="#informative-agreements">Minor agreements</a></li>
+                        <?php if ($has_strong_votes) { ?>
+                            <li><a href="#scoring">Major votes</a></li>
+                        <?php } ?>
+                        <?php if ($has_strong_agreements) { ?>
+                            <li><a href="#scoring-agreements">Scoring agreements</a></li>
+                        <?php } ?>
+                        <?php if ($has_weak_votes) { ?>
+                            <li><a href="#informative">Minor votes</a></li>
+                        <?php } ?>
+                        <?php if ($has_weak_agreements) { ?>
+                            <li><a href="#informative-agreements">Informative agreements</a></li>
+                        <?php } ?>
                         <li><a href="<?= $member_url ?>/votes">Back to all topics</a></li>
                     </ul>
                     <?php include '_featured_content.php'; ?>
