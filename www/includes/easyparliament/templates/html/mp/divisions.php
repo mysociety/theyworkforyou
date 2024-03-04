@@ -179,12 +179,14 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     </ul>
                                 <?php } ?>
                                 
-                                    <a name="scoring-agreements"></a>
-                                    <h3 class="policy-votes-list-header">Scoring Agreements</h3>
-                                    <p>Agreements are when Parliament takes a decision without holding a vote.</p>
-                                    <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
-                                    
+
                                     <?php if ($agreements_scoring) { ?>
+
+                                        <a name="scoring-agreements"></a>
+                                        <h3 class="policy-votes-list-header">Scoring Agreements</h3>
+                                        <p>Agreements are when Parliament <a href="/voting-information/#agreements-and-divisions">takes a decision without holding a vote.</a></p>                                        <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
+                                        
+
                                     <p>The following agreements were made while this member was elected:</p>
                                     <ul class="vote-descriptions policy-votes">
                                         <?php foreach ($agreements_scoring as $division) {
@@ -192,8 +194,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                             $displayed_votes = true;
                                         } ?>
                                     </ul>
-                                    <?php } else { ?>
-                                        <p>No scoring agreements are part of this policy while this member was elected.</p>
                                 <?php } ?>
                                 <?php if ($divisions_informative) { ?>
                                     <a name="informative"></a>
@@ -207,20 +207,20 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     </ul>
                                 <?php } ?>
 
-                                    <a name="informative-agreements"></a>
-                                    <h3 class="policy-votes-list-header">Informative Agreements</h3>
-                                    <p>Agreements are when Parliament takes a decision without holding a vote.</p>
-                                    <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
-                                    
+
                                     <?php if ($agreements_informative) { ?>
+
+                                        <a name="informative-agreements"></a>
+                                        <h3 class="policy-votes-list-header">Informative Agreements</h3>
+                                        <p>Agreements are when Parliament <a href="/voting-information/#agreements-and-divisions">takes a decision without holding a vote.</a></p>
+                                        <p>This does not necessarily mean universal approval, but does mean there were no (or few) objections made to the decision being made.</p>
+                                        
                                     <ul class="vote-descriptions policy-votes">
                                         <?php foreach ($agreements_informative as $division) {
                                             include('_agreement_description.php');
                                             $displayed_votes = true;
                                         } ?>
                                     </ul>
-                                    <?php } else { ?>
-                                        <p>No informative agreements are part of this policy while this member was elected.</p>
                                 <?php } ?>
                                     <div class="policy-votes-list-footer">
                                         <p class="voting-information-provenance">
