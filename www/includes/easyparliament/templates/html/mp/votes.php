@@ -174,7 +174,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                                     $party_position = $diff['party_position'];
                                     $party_score_difference = $diff["score_difference"];
                                     if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1) {
-                                        $party_voting_line = sprintf( 'Comparable %s MPs %s (%s).', $comparison_party, $diff['party_position'], $diff['party_voting_summary']);
+                                        $party_voting_line = sprintf( 'Comparable %s MPs %s.', $unslugified_comparison_party, $diff['party_position']);
                                     }
                                 } else {
                                     $party_voting_line = null;
