@@ -60,15 +60,17 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 </div>
                 <?php endif; ?>
 
-                <?php if ($current_member[HOUSE_TYPE_COMMONS] && count($sorted_diffs_only) > 0 && $party_member_count > 1) { ?>
+                <?php if ($current_member[HOUSE_TYPE_COMMONS] && $party_member_count > 1) { ?>
                 <div class="panel">
                     <a name="votes"></a>
                     <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
                     <p>
-                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues votes the <b>same way</b> as other <?= $party ?> MPs.
+                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues <a href="/voting-information/#party-and-individual-responsibility-for-decisions">follow instructions from their party</a> and vote the <b>same way</b> as other <?= $party ?> MPs.
                     </p>
 
+                    
+                    <?php if (count($sorted_diffs_only) > 0) { ?>
                     <p>
                     However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
                     </p>
@@ -105,6 +107,8 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                       } ?>
                     </ul>
+
+                    <?php } ?>
 
                 <?php if ($rebellion_rate) { ?>
                     <p><?= $full_name ?> <?= $rebellion_rate ?></p>

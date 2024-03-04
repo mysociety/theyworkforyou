@@ -279,9 +279,8 @@ class PartyTest extends FetchPageTestCase
     {
         // When an MP has votes, but there is no broader party policy to compare it to
         // this goes down a funnel that shows the votes, but does not make the comparison to party.
-        $page = $this->fetch_page(array('pid' => 4, 'url' => '/mp/4/test_mp_d/test_westminster_constituency'));
+        $page = $this->fetch_page(array('pid' => 4, 'pagetype' => 'votes','url' => '/mp/4/test_mp_d/test_westminster_constituency/votes'));
         $this->assertStringContainsString('Test MP D', $page);
-        $this->assertStringContainsString('This is a random selection of Mrs Test MP D&rsquo;s votes', $page);
         $this->assertStringContainsString('<li class="vote-description"', $page);
         $this->assertStringNotContainsString('comparable B Party MPs voted', $page);
     }
@@ -289,10 +288,10 @@ class PartyTest extends FetchPageTestCase
     public function testMPPartyPolicyTextWhenAgrees()
     {
         // Test when an MP mostly agrees with their party, as MP G Party 2 does with party G
-        $page = $this->fetch_page(array('pid' => 16, 'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency'));
+        $page = $this->fetch_page(array('pagetype' => 'votes', 'pid' => 16,  'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency/votes'));
         $this->assertStringContainsString('Test MP G Party 2', $page);
 
-        $this->assertStringContainsString('This is a random selection of Mrs Test MP G Party 2&rsquo;s votes', $page);
+        $this->assertStringNotContainsString('sometimes <b>differs</b> from their party colleagues', $page);
     }
 
 
