@@ -146,10 +146,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         </h3>
 
                                         <?php $pw_url = 'https://www.publicwhip.org.uk/mp.php?mpid=' . $member_id . '&amp;dmp=' . $policy['policy_id']; ?>
+
                                         <p>
-                                            TheyWorkForYou has automatically calculated this MP&rsquo;s stance based on all
-                                            of their votes on the topic. <a href="<?= $pw_url ?>">You can browse the source
-                                            data on PublicWhip.org.uk</a>.
+                                            To suggest amendments or new votes for inclusion, please <a href="https://survey.alchemer.com/s3/7724738/TheyWorkForYou-policy-update?policy_id=<?= $policy['policy_id'] ?>">use this feedback form</a>. 
+                                        </p>
+
+                                        <p>
+                                            TheyWorkForYou has calculated this MP&rsquo;s stance based on votes we have grouped on this topic. <a href="/voting-information/#voting-summaries">Learn more</a>.
+                                        </p>
+                                        <p><a href="<?= $pw_url ?>">You can browse the source
+                                            data on PublicWhip.org.uk</a>. We are in the process of moving away from using the PublicWhip and there may be some discrepancies between the two sites.  
                                         </p>
 
                                     <?php } else { ?>
