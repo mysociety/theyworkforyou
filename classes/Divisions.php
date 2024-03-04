@@ -239,17 +239,21 @@ class Divisions {
         return $this->divisionsByPolicy($q);
     }
 
-    public function getMemberDivisionDetails() {
+    public function getMemberDivisionDetails($strong_only = false) {
         $args = array(':person_id' => $this->member->person_id);
 
         $policy_divisions = array();
-
+        if ($strong_only) {
+            $where_extra = "AND (policy_vote = 'no3' OR policy_vote = 'aye3')";
+        } else {
+            $where_extra = '';
+        }
         $q = $this->db->query(
             "SELECT policy_id, policy_vote, vote, count(division_id) as total,
             max(year(division_date)) as latest, min(year(division_date)) as earliest
             FROM policydivisions JOIN persondivisionvotes USING(division_id)
                 JOIN divisions USING(division_id)
-            WHERE person_id = :person_id AND direction <> 'abstention'
+            WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
             GROUP BY policy_id, policy_vote, vote",
             $args
         );
