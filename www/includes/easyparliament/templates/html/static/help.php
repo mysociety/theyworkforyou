@@ -222,67 +222,19 @@
                     Voting records
                 </h2>
 
-                <p>TheyWorkForYou contains a wealth of data on how MPs have voted in Parliament.</p>
+                <p>Representatives in the UK's Parliaments and Assemblies do many things, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. One of the ways representatives make decisions is by voting. </p>
+                
+                
+                <p>On TheyWorkForYou, we list and display the individual votes of representatives, and for the UK House of Commons, we also create voting summaries that group a set of decisions together — and indicate how an MP has generally voted on a set of related votes. </p>
 
-                <p>It's important to us that we represent MPs&rdquo; activity fairly and without political bias. Our <a href="/voting-information">“What you should know about voting information on TheyWorkForYou”</a> page describes:</p>
+                <p>Our <a href="/voting-information/">“Voting and decisions on TheyWorkForYou”</a> page covers:</p>
 
                 <ul>
-                    <li><a href="/voting-information/#interested">How to find the voting data you’re after</a></li>
-                    <li><a href="/voting-information/#what-we-publish">What data we <em>do</em> and <em>don’t</em> publish</a></li>
-                    <li><a href="/voting-information/#interpreting">How you should interpret our data</a></li>
-                    <li>And <a href="/voting-information/#misunderstandings">how to avoid some common misunderstandings</a> about voting in Parliament.</li>
+
+                    <li><a href="/voting-information/#understanding-votes">Understanding votes</a> - What you need to understand the basics of voting in the UK's Parliaments and Assemblies</li>
+                    <li><a href="/voting-information/#information-we-publish">Information we publish</a> - Background on the information we publish on TheyWorkForYou to make voting information more accessible. </li>
                 </ul>
 
-                <hr>
-
-                <h3 class="js-toc-item" id="vote-descriptions">
-                    What does it mean when you say that a representative has &ldquo;consistently&rdquo; or &ldquo;generally&rdquo;
-                    voted for or against something?
-                </h3>
-                <p>
-                    MPs&rsquo; stances are made up from a number of different votes which <a href="#where-content">Public Whip</a> have deemed to be relevant
-                    to the topic. For example, an MP&rsquo;s position on Trident is judged from the way he or she voted on each
-                    occasion <a href="https://www.publicwhip.org.uk/policy.php?id=984">listed here</a>.
-                </p>
-
-                <p>
-                    If an MP&rsquo;s votes all, or almost all, align strongly with those listed on that page, we&rsquo;d say
-                    they &ldquo;consistently&rdquo; voted in favour of Trident. MPs who have voted in a different way are marked
-                    as having &ldquo;almost always voted for&rdquo;, &ldquo;generally voted against&rdquo;, or &ldquo;consistently
-                    voted against&rdquo; the issue, depending on how many of their votes align with this list.
-                </p>
-
-                <p>
-                    You can see a link at the end of every such statement on TheyWorkForYou, titled &ldquo;details&rdquo; &ndash;
-                    clicking on that will show you exactly which votes went towards any particular stance.
-                </p>
-
-                <p>
-                    The votes that go to make up each position are carefully compiled by hand: we&rsquo;ve written a couple of
-                    blog posts on how we do that: read the <a href="https://www.mysociety.org/2014/07/15/weve-analysed-every-vote-since-the-general-election-and-why-thats-good-news-for-you/">first one here</a>
-                    and the <a href="https://www.mysociety.org/2015/08/03/how-far-does-your-mp-tread-the-party-line/">second here</a>.
-                </p>
-
-                <h3 class="js-toc-item" id="votingrecord">
-                    How is the voting record decided?
-                </h3>
-
-                <p>The voting record is not affected by what MPs and Peers have said, only how they
-                <strong>voted</strong> in relation to that topic in the house &ndash; i.e. "aye" or
-                "no".  Votes on each topic were examined, and strength of support determined
-                based on these votes.  Follow the "votes" link next to each topic for details.</p>
-				
-				<p>
-                Additionally, in many votes, MPs and Peers are told how to vote (&ldquo;whipped&rdquo;) by their
-                parties. Since the Whip is secret, we have no reliable means to represent where this has happened. 
-				Thus we can only commit to publishing the facts of how each Member voted, not the reasons why they might have done so.</p>
-
-                <p>Details of the votes on which each policy position is based are available on
-                the <a href="https://www.publicwhip.org.uk/">Public Whip</a> website and linked to from these pages. You can
-                <a href="https://www.mysociety.org/2010/03/24/theyworkforyou-policy-update/">read
-                more about the process we follow when researching the policy positions on our
-                blog</a>. Please <a href="/contact/">contact us</a> if you&rsquo;ve spotted something
-                which needs to be updated or corrected.</p>
 
             </div>
 

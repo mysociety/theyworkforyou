@@ -1,247 +1,216 @@
-# What you should know about voting information on TheyWorkForYou
+# Voting and decisions on TheyWorkForYou
 
-TheyWorkForYou’s aim is to make it easier to understand what goes on in the UK’s parliaments. The way that an MP has voted is, of course, an important part of that.
+Representatives in the UK's Parliaments and Assemblies do many things, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
+One of the ways representatives make decisions is by voting.
 
-Presenting such information in a simple way requires us to distill an often complex history of voting on a number of questions, sometimes over many years, into a short plain English statement for each subject, for example:
+On TheyWorkForYou, we list and display the individual votes of representatives, and for the UK House of Commons, we also create voting summaries that group a set of decisions together — and indicate how an MP has generally voted on a set of related votes. 
 
-> “\[This MP\] almost always voted for allowing marriage between two people of same sex.”
+This page covers:
 
-In order to do that, we manually review each vote in the House of Commons (at the time of writing, we’ve researched every one of over 2,000 votes since the start of the 2010 Parliament), determine what the impact of voting each way was each time, and collect votes together so we can present a statement made on the basis of a number of votes on the same subject.
+* [Understanding votes](#understanding-votes) - What you need to understand the basics of voting in the UK's Parliaments and Assemblies
+* [Information we publish](#information-we-publish) - Background on the information we publish on TheyWorkForYou to make voting information more accessible. 
 
+***
 <div class="full-width">
     <img src="mp-theresa-may-last-questions.jpg" width="870" height="350" alt="">
 </div>
 
-## How to find the vote you’re interested in
 
-Parliamentary sessions [often run into the evening](https://www.parliament.uk/about/how/occasions/calendar/) — and occasionally, all night. **Content generally appears on TheyWorkForYou by around 9:00 am the next day**: earlier if there are no hitches with the data import; potentially later if there’s something to fix.
 
-**If the vote happened in the last few days** the quickest way to find it is to visit the [Recent Votes page](https://www.theyworkforyou.com/divisions/).
+## Understanding votes
 
-**If you know the date of the vote**, you can locate it by defining the date in [Advanced Search](https://www.theyworkforyou.com/search/). This approach also allows you to add keywords or the name of someone who spoke in the debate.
+### Motions, debates, and votes
 
-**If you have a quote from the debate that the vote was part of**, you can search for that (in quotation marks if you know it’s the precise wording).
+In most Parliamentary debates, there will be a motion, which is a statement or instruction for the chamber to consider and approve. There will be a debate on this motion, and then there will be a decision or vote. 
 
-**If you just know the rough subject of the vote**, you could try searching on [Public Whip](https://www.publicwhip.org.uk/), which itself offers links back to the votes on TheyWorkForYou.
+In reality, the debate and the vote are not cleanly connected. Because many more representatives will vote than take part in the debate, a vote's success depends [more on the breakdown of party power in the chamber](#party-and-individual-responsibility-for-decisions) rather than arguments made in the debate. 
 
-If you know your MP voted (or you want to see how they voted) you can visit their page and check the ‘recent votes’ tab.
+But they are not completely separate either: arguments made in debates may reveal tensions or problems that lead to changes to draft legislation (“amendments”) being supported, or amendments may be withdrawn and then re-introduced quietly at a later stage ( in the UK Parliament, similar amendments can appear when draft legislation gets to the House of Lords). Parliamentary debates are a bit like the top of an iceberg, reflecting a range of conversations and compromises made behind the scenes. 
 
-For older votes, you may also check the topics in your MP’s ‘voting record’ tab — votes are not added here immediately (because we have to process them manually, as we describe further below), and may take up to two weeks to appear. Note that some votes do not sit within one of the topics we cover, and so won’t be on these pages.
+There are several [different kinds of motions](https://www.instituteforgovernment.org.uk/article/explainer/motions). Some motions direct the use of the powers Parliament has as a policy-making and policy-checking institution. These powers include legislation, which is the ability to create and change laws, and scrutiny, which is the ability to check the work of the government (for instance, requiring documents to be produced). 
 
-Bear in mind that even when there’s been a lot of coverage on a motion being passed, **there may not have been a vote**. An example of [this is the 2019 resolution to adopt a zero greenhouse gas emissions target by 2050](https://www.theyworkforyou.com/debates/?id=2019-06-24a.505.2#g530.1), approved without a vote as it was agreed unanimously. Many users contacted us to ask how their MP had voted on this resolution — and we couldn’t tell them the answer.
+In addition to these kinds of motions, many motions are about Parliament’s internal rules on how those powers can be used. Motions about how the parliamentary timetable is allocated, for example, can in turn shape the outward-facing decisions that are made. 
 
-Sometimes policies which are in the public eye are described in a catchy and perhaps pejorative way by those who oppose them and by the media. These terms often enter general conversational use: examples include “bedroom tax”, “mansion tax” and “death tax”. This presents a challenge for us as we want to be careful to remain neutral. The approach we take is to generally avoid using these pejorative terms, but when describing how an MP has voted we may try to include whatever name has passed into general parlance, so that it’s easier to identify. Here’s an example:
+Some motions are best seen as attempts to have the chamber make a collective statement, rather than to take an action. Sometimes when one of these motions is proposed by the opposition, the government will abstain from these votes (meaning the motion is passed) to avoid MPs being seen to either endorse or oppose a position.
 
-> “\[This MP\] voted for reducing housing benefit for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax")”
+Just because a vote does nothing directly does not mean it is inherently unimportant. Some votes in substance do nothing, but in principle are politically impactful. An example of these are votes on military action. Parliament formally has no role in approving military action, and so motions talk about 'supporting' the government’s action. In practice, not having parliamentary support for action has meant that military action is then not taken. 
 
-## Share responsibly
+All votes reflect a disagreement among MPs, where MPs and parties are trying to signal their views and principles to their supporters, the general public, or the international community. Some of the most politically consequential votes often have very little practical impact, but they are valuable as concrete markers of where political attitudes were at a given time.
 
-We are very aware of the need for accuracy and avoiding bias in presenting MPs’ stances and the voting records they are based upon.
+### Party and individual responsibility for decisions
 
-Since we introduced representatives’ voting records to TheyWorkForYou, it has become increasingly popular to share them via social media and in the mainstream press — especially at election times or when an MP is promoted to a ministerial position.
+In the UK, there is a mixture of individual and party responsibility for how representatives vote.
+Parties will usually instruct representatives how to vote (“the whip”), and representatives will usually follow these instructions. These instructions are not made public in a formal manner, but are often communicated to the press and public through informal channels.
 
-Ideally, when sharing voting records, **you should link back to the source on TheyWorkForYou** so that readers can see the context we provide, including the list of individual votes we took into account when determining how to describe an MP's stance on a matter, and the full text of the debates leading up to those votes.
+Parties don’t always give instructions (a “free vote”), and MPs sometimes don’t follow the instructions (a “rebellion”). In general, parties don’t want to have rebellions, and MPs don’t want to rebel. Behind the scenes there may be negotiations to resolve arguments to avoid public appearances of disagreement within the party.
 
-And because we know that with this kind of sharing subtleties can sometimes be lost, we’ve put together this page to try and make things as clear as possible. So please also feel free to [link to this page](.) and let people know it’s here, especially if you’re sharing voting records and you want to ensure people understand how they were put together.
+MPs cannot be fired from their job as MPs by their parties, but can be disciplined through closing access to positions and opportunities that the party controls (meaning, for example, that an MP may lose their position as a Minister, but is still the MP for their constituency). Parties can in extreme cases expel MPs from the party (‘losing the whip’), meaning they continue to be an independent MP, but are unlikely to retain their seat in the next election.  
 
-***
+There are different schools of thought on what the balance should be between parties and MPs. MPs are elected as individuals, but usually as part of a party with manifesto promises. There are democratic arguments that parties should enforce discipline to fulfil their promises, but also that MPs are the ones who ultimately have to make the vote, and they should be satisfied with the process that led to that vote.
 
-## What voting information we publish
+In our voting summaries we try to illustrate this mix of factors. In the long run, [we want the voting instructions parties give to be public](https://www.mysociety.org/2022/01/21/the-voting-instructions-parties-give-their-mps-should-be-public/) to make this balance more transparent. 
 
-### Recent votes
+Ultimately, **a vote might not represent an MP’s personal opinion, but it does represent their impact in the political process**. We track and highlight the votes of individual MPs because they are the ones who have been given the power to make those decisions. Even where a voting record does not differ much from the party, it reflects the consequences of electing someone from that party, rather than another. 
 
-[Our Recent Votes page](https://www.theyworkforyou.com/divisions/) always shows the 30 most recent votes that have taken place in the House of Commons, House of Lords, Public Bill Committees, and the Scottish Parliament.
+### Agreements and divisions
 
-Click through to the ones that are of interest, and you’ll find a graphic showing how the vote was divided, a list of which representatives voted which way, and — crucially — a link to see the debate the vote was part of. Where the vote is or particular significance and where we have the resource to do so, we’ll also offer a plain English description, because it’s often far from easy for the average reader to understand the vote as it comes in from the parliamentary feed without some manual intervention.
+Sometimes when it’s time for a decision on a motion, there is no (or small) vocal opposition, and the motion is seen as having been agreed collectively without MPs individually voting for or against. In TheyWorkForYou, we call these types of decisions ‘agreements’ (as opposed to ‘divisions’). Within Parliament these are sometimes described as decisions made “on the nod”. 
 
-[![Example division: UK Withdrawal from the European Union — Leaving Without an Agreement](example-division.jpg)](https://www.theyworkforyou.com/divisions/pw-2019-03-13-357-commons)
+These kinds of decisions happen frequently: large amounts of secondary legislation (where ministers have been empowered to draft sections of laws) are approved without a division. An example of this is [the 2019 resolution to adopt a zero greenhouse gas emissions target by 2050](https://www.theyworkforyou.com/debates/?id=2019-06-24a.505.2#g530.1). Many users contacted us to ask how their MP had voted on this resolution — and we couldn’t tell them the answer, because there is no record of which MPs agreed with such decisions.
 
-### Individual voting records
+Agreements can be difficult to interpret: because something was collectively agreed without significant opposition does not mean that all individuals agreed. Decisions without a vote can also reflect the fact that the government should always have the numbers to win a vote (because as the Government, they by default should have the largest number of MPs), and so forcing a division to happen has little effect on the outcome. In some cases, it will be politically useful to have that division on the record, to see how individual MPs voted. In other cases the Opposition may be against the decision, but on balance, decide not to spend time ineffectually voting against it (a division takes around 15 minutes). 
 
-On each MP’s page you’ll find a summary of their stances on important policy areas such as combating climate change or reforming the NHS, described with phrases such as _‘generally voted for’_, _‘always voted against’_, _‘never voted for’_, etc. We’ll explain more about how those statements are generated below. This section of an MP’s page also shows any votes which differ from the way the majority of their party voted.
+Agreements are not highlighted on the recent votes page because we do not currently have structured data for this type of decision. They can often (but not always) be identified by a search for ‘question put and agreed to’. 
+We are experimenting with including agreements as part of our voting summaries. 
 
-In comparisons with their party, MPs votes are compared to what are described as "Comparable MPs". These are all MPs of the same party who had the opportunity to take part in the same divisions on a policy as this MP.
 
-[![Example MP: Dianne Abbott](example-mp-stances.jpg)](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington)
+### How representatives vote
 
-### A breakdown of all the votes that went to make up that stance
+The Senedd (Welsh Parliament) and Scottish Parliament use electronic voting  —  representatives can vote from buttons on their desk. Votes are generally (but not entirely) deferred to a Decision/Voting time where many votes are held in sequence. 
+In the UK Parliament and the Northern Ireland Assembly, representatives vote by entering “division lobbies” (rooms connected to the debating chambers), where they are counted. Division bells (and now apps) are used to notify representatives elsewhere in the building (or nearby) that a division is being held. 
 
-If you click ‘show votes’ beside any stance on a representative’s voting records page, you’ll see a list of every vote that we believe should feed into that stance, with a link to see each vote in context (and thence the debate it was part of); a link to Public Whip where you can see all the votes in detail; and the option to show the votes which we have identified as feeding into the stance, but less significantly.
+A representative of both sides (a “teller”) is present in each lobby to monitor the count. Technically, tellers do not count towards the overall total, but we tend to count tellers as if they were voting for the purposes of individual voting records, as their role as tellers usually indicates their voting preference. 
 
-[![Example MP: Dianne Abbott](example-mp-votes.jpg)](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington/divisions?policy=6703)
+In general, [we think it should be easier for MPs to vote](https://www.mysociety.org/2023/08/01/it-should-be-easier-for-mps-to-vote/). Our view is that when MPs vote, we want processes that create transparency on the votes of individuals, that help create an effective working culture, and are sensitive to the circumstances of representatives’ lives around areas such as long term sickness or parental leave.
 
-## What voting information we don’t (or can’t) publish
+### Absences
 
-### Motions which are agreed without a vote
+MPs may be absent from a specific vote for many different reasons. Except where there is a narrow majority (or a minority) government, the outcome of a particular vote is generally predetermined by the government having more MPs than the opposition. As such, formal and informal mechanisms exist so that MPs can do other useful things with their time, resulting in fewer MPs voting: in practice the outcome is the same as if everyone was present.
 
-When a vote is uncontroversial, ie, when there’s no point in going through a formal division because the outcome is obvious from the weight of voices shouting for either side when [the Speaker put the question](https://beta.parliament.uk/articles/B3JwLFJs), you’ll see a phrase at the end of the debate: _“Question put and agreed to”_, or _“Question put and negatived”_. [Here’s an example of that on TheyWorkForYou.](https://www.theyworkforyou.com/debates/?id=2019-07-04a.1386.0&s=%22Question+put+and+agreed+to%22#g1411.1)
+The party managers (or ‘Whips’) collectively deal with absences by giving MPs permission to be absent, and ‘pairing’ them with someone from the other side — so while these MPs don’t vote, their absence has no effect on the result. However, this informal mechanism is not a right - and denying requests for absence (‘slips’) can be used as a form of punishment for MPs who have rebelled in other aspects.
 
-In such cases ‘ayes’ and ‘nos’ data is not generated by Parliament, so we can’t include it in our voting data.
+MPs may also be absent for longer periods during parental leave or sickness. Greater availability of ‘proxy voting’, where an MP's vote can be cast by another MP, has reduced (if not entirely closed) the problem that the previous informal mechanisms had created, of periods of absence in voting records.
 
-### Whether an MP was whipped
+But MPs may also be absent deliberately as a political decision. When party instructions are to attend and vote, not attending may be a lighter form of rebellion. In the absence of information about those party instructions (and allowed absences), we cannot determine the exact meaning of a particular absence. In our voting summaries, we do not count absences because we cannot be clear on how they should be interpreted  — and especially historically, long absences may reflect a period of illness or maternity leave.
 
-Although word often gets out, there’s no official record that says when an MP was required by their party to vote a certain way (known as ‘[whipping](https://www.parliament.uk/about/mps-and-lords/principal/whips/)’), which makes it tricky for us to include. Rumour has it that almost all votes are whipped to a greater or lesser degree (the phrase ‘three line whip’ referring to those votes where an MP would be in danger of being expelled from their party should they defy instructions), something that should definitely be taken into account when viewing your MP’s voting record.
+Chambers using electronic voting give MPs an option to abstain on a vote (they can register that they were present without taking a side). For chambers using division lobbies, MPs can ‘abstain’ by walking through both voting lobbies.
 
-We do note when MPs have voted differently from the majority of their party’s members — we describe this action as a rebellion. We use the terms rebel/rebellion in a slightly different way from the way MPs themselves do: for them, disobeying the whip is a rebellion, but as the whip is kept secret, the closest we can come is to note a difference between their voting record and that of the majority of their party.
+We are in favour of [MPs being given greater personal discretion for use of proxy votes](https://www.mysociety.org/2023/08/01/it-should-be-easier-for-mps-to-vote/) — removing the arbitrary nature of slips, and giving MPs a chance to register their vote even when personal circumstance means they cannot be present.
 
-### Why a representative voted a certain way
-
-Similarly it is, of course, impossible for us to indicate that an MP’s vote didn’t actually reflect their true feelings. All we publish are _the facts_ of whether they voted one way, or another.
-
-Sometimes an MPs' votes won't align with what they've said in public. The best way to find out why is to do the background reading: search through the archive of debates on TheyWorkForYou and see how the MP has spoken on the topic in the past, and if you still don’t understand why your MP has voted as they have, you might want to [write and ask them](https://www.writetothem.com/).
-
-### Votes in committees
-
-We don’t currently present these in the same way as House of Commons votes or include them in MPs’ voting records: not every MP is on a committee, and including these votes would make it hard to compare like with like.
+Some MPs never vote - Speakers and the three Deputy Speakers do not, unless a deciding vote is needed. Convention here is that when they do, they vote to leave things as they are - this ensures that change only happens when there is a majority. This group is collectively balanced by party, and so their absence does not affect decisions in most cases. 
 
 ***
-
 <div class="full-width">
     <img src="parliament-clock-mechanism.jpg" width="870" height="350" alt="" style="margin-top: 0; border-radius: 3px 3px 0 0">
 </div>
 
-## Interpreting voting data on TheyWorkForYou
+## Information we publish
 
-### Where the voting data comes from
+### Individual votes
 
-An important thing to know about pretty much all the information on TheyWorkForYou is that **we do not generate it ourselves**. It all comes from Parliament’s official data outputs.
+[Our Recent Votes page](https://www.theyworkforyou.com/divisions/) always shows the 30 most recent votes that have taken place in the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament. This can be narrowed down to just one of these institutions through the link in the right sidebar. 
+
+These votes link to the debates they were part of, and a graphic that shows the party breakdown. 
+
+[![Example division: UK Withdrawal from the European Union — Leaving Without an Agreement](example-division.jpg)](https://www.theyworkforyou.com/divisions/pw-2019-03-13-357-commons)
+
+By default for House of Commons votes, we use the description drafted by the House of Commons votes team, but we sometimes adjust this to plain English description for more significant votes (especially when the content of the vote may not be clear from the title). 
+
+What votes are about can be contested, with different sides often using different terms for the same issue to present it in positive or negative ways, eg “bedroom tax” vs “under occupancy charge”. We want to strike a balance between providing a factual and neutral description, and helping people find a vote with the name they may have seen in the press or online. For instance:
+
+> “\[This MP\] voted for reducing housing benefit for social tenants deemed to have excess bedrooms (which Labour describe as the "bedroom tax")”
+
+Votes generally appear on TheyWorkForYou by around 9:00 am the next day.  If you need the information earlier than this, the House of Commons voting app updates the night before (there are sometimes small differences between this and the final voting list). 
+
+- **If you know the date of the vote**, you can locate it by defining the date in [Advanced Search](https://www.theyworkforyou.com/search/). This approach also allows you to add keywords or the name of someone who spoke in the debate.
+- **If you have a quote from the debate that the vote was part of**, you can search for that (in quotation marks if you know it’s the precise wording).
+
+If you know your MP voted (or you want to see how they voted) you can visit their page and check the ‘recent votes’ tab.
+For older votes, you may also check the policies in your MP’s ‘voting record’ tab - but this does not cover all votes, just those that contribute to each policy.
+
+### Voting summaries
+
+For UK Parliament MPs we produce a summary of their stances on important policy areas.
+
+For each policy, we compile a list of votes that are relevant to that area —  and whether the vote was aligned with, or went against, 
+the policy. 
+
+[![Example MP: Dianne Abbott](example-mp-votes.jpg)](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington/divisions?policy=6703)
+
+
+Within our system, votes can be “scoring votes”,  meaning they contribute to the overall description of how MPs vote, or “informative votes”, meaning they are present in the “more votes” tab, but do not affect the top level description of the vote. Informative votes will be votes that are logically associated with a policy - but for various reasons do not meet our criteria to contribute to the top line summary. This is usually because the vote is only tangentially related to the policy, or it is not a “doing something” vote, and so we don’t want to present it as equivalent to a vote that has a bigger impact. 
+
+For votes that we've decided are "scoring votes" for that policy, we create a number between 0 and 100 - reflecting how much an MP has voted in line with that policy.  We use this to calculate a top line summary (“consistently voted against”, etc) for each policy as follows:
+
+* 0 to 5 - consistently voted for
+* 5 to 15 - almost always voted for
+* 15 to 40 - generally voted for
+* 40 to 60 - voted a mixture of for and against
+* 60 to 85 - generally voted against
+* 85 to 95 - almost always voted against
+* 95 to 100 - consistently voted against
+
+If you click ‘show votes’ beside any policy on a representative’s voting records page, you’ll see a list of votes and agreements, and how that MP voted on the votes that add up to the overall scores.
+
+From here you can also click through to see the debate the vote was originally part of. 
+
+### What kind of votes are included in TheyWorkForYou's policies
+
+When we’re looking to include new votes in policies, we look for votes that reflect the following:
+
+- Votes using the powers of Parliament 
+- Cohesion (we include votes that are mostly, if not completely, about the specific policy)
+- Uniqueness (limited overlap in scoring votes between different policies - we don’t want headline summaries that seem independent, when actually they’re mostly made up of the same votes )
+- Noteworthiness
+
+The goal of these principles is to create policies where the top level summary is a good guide to the votes it summarises. 
+When votes fulfil some but not all of these criteria, we may include them as informative votes. Including a vote as a scoring vote in one policy, and an informative one in another, is a way of drawing a connection between the two policies without implying the vote is equally important to both.
+
+In practice, these principles have to be flexible to the reality of the parliamentary process. Big pieces of legislation often combine many different changes — but big votes approving the legislation are so central they can’t be ignored. On the other hand, votes on the government agenda (“King's speech”) similarly cover a range of policies, but can be fairly included as an informative vote. 
+
+Votes “using the power of Parliament” are broadly “votes that do things” — where this might be moving between stages of the legislative process, amendments to legislation, requests for documents, approving recommendations, allocating the timetable for a debate, etc. Votes that “don’t do things” will generally start “This house believes/regrets/welcomes/is concerned” etc. This is a flexible category, and as discussed above, votes on military action effectively count, even if they don’t reflect this through the strict wording. 
+
+We don’t believe that only “votes that do things” are important — but they are easier to summarise because the impact is clearer. Non-action votes can be very politically important, but in a way that is hard to easily sum up as being for or against something. 
+
+Our priority in these summaries is creating top-level descriptions that are mostly accurate to the overall contents of the policy. We do not want to mix action and non-action in a single policy because that makes it harder to draft a single top-level description. In principle, we might construct policies entirely of non-action votes where this is noteworthy, and where we can write a clear description. 
+
+This is a change to how we included votes prior to 2024, and we have imposed a retrospective rule to downgrade votes not using the powers of Parliament to informative votes within policies. 
+
+### Comparison to parties
+
+Because the instructions that parties give (“the Whip”) are not public, we cannot show what the instruction or strength of the instruction was. 
+
+As a substitute, we use the average vote of a party's MPs to work out what the instructions probably were. For each MP we calculate the score for a policy of the average MP of the same party on the same votes that they could participate in. The difference between the two scores helps us highlight where an MP consistently diverges from their party. Generally, this highlights rebellions well, but when many MPs rebel it has the effect of making the rebellion seem less extreme by moving what the average position is. 
+
+This is not ideal, but is what is possible with the data available. In 2021, [our polling found that 60% of UK adults agreed that the instructions parties give should be public](https://www.mysociety.org/2022/01/21/the-voting-instructions-parties-give-their-mps-should-be-public/). Doing this would help make how Parliament functions more transparent and accessible - and improve analysis and public education about how it works. 
+
+[![Example MP: Dianne Abbott](example-mp-stances.jpg)](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington)
+
+### Decisions which are agreed without a vote (agreements)
+Where decisions are agreed without a vote, there is no data to add to a representative's voting record. As discussed above, this will sometimes mean there is universal agreement, but may also represent practical decisions to not force votes when the result is predictable. 
+
+Our focus on action votes means there is a case for including agreements. This way of making decisions is part of the impact of an MP during their time in Parliament. 
+
+We are experimenting with including agreements in a small number of policies. For the moment, scoring agreements are counted the same as scoring votes, and are applied to all MPs who were MPs during the time the decision was made. 
+We are being conservative in how we apply this approach, and will review feedback. An example can be seen in the' action on climate change' section of MPs' voting records, where we have included the approval of the 2050 net zero target. 
+
+
+### Votes are not opinions, but they matter
+A complaint made about voting records is that they suggest MPs personally agree with what they are voting for.
+In practice, MPs may be willing to vote for issues they disagree with in the interests of being a team player who can advance and be in a position to make more decisions. MPs can see voting, the area of their work the party tries to direct the most, as an unfair thing to be personally judged on when compared to the interests and projects they advance where they have the most individual freedom.
+
+Our focus on “votes that do things” is about being clear why we think it is important to track and highlight voting records. These are votes that matter, and change how the country works. 
+
+If MPs disagree with how they are voting, but do so anyway, from an impact point of view, it’s not interesting information. Votes cast with reluctance and votes cast with vigour are counted exactly the same in the voting lobbies, and so exactly the same on TheyWorkForYou.  If MPs are elected as members of a party, and follow the party line, it is reasonable for a summary of “the impact of your local MP” to reflect what the impact of electing a member of that party has been.
+
+We do want to draw attention to the other aspects of an MP's job — and the debates they choose to speak in can be a better guide to their personal interests. You can subscribe to your MP's speeches on their profile page, and we'll send you an email when they speak. 
+
+### Data sourcing and our non-partisan stance
+
+The voting data on the site comes from a combination of official data from the different Parliaments and Assemblies, and our own framing and grouping of votes. 
 
 Each morning, our system fetches the new data from the day before (plus any corrections to previous data that Parliament may have put out) and organises it to publish out onto TheyWorkForYou.
 
-### Where potential controversy arises
-
-mySociety, which runs TheyWorkForYou, adheres to a neutral status. This dictates that we do not take any political stance, but, rather, simply present the facts so that everyone has easy access to them.
-
-But there’s one area which is potentially controversial.
-
-**What is fact**: It is a matter of official record whether an MP (or Lord, or MSP etc) voted one way or another, or were absent for a vote.
-
-**What is interpretation**: A bit more subjectivity comes into play when deciding how much each individual vote, considered in isolation, can be said to feed into an MP’s stance on any one topic.
-
-As an example: when considering how votes contribute to an MP’s stance on preventing climate change, should one give more significance to a vote to cut all carbon emissions to zero by 2050 than a vote to cut VAT on power saving lightbulbs? Most would say yes, but there’s no universally agreed measure for allocating a weighting to each. Under our system someone has to make a judgement as to whether each vote is important in relation to the subject in question.
-
-Further complications arise with traditions such as the Queen’s Speech, in which many policies are bundled together into what amounts to a manifesto for the parliamentary period ahead. Typically an MP will vote with their party, even if two or three of the policies included are not to their liking — we recognise this by not taking votes on the Queens’ speech into account when determining what we say about an MP’s stance on a particular issue. We treat budget votes similarly.
-
-Any whipped vote could present an MP with a conflict between their views and those of their party — and remember the point above, that we believe almost all votes are whipped. Our understanding is that it’s unusual for an MP to be allowed to vote with their conscience: this only tends to be permitted with rare votes on subjects like assisted dying or abortion, where it’s recognised that to do otherwise would cause real conflict between individuals and their parties.
-
-### So how do we make those decisions?
-
-We’ve written a couple of blog posts in the past to explain the detail you can see them [here](https://www.mysociety.org/2014/07/15/weve-analysed-every-vote-since-the-general-election-and-why-thats-good-news-for-you/) and [here](https://www.mysociety.org/2015/08/21/everything-about-theyworkforyous-voting-information/).
-
-But the short version goes like this: a mySociety staff member works on the votes within Public Whip to translate motions or amendments — which can be convoluted and not very intuitive — into plain English.
-
-For example:
-
-> “Amendment (a) proposed to Lords amendment 5.”
-
-becomes:
-
-> “allowing the Government to delay United Kingdom leaving the European Union to an alternative date so long as any delay extends beyond 22 May 2019.“
-
-Or:
-
-> “Amendment 1, page 5, line 13, leave out “£5,000” and insert “£30,000”.
-
-becomes:
-
-> “higher fines for landlords or letting agencies breaching the law limiting what tenants can be charged for. “
-
-This sometimes takes considerable effort and staff are careful to describe the votes accurately and without bias.
-
-This member of staff then decides whether each vote belongs to one of the voting lines that we display (for example, ‘enforcement of immigration rules’, ‘introducing ID cards’, etc). Then comes the really tricky bit: deciding _how much_ a vote for or against should count towards the stance as a whole.
-
-There are two possible levels that can be applied here: either they have a _significant_ bearing on the topic, or a _slight_ bearing. Again, this decision is applied very carefully and with full consideration of such factors as we described in the previous section.
-
-For any MP, we’ll only include a stance in their voting record on a particular topic if they’ve taken part in at least one vote that we’ve identified as significant.
-
-Finally, our code will take all of this data into TheyWorkForYou and use it to display the MPs’ stances and put it into the wording you see on their voting pages.
-
-[![Example MP votes: Dianne Abbott](example-mp-stance.jpg)](https://www.theyworkforyou.com/mp/10001/diane_abbott/hackney_north_and_stoke_newington/votes)
-
-### What our voting data can tell you
-
-*   **How an MP voted on each motion that makes up a stance** — click through from their voting page to see the individual votes, and then through to the debate they were part of for the context. These are a matter of official record.
-*   **A broad stroke picture of their voting record on each topic** — given the complexities that we’ve described above, you should investigate further if you want the full picture of your MP’s position on a specific topic. There are low-effort ways to do this: search their speeches on TheyWorkForYou; or [drop them a line on WriteToThem to ask](https://www.writetothem.com/).
-*   **Which MPs voted for or against a specific motion** — again, this is a matter of official record. See the list and a breakdown on the vote’s page either by:
-    *   clicking through from [Recent Votes](https://www.theyworkforyou.com/divisions/), or
-    *   clicking ‘show votes’ on your MP’s voting record page, and then ‘show vote’ beside each voting line.
-
-### What our voting data can’t tell you
-
-*   **The reason why a representative voted the way they did** — for example, many MPs will argue that because of the whip system, they are compelled to vote the way their party tells them to. There’s no official record of this so it’s tricky for us to include that information. An MP might vote for something because while they oppose it, on balance they support the wider budget or Bill that it is contained within. Or an MP/their party might have made an agreement to vote for something they oppose in return for getting support for something else they support.
-*   **Why representatives are absent from a vote** — we’ve tried to address this to some extent by inviting those who are absent due to maternity or sickness leave (or any other reason) to give us explanatory text that we’ll then publish at the top of their page to say that they weren’t present and why. If you are a representative who would like to take advantage of this, please drop us a line at [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
-*   **If MPs have been paired** — ie two MPs who would have voted opposingly make an agreement that neither of them will vote: this is useful for when an MP is travelling or sick, but again is not officially recorded anywhere.
+Describing votes clearly, and deciding which votes to group, involves an element of interpretation. Through our editorial policy (as described above) we strive to produce accessible and accurate information — that adheres to a non-partisan stance. 
+While we have views about how UK Parliaments could function better, we are a non-partisan charity and cannot promote a particular party through our services. We aim to work with politicians and individuals of all political persuasions towards common goals of transparency, public understanding, accountability, and effective governance. 
 
 ***
-
-## Common misunderstandings and how to avoid them
-
-### What ‘for’ and ‘against’ mean for a specific vote
-
-It can sometimes lead to confusion when the way that a vote is described by Parliament is not the same way that we have worded the topic that the vote falls under.
-
-[![Division 188: Sale of Public Forest Estate](sale-of-forests.jpg)](https://www.theyworkforyou.com/divisions/pw-2011-02-02-188-commons/mp/10473)
-
-Here’s an example: the stance that this vote falls within on TheyWorkForYou is ‘selling England’s state owned forests’. In this case, the vote was put by the opposition:
-
-> …this House
-> 
-> believes that the Government's intention in the Public Bodies Bill to sell off up to 100 per cent. of England's public forestry estate is fundamentally unsound
-
-So MPs were asked to vote whether they agreed that the sale of forests was unsound (**a ‘yes’ vote**) or whether they thought it was acceptable (**a ‘no’ vote**).
-
-This leads to the situation where the wording on an individual page can be easy to misunderstand — if you see a ‘yes’ under the title ‘Selling England’s state owned forests’ then you’re very likely to think that MP voted in favour of it.
-
-It all happens because, as previously mentioned, content on TheyWorkForYou is largely automated, and while it works without a problem for most votes there are always edge cases that introduce potential confusion. We’re working on solutions to this and meanwhile the best way to be sure, if you’re puzzled, is to click through and read the debate for yourself.
-
-### Abstaining is not the same as being absent
-
-When an MP abstains from a vote, this is recorded along with the ‘ayes’ and ‘nos’. In practical terms, it means that the MP is present for the debate and has walked through both lobbies (MPs walk through one of two corridors, known as ‘lobbies’ to be counted for a vote). Apparently this is not always recorded accurately. Quite what an MP intends by voting both isn't clear either: perhaps they liked both options? They're showing that they are present but can't make a decision?
-
-On the other hand, when an MP is absent, they simply won’t be in the list of people who have voted — so when looking at a voting page, if your MP’s name isn’t there, you can be pretty sure they didn’t attend the vote. However, see our points above about pairing and the reasons why MPs may be absent from votes before drawing conclusions.
-
-### Some MPs don’t vote
-
-Each vote requires four MPs to act as _tellers_, that is, to count the people passing through the lobby on each side. When fulfilling this role, the MPs do not technically vote themselves but they have aligned themselves with one side or the other, so we take this into account when reporting their stance on an issue.
-
-Speakers and Deputy Speakers do not vote either, unless a deciding vote is needed. In this way, one could say that they only vote if their vote would make a difference to the outcome, which is some consolation if your own MP holds one of these positions and you feel as if you’re not represented in Parliament as a result.
-
-### We’re not publishing MPs’ views on subjects
-
-By now, if you’ve read all of the above, you should understand that we’re only publishing the facts of how MPs voted, and this cannot be taken as a judgement on their personality or beliefs, even though it’s often presented that way on social media or in the news.
-
-### Parliament often votes many times on the same issue
-
-Decisions are rarely final, even when enshrined in law: the whole way that our Parliament is set up means that topics can come back to the table to be voted on again and again over the years — and a good thing too, given how society’s views change over time on matters such as women getting the vote, the death penalty, or gay marriage.
-
-With some exceptions for particularly notable individual votes, we only include topics in an MP’s voting record on which there have been multiple votes. As a result you should be able to see a more accurate picture of their votes over time.
-
-***
-
 ## Feedback
-
-### If something important is missing from this page
-
-If you’ve read this far and still have a burning question that is unanswered, please do let us know at [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
-
-### If you spot something wrong on TheyWorkForYou
-
-Please check the [Common misunderstandings section](#misunderstandings) above, and if you still think we have made an error (it certainly does happen!) let us know on [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
-
-### If you have ideas for improvements to TheyWorkForYou
-
-We’re always open to hearing ideas for improvement, although we can’t always act on them as quickly as we’d like to (sadly, we’re a small team, often operating without funding — which as you might imagine, limits our capacity quite a bit. If you think that what we’re doing is important, please do consider making a one-off or regular donation).
-
-But if you would like us to know your idea anyway, here’s how. We keep our development list in the form of [issues on GitHub](https://github.com/mysociety/theyworkforyou/issues/) and you can add to it like this:
-
-1.  You’ll need to [register for GitHub](https://github.com/join) (it’s quick and easy)
-2.  Then [search in the ‘filters’ box](https://github.com/mysociety/theyworkforyou/issues/) to see if your idea is already under debate. If so, add a comment to the existing issue.
-3.  If you can’t find any mention, open a new issue and describe your idea in as much detail as possible.
-
-Alternatively, you can email us on [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
-
-### Photography credits
-
+If you’ve read this far and still have a question that is unanswered (or see an error on TheyWorkForYou), please do let us know at [support@theyworkforyou.com](mailto:support@theyworkforyou.com).
+### Suggesting votes for inclusion in voting records
+We have a [form you can fill out](https://survey.alchemer.com/s3/7724738/TheyWorkForYou-policy-update) (also linked to on each ‘more votes’ page) - to suggest new votes for inclusion, or highlight problems with current votes included in a policy. 
+***
+## Photography credits
 [MP speaking at Theresa May's last Prime Minister's Questions, 24 July 2019](https://www.flickr.com/photos/uk_parliament/48365168232/), CC-BY-NC, Copyright UK Parliament / Jessica Taylor.
-
 [Close up of one of the dials on the clock mechanism](https://www.flickr.com/photos/uk_parliament/26071777394/), CC-BY-NC, Copyright UK Parliament / Jessica Taylor.
+
