@@ -383,7 +383,7 @@ switch ($pagetype) {
 
         $policiesList = new MySociety\TheyWorkForYou\Policies;
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-        $policySummaries = $divisions->getMemberDivisionDetails();
+        $policySummaries = $divisions->getMemberDivisionDetails(true);
 
         $policyOptions = array( 'summaries' => $policySummaries);
 
@@ -1160,7 +1160,7 @@ function person_party_policy_diffs($MEMBER, $policiesList) {
     global $data;
 
     $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-    $policySummaries = $divisions->getMemberDivisionDetails();
+    $policySummaries = $divisions->getMemberDivisionDetails(true);
 
     $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
     $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->person_id(), $MEMBER->cohortParty());

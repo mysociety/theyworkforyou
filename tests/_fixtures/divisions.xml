@@ -874,161 +874,193 @@
           <field name="division_id">pw-2013-01-01-1-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority (strong)</field>
+          <field name="policy_vote">aye3</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-2-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-3-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Minority</field>
+          <field name="policy_vote">no</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-4-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Minority (strong)</field>
+          <field name="policy_vote">no3</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-5-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority (strong)</field>
+          <field name="policy_vote">aye3</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-6-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-7-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-2013-01-01-8-commons</field>
           <field name="policy_id">363</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-1-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
      </row>
      <row>
           <field name="division_id">pw-3012-01-01-2-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
      <row>
           <field name="division_id">pw-3012-01-01-3-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+            <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-4-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-5-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-6-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-7-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-8-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-9-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-10-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-11-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-12-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-13-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-14-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-15-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-16-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-17-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-18-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-19-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-20-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-21-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-22-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-23-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
       <row>
           <field name="division_id">pw-3012-01-01-24-commons</field>
           <field name="policy_id">810</field>
           <field name="direction">Majority</field>
+          <field name="policy_vote">aye</field>
       </row>
 	</table_data>
 </database>
