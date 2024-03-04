@@ -85,13 +85,17 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                         $party_position = $key_vote['party_position'] ;
                         $comparison_party = $data["comparison_party"];
                         $current_party_comparison = $data["current_party_comparison"];
-                        $party_voting_line = sprintf("%s, %s", $party, $diff['party_voting_summary']);
+                        $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
+        
+                        if (strlen($unslugified_comparison_party) == 3) {
+                            $unslugified_comparison_party = strtoupper($comparison_party);
+                        }
                         $description = sprintf(
                             '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
                             $full_name,
                             $diff['person_position'],
                             strip_tags($diff['policy_text']),
-                            $comparison_party,
+                            $unslugified_comparison_party,
                             $diff['party_position']
                         );
                         $link = $member_url . '/divisions?policy=' . $policy_id;
@@ -157,6 +161,13 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                                 );
                                 $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
                                 $comparison_party = $data["comparison_party"];
+
+                                # Unslugify for display
+                                $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
+        
+                                if (strlen($unslugified_comparison_party) == 3) {
+                                    $unslugified_comparison_party = strtoupper($comparison_party);
+                                }
                                 $min_diff_score = 0; // setting this to 0 means that all comparisons are displayed.
                                 if (isset($sorted_diffs[$policy_id])) {
                                     $diff = $sorted_diffs[$policy_id];
