@@ -1,4 +1,4 @@
-FROM mysocietyorg/debian:buster
+FROM mysocietyorg/debian:bullseye
 
 # Apache.
 RUN apt-get -qq update && apt-get -qq install \
@@ -23,13 +23,6 @@ RUN apt-get -qq update && apt-get -qq install \
       rsync \
     --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
-
-# Xapian things from backports
-RUN apt-get update -qq && \
-      apt-get install -qq -t buster-backports \
-        xapian-tools \
-        libxapian30 && \
-      rm -r /var/lib/apt/lists/*
 
 # `conf/packages` - do last, so changes to runtime dependencies
 # don't invalidate caches for the above.
