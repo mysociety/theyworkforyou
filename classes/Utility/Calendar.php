@@ -20,8 +20,12 @@ class Calendar
     public static function fetchFuture() {
         $date = date('Y-m-d');
         $db = new \ParlDB();
-        $q = $db->query("SELECT * FROM future
+        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
+            future.*
+            FROM future
             LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+            LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
+            LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
             WHERE event_date >= :date
             AND deleted = 0
             ORDER BY event_date, chamber, pos",
@@ -35,8 +39,12 @@ class Calendar
         global $DATA, $PAGE, $this_page;
         $db = new \ParlDB();
 
-        $q = $db->query("SELECT * FROM future
+        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
+            future.*
+            FROM future
             LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+            LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
+            LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
             WHERE event_date = '$date'
             AND deleted = 0
             ORDER BY chamber, pos");
@@ -58,10 +66,13 @@ class Calendar
 
     public static function fetchItem($id) {
         $db = new \ParlDB();
-        $q = $db->query("SELECT *, event_date as hdate, pos as hpos
+        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
+            future.*
             FROM future
-            LEFT JOIN future_people ON id=calendar_id AND witness=0
-            WHERE id = $id AND deleted=0");
+            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
+            LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
+            LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
+            WHERE future.id = $id AND deleted=0");
         return self::tidyData($q);
     }
 
@@ -71,7 +82,8 @@ class Calendar
         $people = array();
         foreach ($q as $row) {
             if ($row['person_id']) {
-                $people[$row['id']][] = $row['person_id'];
+                $name = member_full_name($row['house'], $row['name_title'], $row['given_name'], $row['family_name'], $row['lordofname']);
+                $people[$row['id']][$row['person_id']] = $name;
             }
         }
         foreach ($q as $row) {
@@ -124,10 +136,8 @@ class Calendar
             }
         } else {
             $title = $e['title'];
-            if ($pids = $e['person_id']) {
-                foreach ($pids as $pid) {
-                    $MEMBER = new \MEMBER(array( 'person_id' => $pid ));
-                    $name = $MEMBER->full_name();
+            if ($people = $e['person_id']) {
+                foreach ($people as $pid => $name) {
                     $title .= " &#8211; <a href='/mp/?p=$pid'>$name</a>";
                 }
             }
