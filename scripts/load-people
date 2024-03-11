@@ -54,7 +54,7 @@ verbose("End");
 
 # ---
 
-my ($dbh, $memberadd, $memberexist, $membercheck, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete, $start_transaction, $query_commit, );
+my ($dbh, $memberadd, $memberexist, $membercheck, $personinfoupdate, $nameadd, $nameupdate, $namefetch, $namedelete, $gradd, $grdelete, $start_transaction, $query_commit, );
 
 sub db_connect {
     #DBI->trace(1);
@@ -69,6 +69,8 @@ sub db_connect {
         member_id = ? and person_id = ? and house = ?
         and constituency = ? and party = ? and entered_house = ? and left_house = ?
         and entered_reason = ? and left_reason = ?");
+
+    $personinfoupdate = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
     $nameadd = $dbh->prepare("insert into person_names (person_id, title, given_name,
         family_name, lordofname, start_date, end_date) values (?, ?, ?, ?, ?, ?, ?)");
@@ -163,6 +165,7 @@ sub load_people {
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
         } else {
+            load_identifiers($_);
             load_names($_);
         }
     }
@@ -215,6 +218,17 @@ sub load_member {
         $member->{start_reason} || '',
         $member->{end_reason} || ($end_date eq '9999-12-31' && $org_slug ne 'house-of-lords' ? 'still_in_office' : ''),
     );
+}
+
+sub load_identifiers {
+    my $person = shift;
+
+    my $id = $person->{id};
+    $id =~ s#uk.org.publicwhip/person/##;
+
+    foreach (@{$person->{identifiers}}) {
+        $personinfoupdate->execute($id, $_->{scheme}, $_->{identifier}, $_->{identifier});
+    }
 }
 
 sub load_names {
