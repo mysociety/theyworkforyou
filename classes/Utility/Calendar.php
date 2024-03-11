@@ -17,37 +17,31 @@ class Calendar
         return $q['m'];
     }
 
-    public static function fetchFuture() {
-        $date = date('Y-m-d');
-        $db = new \ParlDB();
-        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
+    private static function fetchQuery($where, $order_by='', $params=null) {
+        $query = "SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
             future.*
             FROM future
             LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
             LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
             LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
-            WHERE event_date >= :date
-            AND deleted = 0
-            ORDER BY event_date, chamber, pos",
-            array( ':date' => $date )
-        );
+            WHERE $where";
+        if ($order_by) {
+            $query .= " ORDER BY $order_by";
+        }
+        $db = new \ParlDB();
+        return $db->query($query, $params);
+    }
 
+    public static function fetchFuture() {
+        $date = date('Y-m-d');
+        $q = self::fetchQuery("event_date >= :date AND deleted = 0", "event_date, chamber, pos", [':date' => $date]);
         return self::tidyData($q);
     }
 
     public static function fetchDate($date) {
         global $DATA, $PAGE, $this_page;
-        $db = new \ParlDB();
 
-        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
-            future.*
-            FROM future
-            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
-            LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
-            LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
-            WHERE event_date = '$date'
-            AND deleted = 0
-            ORDER BY chamber, pos");
+        $q = self::fetchQuery("event_date = '$date' AND deleted = 0", "chamber, pos");
 
         if (!$q->rows()) {
             if ($date >= date('Y-m-d')) {
@@ -65,14 +59,7 @@ class Calendar
     }
 
     public static function fetchItem($id) {
-        $db = new \ParlDB();
-        $q = $db->query("SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
-            future.*
-            FROM future
-            LEFT JOIN future_people ON future.id = future_people.calendar_id AND witness = 0
-            LEFT JOIN member ON future_people.person_id = member.person_id AND member.left_house = (SELECT MAX(left_house) from member where member.person_id = future_people.person_id)
-            LEFT JOIN person_names pn ON future_people.person_id = pn.person_id AND pn.type = 'name' AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = future_people.person_id)
-            WHERE future.id = $id AND deleted=0");
+        $q = self::fetchQuery("future.id = $id AND deleted=0");
         return self::tidyData($q);
     }
 
