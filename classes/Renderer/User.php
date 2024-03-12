@@ -222,9 +222,9 @@ class User
         $this->data['user_nav_links'][] = array(
             'href'    => $url->generate(),
             'title'   => $title,
-            'classes' => '',
+            'classes' => 'donate-button',
             'text'    => $text
         );
     }
-    
+
 }
