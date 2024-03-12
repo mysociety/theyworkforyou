@@ -428,6 +428,14 @@ $page = array (
         'url'			=> 'divisions/division.php',
         'session_vars'	=> array('vote'),
     ),
+    'donate' => array (
+        'menu'			=> array (
+            'text'			=> gettext('Support Us'),
+            'title'			=> '',
+        ),
+        'title'			=> gettext('Donate'),
+        'url'			=> 'support-us/',
+    ),
     'epvote' => array (
         'url'			=> 'vote/'
     ),

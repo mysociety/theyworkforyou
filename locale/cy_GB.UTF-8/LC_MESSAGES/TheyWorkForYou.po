@@ -927,7 +927,15 @@ msgstr "Cysylltwch"
 msgid "News"
 msgstr "Newyddion"
 
-#: www/includes/easyparliament/metadata.php:429
+#: www/includes/easyparliament/metadata.php:397
+msgid "Support Us"
+msgstr "Cyfrannu nawr"
+
+#: www/includes/easyparliament/metadata.php:400
+msgid "Donate"
+msgstr "Cyfrannu nawr"
+
+#: www/includes/easyparliament/metadata.php:437
 msgid "Help - Frequently Asked Questions"
 msgstr "Cymorth -   Cwestiynau Cyffredin"
 

@@ -215,18 +215,13 @@ class User
     }
 
     private function addDonateLink() {
-        // In the long run, we should have a little page on this site and go through the normal metadata process
-        // for storing the link.
-
-        if (LANGUAGE == 'cy') {
-            $text = 'Cyfrannwch';
-        } else {
-            $text = 'Donate';
-        }
-
+        $menudata = $this->pagedata->page_metadata('donate', 'menu');
+        $text = $menudata['text'];
+        $title = $menudata['title'];
+        $url = new \MySociety\TheyWorkForYou\Url('donate');
         $this->data['user_nav_links'][] = array(
-            'href'    => "https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=top-bar&utm_medium=link&utm_campaign=mysoc_header",
-            'title'   => $text,
+            'href'    => $url->generate(),
+            'title'   => $title,
             'classes' => '',
             'text'    => $text
         );
