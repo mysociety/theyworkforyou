@@ -194,8 +194,10 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                         <p>No votes to display.</p>
 
                     <?php endif; ?>
-
+                    
+                    <?php if ($rebellion_rate) { ?>
                     <p><?= $full_name ?> <?= $rebellion_rate ?></p>
+                    <?php } ?>
 
                 </div>
                 <?php endif; ?>
