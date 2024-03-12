@@ -228,6 +228,18 @@ $weight_bold: 700;
   }
 }
 
+
+.site-nav a.donate-button {
+    background-color: darken($colour_pale_red, 10%);
+    &:hover,
+    &:focus {
+        background-color: darken($colour_pale_red, 15%);
+    };
+    color: #FFF;
+    font-weight: $weight_bold;
+    @include border-radius(3px);
+  }
+
 .button {
     background-color: $colour_primary;
     font-weight: $weight_semibold;
