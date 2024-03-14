@@ -43,8 +43,19 @@
             <div class="business-section__secondary">
                 <div class="business-section__secondary__item">
                     <h3><?= gettext('What is this?') ?></h3>
-
+                    <?php if ($houses == 'commons') { ?>
+                    <p><?= gettext('This list contains votes from the House of Commons.') ?></p>
+                    <?php } elseif ($houses == 'lords') { ?>
+                    <p><?= gettext('This list contains votes from the House of Lords.') ?></p>
+                    <?php } elseif ($houses == 'pbc') { ?>
+                    <p><?= gettext('This list contains votes from Public Bill Committees.') ?></p>
+                    <?php } elseif ($houses == 'scotland') { ?>
+                    <p><?= gettext('This list contains votes from the Scottish Parliament.') ?></p>
+                    <?php } elseif ($houses == 'senedd') { ?>
+                    <p><?= gettext('This list contains votes from the Senedd.') ?></p>
+                    <?php } else { ?>
                     <p><?= gettext('This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament.') ?></p>
+                    <?php } ?>
 
                     <p><?= gettext('Only show votes from:') ?></p>
                     <ul>
