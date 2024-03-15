@@ -9,7 +9,7 @@
 
 # Root URL for the xapian-bindings source for version 1.4.9 
 # matching the binaries in stretch-backports
-SOURCE_URL=https://snapshot.debian.org/archive/debian/20181104T030400Z/pool/main/x/xapian-bindings
+SOURCE_URL=https://snapshot.debian.org/archive/debian/20190625T042133Z/pool/main/x/xapian-bindings/
 
 # version of PHP we're building for
 v=7.0
@@ -29,12 +29,12 @@ if ! dpkg -l php7-xapian 2>/dev/null | grep -q '^.i'; then
     apt-get -qq install php$v-dev php$v-cli >/dev/null
 
     echo "  Getting xapian-bindings source from snapshot.debian.org... "
-    wget ${SOURCE_URL}/xapian-bindings_1.4.9.orig.tar.xz
-    wget ${SOURCE_URL}/xapian-bindings_1.4.9-1.debian.tar.xz
-    wget ${SOURCE_URL}/xapian-bindings_1.4.9-1.dsc
-    tar xJf xapian-bindings_1.4.9.orig.tar.xz
-    tar xJf xapian-bindings_1.4.9-1.debian.tar.xz -C xapian-bindings-1.4.9
-    cd xapian-bindings-1.4.9
+    wget ${SOURCE_URL}/xapian-bindings_1.4.11.orig.tar.xz
+    wget ${SOURCE_URL}/xapian-bindings_1.4.11-2.debian.tar.xz
+    wget ${SOURCE_URL}/xapian-bindings_1.4.11-2.dsc
+    tar xJf xapian-bindings_1.4.11.orig.tar.xz
+    tar xJf xapian-bindings_1.4.11-2.debian.tar.xz -C xapian-bindings-1.4.11
+    cd xapian-bindings-1.4.11
     echo php7 > debian/bindings-to-package
 
     echo "  debian/rules maint with PHP7_VERSIONS set... "
