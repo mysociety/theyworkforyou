@@ -120,16 +120,16 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
 
       <div class="form__element donate-fullname">
         <label for="full-name">Thank you! We need your full first and last name to claim Gift Aid.</label>
-        <input type="text" id="full-name" name="full_name" class="form__element__input" placeholder="Your name here" required>
+        <input type="text" id="full-name" name="full_name" class="form__element__input" placeholder="Your name here">
       </div>
 
       <div class="form__element fat-radio-buttons donate-contact">
         <p>We&rsquo;d like to thank you for your donation and keep you informed about our work.</p>
-        <label class="inline-radio-label" for="contact-yes" class="donate-contact__label">
+        <label class="inline-radio-label" for="contact-yes">
             <input  type="radio" id="contact-yes" name="contact_permission" value="Yes">
             Yes, you can contact me.
         </label>
-        <label class="inline-radio-label" for="contact-no" class="donate-contact__label">
+        <label class="inline-radio-label" for="contact-no">
             <input type="radio" id="contact-no" name="contact_permission" value="No">
             No, you can&rsquo;t contact me.
         </label>
