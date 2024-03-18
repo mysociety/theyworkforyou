@@ -8,6 +8,15 @@ namespace MySociety\TheyWorkForYou\Renderer;
  * Use for converting markdown into help pages.
  */
 
+
+function render_php($template_file)
+{
+    $path = INCLUDESPATH . 'easyparliament/templates/html/' . $template_file . '.php';
+    ob_start();
+    include($path);
+    return ob_get_clean();
+}
+
 class Markdown
 {
     public function markdown_document($this_page, $show_menu = true){
@@ -39,10 +48,16 @@ class Markdown
         // Create new panel when horizontal line used
         $html = preg_replace('/<hr \/>/i', '</div><div class="panel">', $html);
 
+        // render donate box
+        if (strpos($html, '{{ donate_box }}') !== false) {
+            $html = str_replace('{{ donate_box }}', render_php('donate/_stripe_donate'), $html);
+        }
+
         \MySociety\TheyWorkForYou\Renderer::output('static/markdown_template', array(
             'html' => $html,
             'this_page' => $this_page,
             'page_title' => $title,
+            'show_menu' => $show_menu,
         ));
         
     }

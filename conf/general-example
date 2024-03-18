@@ -171,6 +171,11 @@ define('OPTION_PHP_DEBUG_LEVEL', 0);
 define('FACEBOOK_APP_ID', '');
 define('FACEBOOK_APP_SECRET', '');
 
+define('OPTION_RECAPTCHA_SITE_KEY', '');
+define('OPTION_RECAPTCHA_SECRET', '');
+define('STRIPE_DONATE_PUBLIC_KEY', '');
+define('STRIPE_DONATE_SECRET_KEY', '');
+
 define('STRIPE_PUBLIC_KEY', '');
 define('STRIPE_SECRET_KEY', '');
 define('STRIPE_ENDPOINT_SECRET', '');

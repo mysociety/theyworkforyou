@@ -1,0 +1,87 @@
+.donate-form {
+  label {
+    font-size: 1em;
+    color: inherit;
+  }
+
+  input#full-name {
+    max-width: 25em;
+    margin-top: 1em;
+  }
+}
+
+.donate-form__error-wrapper {
+  color: #e04b4b;
+}
+
+.donate-form .fat-radio-buttons,
+.how-much-other-value,
+.donate-giftaid__label,
+.donate-fullname {
+  margin: 1em 0 1.5em 0;
+}
+
+.fat-radio-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  .inline-radio-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.75em 1em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+    input {
+      margin-bottom: 0;
+      margin-right: 0.5em;
+    }
+  }
+
+  .radio-label-large {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+}
+
+.how-much-other-value {
+  .row.collapse {
+    max-width: 10em;
+    margin: 1em 0 0 0;
+  }
+
+  input {
+    margin-bottom: 0;
+  }
+}
+
+.donate-giftaid__label {
+  position: relative;
+  padding: 1em 1em 1em 2.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+  input {
+    position: absolute;
+    top: 1.2em;
+    left: 1.2em;
+  }
+
+  small {
+    display: block;
+    line-height: 1.3;
+    margin-top: 0.5em;
+    font-size: 0.75em;
+    text-transform: none;
+  }
+}
+
+.donate-submit {
+  p small {
+    color: #666;
+    font-size: 0.75em;
+  }
+}
