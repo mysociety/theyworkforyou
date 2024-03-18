@@ -1,0 +1,515 @@
+// form scss generally copied from the mySociety.org stylesheets
+
+.donation-box {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+
+}
+
+@mixin grid-column--full {
+    @include grid-column;
+    width: 100%;
+}
+
+@mixin grid-column--one-third--no-gutter {
+    @include grid-column--no-gutter;
+    width: 25%;
+}
+
+@mixin grid-column--no-gutter {
+    float: left;
+}
+
+
+$size-font-base: 18px;
+$donate-form-breakpoint: 758px;
+
+$colour_orange: #E0A55A;
+$colour_blue: #48A9F0;
+$colour_green: #77BB63;
+$colour_yellow: #FEDC66;
+$colour_red: #DA545D;
+$colour_purple: #B260B0;
+$colour_off_white: #F5F3ED;
+$colour_lighter_grey: #F0EDE6;
+$colour_light_grey: #DFDED8;
+$colour_grey: #C6C4BE;
+$colour_mid_grey: #959287;
+$colour_dark_grey: #615E58;
+$colour_black: #424242;
+
+$colour_background: $colour_black;
+$colour_links: $colour_blue;
+$colour_borders: $colour_light_grey;
+
+
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+  
+@mixin flex-align($alignment) {
+    -webkit-box-align: $alignment;
+    -webkit-align-items: $alignment;
+    -ms-flex-align: $alignment;
+    align-items: $alignment;
+  }
+
+@function calculateRem($size, $base) {
+    $remSize: $size / $base;
+    @return #{$remSize}rem;
+  }
+  
+  /*
+   * Send a size in pixels, property (optional), and a base size (optional)
+   * Returns the same size calculated in rems and a fall-back px for older browsers
+   * Input
+   * @include remSize(18px, margin-top, 16px);
+   * Output
+   * margin-top: 18px;
+   * margin-top: 1.125rem;
+   */
+  @mixin remSize($size, $property:font-size, $base:$size-font-base) {
+    #{$property}: $size; //Fallback in px
+    #{$property}: calculateRem($size, $base);
+  }
+
+
+  .donate-form {
+  
+    .form__element {
+      max-width: 36em;
+    }
+  }
+  
+  .donate-page-header {
+    padding-bottom: 1.5em;
+    position: relative;
+  }
+  
+  .donate-page-header__title {
+    @include remSize(36px);
+  }
+  
+  .donate-page-header__para {
+    @include remSize(21px);
+    @include remSize(27px, line-height);
+    color: $colour_dark_grey;
+  }
+  
+  .donation-thanks__message {
+    z-index: 3;
+    position: relative;
+  }
+  
+  .donation-thanks__message__header {
+    text-align: center;
+    @include remSize(60px);
+    font-weight: bold;
+  
+    @media (min-width: $medium-screen)  {
+        @include remSize(96px);
+    }
+  }
+  
+  .donation-thanks__message__para {
+    @include remSize(21px);
+    line-height: 1.5em;
+    color: $colour_dark_grey;
+  }
+  
+  .donation-thanks__message__share {
+    text-align: center;
+  }
+  
+  .donate-canvas {
+    margin-bottom: 4em;
+    @media (min-width: $medium-screen)  {
+      margin-bottom: 8em;
+    }
+  }
+  
+  .confetti {
+    background-image: url('../img/confetti.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 477px 370px;
+    height: 741px;
+    width: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: -230px;
+    left: 0;
+    z-index: 1;
+  
+    @media (min-width: $medium-screen)  {
+        top: -100px;
+        background-size: 954px 741px;
+    }
+  
+    @media ($high-dpi-screen)  {
+      background-image: url('../img/confetti@2.png');
+    }
+  }
+  
+  .donate-page-sidebar {
+    @include grid-column--full;
+    @media (min-width: $donate-form-breakpoint) {
+      @include grid-column--one-third--no-gutter;
+    }
+  }
+  
+  .donate-page-sidebar__entry {
+    background-color: $colour_off_white;
+    @include remSize(21px, padding);
+    border-radius: 5px;
+    @media (min-width: $medium-screen)  {
+      width: 120%;
+      margin-right: -20%;
+    }
+  }
+  
+  .donate-page-sidebar__title {
+    @include remSize(13px);
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: $colour_dark_grey;
+  }
+  
+  .donate-page-sidebar__name {
+    @include remSize(23px);
+    margin-bottom: 0.25em;
+  }
+  
+  .donate-page-sidebar__content {
+    @include remSize(14px);
+  }
+  
+  .donate-page-sidebar__image {
+    margin-bottom: 1em;
+    border-radius: 50%;
+    border: 10px solid #fff;
+  }
+  
+  .donate-fullname,
+  .how-much-other-value {
+      background-color: $colour_off_white;
+      padding: 1em;
+      width: 100%;
+      border: 1px solid $colour_borders;
+      border-radius: 3px;
+  }
+  
+  .mysoc-spinner--small {
+      font-size: 0.5em;
+      display: none;
+      margin-left: 1em;
+  }
+  
+  .form__element--submit {
+      display: flex;
+      align-items: center;
+  }
+  
+
+
+
+  
+  .form__element--vertically-stacked {
+    label,
+    input {
+      display: block;
+    }
+  }
+  
+  .form__element__heading {
+    display: block;
+    font-weight: 600;
+    @include remSize(21px);
+    margin-bottom: 1rem;
+    line-height: 1.1em;
+  }
+  
+  .form__element__explainer {
+    display: block;
+    @include remSize(14px);
+    color: $colour_dark_grey;
+    line-height: 1.35em;
+  }
+  
+  .inline-radio-label {
+    // Radio button with a label to the right
+    // [ ] Label
+    cursor: pointer;
+    display: inline-block;
+  
+    @media (min-width: $donate-form-breakpoint) {
+      margin-right: 1em;
+  
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  
+    input[type="radio"] {
+      margin-right: 0.5em;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .form__element__explainer {
+      margin-left: 23px;
+    }
+  }
+  
+  .fat-radio-buttons {
+    @include flexbox;
+    flex-flow: row wrap;
+  
+    .form__element__heading {
+      flex: 0 0 100%;
+    }
+  
+    .inline-radio-label {
+      @include flexbox;
+      @include flex-align(center);
+      @include justify-content(center);
+      border: 1px solid $colour_light_grey;
+      border-bottom: 0;
+      padding: 1em 1.65em 1em 1.35em;
+      width: 100%;
+  
+      &:first-of-type {
+        border-radius: 3px 3px 0 0;
+      }
+  
+      &:last-of-type {
+        border-bottom: 1px solid $colour_light_grey;
+        border-radius: 0 0 3px 3px;
+      }
+  
+      @media(min-width: $donate-form-breakpoint) {
+        flex: 0 1 auto;
+        width: auto;
+        border-bottom: 1px solid $colour_light_grey;
+        border-radius: 3px;
+        margin-bottom: 1em;
+  
+        &:first-of-type,
+        &:last-of-type {
+          border-radius: 3px;
+        }
+      }
+  
+      &:hover,
+      &:active,
+      &:focus {
+        border-color: #bbb;
+      }
+    }
+  
+    .radio-button-with-title {
+      padding: 0;
+      position: relative;
+  
+      @media (min-width: $donate-form-breakpoint) {
+        flex-basis: 0;
+        flex-grow: 1;
+      }
+  
+      input[type="radio"] {
+        position: absolute;
+        left: 1em;
+        top: 1em;
+      }
+    }
+  
+    .radio-button-with-title__heading {
+      background-color: $colour_off_white;
+      border-bottom: 1px solid $colour_light_grey;
+      display: block;
+      padding: 0.5em 1em 0.5em 1.7em;
+      @include remSize(27px);
+      border-radius: 3px 3px 0 0;
+      font-weight: 600;
+    }
+  
+    .radio-button-with-title__para {
+      display: inline-block;
+      padding: 1em 1.5em 1em 1em;
+      @include remSize(14px);
+      color: $colour_dark_grey
+    }
+  }
+  
+  .fat-radio-buttons__form-inside {
+      padding: 0.777777778em 1em;
+  
+      label {
+        @include remSize(14px);
+      }
+  
+      input:disabled {
+        opacity: 0.5;
+        background-color: $colour_off_white;
+      }
+  }
+  
+  .radio-label-large {
+    @include remSize(32px);
+    font-weight: 600;
+  }
+  
+  .donate-amounts {
+    justify-content: flex-start;
+    margin-top: 0em;
+  }
+  
+  .how-much-other-value {
+    position: relative;
+    margin-top: 2em;
+    @media (min-width: $donate-form-breakpoint) {
+      margin-top: 0;
+    }
+  }
+  
+  input.how-much-other-value__input {
+    padding-left: 1.25em;
+    max-width: 100%;
+    width: 8em;
+    z-index: 1;
+  }
+  
+  .how-much-other-value__currency {
+    position: absolute;
+    left: 1.5em;
+    top: 2.0em;
+    z-index: 5;
+    color: $colour_dark_grey;
+  }
+  
+  .donate-giftaid,
+  .donate-contact {
+    max-width: 36em;
+    padding-top: 10px;
+  }
+  
+
+  .donate-fullname {
+    display: none;
+  }
+  
+  .donate-giftaid__label,
+  .donate-contact__label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid $colour_light_grey;
+    padding: 1em 1.7em 1em 3em;
+  
+    &:first-of-type {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+  
+    &:last-of-type {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  
+    & + & {
+      margin-top: -1px;
+    }
+  
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: #bbb;
+      z-index: 1;
+    }
+  
+    input {
+      position: absolute;
+      top: 1.35em;
+      left: 1.35em;
+    }
+  
+    small {
+      display: block;
+      font-size: 0.8em;
+      line-height: 1.4em;
+      margin-top: 0.5em;
+      color: #777;
+    }
+  }
+  
+  .form__element__input[type] {
+    padding: 0.75em 1em;
+    width: 20em;
+    max-width: 100%;
+  }
+  
+  .form__element__explainer--cards {
+    @extend .image-replacement;
+    margin-top: 0.5em;
+    width: 147px;
+    height: 20px;
+    background-image: url('../img/payment-options-cards.png');
+    background-size: 147px 20px;
+    background-repeat: no-repeat;
+  
+    @media ($high-dpi-screen)  {
+      background-image: url('../img/payment-options-cards@2.png');
+    }
+  }
+  
+  .form__element__explainer--dd {
+    @extend .image-replacement;
+    margin-top: 0.5em;
+    width: 100px;
+    height: 32px;
+    background-image: url('../img/direct-debit.png');
+    background-size: 100px 32px;
+    background-repeat: no-repeat;
+  
+    @media ($high-dpi-screen)  {
+      background-image: url('../img/direct-debit@2.png');
+    }
+  }
+  
+  .paypal-logo {
+    display: inline-block;
+    @extend .image-replacement;
+    margin-top: 0.5em;
+    width: 108px;
+    height: 29px;
+    background-image: url('../img/paypal-logo.png');
+    background-size: 108px 29px;
+    background-repeat: no-repeat;
+    margin-top: 0;
+  
+    @media ($high-dpi-screen)  {
+      background-image: url('../img/paypal-logo@2.png');
+    }
+  }
+  
+  .paypal-logo-radio {
+    top: -12px !important; //makes the radio button align with the others
+  }
+  
+  .form__error {
+    background-color: $colour_red;
+    color: #fff;
+    padding: 1.25em 1.5em;
+    border-radius: 5px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0px 2px 2px 0 rgba(0,0,0,0.2);
+  }
+  

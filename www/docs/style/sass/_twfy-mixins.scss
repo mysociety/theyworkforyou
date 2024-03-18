@@ -272,6 +272,14 @@ $weight_bold: 700;
   }
 }
 
+.button--red {
+    background-color: red;
+    &:hover,
+    &:focus {
+        background-color: darken($colour_pale_red, 10%);
+    }
+  }
+
 .button--disabled,
 .button--disabled:hover {
     background-color: lighten($colour_off_white, 3%);
