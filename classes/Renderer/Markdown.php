@@ -10,7 +10,7 @@ namespace MySociety\TheyWorkForYou\Renderer;
 
 class Markdown
 {
-    public function markdown_document($this_page){
+    public function markdown_document($this_page, $show_menu = true){
         // This function takes a markdown file and converts it to HTML
     
         $markdown_file = '../../../markdown/' . $this_page . '.md';
