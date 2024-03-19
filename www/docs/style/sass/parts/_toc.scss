@@ -9,6 +9,7 @@ $toc-page-breakpoint: 40em; // 640px
         &:first-child {
             position: fixed;
             bottom: 0;
+            z-index: 1;
             width: 100%;
             background: $body-bg;
             box-shadow: 0 0 1em rgba(0, 0, 0, 0.2);

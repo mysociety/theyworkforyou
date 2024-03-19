@@ -361,85 +361,89 @@ function trackLinkClick(link, category, name, value) {
 
 /* Donate page */
 
+function fullname_show(focus){
+  $('.donate-fullname').slideDown(100, function(){
+    if (focus) {
+      $('.donate-fullname input').focus();
+    }
+  });
+}
+
+function fullname_hide(){
+  $('.donate-fullname').slideUp(100);
+}
+
+function fullname_toggle(test, focus){
+  test ? fullname_show(focus) : fullname_hide();
+}
+
+function othervalue_show(focus){
+  $('.how-much-other-value').slideDown(100, function(){
+    $('.how-much-other-value input').prop("disabled", false);
+    if (focus) {
+      $('.how-much-other-value input').focus();
+    }
+  });
+}
+
+function othervalue_hide(){
+  $('.how-much-other-value').slideUp(100, function(){
+    $('.how-much-other-value input').prop("disabled", true);
+  });
+}
+
+function othervalue_toggle(test, focus){
+  test ? othervalue_show(focus) : othervalue_hide();
+}
+
+function amounts_annually(){
+  $('.donate-annually-amount').show();
+  $('.donate-monthly-amount').hide();
+  $('.donate-one-off-amount').hide();
+}
+
+function amounts_monthly(){
+  $('.donate-annually-amount').hide();
+  $('.donate-monthly-amount').show();
+  $('.donate-one-off-amount').hide();
+}
+
+function amounts_oneoff(){
+  $('.donate-annually-amount').hide();
+  $('.donate-monthly-amount').hide();
+  $('.donate-one-off-amount').show();
+}
+
 $(function() {
-
-  if ($.easytabs){
-      $('#tab-container').easytabs({ animate: false });
-  }
-  
-  var selected = {};
-
 
   $('#how-often-annually').click(function() {
     var defaultValue = $(this).data('default-amount');
-    $('.donate-annually-amount').show();
-    $('.donate-monthly-amount').hide();
-    $('.donate-one-off-amount').hide();
     $('#how-much-annually-' + defaultValue).prop('checked', true);
-    $('.how-much-other-value').slideUp(100, function(){
-      $('.how-much-other-value__input').prop( "disabled", true );
-  });
+    amounts_annually();
+    othervalue_hide();
   });
   $('#how-often-monthly').click(function() {
     var defaultValue = $(this).data('default-amount');
-    $('.donate-monthly-amount').show();
-    $('.donate-annually-amount').hide();
-    $('.donate-one-off-amount').hide();
     $('#how-much-monthly-' + defaultValue).prop('checked', true);
-    $('.how-much-other-value').slideUp(100, function(){
-      $('.how-much-other-value__input').prop( "disabled", true );
-  });
+    amounts_monthly();
+    othervalue_hide();
   });
   $('#how-often-once').click(function() {
     var defaultValue = $(this).data('default-amount');
-    $('.donate-one-off-amount').show();
-    $('.donate-annually-amount').hide();
-    $('.donate-monthly-amount').hide();
     $('#how-much-one-off-' + defaultValue).prop('checked', true);
-    $('.how-much-other-value').slideUp(100, function(){
-    $('.how-much-other-value__input').prop( "disabled", true );
+    amounts_oneoff();
+    othervalue_hide();
   });
-  
-  }); 
-  
-  $('#gift-aid-yes').click(function() {
-    if($(this).is(':checked')) {
-      $('.donate-fullname').slideDown();
-    } else {
-      $('.donate-fullname').slideUp();
-    }
+
+  $('#gift-aid-yes').click(function(){
+    fullname_toggle($('#gift-aid-yes').is(':checked'), true);
   });
-  
-  //Donate form 'other' amount box toggle if box value is empty
-  current_value = $('#how-much-other-value__input').val();
-  if (current_value == '') {
-    $('#how-much-other-value__input').prop( "disabled", true );
-    $('.how-much-other-value').hide();
-  };
+  fullname_toggle($('#gift-aid-yes').is(':checked'));
   
   $('[id^=how-much-]').click(function(){
-      if($('#how-much-other').is(":checked")){
-          $('.how-much-other-value').slideDown(100, function(){
-            $('.how-much-other-value__input').prop( "disabled", false ).focus();
-          });
-      }
-      else if($('#how-much-other').is(":not(:checked)")){
-          $('.how-much-other-value').slideUp(100, function(){
-              $('.how-much-other-value__input').prop( "disabled", true );
-          });
-      }
+    othervalue_toggle($('#how-much-other').is(':checked'), true);
   });
-  
-  $('input[type=radio]').click(function() {
-      selected[this.name] = 1;
-      var total = 0;
-      for (s in selected) {
-          total++;
-      }
-      if (total === 4) {
-          $('.form__error').remove();
-      }
-  });
+  othervalue_toggle($('#how-much-other').is(':checked'));
   
   $('#donate_button').click(function(e) {
     e.preventDefault();
@@ -452,39 +456,39 @@ $(function() {
     if (amount == 'other') {
       amount = $('input[name=how-much-other]').val();
     }
-    $('.form__error').remove();
+    $('.donate-form__error').remove();
     if (!amount || !howoften) {
-      $(this).parent().before('<p class="form__error">Please select an amount to donate.</p>');
+      $(this).parent().before('<p class="donate-form__error">Please select an amount to donate.</p>');
       return;
     }
     if (!contact_permission) {
-      $(this).parent().before('<p class="form__error">Please tell us if we can contact you about our work (or not!).</p>');
+      $(this).parent().before('<p class="donate-form__error">Please tell us if we can contact you about our work (or not!).</p>');
       return;
     }
     if (giftaid == 'Yes' && !full_name) {
-      $(this).parent().before('<p class="form__error">Please enter your full name for gift aid.</p>');
+      $(this).parent().before('<p class="donate-form__error">Please enter your full name for gift aid.</p>');
       return;
     }
-  
+
     var submitPaymentForm = function(){
         grecaptcha.execute();
     };
-  
+
     if (!window.analytics) {
       return submitPaymentForm();
     }
-  
+
     window.analytics.trackEvent(
       "donate_form_submit", {"frequency": howoften, "value": amount }
       ).done(submitPaymentForm);
-  });
+    });
   
   });
   
   function onDonateError(message) {
-    var displayError = document.getElementsByClassName('form__error-wrapper')[0];
+    var displayError = document.getElementsByClassName('donate-form__error-wrapper')[0];
     document.getElementById('spinner').style.display = 'none';
-    displayError.innerHTML = '<p class="form__error">' + message + '</p>';
+    displayError.innerHTML = '<p class="donate-form__error">' + message + '</p>';
   }
   
   function onDonatePass(token) {
