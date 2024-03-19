@@ -57,7 +57,7 @@ function contact_decision()
 function stripe_post($path, $data)
 {
     $result = donate_post_api(
-        STRIPE_SECRET_KEY,
+        STRIPE_DONATE_SECRET_KEY,
         "https://api.stripe.com/v1" . $path,
         $data,
         "html"
