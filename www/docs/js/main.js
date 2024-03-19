@@ -414,6 +414,10 @@ function amounts_oneoff(){
   $('.donate-one-off-amount').show();
 }
 
+function wrap_error($message){
+  return '<div class="donate-form__error-wrapper"><p class="donate-form__error">' + $message + '</p></div>';
+}
+
 $(function() {
 
   $('#how-often-annually').click(function() {
@@ -458,15 +462,15 @@ $(function() {
     }
     $('.donate-form__error').remove();
     if (!amount || !howoften) {
-      $(this).parent().before('<p class="donate-form__error">Please select an amount to donate.</p>');
+      $(this).parent().before(wrap_error('Please select an amount to donate.'));
       return;
     }
     if (!contact_permission) {
-      $(this).parent().before('<p class="donate-form__error">Please tell us if we can contact you about our work (or not!).</p>');
+      $(this).parent().before(wrap_error('Please tell us if we can contact you about our work (or not!).'));
       return;
     }
     if (giftaid == 'Yes' && !full_name) {
-      $(this).parent().before('<p class="donate-form__error">Please enter your full name for gift aid.</p>');
+      $(this).parent().before(wrap_error('Please enter your full name for gift aid.'));
       return;
     }
 
