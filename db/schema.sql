@@ -147,6 +147,7 @@ CREATE TABLE `divisions` (
   `both_total` int(3) default 0,
   `majority_vote` enum('aye', 'no', '') default '',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  `title_priority` int(3) default 1, 
   UNIQUE KEY `division_id` (`division_id`),
   KEY `gid` (`gid`)
 );

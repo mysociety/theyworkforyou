@@ -25,3 +25,7 @@ php7-xapian
 python3-lxml
 python3-mysqldb
 snarf
+python3-dev
+libmariadb-dev
+python3-venv
+pkg-config
