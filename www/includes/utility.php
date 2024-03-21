@@ -1107,6 +1107,8 @@ function score_to_strongly($dmpscore) {
         $dmpdesc = "almost always voted for";
     elseif ($dmpscore >= 0.0)
         $dmpdesc = "consistently voted for";
+    elseif ($dmpscore == -1)
+        $dmpdesc = "has never voted in a major vote about";
     return $dmpdesc;
 }
 
