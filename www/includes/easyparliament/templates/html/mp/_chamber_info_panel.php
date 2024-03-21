@@ -1,4 +1,4 @@
-<?php if ($this_page == "mp"): ?>
+<?php if ($this_page == "mp" & $current_member[1]) { ?>
 <div class="panel">
     <h2>About your Member of Parliament</h2>
     <p>
@@ -20,4 +20,16 @@
         <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
     </ul>
 </div>
-<?php endif; ?>
+<?php } else if  ($this_page == "mp" & !$current_member[1])  { ?>
+<div class="panel">
+    <h2>About your former Member of Parliament</h2>
+    <p>
+     <?= ucfirst($full_name) ?> is a former MP for <?= $latest_membership['constituency'] ?>.
+    </p>
+    <h2>
+    What you can do
+    </h2>
+    <ul class="rep-actions" style="li: > list-style: default">
+        <li>Find out <a href="#profile">more about your MP</a>, including <a href="#appearances">their speeches</a>.</li>
+</div>
+<?php }; ?>
