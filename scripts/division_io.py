@@ -169,7 +169,7 @@ def df_to_db(df: pd.DataFrame, *, new_priority: TitlePriority, verbose: bool = F
     db_connection.close()
 
 
-def url_to_db(url: str, *, new_priority: TitlePriority):
+def url_to_db(url: str, *, new_priority: TitlePriority, verbose: bool = False):
     """
     Pipe external URL into the update process.
     """
@@ -183,7 +183,7 @@ def url_to_db(url: str, *, new_priority: TitlePriority):
     else:
         raise ValueError("File not an allowed type (csv, json, or parquet)")
 
-    df_to_db(df, new_priority=new_priority)
+    df_to_db(df, new_priority=new_priority, verbose=verbose)
 
 
 def run_schema_update(verbose: bool = False):
