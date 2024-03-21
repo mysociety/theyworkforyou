@@ -228,7 +228,9 @@ def export_division_data(verbose: bool = False):
     """
     Export division data to publically accessible parquet files
     """
-    dest_path = Path("data", "pwdata", "votes")
+    config = fast_config(Path("conf", "general"))
+    raw_data_dir = Path(config["RAWDATA"])
+    dest_path = raw_data_dir / "votes"
     dest_path.mkdir(parents=True, exist_ok=True)
 
     db_connection = get_twfy_db_connection()
