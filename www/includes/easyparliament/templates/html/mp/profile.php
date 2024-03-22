@@ -255,16 +255,17 @@ $display_wtt_stats_banner = '2015';
                 <div class="panel register">
                     <a name="register"></a>
                     <h2>Register of Members&rsquo; Interests</h2>
+                    <p><b>New</b>: <a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Download a spreadsheet of all Members Interests.</a></p>
 
+                    <p>
+                        <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
+                    </p>
                     <?php if ($register_interests['date']): ?>
                         <p>Last updated: <?= $register_interests['date'] ?>.</p>
                     <?php endif; ?>
 
                     <?= $register_interests['data'] ?>
 
-                    <p>
-                        <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
-                    </p>
 
                     <p>
                          <a class="moreinfo-link" href="https://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the register</a>
