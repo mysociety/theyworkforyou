@@ -79,6 +79,10 @@ class Policies {
         return $this->policies;
     }
 
+    public function getPolicyIDs() {
+        return array_keys($this->policies);
+    }
+
     public function getSetDescriptions() {
         return $this->set_descs;
     }
