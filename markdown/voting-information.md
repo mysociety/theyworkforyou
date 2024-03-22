@@ -77,9 +77,9 @@ In general, [we think it should be easier for MPs to vote](https://www.mysociety
 
 MPs may be absent from a specific vote for many different reasons. Except where there is a narrow majority (or a minority) government, the outcome of a particular vote is generally predetermined by the government having more MPs than the opposition. As such, formal and informal mechanisms exist so that MPs can do other useful things with their time, resulting in fewer MPs voting: in practice the outcome is the same as if everyone was present.
 
-The party managers (or ‘Whips’) collectively deal with absences by giving MPs permission to be absent, and ‘pairing’ them with someone from the other side — so while these MPs don’t vote, their absence has no effect on the result. However, this informal mechanism is not a right - and denying requests for absence (‘slips’) can be used as a form of punishment for MPs who have rebelled in other aspects.
+The party managers (or ‘Whips’) collectively deal with absences by giving MPs permission to be absent, and ‘pairing’ them with someone from the other side — so while these MPs don’t vote, their absence has no effect on the result. However, this informal mechanism is not a right - and denying requests for absence (‘slips’) can be used as a form of punishment for MPs who have rebelled in other votes or are otherwise out of favour.
 
-MPs may also be absent for longer periods during parental leave or sickness. Greater availability of ‘proxy voting’, where an MP's vote can be cast by another MP, has reduced (if not entirely closed) the problem that the previous informal mechanisms had created, of periods of absence in voting records.
+MPs may also be absent for longer periods during parental leave or sickness. Greater availability of ‘proxy voting’, where an MP's vote can be cast by another MP, has reduced (if not entirely solved) the problem of periods of absence in voting records that the previous informal mechanisms had created.
 
 But MPs may also be absent deliberately as a political decision. When party instructions are to attend and vote, not attending may be a lighter form of rebellion. In the absence of information about those party instructions (and allowed absences), we cannot determine the exact meaning of a particular absence. In our voting summaries, we do not count absences because we cannot be clear on how they should be interpreted  — and especially historically, long absences may reflect a period of illness or maternity leave.
 
@@ -186,8 +186,8 @@ We are being conservative in how we apply this approach, and will review feedbac
 
 
 ### Votes are not opinions, but they matter
-A complaint made about voting records is that they suggest MPs personally agree with what they are voting for.
-In practice, MPs may be willing to vote for issues they disagree with in the interests of being a team player who can advance and be in a position to make more decisions. MPs can see voting, the area of their work the party tries to direct the most, as an unfair thing to be personally judged on when compared to the interests and projects they advance where they have the most individual freedom.
+One complaint made about voting records is that they suggest MPs personally agree with what they are voting for.
+In practice, MPs may be willing to vote for issues they disagree with in the interests of being a team player who can advance and be in a position to make more decisions. MPs can see voting, the area of their work the party tries to control the most, as an unfair thing to be personally judged on, compared to the more individual interests and work they spend much of their time on.
 
 Our focus on “votes that do things” is about being clear why we think it is important to track and highlight voting records. These are votes that matter, and change how the country works. 
 
