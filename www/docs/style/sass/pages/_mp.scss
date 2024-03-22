@@ -781,3 +781,8 @@ a[href^="https://www.publicwhip.org"] {
         margin-bottom: em-calc(30);
     }
 }
+ 
+.person-panels .panel ul.rep-actions {
+    list-style: disc;
+    margin-left: 1.2em;
+}
