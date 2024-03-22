@@ -57,8 +57,8 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     </p>
                 </div>
 
-                <?php if (slugify($current_party_comparison) <> slugify($data["comparison_party"])): ?>
-                <?php include('_cross_party_mp_panel.php'); ?>
+                <?php if ($party_switcher == true): ?>
+                    <?php include('_cross_party_mp_panel.php'); ?>
                 <?php endif; ?>
 
                 <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
@@ -78,15 +78,27 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <a name="votes"></a>
                     <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
-                    <p>
-                    <?= $full_name ?> is a <?= $party ?> MP, and on the <b>vast majority</b> of issues <a href="/voting-information/#party-and-individual-responsibility-for-decisions">follow instructions from their party</a> and vote the <b>same way</b> as other <?= $party ?> MPs.
-                    </p>
+                    <?php if ($party_switcher == true) { ?>
+                        <p> 
+                        <?= $full_name ?> was previously a <?= $unslugified_comparison_party ?> MP, and on the <b>vast majority</b> of issues <a href="/voting-information/#party-and-individual-responsibility-for-decisions">would have followed instructions from their party</a> and voted the <b>same way</b> as <?= $unslugified_comparison_party ?> MPs.
+                        </p>
+                    <?php } else { ?>
+                        <p> 
+                        <?= $full_name ?> is a <?= $unslugified_comparison_party ?> MP, and on the <b>vast majority</b> of issues <a href="/voting-information/#party-and-individual-responsibility-for-decisions">follow instructions from their party</a> and vote the <b>same way</b> as other <?= $unslugified_comparison_party ?> MPs.
+                        </p>
+                    <?php } ?>
 
                     
                     <?php if (count($sorted_diffs_only) > 0) { ?>
-                    <p>
-                    However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
-                    </p>
+                    <?php if ($party_switcher == true) { ?>
+                        <p>
+                        However, <?= $full_name ?> sometimes <b>differs</b> from <?= $unslugified_comparison_party ?> MPs, such as:
+                        </p>
+                    <?php } else { ?>
+                        <p>
+                        However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
+                        </p>
+                    <?php } ?>
 
                     <ul class="vote-descriptions">
                       <?php foreach ($sorted_diffs_only as $policy_id => $diff) {

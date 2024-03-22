@@ -375,6 +375,10 @@ $data['current_assembly'] = $country[2];
 $data['policy_last_update'] = MySociety\TheyWorkForYou\Divisions::getMostRecentDivisionDate();
 
 $data['comparison_party'] = $MEMBER->cohortParty();
+$data['unslugified_comparison_party'] = ucwords(str_replace('-', ' ', $data['comparison_party']));
+
+// is the party we're comparing this MP to different from the party they're currently in?
+$data['party_switcher'] = (slugify($data['current_party_comparison']) != slugify($data["comparison_party"]));
 
 // Do any necessary extra work based on the page type, and send for rendering.
 switch ($pagetype) {
@@ -447,13 +451,7 @@ switch ($pagetype) {
 
         if ( $policyID ) {
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
-            $rel_agreements = $policiesList->all_policy_agreements[$policyID] ?? [];
-            // filter down to where 'date' is within the member's term
-            // This won't be perfect where the member has been in and out of the house
-            // But it doesn't affect their score.
-            $rel_agreements = array_filter($rel_agreements, function($agreement) use ($MEMBER) {
-                return $MEMBER->date_in_memberships(HOUSE_TYPE_COMMONS, $agreement['date']);
-            });
+            $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS);
             $data['policyagreements'] = array($policyID => $rel_agreements);
         } else {
             $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
