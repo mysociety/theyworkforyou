@@ -149,6 +149,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                                 <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
                             </h2>
 
+                            <p>For votes held while they were in office:</p>
 
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
