@@ -55,6 +55,7 @@ def fast_config(config_path: Path) -> dict[str, str]:
     """
     pattern = r"define\s*\(\s*['\"](.*?)['\"]\s*,\s*['\"]?(.*?)['\"]?\s*\);"
 
+    config_path = Path(__file__).parent.parent / config_path
     with config_path.open("r") as f:
         content = f.read()
 
