@@ -451,7 +451,7 @@ switch ($pagetype) {
 
         if ( $policyID ) {
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
-            $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS);
+            $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS, $policiesList);
             $data['policyagreements'] = array($policyID => $rel_agreements);
         } else {
             $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();

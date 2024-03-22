@@ -2,6 +2,9 @@
 
 include_once INCLUDESPATH."easyparliament/glossary.php";
 
+use MySociety\TheyWorkForYou\Policies as Policies;
+
+
 class MEMBER {
 
     public $valid = false;
@@ -240,6 +243,20 @@ class MEMBER {
             }
         }
         return false;
+    }
+
+    public function member_agreements(int $policyID, int $house = HOUSE_TYPE_COMMONS, Policies $policiesList = null) {
+        // agreements that a member has been present for on a specific policy.
+        // Pass in a Policies object to avoid reloading the list of policies.
+        // Ideally one that has been initalised without a specific policy id.
+        if (!$policiesList) {
+            $policiesList = new Policies($policyID);
+        }
+        $rel_agreements = $policiesList->all_policy_agreements[$policyID] ?? [];
+        $rel_agreements = array_filter($rel_agreements, function($agreement) use ($house) {
+            return $this->date_in_memberships($house, $agreement['date']);
+        });
+        return $rel_agreements;
     }
 
     public function member_id_to_person_id($member_id) {

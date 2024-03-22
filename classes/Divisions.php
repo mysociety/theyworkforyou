@@ -299,6 +299,24 @@ class Divisions {
           $policy_divisions[$policy_id] = $summary;
         }
 
+        // for each key in $policy_divisions, we want to add agreement information
+    
+        $policies_list = new \MySociety\TheyWorkForYou\Policies();
+        foreach ($policy_divisions as $policy_id => &$summary) {
+            $agreement_details = $this->member->member_agreements($policy_id, HOUSE_TYPE_COMMONS, $policies_list );
+            $summary["agreements_for"] = 0;
+            $summary["agreements_against"] = 0;
+            foreach ($agreement_details as $agreement){
+                if ($strong_only == true & $agreement["strength"] != "strong") {
+                    continue;
+                }
+                if ($agreement["alignment"] == "agree") {
+                    $summary["agreements_for"] += 1;
+                } else {
+                    $summary["agreements_against"] += 1;
+                }
+            }
+        }
         return $policy_divisions;
     }
 
@@ -467,6 +485,14 @@ class Divisions {
             $votes['for'] . ' ' . make_plural('vote', $votes['for']) . ' for',
             $votes['against'] . ' ' . make_plural('vote', $votes['against']) . ' against'
         );
+
+        if ( $votes['agreements_for']) {
+            $actions[] = $votes['agreements_for'] . ' ' . make_plural('agreement', $votes['agreements_for']) . ' for';
+        }
+
+        if ( $votes['agreements_against']) {
+            $actions[] = $votes['agreements_against'] . ' ' . make_plural('agreement', $votes['agreements_against']) . ' against';
+        }
 
         if ( $votes['both'] ) {
             $actions[] = $votes['both'] . ' ' . make_plural('abstention', $votes['both']);
