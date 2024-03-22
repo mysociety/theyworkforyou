@@ -112,8 +112,6 @@ if ($action{'links'}) {
     chdir $FindBin::Bin;
     print "  Lords biographies\n" if $verbose;
     $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
-    print "  Journalisted\n" if $verbose;
-    $twig->parsefile($pwmembers . 'journa-list.xml', ErrorContext => 2);
 }
 
 if ($action{'pw'}) {

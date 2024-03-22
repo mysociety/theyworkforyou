@@ -898,13 +898,6 @@ function person_useful_links($member) {
         );
     }
 
-    if (isset($links['journa_list_link'])) {
-        $out[] = array(
-                'href' => $links['journa_list_link'],
-                'text' => 'Newspaper articles written by this MP'
-        );
-    }
-
     return $out;
 }
 
