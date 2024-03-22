@@ -8,6 +8,7 @@ See python scripts/division_io.py --help for usage.
 """
 
 import re
+import sys
 from enum import Enum
 from pathlib import Path
 from typing import cast
@@ -18,6 +19,11 @@ import pandas as pd
 import rich_click as click
 from rich import print
 from rich.prompt import Prompt
+from pylib.mysociety import config
+
+repository_path = Path(__file__).parent.parent
+
+config.set_file(repository_path / "conf" / "general")
 
 # suppress warnings about using mysqldb in pandas
 filterwarnings(
@@ -48,31 +54,14 @@ def cli():
     pass
 
 
-def fast_config(config_path: Path) -> dict[str, str]:
-    """
-    There's a more comprehensive config parser in commonlib/pylib/mysociety/config.py
-    But this is all we need for this function.
-    """
-    pattern = r"define\s*\(\s*['\"](.*?)['\"]\s*,\s*['\"]?(.*?)['\"]?\s*\);"
-
-    config_path = Path(__file__).parent.parent / config_path
-    with config_path.open("r") as f:
-        content = f.read()
-
-    return {key: value for key, value in re.findall(pattern, content)}
-
-
 def get_twfy_db_connection() -> MySQLdb.Connection:
-    config_path = Path("conf", "general")
-    config = fast_config(config_path)
-
     db_connection = cast(
         MySQLdb.Connection,
         MySQLdb.connect(
-            host=config["OPTION_TWFY_DB_HOST"],
-            db=config["OPTION_TWFY_DB_NAME"],
-            user=config["OPTION_TWFY_DB_USER"],
-            passwd=config["OPTION_TWFY_DB_PASS"],
+            host=config.get("TWFY_DB_HOST"),
+            db=config.get("TWFY_DB_NAME"),
+            user=config.get("TWFY_DB_USER"),
+            passwd=config.get("TWFY_DB_PASS"),
             charset="utf8",
         ),
     )
@@ -229,8 +218,7 @@ def export_division_data(verbose: bool = False):
     """
     Export division data to publically accessible parquet files
     """
-    config = fast_config(Path("conf", "general"))
-    raw_data_dir = Path(config["RAWDATA"])
+    raw_data_dir = Path(config.get("RAWDATA"))
     dest_path = raw_data_dir / "votes"
     dest_path.mkdir(parents=True, exist_ok=True)
 
