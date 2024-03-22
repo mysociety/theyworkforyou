@@ -47,6 +47,9 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                         On TheyWorkForYou, we create voting summaries that group a set of decisions together, show how an MP has generally voted on a set of related votes, and if they differ from their party.
                     </p>
                     <p>
+                        You can see these groups, randomly ordered, below.
+                    </p>
+                    <p>
                         You can read more about <a href="/voting-information/#voting-summaries">how this works</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
                     </p>
                     <p>
