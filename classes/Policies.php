@@ -27,6 +27,41 @@ class Policies {
     private $db;
 
     private $policy_id;
+    /**
+     * @var array $policies key-value of policy id to the context description.
+     * e.g. "363": "introducing <b>foundation hospitals</b>"
+     */
+    private array $policies;
+
+    /**
+     * @var array $sets - key-value pair of a set slug to an array of policy IDs 
+     * in that set.
+     * e.g. "foreignpolicy": ["975", "984"[]
+     */
+    private array $sets;
+
+    /**
+     * @var array $set_descs - key-value pairs of a set slug to a description 
+     * of that set.
+     * e.g. "foreignpolicy": "Foreign Policy"
+     */
+    private array $set_descs;
+
+    /**
+     * @var array $all_policy_agreements - key-value pair of a policy ID to 
+     * an array of 
+     * agreements links.
+     * e.g. "1030": [{
+     *   "division_name": "Approval of SI setting 2050 Net Zero target date",
+     *   "alignment": "agree",
+     *   "gid": "2019-06-24b.530.1",
+     *   "url": "/debates/?id=2019-06-24b.530.1",
+     *   "house": "commons",
+     *   "strength": "strong",
+     *   "date": "2019-06-24"
+     * }]
+     */
+    public array $all_policy_agreements;
 
     public function __construct($policy_id = null) {
         $this->db = new \ParlDB;
