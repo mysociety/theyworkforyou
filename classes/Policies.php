@@ -75,27 +75,6 @@ class Policies {
         $this->set_descs = $policy_data['set_descs'];
         $this->sets = $policy_data['sets'];
 
-        $this->sets['summary'] = array(
-            1113,
-            1136,
-            1132,
-            1052,
-            1109,
-            1110,
-            1027,
-            1084,
-            1065,
-            6670,
-            6673,
-            6674,
-            6678,
-            984,
-            837,
-            1079,
-            6671,
-            6672,
-        );
-
         $this->all_policy_agreements = $policy_data['agreements'] ?? [];
 
         if ( $policy_id ) {
