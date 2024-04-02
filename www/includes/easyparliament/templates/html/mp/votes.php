@@ -52,9 +52,19 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <p>
                         You can read more about <a href="/voting-information/#voting-summaries">how this works</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
                     </p>
+                    <hr />
                     <p>
-                        If you want to support and help us improve this work, please consider <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=vote-desc&utm_medium=link&utm_campaign=voting_page">donating</a>.
+                        These summaries are created by the team at TheyWorkForYou. We are independent of Parliament and receive no public funding for this work.
                     </p>
+                    <p>
+                        If you want to support and help us improve these summaries, please consider <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=vote-desc&utm_medium=link&utm_campaign=voting_page">donating</a>.
+                    </p>
+                    <div class="inline-donation-box">
+                        <a href="/support-us/?how-often=annually&how-much=10" class="button">Donate £10 a year</a>
+                        <a href="/support-us/?how-often=one-off&how-much=25" class="button" >Donate £25 once</a>
+                        <a href="/support-us/" class="button">Donate another amount</a>
+                    </div>
+                    <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
                 </div>
 
                 <?php if ($party_switcher == true): ?>

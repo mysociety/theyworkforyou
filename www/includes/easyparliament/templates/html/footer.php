@@ -41,8 +41,8 @@
 
         <div class="medium-3 columns">
             <div class="mysoc-footer__donate">
-                <p><?= gettext('Your donations keep this site and others like it running') ?></p>
-                <a href="https://www.mysociety.org/donate?utm_source=theyworkforyou.com&utm_content=footer+donate+now&utm_medium=link&utm_campaign=mysoc_footer" class="mysoc-footer__donate__button"><?= gettext('Donate now') ?></a>
+              <p><?= gettext('This site is not publicly funded. Support our mission of making UK politics more transparent and accessible.') ?></p>
+              <a href=/support-us/?utm_source=theyworkforyou.com&utm_content=footer+donate+now&utm_medium=link&utm_campaign=mysoc_footer" class="mysoc-footer__donate__button"><?= gettext('Donate now') ?></a>
             </div>
         </div>
 

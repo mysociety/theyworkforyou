@@ -85,3 +85,16 @@
     font-size: 0.75em;
   }
 }
+
+.inline-donation-box {
+  a.button {
+    text-decoration: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .inline-donation-box a {
+      display: block;
+      margin-bottom: 10px; /* Adjust as needed */
+  }
+}
