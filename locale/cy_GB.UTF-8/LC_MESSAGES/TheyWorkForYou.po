@@ -1673,8 +1673,8 @@ msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
 msgid "Your data"
 msgstr "Eich data"
 
-#: www/includes/easyparliament/templates/html/footer.php:44
-msgid "Your donations keep this site and others like it running"
+#: www/includes/easyparliament/templates/html/footer.php:43
+msgid "This site is not publicly funded. Support our mission of making UK politics more transparent and accessible."
 msgstr "Mae eich rhoddion yn parhau bodolaeth y safle hwn ac eraill tebyg iddo"
 
 #: www/includes/easyparliament/templates/html/footer.php:45
