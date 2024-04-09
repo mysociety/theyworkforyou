@@ -3,7 +3,7 @@
 include_once '../../includes/easyparliament/init.php';
 include_once '../../includes/easyparliament/member.php';
 
-$this_page = "reporting_stats";
+$this_page = "admin_reportstats";
 
 $PAGE->page_start();
 $PAGE->stripe_start();

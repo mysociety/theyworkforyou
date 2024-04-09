@@ -6,9 +6,6 @@ include_once '../../includes/easyparliament/init.php';
 $db = new ParlDB;
 $banner = new MySociety\TheyWorkForYou\Model\AnnouncementManagement;
 
-$PAGE->page_start();
-$PAGE->stripe_start();
-
 $editorial_option = 'banner';
 if (get_http_var('editorial_option')) {
     $editorial_option = get_http_var('editorial_option');
@@ -19,6 +16,9 @@ if ($editorial_option == "banner"){
 } elseif ($editorial_option == "announcements") {
     $this_page = 'admin_announcement';
 };
+
+$PAGE->page_start();
+$PAGE->stripe_start();
 
 $out = '';
 if (get_http_var('action') === 'Save') {
