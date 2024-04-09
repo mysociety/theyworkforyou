@@ -441,6 +441,9 @@ switch ($pagetype) {
 
     case 'divisions':
         $policyID = get_http_var('policy');
+        if (!ctype_digit($policyID)) {
+            member_redirect($MEMBER);
+        }
         if ( $policyID ) {
             $policiesList = new MySociety\TheyWorkForYou\Policies( $policyID );
         } else {
@@ -590,18 +593,16 @@ function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
         $params = array();
         foreach ($_GET as $key => $value) {
             if (substr($key, 0, 4) == 'utm_' || $key == 'gclid') {
-                $params[] = "$key=$value";
+                $params[] = urlencode($key) . "=" . urlencode($value);
             }
+        }
+        if ($pagetype) {
+            $url .= '/' . $pagetype;
         }
         if (count($params)) {
             $url .= '?' . join('&', $params);
         }
-        if ($pagetype) {
-            $pagetype = '/' . $pagetype;
-        } else {
-            $pagetype = '';
-        }
-        header('Location: ' . $url . $pagetype, true, $code );
+        header('Location: ' . $url, true, $code );
         exit;
     }
 }
