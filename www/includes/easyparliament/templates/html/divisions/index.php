@@ -72,6 +72,7 @@
                         <a href="/voting-information"><?= gettext('Learn more about our voting records and what they mean.') ?></a>
                     </p>
                 </div>
+                <?php include dirname(__FILE__) . '/../announcements/_sidebar_right_announcements.php'; ?>
             </div>
         </div>
     </div>
