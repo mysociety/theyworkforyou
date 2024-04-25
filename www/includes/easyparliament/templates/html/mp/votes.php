@@ -83,12 +83,12 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 </div>
                 <?php endif; ?>
 
-                <?php if ($current_member[HOUSE_TYPE_COMMONS] && $party_member_count > 1) { ?>
+                <?php if ($party_member_count > 1) { ?>
                 <div class="panel">
                     <a name="votes"></a>
                     <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
 
-                    <?php if ($party_switcher == true) { ?>
+                    <?php if ($party_switcher == true or $current_member[HOUSE_TYPE_COMMONS] == false) { ?>
                         <p> 
                         <?= $full_name ?> was previously a <?= $unslugified_comparison_party ?> MP, and on the <b>vast majority</b> of issues <a href="/voting-information/#party-and-individual-responsibility-for-decisions">would have followed instructions from their party</a> and voted the <b>same way</b> as <?= $unslugified_comparison_party ?> MPs.
                         </p>
