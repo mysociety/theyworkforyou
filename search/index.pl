@@ -376,6 +376,7 @@ sub get_person {
     $hdate = '20210219' if $person_id == 10599 && substr($hdate, 0, 6) eq '202102';
     $hdate = '20221130' if $person_id == 11667 && substr($hdate, 0, 6) eq '202212';
     $hdate = '20230727' if $person_id == 13485 && $hdate gt '20230727';
+    $hdate = '20240429' if $person_id == 10578 && $hdate gt '20240429';
 
     # London questions answered after election
     $hdate = '20210507' if $major == 9 && ($hdate eq '20210511' || $hdate eq '20210510');
