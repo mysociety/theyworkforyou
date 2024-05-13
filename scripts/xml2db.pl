@@ -1397,21 +1397,25 @@ sub load_scotland_division {
     my $text = $division->sprint(1);
     my %out;
     my %totals = (for => 0, against => 0, abstentions => 0);
-    while ($text =~ m#<mspname id="uk\.org\.publicwhip/member/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        my ($member_id, $vote, $name) = ($1, $2, $3);
-        my $person_id = $membertoperson{$member_id} || 'unknown';
-        $person_id =~ s/.*\///;
-        $person_id = $personredirect{$person_id} || $person_id;
-        push @{$out{$vote}}, '<a href="/msp/?m=' . $member_id . '">' . $name . '</a>';
+
+    while ($text =~ m#<mspname([^>]*)>\s*(.*?)\s\(.*?\s*</mspname>#g) {
+        my ($attribs, $name) = ($1, $2);
+        my ($id_type, $id) = $attribs =~ m#id="uk\.org\.publicwhip/(person|member)/([^"]*)"#;
+        my ($vote) = $attribs =~ m#vote="([^"]*)"#;
+        my $person_id;
+        if ($id_type eq 'member') {
+            $person_id = $membertoperson{$id} || 'unknown';
+            $person_id =~ s/.*\///;
+            $person_id = $personredirect{$person_id} || $person_id;
+            push @{$out{$vote}}, '<a href="/msp/?m=' . $id . '">' . $name . '</a>';
+        } else {
+            $person_id = $id;
+            push @{$out{$vote}}, '<a href="/msp/?p=' . $person_id . '">' . $name . '</a>';
+        }
         $totals{$vote}++;
         $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote}, undef);
     }
-    while ($text =~ m#<mspname id="uk\.org\.publicwhip/person/([^"]*)" vote="([^"]*)">(.*?)\s\(.*?</mspname>#g) {
-        my ($person_id, $vote, $name) = ($1, $2, $3);
-        push @{$out{$vote}}, '<a href="/msp/?p=' . $person_id . '">' . $name . '</a>';
-        $totals{$vote}++;
-        $voteupdate->execute($person_id, $division_id, $scotland_vote_store{$vote}, undef);
-    }
+
     $text = "<p class='divisionheading'>Division number $divnumber</p> <p class='divisionbody'>";
     foreach ('for','against','abstentions','spoiled votes') {
         next unless $out{$_};
