@@ -95,7 +95,7 @@
         <div class="full-page__row">
             <div class="banner__content">
               <?php if ($country == 'AU') { ?>
-                You&rsquo;re in Australia, so check out <a href="http://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under
+                You&rsquo;re in Australia, so check out <a href="https://www.openaustralia.org">OpenAustralia</a>, a TheyWorkForYou for down under
               <?php } elseif ($country == 'IE') { ?>
                 Check out <a href="https://www.kildarestreet.com/">KildareStreet</a>, a TheyWorkForYou for the Houses of the Oireachtas
               <?php } elseif ($country == 'CA') { ?>

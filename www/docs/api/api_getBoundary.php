@@ -8,7 +8,7 @@ function api_getBoundary_front() {
 <p><big>Returns KML file for a UK Parliament constituency.</big></p>
 
 <p>Returns the bounding polygon of the constituency, in KML format (see <a
-href="http://mapit.mysociety.org/">mapit.mysociety.org</a> for other formats,
+href="https://mapit.mysociety.org/">mapit.mysociety.org</a> for other formats,
 past constituency boundaries, and so on).</p>
 
 <h4>Arguments</h4>
@@ -38,6 +38,6 @@ function api_getBoundary_name($name) {
         api_error('No data found for name');
         return;
     }
-    header("Location: http://mapit.mysociety.org/area/4326/$id.kml");
+    header("Location: https://mapit.mysociety.org/area/4326/$id.kml");
     exit;
 }

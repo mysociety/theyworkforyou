@@ -124,7 +124,7 @@ MPs. This will be based on XML format data published by theyworkforyou.com.
 
     We recommend either using rsync or downloading the
     zip files containing all the data if you want it - for more information,
-    see http://parser.theyworkforyou.com/ under "Getting the Data".
+    see https://parser.theyworkforyou.com/ under "Getting the Data".
 
     At a minimum, we'd recommend getting some recent debates; for example you
     could get everything in 2021 by grabbing `scrapedxml/debates/debates2021*`.
@@ -176,7 +176,7 @@ the development environment.
   
         Fatal error: Class 'XapianStem' not found in /.../www/includes/easyparliament/searchengine.php on line 39  
 There are some old instructions on compiling Xapian for PHP at
-http://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html  
+https://lists.tartarus.org/pipermail/xapian-discuss/2004-May/000037.html  
   
     You need to run `search/index.pl sincefile` to create the Xapian index.
     The index can get quite large if you are loading all the data available,

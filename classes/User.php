@@ -100,7 +100,7 @@ class User {
             }
 
             if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
-                $details['url'] = 'http://' . $details['url'];
+                $details['url'] = 'https://' . $details['url'];
             }
 
             # these are used when displaying user details

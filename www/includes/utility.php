@@ -517,7 +517,7 @@ function prepare_comment_for_display($text) {
             }
         },
         $text);
-    $text = str_replace('<a href="www', '<a href="http://www', $text);
+    $text = str_replace('<a href="www', '<a href="https://www', $text);
     $text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text);
     $text = str_replace("\n", "<br>\n", $text);
 

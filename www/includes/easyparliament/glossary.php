@@ -259,8 +259,8 @@ class GLOSSARY {
 
         // External links shown within their own definition
         // should be the complete and linked url.
-        // NB. This should only match when $body is a definition beginning with "http:"
-        if (is_string($body) && preg_match("/^(http:*[^\s])$/i", $body)) {
+        // NB. This should only match when $body is a definition beginning with "https:"
+        if (is_string($body) && preg_match("/^(https?:*[^\s])$/i", $body)) {
             $body = "<a href=\"" . $body . "\" title=\"External link to " . $body . "\">" . $body . "</a>";
             return ($body);
         }

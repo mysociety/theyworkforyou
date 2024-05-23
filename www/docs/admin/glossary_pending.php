@@ -90,7 +90,7 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
     // Wiki woo!
     // We need to work out how best to work this...
-    $wiki_link = _htmlspecialchars("http://en.wikipedia.org/wiki/" . strtr($title, " ", "_"));
+    $wiki_link = _htmlspecialchars("https://en.wikipedia.org/wiki/" . strtr($title, " ", "_"));
 ?>
         <p>Guessing the wikipedia link - give it a go:<br>
         <a href="<?php echo $wiki_link; ?>" target="_blank"><?php echo $wiki_link; ?></a></p>

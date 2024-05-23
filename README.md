@@ -6,7 +6,7 @@ This is the source code that powers the TheyWorkForYou.com website. It's
 mainly written in PHP, although there are also some Perl scripts for database
 loading and indexing. The backend parser code is separate and available
 [on GitHub](https://github.com/mysociety/parlparse). You can read more about this
-on [TheyWorkForYou's parser info page](http://parser.theyworkforyou.com/parser.html)
+on [TheyWorkForYou's parser info page](https://parser.theyworkforyou.com/parser.html)
 
 The TheyWorkForYou source code in this distribution is released under a BSD
 style license. Roughly, this means you are free to copy, use, modify and
@@ -93,7 +93,7 @@ information for your testing database. The database will be stripped down and
 rebuilt during testing, so make sure it's not an important copy.
 
 You may find that in some versions of PHPUnit errors are thrown regarding code
-coverage reports. If this is the case, the version installed by [Composer](http://getcomposer.org/)
+coverage reports. If this is the case, the version installed by [Composer](https://getcomposer.org/)
 and located at `/vendor/bin/phpunit` should run correctly.
 
 ## Build Status
@@ -102,7 +102,7 @@ and located at `/vendor/bin/phpunit` should run correctly.
 
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/mysociety/theyworkforyou.svg)](https://scrutinizer-ci.com/g/mysociety/theyworkforyou/)
 
-[![mySociety Installability](http://img.shields.io/badge/installability-bronze-8c7853.svg)](http://mysociety.github.io/installation-standards.html)
+[![mySociety Installability](https://img.shields.io/badge/installability-bronze-8c7853.svg)](https://pages.mysociety.org/installation-standards.html)
 
 ## Acknowledgements
 

@@ -119,7 +119,7 @@ payment.</p>
 intellectual property from one party to the other.</p>
 
 <p>The API contains
-Parliamentary information licensed under the <a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>;
+Parliamentary information licensed under the <a href="https://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>;
 Ordnance Survey data © Crown copyright and database right 2018;
 NISRA data © Crown copyright;
 Royal Mail data © Royal Mail copyright and database right 2018;
@@ -142,12 +142,12 @@ from time to time but we are under no obligation to do so.</p>
 licences given by third parties:</p>
 
 <ul>
-<li>Parliamentary material may be reused under the terms of the <a href="http://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>;
-<li>Our own data – lists of MPs, Lords, constituencies and so on – is available under the <a href="http://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike license version 2.5</a>;
+<li>Parliamentary material may be reused under the terms of the <a href="https://www.parliament.uk/site-information/copyright/">Open Parliament Licence</a>;
+<li>Our own data – lists of MPs, Lords, constituencies and so on – is available under the <a href="https://creativecommons.org/licenses/by-sa/2.5/">Creative Commons Attribution-ShareAlike license version 2.5</a>;
 <li>Great Britain postcode and boundary data may be used under the terms of the
-    <a href="http://www.ordnancesurvey.co.uk/oswebsite/opendata/licence/">OS OpenData licence</a>;
+    <a href="https://www.ordnancesurvey.co.uk/oswebsite/opendata/licence/">OS OpenData licence</a>;
 <li>Northern Ireland boundary data may be used under the
-    <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/open-government-licence.htm">Open Government Licence</a>;
+    <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/open-government-licence.htm">Open Government Licence</a>;
 <li>Northern Ireland postcode data may be used under the terms of the
     <a href="https://www.ons.gov.uk/methodology/geography/licences">Northern Ireland End User Licence</a>.
 </ul>

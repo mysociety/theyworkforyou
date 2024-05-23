@@ -98,7 +98,7 @@
               <li>Other parliamentary copyright images (eg: photographs of MPs) are reproduced with the permission of Parliament.</li>
             </ul>
 
-            <p><?= gettext('The copyright of Hansard remains under <a href="http://www.opsi.gov.uk/advice/parliamentary-copyright/">Parliamentary Copyright</a>, used under licence. ') ?></p>
+            <p><?= gettext('The copyright of Hansard remains under <a href="https://www.parliament.uk/site-information/copyright/">Parliamentary Copyright</a>, used under licence. ') ?></p>
 
         </div>
     </div>

@@ -6,7 +6,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
 $PAGE->page_start();
 ?>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <h1>Scottish and Northern Irish election constituency boundaries</h1>
 
 <div id="boundaries">
@@ -57,7 +57,7 @@ It does not currently function.
 </div>
 
 <div class="picture">
-<a href="http://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="http://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
+<a href="https://www.flickr.com/photos/markybon/138214000/" title="Boundaries by MarkyBon, on Flickr"><img src="https://farm1.static.flickr.com/51/138214000_80327fe675.jpg" width="358" height="500" alt="Boundaries"></a>
 <br><small>Boundaries by MarkyBon</small>
 </div>
 <?php
@@ -97,7 +97,7 @@ if ($pc) {
 <div id="map_next" style="width:400px;height:400px"></div>
 <p class="desc">Former constituency of <?=$current['SPC']?>:</p>
 <div id="map_now" style="width:400px;height:400px"></div>
-<p class="footer"><small>Uses <a href="http://www.ordnancesurvey.co.uk/">Ordnance Survey</a> data &copy; Crown copyright and database right 2010, via <a href="http://mapit.mysociety.org/">MaPit</a>.</small></p>
+<p class="footer"><small>Uses <a href="https://www.ordnancesurvey.co.uk/">Ordnance Survey</a> data &copy; Crown copyright and database right 2010, via <a href="https://mapit.mysociety.org/">MaPit</a>.</small></p>
 
 </div>
 
@@ -109,10 +109,10 @@ $(function () {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(document.getElementById('map_next'), opt);
-    var boundary = new google.maps.KmlLayer('http://mapit.mysociety.org/area/<?=$new_id['SPC']?>.kml');
+    var boundary = new google.maps.KmlLayer('https://mapit.mysociety.org/area/<?=$new_id['SPC']?>.kml');
     boundary.setMap(map);
     var map = new google.maps.Map(document.getElementById('map_now'), opt);
-    var boundary = new google.maps.KmlLayer('http://mapit.mysociety.org/area/<?=$current_id['SPC']?>.kml');
+    var boundary = new google.maps.KmlLayer('https://mapit.mysociety.org/area/<?=$current_id['SPC']?>.kml');
     boundary.setMap(map);
 });
 </script>
@@ -154,7 +154,7 @@ $(function () {
         print '<p>The constituency may have kept the same name but altered its boundaries &ndash; do check the maps on the right.</p>';
     }
     if ($country == 'N' && $current['NIE'] == $current['WMC']) {
-        print '<p>The constituency may have kept the same name but altered its boundaries &ndash; see the <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">summary map</a>.</p>';
+        print '<p>The constituency may have kept the same name but altered its boundaries &ndash; see the <a href="https://www.boundarycommission.org.uk/pics/big_map_1.jpg">summary map</a>.</p>';
     }
     if ($country == 'S') {
         print '<p class="informational"><a href="/scotland/">View TheyWorkForYou&rsquo;s coverage of the Scottish Parliament</a></p>';
@@ -171,7 +171,7 @@ $(function () {
 you were in,
 and what constituency you are now voting in at the election, along
 with maps of before and after for Scotland (Northern Irish people will have to make
-do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">overall summary map</a> from the Boundary Commission).
+do with this <a href="https://www.boundarycommission.org.uk/pics/big_map_1.jpg">overall summary map</a> from the Boundary Commission).
 </p>
 
 <form method="get">
@@ -183,7 +183,7 @@ do with this <a href="http://www.boundarycommission.org.uk/pics/big_map_1.jpg">o
 
 <p>This service should work anywhere in Scotland or Nothern Ireland, errors and omissions excepted.</p>
 
-<p>This service is also available through our web service <a href="http://mapit.mysociety.org/">MaPit</a>,
+<p>This service is also available through our web service <a href="https://mapit.mysociety.org/">MaPit</a>,
 which can provide programmatic access to the constituency for a particular postcode.</p>
 
 <ul class="results">

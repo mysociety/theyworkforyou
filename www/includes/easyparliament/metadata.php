@@ -506,7 +506,7 @@ $page = array (
     'data' => array (
         'title'			=> gettext('Raw Data'),
         'heading'		=> gettext('Raw data (XML) - the data behind TheyWorkForYou and Public Whip'),
-        'url'			=> 'http://parser.theyworkforyou.com'
+        'url'			=> 'https://parser.theyworkforyou.com'
     ),
     'devmailinglist' => array (
         'title'			=> gettext('Developer mailing list'),
@@ -517,25 +517,20 @@ $page = array (
         'heading'		=> gettext('TheyWorkForYou Source code'),
         'url'			=> 'https://github.com/mysociety/theyworkforyou'
     ),
-    'irc' => array (
-        'title'			=> 'IRC chat channel',
-        'heading'		=> 'IRC chat channel',
-        'url'			=> 'http://www.irc.mysociety.org/'
-    ),
     'australia' => array (
         'title'			=> 'Australia',
         'heading'		=> 'Open Australia',
-        'url'			=> 'http://www.openaustralia.org/'
+        'url'			=> 'https://www.openaustralia.org/'
     ),
     'ireland' => array (
         'title'			=> 'Ireland',
         'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
-        'url'			=> 'http://www.kildarestreet.com/'
+        'url'			=> 'https://www.kildarestreet.com/'
     ),
     'mzalendo' => array (
         'title'			=> 'Mzalendo',
         'heading'		=> 'Keeping an eye on the Kenyan Parliament',
-        'url'			=> 'http://info.mzalendo.com/'
+        'url'			=> 'https://info.mzalendo.com/'
     ),
     'lordsdebate'  => array (
         'parent'		=> 'lordsdebatesfront',
