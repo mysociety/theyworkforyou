@@ -6,6 +6,13 @@ include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
+$q = get_http_var('q');
+$q = preg_replace('#[^a-z0-9]#i', '', $q);
+if (validate_postcode($q)) {
+    header("Location: /postcode/?pc=" . urlencode($q));
+    exit;
+}
+
 if (!DEVSITE) {
     header('Cache-Control: max-age=900');
 }
