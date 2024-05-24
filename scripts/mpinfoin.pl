@@ -87,8 +87,8 @@ if ($action{'links'}) {
     $twig->parsefile($pwmembers . "wikipedia-commons.xml", ErrorContext => 2);
     print "  Lords \"\n" if $verbose;
     $twig->parsefile($pwmembers . "wikipedia-lords.xml", ErrorContext => 2);
-    #print "  MPs standing down\n" if $verbose;
-    #$twig->parsefile($pwmembers . "wikipedia-standingdown.xml", ErrorContext => 2);
+    print "  MPs standing down\n" if $verbose;
+    $twig->parsefile($pwmembers . "wikipedia-standingdown.xml", ErrorContext => 2);
     print "  Bishops\n" if $verbose;
     $twig->parsefile($pwmembers . "diocese-bishops.xml", ErrorContext => 2);
     print "  BBC\n" if $verbose;

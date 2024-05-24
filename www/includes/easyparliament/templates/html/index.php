@@ -20,7 +20,7 @@
                 </div>
             </div>
             <?php } else { ?>
-            <h1>Find out more about your MP</h1>
+            <h1>Find out more about your MP, and election candidates</h1>
             <div class="row collapse">
                 <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'Home'); return false;">
                     <label for="postcode">Your postcode</label>

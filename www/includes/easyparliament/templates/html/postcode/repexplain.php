@@ -1,4 +1,4 @@
-<h2><?= gettext("More information") ?></h2>
+<h3><?= gettext("More information") ?></h3>
 
 <?php if ($multi == "scotland") { ?>
 
@@ -18,6 +18,6 @@
 
 <p>
 <?php
-$url = "https://www.writetothem.com/who?pc=" . $pc;
+$url = "https://www.writetothem.com/who?pc=" . urlencode($pc);
 ?>
 <p><?= sprintf(gettext('You can write to any representative, or your local councillors through <a href="%s">WriteToThem.com</a>.'), $url) ?></p>
