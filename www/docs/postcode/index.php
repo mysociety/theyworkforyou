@@ -5,12 +5,14 @@
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
+$data = array();
 $errors = array();
 
 $pc = get_http_var('pc');
 if (!$pc) {
     postcode_error('Please supply a postcode!');
 }
+$data['pc'] = $pc;
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
@@ -18,39 +20,60 @@ if (!validate_postcode($pc)) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
 }
 
-$constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
-if ($constituencies == 'CONNECTION_TIMED_OUT') {
-    postcode_error("Sorry, we couldn't check your postcode right now, as our postcode lookup server is under quite a lot of load.");
-} elseif (!$constituencies) {
+# 2024 ELECTION EXTRA
+
+$address = get_http_var('address');
+if ($address) {
+    $dc_data = democracy_club_address($address);
+    $constituencies = mapit_address($address, $pc);
+} else {
+    $dc_data = democracy_club_postcode($pc);
+    if ($dc_data->address_picker) {
+        show_address_list($pc, $dc_data->addresses);
+        exit;
+    }
+    $constituencies = mapit_postcode($pc);
+}
+if (!$constituencies || isset($dc_data->error) || !$dc_data->dates) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
 }
 
-$out = ''; $sidebars = array();
-if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
-    $multi = "scotland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
-} elseif (isset($constituencies['WAE']) || isset($constituencies['WAC'])) {
-    $multi = "wales";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'WAE', HOUSE_TYPE_WALES);
-} elseif (isset($constituencies['NIE'])) {
-    $multi = "northern-ireland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    list($out, $sidebars) = pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
-} else {
-    # Just have an MP, redirect instantly to the canonical page
-    $multi = "uk";
-    $MEMBER = fetch_mp($pc, $constituencies, 1);
-    member_redirect($MEMBER);
+$data['ballot'] = null;
+foreach ($dc_data->dates as $date) {
+    if ($date->date != '2024-07-04') continue;
+    foreach ($date->ballots as $b) {
+        if ($b->election_id != 'parl.2024-07-04') continue;
+        $data['ballot'] = $b;
+    }
 }
 
-$PAGE->page_start();
-$PAGE->stripe_start();
-echo $out;
-include("repexplain.php");
-$PAGE->stripe_end($sidebars);
-$PAGE->page_end();
+if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
+    $data['multi'] = "scotland";
+    $MEMBER = fetch_mp($pc, $constituencies);
+    pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
+} elseif (isset($constituencies['WAE']) || isset($constituencies['WAC'])) {
+    $data['multi'] = "wales";
+    $MEMBER = fetch_mp($pc, $constituencies);
+    pick_multiple($pc, $constituencies, 'WAE', HOUSE_TYPE_WALES);
+} elseif (isset($constituencies['NIE'])) {
+    $data['multi'] = "northern-ireland";
+    $MEMBER = fetch_mp($pc, $constituencies);
+    pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
+} else {
+    $data['multi'] = "uk";
+    $MEMBER = fetch_mp($pc, $constituencies, 1);
+    $data['mp'] = [
+        'name' => $MEMBER->full_name(),
+        'person_id' => $MEMBER->person_id(),
+        'constituency' => $MEMBER->constituency(),
+        'former' => !$MEMBER->current_member(HOUSE_TYPE_COMMONS),
+        'standing_down_2024' => $MEMBER->extra_info['standing_down_2024'] ?? '',
+    ];
+    $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
+}
+
+$data['mapit_ids'] = $mapit_ids;
+MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
 
 # ---
 
@@ -83,7 +106,7 @@ function fetch_mp($pc, $constituencies, $house=null) {
 }
 
 function pick_multiple($pc, $areas, $area_type, $house) {
-    global $PAGE;
+    global $PAGE, $data;
     $db = new ParlDB;
 
     $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
@@ -108,9 +131,9 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     $mp = array();
     if ($q) {
         $mp = $q;
-        if ($mp['left_house'] != '9999-12-31') {
-            $mp['former'] = true;
-        }
+        $mp['former'] = ($mp['left_house'] != '9999-12-31');
+        $q = $db->query("SELECT * FROM personinfo where person_id=:person_id AND data_key='standing_down_2024'", [':person_id' => $mp['person_id']]);
+        $mp['standing_down_2024'] = $q['data_value'];
     }
 
     $a = array_values($areas);
@@ -151,77 +174,21 @@ function pick_multiple($pc, $areas, $area_type, $house) {
             return;
         }
     }
+    $data['mcon'] = $mcon;
+    $data['mreg'] = $mreg;
+    $data['house'] = $house;
+    $data['urlp'] = $urlp;
+    $data['current'] = $current;
+    $data['areas'] = $areas;
+    $data['area_type'] = $area_type;
+    $data['member_names'] = $member_names;
 
-    $out = '';
-    $out .= '<h1>' . gettext("Your representatives") . '</h1>';
-    $out .= '<ul><li>';
-    $name = $mp['given_name'] . ' ' . $mp['family_name'];
-    if (isset($mp['former'])) {
-        $out .= sprintf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $name, gettext($mp['constituency']));
-    } else {
-        $out .= sprintf(gettext('Your <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $name, gettext($mp['constituency']));
-    }
-    $out .= '</li>';
-    if ($mcon) {
-        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
-        $out .= '<li>';
-        if ($house == HOUSE_TYPE_SCOTLAND) {
-            $url = $urlp . $mcon['person_id'];
-            $cons = $mcon['constituency'];
-            if ($current) {
-                $out .= sprintf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            } else {
-                $out .= sprintf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            }
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            $url = $urlp . $mcon['person_id'];
-            $cons = gettext($mcon['constituency']);
-            if ($current) {
-                # First %s is URL, second %s is name, third %s is constituency
-                $out .= sprintf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            } else {
-                # First %s is URL, second %s is name, third %s is constituency
-                $out .= sprintf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            }
-        }
-        $out .= '</li>';
-    }
-    if ($current) {
-        if ($house == HOUSE_TYPE_NI) {
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
-        } elseif ($house == HOUSE_TYPE_WALES){
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), gettext($areas[$area_type]));
-        } else {
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
-        }
-    } else {
-        if ($house == HOUSE_TYPE_NI) {
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
-        } elseif ($house == HOUSE_TYPE_WALES){
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), gettext($areas[$area_type]));
-        } else {
-            $out .= '<li>' . sprintf(gettext('Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
-        }
-    }
-    $out .= '<ul>';
-    foreach ($mreg as $reg) {
-        $out .= '<li><a href="' . $urlp . $reg['person_id'] . '">';
-        $out .= $reg['given_name'] . ' ' . $reg['family_name'];
-        $out .= '</a>';
-    }
-    $out .= '</ul></ul>';
+    $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
+    $data['mp'] = $mp;
 
-    $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
-    $REGURL = new \MySociety\TheyWorkForYou\Url($urlpl);
-    $browse_text = sprintf(gettext('Browse all %s'), $member_names['plural']);
-    $sidebar = array(array(
-        'type' => 'html',
-        'content' => '<div class="block"><h4>' . gettext('Browse people') . '</h4>
-            <ul><li><a href="' . $MPSURL->generate() . '">' . gettext('Browse all MPs') . '</a></li>
-            <li><a href="' . $REGURL->generate() . '">' . $browse_text . '</a></li>
-            </ul></div>'
-    ));
-    return array($out, $sidebar);
+    $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
+    $data['REGURL'] = new \MySociety\TheyWorkForYou\Url($urlpl);
+    $data['browse_text'] = sprintf(gettext('Browse all %s'), $member_names['plural']);
 }
 
 function member_redirect(&$MEMBER) {
@@ -230,4 +197,77 @@ function member_redirect(&$MEMBER) {
         header("Location: $url");
         exit;
     }
+}
+
+function democracy_club_postcode($pc) {
+    $pc = urlencode($pc);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/postcode/$pc/?auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = json_decode($data);
+    return $data;
+}
+
+function democracy_club_address($address) {
+    $address = urlencode($address);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/address/$address/?auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = json_decode($data);
+    return $data;
+}
+
+function mapit_postcode($postcode) {
+    $filename = 'postcode/' . rawurlencode($postcode);
+    return mapit_lookup('postcode', $filename);
+}
+
+function mapit_address($address, $pc) {
+    $address = urlencode($address);
+    $url = str_replace('{s}', $address, OPTION_MAPIT_UPRN_LOOKUP);
+    $file = web_lookup($url);
+    $r = json_decode($file);
+    if (isset($r->error)) return mapit_postcode($pc);
+    $filename = 'point/4326/' . $r->wgs84_lon . ',' . $r->wgs84_lat;
+    return mapit_lookup('point', $filename);
+}
+
+function mapit_lookup($type, $filename) {
+    global $mapit_ids;
+    $file = web_lookup(OPTION_MAPIT_URL . $filename);
+    $r = json_decode($file);
+    if (isset($r->error)) return '';
+    if ($type == 'postcode' && !isset($r->areas)) return '';
+
+    $input = ($type == 'postcode') ? $r->areas : $r;
+    $areas = array();
+    foreach ($input as $row) {
+        if (in_array($row->type, array('WMC', 'WMCF', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE')))
+            $areas[$row->type] = $row->name;
+        if ($row->type == 'WMC') {
+            $mapit_ids['old'] = $row->id;
+        }
+        if ($row->type == 'WMCF') {
+            $mapit_ids['new'] = $row->id;
+        }
+    }
+    if (!isset($areas['WMC'])) {
+        return '';
+    }
+    return $areas;
+}
+
+function show_address_list($pc, $addresses) {
+    global $PAGE;
+    $PAGE->page_start();
+    $PAGE->stripe_start();
+    include("address_list.php");
+    $PAGE->page_end();
+}
+
+function web_lookup($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    $file = curl_exec($ch);
+    curl_close($ch);
+    return $file;
 }
