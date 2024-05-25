@@ -46,7 +46,7 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
 ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-
+<a name="donate-form"></a>
 <form class="donate-form" method="post" name="donation_form">
 
     <div class="donate-form__error-wrapper">
