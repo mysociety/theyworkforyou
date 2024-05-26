@@ -117,6 +117,9 @@ my %major_to_house = (
     101 => { 2 => 1 },
 );
 
+my $after_left = mySociety::Config::get('ENTRIES_AFTER_LEFT') || '{}';
+$after_left = decode_json($after_left);
+
 # Be aware of redirected persons - code similar to xml2db.pl
 my %personredirect;
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
@@ -369,18 +372,14 @@ sub get_person {
     $person_id = $personredirect{$person_id} || $person_id;
 
     # Special exemptions for people 'speaking' after they have left
-    # Note identical code to this in hansardlist.php
-    $hdate = '20140907' if $person_id == 10170 && $hdate eq '20140908';
-    $hdate = '20080813' if $person_id == 11068 && substr($hdate, 0, 6) eq '200809';
-    $hdate = '20160616' if $person_id == 25394 && $hdate eq '20160701';
-    $hdate = '20210219' if $person_id == 10599 && substr($hdate, 0, 6) eq '202102';
-    $hdate = '20221130' if $person_id == 11667 && substr($hdate, 0, 6) eq '202212';
-    $hdate = '20230727' if $person_id == 13485 && $hdate gt '20230727';
-    $hdate = '20240429' if $person_id == 10578 && $hdate gt '20240429';
+    (my $hhdate = $hdate) =~ s/(\d\d\d\d)(\d\d)(\d\d)/$1-$2-$3/;
+    my $hhdate_month = substr($hhdate, 0, 7);
+    $hhdate = $after_left->{"$person_id,$hhdate"} || $hhdate;
+    $hhdate = $after_left->{"$person_id,$hhdate_month"} || $hhdate;
+    ($hdate = $hhdate) =~ s/-//g;
 
     # London questions answered after election
     $hdate = '20210507' if $major == 9 && ($hdate eq '20210511' || $hdate eq '20210510');
-    $hdate = '20210507' if $person_id == 25942 && $major == 9 && $hdate eq '20210917';
 
     my @matches = @{$dbh->selectall_arrayref($q_person, { Slice => {} }, $person_id, $hdate, $hdate, $hdate, $hdate)};
     if (@matches > 1) {

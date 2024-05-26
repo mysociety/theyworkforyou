@@ -110,6 +110,7 @@ class HANSARDLIST {
 
     public function __construct() {
         $this->db = new ParlDB;
+        $this->after_left = json_decode(ENTRIES_AFTER_LEFT, 1) ?? [];
     }
 
 
@@ -2088,28 +2089,12 @@ class HANSARDLIST {
         }
 
         # Special exemptions for people 'speaking' after they have left
-        # Note identical code to this in search/index.pl
-        if ($person_id == 10170 && $hdate == '2014-09-08') {
-            $hdate = '2014-09-07';
-        } elseif ($person_id == 11068 && substr($hdate, 0, 7) == '2008-09') {
-            $hdate = '2008-08-13';
-        } elseif ($person_id == 25394 && $hdate == '2016-07-01') {
-            $hdate = '2016-06-16';
-        } elseif ($person_id == 10599 && substr($hdate, 0, 7) == '2021-02') {
-            $hdate = '2021-02-19';
-        } elseif ($person_id == 11667 && substr($hdate, 0, 7) == '2022-12') {
-            $hdate = '2022-11-30';
-        } elseif ($person_id == 13485 && $hdate > '2023-07-27') {
-            $hdate = '2023-07-27';
-        } elseif ($person_id == 10578 && $hdate > '2024-04-29') {
-            $hdate = '2024-04-29';
-        }
+        $hdate_month = substr($hdate, 0, 7);
+        $hdate = $this->after_left["$person_id,$hdate"] ?? $hdate;
+        $hdate = $this->after_left["$person_id,$hdate_month"] ?? $hdate;
 
         # London questions answered after election
         if ($major == 9 && ($hdate == '2021-05-11' || $hdate == '2021-05-10')) {
-            $hdate = '2021-05-07';
-        }
-        if ($person_id == 25942 && $major == 9 && $hdate == '2021-09-17') {
             $hdate = '2021-05-07';
         }
 
