@@ -9,15 +9,21 @@ include "ge2024.php";
 
 # The below is normally the main column, but for now let us make it the sidebar...
 
+list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($mp['person_id'], true);
+
 ?>
 
         </div>
         <div class="sidebar">
-            <div class="block" id="current">
+            <div class="block">
 
+<div id="current">
     <h2><?= gettext('Your representatives') ?></h2>
     <ul>
         <li>
+            <?php if ($image_url) { ?>
+                <img src="<?= $image_url ?>" alt="" align="right">
+            <?php } ?>
             <?php if ($mp['former']) {
                 printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
             } else {
@@ -80,6 +86,8 @@ include "ge2024.php";
         echo '</ul>';
     }
     echo '</ul>';
+
+echo '</div>';
 
 include("repexplain.php");
 

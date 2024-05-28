@@ -4,7 +4,16 @@
 
 <h1>General election</h1>
 
-<p><a href='#current'>See your current representatives</a>
+<style>
+:target {
+    background-color: #ffc;
+    padding: 0.5em;
+}
+</style>
+<p><a href='#current'>See your current <?php
+    if (isset($mcon) || isset($mreg)) echo 'representatives';
+    else echo 'MP';
+?></a>
 
 <p>There is a UK general election on <strong>4th July 2024</strong>
 <?php
