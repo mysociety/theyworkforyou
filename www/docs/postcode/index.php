@@ -28,7 +28,7 @@ if ($address) {
     $constituencies = mapit_address($address, $pc);
 } else {
     $dc_data = democracy_club_postcode($pc);
-    if ($dc_data->address_picker) {
+    if (!isset($dc_data->error) && $dc_data->address_picker) {
         show_address_list($pc, $dc_data->addresses);
         exit;
     }
