@@ -15,19 +15,19 @@ $payment_amounts = array(
     '100' => '£100',
   ),
   'one-off' => array(
+    '5' => '£5',
     '10' => '£10',
-    '25' => '£25',
-    '50' => '£50',
+    '20' => '£20',
   ),
 );
 
 $default_amounts = array(
   'monthly' => '5',
   'annually' => '10',
-  'one-off' => '25',
+  'one-off' => '10',
 );
 
-$default_type = 'annually';
+$default_type = 'one-off';
 
 # use the how-often parameter if set, if not default to option at end of line (options are 'monthly', 'annually', or 'one-off')
 $initial_payment_type = $_GET['how-often'] ?? $default_type;
