@@ -5,11 +5,28 @@
         <div class="main">
 <?php
 
+function image_from_person_id(int $person_id): ?string {
+    // Use utility method rather than member object to avoid loading full object
+    // Using the same image and not using the placeholder
+    [$image, $size] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($person_id, true, false);
+    return $size !== null ? $image : null;
+}
+
+function member_image_box(string $person_id, string $person_url, string $person_name): void {
+    // Render a small image box for a person with a link to the person page
+    // If image_url is null, render nothing
+    $image_url = image_from_person_id($person_id);
+    if ($image_url) {
+        echo '<div class="postcode-mp-image-wrapper">';
+        echo '<a href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name .'"></a>';
+        echo '</div>';
+    }
+}
+
 include "ge2024.php";
 
 # The below is normally the main column, but for now let us make it the sidebar...
 
-list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($mp['person_id'], true);
 
 ?>
 
@@ -21,9 +38,6 @@ list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberIm
     <h2><?= gettext('Your representatives') ?></h2>
     <ul>
         <li>
-            <?php if ($image_url) { ?>
-                <img src="<?= $image_url ?>" alt="" align="right">
-            <?php } ?>
             <?php if ($mp['former']) {
                 printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
             } else {
@@ -32,6 +46,7 @@ list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberIm
             <?php if ($mp['standing_down_2024']) {
                 echo 'They are standing down at the general election.';
             } ?>
+            <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'],  $mp['name']) ?>
         </li>
 
 <?php
@@ -57,6 +72,7 @@ list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberIm
                 printf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
             }
         }
+        member_image_box($mcon["person_id"], $url, $name);
         echo '</li>';
     }
     if (isset($mreg)) {
@@ -79,9 +95,11 @@ list ($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberIm
         }
         echo '<ul>';
         foreach ($mreg as $reg) {
-            echo '<li><a href="' . $urlp . $reg['person_id'] . '">';
-            echo $reg['given_name'] . ' ' . $reg['family_name'];
-            echo '</a>';
+            $url = $urlp . $reg['person_id'];
+            $name = $reg['given_name'] . ' ' . $reg['family_name'];
+            echo '<li><a href="' . $url . '">' . $name  . '</a>';
+            member_image_box($reg["person_id"], $url, $name );
+            echo '</li>';
         }
         echo '</ul>';
     }
