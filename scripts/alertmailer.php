@@ -400,7 +400,7 @@ if ($globalsuccess) {
 $sss .= (getmicrotime() - $global_start) . "\n\n";
 mlog($sss);
 if (!$nomail && !$onlyemail) {
-    $fp = fopen('alerts-lastsent', 'w');
+    $fp = fopen(RAWDATA . '/alerts-lastsent', 'w');
     fwrite($fp, time() . "\n");
     fwrite($fp, $max_batch_id);
     fclose($fp);
