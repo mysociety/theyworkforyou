@@ -50,7 +50,7 @@ include "ge2024.php";
         </li>
 
 <?php
-    if (isset($mcon)) {
+    if (isset($mcon) && !empty($mcon)) {
         $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
         echo '<li>';
         if ($house == HOUSE_TYPE_SCOTLAND) {
