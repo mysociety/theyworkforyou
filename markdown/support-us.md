@@ -1,10 +1,20 @@
 # Support TheyWorkForYou and mySociety
 
-Whatever happens in the election, we want MPs in the next Parliament to meet the standards and expectations of the people who elected them. 
+[Skip to donate form.](#donate-form)
 
-For the last twenty years, [mySociety](https://mysociety.org)’s websites [TheyWorkForYou](https://www.theyworkforyou.com) and [WriteToThem](https://www.writetothem.com) have transformed parliamentary transparency. With millions of visitors a year, [one in five UK adults have visited our site](https://www.mysociety.org/2023/07/04/learning-from-the-way-people-use-theyworkforyou/) - giving us a platform to shape the understanding and perception of UK democracy. 
+We want MPs to meet the standards and expectations of the people who elected them - **you**!
 
-Through our work we have demonstrated that technology can be used to prise open closed doors, and make decision-making more transparent. We have empowered those working for openness inside and outside the system - now we want to go further. 
+TheyWorkForYou started twenty years ago as a volunteer project, when a bunch of people got together to make Parliament more transparent. We don’t have to wait for a better politics to be given to us – **we can work together to make it happen now**.
+
+These sites need attention every day to:
+
+* Keep the data flowing and ensuring that the comprehensive data about politicians is up to date.
+* Make improvements such as [recent changes to voting records](https://www.mysociety.org/2024/04/23/improving-the-focus-of-theyworkforyous-voting-summaries/).
+* Provide support on how to use the sites and the data we provide - we’re here for you.
+
+And that's not enough: we want to experiment with new approaches like our new campaign ([WhoFundsThem.com](https://www.mysociety.org/democracy/who-funds-them/)) to uncover the influence of money in politics.
+
+This is an example of one of mySociety’s innovative projects. To support this and other similar work donate below.
 
 {{ donate_box }}
 
