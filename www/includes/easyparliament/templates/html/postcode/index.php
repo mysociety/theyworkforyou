@@ -1,3 +1,19 @@
+<style>
+.postcode-rep-list__item, .postcode-rep-list__sub-item {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+.postcode-rep-list__sub-item {
+    align-items: baseline;
+}
+.postcode-rep-list__link {
+    flex-shrink: 0;
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+}
+</style>
+
 <div class="full-page static-page legacy-page">
 <div class="full-page__row">
 <div class="panel">
@@ -9,7 +25,7 @@ function image_from_person_id(int $person_id): ?string {
     // Use utility method rather than member object to avoid loading full object
     // Using the same image and not using the placeholder
     [$image, $size] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($person_id, true, false);
-    return $size !== null ? $image : null;
+    return $image;
 }
 
 function member_image_box(string $person_id, string $person_url, string $person_name): void {
@@ -17,9 +33,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
     // If image_url is null, render nothing
     $image_url = image_from_person_id($person_id);
     if ($image_url) {
-        echo '<div class="postcode-mp-image-wrapper">';
-        echo '<a href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name .'"></a>';
-        echo '</div>';
+        echo '<a class="postcode-rep-list__link" href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name .'"></a>';
     }
 }
 
@@ -37,7 +51,7 @@ include "ge2024.php";
 <div id="current">
     <h2><?= gettext('Your representatives') ?></h2>
     <ul>
-        <li>
+        <li class="postcode-rep-list__item"><span>
             <?php if ($mp['former']) {
                 printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
             } else {
@@ -46,13 +60,14 @@ include "ge2024.php";
             <?php if ($mp['standing_down_2024']) {
                 echo 'They are standing down at the general election.';
             } ?>
+            </span>
             <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'],  $mp['name']) ?>
         </li>
 
 <?php
     if (isset($mcon) && !empty($mcon)) {
         $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
-        echo '<li>';
+        echo '<li class="postcode-rep-list__item"><span>';
         if ($house == HOUSE_TYPE_SCOTLAND) {
             $url = $urlp . $mcon['person_id'];
             $cons = $mcon['constituency'];
@@ -72,6 +87,7 @@ include "ge2024.php";
                 printf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
             }
         }
+        echo '</span>';
         member_image_box($mcon["person_id"], $url, $name);
         echo '</li>';
     }
@@ -97,9 +113,9 @@ include "ge2024.php";
         foreach ($mreg as $reg) {
             $url = $urlp . $reg['person_id'];
             $name = $reg['given_name'] . ' ' . $reg['family_name'];
-            echo '<li><a href="' . $url . '">' . $name  . '</a>';
+            echo '<li><span class="postcode-rep-list__sub-item"><a href="' . $url . '">' . $name  . '</a>';
             member_image_box($reg["person_id"], $url, $name );
-            echo '</li>';
+            echo '</span></li>';
         }
         echo '</ul>';
     }
