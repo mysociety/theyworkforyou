@@ -6,18 +6,23 @@ var trackEvent = function(eventName, params) {
   var dfd = $.Deferred();
 
   var callback = function(){
-      dfd.resolve();
+    dfd.resolve();
   };
 
-  // Tell Gtag to resolve our promise when it's done.
-  var params = $.extend(params, {
+  if (typeof gtag !== 'undefined') {
+    // Tell Gtag to resolve our promise when it's done.
+    var params = $.extend(params, {
       event_callback: callback
-  });
+    });
 
-  gtag('event', eventName, params);
+    gtag('event', eventName, params);
 
-  // Wait a maximum of 2 seconds for Gtag to resolve promise.
-  setTimeout(callback, 2000);
+    // Wait a maximum of 2 seconds for Gtag to resolve promise.
+    setTimeout(callback, 2000);
+  } else {
+    // If gtag is not defined, e.g. in dev mode, resolve the promise immediately.
+    callback();
+  }
 
   return dfd.promise();
 };
@@ -478,15 +483,11 @@ $(function() {
         grecaptcha.execute();
     };
 
-    if (!window.analytics) {
-      return submitPaymentForm();
-    }
-
-    window.analytics.trackEvent(
+    trackEvent(
       "donate_form_submit", {"frequency": howoften, "value": amount }
-      ).done(submitPaymentForm);
-    });
-  
+    ).always(submitPaymentForm);
+  });
+
   });
   
   function onDonateError(message) {
