@@ -2623,8 +2623,8 @@ msgid "Image credits:"
 msgstr "Credydau llun"
 
 #: www/includes/easyparliament/templates/html/static/about.php:101
-msgid "The copyright of Hansard remains under <a href=\"http://www.opsi.gov.uk/advice/parliamentary-copyright/\">Parliamentary Copyright</a>, used under licence. "
-msgstr "Mae copyright Hansard yn parhau dan <a href=\"http://www.opsi.gov.uk/advice/parliamentary-copyright/\">Hawlfraint Seneddol</a>, a ddefnyddir o dan drwydded."
+msgid "The copyright of Hansard remains under <a href=\"https://www.parliament.uk/site-information/copyright/\">Parliamentary Copyright</a>, used under licence. "
+msgstr "Mae copyright Hansard yn parhau dan <a href=\"https://www.parliament.uk/site-information/copyright/\">Hawlfraint Seneddol</a>, a ddefnyddir o dan drwydded."
 
 #: www/includes/easyparliament/templates/html/static/contact.php:4
 msgid "Who do you want to contact?"
