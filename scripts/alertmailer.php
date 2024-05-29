@@ -23,8 +23,8 @@ mlog("max_batch_id: " . $max_batch_id . "\n");
 
 # Last sent is timestamp of last alerts gone out.
 # Last batch is the search index batch number last alert went out to.
-if (is_file('alerts-lastsent')) {
-    $lastsent = file('alerts-lastsent');
+if (is_file(RAWDATA . '/alerts-lastsent')) {
+    $lastsent = file(RAWDATA . '/alerts-lastsent');
 } else {
     $lastsent = array('', 0);
 }
