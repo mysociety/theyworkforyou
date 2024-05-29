@@ -136,7 +136,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         $mp = $q;
         $mp['former'] = ($mp['left_house'] != '9999-12-31');
         $q = $db->query("SELECT * FROM personinfo where person_id=:person_id AND data_key='standing_down_2024'", [':person_id' => $mp['person_id']]);
-        $mp['standing_down_2024'] = $q['data_value'];
+        $mp['standing_down_2024'] = $q['data_value'] ?? 0;
     }
 
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
