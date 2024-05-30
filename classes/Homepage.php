@@ -32,11 +32,13 @@ class Homepage {
         $data = array();
 
         $common = new Common;
+        $dissolution = Dissolution::dates();
 
         $data['debates'] = $this->getDebatesData();
 
         $user = new User();
         $data['mp_data'] = $user->getRep($this->cons_type, $this->mp_house);
+        $data["commons_dissolved"] = isset($dissolution[1]);
 
         $data['regional'] = $this->getRegionalList();
         $data['popular_searches'] = $common->getPopularSearches();
