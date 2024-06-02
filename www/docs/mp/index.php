@@ -40,9 +40,14 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register'];
+
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
 } else {
+    $pagetype = 'profile';
+}
+if (!in_array($pagetype, $allowed_page_types)) {
     $pagetype = 'profile';
 }
 if ($pagetype == 'profile') {
