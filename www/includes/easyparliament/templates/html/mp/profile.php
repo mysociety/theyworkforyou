@@ -21,9 +21,6 @@ $display_wtt_stats_banner = '2015';
                         <?php if (count($recent_appearances['appearances'])): ?>
                           <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
                         <?php endif; ?>
-                        <?php if ($register_interests): ?>
-                          <li><a href="#register"><?= gettext('Register of Interests') ?></a></li>
-                        <?php endif; ?>
                       </ul>
                       <?php include '_featured_content.php'; ?>
                       <?php include '_donation.php'; ?>
@@ -248,28 +245,6 @@ $display_wtt_stats_banner = '2015';
 
                     <?php endif; ?>
 
-                </div>
-                <?php endif; ?>
-
-                <?php if ($register_interests): ?>
-                <div class="panel register">
-                    <a name="register"></a>
-                    <h2>Register of Members&rsquo; Interests</h2>
-                    <p><b>New</b>: <a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Download a spreadsheet of all Members Interests.</a></p>
-
-                    <p>
-                        <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
-                    </p>
-                    <?php if ($register_interests['date']): ?>
-                        <p>Last updated: <?= $register_interests['date'] ?>.</p>
-                    <?php endif; ?>
-
-                    <?= $register_interests['data'] ?>
-
-
-                    <p>
-                         <a class="moreinfo-link" href="https://www.publications.parliament.uk/pa/cm/cmregmem/100927/introduction.htm">More about the register</a>
-                    </p>
                 </div>
                 <?php endif; ?>
 

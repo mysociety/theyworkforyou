@@ -475,6 +475,10 @@ switch ($pagetype) {
 
         break;
 
+    case 'register':
+        // Send the output for rendering
+        MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
+
     case 'policy_set_svg':
         policy_image($data, $MEMBER, 'svg');
         break;

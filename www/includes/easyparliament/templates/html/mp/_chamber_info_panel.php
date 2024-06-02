@@ -47,7 +47,7 @@ if ($standing_down_2024) {
     What you can do
     </h2>
     <ul class="rep-actions">
-        <li>Find out <a href="#profile">more about your MP</a>, including <a href="<?= $member_url ?>/votes">their voting summary</a><?php if ($register_interests) { ?>, <a href="#register">register of interests</a><?php } ?> and <a href="#appearances">recent speeches</a>.</li>
+        <li>Find out <a href="#profile">more about your MP</a>, including <a href="<?= $member_url ?>/votes">their voting summary</a><?php if ($register_interests) { ?>, <a href="<?= $member_url ?>/register">register of interests</a><?php } ?> and <a href="#appearances">recent speeches</a>.</li>
     <?php if ($current_member[1]) { ?>
         <li><a href="https://www.writetothem.com/">Write to your MP</a>, or find out about your other local representatives <a href="https://www.writetothem.com">on WriteToThem.com</a>.</li>
     <?php } ?>
