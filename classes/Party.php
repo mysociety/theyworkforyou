@@ -28,6 +28,12 @@ class Party {
     }
 
     public function getCurrentMemberCount($house) {
+        $dissolution = Dissolution::dates();
+        if (isset($dissolution[$house])) {
+            $date = $dissolution[$house];
+        } else {
+            $date = date('Y-m-d');
+        }
         $member_count = $this->db->query(
             "SELECT count(*) as num_members
             FROM member
@@ -39,7 +45,7 @@ class Party {
             array(
                 ':party' => $this->name,
                 ':house' => $house,
-                ':date' => date('Y-m-d'),
+                ':date' => $date,
             )
         )->first();
         if ($member_count) {
