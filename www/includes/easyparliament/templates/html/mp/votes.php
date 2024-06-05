@@ -269,7 +269,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 <?php endif; ?>
                 <?php include('_covid19_panel.php'); ?>
 
-                <?php include('_vote_footer.php'); ?>
+                <?php include('_profile_footer.php'); ?>
             </div>
         </div>
     </div>

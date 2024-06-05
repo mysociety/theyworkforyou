@@ -249,7 +249,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     </div>
 
                 <?php }
-                include('_vote_footer.php'); ?>
+                include('_profile_footer.php'); ?>
 
             </div>
         </div>
