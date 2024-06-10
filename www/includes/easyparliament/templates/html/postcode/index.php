@@ -134,20 +134,12 @@ include("repexplain.php");
                   <?php } ?>
                 </ul>
 
-<h3><?= gettext('Donate') ?></h3>
-<p>
-For the election mySociety are busy helping people to understand what their
-election candidates stand for with <a href="https://www.theyworkforyou.com/">TheyWorkForYou</a>; supporting people to have
-informed conversations with candidates around climate using <a href="https://www.localintelligencehub.com/">Local Intelligence
-Hub</a>; and ensuring all our democracy services are ready to go on day one of a
-new government.
+<h3>We can make politics better together</h3>
 
-<p><a href="/support-us/?utm_source=theyworkforyou.com&amp;utm_content=postcode+donate&amp;utm_medium=link&amp;utm_campaign=postcode" class="button">Donate</a>
-
-<p>Whoever is elected, they need to understand the importance of
-transparency and accountability — and we’ll be making sure that happens.
-
-
+<p>We want MPs to meet the standards and expectations of the people who elected them - <strong>you</strong>!</p>
+<p>Learn about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs' and APPGs' financial interests.</p>
+<a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" style="width:100%">Donate £5 to TheyWorkForYou</a>
+<a href="https://www.mysociety.org/democracy/who-funds-them/" class="button" style="width:100%">Support our WhoFundsThem campaign</a>
             </div>
         </div>
     </div>
