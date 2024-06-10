@@ -1,50 +1,4 @@
-<div class="panel">
-    <h2>General Election 2024</h2>
 
-    <p>There is a UK general election on <strong>4th July 2024</strong>
-    <?php
-    $date = strtotime("2024-07-04");
-    $datediff = ceil(($date - time()) / 86400);
-    if ($datediff > 1) {
-        echo "($datediff days away)";
-    } elseif ($datediff > 0) {
-        echo '(tomorrow!)';
-    } elseif ($datediff > -86400) {
-        echo '(today!)';
-    }
-    ?>.
-    </p>
-    <p>
-        To understand more about <a href="https://www.mysociety.org/democracy/the-2024-general-election/">how the election will work</a>, you can read <a href="https://www.mysociety.org/democracy/the-2024-general-election/">our 10-point guide</a>.
-    </p>
-
-    <p>Enter your postcode below to learn more about your new constituency and candidates:</p>
-
-    <form action="/postcode/">
-    <label style='font-size:1rem;display:inline' for='postcode'>Postcode:</label>
-    <input type='text' name='pc' value='' id='postcode' size=8 style="max-width:10em; display: inline; font-size:1rem;">
-    <input type='submit' value='Look up' class='button'>
-    </form>
-
-    <?php
-    if ($standing_down_2024) {
-        echo '<p>This MP is standing down from Parliament at this election.';
-    }
-    ?>
-
-
-<hr >
-<p>We want MPs to meet the standards and expectations of the people who elected them - <strong>you</strong>!</p>
-<p>Learn more about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs' and APPGs' financial interests.</p>
-                <div class="inline-donation-box">
-                    
-                    <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" >Donate £5 to TheyWorkForYou</a>
-                    <a href="https://www.mysociety.org/democracy/who-funds-them/" class="button">Support our WhoFundsThem campaign</a>
-
-                </div>
-                <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
-
-</div>
 
 <?php if ($this_page == "mp") { ?>
 
@@ -87,3 +41,51 @@
 </div>
 
 <?php } ?>
+
+<div class="panel">
+    <h2>General Election 2024</h2>
+
+    <p>There is a UK general election on <strong>4th July 2024</strong>
+    <?php
+    $date = strtotime("2024-07-04");
+    $datediff = ceil(($date - time()) / 86400);
+    if ($datediff > 1) {
+        echo "($datediff days away)";
+    } elseif ($datediff > 0) {
+        echo '(tomorrow!)';
+    } elseif ($datediff > -86400) {
+        echo '(today!)';
+    }
+    ?>.
+    </p>
+    <p>
+        To understand more about <a href="https://www.mysociety.org/democracy/the-2024-general-election/">how the election will work</a>, you can read <a href="https://www.mysociety.org/democracy/the-2024-general-election/">our 10-point guide</a>.
+    </p>
+
+    <p>Enter your postcode below to learn more about your new constituency and candidates:</p>
+
+    <form action="/postcode/">
+    <label style='font-size:1rem;display:inline' for='postcode'>Postcode:</label>
+    <input type='text' name='pc' value='' id='postcode' size=8 style="max-width:10em; display: inline; font-size:1rem;">
+    <input type='submit' value='Look up' class='button'>
+    </form>
+
+    <?php
+    if ($standing_down_2024) {
+        echo '<p>This MP is standing down from Parliament at this election.';
+    }
+    ?>
+
+
+    <hr >
+    <p>We want MPs to meet the standards and expectations of the people who elected them - <strong>you</strong>!</p>
+    <p>Learn more about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs' and APPGs' financial interests.</p>
+                    <div class="inline-donation-box">
+                        
+                        <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" >Donate £5 to TheyWorkForYou</a>
+                        <a href="https://www.mysociety.org/democracy/who-funds-them/" class="button">Support our WhoFundsThem campaign</a>
+
+                    </div>
+                    <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
+
+</div>
