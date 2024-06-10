@@ -79,7 +79,7 @@
 
     <hr >
     <p>We want MPs to meet the standards and expectations of the people who elected them - <strong>you</strong>!</p>
-    <p>Learn more about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs' and APPGs' financial interests.</p>
+    <p>Learn more about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs’ and APPGs’ financial interests.</p>
                     <div class="inline-donation-box">
                         
                         <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" >Donate £5 to TheyWorkForYou</a>
