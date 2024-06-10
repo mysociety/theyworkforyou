@@ -13,7 +13,7 @@
 <p><a href='#current'>See your current <?php
     if (isset($mcon) || isset($mreg)) echo 'representatives';
     else echo 'MP';
-?></a>
+?></a></p>
 
 <p>There is a UK general election on <strong>4th July 2024</strong>
 <?php
@@ -27,6 +27,10 @@ if ($datediff > 1) {
     echo '(today!)';
 }
 ?>.
+</p>
+<p>
+    To understand more about <a href="https://www.mysociety.org/democracy/the-2024-general-election/">how the election will work</a>, you can read <a href="https://www.mysociety.org/democracy/the-2024-general-election/">our 10-point guide</a>.
+</p>
 
 <p>For this election, you will be in the
 <strong><?= $ballot->post_name ?></strong>
@@ -34,7 +38,9 @@ constituency.
 You can see statistics and information for your new constituency at the
 <a href="https://www.localintelligencehub.com/area/WMC23/<?= rawurlencode($ballot->post_name) ?>">Local Intelligence Hub</a>.
 
+<h3>Candidates</h3>
 <p>
+
 The people standing in your constituency
 <?php
 if (!$ballot->candidates_verified) { echo '(not yet finalised or verified)'; }
@@ -43,9 +49,9 @@ if (!$ballot->candidates_verified) { echo '(not yet finalised or verified)'; }
 <ul>
 <?php foreach ($ballot->candidates as $candidate) {
     echo '<li>';
-    #echo '<a href="' . $candidate->person->absolute_url . '">';
+    echo '<a href="' . $candidate->person->absolute_url . '">';
     echo $candidate->person->name;
-    #echo '</a>';
+    echo '</a>';
     echo ' (' . $candidate->party->party_name . ')'; # photo_url
     echo '</li>';
 }
@@ -53,18 +59,23 @@ if (!$ballot->candidates_verified) { echo '(not yet finalised or verified)'; }
 </ul>
 
 <p>
-<a href="https://democracyclub.org.uk/"><img width=150 align="right" src="https://static.democracyclub.org.uk/static/dc_theme/images/logo-with-text.png" alt="Democracy Club"></a>
-For more information visit <a href="<?= $ballot->wcivf_url ?>">WhoCanIVoteFor</a>.
-This data has been provided by <a href="https://democracyclub.org.uk/">Democracy Club</a>, thanks to them.
 
+For more information visit <a href="<?= $ballot->wcivf_url ?>">WhoCanIVoteFor</a>.
+Thanks to <a href="https://democracyclub.org.uk/">Democracy Club</a> for providing this data.
+</p>
+<h3>New constituencies</h3>
 <p>Many constituency boundaries have changed for this election.
 Here's a map of your new constituency (pink) with your
-existing constituency in grey:
+existing constituency in grey:</p>
 
 <div id="map" style="max-width: 400px; margin-bottom: 2em;">
 <div id="leaflet" style=" position: relative; width: 100%; height: 0; padding-top: 100%;">
 </div>
 </div>
+
+<p>
+Get <a href="https://www.mysociety.org/2023/09/12/navigating-the-new-constituencies/">more datasets</a> about the new constituencies. 
+</p>
 <script>
     var map = new L.Map("leaflet");
     map.attributionControl.setPrefix('');
