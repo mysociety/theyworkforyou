@@ -117,7 +117,7 @@ class Subscription {
             $invoice = \Stripe\Invoice::create([
                 'customer' => $this->stripe->customer,
                 'subscription' => $this->stripe,
-                'tax_percent' => 20
+                'tax_rates' => [STRIPE_TAX_RATE],
             ]);
             $invoice->finalizeInvoice();
             $invoice->pay();
@@ -175,7 +175,7 @@ class Subscription {
         $obj = $this->api->createSubscription([
             'payment_behavior' => 'allow_incomplete',
             'expand' => ['latest_invoice.payment_intent'],
-            'tax_percent' => 20,
+            'default_tax_rates' => [STRIPE_TAX_RATE],
             'customer' => $customer,
             'plan' => $form_data['plan'],
             'coupon' => $form_data['coupon'],
