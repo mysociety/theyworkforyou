@@ -14,7 +14,7 @@ try {
 } catch (\UnexpectedValueException $e) {
     http_response_code(400);
     exit();
-} catch (\Stripe\Error\SignatureVerification $e) {
+} catch (\Stripe\Exception\SignatureVerificationException $e) {
     http_response_code(400);
     exit();
 }
@@ -62,7 +62,7 @@ if ($event->type == 'customer.subscription.deleted') {
         if ($obj->charge) {
             \Stripe\Charge::update($obj->charge, [ 'description' => 'TheyWorkForYou' ]);
         }
-    } catch (\Stripe\Error\Base $e) {
+    } catch (\Stripe\Exception\ApiErrorException $e) {
     }
 } elseif ($event->type == 'invoice.updated' && stripe_twfy_sub($obj)) {
     if ($obj->forgiven && property_exists($event->data, 'previous_attributes')) {
