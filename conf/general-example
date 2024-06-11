@@ -196,6 +196,7 @@ define('STRIPE_PUBLIC_KEY', '');
 define('STRIPE_SECRET_KEY', '');
 define('STRIPE_ENDPOINT_SECRET', '');
 define('STRIPE_API_VERSION', '');
+define('STRIPE_TAX_RATE', '');
 define('REDIS_DB_HOST', 'localhost');
 define('REDIS_DB_PORT', '6379');
 define('REDIS_DB_NUMBER', '0');

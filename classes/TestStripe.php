@@ -23,7 +23,7 @@ class TestStripe extends Stripe {
                 'latest_invoice' => [],
                 'customer' => [
                     'id' => 'cus_123',
-                    'account_balance' => 0,
+                    'balance' => 0,
                     'default_source' => [],
                     'invoice_settings' => [
                         'default_payment_method' => [],

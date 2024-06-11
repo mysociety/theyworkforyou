@@ -19,7 +19,7 @@ if (get_http_var('cancel')) {
         exit;
     }
 
-    $subscription->stripe->cancel(['at_period_end' => true]);
+    \Stripe\Subscription::update($subscription->stripe->id, ['cancel_at_period_end' => true]);
     redirect('/api/key?cancelled=1');
 }
 
