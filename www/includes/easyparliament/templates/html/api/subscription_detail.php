@@ -1,11 +1,11 @@
 <?php
 
 $quota_status = $subscription->quota_status();
-$account_balance = $subscription->stripe->customer->account_balance;
+$balance = $subscription->stripe->customer->balance;
 if ($subscription->upcoming) {
     if ($subscription->upcoming->total < 0) {
         # Going to be credited
-        $account_balance += $subscription->upcoming->total;
+        $balance += $subscription->upcoming->total;
     }
 }
 
@@ -58,8 +58,8 @@ if ($subscription->upcoming) {
                 your next invoice date is <?= date('d/m/Y', $subscription->stripe->current_period_end) ?>.
             <?php } ?>
 
-            <?php if ($account_balance) { ?>
-                <br>Your account has a balance of £<?= number_format(-$account_balance / 100, 2); ?>.
+            <?php if ($balance) { ?>
+                <br>Your account has a balance of £<?= number_format(-$balance / 100, 2); ?>.
             <?php } ?>
             </p>
 
