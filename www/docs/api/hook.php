@@ -3,6 +3,7 @@
 include_once '../../includes/easyparliament/init.php';
 
 \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+\Stripe\Stripe::setApiVersion(STRIPE_API_VERSION);
 
 $payload = @file_get_contents('php://input');
 $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
