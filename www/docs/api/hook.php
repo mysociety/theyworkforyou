@@ -65,9 +65,9 @@ if ($event->type == 'customer.subscription.deleted') {
     } catch (\Stripe\Exception\ApiErrorException $e) {
     }
 } elseif ($event->type == 'invoice.updated' && stripe_twfy_sub($obj)) {
-    if ($obj->forgiven && property_exists($event->data, 'previous_attributes')) {
+    if ($obj->status == 'uncollectible' && property_exists($event->data, 'previous_attributes')) {
         $previous = $event->data->previous_attributes;
-        if (array_key_exists('forgiven', $previous) && !$previous['forgiven']) {
+        if (array_key_exists('status', $previous) && $previous['status'] != 'uncollectible') {
             stripe_reset_quota($obj->subscription);
         }
     }
