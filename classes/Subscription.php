@@ -64,7 +64,7 @@ class Subscription {
                     'latest_invoice.payment_intent',
                 ],
             ]);
-        } catch (\Stripe\Error\InvalidRequest $e) {
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
             $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
             $this->delete_from_redis();
             return;
@@ -90,7 +90,7 @@ class Subscription {
 
         try {
             $this->upcoming = $this->api->getUpcomingInvoice(["customer" => $this->stripe->customer->id]);
-        } catch (\Stripe\Error\Base $e) {
+        } catch (\Stripe\Exception\ApiErrorException $e) {
         }
     }
 
@@ -122,9 +122,9 @@ class Subscription {
             ]);
             $invoice->finalizeInvoice();
             $invoice->pay();
-        } catch (\Stripe\Error\InvalidRequest $e) {
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
             # No invoice created if nothing to pay
-        } catch (\Stripe\Error\Card $e) {
+        } catch (\Stripe\Exception\CardException $e) {
             # A source may still require 3DS... Stripe will have sent an email :-/
         }
     }
@@ -158,7 +158,7 @@ class Subscription {
         # security code can be checked, and therefore fail
         try {
             $obj = $this->api->createCustomer($cust_params);
-        } catch (\Stripe\Error\Card $e) {
+        } catch (\Stripe\Exception\CardException $e) {
             $body = $e->getJsonBody();
             $err  = $body['error'];
             $error = 'Sorry, we could not process your payment, please try again. ';

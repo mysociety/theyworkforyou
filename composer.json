@@ -9,7 +9,7 @@
         "filp/whoops": "2.*",
         "ircmaxell/password-compat": "1.0.4",
         "facebook/graph-sdk": "^5.6",
-        "stripe/stripe-php": "^6.10",
+        "stripe/stripe-php": "^14.9",
         "predis/predis": "^1.1",
         "volnix/csrf": "^1.2",
         "phpmailer/phpmailer": "^6.5",
