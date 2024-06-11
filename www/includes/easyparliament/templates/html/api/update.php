@@ -160,5 +160,5 @@ rdio('charitable', 'o', 'Neither', 'id_charitable_2', 0, $charitable);
     <?php if ($stripe) {
         echo 'data-has-subscription="1"';
     } ?>
-    data-key="<?= STRIPE_PUBLIC_KEY ?>"
+    data-key="<?= STRIPE_PUBLIC_KEY ?>" data-api-version="<?= STRIPE_API_VERSION ?>"
     src="<?= cache_version('js/payment.js') ?>"></script>

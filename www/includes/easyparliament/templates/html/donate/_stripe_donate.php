@@ -148,5 +148,5 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
 
 <script src="https://js.stripe.com/v3"></script>
 <script>
-var stripe = Stripe('<?=STRIPE_DONATE_PUBLIC_KEY ?>');
+var stripe = Stripe('<?=STRIPE_DONATE_PUBLIC_KEY ?>', { apiVersion: '<?= STRIPE_API_VERSION ?>' });
 </script>

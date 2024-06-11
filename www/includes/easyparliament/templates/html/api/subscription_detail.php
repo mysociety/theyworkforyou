@@ -135,7 +135,7 @@ if ($subscription->upcoming) {
                     </div>
                 </div>
                 <script src="https://js.stripe.com/v3"></script>
-                <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" src="<?= cache_version('js/payment.js') ?>"></script>
+                <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" data-api-version="<?= STRIPE_API_VERSION ?>" src="<?= cache_version('js/payment.js') ?>"></script>
             </form>
 
         <?php } else { ?>

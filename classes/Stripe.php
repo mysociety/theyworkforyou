@@ -12,6 +12,7 @@ class Stripe {
         self::$instance = $this;
 
         \Stripe\Stripe::setApiKey($stripeSecretKey);
+        \Stripe\Stripe::setApiVersion(STRIPE_API_VERSION);
     }
 
     public function getSubscription($args) {
