@@ -40,6 +40,10 @@ if ($subscription->upcoming) {
             <?php } ?>
             </p>
 
+            <?php if ($subscription->stripe->schedule->phases[1] && $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname != $subscription->stripe->plan->nickname) { ?>
+                 <p>You are switching to <strong><?php $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname ?></strong> at the end of your current period.</p>
+            <?php } ?>
+
             <?php if ($subscription->stripe->discount && $subscription->stripe->discount->end) { ?>
                 <p>Your discount will expire on <?= $subscription->stripe->discount->end ?>.</p>
             <?php } ?>
