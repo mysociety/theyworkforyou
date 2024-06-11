@@ -41,7 +41,7 @@ if ($THEUSER->loggedin()) {
             try {
                 $invoice = $sub->latest_invoice;
                 $invoice->pay([ 'expand' => [ 'payment_intent' ] ]);
-            } catch (\Stripe\Error\Card $e) {
+            } catch (\Stripe\Exception\CardException $e) {
                 $invoice = \Stripe\Invoice::retrieve($sub->latest_invoice, ['expand' => [ 'payment_intent'] ]);
             }
         } else {
