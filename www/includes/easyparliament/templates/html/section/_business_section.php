@@ -29,6 +29,7 @@
                         <p class="rss-feed">
                             <a href="<?= WEBPATH . $content['rssurl'] ?>"><?= sprintf(gettext('RSS feed of %s'), $title) ?></a>
                         </p>
+                        <?php include dirname(__FILE__) . '/../announcements/_sidebar_right_announcements.php'; ?>
                     </div>
                   <?php } ?>
                 </div>

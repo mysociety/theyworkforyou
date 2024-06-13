@@ -295,7 +295,11 @@ if (!count($data)) {
                     <a href="<?= $urls['plain'] ?>?all=1"><?= sprintf(gettext('Historical list of all %s'), $rep_plural) ?></a>
                     </p>
                 <?php } ?>
+
+                <?php include dirname(__FILE__) . '/../announcements/_sidebar_right_announcements.php'; ?>
+
             </div>
+
         </div>
 
     </div>
