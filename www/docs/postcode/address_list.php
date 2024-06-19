@@ -1,7 +1,7 @@
 <form>
 <input type="hidden" name="pc" value="<?= htmlspecialchars($pc) ?>">
 
-<p>This postcode is in more than one constituency; please pick your address from the list below:
+<p>Please pick your address from the list below:
 
 <p>
 <?php
