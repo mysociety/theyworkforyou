@@ -81,8 +81,10 @@ if (document.getElementById('id_plan_0')) {
 
 toggle_stripe();
 
-var stripe_key = document.getElementById('js-payment').getAttribute('data-key');
-var stripe = Stripe(stripe_key);
+var payment_element = document.getElementById('js-payment');
+var stripe_key = payment_element.getAttribute('data-key');
+var stripe_api_version = payment_element.getAttribute('data-api-version');
+var stripe = Stripe(stripe_key, { apiVersion: stripe_api_version });
 var elements = stripe.elements();
 var card = elements.create('card');
 if (document.getElementById('card-element')) {

@@ -3,6 +3,7 @@
 include_once '../../includes/easyparliament/init.php';
 
 \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+\Stripe\Stripe::setApiVersion(STRIPE_API_VERSION);
 
 $payload = @file_get_contents('php://input');
 $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -13,7 +14,7 @@ try {
 } catch (\UnexpectedValueException $e) {
     http_response_code(400);
     exit();
-} catch (\Stripe\Error\SignatureVerification $e) {
+} catch (\Stripe\Exception\SignatureVerificationException $e) {
     http_response_code(400);
     exit();
 }
@@ -61,12 +62,12 @@ if ($event->type == 'customer.subscription.deleted') {
         if ($obj->charge) {
             \Stripe\Charge::update($obj->charge, [ 'description' => 'TheyWorkForYou' ]);
         }
-    } catch (\Stripe\Error\Base $e) {
+    } catch (\Stripe\Exception\ApiErrorException $e) {
     }
 } elseif ($event->type == 'invoice.updated' && stripe_twfy_sub($obj)) {
-    if ($obj->forgiven && property_exists($event->data, 'previous_attributes')) {
+    if ($obj->status == 'uncollectible' && property_exists($event->data, 'previous_attributes')) {
         $previous = $event->data->previous_attributes;
-        if (array_key_exists('forgiven', $previous) && !$previous['forgiven']) {
+        if (array_key_exists('status', $previous) && $previous['status'] != 'uncollectible') {
             stripe_reset_quota($obj->subscription);
         }
     }

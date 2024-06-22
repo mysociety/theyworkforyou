@@ -47,7 +47,7 @@ $stripe = $subscription->stripe;
     </div>
 </form>
 <script src="https://js.stripe.com/v3"></script>
-<script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>"
+<script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" data-api-version="<?= STRIPE_API_VERSION ?>"
     <?php if ($stripe) { echo 'data-has-subscription="1"'; } ?>
     src="<?= cache_version('js/payment.js') ?>"></script>
 
@@ -62,7 +62,7 @@ $stripe = $subscription->stripe;
 
 <script src="https://js.stripe.com/v3"></script>
 <script>
-    var stripe = Stripe('<?= STRIPE_PUBLIC_KEY ?>');
+    var stripe = Stripe('<?= STRIPE_PUBLIC_KEY ?>', { apiVersion: '<?= STRIPE_API_VERSION ?>' });
     stripe.handleCardPayment('<?= $needs_processing['payment_intent_client_secret'] ?>').then(function(result) {
         location.href = location.href;
     });
