@@ -15,6 +15,13 @@ sed -r \
     -e 's!^(.*"OPTION_TWFY_DB_NAME", *)"[^"]*"!'"\\1'twfy'!" \
     -e 's!^(.*"OPTION_TWFY_MEMCACHED_HOST", *)"[^"]*"!'"\\1'memcache'!" \
     -e 's!^(.*"TWFY_VOTES_URL", *)"[^"]*"!'"\\1'$TWFY_VOTES_URL'!" \
+    -e 's!^(.*"OPTION_MAPIT_URL", *)"[^"]*"!'"\\1'$MAPIT_URL'!" \
+    -e 's!^(.*"OPTION_MAPIT_API_KEY", *)"[^"]*"!'"\\1'$MAPIT_API_KEY'!" \
+    -e 's!^(.*"OPTION_DEMOCRACYCLUB_TOKEN", *)"[^"]*"!'"\\1'$DEMOCRACYCLUB_TOKEN'!" \
+    -e 's!^(.*"OPTION_RECAPTCHA_SITE_KEY", *)"[^"]*"!'"\\1'$RECAPTCHA_SITE_KEY'!" \
+    -e 's!^(.*"OPTION_RECAPTCHA_SECRET", *)"[^"]*"!'"\\1'$RECAPTCHA_SECRET'!" \
+    -e 's!^(.*"STRIPE_DONATE_PUBLIC_KEY", *)"[^"]*"!'"\\1'$STRIPE_DONATE_PUBLIC_KEY'!" \
+    -e 's!^(.*"STRIPE_DONATE_SECRET_KEY", *)"[^"]*"!'"\\1'$STRIPE_DONATE_SECRET_KEY'!" \
     -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'/twfy/www/docs'!" \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
