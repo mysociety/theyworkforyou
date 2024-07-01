@@ -261,8 +261,7 @@ class Header
 
         // if we're searching within a parliament, put this in the top bar
         if ($this_page == "search") {
-            if (isset($_GET['section'])) {
-                $section = $_GET['section'];
+            if ($section = get_http_var('section')) {
                 if ($section == 'scotland') {
                     $selected_top_link['text'] = 'Scotland';
                 } elseif ($section == 'ni') {
@@ -279,9 +278,8 @@ class Header
 
         // for the alerts page, put the most recent membership's house
         // in the top bar
-        if ($this_page == "alert"){
-            if (isset($_GET['pid'])) {
-                $pid = $_GET['pid'];
+        if ($this_page == "alert") {
+            if ($pid = get_http_var('pid')) {
                 $person = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
                 $membership = $person->getMostRecentMembership();
                 $parliament = $membership['house'];
@@ -295,7 +293,6 @@ class Header
                     $selected_top_link['text'] = 'London Assembly';
                 }
             }
-
         }
 
         $this->nav_highlights = array(

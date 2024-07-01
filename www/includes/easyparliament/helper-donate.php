@@ -194,7 +194,7 @@ function check_for_stripe_submission(
     // If a get request with a stripe parameter
     // Run the script session and return either
     // the success json or an error
-    if (isset($_GET["stripe"]) && $_GET["stripe"]) {
+    if (get_http_var("stripe")) {
         $error = verify_recaptcha();
         if ($error) {
             $result = ["error" => $error];

@@ -30,15 +30,15 @@ $default_amounts = array(
 $default_type = 'one-off';
 
 # use the how-often parameter if set, if not default to option at end of line (options are 'monthly', 'annually', or 'one-off')
-$initial_payment_type = $_GET['how-often'] ?? $default_type;
+$initial_payment_type = get_http_var('how-often', $default_type);
 
 # use the how-much parameter if set, if not default to default amount for initial payment type
-$how_much = $_GET['how-much'] ?? $default_amounts[$initial_payment_type];
+$how_much = get_http_var('how-much', $default_amounts[$initial_payment_type]);
 
 # if how-much is not in the allowed values for the current payment type, set to 'other', and set $other_how_much to the value of how-much
 if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
   $how_much = 'other';
-  $other_how_much = $_GET['how-much'];
+  $other_how_much = get_http_var('how-much');
 } else {
   $other_how_much = '';
 }
@@ -139,10 +139,10 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
       <p><small>Payment methods available: Card, PayPal, Apple Pay, Google Pay, Direct Debit</small></p>
     </div>
 
-    <input type="hidden" name="utm_source" value="<?=htmlspecialchars($_GET['utm_source'] ?? 'theyworkforyou.com') ?>">
-    <input type="hidden" name="utm_content" value="<?=htmlspecialchars($_GET['utm_content'] ?? '') ?>">
-    <input type="hidden" name="utm_medium" value="<?=htmlspecialchars($_GET['utm_medium'] ?? '') ?>">
-    <input type="hidden" name="utm_campaign" value="<?=htmlspecialchars($_GET['utm_campaign'] ?? 'twfy_donate_page') ?>">
+    <input type="hidden" name="utm_source" value="<?=htmlspecialchars(get_http_var('utm_source', 'theyworkforyou.com')) ?>">
+    <input type="hidden" name="utm_content" value="<?=htmlspecialchars(get_http_var('utm_content')) ?>">
+    <input type="hidden" name="utm_medium" value="<?=htmlspecialchars(get_http_var('utm_medium')) ?>">
+    <input type="hidden" name="utm_campaign" value="<?=htmlspecialchars(get_http_var('utm_campaign', 'twfy_donate_page')) ?>">
 
 </form>
 
