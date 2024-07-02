@@ -34,8 +34,10 @@
     <?php if ($current_member[1]) { ?>
         <li><a href="https://www.writetothem.com/">Write to your MP</a>, or find out about your other local representatives <a href="https://www.writetothem.com">on WriteToThem.com</a>.</li>
     <?php } ?>
-    <?php if ($latest_membership['end_date'] == '9999-12-31' || $latest_membership['end_date'] == '2024-05-30') { ?>
+    <?php if ($latest_membership['end_date'] == '2024-05-30') { ?>
         <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
+    <?php } else if ($latest_membership['start_date'] >= '2024-07-04') { ?>
+        <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC23/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
     <?php } ?>
     </ul>
 </div>
