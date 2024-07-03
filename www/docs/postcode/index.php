@@ -22,7 +22,7 @@ if (!validate_postcode($pc)) {
 
 # 2024 ELECTION EXTRA
 
-$address = get_http_var('address');
+$data['address'] = $address = get_http_var('address');
 if ($address) {
     $dc_data = democracy_club_address($address);
     $constituencies = mapit_address($address, $pc);

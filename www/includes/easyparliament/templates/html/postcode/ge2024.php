@@ -28,6 +28,19 @@ if ($datediff > 1) {
 }
 ?>.
 </p>
+<?php
+$wheredoivote_url = 'https://wheredoivote.co.uk/';
+if ($address) {
+    $wheredoivote_url .= 'address/' . urlencode($address);
+} else {
+    $wheredoivote_url .= 'postcode/' . urlencode($pc);
+}
+?>
+
+<p>
+    To find out where to vote (your polling station), visit <a href="<?= $wheredoivote_url ?>">WhereDoIVote.co.uk</a>.
+</p>
+
 <p>
     To understand more about <a href="https://www.mysociety.org/democracy/the-2024-general-election/">how the election will work</a>, you can read <a href="https://www.mysociety.org/democracy/the-2024-general-election/">our 10-point guide</a>.
 </p>
