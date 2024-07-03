@@ -45,9 +45,11 @@ db_connect();
 my $pwmembers = mySociety::Config::get('PWMEMBERS');
 verbose("People and Constituencies");
 load_people_json();
-verbose("Offices");
-load_moffices();
-check_member_ids();
+if (!$from) {
+    verbose("Offices");
+    load_moffices();
+    check_member_ids();
+}
 verbose("End");
 
 # ---
@@ -149,8 +151,10 @@ sub load_people_json {
 
     my $j = decode_json(scalar read_file($pwmembers . 'people.json'));
 
-    verbose("  Constituencies");
-    load_constituencies($j->{posts});
+    if (!$from) {
+        verbose("  Constituencies");
+        load_constituencies($j->{posts});
+    }
 
     verbose("  People");
     foreach (@{$j->{organizations}}) {
@@ -159,18 +163,27 @@ sub load_people_json {
     foreach (@{$j->{posts}}) {
         $posts{$_->{id}} = $_;
     }
+
     $dbh->commit();
+    my %matched_person_ids;
     foreach (@{$j->{memberships}}) {
+        next unless ($_->{start_date} || '') ge $from;
+        $matched_person_ids{$_->{person_id}} = 1 if $from;
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
         } else {
+            $grdelete->execute($_->{id});
+            $_->{id} =~ s#uk.org.publicwhip/(member|lord|royal)/##;
             load_member($_);
         }
     }
     foreach (@{$j->{persons}}) {
+        next if $from && !$matched_person_ids{$_->{id}};
         if ($_->{redirect}) {
             $gradd->execute($_->{id}, $_->{redirect});
         } else {
+            $grdelete->execute($_->{id});
+            $_->{id} =~ s#uk\.org\.publicwhip/person/##;
             load_identifiers($_);
             load_names($_);
         }
@@ -187,8 +200,6 @@ sub load_member {
     my ($member) = @_;
 
     my $id = $member->{id};
-    $grdelete->execute($id);
-    $id =~ s:uk.org.publicwhip/(member|lord|royal)/::;
     (my $person_id = $member->{person_id}) =~ s#uk.org.publicwhip/person/##;
 
     $member_ids{$id} = 1;
@@ -197,8 +208,6 @@ sub load_member {
     $start_date .= '-00-00' if length($start_date) == 4;
     my $end_date = $member->{end_date} || '9999-12-31';
     $end_date = ($end_date+1) . '-00-00' if length($end_date) == 4;
-
-    return unless $end_date ge $from;
 
     my $org_slug;
     if ($member->{post_id}) {
@@ -230,8 +239,6 @@ sub load_identifiers {
     my $person = shift;
 
     my $id = $person->{id};
-    $id =~ s#uk.org.publicwhip/person/##;
-
     foreach (@{$person->{identifiers}}) {
         $personinfoupdate->execute($id, $_->{scheme}, $_->{identifier}, $_->{identifier});
     }
@@ -241,8 +248,6 @@ sub load_names {
     my $person = shift;
 
     my $id = $person->{id};
-    $grdelete->execute($id);
-    $id =~ s#uk.org.publicwhip/person/##;
 
     my @names;
     foreach my $name (@{$person->{other_names}}) {
