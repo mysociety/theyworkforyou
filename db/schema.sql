@@ -3,7 +3,7 @@
 --
 
 CREATE TABLE `consinfo` (
-  `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `constituency` varchar(100) NOT NULL default '',
   `data_key` varchar(100) NOT NULL default '',
   `data_value` text NOT NULL,
   UNIQUE KEY `consinfo_constituency_data_key` (`constituency`,`data_key`),
@@ -12,7 +12,7 @@ CREATE TABLE `consinfo` (
 );
 
 CREATE TABLE `constituency` (
-  `name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `name` varchar(100) NOT NULL default '',
   `main_name` tinyint(1) NOT NULL default '0',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
@@ -81,12 +81,12 @@ CREATE TABLE `hansard` (
 CREATE TABLE `member` (
   `member_id` int(11) NOT NULL default '0',
   `house` int(11) default NULL,
-  `constituency` varchar(100) collate latin1_spanish_ci NOT NULL default '',
-  `party` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `constituency` varchar(100) NOT NULL default '',
+  `party` varchar(100) NOT NULL default '',
   `entered_house` date NOT NULL default '1000-01-01',
   `left_house` date NOT NULL default '9999-12-31',
-  `entered_reason` enum('', 'unknown','general_election','by_election','changed_party','changed_name','reinstated','appointed','devolution','election','accession','regional_election','replaced_in_region','became_presiding_officer', 'general_election_probably') collate latin1_spanish_ci NOT NULL default 'unknown',
-  `left_reason` enum('', 'unknown','still_in_office','general_election','general_election_standing','general_election_not_standing','changed_party','changed_name','died','declared_void','resigned','disqualified','became_peer','devolution','dissolution','retired','regional_election','became_presiding_officer','recall_petition') collate latin1_spanish_ci NOT NULL default 'unknown',
+  `entered_reason` enum('', 'unknown','general_election','by_election','changed_party','changed_name','reinstated','appointed','devolution','election','accession','regional_election','replaced_in_region','became_presiding_officer', 'general_election_probably') NOT NULL default 'unknown',
+  `left_reason` enum('', 'unknown','still_in_office','general_election','general_election_standing','general_election_not_standing','changed_party','changed_name','died','declared_void','resigned','disqualified','became_peer','devolution','dissolution','retired','regional_election','became_presiding_officer','recall_petition') NOT NULL default 'unknown',
   `person_id` int(11) NOT NULL default '0',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`member_id`),
@@ -95,15 +95,14 @@ CREATE TABLE `member` (
   KEY `house` (`house`),
   KEY `left_house_house` (`left_house`,`house`)
 );
-ALTER TABLE `member` COLLATE latin1_spanish_ci;
 
 CREATE TABLE `person_names` (
   `id` int(11) NOT NULL auto_increment,
   `person_id` int(11) NOT NULL,
-  `title` varchar(50) collate latin1_spanish_ci NOT NULL default '',
-  `given_name` varchar(100) collate latin1_spanish_ci NOT NULL default '',
-  `family_name` varchar(255) collate latin1_spanish_ci NOT NULL default '',
-  `lordofname` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `title` varchar(50) NOT NULL default '',
+  `given_name` varchar(100) NOT NULL default '',
+  `family_name` varchar(255) NOT NULL default '',
+  `lordofname` varchar(100) NOT NULL default '',
   `start_date` date NOT NULL default '1000-01-01',
   `end_date` date NOT NULL default '9999-12-31',
   `type` enum('name', 'alias') not null default 'name',
@@ -176,7 +175,7 @@ CREATE TABLE `persondivisionvotes` (
 CREATE TABLE `partypolicy` (
   `id` int(11) NOT NULL auto_increment,
   `house` int(11) default NULL,
-  `party` varchar(100) collate latin1_spanish_ci NOT NULL default '',
+  `party` varchar(100) NOT NULL default '',
   `policy_id` varchar(100) NOT NULL default '',
   `score` float NOT NULL default 0,
   `divisions` int(11) NOT NULL,
@@ -187,7 +186,6 @@ CREATE TABLE `partypolicy` (
   KEY `party` (`party`),
   KEY `policy_id` (`policy_id`)
 );
-ALTER TABLE `partypolicy` COLLATE latin1_spanish_ci;
 
 CREATE TABLE `moffice` (
   `moffice_id` varchar(100) NOT NULL,
@@ -427,11 +425,11 @@ CREATE TABLE `uservotes` (
 
 CREATE TABLE `mentions` (
   `mention_id` int(11) NOT NULL auto_increment,
-  `gid` varchar(100) default NULL collate latin1_swedish_ci,
+  `gid` varchar(100) default NULL,
   `type` int(11) NOT NULL,
   `date` date default NULL,
-  `url` varchar(255) default NULL collate latin1_swedish_ci,
-  `mentioned_gid` varchar(100) default NULL collate latin1_swedish_ci,
+  `url` varchar(255) default NULL,
+  `mentioned_gid` varchar(100) default NULL,
   UNIQUE KEY `all_values` (`gid`,`type`,`date`,`url`,`mentioned_gid`),
   PRIMARY KEY (`mention_id`)
 );
