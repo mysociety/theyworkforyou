@@ -8,6 +8,13 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 $data = array();
 $errors = array();
 
+// handling to switch the GE message based either on time or a query string
+
+$now = new DateTime();
+$election_date = new DateTime('2024-07-04 22:00:00');
+
+$data['post_election_message'] = (($now > $election_date) || (get_http_var("post_election") == 1));
+
 $pc = get_http_var('pc');
 if (!$pc) {
     postcode_error('Please supply a postcode!');
