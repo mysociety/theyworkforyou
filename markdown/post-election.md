@@ -20,9 +20,9 @@ ___
 
 TheyWorkForYou and WriteToThem are run by [mySociety](https://www.mysociety.org/), a small UK charity. 
 
-We're a very efficient operation and do a lot with a small team: at the moment TheyWorkForYou, which is used by millions of people every year, is run with the equivalent of about two people.
+We're a very efficient operation and do a lot with a small team. At the moment TheyWorkForYou, which is used by millions of people each year, is run with less than the equivalent of one full-time person.
 
-If we had [a *bit* more money, we could achieve a *lot* more]((/support-us/)).
+If we had [a *bit* more money, we could achieve a *lot* more](/support-us/).
 
 We want to see a transparent, resilient democracy, with equal access to information, representation and voice for citizens.
 
