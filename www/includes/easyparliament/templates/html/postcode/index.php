@@ -51,6 +51,7 @@ include "ge2024.php";
 <div id="current">
     <h2><?= gettext('Your representatives') ?></h2>
     <ul>
+<?php if ($mp) { ?>
         <li class="postcode-rep-list__item"><span>
             <?php if ($mp['former']) {
                 printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
@@ -63,6 +64,9 @@ include "ge2024.php";
             </span>
             <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'],  $mp['name']) ?>
         </li>
+<?php } else { ?>
+        <li>Your MP is currently unknown.</li>
+<?php } ?>
 
 <?php
     if (isset($mcon) && !empty($mcon)) {

@@ -137,6 +137,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         $mp['former'] = ($mp['left_house'] != '9999-12-31');
         $q = $db->query("SELECT * FROM personinfo where person_id=:person_id AND data_key='standing_down_2024'", [':person_id' => $mp['person_id']]);
         $mp['standing_down_2024'] = $q['data_value'] ?? 0;
+        $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
     }
 
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
@@ -183,8 +184,6 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     $data['areas'] = $areas;
     $data['area_type'] = $area_type;
     $data['member_names'] = $member_names;
-
-    $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
     $data['mp'] = $mp;
 
     $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
