@@ -3,13 +3,13 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    align-items: center;
 }
-.postcode-rep-list__sub-item {
-    align-items: baseline;
+.postcode-rep-list__item {
+    margin-bottom: 0.5em;
 }
 .postcode-rep-list__link {
     flex-shrink: 0;
-    margin-bottom: 0.5em;
     margin-right: 0.5em;
 }
 </style>
@@ -43,7 +43,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
     <h2><?= gettext('Your representatives') ?></h2>
     <ul>
 <?php if ($mp) { ?>
-        <li class="postcode-rep-list__item"><span>
+        <li><span class="postcode-rep-list__item"><span>
             <?php if ($mp['former']) {
                 printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
             } else {
@@ -54,7 +54,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
             } ?>
             </span>
             <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'],  $mp['name']) ?>
-        </li>
+        </span></li>
 <?php } else { ?>
         <li>Your MP is currently unknown.</li>
 <?php } ?>
@@ -62,7 +62,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
 <?php
     if (isset($mcon) && !empty($mcon)) {
         $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
-        echo '<li class="postcode-rep-list__item"><span>';
+        echo '<li><span class="postcode-rep-list__item"><span>';
         if ($house == HOUSE_TYPE_SCOTLAND) {
             $url = $urlp . $mcon['person_id'];
             $cons = $mcon['constituency'];
@@ -84,7 +84,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
         }
         echo '</span>';
         member_image_box($mcon["person_id"], $url, $name);
-        echo '</li>';
+        echo '</span></li>';
     }
     if (isset($mreg)) {
         if ($current) {
