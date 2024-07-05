@@ -315,6 +315,7 @@ class MEMBER {
             $query .= ' AND house = :house';
             $params[':house'] = $house;
         }
+        $query .= ' ORDER BY left_house DESC';
 
         $q = $this->db->query($query, $params)->first();
 
