@@ -430,7 +430,7 @@ $page = array (
     ),
     'donate' => array (
         'menu'			=> array (
-            'text'			=> gettext('Support Us'),
+            'text'			=> gettext('Donate'),
             'title'			=> '',
         ),
         'title'			=> gettext('Donate'),
