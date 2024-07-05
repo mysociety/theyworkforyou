@@ -81,4 +81,5 @@
 
         </div>
     </div>
+    <p class="image-attribution">Image <a href="https://www.flickr.com/photos/uk_parliament/53754559691/in/datetaken/">© House of Commons</a></p>
 </div>

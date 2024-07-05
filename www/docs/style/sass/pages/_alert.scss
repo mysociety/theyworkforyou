@@ -1,9 +1,10 @@
 .alerts-header {
+  position: relative;
   text-align: center;
   padding: 1em 0;
   color: #000; // improve contrast against light background image
 
-  background-image: url(/images/person-sitting-in-light.jpg);
+  background-image: url(/images/pmqs-flickr-53754559691-by-nc-nd.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 70%;
@@ -49,6 +50,20 @@
   p.lead {
     line-height: 1.4em; // down from default 1.6em
   }
+
+  .image-attribution {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    font-size: 0.625em;
+    margin: 0;
+    opacity: 0.5;
+    line-height: 1.2em;
+
+    a {
+      color: inherit;
+    }
+  }
 }
 
 // An extra big header, designed for pages where all
@@ -89,7 +104,7 @@
   }
 
   input[type="text"] {
-    border: #999;
+    border-color: #999;
     margin: 0;
     height: auto; // allow input to be sized by content's default height
     font-size: 1.4em;
