@@ -1,16 +1,19 @@
 
 
-<?php ob_start(); ?>
-    <form class="alerts-form" method="post" action="/alert/by-postcode/">
-    <input type="hidden" name="add-alert" value="1">
+<?php ob_start(); 
+    if ($mp) { ?>
+<form class="alerts-form" method="post" action="/alert/">
+    <input type="hidden" name="pid" value="<?= $mp['person_id'] ?>">
     <input type="hidden" name="postcode" id="id_postcode" value="<?= strtoupper($data["pc"]) ?>">
 
     <label for="id_email">Your email address</label>
     <input type="text" name="email" id="id_email">
 
-    <button type="submit" class="button radius">Set up alerts</button>
+    <input type="submit" class="button radius" value="Set up alerts">
     </form>
-<?php $form = ob_get_clean(); ?>
+<?php
+}
+$form = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
 <style>
