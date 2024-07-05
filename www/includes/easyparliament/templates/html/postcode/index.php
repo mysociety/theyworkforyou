@@ -37,16 +37,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
     }
 }
 
-include "ge2024-post-election.php";
-
-# The below is normally the main column, but for now let us make it the sidebar...
-
-
 ?>
-
-        </div>
-        <div class="sidebar">
-            <div class="block">
 
 <div id="current">
     <h2><?= gettext('Your representatives') ?></h2>
@@ -126,6 +117,14 @@ include "ge2024-post-election.php";
     echo '</ul>';
 
 echo '</div>';
+
+?>
+
+        </div>
+        <div class="sidebar">
+            <div class="block">
+
+<?php
 
 include("repexplain.php");
 

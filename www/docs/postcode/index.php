@@ -24,29 +24,9 @@ if (!validate_postcode($pc)) {
 
 # 2024 ELECTION EXTRA
 
-$data['address'] = $address = get_http_var('address');
-if ($address) {
-    $dc_data = democracy_club_address($address);
-    $constituencies = mapit_address($address, $pc);
-} else {
-    $dc_data = democracy_club_postcode($pc);
-    if (!isset($dc_data->error) && $dc_data->address_picker) {
-        show_address_list($pc, $dc_data->addresses);
-        exit;
-    }
-    $constituencies = mapit_postcode($pc);
-}
-if (!$constituencies || isset($dc_data->error) || !$dc_data->dates) {
+$constituencies = mapit_postcode($pc);
+if (!$constituencies) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
-}
-
-$data['ballot'] = null;
-foreach ($dc_data->dates as $date) {
-    if ($date->date != '2024-07-04') continue;
-    foreach ($date->ballots as $b) {
-        if ($b->election_id != 'parl.2024-07-04') continue;
-        $data['ballot'] = $b;
-    }
 }
 
 if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
@@ -64,17 +44,9 @@ if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
 } else {
     $data['multi'] = "uk";
     $MEMBER = fetch_mp($pc, $constituencies, 1);
-    $data['mp'] = [
-        'name' => $MEMBER->full_name(),
-        'person_id' => $MEMBER->person_id(),
-        'constituency' => $MEMBER->constituency(),
-        'former' => !$MEMBER->current_member(HOUSE_TYPE_COMMONS),
-        'standing_down_2024' => $MEMBER->extra_info['standing_down_2024'] ?? '',
-    ];
-    $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
+    member_redirect($MEMBER);
 }
 
-$data['mapit_ids'] = $mapit_ids;
 MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
 
 # ---
@@ -201,37 +173,12 @@ function member_redirect(&$MEMBER) {
     }
 }
 
-function democracy_club_postcode($pc) {
-    $pc = urlencode($pc);
-    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/postcode/$pc/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
-    $data = json_decode($data);
-    return $data;
-}
-
-function democracy_club_address($address) {
-    $address = urlencode($address);
-    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/address/$address/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
-    $data = json_decode($data);
-    return $data;
-}
-
 function mapit_postcode($postcode) {
     $filename = 'postcode/' . rawurlencode($postcode);
     return mapit_lookup('postcode', $filename);
 }
 
-function mapit_address($address, $pc) {
-    $address = urlencode($address);
-    $url = str_replace('{s}', $address, OPTION_MAPIT_UPRN_LOOKUP);
-    $file = web_lookup($url);
-    $r = json_decode($file);
-    if (isset($r->error)) return mapit_postcode($pc);
-    $filename = 'point/4326/' . $r->wgs84_lon . ',' . $r->wgs84_lat;
-    return mapit_lookup('point', $filename);
-}
-
 function mapit_lookup($type, $filename) {
-    global $mapit_ids;
     $file = web_lookup(OPTION_MAPIT_URL . $filename);
     $r = json_decode($file);
     if (isset($r->error)) return '';
@@ -242,25 +189,11 @@ function mapit_lookup($type, $filename) {
     foreach ($input as $row) {
         if (in_array($row->type, array('WMC', 'WMCF', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE')))
             $areas[$row->type] = $row->name;
-        if ($row->type == 'WMC') {
-            $mapit_ids['old'] = $row->id;
-        }
-        if ($row->type == 'WMCF') {
-            $mapit_ids['new'] = $row->id;
-        }
     }
     if (!isset($areas['WMC'])) {
         return '';
     }
     return $areas;
-}
-
-function show_address_list($pc, $addresses) {
-    global $PAGE;
-    $PAGE->page_start();
-    $PAGE->stripe_start();
-    include("address_list.php");
-    $PAGE->page_end();
 }
 
 function web_lookup($url) {
