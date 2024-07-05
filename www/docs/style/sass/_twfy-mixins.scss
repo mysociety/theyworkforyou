@@ -9,7 +9,7 @@ $medium-screen: 48em;
 $large-screen: 65em;
 $huge-screen: 71.25em;
 
-$colour_primary: #62b356 !default;
+$colour_primary: #4b6947 !default;
 $colour_black: #222222;
 $colour_dark_grey: #666361;
 $colour_grey: #7E7B78;
@@ -230,10 +230,10 @@ $weight_bold: 700;
 
 
 .site-nav a.donate-button {
-    background-color: darken($colour_pale_red, 10%);
+    background-color: $color-red;
     &:hover,
     &:focus {
-        background-color: darken($colour_pale_red, 15%);
+        background-color: darken($color-red, 5%);
     };
     color: #FFF;
     font-weight: $weight_bold;
