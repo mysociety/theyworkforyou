@@ -34,16 +34,11 @@ class Homepage {
         $common = new Common;
         $dissolution = Dissolution::dates();
 
-        // temp for 2024 election
-        $now = new \DateTime();
-        $election_date = new \DateTime('2024-07-04 22:00:00');
-
         $data['debates'] = $this->getDebatesData();
 
         $user = new User();
         $data['mp_data'] = $user->getRep($this->cons_type, $this->mp_house);
         $data["commons_dissolved"] = isset($dissolution[1]);
-        $data["after_election"] = $now > $election_date;
 
         $data['regional'] = $this->getRegionalList();
         $data['popular_searches'] = $common->getPopularSearches();

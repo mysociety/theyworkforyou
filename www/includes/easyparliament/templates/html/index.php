@@ -20,11 +20,7 @@
                 </div>
             </div>
             <?php } else { ?>
-            <?php if ($after_election === true) { ?>
-            <h1>Find out more about your new MP</h1>
-            <?php } else { ?>
-            <h1>Find out more about your <?php if ($commons_dissolved) { ?>former <?php } ?>MP, and election candidates</h1>
-            <?php } ?>
+            <h1>Find out more about your <?php if ($commons_dissolved) { ?>former <?php } ?>MP</h1>
             <div class="row collapse">
                 <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'Home'); return false;">
                     <label for="postcode">Your postcode</label>

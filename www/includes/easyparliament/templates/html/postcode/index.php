@@ -37,11 +37,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
     }
 }
 
-if ($post_election_message) {
-    include "ge2024-post-election.php";
-} else {
-    include "ge2024.php";
-};
+include "ge2024-post-election.php";
 
 # The below is normally the main column, but for now let us make it the sidebar...
 
