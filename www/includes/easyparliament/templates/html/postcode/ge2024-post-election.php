@@ -12,6 +12,18 @@
     </form>
 <?php $form = ob_get_clean(); ?>
 
+<?php ob_start(); ?>
+<style>
+    :target {
+        background-color: #ffc;
+        padding: 0.5em;
+    }
+    </style>
+    <p><a href='#current'>See your current <?php
+        if (isset($mcon) || isset($mreg)) echo 'representatives';
+        else echo 'MP';
+    ?></a></p>
+<?php $rep_link = ob_get_clean(); ?>
 
 <?php
 $markdown_file = '../../../markdown/post-election.md';
@@ -21,7 +33,7 @@ $text = file_get_contents($markdown_file);
 $html = $Parsedown->text($text);
 
 $html = str_replace("{{ form }}", $form, $html);
-
+$html = str_replace("{{ rep_link }}", $rep_link , $html);
 echo $html;
 ?>
 
