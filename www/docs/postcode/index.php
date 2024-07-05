@@ -208,14 +208,14 @@ function member_redirect(&$MEMBER) {
 
 function democracy_club_postcode($pc) {
     $pc = urlencode($pc);
-    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/postcode/$pc/?auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/postcode/$pc/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
     $data = json_decode($data);
     return $data;
 }
 
 function democracy_club_address($address) {
     $address = urlencode($address);
-    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/address/$address/?auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/address/$address/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
     $data = json_decode($data);
     return $data;
 }
