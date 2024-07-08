@@ -61,7 +61,7 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
     <h2>Donate to TheyWorkForYou and mySociety</h3>
 
     <div class="fat-radio-buttons">
-        <label for="how-often-once" class="inline-radio-label"><input type="radio" id="how-often-once" name="how-often" value="once" data-default-amount="<?= $default_amounts["one-off"] ?>" required <?php get_checked($initial_payment_type, 'one-off') ?>>One-off donation</label>
+        <label for="how-often-one-off" class="inline-radio-label"><input type="radio" id="how-often-one-off" name="how-often" value="one-off" data-default-amount="<?= $default_amounts["one-off"] ?>" required <?php get_checked($initial_payment_type, 'one-off') ?>>One-off donation</label>
         <label for="how-often-annually" class="inline-radio-label"><input type="radio" id="how-often-annually" name="how-often" value="annually" data-default-amount="<?= $default_amounts["annually"] ?>" required <?php get_checked($initial_payment_type, 'annually') ?>>Annual donation</label>
         <label for="how-often-monthly" class="inline-radio-label"><input type="radio" id="how-often-monthly" name="how-often" value="monthly" data-default-amount="<?= $default_amounts["monthly"] ?>" required <?php get_checked($initial_payment_type, 'monthly') ?>>Monthly donation</label>
     </div>

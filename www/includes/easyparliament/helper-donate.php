@@ -78,7 +78,7 @@ function stripe_session_ajax($successPage, $cancelPage)
         $howoften = "monthly";
     }
     $validPeriods = ["monthly" => "month", "annually" => "year"];
-    $period = $validPeriods[$howoften] ?? "once";
+    $period = $validPeriods[$howoften] ?? "one-off";
 
     $metadata = [
         "gift-aid" => $giftaid,
@@ -112,7 +112,7 @@ function stripe_session_ajax($successPage, $cancelPage)
     We run services such as TheyWorkForYou, WhatDoTheyKnow and FixMyStreet.
     ";
 
-    if ($period == "once") {
+    if ($period == "one-off") {
         // one off payments
         $data += [
             "mode" => "payment",
