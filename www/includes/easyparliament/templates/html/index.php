@@ -3,80 +3,11 @@
 # include 'homepage/promo-banner.php';
 ?>
 
-<div class="hero">
-    <div class="row hero__row">
-    <div class="hero__mp-search">
-        <div class="hero__mp-search__wrap">
-            <?php if (count($mp_data)) { ?>
-            <h1>Find out more about <?= $mp_data['former'] ? 'your former MP ' : 'your MP ' ?><?= $mp_data['name'] ?></h1>
-            <div class="row collapse">
-                <div class="medium-4 columns">
-                    <a href="<?= $mp_data['mp_url']?>" class="button homepage-search__button" />Find out &rarr;</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="medium-9 columns">
-                    <a class="homepage-search__change-postcode" href="<?= $mp_data['change_url'] ?>">Change postcode</a>
-                </div>
-            </div>
-            <?php } else { ?>
-            <h1>Find out more about your <?php if ($commons_dissolved) { ?>former <?php } ?>MP</h1>
-            <div class="row collapse">
-                <form action="/postcode/" class="mp-search__form"  onsubmit="trackFormSubmit(this, 'PostcodeSearch', 'Submit', 'Home'); return false;">
-                    <label for="postcode">Your postcode</label>
-                    <div class="medium-9 columns">
-                        <input name="pc" id="postcode" class="homepage-search__input" type="text" placeholder="TF1 8GH" />
-                    </div>
-                    <div class="medium-3 columns">
-                        <input type="submit" value="Find out &rarr;" class="button homepage-search__button" />
-                    </div>
-                </form>
-            </div>
-            <?php } ?>
-        </div>
-    </div>
-    <div class="hero__site-intro">
-        <div class="hero__site-intro__wrap">
-            <h2>Democracy: it&rsquo;s for everyone</h2>
-            <p>You shouldn&rsquo;t have to be an expert to understand what goes on in Parliament.</p>
-            <p>TheyWorkForYou takes open data from the UK's Parliaments, and presents it in a way that&rsquo;s easy to follow &ndash; for everyone.</p>
-            <a href="/about/" class="site-intro__more-link">About TheyWorkForYou <i>&rarr;</i></a>
-        </div>
-    </div>
-    </div>
-</div>
 
 <div class="full-page__row">
     <div class="homepage-panels">
-
-
-        <div class="panel panel--inverted">
-            <div class="row nested-row">
-                <div class="home__search">
-                    <form action="<?= $urls['search'] ?>" method="GET" onsubmit="trackFormSubmit(this, 'Search', 'Submit', 'Home'); return false;">
-                        <label for="q">Search debates, written questions and Hansard</label>
-                        <div class="row collapse">
-                            <div class="medium-9 columns">
-                                <input name="q" id="q" class="homepage-search__input" type="text" placeholder="Enter a keyword, phrase, or person" />
-                            </div>
-                            <div class="medium-3 columns">
-                                <input type="submit" value="Search" class="button homepage-search__button" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="home__search-suggestions">
-                    <?php if (count($popular_searches)) { ?>
-                    <h3>Popular searches today</h3>
-                    <ul class="search-suggestions__list">
-                        <?php foreach ($popular_searches as $i => $popular_search) { ?>
-                        <li><?= $popular_search['display']; ?></li>
-                        <?php } ?>
-                    </ul>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
+      
+    <?php include 'homepage/search-box.php'; ?>
 
         <div class="panel panel--flushtop clearfix">
             <div class="row nested-row">

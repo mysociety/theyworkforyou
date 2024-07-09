@@ -39,12 +39,71 @@
     }
 }
 
-.panel--primary {
-    background-color: $colour_primary;
-    color: #fff;
+.panel--homepage--overall {
+    background: rgba(#000, 0.5) url('../img/parliament-photo.jpg') center/cover no-repeat;
+    background-blend-mode: overlay; /* Blends the color with the image */
 
-    a, h2, h3 {
-        color: inherit;
+    .quick-links__item {
+        background-color: #444;
+        display: inline-block;
+    }
+}
+
+.panel--homepage--senedd {
+    background: rgba(#000, 0.5) url('../img/senedd-photo.jpg') center/cover no-repeat;
+    background-blend-mode: overlay;
+
+    .quick-links__item {
+        background-color: #444;
+        display: inline-block;
+    }
+}
+
+.panel--homepage--scotland {
+    background: rgba(#000, 0.5) url('../img/scotland-photo.jpg') center/cover no-repeat;
+    background-blend-mode: overlay; 
+
+    .quick-links__item {
+        background-color: #444;
+        display: inline-block;
+    }
+}
+
+.panel--homepage--niassembly {
+    background: rgba(#000, 0.5) url('../img/niassembly-photo.jpg') center/cover no-repeat;
+    background-blend-mode: overlay; 
+
+    .quick-links__item {
+        background-color: #444;
+        display: inline-block;
+    }
+}
+
+.home__quick-links{
+    padding-top:20px;
+
+}
+
+.panel--primary {
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: $colour_off_white;
+
+    h1 {
+        color: $colour_off_white;
+        margin-bottom: 5px;
+    }
+
+    h2, label, li {
+        color: $colour_mid_grey;
+    }
+
+    a {
+        color: #fff;
+    }
+
+    h3 {
+        color: $colour_off_white
     }
 
     .button {

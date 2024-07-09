@@ -98,9 +98,32 @@ class SeneddView extends SectionView {
         $data['debates'] = array( 'recent' => $recent);
 
         $data['regional'] = $this->getMSList();
+        $data['search_box'] = $this->getSearchBox($data);
         $data['template'] = 'senedd/index';
 
         return $data;
+    }
+
+    protected function getSearchBox(array $data): \MySociety\TheyWorkForYou\Search\SearchBox{
+        $search_box = new \MySociety\TheyWorkForYou\Search\SearchBox();
+        $search_box->homepage_panel_class = "panel--homepage--senedd";
+        $search_box->homepage_subhead = gettext("Senedd / Welsh Parliament");
+        $search_box->homepage_desc = "";
+        $search_box->search_section = "senedd";
+        $search_box->quick_links = [];
+        if (count($data["regional"])) {
+            // get all unique constituencies
+            $constituencies = array();
+            foreach ($data["regional"] as $member) {
+                $constituencies[$member["constituency"]] = 1;
+            }
+            $constituencies = array_keys($constituencies);
+        $search_box->add_quick_link(sprintf(gettext('Find out more about your MSs for %s and %s'), $constituencies[0], $constituencies[1]), '/postcode/?pc=' . $data["mp_data"]['postcode'],'torso');
+        }
+        $search_box->add_quick_link(gettext('Create and manage email alerts'), '/alert/');
+        $search_box->add_quick_link(gettext('Subscribe to our newsletter'), 'https://www.mysociety.org/subscribe/');
+        $search_box->add_quick_link(gettext('Donate to support our work'), '/support-us/');
+        return $search_box;
     }
 
     protected function getMSList() {
