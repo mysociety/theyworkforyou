@@ -98,9 +98,40 @@ class SeneddView extends SectionView {
         $data['debates'] = array( 'recent' => $recent);
 
         $data['regional'] = $this->getMSList();
+        $data['search_box'] = $this->getSearchBox($data);
         $data['template'] = 'senedd/index';
 
         return $data;
+    }
+
+    protected function getSearchBox(array $data): \MySociety\TheyWorkForYou\Search\SearchBox{
+        $search_box = new \MySociety\TheyWorkForYou\Search\SearchBox();
+        $search_box->homepage_panel_class = "panel--homepage--senedd";
+        if (LANGUAGE == 'cy') {
+            $search_box->homepage_subhead = "Senedd";
+        } else {
+            $search_box->homepage_subhead = "Senedd / Welsh Parliament";
+        }
+        $search_box->homepage_desc = "";
+        $search_box->search_section = "senedd";
+        $search_box->quick_links = [];
+        if (count($data["regional"])) {
+            // get all unique constituencies
+            $constituencies = array();
+            foreach ($data["regional"] as $member) {
+                $constituencies[$member["constituency"]] = 1;
+            }
+            $constituencies = array_keys($constituencies);
+            if (LANGUAGE == 'cy'){
+                $search_box->add_quick_link('Darganfod mwy am eich Aelodau Cynulliad dros ' . $constituencies[0] . ' a ' . $constituencies[1], '/postcode/?pc=' . $data["mp_data"]['postcode']);
+            } else {
+                $search_box->add_quick_link('Find out more about your MSs for ' . $constituencies[0] . ' and ' . $constituencies[1], '/postcode/?pc=' . $data["mp_data"]['postcode']);
+            }
+        }
+        $search_box->add_quick_link(gettext('Create and manage email alerts'), '/alert/');
+        $search_box->add_quick_link(gettext('Subscribe to our newsletter'), 'https://www.mysociety.org/subscribe/');
+        $search_box->add_quick_link(gettext('Donate to support our work'), '/support-us/');
+        return $search_box;
     }
 
     protected function getMSList() {
