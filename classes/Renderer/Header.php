@@ -355,7 +355,9 @@ class Header
                 'classes' => $class,
                 'text'    => $text
             );
+            if ($toppage != "london_home"){
             array_push($this->data['assembly_nav_links'], $top_link);
+            }
 
             if ($toppage == $this->nav_highlights['top']) {
 
