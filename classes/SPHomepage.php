@@ -15,6 +15,23 @@ class SPHomepage extends Homepage {
         'SPWRANSLIST' => array('recent_wrans', 'spwransfront', 'Written answers'),
     );
 
+    protected function getSearchBox(array $data): Search\SearchBox{
+        $search_box = new Search\SearchBox();
+        $search_box->homepage_panel_class = "panel--homepage--scotland";
+        $search_box->homepage_subhead = "Scottish Parliament";
+        $search_box->homepage_desc = "";
+        $search_box->search_section = "scotland";
+        $search_box->quick_links = [];
+        if (count($data["mp_data"])) {
+            $regional_con = $data["regional"][0]["constituency"];
+            $search_box->add_quick_link('Find out more about your MSPs for ' . $data["mp_data"]["constituency"] . '(' . $regional_con . ')', '/postcode/?pc=' . $data["mp_data"]['postcode'] );
+        }
+        $search_box->add_quick_link('Create and manage email alerts', '/alert/');
+        $search_box->add_quick_link('Subscribe to our newsletter', 'https://www.mysociety.org/subscribe/');
+        $search_box->add_quick_link('Donate to support our work', '/support-us/');
+        return $search_box;
+    }
+
     protected function getEditorialContent() {
         $debatelist = new \SPLIST;
         $item = $debatelist->display('recent_debates', array('days' => 7, 'num' => 1), 'none');
