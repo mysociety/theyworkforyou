@@ -3,6 +3,27 @@
     color: #000;
 }
 
+
+.site-home__logo {
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.mysoc__org__logo {
+    display: block;
+    margin-top: 0.5em;
+    height: 0;
+    overflow: hidden;
+    padding-top: 32px;
+  }
+  
+  .mysoc__org__logo--mysociety {
+    width: 152px;
+    background-size: 152px 32px;
+    background-image: url('#{$mysoc-footer-image-path}logo-mysociety-white.svg'), none;
+  }
+
 .hero__mp-search {
     @include grid-column(12);
     background-image: url('../img/homepage-hero-background-large.jpg');
@@ -318,17 +339,24 @@ input.homepage-search__button {
 }
 
 .home__search-suggestions {
-    @include grid-column(12);
-    margin-top: 1em;
-    @media (min-width: $large-screen) {
-        margin-top: 0;
-        @include grid-column(4);
-    }
+    margin-top: 0;
+
     h3 {
         font-size: emCalc(14);
         font-weight: normal;
     }
 }
+
+.home__search-suggestions p, .home__search-suggestions ul {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.home__search-suggestions p {
+    margin-right: 10px; /* Add space between p and ul */
+}
+
 
 .search-suggestions__list {
     @include inline-list;

@@ -173,6 +173,18 @@ msgstr "Ni allwch chwilio am fwy nag un ystod o ddyddiadau."
 msgid "Maximum term length is 255 characters."
 msgstr "Yr hyd term mwyaf yw 255 nod."
 
+#: classes/SectionView/SeneddView.php:131
+msgid "Create and manage email alerts"
+msgstr "Creu hysbysiad"
+
+#: classes/SectionView/SeneddView.php:132
+msgid "Subscribe to our newsletter"
+msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
+
+#: classes/SectionView/SeneddView.php:133
+msgid "Donate to support our work"
+msgstr "Cyfrannu"
+
 #: classes/User.php:196
 msgid "Please enter a password"
 msgstr "Rhowch eich cyfrinair"

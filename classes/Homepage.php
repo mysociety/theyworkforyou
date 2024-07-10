@@ -47,8 +47,25 @@ class Homepage {
         $data['featured'] = $this->getEditorialContent();
         $data['topics'] = $this->getFrontPageTopics();
         $data['divisions'] = $this->getRecentDivisions();
+        $data['search_box'] = $this->getSearchBox($data);
 
         return $data;
+    }
+
+    protected function getSearchBox(array $data): Search\SearchBox{
+        $search_box = new Search\SearchBox();
+        $search_box->homepage_panel_class = "panel--homepage--overall";
+        $search_box->homepage_subhead = "";
+        $search_box->homepage_desc = "Understand who represents you, across the UK's Parliaments.";
+        $search_box->search_section = "";
+        $search_box->quick_links = [];
+        if (count($data["mp_data"])) {
+            $search_box->add_quick_link('Find out more about your MP (' . $data["mp_data"]['name'] . ')', $data["mp_data"]['mp_url']);
+        }
+        $search_box->add_quick_link('Create and manage email alerts', '/alert/');
+        $search_box->add_quick_link('Subscribe to our newsletter', 'https://www.mysociety.org/subscribe/');
+        $search_box->add_quick_link('Donate to support our work', '/support-us/');
+        return $search_box;
     }
 
     protected function getRegionalList() {
