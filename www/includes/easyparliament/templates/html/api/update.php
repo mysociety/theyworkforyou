@@ -148,5 +148,5 @@ If you update your plan below, it will be reactivated.
 <script id="js-payment"
     <?php if ($subscription->has_payment_data) { echo 'data-has-payment-data="1"'; } ?>
     <?php if ($stripe) { echo 'data-has-subscription="1"'; } ?>
-    data-key="<?= STRIPE_PUBLIC_KEY ?>"
+    data-key="<?= STRIPE_PUBLIC_KEY ?>" data-api-version="<?= STRIPE_API_VERSION ?>"
     src="<?= cache_version('js/payment.js') ?>"></script>

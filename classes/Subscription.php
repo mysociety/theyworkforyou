@@ -12,6 +12,7 @@ class Subscription {
     public $has_payment_data = false;
 
     private static $plans = ['twfy-1k', 'twfy-5k', 'twfy-10k', 'twfy-0k'];
+    private static $prices = [2000, 5000, 10000, 30000];
 
     public function __construct($arg) {
         # User ID
@@ -62,9 +63,10 @@ class Subscription {
                     'customer.default_source',
                     'customer.invoice_settings.default_payment_method',
                     'latest_invoice.payment_intent',
+                    'schedule.phases.items.plan',
                 ],
             ]);
-        } catch (\Stripe\Error\InvalidRequest $e) {
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
             $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
             $this->delete_from_redis();
             return;
@@ -89,7 +91,7 @@ class Subscription {
 
         try {
             $this->upcoming = $this->api->getUpcomingInvoice(["customer" => $this->stripe->customer->id]);
-        } catch (\Stripe\Error\Base $e) {
+        } catch (\Stripe\Exception\ApiErrorException $e) {
         }
     }
 
@@ -98,33 +100,74 @@ class Subscription {
             $this->update_payment_method($form_data['payment_method']);
         }
 
-        # Update Stripe subscription
-        $args = [
-            'payment_behavior' => 'allow_incomplete',
-            'plan' => $form_data['plan'],
-            'metadata' => $form_data['metadata'],
-            'cancel_at_period_end' => false, # Needed in Stripe 2018-02-28
-        ];
-        if ($form_data['coupon']) {
-            $args['coupon'] = $form_data['coupon'];
-        } elseif ($this->stripe->discount) {
-            $args['coupon'] = '';
+        foreach ($this::$plans as $i => $plan) {
+            if ($plan == $form_data['plan']) {
+                $new_price = $this::$prices[$i];
+                if ($form_data['coupon'] == 'charitable100') {
+                    $new_price = 0;
+                } elseif ($form_data['coupon'] == 'charitable50') {
+                    $new_price /= 2;
+                }
+            }
+            if ($plan == $this->stripe->plan->id) {
+                $old_price = $this::$prices[$i];
+                if ($this->stripe->discount && ($coupon = $this->stripe->discount->coupon)) {
+                    if ($coupon->percent_off == 100) {
+                        $old_price = 0;
+                    } elseif ($coupon->percent_off == 50) {
+                        $old_price /= 2;
+                    }
+                }
+            }
         }
-        \Stripe\Subscription::update($this->stripe->id, $args);
 
-        # Attempt immediate payment on the upgrade
-        try {
-            $invoice = \Stripe\Invoice::create([
-                'customer' => $this->stripe->customer,
-                'subscription' => $this->stripe,
-                'tax_percent' => 20
-            ]);
-            $invoice->finalizeInvoice();
-            $invoice->pay();
-        } catch (\Stripe\Error\InvalidRequest $e) {
-            # No invoice created if nothing to pay
-        } catch (\Stripe\Error\Card $e) {
-            # A source may still require 3DS... Stripe will have sent an email :-/
+       if ($old_price >= $new_price) {
+            if ($this->stripe->schedule) {
+                \Stripe\SubscriptionSchedule::release($this->stripe->schedule);
+            }
+            $schedule = \Stripe\SubscriptionSchedule::create(['from_subscription' => $this->stripe->id]);
+            $phases = [
+                [
+                    'items' => [['price' => $schedule->phases[0]->items[0]->price]],
+                    'start_date' => $schedule->phases[0]->start_date,
+                    'end_date' => $schedule->phases[0]->end_date,
+                    'proration_behavior' => 'none',
+                    'default_tax_rates' => [STRIPE_TAX_RATE],
+                ],
+                [
+                    'items' => [['price' => $form_data['plan']]],
+                    'iterations' => 1,
+                    'metadata' => $form_data['metadata'],
+                    'proration_behavior' => 'none',
+                    'default_tax_rates' => [STRIPE_TAX_RATE],
+                ],
+            ];
+            if ($schedule->phases[0]->discounts && $schedule->phases[0]->discounts[0]->coupon) {
+                $phases[0]['discounts'] = [['coupon' => $schedule->phases[0]->discounts[0]->coupon]];
+            }
+            if ($form_data['coupon']) {
+                $phases[1]['coupon'] = $form_data['coupon'];
+            }
+            \Stripe\SubscriptionSchedule::update($schedule->id, ['phases' => $phases]);
+        }
+
+        if ($old_price < $new_price) {
+            $args = [
+                'payment_behavior' => 'allow_incomplete',
+                'plan' => $form_data['plan'],
+                'metadata' => $form_data['metadata'],
+                'cancel_at_period_end' => false, # Needed in Stripe 2018-02-28
+                'proration_behavior' => 'always_invoice',
+            ];
+            if ($form_data['coupon']) {
+                $args['coupon'] = $form_data['coupon'];
+            } elseif ($this->stripe->discount) {
+                $args['coupon'] = '';
+            }
+            if ($this->stripe->schedule) {
+                \Stripe\SubscriptionSchedule::release($this->stripe->schedule);
+            }
+            \Stripe\Subscription::update($this->stripe->id, $args);
         }
     }
 
@@ -157,7 +200,7 @@ class Subscription {
         # security code can be checked, and therefore fail
         try {
             $obj = $this->api->createCustomer($cust_params);
-        } catch (\Stripe\Error\Card $e) {
+        } catch (\Stripe\Exception\CardException $e) {
             $body = $e->getJsonBody();
             $err  = $body['error'];
             $error = 'Sorry, we could not process your payment, please try again. ';
@@ -175,7 +218,7 @@ class Subscription {
         $obj = $this->api->createSubscription([
             'payment_behavior' => 'allow_incomplete',
             'expand' => ['latest_invoice.payment_intent'],
-            'tax_percent' => 20,
+            'default_tax_rates' => [STRIPE_TAX_RATE],
             'customer' => $customer,
             'plan' => $form_data['plan'],
             'coupon' => $form_data['coupon'],

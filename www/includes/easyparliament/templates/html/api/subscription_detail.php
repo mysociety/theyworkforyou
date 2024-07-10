@@ -1,11 +1,11 @@
 <?php
 
 $quota_status = $subscription->quota_status();
-$account_balance = $subscription->stripe->customer->account_balance;
+$balance = $subscription->stripe->customer->balance;
 if ($subscription->upcoming) {
     if ($subscription->upcoming->total < 0) {
         # Going to be credited
-        $account_balance += $subscription->upcoming->total;
+        $balance += $subscription->upcoming->total;
     }
 }
 
@@ -40,6 +40,10 @@ if ($subscription->upcoming) {
             <?php } ?>
             </p>
 
+            <?php if ($subscription->stripe->schedule->phases[1] && $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname != $subscription->stripe->plan->nickname) { ?>
+                 <p>You are switching to <strong><?php $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname ?></strong> at the end of your current period.</p>
+            <?php } ?>
+
             <?php if ($subscription->stripe->discount && $subscription->stripe->discount->end) { ?>
                 <p>Your discount will expire on <?= $subscription->stripe->discount->end ?>.</p>
             <?php } ?>
@@ -58,8 +62,8 @@ if ($subscription->upcoming) {
                 your next invoice date is <?= date('d/m/Y', $subscription->stripe->current_period_end) ?>.
             <?php } ?>
 
-            <?php if ($account_balance) { ?>
-                <br>Your account has a balance of £<?= number_format(-$account_balance / 100, 2); ?>.
+            <?php if ($balance) { ?>
+                <br>Your account has a balance of £<?= number_format(-$balance / 100, 2); ?>.
             <?php } ?>
             </p>
 
@@ -135,7 +139,7 @@ if ($subscription->upcoming) {
                     </div>
                 </div>
                 <script src="https://js.stripe.com/v3"></script>
-                <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" src="<?= cache_version('js/payment.js') ?>"></script>
+                <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>" data-api-version="<?= STRIPE_API_VERSION ?>" src="<?= cache_version('js/payment.js') ?>"></script>
             </form>
 
         <?php } else { ?>
