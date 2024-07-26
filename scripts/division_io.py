@@ -273,6 +273,16 @@ def export_division_data(verbose: bool = False):
         ON persondivisionvotes.division_id = divisions.division_id
     JOIN member
         ON persondivisionvotes.person_id = member.person_id
+        -- division.house is a string, so we need to convert it to correct integer
+        AND CASE 
+                WHEN divisions.house = 'pbc' THEN 1
+                WHEN divisions.house = 'commons' THEN 1
+                WHEN divisions.house = 'lords' THEN 2
+                WHEN divisions.house = 'ni' THEN 3
+                WHEN divisions.house = 'scotland' THEN 4
+                WHEN divisions.house = 'senedd' THEN 5
+                ELSE NULL
+            END = member.house
         AND divisions.division_date BETWEEN member.entered_house AND member.left_house;
     """
 
