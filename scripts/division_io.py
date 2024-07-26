@@ -223,13 +223,76 @@ def export_division_data(verbose: bool = False):
     dest_path.mkdir(parents=True, exist_ok=True)
 
     db_connection = get_twfy_db_connection()
+
+    # Create an export of the divisions data
+    # Join with hansard table to get the gid of the debate as well
+    # This is broadly the same as the old public whip dump
+    divisions_query = """
+    SELECT
+        division_id,
+        house as chamber,
+        CASE
+            WHEN division_id like '%-cy%' THEN 'cy' ELSE 'en'
+        END as language,
+        divisions.gid as source_gid,
+        hansard_debate.gid as debate_gid,
+        division_title,
+        yes_text,
+        no_text,
+        division_date,
+        division_number,
+        yes_total,
+        no_total,
+        absent_total,
+        both_total,
+        majority_vote,
+        lastupdate,
+        title_priority
+    FROM divisions
+    JOIN hansard
+        USING (gid)
+    JOIN hansard as hansard_debate
+        on hansard_debate.epobject_id = hansard.subsection_id
+    """
+
+    # Export of all voting information
+    # But we also want the membership_id of the person
+    # at the time of the vote
+    # to match old public whip dump format
+    # makes it easier to do simple joins to add party, etc
+    votes_query = """
+    SELECT
+        persondivisionvotes.person_id as person_id,
+        member.member_id as membership_id,
+        persondivisionvotes.division_id as division_id,
+        vote,
+        proxy
+    FROM
+        persondivisionvotes
+    JOIN divisions
+        ON persondivisionvotes.division_id = divisions.division_id
+    JOIN member
+        ON persondivisionvotes.person_id = member.person_id
+        -- division.house is a string, so we need to convert it to correct integer
+        AND CASE 
+                WHEN divisions.house = 'pbc' THEN 1
+                WHEN divisions.house = 'commons' THEN 1
+                WHEN divisions.house = 'lords' THEN 2
+                WHEN divisions.house = 'ni' THEN 3
+                WHEN divisions.house = 'scotland' THEN 4
+                WHEN divisions.house = 'senedd' THEN 5
+                ELSE NULL
+            END = member.house
+        AND divisions.division_date BETWEEN member.entered_house AND member.left_house;
+    """
+
     # get divisions
-    df = pd.read_sql("SELECT * FROM divisions", db_connection)
+    df = pd.read_sql(divisions_query, db_connection)
     df.to_parquet(dest_path / "divisions.parquet", index=False)
     if verbose:
         print(f"[green]Divisions written to {dest_path / 'divisions.parquet'}[/green]")
     # get votes
-    df = pd.read_sql("SELECT * FROM persondivisionvotes", db_connection)
+    df = pd.read_sql(votes_query, db_connection)
     df.to_parquet(dest_path / "votes.parquet", index=False)
     if verbose:
         print(f"[green]Votes written to {dest_path / 'votes.parquet'}[/green]")
