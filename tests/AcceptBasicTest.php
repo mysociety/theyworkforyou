@@ -25,7 +25,7 @@ class AcceptBasicTest extends FetchPageTestCase
     public function testHome()
     {
         $page = $this->fetch_page('');
-        $this->assertStringContainsString('Find out more', $page);
+        $this->assertStringContainsString('Learn more about', $page);
         $this->assertStringContainsString('Create an alert', $page);
         $this->assertStringContainsString('Upcoming', $page);
     }

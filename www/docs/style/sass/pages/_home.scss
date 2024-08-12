@@ -8,20 +8,40 @@
     font-family: "Merriweather", serif;
     font-weight: 400;
     font-style: normal;
+    font-size: 1.7em;
+    @media (min-width: $medium-screen) {
+        font-size: 2em;
+    }
+    @media (min-width: $large-screen) {
+        font-size: 2.5em;
+    }
   }
+.home__search{
+    .home__tagline {
+        font-size: 1.2em;
+        color: #fff;
+        margin-bottom: 1em;
+
+        @media (min-width: $medium-screen) {
+            font-size: 1.5em;
+        }
+    }
+}
 
 .mysoc__org__logo {
     display: block;
     margin-top: 0.5em;
     height: 0;
     overflow: hidden;
-    padding-top: 32px;
+    padding-top: 40px;
   }
   
   .mysoc__org__logo--mysociety {
-    width: 152px;
-    background-size: 152px 32px;
+    width: 170px;
+    background-size: contain;
     background-image: url('#{$mysoc-footer-image-path}logo-mysociety-white.svg'), none;
+    background-repeat: no-repeat;
+    margin-top: -0.5em;
   }
 
 .hero__mp-search {
@@ -131,12 +151,13 @@ input.homepage-search__input {
     height: 2.333333333em;
     line-height: 2.333333333em;
     margin-bottom: 0;
-    font-size: emCalc(21);
+    font-size: emCalc(16);
     @media (min-width: $medium-screen) {
         height: 2.666666667em;
         line-height: 2.666666667em;
         border-top-left-radius: $global-radius;
         border-bottom-left-radius: $global-radius;
+        font-size: emCalc(21);
     }
 }
 
@@ -194,8 +215,75 @@ input.homepage-search__button {
     }
 }
 
+.home__quick-links{
+    @include grid-row;
+    
+    @media (min-width: $large-screen) {
+        position: absolute;
+        top: 3em;
+    }
+
+    .quick-links__list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1em;
+        list-style: none;
+        margin-left: 0;
+        margin-top: 2em;
+
+        @media (min-width: $large-screen) {
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            margin-top: 0;
+            li {
+                flex: 1;
+            }
+        }
+    
+        .quick-links__item {
+            padding: 0.5em;
+            background-color: #fff;
+            height: 100%;
+
+            a {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 0.2em;
+                color: $links;
+
+                span {
+                    max-width: 150px;
+                    font-size: 0.8em;
+                    line-height: 120%;
+                    font-weight: bold;
+
+                    @media (min-width: $large-screen) {
+                        max-width: 170px;
+                        font-size: 0.9em;
+                    }
+                }
+
+                i {
+                    $icon-size: 2.5em;
+                    width: $icon-size;
+                    text-align: center;
+                    display: inline-block;
+                    &::before{
+                        vertical-align: middle;
+                        font-size: $icon-size;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .homepage-panels {
-    margin-top: emCalc(40);
+    margin-top: emCalc(60);
 }
 
 .parl-top-link{
@@ -339,7 +427,12 @@ input.homepage-search__button {
 }
 
 .home__search-suggestions {
-    margin-top: 0;
+    margin: 0.5em 0 1.2em 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.3em;
 
     h3 {
         font-size: emCalc(14);
@@ -353,32 +446,37 @@ input.homepage-search__button {
     vertical-align: middle;
 }
 
-.home__search-suggestions p {
-    margin-right: 10px; /* Add space between p and ul */
-}
-
-
 .search-suggestions__list {
     @include inline-list;
     font-size: emCalc(14);
     line-height: 1.5em;
+    margin-top: 0.5em;
+    
+    :first-child {
+        margin-left: 0;
+    }
+
     li {
-        &:after {
-            content:", ";
-        }
         &:last-child:after {
             content:"";
         }
-
     }
     a {
-        text-decoration: underline;
+        @extend .button--white;
+        color: $body-font-color;
+        padding: 0.2em 0.6em;
+        margin-bottom: 0;
+        @include border-radius(12px);
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 
 .homepage-content-section {
     h2 {
-        font-size: 1em;
+        font-size: 1.5em;
         color: $colour_dark_grey;
         margin-bottom: 1em;
     }

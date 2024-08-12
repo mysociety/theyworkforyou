@@ -24,9 +24,9 @@ class SearchBox
         $this->quick_links = $quick_links;
     }
 
-    public function add_quick_link(string $title, string $url): void
+    public function add_quick_link(string $title, string $url, string $icon): void
     {
-        $this->quick_links[] = ['title' => $title, 'url' => $url];
+        $this->quick_links[] = ['title' => $title, 'url' => $url, 'icon' => $icon];
     }
 
 }

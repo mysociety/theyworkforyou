@@ -69,7 +69,12 @@
 }
 
 .fi-social-facebook:before,
-.fi-social-twitter:before
+.fi-social-twitter:before,
+.fi-mail:before,
+.fi-torso:before,
+.fi-megaphone:before,
+.fi-pound:before,
+.fi-magnifying-glass:before
 {
   font-family: "foundation-icons";
   font-style: normal;
@@ -82,8 +87,14 @@
   text-decoration: inherit;
 }
 
+// https://github.com/zurb/foundation-icon-fonts/blob/master/_foundation-icons.scss
 .fi-social-facebook:before { content: "\f1c4"; }
 .fi-social-twitter:before { content: "\f1e4"; }
+.fi-mail:before {content: "\f16d"}
+.fi-torso:before {content: "\f1fe"}
+.fi-megaphone:before {content: "\f173"}
+.fi-pound:before {content: "\f19a"}
+.fi-magnifying-glass:before {content: "\f16c"}
 
 html,
 body {

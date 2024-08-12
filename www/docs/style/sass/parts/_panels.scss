@@ -40,54 +40,26 @@
 }
 
 .panel--homepage--overall {
-    background: rgba(#000, 0.5) url('../img/parliament-photo.jpg') center/cover no-repeat;
-    background-blend-mode: overlay; /* Blends the color with the image */
-
-    .quick-links__item {
-        background-color: #444;
-        display: inline-block;
-    }
+    background: url('../img/parliament-photo.jpg') center/cover no-repeat;
 }
 
 .panel--homepage--senedd {
-    background: rgba(#000, 0.5) url('../img/senedd-photo.jpg') center/cover no-repeat;
-    background-blend-mode: overlay;
-
-    .quick-links__item {
-        background-color: #444;
-        display: inline-block;
-    }
+    background: url('../img/senedd-photo.jpg') center/cover no-repeat;
 }
 
 .panel--homepage--scotland {
-    background: rgba(#000, 0.5) url('../img/scotland-photo.jpg') center/cover no-repeat;
-    background-blend-mode: overlay; 
-
-    .quick-links__item {
-        background-color: #444;
-        display: inline-block;
-    }
+    background: url('../img/scotland-photo.jpg') center/cover no-repeat;
 }
 
 .panel--homepage--niassembly {
-    background: rgba(#000, 0.5) url('../img/niassembly-photo.jpg') center/cover no-repeat;
-    background-blend-mode: overlay; 
-
-    .quick-links__item {
-        background-color: #444;
-        display: inline-block;
-    }
-}
-
-.home__quick-links{
-    padding-top:20px;
-
+    background: url('../img/niassembly-photo.jpg') center/cover no-repeat;
 }
 
 .panel--primary {
     background-size: cover;
     background-repeat: no-repeat;
     color: $colour_off_white;
+    padding: 0;
 
     h1 {
         color: $colour_off_white;
@@ -106,10 +78,39 @@
         color: $colour_off_white
     }
 
-    .button {
-        background-color: #fff;
-        color: darken($colour_primary, 20%);
+    @media (min-width: $large-screen) {
+        padding: 2em 1.5em;
+        padding-bottom: 6em;
+    }
+
+    .homepage-search__button {
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        @media (min-width: 48em) {
+            height: 2.666666667em;
+        }
+    }
+
+    .homepage-search__input {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .full-page__row {
+        position: relative;
+        &:first-child {
+            padding: 1em;
+            border-radius: 3px;
+            background: rgba(#000, 0.6);
+    
+            position: relative;
+    
+            @media (min-width: $large-screen) {
+                padding: 2em 2.5em;
+            }
+    
+            @media (min-width: $large-screen) {
+                background: linear-gradient(270deg, rgba(#000, 0.05) 0%, rgba(#000, 0.5) 33%, rgba(#000, 0.6) 100%);
+            }
+        }
     }
 }
 
