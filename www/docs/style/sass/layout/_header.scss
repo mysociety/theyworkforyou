@@ -65,7 +65,7 @@ $badge-horizontal-shadow-desktop: -8px;
 }
 
 .site-header__logo {
-    margin: 0;
+    margin: 0 -1em;
     font-size: em-calc(18);
     line-height: 1em;
     font-weight: normal;
@@ -79,14 +79,16 @@ $badge-horizontal-shadow-desktop: -8px;
     }
 
     a {
+        font-family: "Merriweather", serif;
+        font-weight: 400;
+        font-style: normal;
         display: block;
         padding: 1em;
-        color: #fff;
-        background-color: $primary-color;
+        color: $primary-color;
 
         &:hover, &:focus {
             text-decoration: none;
-            background-color: darken($primary-color, 5%);
+            background-color: $primary-color;
             color: #fff !important;
         }
     }

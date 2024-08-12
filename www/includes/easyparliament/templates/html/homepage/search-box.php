@@ -2,7 +2,7 @@
     <div class ="row nested-row">
         <div class="home__search">
             <div>
-                <h1 class="site-home__logo">TheyWorkForYou</h1>
+                <h1 class="site-home__logo">TheyWorkFor<strong>You</strong></h1>
             </div>
             <?php if ($search_box->homepage_subhead) { ?>
             <div>

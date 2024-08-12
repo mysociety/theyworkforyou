@@ -72,12 +72,17 @@ $column-gutter: 3%;
 $row-width: em-calc(1140);
 $block-grid-default-spacing: 3%;
 
-$primary-color: #62b356;
+$primary-color: #4b7e45;
+$primary-color-300: lighten($primary-color, 35%);
+$primary-color-600: darken($primary-color, 5%);
+$primary-color-700: darken($primary-color, 10%);
 $secondary-color: #A94CA6;
+$color-red: #dc3545;
+$color-yellow: #ffe500;
 
 $body-bg: #f3f1eb;
 $body-font-color: #333333;
-$links: #4faded;
+$links: #1567ae;
 $brand: $primary-color;
 $footer: #444;
 $topbar-bg-color: $brand;
@@ -408,7 +413,7 @@ $margin: 1em;
 
 // We use these to build padding for buttons.
 
-// $button-med: em-calc(12);
+$button-med: em-calc(8);
 // $button-tny: em-calc(7);
 // $button-sml: em-calc(9);
 // $button-lrg: em-calc(16);
