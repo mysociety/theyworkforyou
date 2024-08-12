@@ -115,9 +115,14 @@
             </a>
             <h1 class="site-header__logo">
                 <?php if (LANGUAGE == 'cy') { ?>
-                    <a href="/senedd/">TheyWorkForYou</a>
+                    <a href="/senedd/" aria-label="Go to TheyWorkForYou homepage">
+                      TheyWorkFor<strong>You</strong>
+                    </a>
+                    
                 <?php } else { ?>
-                  <a href="/">TheyWorkForYou</a>
+                  <a href="/" aria-label="Go to TheyWorkForYou homepage">
+                    TheyWorkFor<strong>You</strong>
+                  </a>
                 <?php } ?>
             </h1>
 

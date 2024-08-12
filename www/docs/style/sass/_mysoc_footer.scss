@@ -5,7 +5,7 @@ $mysoc-footer-background-color: #fff !default;
 $mysoc-footer-text-color: #333 !default;
 $mysoc-footer-site-name-text-color: $mysoc-footer-text-color !default;
 
-$mysoc-footer-link-text-color: #4FADED !default;
+$mysoc-footer-link-text-color: $links !default;
 $mysoc-footer-link-hover-text-color: darken($mysoc-footer-link-text-color, 10%) !default;
 
 $mysoc-footer-site-name-font-size: 1.5em !default;

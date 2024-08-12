@@ -9,7 +9,7 @@ $medium-screen: 48em;
 $large-screen: 65em;
 $huge-screen: 71.25em;
 
-$colour_primary: #62b356 !default;
+$colour_primary: $primary-color !default;
 $colour_black: #222222;
 $colour_dark_grey: #666361;
 $colour_grey: #7E7B78;
@@ -230,11 +230,14 @@ $weight_bold: 700;
 
 
 .site-nav a.donate-button {
-    background-color: darken($colour_pale_red, 10%);
-    &:hover,
-    &:focus {
-        background-color: darken($colour_pale_red, 15%);
+    background-color: $color-red;
+    &:hover {
+        background-color: darken($color-red, 5%);
     };
+    &:focus {
+        background-color: $color-yellow;
+        color: $body-font-color;
+    }
     color: #FFF;
     font-weight: $weight_bold;
     @include border-radius(3px);
@@ -245,10 +248,18 @@ $weight_bold: 700;
     font-weight: $weight_semibold;
     border: 0;
     @include border-radius(3px);
-    &:hover,
-    &:focus {
-        background-color: darken($colour_primary, 10%);
+    &:hover {
+        background-color: $primary-color-700;
     }
+
+    &:focus {
+        background-color: $color-yellow;
+        color: $body-font-color;
+    }
+}
+
+button {
+    @extend .button;
 }
 
 .secondary-button,
@@ -256,8 +267,7 @@ $weight_bold: 700;
     background-color: $colour_off_white;
     border: 1px solid $colour_light_grey;
     color: $colour_dark_grey;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: darken($colour_off_white, 5%);
         color: $colour_black;
         border-color: darken($colour_light_grey, 10%);
@@ -266,16 +276,14 @@ $weight_bold: 700;
 
 .button--negative {
   background-color: $colour_pale_red;
-  &:hover,
-  &:focus {
+  &:hover {
       background-color: darken($colour_pale_red, 10%);
   }
 }
-
+x
 .button--red {
     background-color: red;
-    &:hover,
-    &:focus {
+    &:hover {
         background-color: darken($colour_pale_red, 10%);
     }
   }
@@ -297,8 +305,7 @@ $weight_bold: 700;
 .button--violet {
     background-color: $colour_violet;
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       background-color: darken($colour_violet, 10%);
   }
 }
@@ -307,8 +314,7 @@ $weight_bold: 700;
     background-color: $colour_off_white;
     color: #333;
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       color: #333;
       background-color: darken($colour_off_white, 10%);
   }
@@ -324,8 +330,7 @@ $weight_bold: 700;
     }
 
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
         background-color: darken(#3b5998, 10%);
     }
 }
