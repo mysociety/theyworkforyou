@@ -329,6 +329,7 @@ $badge-horizontal-shadow-desktop: -8px;
     // Full width dividing line between the two rows of nav items.
     .site-nav__secondary {
         border-top: 1px solid $borders;
+        background-color: $primary-color-100;
     }
 
     // Positioning context for .site-nav__assembly__dropdown
@@ -350,7 +351,7 @@ $badge-horizontal-shadow-desktop: -8px;
         position: absolute;
         left: 1em;
         top: 3em;
-        z-index: 1; // above the position:relative .row in .site-nav__search
+        z-index: 3; // above the position:relative .row in .site-nav__search and .panel--homepage--overall
         float: left;
         white-space: nowrap;
         font-size: 0.8em;

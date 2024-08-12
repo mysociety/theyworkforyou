@@ -3,11 +3,10 @@
 # include 'homepage/promo-banner.php';
 ?>
 
+<?php include 'homepage/search-box.php'; ?>
 
 <div class="full-page__row">
     <div class="homepage-panels">
-      
-    <?php include 'homepage/search-box.php'; ?>
 
         <div class="panel panel--flushtop clearfix">
             <div class="row nested-row">

@@ -1,6 +1,7 @@
+<?php include dirname(__FILE__) . '/../homepage/search-box.php'; ?>
+
     <div class="full-page__row">
         <div class="homepage-panels">
-            <?php include dirname(__FILE__) . '/../homepage/search-box.php'; ?>
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-featured-content homepage-content-section">

@@ -73,6 +73,8 @@ $row-width: em-calc(1140);
 $block-grid-default-spacing: 3%;
 
 $primary-color: #4b7e45;
+$primary-color-100: lighten($primary-color, 45%);
+$primary-color-200: lighten($primary-color, 40%);
 $primary-color-300: lighten($primary-color, 35%);
 $primary-color-600: darken($primary-color, 5%);
 $primary-color-700: darken($primary-color, 10%);
@@ -265,7 +267,7 @@ $margin: 1em;
 // $paragraph-font-family: inherit;
 // $paragraph-font-weight: normal;
 // $paragraph-font-size: 1em;
-// $paragraph-line-height: 1.6;
+$paragraph-line-height: 1.4;
 // $paragraph-margin-bottom: em-calc(20);
 // $paragraph-aside-font-size: em-calc(14);
 // $paragraph-aside-line-height: 1.35;

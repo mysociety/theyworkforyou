@@ -60,11 +60,12 @@ class Homepage {
         $search_box->search_section = "";
         $search_box->quick_links = [];
         if (count($data["mp_data"])) {
-            $search_box->add_quick_link('Find out more about your MP (' . $data["mp_data"]['name'] . ')', $data["mp_data"]['mp_url']);
+            $search_box->add_quick_link('Find out more about your MP (' . $data["mp_data"]['name'] . ')', $data["mp_data"]['mp_url'], 'torso');
         }
-        $search_box->add_quick_link('Create and manage email alerts', '/alert/');
-        $search_box->add_quick_link('Subscribe to our newsletter', 'https://www.mysociety.org/subscribe/');
-        $search_box->add_quick_link('Donate to support our work', '/support-us/');
+        $search_box->add_quick_link('Create and manage email alerts', '/alert/', 'megaphone');
+        $search_box->add_quick_link('Subscribe to our newsletter', 'https://www.mysociety.org/subscribe/', 'mail');
+        $search_box->add_quick_link('Donate to support our work', '/support-us/', 'pound');
+        $search_box->add_quick_link('Learn more about TheyWorkForYou', '/about/', 'magnifying-glass');
         return $search_box;
     }
 
