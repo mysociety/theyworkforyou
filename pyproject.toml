@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "twfy-tools"
+version = "0.1.0"
+description = ""
+authors = ["Alex Parsons <alex.parsons@mysociety.org>"]
+readme = "README.md"
+packages = [{include = "twfy_tools", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+rich-click = "1.7.4"
+pandas = "2.2.1"
+pyarrow = "15.0.2"
+mysqlclient = "2.2.4"
+pyyaml = "6.0.1"
+commonlib = {path = "commonlib"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+extend-exclude = ["migrations", "commonlib", "scripts"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    # flake8
+    "F",
+    # isort
+    "I",
+]
+ignore = [
+    # line too long, sorted with formatter where it can be
+    "E501", 
+]
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["hub"]
+section-order = [
+  "future",
+  "standard-library",
+  "django",
+  "third-party",
+  "first-party",
+  "local-folder"
+]
+
+[tool.ruff.lint.isort.sections]
+django = ["django"]
