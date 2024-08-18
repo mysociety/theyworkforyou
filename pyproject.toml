@@ -6,6 +6,9 @@ authors = ["Alex Parsons <alex.parsons@mysociety.org>"]
 readme = "README.md"
 packages = [{include = "twfy_tools", from = "src"}]
 
+[tool.poetry.scripts]
+twfy-tools = "twfy_tools.__main__:app"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 rich-click = "1.7.4"
@@ -16,7 +19,8 @@ pyyaml = "6.0.1"
 commonlib = {path = "commonlib"}
 pydantic = "^2.8.2"
 sqlalchemy = "^2.0.32"
-
+trogon = "^0.5.0"
+typer = "^0.12.4"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
