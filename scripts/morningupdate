@@ -53,11 +53,11 @@ system "../.venv/bin/python future-fetch.py";
 
 # Update division names from Parliament
 print "Updating division names\n" if $verbose;
-system "../.venv/bin/python division_io.py update-from-commons-votes" . ($verbose ? " --verbose" : "");
+system "poetry run python -m twfy_tools divisions-io update-from-commons-votes" . ($verbose ? " --verbose" : "");
 
 # Export divisions to parquet
 print "Exporting divisions to parquet\n" if $verbose;
-system "../.venv/bin/python division_io.py export-division-data" . ($verbose ? " --verbose" : "");
+system "poetry run python -m twfy_tools divisions-io export-division-data" . ($verbose ? " --verbose" : "");
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
 
