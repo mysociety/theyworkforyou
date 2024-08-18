@@ -11,9 +11,7 @@ export PATH="$DIR/vendor/bundle-bin:$PATH"
 
 # setup venv and python packages
 python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
+poetry install
 
 # Now use compass to compile the SCSS:
 (cd "$DIR/www/docs/style" && bundle exec compass compile)
