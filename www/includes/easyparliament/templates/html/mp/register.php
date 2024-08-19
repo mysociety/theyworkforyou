@@ -12,7 +12,10 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                      <li><a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Download a spreadsheet</a></li>
+                      <li><a href="https://pages.mysociety.org/parl_register_interests/datasets/parliament_2024/latest">Download a spreadsheet</a></li>
+                      <li><a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Read more about the data</a></li>
+
+                    </ul>
                       <?php include '_featured_content.php'; ?>
                       <?php include '_donation.php'; ?>
                 </div>
@@ -24,7 +27,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <div class="panel register">
                     <a name="register"></a>
                     <h2>Register of Members&rsquo; Interests</h2>
-                    <p><b>New</b>: <a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Download a spreadsheet of all Members Interests.</a></p>
+                    <p><b>New</b>: <a href="https://pages.mysociety.org/parl_register_interests/datasets/parliament_2024/latest">Download a spreadsheet of all Members Interests.</a></p>
 
                     <p>
                         <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
