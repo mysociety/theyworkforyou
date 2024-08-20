@@ -40,19 +40,67 @@
 }
 
 .panel--homepage--overall {
-    background: url('../img/parliament-photo.jpg') center/cover no-repeat;
+    background: url('../img/uk-parliament-mobile.webp') center/cover no-repeat;
+
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/uk-parliament-tablet.webp');
+    }
+
+    @media (min-width: $large-screen) {
+        background-image: url('../img/uk-parliament-desktop.webp');
+    }
+
+    @media (min-width: $huge-screen) {
+        background-image: url('../img/uk-parliament-huge.webp');
+     }
 }
 
 .panel--homepage--senedd {
-    background: url('../img/senedd-photo.jpg') center/cover no-repeat;
+    background: url('../img/senedd-parliament-mobile.webp') center/cover no-repeat;
+
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/senedd-parliament-tablet.webp');
+    }
+
+    @media (min-width: $large-screen) {
+        background-image: url('../img/senedd-parliament-desktop.webp');
+    }
+
+    @media (min-width: $huge-screen) {
+        background-image: url('../img/senedd-parliament-huge.webp');
+     }
 }
 
 .panel--homepage--scotland {
-    background: url('../img/scotland-photo.jpg') center/cover no-repeat;
+    background: url('../img/scottish-parliament-mobile.webp') center/cover no-repeat;
+
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/scottish-parliament-tablet.webp');
+    }
+
+    @media (min-width: $large-screen) {
+        background-image: url('../img/scottish-parliament-desktop.webp');
+    }
+
+    @media (min-width: $huge-screen) {
+        background-image: url('../img/scottish-parliament-huge.webp');
+     }
 }
 
 .panel--homepage--niassembly {
-    background: url('../img/niassembly-photo.jpg') center/cover no-repeat;
+    background: url('../img/ni-assembly-mobile.webp') center/cover no-repeat;
+
+    @media (min-width: $medium-screen) {
+        background-image: url('../img/ni-assembly-tablet.webp');
+    }
+
+    @media (min-width: $large-screen) {
+        background-image: url('../img/ni-assembly-desktop.webp');
+    }
+
+    @media (min-width: $huge-screen) {
+        background-image: url('../img/ni-assembly-huge.webp');
+     }
 }
 
 .panel--primary {

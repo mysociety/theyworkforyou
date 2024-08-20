@@ -51,7 +51,14 @@
                     </div>
                 </div>
             </form>
-          <hr>
+            <hr>
+            <p><?= gettext('TheyWorkForYou is run by <a href="https://www.mysociety.org/">mySociety</a>, a UK charity that helps people access information and participate in democracy. We enable people across the UK to become changemakers by providing technology, research and data, openly and for free.') ?></p>
+            <p><?= gettext('Through <strong>TheyWorkForYou</strong> and <strong>WriteToThem</strong> we have made elected representatives more transparent and contactable. Every year, hundreds of thousands of reports are made through <strong>FixMyStreet</strong>, and over a million Freedom of Information requests have been made through <strong>WhatDoTheyKnow</strong>.') ?></p>
+
+            <p><a href="https://www.mysociety.org/about/funding/"><?= gettext('Find out more about how mySociety is funded.') ?></a></p>
+
+          
+
 
           </div>
 
@@ -88,8 +95,11 @@
             </ul>
 
             <h3><?= gettext('Image credits:') ?></h3>
-
-            <ul>
+           <ul>
+              <li><a href="https://www.flickr.com/photos/57511216@N04/51531673124/in/photolist-2mvGmFr-2mvFi5Q-%5B">Homepage: Senedd image</a> courtesy of daniel0685 <a href="https://creativecommons.org/licenses/by/2.0/">CC BY</a></li>
+              <li><a href="https://www.istockphoto.com/photo/scottish-parliament-series-gm172178699-3243914?clarity=false">Homepage: Scottish Parliament photo</a> courtesy of iStockphoto/RollingEarth, used under licence</li>
+              <li><a href="https://www.istockphoto.com/photo/scottish-parliament-2-gm139539366-714727?clarity=false">Homepage: Scottish Parliament photo</a> courtesy of iStockphoto/Roger Pilkington, used under licence</li>
+              <li><a href="https://www.istockphoto.com/photo/stormont-northern-ireland-government-building-gm503875418-82829339?clarity=false">Homepage: Stormont photo</a> courtesy of iStockphoto/Kilhan, used under licence</li>
               <li><a href="https://www.flickr.com/photos/mhl20/3925817094/">Scottish Parliament photo</a> courtesy of Mark Longair, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA</a></li>
               <li><a href="https://www.flickr.com/photos/nationalassemblyforwales/51845977123/">Y Siambr / The Chamber photo</a> courtesy of Senedd Cymru / Welsh Parliament, <a href="https://creativecommons.org/licenses/by-nc/2.0/">CC BY-ND</a></li>
               <li><a href="https://www.flickr.com/photos/uk_parliament/8737181202/">Commons debate photo</a> courtesy of UK Parliament/Catherine Bebbington, <a href="https://creativecommons.org/licenses/by-nc/2.0/">CC BY-NC</a></li>
