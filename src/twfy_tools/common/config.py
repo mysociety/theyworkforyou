@@ -20,6 +20,7 @@ class ConfigModel(BaseModel):
     TWFY_DB_NAME: str
     TWFY_DB_USER: str
     TWFY_DB_PASS: str
+    TWFY_DB_PORT: str
     RAWDATA: Path
     PWMEMBERS: Path
 

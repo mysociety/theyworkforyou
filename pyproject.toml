@@ -21,9 +21,12 @@ pydantic = "^2.8.2"
 sqlalchemy = "^2.0.32"
 trogon = "^0.5.0"
 typer = "^0.12.4"
+django = ">=4.2,<5.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
+django-types = "^0.19.1"
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]
