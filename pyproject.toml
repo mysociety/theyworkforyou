@@ -22,6 +22,7 @@ sqlalchemy = "^2.0.32"
 trogon = "^0.5.0"
 typer = "^0.12.4"
 django = ">=4.2,<5.0"
+pytest = "^8.3.2"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
@@ -63,3 +64,7 @@ section-order = [
 
 [tool.ruff.lint.isort.sections]
 django = ["django"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-glob *.notxt"
+
