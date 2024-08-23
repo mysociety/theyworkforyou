@@ -1,5 +1,5 @@
 from .common.typer_helper import MysocTyper, TyperModule
-from .utils import division_io
+from .utils import contact_upload, division_io
 
 app = MysocTyper()
 
@@ -12,7 +12,11 @@ def health_check(input_value: str):
     print(f"Health check: {input_value}")
 
 
-app = app.add_submodules(typer_groups=[TyperModule(division_io.app, "divisions-io")])
-
+app = app.add_submodules(
+    typer_groups=[
+        TyperModule(division_io.app, "divisions-io"),
+        TyperModule(contact_upload.app, "contact-upload"),
+    ]
+)
 if __name__ == "__main__":
     app()

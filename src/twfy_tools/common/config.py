@@ -23,6 +23,7 @@ class ConfigModel(BaseModel):
     TWFY_DB_PORT: str
     RAWDATA: Path
     PWMEMBERS: Path
+    MAILCHIMP_API_KEY: str
 
     @classmethod
     def from_php_config(cls, php_config_get: BaseConfigGet):

@@ -3,6 +3,7 @@ This is a simple one file setup for using django's ORM models.
 """
 
 import datetime
+from enum import IntEnum
 from typing import Annotated, Optional
 
 from django.db import models
@@ -51,11 +52,10 @@ class UserLevels(StrEnum):
     SUPERUSER = "Superuser"
 
 
-class OptinValues(StrEnum):
-    OPTIN_SERVICE = "optin_service"
-    OPTIN_STREAM = "optin_stream"
-    OPTIN_ORG = "optin_org"
-    NO_OPTIN = "optin_no"
+class OptinValues(IntEnum):
+    OPTIN_SERVICE = 1
+    OPTIN_STREAM = 2
+    OPTIN_ORG = 4
 
 
 class User(TypedUnmanagedModel, db_table="users"):
@@ -98,12 +98,19 @@ class User(TypedUnmanagedModel, db_table="users"):
         Returns a list of OptinValues that match the user's optin value.
         """
         matched_values: list[OptinValues] = []
-        if self.optin & 1:
-            matched_values.append(OptinValues.OPTIN_SERVICE)
-        if self.optin & 2:
-            matched_values.append(OptinValues.OPTIN_STREAM)
-        if self.optin & 4:
-            matched_values.append(OptinValues.OPTIN_ORG)
-        if not matched_values:
-            matched_values.append(OptinValues.NO_OPTIN)
+        for value in OptinValues:
+            if self.optin & value:
+                matched_values.append(value)
         return matched_values
+
+    def add_optin(self, optin_value: OptinValues):
+        """
+        Add an optin value to the user.
+        """
+        self.optin |= optin_value
+
+    def remove_optin(self, optin_value: OptinValues):
+        """
+        Remove an optin value from the user.
+        """
+        self.optin &= ~optin_value

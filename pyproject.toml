@@ -23,6 +23,7 @@ trogon = "^0.5.0"
 typer = "^0.12.4"
 django = ">=4.2,<5.0"
 pytest = "^8.3.2"
+mailchimp-marketing = {git = "https://github.com/mailchimp/mailchimp-marketing-python.git"}
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
