@@ -1,6 +1,7 @@
 <?php
-gettext("Conservative"),
-gettext("Independent"),
-gettext("Labour"),
-gettext("Liberal Democrat"),
-gettext("Plaid Cymru"),
+
+gettext("Conservative");
+gettext("Independent");
+gettext("Labour");
+gettext("Liberal Democrat");
+gettext("Plaid Cymru");
