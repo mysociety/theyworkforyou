@@ -1,0 +1,8 @@
+#!/bin/bash 
+
+
+if [ ! -f tools/php-cs-fixer/vendor/bin/php-cs-fixer ]; then
+    php composer.phar install --working-dir=tools/php-cs-fixer
+fi
+
+tools/php-cs-fixer/vendor/bin/php-cs-fixer fix
