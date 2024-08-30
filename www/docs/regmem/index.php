@@ -228,7 +228,11 @@ function parse_file($file, $date, $type, &$out) {
 
 function _load_file($f) {
     $file = file_get_contents($f);
-    $file = utf8_encode($file);
+    preg_match('#encoding="([^"]*)"#', $file, $m);
+    $encoding = $m[1];
+    if ($encoding == 'ISO-8859-1') {
+        $file = @iconv('iso-8859-1', 'utf-8', $out);
+    }
     return $file;
 }
 
