@@ -106,7 +106,7 @@ $display_wtt_stats_banner = '2015';
                         <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
                         <?php endif; ?>
                         <?php if ($post_2010_expenses): ?>
-                        <li><a href="https://www.theipsa.org.uk/mp-costs/interactive-map/">Expenses from 2010 onwards</a></li>
+                        <li><a href="https://www.theipsa.org.uk/mp-staffing-business-costs/your-mp/<?=slugify($full_name)?>/<?=$post_2010_expenses?>">Expenses from 2010 onwards</a></li>
                         <?php endif; ?>
                     </ul>
                     <?php endif; ?>

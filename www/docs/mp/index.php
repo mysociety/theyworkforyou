@@ -335,8 +335,8 @@ $data['profile_message'] = isset($MEMBER->extra_info['profile_message']) ? $MEMB
 $data['image'] = $MEMBER->image();
 $data['member_summary'] = person_summary_description($MEMBER);
 $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
-$data['entry_date'] = $MEMBER->getEntryDate();
-$data['leave_date'] = $MEMBER->getLeftDate();
+$data['entry_date'] = $MEMBER->getEntryDate(HOUSE_TYPE_COMMONS);
+$data['leave_date'] = $MEMBER->getLeftDate(HOUSE_TYPE_COMMONS);
 $data['is_new_mp'] = $MEMBER->isNew();
 $data['other_parties'] = $MEMBER->getOtherPartiesString();
 $data['other_constituencies'] = $MEMBER->getOtherConstituenciesString();
@@ -358,16 +358,12 @@ $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->cu
 $data['has_expenses'] = $data['leave_date'] > '2004-01-01';
 
 $data['pre_2010_expenses'] = False;
-$data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05';
+$data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05' ? $MEMBER->extra_info['datadotparl_id'] : '';
 
 if ($data['entry_date'] < '2010-05-05') {
     $data['pre_2010_expenses'] = True;
     // Set the expenses URL if we know it
-    if (isset($MEMBER->extra_info['expenses_url'])) {
-        $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'];
-    } else {
-        $data['expenses_url_2004'] = 'https://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
-    }
+    $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'] ?? 'https://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
 }
 
 $data['constituency_previous_mps'] = constituency_previous_mps($MEMBER);
