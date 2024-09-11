@@ -215,6 +215,9 @@ class User
     }
 
     private function addDonateLink() {
+        if (LANGUAGE == 'cy') {
+            return;
+        }
         $menudata = $this->pagedata->page_metadata('donate', 'menu');
         $text = $menudata['text'];
         $title = $menudata['title'];
