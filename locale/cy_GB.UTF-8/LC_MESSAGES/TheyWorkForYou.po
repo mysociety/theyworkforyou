@@ -2619,7 +2619,7 @@ msgid "About mySociety"
 msgstr "Ynglŷn â mySociety"
 
 #: www/includes/easyparliament/templates/html/static/about.php:34
-msgid "TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</a>, a UK charity that puts <a href=\"https://www.mysociety.org/2021/11/24/the-need-to-repower-democracy/\">power in more people's hands</a> through the use of digital tools and data."
+msgid "TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</a>, a UK charity that helps people access information and participate in democracy. We enable people across the UK to become changemakers by providing technology, research and data, openly and for free."
 msgstr "Mae TheyWorkForYou yn cael ei reoli gan <a href=\"https://www.mysociety.org/\">mySociety</a>, elusen yn y Deyrnas Unedig sy'n rhoi grym yn nwylo mwy o bobl drwy ddefnyddio data  ac offer digidol."
 
 #: www/includes/easyparliament/templates/html/static/about.php:35
@@ -2631,7 +2631,7 @@ msgid "Find out more about how mySociety is funded."
 msgstr "Rhagor o wybodaeth am y modd y mae mySociety yn cael ei ariannu."
 
 #: www/includes/easyparliament/templates/html/static/about.php:39
-msgid "Sign up for updates from mySociety"
+msgid "Sign up for updates on our democracy and Parliaments work"
 msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
 
 #: www/includes/easyparliament/templates/html/static/about.php:61
