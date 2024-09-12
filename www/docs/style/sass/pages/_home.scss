@@ -441,20 +441,18 @@ input.homepage-search__button {
 }
 
 .home__search-suggestions p, .home__search-suggestions ul {
-    display: inline-block;
     margin: 0;
     vertical-align: middle;
 }
 
 .search-suggestions__list {
-    @include inline-list;
+    @include unstyled-list;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    flex-wrap: wrap;
     font-size: emCalc(14);
     line-height: 1.5em;
-    margin-top: 0.5em;
-    
-    :first-child {
-        margin-left: 0;
-    }
 
     li {
         &:last-child:after {
