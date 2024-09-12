@@ -146,12 +146,11 @@
         position: relative;
         &:first-child {
             padding: 1em;
-            border-radius: 3px;
             background: rgba(#000, 0.6);
-    
             position: relative;
-    
+            
             @media (min-width: $large-screen) {
+                border-radius: 3px;
                 padding: 2em 2.5em;
             }
     
