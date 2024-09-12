@@ -56,7 +56,7 @@ class Homepage {
         $search_box = new Search\SearchBox();
         $search_box->homepage_panel_class = "panel--homepage--overall";
         $search_box->homepage_subhead = "";
-        $search_box->homepage_desc = "Understand who represents you, across the UK's Parliaments.";
+        $search_box->homepage_desc = "Understand who represents you, across the UK’s Parliaments.";
         $search_box->search_section = "";
         $search_box->quick_links = [];
         if (count($data["mp_data"])) {
