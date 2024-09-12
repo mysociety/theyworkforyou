@@ -249,7 +249,7 @@ $badge-horizontal-shadow-desktop: -8px;
     }
 
     input {
-        padding: 0 0.5em;
+        padding: 0 0 0 0.5em;
         margin-bottom: 0;
         border-radius: $global-radius 0 0 $global-radius;
         box-shadow: none;
@@ -365,7 +365,7 @@ $badge-horizontal-shadow-desktop: -8px;
 
     // Some styling fixups for the search form.
     .site-nav__search {
-        width: 33%;
+        width: 27%; // So it doesn't overlap other elements
 
         form {
             padding-top: 0.3em;
