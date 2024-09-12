@@ -185,7 +185,7 @@ $badge-horizontal-shadow-desktop: -8px;
     a {
         display: block;
         padding: 0.5em 1em;
-        color: $colour_dark_grey;
+        color: darken($colour_dark_grey, 5%); // To make it pass the contrast test
     }
 }
 
