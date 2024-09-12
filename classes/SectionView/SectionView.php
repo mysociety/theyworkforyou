@@ -64,7 +64,7 @@ class SectionView {
 
         $common = new \MySociety\TheyWorkForYou\Common;
         $data['urls'] = $this->getURLs($data);
-        $data['popular_searches'] = $common->getPopularSearches();
+        $data['popular_searches'] = []; #$common->getPopularSearches();
         $data['recess_major'] = $this->getRecessMajor();
 
         $nextprev = $DATA->page_metadata($this_page, 'nextprev');
