@@ -83,7 +83,8 @@ $badge-horizontal-shadow-desktop: -8px;
         font-weight: 400;
         font-style: normal;
         display: block;
-        padding: 1em;
+        padding: 1em 0.5em;
+        margin: 0 0.5em;
         color: $primary-color;
 
         &:hover, &:focus {
@@ -339,10 +340,25 @@ $badge-horizontal-shadow-desktop: -8px;
         // Make the dropdown toggle a bit more like all the other links.
         .site-nav__dropdown-toggle {
             margin-bottom: 0;
-            padding: 1em;
+            background: $primary-color-100;
+            color:$colour_black;
+            border-radius: $global-radius;
+            line-height: 33px;
+            height: 33px;
+            margin-top: 6px;
+            padding: 0 0.5rem;
+            margin-right: 10px;
 
             &:after {
                 margin-left: 0.3em;
+                border-top-color: $colour_dark_grey;
+            }
+
+            &:focus {
+                background-color: $color-yellow;
+                &:after {
+                    border-top-color: $colour_dark_grey;
+                }
             }
         }
     }
