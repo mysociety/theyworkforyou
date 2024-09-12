@@ -288,6 +288,7 @@ input.homepage-search__button {
 
 .parl-top-link{
     font-weight: 600;
+    margin-bottom: 0.5em;
 }
 
 .top-level-parl{
@@ -299,9 +300,11 @@ input.homepage-search__button {
     @include grid-column(12);
     padding-top: 0em;
     padding-bottom: 0em;
+    margin-bottom: 2rem;
     @media (min-width: $large-screen) {
         @include grid-column(3);
         border-right: 1px solid $colour_off_white;
+        margin-bottom: 0;
     }
 }
 
