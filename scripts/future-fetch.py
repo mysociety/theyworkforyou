@@ -39,7 +39,7 @@ def fetch_url(date):
 def get_calendar_events():
     date = datetime.date.today()
     data = fetch_url(date)
-    data = sorted(data, key=lambda x: x['StartDate'] + x['StartTime'])
+    data = sorted(data, key=lambda x: x['StartDate'] + str(x['SortOrder']))
     for event in data:
         yield Entry(event)
 
