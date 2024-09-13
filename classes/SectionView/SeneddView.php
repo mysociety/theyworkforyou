@@ -122,7 +122,7 @@ class SeneddView extends SectionView {
         }
         $search_box->add_quick_link(gettext('Create and manage email alerts'), '/alert/','megaphone');
         $search_box->add_quick_link(gettext('Subscribe to our newsletter'), '/about/#about-mysociety', 'mail');
-        $search_box->add_quick_link(gettext('Donate to support our work'), '/support-us/', 'pound');
+        $search_box->add_quick_link(gettext('Donate to support our work'), '/support-us/', 'heart');
         $search_box->add_quick_link(gettext('Learn more about TheyWorkForYou'), '/about/', 'magnifying-glass');
         return $search_box;
     }
