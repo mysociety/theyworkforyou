@@ -1,0 +1,9 @@
+.sidebar__unit__featured_side--right {
+  padding: 2rem 1.5rem;
+  border-top: 1px solid #f3f1eb;
+  border-bottom: 1px solid #f3f1eb;
+  margin: -1px -1.5rem; // 1px Allows the horizontal borders at the top and bottom to collapse with each other when two boxes stack with each other .
+  & *:last-child {
+    margin-bottom: 0; 
+  }
+}
