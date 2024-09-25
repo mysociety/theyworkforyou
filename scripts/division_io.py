@@ -7,8 +7,6 @@ See python scripts/division_io.py --help for usage.
 
 """
 
-import re
-import sys
 from enum import Enum
 from pathlib import Path
 from typing import cast
@@ -17,9 +15,9 @@ from warnings import filterwarnings
 import MySQLdb
 import pandas as pd
 import rich_click as click
+from pylib.mysociety import config
 from rich import print
 from rich.prompt import Prompt
-from pylib.mysociety import config
 
 repository_path = Path(__file__).parent.parent
 
@@ -40,7 +38,6 @@ class TitlePriority(str, Enum):
 
     @classmethod
     def get_priority(cls, priority: str) -> int:
-
         lookup = {
             cls.ORIGINAL_HEADER: 1,
             cls.PARLIAMENT_DESCRIBED: 5,
@@ -104,7 +101,7 @@ def df_to_db(df: pd.DataFrame, *, new_priority: TitlePriority, verbose: bool = F
 
     # get all divisions with a title_priority below or equal to current priority
     existing_df = pd.read_sql(
-        f"SELECT division_id, title_priority FROM divisions",
+        "SELECT division_id, title_priority FROM divisions",
         db_connection,
     )
     existing_df["int_title_priority"] = existing_df["title_priority"].apply(

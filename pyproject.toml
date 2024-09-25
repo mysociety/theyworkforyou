@@ -27,7 +27,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.ruff]
-extend-exclude = ["migrations", "commonlib", "scripts"]
+extend-exclude = ["migrations", "commonlib", "scripts/historic"]
 
 [tool.ruff.lint]
 select = [
