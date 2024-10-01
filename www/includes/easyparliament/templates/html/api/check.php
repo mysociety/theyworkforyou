@@ -48,7 +48,9 @@ $stripe = $subscription->stripe;
 </form>
 <script src="https://js.stripe.com/v3"></script>
 <script id="js-payment" data-key="<?= STRIPE_PUBLIC_KEY ?>"
-    <?php if ($stripe) { echo 'data-has-subscription="1"'; } ?>
+    <?php if ($stripe) {
+        echo 'data-has-subscription="1"';
+    } ?>
     src="<?= cache_version('js/payment.js') ?>"></script>
 
 <?php } elseif ($needs_processing['requires_action']) { ?>

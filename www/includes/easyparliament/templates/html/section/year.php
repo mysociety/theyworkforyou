@@ -28,12 +28,13 @@
                 } ?>
             </div>
             <?php }
-            } else { ?>
+                } else { ?>
                 <?= sprintf(gettext('We don’t seem to have any %s for this year.'), $parent_title) ?>
             <?php } ?>
         </div>
     </div>
 
-    <?php $search_title = sprintf(gettext("Search %s"), $title); include '_search.php'; ?>
+    <?php $search_title = sprintf(gettext("Search %s"), $title);
+                include '_search.php'; ?>
 
 </div>

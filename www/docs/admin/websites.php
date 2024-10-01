@@ -7,7 +7,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $this_page = 'admin_mpurls';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $scriptpath = '../../../scripts';
 
@@ -44,9 +44,9 @@ function edit_member_form() {
             AND member.person_id = pn.person_id AND pn.type='name'
             AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_id=:person_id AND type='name')
         ORDER BY left_house DESC LIMIT 1";
-    $row = $db->query($query, array(
-        ':person_id' => $personid
-    ))->first();
+    $row = $db->query($query, [
+        ':person_id' => $personid,
+    ])->first();
 
     $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
 
@@ -103,21 +103,23 @@ function update_url() {
     $sysretval = 0;
     $personid = get_http_var('editperson');
 
-    $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = :person_id", array(
-        ':person_id' => $personid
-        ));
+    $q  = $db->query("DELETE FROM personinfo WHERE data_key = 'mp_website' AND personinfo.person_id = :person_id", [
+        ':person_id' => $personid,
+    ]);
 
     if ($q->success()) {
-        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', :person_id, :url)", array(
+        $q = $db->query("INSERT INTO personinfo (data_key, person_id, data_value) VALUES ('mp_website', :person_id, :url)", [
             ':person_id' => $personid,
-            ':url' => get_http_var('url')
-            ));
+            ':url' => get_http_var('url'),
+        ]);
     }
 
     if ($q->success()) {
         exec($scriptpath . "/db2xml.pl --update_person --personid=" . escapeshellarg($personid) . " --debug", $exec_output);
         $out = '<p id="warning">';
-        foreach ($exec_output as $message) {$out .= $message . "<br>";}
+        foreach ($exec_output as $message) {
+            $out .= $message . "<br>";
+        }
         $out .= '</p>';
         # ../../../scripts/db2xml.pl  --update_person --personid=10001
     }
@@ -130,13 +132,13 @@ function update_url() {
 
 function subnav() {
     $rettext = '';
-    $subnav = array(
+    $subnav = [
         'List Websites' => '/admin/websites.php',
-    );
+    ];
 
     $rettext .= '<div id="subnav_websites">';
     foreach ($subnav as $label => $path) {
-        $rettext .=  '<a href="'. $path . '">'. $label .'</a>';
+        $rettext .=  '<a href="' . $path . '">' . $label . '</a>';
     }
     $rettext .=  '</div>';
 
@@ -145,11 +147,11 @@ function subnav() {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

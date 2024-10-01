@@ -11,12 +11,12 @@ $this_page = 'campaign';
 $PAGE->page_start();
 $PAGE->stripe_start();
 
-    ?>
+?>
         <h2>All done! Your message is on its way now. Thank you.</h2>
         <p></p>
     <?php
 
-$PAGE->block_start(array('title'=>'Share this with your friends'));
+$PAGE->block_start(['title' => 'Share this with your friends']);
 
 #foi2009_sharethis_link();
 #foi2009_share_page();

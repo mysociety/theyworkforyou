@@ -3,7 +3,7 @@
 
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
-$this->block_start(array('id'=>'help', 'title'=>"What are Westminster Hall Debates?"));
+$this->block_start(['id' => 'help', 'title' => "What are Westminster Hall Debates?"]);
 ?>
 
 <p>In December 1999, a new meeting place was opened up for debates - <strong>Westminster Hall</strong>.

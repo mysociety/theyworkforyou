@@ -4,163 +4,163 @@ include_once INCLUDESPATH . '../../commonlib/phplib/rabx.php';
 
 # The METHODS
 
-$methods = array(
-    'getQuota' => array(
-        'parameters' => array(),
+$methods = [
+    'getQuota' => [
+        'parameters' => [],
         'required' => false,
         'help' => 'Return your current quota usage/limit (does not use up quota)',
-    ),
-    'getConstituency' => array(
+    ],
+    'getConstituency' => [
         'new' => true,
-        'parameters' => array('name', 'postcode'),
+        'parameters' => ['name', 'postcode'],
         'required' => true,
         'help' => 'Searches for a UK Parliament constituency and returns details',
-    ),
-    'getConstituencies' => array(
-        'parameters' => array('date', 'search', 'latitude', 'longitude', 'distance'),
+    ],
+    'getConstituencies' => [
+        'parameters' => ['date', 'search', 'latitude', 'longitude', 'distance'],
         'required' => false,
         'help' => 'Returns list of UK Parliament constituencies',
-    ),
-    'getPerson' => array(
+    ],
+    'getPerson' => [
         'new' => true,
-        'parameters' => array('id'),
+        'parameters' => ['id'],
         'required' => true,
-        'help' => 'Returns main details for a person'
-    ),
-    'getMP' => array(
-        'parameters' => array('id', 'constituency', 'postcode', 'always_return', 'extra'),
+        'help' => 'Returns main details for a person',
+    ],
+    'getMP' => [
+        'parameters' => ['id', 'constituency', 'postcode', 'always_return', 'extra'],
         'required' => true,
-        'help' => 'Returns main details for an MP'
-    ),
-    'getMPInfo' => array(
-        'parameters' => array('id', 'fields'),
+        'help' => 'Returns main details for an MP',
+    ],
+    'getMPInfo' => [
+        'parameters' => ['id', 'fields'],
         'required' => true,
-        'help' => 'Returns extra information for a person'
-    ),
-    'getMPsInfo' => array(
-        'parameters' => array('id', 'fields'),
+        'help' => 'Returns extra information for a person',
+    ],
+    'getMPsInfo' => [
+        'parameters' => ['id', 'fields'],
         'required' => true,
-        'help' => 'Returns extra information for one or more people'
-    ),
-    'getMPs' => array(
-        'parameters' => array('party', 'date', 'search'),
+        'help' => 'Returns extra information for one or more people',
+    ],
+    'getMPs' => [
+        'parameters' => ['party', 'date', 'search'],
         'required' => false,
         'help' => 'Returns list of MPs',
-    ),
-    'getLord' => array(
-        'parameters' => array('id'),
+    ],
+    'getLord' => [
+        'parameters' => ['id'],
         'required' => true,
-        'help' => 'Returns details for a Lord'
-    ),
-    'getLords' => array(
-        'parameters' => array('date', 'party', 'search'),
+        'help' => 'Returns details for a Lord',
+    ],
+    'getLords' => [
+        'parameters' => ['date', 'party', 'search'],
         'required' => false,
         'help' => 'Returns list of Lords',
-    ),
-    'getMLA' => array(
-        'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
+    ],
+    'getMLA' => [
+        'parameters' => ['id', 'constituency', 'postcode', 'always_return'],
         'required' => true,
-        'help' => 'Returns details for an MLA'
-    ),
-    'getMLAs' => array(
-        'parameters' => array('date', 'party', 'search'),
+        'help' => 'Returns details for an MLA',
+    ],
+    'getMLAs' => [
+        'parameters' => ['date', 'party', 'search'],
         'required' => false,
         'help' => 'Returns list of MLAs',
-    ),
-    'getMSP' => array(
-        'parameters' => array('id', 'constituency', 'postcode', 'always_return'),
+    ],
+    'getMSP' => [
+        'parameters' => ['id', 'constituency', 'postcode', 'always_return'],
         'required' => true,
-        'help' => 'Returns details for an MSP'
-    ),
-    'getMSPs' => array(
-        'parameters' => array('date', 'party', 'search'),
+        'help' => 'Returns details for an MSP',
+    ],
+    'getMSPs' => [
+        'parameters' => ['date', 'party', 'search'],
         'required' => false,
         'help' => 'Returns list of MSPs',
-    ),
-    'getGeometry' => array(
+    ],
+    'getGeometry' => [
         'new' => true,
-        'parameters' => array('name'),
+        'parameters' => ['name'],
         'required' => true,
-        'help' => 'Returns centre, bounding box of UK Parliament constituencies'
-    ),
-    'getBoundary' => array(
-        'parameters' => array('name'),
+        'help' => 'Returns centre, bounding box of UK Parliament constituencies',
+    ],
+    'getBoundary' => [
+        'parameters' => ['name'],
         'required' => true,
-        'help' => 'Returns boundary polygon of UK Parliament constituency'
-    ),
-    'getCommittee' => array(
+        'help' => 'Returns boundary polygon of UK Parliament constituency',
+    ],
+    'getCommittee' => [
         'new' => true,
-        'parameters' => array('name', 'date'),
+        'parameters' => ['name', 'date'],
         'required' => false,
         'help' => 'Returns members of Select Committee',
-    ),
-    'getDebates' => array(
+    ],
+    'getDebates' => [
         'new' => true,
-        'parameters' => array('type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+        'parameters' => ['type', 'date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'],
         'required' => true,
         'help' => 'Returns Debates (either Commons, Westminster Hall, or Lords)',
-    ),
-    'getWrans' => array(
-        'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+    ],
+    'getWrans' => [
+        'parameters' => ['date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'],
         'required' => true,
         'help' => 'Returns Written Answers',
-    ),
-    'getWMS' => array(
-        'parameters' => array('date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'),
+    ],
+    'getWMS' => [
+        'parameters' => ['date', 'search', 'person', 'gid', 'year', 'order', 'page', 'num'],
         'required' => true,
         'help' => 'Returns Written Ministerial Statements',
-    ),
-    'getHansard' => array(
-        'parameters' => array('search', 'person', 'order', 'page', 'num'),
+    ],
+    'getHansard' => [
+        'parameters' => ['search', 'person', 'order', 'page', 'num'],
         'required' => true,
         'help' => 'Returns any of the above',
-    ),
-    'getComments' => array(
+    ],
+    'getComments' => [
         'new' => true,
-        'parameters' => array('search', 'page', 'num', 'pid', 'start_date', 'end_date'),
+        'parameters' => ['search', 'page', 'num', 'pid', 'start_date', 'end_date'],
         'required' => false,
-        'help' => 'Returns comments'
-    ),
-    'convertURL' => array(
+        'help' => 'Returns comments',
+    ],
+    'convertURL' => [
         'new' => true,
-        'parameters' => array('url'),
+        'parameters' => ['url'],
         'required' => true,
         'help' => 'Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible',
-    ),
-    'getAlerts' => array(
-        'parameters' => array('start_date', 'end_date'),
+    ],
+    'getAlerts' => [
+        'parameters' => ['start_date', 'end_date'],
         'required' => true,
-            'superuser' => true,
-            'help' => 'Returns a summary of email alert subscriptions created between two dates'
-    ),
-);
+        'superuser' => true,
+        'help' => 'Returns a summary of email alert subscriptions created between two dates',
+    ],
+];
 
 # Key-related functions
 
 function api_log_call($key) {
-    if ($key=='DOCS') {
+    if ($key == 'DOCS') {
         return;
     }
     $ip = $_SERVER['REMOTE_ADDR'];
     $query = !empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
     $query = preg_replace('#key=[A-Za-z0-9]+&?#', '', $query);
-    $db = new ParlDB;
+    $db = new ParlDB();
     $db->query("INSERT INTO api_stats (api_key, ip_address, query_time, query)
-        VALUES (:key, :ip, NOW(), :query)", array(
-            ':key' => $key,
-            ':ip' => $ip,
-            ':query' => $query
-            ));
+        VALUES (:key, :ip, NOW(), :query)", [
+        ':key' => $key,
+        ':ip' => $ip,
+        ':query' => $query,
+    ]);
 }
 
 function api_is_superuser_key($key) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query('SELECT api_key.user_id, users.status
                FROM   api_key, users
                WHERE  users.user_id = api_key.user_id
-               AND    api_key.api_key = :key', array(
-                ':key' => $key
-                ))->first();
+               AND    api_key.api_key = :key', [
+        ':key' => $key,
+    ])->first();
     if (!$q) {
         return false;
     }
@@ -171,10 +171,10 @@ function api_is_superuser_key($key) {
 }
 
 function api_check_key($key) {
-    $db = new ParlDB;
-    $q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key = :key', array(
-        ':key' => $key
-        ))->first();
+    $db = new ParlDB();
+    $q = $db->query('SELECT user_id, disabled FROM api_key WHERE api_key = :key', [
+        ':key' => $key,
+    ])->first();
     if (!$q) {
         return false;
     }
@@ -206,16 +206,16 @@ function api_sidebar($subscription) {
         $sidebar .= "<br>$data[help]</li>";
     }
     $sidebar .= '</ul></div></div>';
-    $sidebar = array(
+    $sidebar = [
         'type' => 'html',
-        'content' => $sidebar
-    );
+        'content' => $sidebar,
+    ];
     return $sidebar;
 }
 
 # Output functions
 
-function api_output($arr, $last_mod=null) {
+function api_output($arr, $last_mod = null) {
     $output = get_http_var('output');
     if (!get_http_var('docs')) {
         $cond = api_header($output, $last_mod);
@@ -224,7 +224,7 @@ function api_output($arr, $last_mod=null) {
         }
     }
     if ($output == 'xml') {
-        $out = '<?xml version="1.0" encoding="utf-8"?>'."\n";
+        $out = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
         $out .= '<twfy>' . api_output_xml($arr) . '</twfy>';
     } elseif ($output == 'php') {
         $out = api_output_php($arr);
@@ -243,7 +243,7 @@ function api_output($arr, $last_mod=null) {
     print $out;
 }
 
-function api_header($o, $last_mod=null) {
+function api_header($o, $last_mod = null) {
     if ($last_mod && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
         $t = cond_parse_http_date($_SERVER['HTTP_IF_MODIFIED_SINCE']);
         if (isset($t) && $t >= $last_mod) {
@@ -269,14 +269,14 @@ function api_header($o, $last_mod=null) {
     }
     #$type = 'text/plain';
     header("Content-Type: $type; charset=$charset");
-    if ($last_mod>0) {
+    if ($last_mod > 0) {
         header('Last-Modified: ' . date('r', $last_mod));
     }
     return false;
 }
 
 function api_error($e) {
-    api_output(array('error' => $e));
+    api_output(['error' => $e]);
 }
 
 function api_output_php($arr) {
@@ -301,7 +301,7 @@ function api_output_xml($v) {
     global $api_xml_arr;
     $verbose = get_http_var('verbose') ? "\n" : '';
     if (is_array($v)) {
-        if (count($v) && array_keys($v) === range(0, count($v)-1)) {
+        if (count($v) && array_keys($v) === range(0, count($v) - 1)) {
             $elt = 'match';
             $api_xml_arr++;
             $out = "<$elt>";
@@ -322,13 +322,13 @@ function api_output_xml($v) {
     }
 }
 
-function api_output_js($v, $level=0) {
+function api_output_js($v, $level = 0) {
     $verbose = get_http_var('verbose') ? "\n" : '';
     $out = '';
     if (is_array($v)) {
         # PHP arrays are both JS arrays and objects
-        if (count($v) && array_keys($v) === range(0, count($v)-1)) {
-            $out = '[' . join(",$verbose" , array_map('api_output_js', $v)) . ']';
+        if (count($v) && array_keys($v) === range(0, count($v) - 1)) {
+            $out = '[' . join(",$verbose", array_map('api_output_js', $v)) . ']';
         } else {
             $out = '{' . $verbose;
             $b = false;
@@ -337,16 +337,16 @@ function api_output_js($v, $level=0) {
                     $out .= ",$verbose";
                 }
                 if ($verbose) {
-                    $out .= str_repeat(' ', ($level+1)*2);
+                    $out .= str_repeat(' ', ($level + 1) * 2);
                     $out .= '"' . $k . '" : ';
                 } else {
                     $out .= '"' . $k . '":';
                 }
-                $out .= api_output_js($vv, $level+1);
+                $out .= api_output_js($vv, $level + 1);
                 $b = true;
             }
             if ($verbose) {
-                $out .= "\n" . str_repeat(' ', $level*2);
+                $out .= "\n" . str_repeat(' ', $level * 2);
             }
             $out .= '}';
         }
@@ -354,8 +354,10 @@ function api_output_js($v, $level=0) {
         $out = "null";
     } elseif (is_string($v)) {
         $out = '"' . str_replace(
-            array("\\",'"',"\n","\t","\r", "‶", "″", "“", "”"),
-            array("\\\\",'\"','\n','\t','\r', '\"', '\"', '\"', '\"'), $v) . '"';
+            ["\\",'"',"\n","\t","\r", "‶", "″", "“", "”"],
+            ["\\\\",'\"','\n','\t','\r', '\"', '\"', '\"', '\"'],
+            $v
+        ) . '"';
     } elseif (is_bool($v)) {
         $out = $v ? 'true' : 'false';
     } elseif (is_int($v) || is_float($v)) {
@@ -393,11 +395,11 @@ function api_call_user_func_or_error($function, $params, $error, $type) {
 $cond_wkday_re = '(Sun|Mon|Tue|Wed|Thu|Fri|Sat)';
 $cond_weekday_re = '(Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday)';
 $cond_month_re = '(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)';
-$cond_month_map = array(
+$cond_month_map = [
     'Jan' =>  1, 'Feb' =>  2, 'Mar' =>  3, 'Apr' =>  4,
     'May' =>  5, 'Jun' =>  6, 'Jul' =>  7, 'Aug' =>  8,
-    'Sep' =>  9, 'Oct' => 10, 'Nov' => 11, 'Dec' => 12
-);
+    'Sep' =>  9, 'Oct' => 10, 'Nov' => 11, 'Dec' => 12,
+];
 
 $cond_date1_re = '(\d\d) ' . $cond_month_re . ' (\d\d\d\d)';
 $cond_date2_re = '(\d\d)-' . $cond_month_re . '-(\d\d)';
@@ -406,7 +408,7 @@ $cond_date3_re = $cond_month_re . ' (\d\d| \d)';
 $cond_time_re = '([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|6[012])';
 
 function cond_parse_http_date($date) {
-    $ma = array();
+    $ma = [];
     global $cond_wkday_re, $cond_weekday_re, $cond_month_re, $cond_month_map,
     $cond_date1_re, $cond_date2_re, $cond_date3_re, $cond_time_re;
     if (preg_match("/^$cond_wkday_re, $cond_date1_re $cond_time_re GMT\$/", $date, $ma)) {

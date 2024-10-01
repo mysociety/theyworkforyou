@@ -8,14 +8,13 @@
 namespace MySociety\TheyWorkForYou\Model;
 
 class Featured {
-
     /**
      * DB handle
      */
     private $db;
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new \ParlDB();
     }
 
     public function get_title() {
@@ -57,14 +56,14 @@ class Featured {
 
         $q = $this->db->query(
             "SELECT value FROM editorial WHERE item = :key",
-            array(
-                ':key' => $key
-            )
+            [
+                ':key' => $key,
+            ]
         )->first();
 
         if ($q) {
             $text = $q['value'];
-            if ( trim($text) == '' ) {
+            if (trim($text) == '') {
                 $text = null;
             }
         }
@@ -73,32 +72,34 @@ class Featured {
     }
 
     private function _set($key, $value) {
-        if ( trim($value) == '' ) {
+        if (trim($value) == '') {
             $value = null;
         }
         $check_q = $this->db->query(
             "SELECT value FROM editorial WHERE item = :key",
-            array(
-                ':key' => $key
-            )
+            [
+                ':key' => $key,
+            ]
         );
-        if ( $check_q->rows() ) {
-            $set_q = $this->db->query("UPDATE editorial set value = :value WHERE item = :key",
-                array(
+        if ($check_q->rows()) {
+            $set_q = $this->db->query(
+                "UPDATE editorial set value = :value WHERE item = :key",
+                [
                     ':key' => $key,
-                    ':value' => $value
-                )
+                    ':value' => $value,
+                ]
             );
         } else {
-            $set_q = $this->db->query("INSERT INTO editorial (item, value ) VALUES (:key, :value)",
-                array(
+            $set_q = $this->db->query(
+                "INSERT INTO editorial (item, value ) VALUES (:key, :value)",
+                [
                     ':key' => $key,
-                    ':value' => $value
-                )
+                    ':value' => $value,
+                ]
             );
         }
 
-        if ( $set_q->success() ) {
+        if ($set_q->success()) {
             return true;
         }
         return false;

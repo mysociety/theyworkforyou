@@ -50,35 +50,35 @@ function calendar_date($date) {
 
     $db = new ParlDB();
 
-    $data = array(
+    $data = [
         'date' => $date,
-    );
+    ];
     $data['dates'] = MySociety\TheyWorkForYou\Utility\Calendar::fetchDate($date);
 
-    $majors = array();
+    $majors = [];
     if ($this_page == 'calendar_past') {
-        $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = :date', array(
-            ':date' => $date
-            ));
+        $q = $db->query('SELECT DISTINCT major FROM hansard WHERE hdate = :date', [
+            ':date' => $date,
+        ]);
         foreach ($q as $row) {
             $majors[] = $row['major'];
         }
     }
 
-    $data['order'] = array(
-        ['name'=>'Commons: Main Chamber', 'major'=>1, 'list'=>1],
-        ['name'=>'Lords: Main Chamber', 'major'=>101, 'list'=>1],
-        ['name'=>'Commons: Westminster Hall', 'major'=>2, 'list'=>1],
-        ['name'=>'Commons: General Committee', 'major'=>6, 'list'=>1],
-        ['name'=>'Commons: Select Committee', 'list'=>0],
-        ['name'=>'Lords: Select Committee', 'list'=>0],
-        ['name'=>'Lords: Grand Committee', 'list'=>1],
-        ['name'=>'Joint Committee', 'list'=>1],
-    );
+    $data['order'] = [
+        ['name' => 'Commons: Main Chamber', 'major' => 1, 'list' => 1],
+        ['name' => 'Lords: Main Chamber', 'major' => 101, 'list' => 1],
+        ['name' => 'Commons: Westminster Hall', 'major' => 2, 'list' => 1],
+        ['name' => 'Commons: General Committee', 'major' => 6, 'list' => 1],
+        ['name' => 'Commons: Select Committee', 'list' => 0],
+        ['name' => 'Lords: Select Committee', 'list' => 0],
+        ['name' => 'Lords: Grand Committee', 'list' => 1],
+        ['name' => 'Joint Committee', 'list' => 1],
+    ];
     foreach ($data['order'] as &$chamber) {
         if (in_array($chamber['major'] ?? 0, $majors)) {
             $URL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$chamber['major']]['page_all']);
-            $URL->insert( array( 'd' => $date ) );
+            $URL->insert([ 'd' => $date ]);
             $chamber['url'] = $URL->generate();
         }
     }
@@ -95,7 +95,7 @@ function calendar_date($date) {
 }
 
 function sidebar_calendars($data) {
-    $db = new ParlDB;
+    $db = new ParlDB();
 
     $q = $db->query('SELECT MIN(event_date) AS min, MAX(event_date) AS max FROM future WHERE event_date >= NOW() AND deleted = 0')->first();
     $min_future_date = $q['min'];
@@ -104,23 +104,23 @@ function sidebar_calendars($data) {
         return;
     }
 
-    list($firstyear, $firstmonth, $day) = explode('-', $min_future_date);
-    list($finalyear, $finalmonth, $day) = explode('-', $max_future_date);
+    [$firstyear, $firstmonth, $day] = explode('-', $min_future_date);
+    [$finalyear, $finalmonth, $day] = explode('-', $max_future_date);
 
     $q =  $db->query("SELECT DISTINCT(event_date) AS event_date FROM future
         WHERE event_date >= :firstdate
         AND event_date <= :finaldate
         AND deleted = 0
         ORDER BY event_date ASC
-    ", array(
+    ", [
         ':firstdate' => $firstyear . '-' . $firstmonth . '-01',
-        ':finaldate' => $finalyear . '-' . $finalmonth . '-31'
-    ));
+        ':finaldate' => $finalyear . '-' . $finalmonth . '-31',
+    ]);
 
-    $years = array();
+    $years = [];
     if ($q->rows() > 0) {
         foreach ($q as $row) {
-            list($year, $month, $day) = explode('-', $row['event_date']);
+            [$year, $month, $day] = explode('-', $row['event_date']);
             $month = intval($month);
             $years[$year][$month][] = intval($day);
         }
@@ -134,14 +134,14 @@ function sidebar_calendars($data) {
         for ($y = intval($firstyear); $y <= $finalyear; $y++) {
 
             if (!isset($years[$y])) {
-                $years[$y] = array(1=>array(), 2=>array(), 3=>array(), 4=>array(), 5=>array(), 6=>array(), 7=>array(), 8=>array(), 9=>array(), 10=>array(), 11=>array(), 12=>array());
+                $years[$y] = [1 => [], 2 => [], 3 => [], 4 => [], 5 => [], 6 => [], 7 => [], 8 => [], 9 => [], 10 => [], 11 => [], 12 => []];
             } else {
                 // This year is set. Check it has all the months...
                 $minmonth = $y == $firstyear ? $firstmonth : 1;
                 $maxmonth = $y == $finalyear ? $finalmonth : 12;
                 for ($m = intval($minmonth); $m <= $maxmonth; $m++) {
                     if (!isset($years[$y][$m])) {
-                        $years[$y][$m] = array();
+                        $years[$y][$m] = [];
                     }
                 }
                 ksort($years[$y]);

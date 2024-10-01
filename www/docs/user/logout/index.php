@@ -12,7 +12,7 @@ $this_page = "userlogout";
 $URL = new \MySociety\TheyWorkForYou\Url($this_page);
 if (get_http_var("ret") != "") {
     // So we can send the user back to where they came from.
-    $URL->insert(array("ret"=>get_http_var("ret")));
+    $URL->insert(["ret" => get_http_var("ret")]);
 }
 $THEUSER->logout($URL->generate());
 

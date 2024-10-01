@@ -24,7 +24,7 @@
             <ul class="business-list">
             <?php
                 $first = 0;
-                foreach ( $rows as $row ) { ?>
+            foreach ($rows as $row) { ?>
                     <li>
                         <a href="<?= $row['url'] ?>" class="business-list__title">
                             <h3>
@@ -42,7 +42,7 @@
         </div>
         <div class="business-section__secondary">
             <div class="calendar__controls">
-                <?php if ( isset($prev) ) { ?>
+                <?php if (isset($prev)) { ?>
                 <a href="<?= $prev['url'] ?>" class="calendar__controls__previous">&larr;</a>
                 <?php } else { ?>
                 <span class="calendar__controls__previous">&nbsp;</span>
@@ -50,7 +50,7 @@
                 <span class="calendar__controls__current">
                     <?= $session ?> session
                 </span>
-                <?php if ( isset($next) ) { ?>
+                <?php if (isset($next)) { ?>
                 <a href="<?= $next['url'] ?>" class="calendar__controls__next">&rarr;</a>
                 <?php } else { ?>
                 <span class="calendar__controls__next">&nbsp;</span>

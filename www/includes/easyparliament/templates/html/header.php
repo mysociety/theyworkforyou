@@ -19,7 +19,7 @@
 
     <meta property="og:site_name" content="TheyWorkForYou">
     <meta property="og:url" content="<?= _htmlentities($page_url) ?>">
-    <meta property="og:title" content="<?= strip_tags( $og_title ?: $page_title ) ?>">
+    <meta property="og:title" content="<?= strip_tags($og_title ?: $page_title) ?>">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,7 @@
     <meta property="og:image:width" content="1000">
     <meta property="og:image:height" content="500">
   <?php } else { ?>
-    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/<?= isset($current_assembly) ? $current_assembly : 'default' ?>.jpg">
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/<?= $current_assembly ?? 'default' ?>.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -49,7 +49,7 @@
 
     <link rel="stylesheet" href="<?= cache_version("style/stylesheets/app.css") ?>" type="text/css">
 
-    <?php if (isset ($page_rss_url)): ?>
+    <?php if (isset($page_rss_url)): ?>
     <link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="<?= $page_rss_url ?>">
     <?php endif; ?>
 
@@ -90,7 +90,7 @@
 
 <body>
 
-  <?php if (isset($country) && in_array($country, array('AU', 'IE', 'CA'))) { ?>
+  <?php if (isset($country) && in_array($country, ['AU', 'IE', 'CA'])) { ?>
     <div class="banner">
         <div class="full-page__row">
             <div class="banner__content">
@@ -167,7 +167,7 @@
 
                 <div class="site-nav__user">
                     <ul>
-                      <?php foreach ($user_nav_links as $nav_link){ ?>
+                      <?php foreach ($user_nav_links as $nav_link) { ?>
                         <li><a href="<?= $nav_link['href']; ?>" title="<?= $nav_link['title']; ?>" class="<?= $nav_link['classes']; ?>">
                             <?= $nav_link['text'] ?>
                         </a></li>
@@ -197,7 +197,7 @@
         </div>
     </nav>
 
-    <?php if (isset($random_banner) && $random_banner ) { ?>
+    <?php if (isset($random_banner) && $random_banner) { ?>
       <div class="banner">
           <div class="full-page__row">
               <div class="banner__content">
@@ -214,7 +214,7 @@
     <div class="full-page legacy-page static-page">
         <div class="full-page__row">
             <div class="panel">
-            <?php foreach ( $page_errors as $error ) { ?>
+            <?php foreach ($page_errors as $error) { ?>
                 <p><?= $error['text'] ?></p>
             <?php } ?>
             </div>

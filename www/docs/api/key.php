@@ -86,7 +86,7 @@ if ($THEUSER->loggedin()) {
 }
 
 $sidebar = api_sidebar($subscription);
-$PAGE->stripe_end(array($sidebar));
+$PAGE->stripe_end([$sidebar]);
 $PAGE->page_end();
 
 # ---
@@ -99,13 +99,13 @@ return here to get a key.</p>';
 }
 
 function has_no_keys($user) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query('SELECT COUNT(*) as count FROM api_key WHERE user_id=' . $user->user_id())->first()['count'];
     return $q ? false : true;
 }
 
 function get_keys($user) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query('SELECT api_key, created, reason FROM api_key WHERE user_id=' . $user->user_id());
     $keys = [];
     foreach ($q as $row) {
@@ -115,10 +115,10 @@ function get_keys($user) {
 }
 
 function list_keys($keys) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     echo '<h2>Your keys</h2> <ul>';
     foreach ($keys as $keyarr) {
-        list($key, $created, $reason) = $keyarr;
+        [$key, $created, $reason] = $keyarr;
         echo '<li><span style="font-size:200%">' . $key . '</span><br><span style="color: #666666;">';
         echo 'Key created ', $created, '; ', $reason;
         echo '</span><br><em>Usage statistics</em>: ';
@@ -135,13 +135,13 @@ function list_keys($keys) {
 
 function create_key($user) {
     $key = auth_ab64_encode(urandom_bytes(16));
-    $db = new ParlDB;
+    $db = new ParlDB();
     $db->query('INSERT INTO api_key (user_id, api_key, commercial, created, reason, estimated_usage) VALUES
         (:user_id, :key, -1, NOW(), :reason, -1)', [
         ':user_id' => $user->user_id(),
         ':key' => $key,
         ':reason' => '',
-        ]);
+    ]);
     $r = new \MySociety\TheyWorkForYou\Redis();
     $r->set("key:$key:api:" . REDIS_API_NAME, $user->user_id());
 }

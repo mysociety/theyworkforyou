@@ -5,8 +5,8 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-featured-content homepage-content-section">
-                        <?php if ( $featured ) {
-                             include dirname(__FILE__) . "/../homepage/featured.php";
+                        <?php if ($featured) {
+                            include dirname(__FILE__) . "/../homepage/featured.php";
                         } ?>
                     </div>
                     <div class="homepage-create-alert homepage-content-section">
@@ -22,10 +22,10 @@
                     <div class="homepage-recently homepage-content-section">
                         <h2>Recently in the Northern Ireland Assembly</h2>
                         <ul class="recently__list"><?php
-                            foreach ( $debates['recent'] as $recent ) {
+                            foreach ($debates['recent'] as $recent) {
                                 include dirname(__FILE__) . '/../homepage/recent-debates.php';
                             }
-                        ?></ul>
+?></ul>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
                         <h2>What is the Northern Ireland Assembly?</h2>

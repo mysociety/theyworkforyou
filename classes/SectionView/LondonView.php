@@ -7,11 +7,11 @@ class LondonView extends SectionView {
     protected $class = 'LMQLIST';
 
     protected function front_content() {
-        return $this->list->display('recent_wrans', array('days'=>30, 'num'=>20), 'none');
+        return $this->list->display('recent_wrans', ['days' => 30, 'num' => 20], 'none');
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('lmqs');
         $urls['lmqsday'] = $day;
         $urls['day'] = $day;
@@ -19,8 +19,8 @@ class LondonView extends SectionView {
     }
 
     protected function getSearchSections() {
-        return array(
-            array( 'section' => 'lmqs', 'title' => 'Mayoral Questions' )
-        );
+        return [
+            [ 'section' => 'lmqs', 'title' => 'Mayoral Questions' ],
+        ];
     }
 }

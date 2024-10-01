@@ -7,8 +7,7 @@
 
 namespace MySociety\TheyWorkForYou\Model;
 
-function is_valid_item($item)
-{
+function is_valid_item($item) {
     // used in an array sort to filter out invalid items
 
     // set default language
@@ -45,8 +44,7 @@ function is_valid_item($item)
         $end_time > date("Y-m-d\TH:i:s");
 }
 
-function select_based_on_weight($items)
-{
+function select_based_on_weight($items) {
     # banners have a weight attribute, which is the probability of being selected
     # the higher the weight, the higher the probability
     $total_weight = 0;
@@ -65,8 +63,7 @@ function select_based_on_weight($items)
     }
 }
 
-class AnnouncementManagement
-{
+class AnnouncementManagement {
     // Multi-purpose announcement storage system
     // Builds on previous banner system, but extends to
     // other locations for announcements
@@ -80,14 +77,12 @@ class AnnouncementManagement
      */
     private $mem;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = new \ParlDB();
         $this->mem = new \MySociety\TheyWorkForYou\Memcache();
     }
 
-    public function get_text($editorial_option)
-    {
+    public function get_text($editorial_option) {
         $text = $this->mem->get($editorial_option);
 
         if ($text === false) {
@@ -110,8 +105,7 @@ class AnnouncementManagement
         return $text;
     }
 
-    public function set_text($text, $editorial_option)
-    {
+    public function set_text($text, $editorial_option) {
         $q = $this->db->query(
             "REPLACE INTO editorial set item = :editorial_option, value = :announcement_text",
             [
@@ -130,8 +124,7 @@ class AnnouncementManagement
         return false;
     }
 
-    public function set_json($text, $editorial_option)
-    {
+    public function set_json($text, $editorial_option) {
         // check text is valid json
         $json_obj = json_decode($text);
 
@@ -142,8 +135,7 @@ class AnnouncementManagement
         return $this->set_text($text, $editorial_option);
     }
 
-    private function get_json($editorial_option)
-    {
+    private function get_json($editorial_option) {
         // for debugging, can use json files instead of db
         $use_json_file = false;
 
@@ -163,8 +155,7 @@ class AnnouncementManagement
         return $json_obj;
     }
 
-    public function get_random_valid_banner()
-    {
+    public function get_random_valid_banner() {
         // get banners stored in json
         $banners = $this->get_json("banner");
 
@@ -185,8 +176,7 @@ class AnnouncementManagement
         return select_based_on_weight($banners);
     }
 
-    public function get_random_valid_item($location)
-    {
+    public function get_random_valid_item($location) {
         // get announcements stored in json
         $items = $this->get_json("announcements");
 
@@ -212,4 +202,3 @@ class AnnouncementManagement
         return select_based_on_weight($items);
     }
 }
-?>

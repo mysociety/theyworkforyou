@@ -3,15 +3,12 @@
 /**
  * Provides test methods for commenting functionality.
  */
-class CommentTest extends TWFY_Database_TestCase
-{
-
+class CommentTest extends TWFY_Database_TestCase {
     /**
      * Loads the comments testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/comment.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/comment.xml');
     }
 
     /**
@@ -27,8 +24,7 @@ class CommentTest extends TWFY_Database_TestCase
     /**
      * Makes sure the body of the test comment is returned correctly, testing HTML cleaning.
      */
-    public function testHTMLCleaningGetBody()
-    {
+    public function testHTMLCleaningGetBody() {
         $comment = new COMMENT(1);
         $this->assertEquals($comment->body(), "This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, email addresses like test@theyworkforyou.com, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.
 
@@ -38,29 +34,28 @@ It also spans multiple lines.");
     /**
      * Makes sure a comment is correctly rendered, testing HTML cleaning.
      */
-    public function testHTMLCleaningPrepareCommentForDisplay()
-    {
+    public function testHTMLCleaningPrepareCommentForDisplay() {
         $comment = new COMMENT(1);
         $this->assertEquals(prepare_comment_for_display($comment->body()), "This is a test comment, including <a href=\"https://www.theyworkforyou.com\" rel=\"nofollow\">https://www.theyworkforyou.com</a> <a href=\"https://www.theyworkforyou.com\">links</a>, email addresses like <a href=\"mailto:test@theyworkforyou.com\">test@theyworkforyou.com</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're rendered correctly.<br>
 <br>
 It also spans multiple lines.");
     }
 
-    public function testCommentWithVeryLongLink()
-    {
+    public function testCommentWithVeryLongLink() {
         $comment = new COMMENT(2);
-        $this->assertEquals(prepare_comment_for_display($comment->body()),
-            '<a href="https://www.theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive" rel="nofollow">https://www.theyworkforyou.example.org/this/is/a/coment/with...</a>');
+        $this->assertEquals(
+            prepare_comment_for_display($comment->body()),
+            '<a href="https://www.theyworkforyou.example.org/this/is/a/coment/with/a/very/long/URL/that/contains/http://something/as/it/is/an/archive" rel="nofollow">https://www.theyworkforyou.example.org/this/is/a/coment/with...</a>'
+        );
     }
 
     public function testHTMLCleaningOfAngleBrackets() {
         $text = 'Is 2 < 3?';
 
-        $this->assertEquals('Is 2 &lt; 3?', filter_user_input( $text, 'comment' ) );
+        $this->assertEquals('Is 2 &lt; 3?', filter_user_input($text, 'comment'));
     }
 
-    public function testHTMLCleaningWithNonASCIIChars()
-    {
+    public function testHTMLCleaningWithNonASCIIChars() {
         // this file is UTF-8 but odd comments are sent up looking like Windows-1252 so we need the
         // input text to be encoded thus otherwise the output is different
         $text = "This is a curly  ’ apostrophe. Is 2 &lt; 3 ø ø €  ’ « ö à";

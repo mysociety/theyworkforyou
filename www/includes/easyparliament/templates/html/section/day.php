@@ -6,32 +6,32 @@
                 <?= $parent_title ?>
             </h1>
             <p class="business-section__header__date">
-                <?= format_date( $info['date'], LONGERDATEFORMAT ) ?>
+                <?= format_date($info['date'], LONGERDATEFORMAT) ?>
             </p>
         </div>
-      <?php if ( isset($rows) ) { ?>
+      <?php if (isset($rows)) { ?>
         <div class="business-section__primary">
             <ul class="business-list">
               <?php
                 $prevlevel = '';
-                foreach ( $rows as $row ) { ?>
-                <?php if ( $row['htype'] == 10 ) {
-                    if ( $prevlevel == 'sub' ) { ?>
+          foreach ($rows as $row) { ?>
+                <?php if ($row['htype'] == 10) {
+                    if ($prevlevel == 'sub') { ?>
                     </ul>
                     </li>
-                    <?php } elseif ( $prevlevel == 'top' ) { ?>
+                    <?php } elseif ($prevlevel == 'top') { ?>
                     </li>
                     <?php } ?>
                     <li>
                 <?php } else {
-                    if ( $prevlevel == '' ) { ?>
+                    if ($prevlevel == '') { ?>
                     <li>
-                    <?php } elseif ( $prevlevel == 'top' ) { ?>
+                    <?php } elseif ($prevlevel == 'top') { ?>
                     <ul>
                     <li>
                     <?php } ?>
                 <?php } ?>
-                  <?php if ( isset($row['excerpt']) && strstr($row['excerpt'], "was asked&#8212;") ) { ?>
+                  <?php if (isset($row['excerpt']) && strstr($row['excerpt'], "was asked&#8212;")) { ?>
                     <div class="business-list__title">
                         <h3>
                             <?= $row['body'] ?>
@@ -42,26 +42,26 @@
                         <h3>
                             <?= $row['body'] ?>
                         </h3>
-                      <?php if ( isset($row['contentcount']) && $row['contentcount'] > 0 ) { ?>
+                      <?php if (isset($row['contentcount']) && $row['contentcount'] > 0) { ?>
                         <span class="business-list__meta">
                             <?= sprintf(ngettext('%s speech', '%s speeches', $row['contentcount']), $row['contentcount']) ?>
                         </span>
                       <?php } ?>
                     </a>
                   <?php }
-                  if ( isset($row['excerpt']) ) { ?>
+                  if (isset($row['excerpt'])) { ?>
                     <p class="business-list__excerpt">
-                        <?= trim_characters($row['excerpt'], 0, 200 ) ?>
+                        <?= trim_characters($row['excerpt'], 0, 200) ?>
                     </p>
                   <?php } ?>
-                <?php if ( $row['htype'] == 10 ) {
+                <?php if ($row['htype'] == 10) {
                     $prevlevel = 'top';
                 } else {
                     $prevlevel = 'sub'; ?>
                 </li>
                 <?php } ?>
               <?php } ?>
-                <?php if ( $prevlevel == 'sub' ) { ?>
+                <?php if ($prevlevel == 'sub') { ?>
                 </ul>
                 </li>
                 <?php } ?>
@@ -83,6 +83,7 @@
       <?php } ?>
     </div>
 
-    <?php $search_title = sprintf(gettext("Search %s"), $title); include '_search.php'; ?>
+    <?php $search_title = sprintf(gettext("Search %s"), $title);
+                include '_search.php'; ?>
 
 </div>

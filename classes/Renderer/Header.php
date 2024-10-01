@@ -8,9 +8,7 @@ namespace MySociety\TheyWorkForYou\Renderer;
  * Prepares variables for inclusion in a template header.
  */
 
-class Header
-{
-
+class Header {
     public $nav_highlights;
 
     public $data;
@@ -18,7 +16,7 @@ class Header
     private $keywords_title;
 
     public function __construct() {
-        $this->data = array();
+        $this->data = [];
 
         $this->get_page_url();
         $this->get_page_title();
@@ -125,16 +123,16 @@ class Header
     private function get_header_links() {
         global $this_page;
 
-        $this->data['header_links'] = array();
+        $this->data['header_links'] = [];
         if ($this_page != 'overview') {
 
             $URL = new \MySociety\TheyWorkForYou\Url('overview');
 
-            $this->data['header_links'][] = array(
+            $this->data['header_links'][] = [
                 'rel'   => 'start',
                 'title' => 'Home',
-                'href'  => $URL->generate()
-            );
+                'href'  => $URL->generate(),
+            ];
 
         }
     }
@@ -144,7 +142,7 @@ class Header
         if (isset($nextprev[$linktype]) && isset($nextprev[$linktype]['url'])) {
 
             if (isset($nextprev[$linktype]['body'])) {
-                $linktitle = _htmlentities( trim_characters($nextprev[$linktype]['body'], 0, 40) );
+                $linktitle = _htmlentities(trim_characters($nextprev[$linktype]['body'], 0, 40));
                 if (isset($nextprev[$linktype]['speaker']) &&
                     count($nextprev[$linktype]['speaker']) > 0) {
                     $linktitle = $nextprev[$linktype]['speaker']['name'] . ': ' . $linktitle;
@@ -154,11 +152,11 @@ class Header
                 $linktitle = format_date($nextprev[$linktype]['hdate'], SHORTDATEFORMAT);
             }
 
-            $link = array(
+            $link = [
                 'rel'   => $linktype,
                 'title' => $linktitle,
-                'href'  => $nextprev[$linktype]['url']
-            );
+                'href'  => $nextprev[$linktype]['url'],
+            ];
         }
 
         return $link;
@@ -171,10 +169,10 @@ class Header
 
         if ($nextprev) {
             // Four different kinds of back/forth links we might build.
-            $links = array ("first", "prev", "up", "next", "last");
+            $links =  ["first", "prev", "up", "next", "last"];
 
             foreach ($links as $type) {
-                if ( $link = $this->generate_next_prev_link( $nextprev, $type ) ) {
+                if ($link = $this->generate_next_prev_link($nextprev, $type)) {
 
                     $this->data['header_links'][] = $link;
                 }
@@ -209,7 +207,7 @@ class Header
 
         } else {
 
-            $parents = array($parent);
+            $parents = [$parent];
             $p = $parent;
             while ($p) {
                 $p = $DATA->page_metadata($p, 'parent');
@@ -280,7 +278,7 @@ class Header
         // in the top bar
         if ($this_page == "alert") {
             if ($pid = get_http_var('pid')) {
-                $person = new \MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
+                $person = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
                 $membership = $person->getMostRecentMembership();
                 $parliament = $membership['house'];
                 if ($parliament == 'ni') {
@@ -295,12 +293,12 @@ class Header
             }
         }
 
-        $this->nav_highlights = array(
+        $this->nav_highlights = [
             'top' => $top_highlight,
             'bottom' => $bottom_highlight,
             'top_selected' => $selected_top_link,
             'section' => $section,
-        );
+        ];
     }
 
     private function get_top_and_bottom_links() {
@@ -309,17 +307,17 @@ class Header
         // Page names mapping to those in metadata.php.
         // Links in the top menu, and the sublinks we see if
         // we're within that section.
-        $nav_items = array (
-            array('home'),
-            array('hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'),
-            array('sp_home', 'spoverview', 'msps', 'spdebatesfront', 'divisions_recent_sp'), #'spwransfront'
-            array('ni_home', 'nioverview', 'mlas'),
-            array('wales_home', 'seneddoverview', 'mss', 'wales_debates', 'divisions_recent_wales'),
-            array('london_home', 'lmqsfront', 'london-assembly-members'),
-        );
+        $nav_items =  [
+            ['home'],
+            ['hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'],
+            ['sp_home', 'spoverview', 'msps', 'spdebatesfront', 'divisions_recent_sp'], #'spwransfront'
+            ['ni_home', 'nioverview', 'mlas'],
+            ['wales_home', 'seneddoverview', 'mss', 'wales_debates', 'divisions_recent_wales'],
+            ['london_home', 'lmqsfront', 'london-assembly-members'],
+        ];
 
-        $this->data['assembly_nav_links'] = array();
-        $this->data['section_nav_links'] = array();
+        $this->data['assembly_nav_links'] = [];
+        $this->data['section_nav_links'] = [];
 
         //get the top and bottom links
         foreach ($nav_items as $bottompages) {
@@ -345,17 +343,17 @@ class Header
             // we need to escape back to the english site
             $URL = new \MySociety\TheyWorkForYou\Url($toppage);
             $url = $URL->generate();
-            if (LANGUAGE == 'cy' && strpos($url, '/senedd/') === false ) {
+            if (LANGUAGE == 'cy' && strpos($url, '/senedd/') === false) {
                 $url = "//" . DOMAIN . $url;
             }
 
-            $top_link = array(
+            $top_link = [
                 'href'    => $url,
                 'title'   => $title,
                 'classes' => $class,
-                'text'    => $text
-            );
-            if ($toppage != "london_home"){
+                'text'    => $text,
+            ];
+            if ($toppage != "london_home") {
                 array_push($this->data['assembly_nav_links'], $top_link);
             }
 
@@ -369,12 +367,12 @@ class Header
                     // Where we're linking to.
                     $URL = new \MySociety\TheyWorkForYou\Url($bottompage);
                     $class = $bottompage == $this->nav_highlights['bottom'] ? 'on' : '';
-                    $this->data['section_nav_links'][] = array(
+                    $this->data['section_nav_links'][] = [
                         'href'    => $URL->generate(),
                         'title'   => $title,
                         'classes' => $class,
-                        'text'    => $text
-                    );
+                        'text'    => $text,
+                    ];
                 }
             }
         }

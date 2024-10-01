@@ -7,7 +7,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $this_page = 'admin_policies';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $scriptpath = '../../../scripts';
 
@@ -38,9 +38,9 @@ function edit_policy_form() {
     global $db;
     $policyid = get_http_var('editpolicy');
     $query = "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source FROM policies WHERE policy_id = :policy_id";
-    $q = $db->query($query, array(
-        ':policy_id' => $policyid
-    ));
+    $q = $db->query($query, [
+        ':policy_id' => $policyid,
+    ]);
 
     $out = '';
 
@@ -93,10 +93,11 @@ function update_policy() {
     $out = '';
     $policyid = get_http_var('editpolicy');
 
-    $q = $db->query("UPDATE policies SET title = :title, description = :description, image = :image,
+    $q = $db->query(
+        "UPDATE policies SET title = :title, description = :description, image = :image,
         image_attrib = :image_attrib, image_license = :image_license, image_license_url = :image_license_url,
         image_source = :image_source WHERE policy_id = :policy_id",
-        array(
+        [
             ':policy_id' => $policyid,
             ':title' => get_http_var('title'),
             ':description' => get_http_var('description'),
@@ -104,11 +105,11 @@ function update_policy() {
             ':image_attrib' => get_http_var('image_attrib'),
             ':image_license' => get_http_var('image_license'),
             ':image_license_url' => get_http_var('image_license_url'),
-            ':image_source' => get_http_var('image_source')
-        )
+            ':image_source' => get_http_var('image_source'),
+        ]
     );
 
-    if ( $q->success() ) {
+    if ($q->success()) {
         $out = "<h4>update successful</h4>";
     }
 
@@ -117,13 +118,13 @@ function update_policy() {
 
 function subnav() {
     $rettext = '';
-    $subnav = array(
+    $subnav = [
         'Back to All Policies' => '/admin/policies.php',
-    );
+    ];
 
     $rettext .= '<div id="subnav_websites">';
     foreach ($subnav as $label => $path) {
-        $rettext .=  '<a href="'. $path . '">'. $label .'</a>';
+        $rettext .=  '<a href="' . $path . '">' . $label . '</a>';
     }
     $rettext .=  '</div>';
 
@@ -132,11 +133,11 @@ function subnav() {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

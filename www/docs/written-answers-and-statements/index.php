@@ -1,4 +1,5 @@
 <?php
+
 #
 # Index page for written answers/statements.
 
@@ -11,7 +12,7 @@ $this_page = 'wranswmsfront';
 $view = new MySociety\TheyWorkForYou\SectionView\WransView();
 $data = $view->display();
 if ($data) {
-    if ( $data['template'] ) {
+    if ($data['template']) {
         $template = $data['template'];
     } else {
         $template = 'section/section';

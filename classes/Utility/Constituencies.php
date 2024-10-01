@@ -8,9 +8,7 @@ namespace MySociety\TheyWorkForYou\Utility;
  * Utility functions for dealing with constituency names
  */
 
-class Constituencies
-{
-
+class Constituencies {
     /**
      * Normalise Constituency Name
      *
@@ -22,15 +20,15 @@ class Constituencies
      */
     public static function normaliseConstituencyName($name) {
 
-        $db = new \ParlDB;
+        $db = new \ParlDB();
 
         // In case we still have an &amp; lying around
         $name = str_replace("&amp;", "&", $name);
 
         $query = "select cons_id from constituency where name like :name and from_date <= date(now()) and date(now()) <= to_date";
-        $q1 = $db->query($query, array(
-            ':name' => $name
-            ))->first();
+        $q1 = $db->query($query, [
+            ':name' => $name,
+        ])->first();
         if (!$q1) {
             return false;
         }

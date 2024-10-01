@@ -26,14 +26,14 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 $ARGV = $_SERVER['argv'];
 $db = new ParlDB();
 
-$csvfile = isset($ARGV[1]) ? $ARGV[1] : '';
+$csvfile = $ARGV[1] ?? '';
 
 if (!$csvfile) {
     print "Need a csv file with policy details\n";
     exit(1);
 }
 
-if ( !file_exists($csvfile) ) {
+if (!file_exists($csvfile)) {
     print "$csvfile cannot be found\n";
     exit(1);
 }
@@ -46,8 +46,8 @@ if (!$file) {
 }
 
 $count = 0;
-while ( ( $policy = fgetcsv($file) ) !== FALSE ) {
-    if ( intval($policy[0]) ) {
+while (($policy = fgetcsv($file)) !== false) {
+    if (intval($policy[0])) {
         $policy_id = $policy[0];
         $img_id = $policy[1] ? $policy[1] : $policy_id;
         $title = $policy[2];
@@ -56,20 +56,22 @@ while ( ( $policy = fgetcsv($file) ) !== FALSE ) {
         $licence_url = $policy[7];
         $source = $policy[5];
 
-        $q = $db->query("UPDATE policies SET
+        $q = $db->query(
+            "UPDATE policies SET
             image = :image, image_source = :image_source, image_attrib = :image_attribution,
             image_license_url = :license_url, title = :title, description = :description WHERE
             policy_id = :policy_id
-            ", array(
+            ",
+            [
                 ':policy_id' => $policy_id,
                 ':title' => $title,
                 ':description' => $description,
                 ':image' => "/images/policies/" . $img_id . ".jpg",
                 ':image_source' => $source,
                 ':image_attribution' => $attribution,
-                ':license_url' => $licence_url)
+                ':license_url' => $licence_url]
         );
-        if ( $q->success() ) {
+        if ($q->success()) {
             $count += $q->affected_rows();
         } else {
             print "failed to update data for $policy_id\n";

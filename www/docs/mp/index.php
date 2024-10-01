@@ -29,7 +29,7 @@
  */
 
 // Disable the old PAGE class.
-$new_style_template = TRUE;
+$new_style_template = true;
 
 // Include all the things this page needs.
 include_once '../../includes/easyparliament/init.php';
@@ -58,7 +58,7 @@ if ($pagetype == 'profile') {
 // reverse chronological order. Add new years here as we
 // get them.
 // NB: also need to update ./mpinfoin.pl to import the stats
-$wtt_stats_years = array(2015, 2014, 2013, 2008, 2007, 2006, 2005);
+$wtt_stats_years = [2015, 2014, 2013, 2008, 2007, 2006, 2005];
 
 // Set the PID, name and constituency.
 $pid = get_http_var('pid') != '' ? get_http_var('pid') : get_http_var('p');
@@ -98,12 +98,12 @@ if ($name == 'renee short') {
 }
 
 // Fix for common misspellings, name changes etc
-$name_fix = array(
+$name_fix = [
     'a j beith' => 'alan beith',
     'micky brady' => 'mickey brady',
     'daniel rogerson' => 'dan rogerson',
     'andrew slaughter' => 'andy slaughter',
-    'robert wilson' => array('rob wilson', 'reading east'),
+    'robert wilson' => ['rob wilson', 'reading east'],
     'james mcgovern' => 'jim mcgovern',
     'patrick mcfadden' => 'pat mcfadden',
     'chris leslie' => 'christopher leslie',
@@ -114,7 +114,7 @@ $name_fix = array(
     'michael weatherley' => 'mike weatherley',
     'louise bagshawe' => 'louise mensch',
     'andrew sawford' => 'andy sawford',
-);
+];
 
 if (array_key_exists($name, $name_fix)) {
     if (is_array($name_fix[$name])) {
@@ -137,14 +137,14 @@ if (preg_match("#^ynys m\xc3\xb4n#i", $constituency)) {
 // If this is a request for recent appearances, redirect to search results
 if (get_http_var('recent')) {
     if ($THEUSER->postcode_is_set() && !$pid) {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS]);
         if ($MEMBER->person_id()) {
             $pid = $MEMBER->person_id();
         }
     }
     if ($pid) {
         $URL = new \MySociety\TheyWorkForYou\Url('search');
-        $URL->insert( array('pid'=>$pid, 'pop'=>1) );
+        $URL->insert(['pid' => $pid, 'pop' => 1]);
         header('Location: ' . $URL->generate('none'));
         exit;
     }
@@ -194,7 +194,7 @@ try {
     } elseif ($THEUSER->postcode_is_set()) {
         get_mp_by_user_postcode($THEUSER->postcode());
     } else {
-        twfy_debug ('MP', "We don't have any way of telling what MP to display");
+        twfy_debug('MP', "We don't have any way of telling what MP to display");
         throw new MySociety\TheyWorkForYou\MemberException(gettext('Sorry, but we can’t tell which representative to display.'));
     }
     if (!isset($MEMBER) || !$MEMBER->valid) {
@@ -266,7 +266,7 @@ if ($MEMBER->house(HOUSE_TYPE_SCOTLAND)) {
     if (!$MEMBER->current_member(HOUSE_TYPE_SCOTLAND)) {
         $title .= ', former';
     }
-    $title .= ' MSP, '.$MEMBER->constituency();
+    $title .= ' MSP, ' . $MEMBER->constituency();
 }
 
 // Enhance title if this is a member of Welsh Parliament
@@ -280,11 +280,11 @@ if ($MEMBER->house(HOUSE_TYPE_WALES)) {
     if (!$MEMBER->current_member(HOUSE_TYPE_WALES)) {
         $title .= ', former';
     }
-    $title .= ' MS, '.$MEMBER->constituency();
+    $title .= ' MS, ' . $MEMBER->constituency();
 }
 
 $known_for = '';
-$current_offices_ignoring_committees = $MEMBER->offices('current', TRUE);
+$current_offices_ignoring_committees = $MEMBER->offices('current', true);
 if (count($current_offices_ignoring_committees) > 0) {
     $known_for = $current_offices_ignoring_committees[0];
 }
@@ -331,7 +331,7 @@ foreach (['photo_attribution_text', 'photo_attribution_link'] as $key) {
         $data[$key] = $MEMBER->extra_info[$key];
     }
 }
-$data['profile_message'] = isset($MEMBER->extra_info['profile_message']) ? $MEMBER->extra_info['profile_message'] : '';
+$data['profile_message'] = $MEMBER->extra_info['profile_message'] ?? '';
 $data['image'] = $MEMBER->image();
 $data['member_summary'] = person_summary_description($MEMBER);
 $data['enter_leave'] = $MEMBER->getEnterLeaveStrings();
@@ -352,16 +352,16 @@ $data['eu_stance'] = $MEMBER->getEUStance();
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
-$data['has_voting_record'] = ( ($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS) );
+$data['has_voting_record'] = (($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS));
 # Everyone who is currently somewhere has email alert signup, apart from current Sinn Fein MPs who are not MLAs
 $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->current_member(HOUSE_TYPE_COMMONS) && $MEMBER->party() == 'Sinn Féin' && !$MEMBER->current_member(HOUSE_TYPE_NI)));
 $data['has_expenses'] = $data['leave_date'] > '2004-01-01';
 
-$data['pre_2010_expenses'] = False;
+$data['pre_2010_expenses'] = false;
 $data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05' ? $MEMBER->extra_info['datadotparl_id'] : '';
 
 if ($data['entry_date'] < '2010-05-05') {
-    $data['pre_2010_expenses'] = True;
+    $data['pre_2010_expenses'] = true;
     // Set the expenses URL if we know it
     $data['expenses_url_2004'] = $MEMBER->extra_info['expenses_url'] ?? 'https://mpsallowances.parliament.uk/mpslordsandoffices/hocallowances/allowances%2Dby%2Dmp/';
 }
@@ -388,46 +388,48 @@ switch ($pagetype) {
     case 'votes':
         $policy_set = get_http_var('policy');
 
-        $policiesList = new MySociety\TheyWorkForYou\Policies;
+        $policiesList = new MySociety\TheyWorkForYou\Policies();
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
         $policySummaries = $divisions->getMemberDivisionDetails(true);
 
-        $policyOptions = array( 'summaries' => $policySummaries);
+        $policyOptions = [ 'summaries' => $policySummaries];
 
         // Generate voting segments
         $set_descriptions = $policiesList->getSetDescriptions();
-        if ( $policy_set && array_key_exists($policy_set, $set_descriptions) ) {
-            $sets = array($policy_set);
+        if ($policy_set && array_key_exists($policy_set, $set_descriptions)) {
+            $sets = [$policy_set];
             $data['og_image'] = $MEMBER->url(true) . "/policy_set_png?policy_set=" . $policy_set;
             $data['page_title'] = $set_descriptions[$policy_set] . ' ' . $title . ' - TheyWorkForYou';
             $data['meta_description'] = 'See how ' . $data['full_name'] . ' voted on ' . $set_descriptions[$policy_set];
             $data['single_policy_page'] = true;
         } else {
             $data['single_policy_page'] = false;
-            $sets = array(
+            $sets = [
                 'social', 'foreignpolicy', 'welfare', 'taxation', 'business',
                 'health', 'education', 'reform', 'home', 'environment',
-                'transport', 'housing', 'misc'
-            );
+                'transport', 'housing', 'misc',
+            ];
             shuffle($sets);
         }
 
-        $data['key_votes_segments'] = array();
+        $data['key_votes_segments'] = [];
         foreach ($sets as $key) {
-            $data['key_votes_segments'][] = array(
+            $data['key_votes_segments'][] = [
                 'key'   => $key,
                 'title' => $set_descriptions[$key],
                 'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                    $policiesList->limitToSet($key), $MEMBER, $policyOptions
-                )
-            );
+                    $policiesList->limitToSet($key),
+                    $MEMBER,
+                    $policyOptions
+                ),
+            ];
         }
 
         person_party_policy_diffs($MEMBER, $policiesList);
 
         $data['sorted_diffs_only'] = array_filter(
             $data['sorted_diffs'],
-            function($k) { return $k['score_difference'] >= 2; }
+            function ($k) { return $k['score_difference'] >= 2; }
         );
 
         // Send the output for rendering
@@ -446,18 +448,18 @@ switch ($pagetype) {
         if (!ctype_digit($policyID)) {
             member_redirect($MEMBER);
         }
-        if ( $policyID ) {
-            $policiesList = new MySociety\TheyWorkForYou\Policies( $policyID );
+        if ($policyID) {
+            $policiesList = new MySociety\TheyWorkForYou\Policies($policyID);
         } else {
-            $policiesList = new MySociety\TheyWorkForYou\Policies;
+            $policiesList = new MySociety\TheyWorkForYou\Policies();
         }
-        $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER );
+        $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER);
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions);
 
-        if ( $policyID ) {
+        if ($policyID) {
             $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
             $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS, $policiesList);
-            $data['policyagreements'] = array($policyID => $rel_agreements);
+            $data['policyagreements'] = [$policyID => $rel_agreements];
         } else {
             $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
             $data['policyagreements'] = $policiesList->all_policy_agreements;
@@ -475,6 +477,7 @@ switch ($pagetype) {
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
 
+        // no break
     case 'policy_set_svg':
         policy_image($data, $MEMBER, 'svg');
         break;
@@ -502,7 +505,7 @@ switch ($pagetype) {
 
 function get_person_by_id($pid) {
     global $pagetype, $this_page;
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $pid));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
     if (!$MEMBER->valid) {
         throw new MySociety\TheyWorkForYou\MemberException('Sorry, that ID number wasn&rsquo;t recognised.');
     }
@@ -521,7 +524,7 @@ function get_person_by_id($pid) {
 
 function get_person_by_member_id($member_id) {
     // Got a member id, redirect to the canonical MP page, with a person id.
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('member_id' => $member_id));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['member_id' => $member_id]);
     member_redirect($MEMBER);
 }
 
@@ -529,19 +532,19 @@ function get_person_by_postcode($pc) {
     global $THEUSER;
     $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
     if (!validate_postcode($pc)) {
-        twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+        twfy_debug('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
         throw new MySociety\TheyWorkForYou\MemberException(sprintf(gettext('Sorry, %s isn’t a valid postcode'), _htmlentities($pc)));
     }
-    twfy_debug ('MP', "MP lookup by postcode");
+    twfy_debug('MP', "MP lookup by postcode");
     $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
     if ($constituency == "connection_timed_out") {
         throw new MySociety\TheyWorkForYou\MemberException(gettext('Sorry, we couldn’t check your postcode right now, as our postcode lookup server is under quite a lot of load.'));
     } elseif ($constituency == "") {
-        twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
+        twfy_debug('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
         throw new MySociety\TheyWorkForYou\MemberException(sprintf(gettext('Sorry, %s isn’t a known postcode'), _htmlentities($pc)));
     } else {
         // Redirect to the canonical MP page, with a person id.
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS]);
         if ($MEMBER->person_id()) {
             // This will cookie the postcode.
             $THEUSER->set_postcode_cookie($pc);
@@ -550,18 +553,18 @@ function get_person_by_postcode($pc) {
     }
 }
 
-function get_person_by_name($name, $const='') {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('name' => $name, 'constituency' => $const));
+function get_person_by_name($name, $const = '') {
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['name' => $name, 'constituency' => $const]);
     // Edge case, only attempt further detection if this isn't the Queen.
     if (($name !== 'elizabeth the second' && $name !== 'prince charles') || $const) {
-        twfy_debug ('MP', 'Redirecting for MP found by name/constituency');
+        twfy_debug('MP', 'Redirecting for MP found by name/constituency');
         member_redirect($MEMBER);
     }
     return $MEMBER;
 }
 
 function get_mp_by_constituency($constituency) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS]);
     member_redirect($MEMBER);
 }
 
@@ -581,7 +584,7 @@ function get_regional_by_user_postcode($pc, $page) {
 }
 
 function get_mp_by_user_postcode($pc) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $pc, 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $pc, 'house' => HOUSE_TYPE_COMMONS]);
     member_redirect($MEMBER, 302);
 }
 
@@ -591,12 +594,12 @@ function get_mp_by_user_postcode($pc) {
  * Redirect to the canonical page for a member.
  */
 
-function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
+function member_redirect(&$MEMBER, $code = 301, $pagetype = null) {
     // We come here after creating a MEMBER object by various methods.
     // Now we redirect to the canonical MP page, with a person_id.
     if ($MEMBER->person_id()) {
         $url = $MEMBER->url();
-        $params = array();
+        $params = [];
         foreach ($_GET as $key => $value) {
             if (substr($key, 0, 4) == 'utm_' || $key == 'gclid') {
                 $params[] = urlencode($key) . "=" . urlencode($value);
@@ -608,7 +611,7 @@ function member_redirect (&$MEMBER, $code = 301, $pagetype = NULL) {
         if (count($params)) {
             $url .= '?' . join('&', $params);
         }
-        header('Location: ' . $url, true, $code );
+        header('Location: ' . $url, true, $code);
         exit;
     }
 }
@@ -620,12 +623,12 @@ function person_list_page($ids) {
     if (!DEVSITE) {
         header('Cache-Control: max-age=900');
     }
-    $data = array('mps' => array());
+    $data = ['mps' => []];
     foreach ($ids as $id => $constituency) {
-        $data['mps'][] = array(
+        $data['mps'][] = [
             'url'  => WEBPATH . 'mp/?pid=' . $id,
             'name' => ucwords(strtolower($name)) . ', ' . $constituency,
-        );
+        ];
     }
     $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     $data['all_mps_url'] = $MPSURL->generate();
@@ -668,13 +671,13 @@ function person_error_page($message) {
             $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     }
 
-    $data = array(
+    $data = [
         'error' => $message,
         'rep_name' => $people->rep_name,
         'rep_name_plural' => $people->rep_plural,
         'all_mps_url' => $MPSURL->generate(),
         'rep_search_url' => $SEARCHURL,
-    );
+    ];
     MySociety\TheyWorkForYou\Renderer::output('mp/error', $data);
 }
 
@@ -684,7 +687,7 @@ function person_error_page($message) {
  * Generate the summary of this person's held positions.
  */
 
-function person_summary_description ($MEMBER) {
+function person_summary_description($MEMBER) {
     $entered_house = $MEMBER->entered_house();
     $current_member = $MEMBER->current_member();
     $left_house = $MEMBER->left_house();
@@ -700,7 +703,7 @@ function person_summary_description ($MEMBER) {
     }
     $desc = '';
     foreach ($MEMBER->houses() as $house) {
-        if ($house==HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS])) {
+        if ($house == HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS])) {
             # Same info is printed further down
             continue;
         }
@@ -773,7 +776,7 @@ function person_summary_description ($MEMBER) {
  * @return string A HTML summary of this person's rebellion rate.
  */
 
-function person_rebellion_rate ($member) {
+function person_rebellion_rate($member) {
 
     // Rebellion string may be empty.
     $rebellion_string = '';
@@ -801,8 +804,8 @@ function person_rebellion_rate ($member) {
 function person_recent_appearances($member) {
     global $DATA, $SEARCHENGINE, $this_page;
 
-    $out = array();
-    $out['appearances'] = array();
+    $out = [];
+    $out['appearances'] = [];
 
     //$this->block_start(array('id'=>'hansard', 'title'=>$title));
     // This is really far from ideal - I don't really want $PAGE to know
@@ -813,7 +816,7 @@ function person_recent_appearances($member) {
 
     $person_id = $member->person_id();
 
-    $memcache = new MySociety\TheyWorkForYou\Memcache;
+    $memcache = new MySociety\TheyWorkForYou\Memcache();
     $recent = $memcache->get("recent_appear:$person_id:" . LANGUAGE);
 
     if (!$recent) {
@@ -822,13 +825,13 @@ function person_recent_appearances($member) {
         $SEARCHENGINE = new \SEARCHENGINE($searchstring);
 
         $hansard = new MySociety\TheyWorkForYou\Hansard();
-        $args = array (
+        $args =  [
             's' => $searchstring,
             'p' => 1,
             'num' => 3,
             'pop' => 1,
             'o' => 'd',
-        );
+        ];
         $results = $hansard->search($searchstring, $args);
         $recent = serialize($results['rows']);
         $memcache->set('recent_appear:' . $person_id, $recent);
@@ -837,7 +840,7 @@ function person_recent_appearances($member) {
     twfy_debug_timestamp();
 
     $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
-    $MOREURL->insert( array('pid'=>$person_id, 'pop'=>1) );
+    $MOREURL->insert(['pid' => $person_id, 'pop' => 1]);
 
     $out['more_href'] = $MOREURL->generate() . '#n4';
     $out['more_text'] = sprintf(gettext('More of %s’s recent appearances'), ucfirst($member->full_name()));
@@ -856,51 +859,51 @@ function person_useful_links($member) {
 
     $links = $member->extra_info();
 
-    $out = array();
+    $out = [];
 
     if (isset($links['maiden_speech'])) {
         $maiden_speech = fix_gid_from_db($links['maiden_speech']);
-        $out[] = array(
-                'href' => WEBPATH . 'debate/?id=' . $maiden_speech,
-                'text' => 'Maiden speech'
-        );
+        $out[] = [
+            'href' => WEBPATH . 'debate/?id=' . $maiden_speech,
+            'text' => 'Maiden speech',
+        ];
     }
 
     // BIOGRAPHY.
     global $THEUSER;
     if (isset($links['mp_website'])) {
-        $out[] = array(
-                'href' => $links['mp_website'],
-                'text' => 'Personal website'
-        );
+        $out[] = [
+            'href' => $links['mp_website'],
+            'text' => 'Personal website',
+        ];
     }
 
     if (isset($links['sp_url'])) {
-        $out[] = array(
-                'href' => $links['sp_url'],
-                'text' => 'Page on the Scottish Parliament website'
-        );
+        $out[] = [
+            'href' => $links['sp_url'],
+            'text' => 'Page on the Scottish Parliament website',
+        ];
     }
 
     if (isset($links['wikipedia_url'])) {
-        $out[] = array(
-                'href' => $links['wikipedia_url'],
-                'text' => 'Wikipedia page'
-        );
+        $out[] = [
+            'href' => $links['wikipedia_url'],
+            'text' => 'Wikipedia page',
+        ];
     }
 
     if (isset($links['bbc_profile_url'])) {
-        $out[] = array(
-                'href' => $links['bbc_profile_url'],
-                'text' => 'BBC News profile'
-        );
+        $out[] = [
+            'href' => $links['bbc_profile_url'],
+            'text' => 'BBC News profile',
+        ];
     }
 
     if (isset($links['diocese_url'])) {
-        $out[] = array(
-                'href' => $links['diocese_url'],
-                'text' => 'Diocese website'
-        );
+        $out[] = [
+            'href' => $links['diocese_url'],
+            'text' => 'Diocese website',
+        ];
     }
 
     return $out;
@@ -910,29 +913,29 @@ function person_social_links($member) {
 
     $links = $member->extra_info();
 
-    $out = array();
+    $out = [];
 
     if (isset($links['twitter_username'])) {
-        $out[] = array(
-                'href' => 'https://twitter.com/' . _htmlentities($links['twitter_username']),
-                'text' => '@' . _htmlentities($links['twitter_username']),
-                'type' => 'twitter'
-        );
+        $out[] = [
+            'href' => 'https://twitter.com/' . _htmlentities($links['twitter_username']),
+            'text' => '@' . _htmlentities($links['twitter_username']),
+            'type' => 'twitter',
+        ];
     }
 
     if (isset($links['facebook_page'])) {
-        $out[] = array(
-                'href' => _htmlentities($links['facebook_page']),
-                'text' => _htmlentities($links['facebook_page']),
-                'type' => 'facebook'
-        );
+        $out[] = [
+            'href' => _htmlentities($links['facebook_page']),
+            'text' => _htmlentities($links['facebook_page']),
+            'type' => 'facebook',
+        ];
     }
 
     return $out;
 }
 
 function person_topics($member) {
-    $out = array();
+    $out = [];
 
     $extra_info = $member->extra_info();
 
@@ -953,7 +956,7 @@ function constituency_previous_mps($member) {
     if ($member->house(HOUSE_TYPE_COMMONS)) {
         return $member->previous_mps();
     } else {
-        return array();
+        return [];
     }
 }
 
@@ -961,14 +964,14 @@ function constituency_future_mps($member) {
     if ($member->house(HOUSE_TYPE_COMMONS)) {
         return $member->future_mps();
     } else {
-        return array();
+        return [];
     }
 }
 
 function person_pbc_membership($member) {
 
     $extra_info = $member->extra_info();
-    $out = array('info'=>'', 'data'=>array());
+    $out = ['info' => '', 'data' => []];
 
     # Public Bill Committees
     if (count($extra_info['pbc'])) {
@@ -981,11 +984,11 @@ function person_pbc_membership($member) {
                 $text .= 'Chairman, ';
             }
             $text .= $arr['title'] . ' Committee';
-            $out['data'][] = array(
+            $out['data'][] = [
                 'href'      => '/pbc/' . $arr['session'] . '/' . urlencode($arr['title']),
                 'text'      => $text,
-                'attending' => $arr['attending'] . ' out of ' . $arr['outof']
-            );
+                'attending' => $arr['attending'] . ' out of ' . $arr['outof'],
+            ];
         }
     }
 
@@ -997,7 +1000,7 @@ function person_register_interests($member, $extra_info) {
         return;
     }
 
-    $reg = array( 'date' => '', 'data' => '<p>Nil</p>' );
+    $reg = [ 'date' => '', 'data' => '<p>Nil</p>' ];
     if (isset($extra_info['register_member_interests_date'])) {
         $reg['date'] = format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
     }
@@ -1018,7 +1021,7 @@ function regional_list($pc, $area_type, $rep_type) {
     }
     global $PAGE;
     $a = array_values($constituencies);
-    $db = new ParlDB;
+    $db = new ParlDB();
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
         FROM member, person_names pn
         WHERE constituency IN ('" . join("','", $a) . "')
@@ -1028,10 +1031,13 @@ function regional_list($pc, $area_type, $rep_type) {
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
-        $q = $db->query($query_base . " AND $dissolution[query]",
-            $dissolution['params']);
+        $q = $db->query(
+            $query_base . " AND $dissolution[query]",
+            $dissolution['params']
+        );
     }
-    $mcon = array(); $mreg = array();
+    $mcon = [];
+    $mreg = [];
     foreach ($q as $row) {
         $house = $row['house'];
         $cons = $row['constituency'];
@@ -1092,10 +1098,10 @@ function regional_list($pc, $area_type, $rep_type) {
     }
 
     foreach($mreg as $reg) {
-        $data['members'][] = array (
+        $data['members'][] =  [
             'url' => '/' . $rep_type . '/?p=' . $reg['person_id'],
-            'name' => $reg['given_name'] . ' ' . $reg['family_name']
-        );
+            'name' => $reg['given_name'] . ' ' . $reg['family_name'],
+        ];
 
     }
 
@@ -1105,7 +1111,7 @@ function regional_list($pc, $area_type, $rep_type) {
 }
 
 function policy_image($data, $MEMBER, $format) {
-    $policiesList = new MySociety\TheyWorkForYou\Policies;
+    $policiesList = new MySociety\TheyWorkForYou\Policies();
     $set_descriptions = $policiesList->getSetDescriptions();
     $policy_set = get_http_var('policy_set');
 
@@ -1115,13 +1121,14 @@ function policy_image($data, $MEMBER, $format) {
     }
 
     // Generate voting segments
-    $data['segment'] = array(
+    $data['segment'] = [
         'key'   => $policy_set,
         'title' => $policiesList->getSetDescriptions()[$policy_set],
         'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-            $policiesList->limitToSet($policy_set), $MEMBER
-        )
-    );
+            $policiesList->limitToSet($policy_set),
+            $MEMBER
+        ),
+    ];
 
     if ($format === 'png') {
         ob_start();
@@ -1161,7 +1168,7 @@ function person_party_policy_diffs($MEMBER, $policiesList) {
     # comparison which is Commons only
     $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
 
-    $positions = new MySociety\TheyWorkForYou\PolicyPositions( $policiesList, $MEMBER, [
+    $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER, [
         'summaries' => $policySummaries,
     ]);
     $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions);

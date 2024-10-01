@@ -3,30 +3,26 @@
 /**
  * Provides test methods to ensure pages contain what we want them to in various ways.
  */
-class SectionTest extends FetchPageTestCase
-{
-
-    public function getDataSet()
-    {
+class SectionTest extends FetchPageTestCase {
+    public function getDataSet() {
         return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/section.xml');
     }
 
-    private function fetch_page($vars)
-    {
+    private function fetch_page($vars) {
         return $this->base_fetch_page($vars, '', 'section.php');
     }
 
-    var $types = array('debates', 'whall', 'wrans', 'wms', 'ni', 'sp', 'spwrans', 'lords');
+    public $types = ['debates', 'whall', 'wrans', 'wms', 'ni', 'sp', 'spwrans', 'lords'];
 
     public function testDebatesFront() {
         foreach ($this->types as $type) {
-            $this->fetch_page( array( 'type' => $type ) );
+            $this->fetch_page([ 'type' => $type ]);
         }
     }
 
     public function testDebatesYear() {
         foreach ($this->types as $type) {
-            $page = $this->fetch_page( array( 'type' => $type, 'y' => '2014' ) );
+            $page = $this->fetch_page([ 'type' => $type, 'y' => '2014' ]);
             $this->assertStringContainsString('<div class="calendar">', $page);
             $this->assertStringContainsString('January', $page);
             $this->assertMatchesRegularExpression('/<td colspan="2">&nbsp;<\/td><td[^>]*><a href="\/' . $type . '\/\?d=2014-01-01">1<\/a><\/td><td[^>]*><span>2<\/span><\/td>/', $page);
@@ -35,7 +31,7 @@ class SectionTest extends FetchPageTestCase
 
     public function testDebatesDay() {
         foreach ($this->types as $type) {
-            $page = $this->fetch_page( array( 'type' => $type, 'd' => '2014-01-01' ) );
+            $page = $this->fetch_page([ 'type' => $type, 'd' => '2014-01-01' ]);
             $this->assertStringContainsString('Wednesday,  1 January 2014', $page);
             $this->assertStringContainsString('HeadingA', $page);
             if ($type == 'wrans') {
@@ -60,7 +56,7 @@ class SectionTest extends FetchPageTestCase
                 continue;
             }
 
-            $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.1' ) );
+            $page = $this->fetch_page([ 'type' => $type, 'id' => '2014-01-01b.1.1' ]);
             if ($type == 'wrans') {
                 $this->assertMatchesRegularExpression("#All .*?written answers on  1 Jan 2014#i", $page);
                 $this->assertStringContainsString("QuestionA", $page);
@@ -72,7 +68,7 @@ class SectionTest extends FetchPageTestCase
 
     public function testDebatesSubheading() {
         foreach ($this->types as $type) {
-            $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.2' ) );
+            $page = $this->fetch_page([ 'type' => $type, 'id' => '2014-01-01b.1.2' ]);
             $this->assertStringContainsString("HeadingA", $page);
             if ($type == 'spwrans') {
                 $this->assertStringContainsString("QuestionA", $page);
@@ -102,7 +98,7 @@ class SectionTest extends FetchPageTestCase
 
     public function testDebatesSpeech() {
         foreach ($this->types as $type) {
-            $page = $this->fetch_page( array( 'type' => $type, 'id' => '2014-01-01b.1.3' ) );
+            $page = $this->fetch_page([ 'type' => $type, 'id' => '2014-01-01b.1.3' ]);
             if ($type == 'wrans' || $type == 'spwrans' || $type == 'wms') {
                 $this->assertMatchesRegularExpression("#Location: .*?/$type/\?id=2014-01-01b\.1\.2#", $page);
             } else {
@@ -127,13 +123,13 @@ class SectionTest extends FetchPageTestCase
      * @group xapian
      */
     public function testGlossaryAndSearchHighlights() {
-            $page = $this->fetch_page( array( 'type' => 'lords', 's' => 'constituency', 'id' => '2014-02-02b.1.3' ) );
-            $this->assertStringContainsString("constituency", $page);
-            $this->assertStringContainsString("<span class=\"hi\"><a href=\"/glossary/?gl=1\" title=\"In a general election, each Constituency chooses an MP to represent them....\" class=\"glossary\">constituency</a></span>", $page);
+        $page = $this->fetch_page([ 'type' => 'lords', 's' => 'constituency', 'id' => '2014-02-02b.1.3' ]);
+        $this->assertStringContainsString("constituency", $page);
+        $this->assertStringContainsString("<span class=\"hi\"><a href=\"/glossary/?gl=1\" title=\"In a general election, each Constituency chooses an MP to represent them....\" class=\"glossary\">constituency</a></span>", $page);
     }
 
     public function testGidRedirect() {
-        $page = $this->fetch_page( array( 'type' => 'wrans', 'id' => '2014-01-01a.187335.h' ) );
+        $page = $this->fetch_page([ 'type' => 'wrans', 'id' => '2014-01-01a.187335.h' ]);
         $this->assertMatchesRegularExpression("#Location: .*?/wrans/\?id=2014-01-01b\.1\.2#", $page);
     }
 }

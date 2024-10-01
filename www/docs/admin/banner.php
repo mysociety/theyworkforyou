@@ -3,15 +3,15 @@
 include_once '../../includes/easyparliament/init.php';
 
 
-$db = new ParlDB;
-$banner = new MySociety\TheyWorkForYou\Model\AnnouncementManagement;
+$db = new ParlDB();
+$banner = new MySociety\TheyWorkForYou\Model\AnnouncementManagement();
 
 $editorial_option = 'banner';
 if (get_http_var('editorial_option')) {
     $editorial_option = get_http_var('editorial_option');
 }
 
-if ($editorial_option == "banner"){
+if ($editorial_option == "banner") {
     $this_page = 'admin_banner';
 } elseif ($editorial_option == "announcements") {
     $this_page = 'admin_announcement';
@@ -68,12 +68,12 @@ function edit_banner_form() {
         $out .= "<h1>Edit banner</h1>";
         $out .= '<p><label for="banner">JSON input for banner.<br>';
         $out .= '<span><a href="https://gist.github.com/ajparsons/778e752ac110f595e1230ee908be9c5e">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
-    } else if ($editorial_option == "announcements") {
+    } elseif ($editorial_option == "announcements") {
         $out .= "<h1>Edit Announcements</h1>";
         $out .= '<p><label for="banner">JSON input for announcements and sidebars.<br>';
         $out .= '<span><a href="https://gist.github.com/ajparsons/ff8029afd333122775864b58fbe29433">See example of format</a>, <a href="https://jsonformatter.curiousconcept.com/">Link to online JSON validator</a></span><br>';
     };
-     $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
+    $out .= '<textarea id="banner_text" name="banner" rows="30" cols="80">' . htmlentities($text) . "</textarea></p>\n";
     $out .= '<span class="formw"><input name="btnaction" type="submit" value="Save"></span>';
     $out .= '</form>';
 
@@ -84,8 +84,8 @@ function update_banner() {
     global $banner;
     global $editorial_option;
     $banner_text = get_http_var('banner');
-    
-    if ( $banner->set_json($banner_text, $editorial_option) ) {
+
+    if ($banner->set_json($banner_text, $editorial_option)) {
         $out = "<h4>update successful</h4>";
         $out .= "<p>Json is now:</p><p>$banner_text</p>";
     } else {
@@ -97,11 +97,11 @@ function update_banner() {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'    => 'html',
-        'content' => $menu
-    )
-));
+        'content' => $menu,
+    ],
+]);
 
 $PAGE->page_end();

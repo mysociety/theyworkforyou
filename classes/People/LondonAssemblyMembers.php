@@ -7,9 +7,7 @@
 
 namespace MySociety\TheyWorkForYou\People;
 
-class LondonAssemblyMembers extends \MySociety\TheyWorkForYou\People
-{
-
+class LondonAssemblyMembers extends \MySociety\TheyWorkForYou\People {
     public $type = 'london-assembly-members';
     public $rep_name = 'London Assembly Member';
     public $rep_plural = 'London Assembly Members';

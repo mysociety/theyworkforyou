@@ -1,32 +1,32 @@
 <?php
 
-    $stances = array();
+$stances = [];
 
-    foreach ($segment['votes']->positions as $key_vote) {
-        if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
-            $stance = strip_tags($key_vote['desc'], '<b>');
-            $stance = ucfirst($stance);
-            $stance = preg_replace('#</?b[^>]*>#i', '*', $stance);
-            $stance = htmlentities(html_entity_decode($stance), ENT_COMPAT | ENT_XML1);
-            $lines = explode("\n", wordwrap($stance, 84));
+foreach ($segment['votes']->positions as $key_vote) {
+    if ($key_vote['has_strong'] || $key_vote['position'] == 'has never voted on') {
+        $stance = strip_tags($key_vote['desc'], '<b>');
+        $stance = ucfirst($stance);
+        $stance = preg_replace('#</?b[^>]*>#i', '*', $stance);
+        $stance = htmlentities(html_entity_decode($stance), ENT_COMPAT | ENT_XML1);
+        $lines = explode("\n", wordwrap($stance, 84));
 
-            $stances[] = $lines;
-        }
+        $stances[] = $lines;
     }
+}
 
-    $color_cream = '#F3F1EB';
-    $color_green = '#62B356';
+$color_cream = '#F3F1EB';
+$color_green = '#62B356';
 
-    $stance_lineheight = 30;
-    $stance_baseline_offset = 20; // because ImageMagick doesn't support `alignment-baseline`
-    $stance_padding_top = 14;
-    $stance_padding_bottom = 8;
+$stance_lineheight = 30;
+$stance_baseline_offset = 20; // because ImageMagick doesn't support `alignment-baseline`
+$stance_padding_top = 14;
+$stance_padding_bottom = 8;
 
-    header("Content-type: image/svg+xml");
+header("Content-type: image/svg+xml");
 
-    echo '<?xml version="1.0" encoding="utf-8"?>';
+echo '<?xml version="1.0" encoding="utf-8"?>';
 
- ?>
+?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="1000" height="500" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Source Sans Pro">
 
@@ -39,20 +39,20 @@
 
   <?php $stance_y = 200; ?>
 
-  <?php foreach ($stances as $i=>$lines) { ?>
+  <?php foreach ($stances as $i => $lines) { ?>
     <path d="M40,<?= $stance_y ?> L1000,<?= $stance_y ?>" stroke="#DDD8C9" stroke-width="2"></path>
     <text font-size="24" font-weight="normal" fill="#000000">
-        <?php foreach ($lines as $j=>$line) { ?>
+        <?php foreach ($lines as $j => $line) { ?>
             <tspan x="40" y="<?= $stance_y + $stance_padding_top + $stance_baseline_offset + ($stance_lineheight * $j) ?>"><?php
-                if (strpos($line, '*') !== False) {
-                    echo preg_replace(
-                        '#(?:^|[*])([^\r\n *][^*\n]*[^\r\n *])(?:$|[*])#i',
-                        '$1',
-                        $line
-                    );
-                } else {
-                    echo $line;
-                }
+               if (strpos($line, '*') !== false) {
+                   echo preg_replace(
+                       '#(?:^|[*])([^\r\n *][^*\n]*[^\r\n *])(?:$|[*])#i',
+                       '$1',
+                       $line
+                   );
+               } else {
+                   echo $line;
+               }
             ?></tspan>
         <?php } ?>
     </text>

@@ -2,7 +2,7 @@
 
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
-$this->block_start(array('id'=>'help', 'title'=>"What is the Northern Ireland Assembly?"));
+$this->block_start(['id' => 'help', 'title' => "What is the Northern Ireland Assembly?"]);
 ?>
 
 <p>The current <strong>Northern Ireland Assembly</strong> was established in

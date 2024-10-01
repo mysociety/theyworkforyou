@@ -8,7 +8,7 @@
 
                 <div class="row">
                 <span class="label"><?= gettext('Website') ?></span>
-                <span class="formw"><?= $website == '' ? 'none' : '<a rel="nofollow" href="' . _htmlentities($website) . '">'. _htmlentities($website) . '</a>' ?></span>
+                <span class="formw"><?= $website == '' ? 'none' : '<a rel="nofollow" href="' . _htmlentities($website) . '">' . _htmlentities($website) . '</a>' ?></span>
                 </div>
 
                 <div class="row">

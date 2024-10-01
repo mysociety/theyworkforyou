@@ -37,7 +37,6 @@ etc.
 // CLASS:  ALERT
 
 class ALERT {
-
     public $token_checked = null;
     private $alert_id = "";
     public $email = "";
@@ -46,10 +45,10 @@ class ALERT {
     private $db;
 
     public function __construct() {
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
     }
 
-// FUNCTION: fetch_between
+    // FUNCTION: fetch_between
 
     public function fetch_between($confirmed, $deleted, $start_date, $end_date) {
         // Return summary data on all the alerts that were created between $start_date
@@ -61,22 +60,22 @@ class ALERT {
             AND      deleted = :deleted
             AND      created >= :start_date
             AND      created <= :end_date
-            GROUP BY criteria", array(
+            GROUP BY criteria", [
             ':confirmed' => $confirmed,
             ':deleted' => $deleted,
             ':start_date' => $start_date,
-            ':end_date' => $end_date
-            ));
-        $data = array();
+            ':end_date' => $end_date,
+        ]);
+        $data = [];
         foreach ($q as $row) {
-            $contents = array('criteria' => $row['criteria'], 'count' => $row['cnt']);
+            $contents = ['criteria' => $row['criteria'], 'count' => $row['cnt']];
             $data[] = $contents;
         }
-        $data = array ('alerts' => $data);
+        $data =  ['alerts' => $data];
         return $data;
     }
 
-// FUNCTION: fetch
+    // FUNCTION: fetch
 
     public function fetch($confirmed, $deleted) {
         // Pass it an alert id and it will fetch data about alerts from the db
@@ -100,12 +99,12 @@ class ALERT {
 
         $data = $q->fetchAll();
         $info = "Alert";
-        $data = array ('info' => $info, 'data' => $data);
+        $data =  ['info' => $info, 'data' => $data];
 
         return $data;
     }
 
-    public function add($details, $confirmation_email=false, $instantly_confirm=true) {
+    public function add($details, $confirmation_email = false, $instantly_confirm = true) {
 
         // Adds a new alert's info into the database.
         // Then calls another function to send them a confirmation email.
@@ -121,19 +120,19 @@ class ALERT {
         $q = $this->db->query("SELECT * FROM alerts
             WHERE email = :email
             AND criteria = :criteria
-            AND confirmed=1", array(
-                ':email' => $details['email'],
-                ':criteria' => $criteria
-            ))->first();
+            AND confirmed=1", [
+            ':email' => $details['email'],
+            ':criteria' => $criteria,
+        ])->first();
         if ($q) {
             if ($q['deleted']) {
                 $this->db->query("UPDATE alerts SET deleted=0
                     WHERE email = :email
                     AND criteria = :criteria
-                    AND confirmed=1", array(
-                        ':email' => $details['email'],
-                        ':criteria' => $criteria
-                    ));
+                    AND confirmed=1", [
+                    ':email' => $details['email'],
+                    ':criteria' => $criteria,
+                ]);
                 return 1;
             } else {
                 return -2;
@@ -149,12 +148,12 @@ class ALERT {
                 :lang,
                 '0', '0', NOW()
             )
-        ", array(
+        ", [
             ':email' => $details['email'],
             ':criteria' => $criteria,
             ':pc' => $details['pc'],
             ':lang' => LANGUAGE,
-            ));
+        ]);
 
         if ($q->success()) {
 
@@ -170,7 +169,7 @@ class ALERT {
             // This gives a code for their email address which is then joined
             // to the timestamp so as to provide a unique ID for each alert.
 
-            $token = substr( password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16 );
+            $token = substr(password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16);
 
             // Full stops don't work well at the end of URLs in emails, so
             // replace them. And double slash would be treated as single and
@@ -184,10 +183,10 @@ class ALERT {
             $r = $this->db->query("UPDATE alerts
                         SET registrationtoken = :registration_token
                         WHERE alert_id = :alert_id
-                        ", array(
-                            ':registration_token' => $this->registrationtoken,
-                            ':alert_id' => $this->alert_id
-                        ));
+                        ", [
+                ':registration_token' => $this->registrationtoken,
+                ':alert_id' => $this->alert_id,
+            ]);
 
             if ($r->success()) {
                 // Updated DB OK.
@@ -208,9 +207,9 @@ class ALERT {
                     $this->db->query("UPDATE alerts
                         SET confirmed = '1'
                         WHERE alert_id = :alert_id
-                        ", array(
-                            ':alert_id' => $this->alert_id
-                        ));
+                        ", [
+                        ':alert_id' => $this->alert_id,
+                    ]);
                     return 1;
                 }
             } else {
@@ -224,7 +223,7 @@ class ALERT {
         }
     }
 
-// FUNCTION:  send_confirmation_email
+    // FUNCTION:  send_confirmation_email
 
     public function send_confirmation_email($details) {
 
@@ -248,22 +247,22 @@ class ALERT {
 
         $urltoken = $this->alert_id . '-' . $this->registrationtoken;
 
-        if ( isset($details['confirm_base']) && $details['confirm_base'] !== '' ) {
+        if (isset($details['confirm_base']) && $details['confirm_base'] !== '') {
             $confirmurl = $details['confirm_base'] . $urltoken;
         } else {
             $confirmurl = 'https://' . DOMAIN . '/A/' . $urltoken;
         }
 
         // Arrays we need to send a templated email.
-        $data = array (
+        $data =  [
             'to' 		=> $details['email'],
-            'template' 	=> 'alert_confirmation'
-        );
+            'template' 	=> 'alert_confirmation',
+        ];
 
-        $merge = array (
+        $merge =  [
             'CONFIRMURL'	=> $confirmurl,
-            'CRITERIA'	=> $this->criteria_pretty()
-        );
+            'CRITERIA'	=> $this->criteria_pretty(),
+        ];
 
         $success = send_template_email($data, $merge);
         if ($success) {
@@ -274,17 +273,17 @@ class ALERT {
     }
 
     public function send_already_signedup_email($details) {
-        $data = array (
+        $data =  [
             'to' 		=> $details['email'],
-            'template' 	=> 'alert_already_signedup'
-        );
+            'template' 	=> 'alert_already_signedup',
+        ];
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
         $this->criteria = $criteria;
 
-        $merge = array (
-            'CRITERIA'	=> $this->criteria_pretty()
-        );
+        $merge =  [
+            'CRITERIA'	=> $this->criteria_pretty(),
+        ];
 
         $success = send_template_email($data, $merge);
         if ($success) {
@@ -298,10 +297,10 @@ class ALERT {
         $q = $this->db->query("SELECT alert_id FROM alerts
             WHERE confirmed AND NOT deleted
             AND email = :email
-            AND criteria = :criteria", array(
-                ':email' => $email,
-                ':criteria' => 'speaker:' . $pid
-            ));
+            AND criteria = :criteria", [
+            ':email' => $email,
+            ':criteria' => 'speaker:' . $pid,
+        ]);
         if ($q->rows() > 0) {
             return true;
         } else {
@@ -314,9 +313,9 @@ class ALERT {
 
         if ($email != "") {
             $q = $this->db->query("SELECT alert_id FROM alerts
-                WHERE email = :email", array(
-                    ':email' => $email
-                ));
+                WHERE email = :email", [
+                ':email' => $email,
+            ]);
             if ($q->rows() > 0) {
                 return true;
             } else {
@@ -339,7 +338,7 @@ class ALERT {
             return false;
         }
 
-        list($alert_id, $registrationtoken) = $token_parts;
+        [$alert_id, $registrationtoken] = $token_parts;
         if (!is_numeric($alert_id) || !$registrationtoken) {
             return false;
         }
@@ -348,40 +347,42 @@ class ALERT {
                         FROM alerts
                         WHERE alert_id = :alert_id
                         AND registrationtoken = :registration_token
-                        ", array(
-                            ':alert_id' => $alert_id,
-                            ':registration_token' => $registrationtoken
-                        ))->first();
+                        ", [
+            ':alert_id' => $alert_id,
+            ':registration_token' => $registrationtoken,
+        ])->first();
         if (!$q) {
             $this->token_checked = false;
         } else {
-            $this->token_checked = array(
+            $this->token_checked = [
                 'id' => $q['alert_id'],
                 'email' => $q['email'],
                 'criteria' => $q['criteria'],
-            );
+            ];
         }
 
         return $this->token_checked;
     }
 
     public function fetch_by_token($confirmation) {
-        $q = $this->db->query("SELECT alert_id, email, criteria
+        $q = $this->db->query(
+            "SELECT alert_id, email, criteria
                         FROM alerts
                         WHERE registrationtoken = :registration_token
-                        ", array(
-                            ':registration_token' => $confirmation
-                        )
-                    )->first();
+                        ",
+            [
+                ':registration_token' => $confirmation,
+            ]
+        )->first();
 
         if (!$q) {
             return false;
         } else {
-            return array(
+            return [
                 'id' => $q['alert_id'],
                 'email' => $q['email'],
                 'criteria' => $q['criteria'],
-            );
+            ];
         }
     }
 
@@ -395,9 +396,9 @@ class ALERT {
         }
         $this->criteria = $alert['criteria'];
         $this->email = $alert['email'];
-        $r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
+        $r = $this->db->query("UPDATE alerts SET confirmed = 1, deleted = 0 WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
 
         return $r->success();
     }
@@ -409,9 +410,9 @@ class ALERT {
         if (!($alert = $this->check_token($token))) {
             return false;
         }
-        $r = $this->db->query("DELETE FROM alerts WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
+        $r = $this->db->query("DELETE FROM alerts WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
 
         return $r->success();
     }
@@ -420,9 +421,9 @@ class ALERT {
         if (!($alert = $this->check_token($token))) {
             return false;
         }
-        $r = $this->db->query("DELETE FROM alerts WHERE email = :email", array(
-            ':email' => $alert['email']
-            ));
+        $r = $this->db->query("DELETE FROM alerts WHERE email = :email", [
+            ':email' => $alert['email'],
+        ]);
 
         return $r->success();
     }
@@ -431,9 +432,9 @@ class ALERT {
         if (!($alert = $this->check_token($token))) {
             return false;
         }
-        $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
+        $r = $this->db->query("UPDATE alerts SET deleted = 2 WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
 
         return $r->success();
     }
@@ -442,31 +443,35 @@ class ALERT {
         if (!($alert = $this->check_token($token))) {
             return false;
         }
-        $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = :alert_id", array(
-            ':alert_id' => $alert['id']
-            ));
+        $r = $this->db->query("UPDATE alerts SET deleted = 0 WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
 
         return $r->success();
     }
 
     // Getters
-    public function email() { return $this->email; }
-    public function criteria() { return $this->criteria; }
+    public function email() {
+        return $this->email;
+    }
+    public function criteria() {
+        return $this->criteria;
+    }
     public function criteria_pretty($html = false) {
-        $criteria = explode(' ',$this->criteria);
+        $criteria = explode(' ', $this->criteria);
         $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($this->criteria));
-        $words = array();
+        $words = [];
         foreach ($criteria as $c) {
-            if (!preg_match('#^speaker:(\d+)#',$c,$m)) {
+            if (!preg_match('#^speaker:(\d+)#', $c, $m)) {
                 $words[] = $c;
             }
         }
         $criteria = '';
         if (count($words)) {
-            $criteria .= ($html?'<li>':'* ') . sprintf(gettext('Mentions of [%s]'), implode(' ', $words)) . ($html?'</li>':'') . "\n";
+            $criteria .= ($html ? '<li>' : '* ') . sprintf(gettext('Mentions of [%s]'), implode(' ', $words)) . ($html ? '</li>' : '') . "\n";
         }
         if ($spokenby) {
-            $criteria .= ($html?'<li>':'* ') . sprintf(gettext("Things by %s"), implode(' or ', $spokenby)) . ($html?'</li>':'') . "\n";
+            $criteria .= ($html ? '<li>' : '* ') . sprintf(gettext("Things by %s"), implode(' or ', $spokenby)) . ($html ? '</li>' : '') . "\n";
         }
         return $criteria;
     }

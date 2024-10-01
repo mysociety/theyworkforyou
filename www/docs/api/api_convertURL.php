@@ -1,17 +1,17 @@
 <?php
 
 function api_convertURL_front() {
-?>
+    ?>
 <p><big>Converts a parliament.uk Hansard URL into a TheyWorkForYou one, if possible.</big></p>
 
 <h4>Arguments</h4>
 <dl>
 <dt>url (required)</dt>
 <dd>The parliament.uk URL you wish to convert, e.g.
-<?php	$db = new ParlDB;
+<?php	$db = new ParlDB();
     $q = $db->query('SELECT source_url FROM hansard WHERE major=1 AND hdate>"2006-07-01" ORDER BY RAND() LIMIT 1')->first();
     print $q['source_url'];
-?></dd>
+    ?></dd>
 </dl>
 
 <h4>Example Response</h4>
@@ -30,30 +30,30 @@ function api_convertURL_front() {
 /* Very similar to function in hansardlist.php, but separated */
 function get_listurl($q) {
     global $hansardmajors;
-    $id_data = array(
+    $id_data = [
         'gid' => fix_gid_from_db($q['gid']),
         'major' => $q['major'],
         'htype' => $q['htype'],
         'subsection_id' => $q['subsection_id'],
-    );
-    $db = new ParlDB;
+    ];
+    $db = new ParlDB();
     $LISTURL = new \MySociety\TheyWorkForYou\Url($hansardmajors[$id_data['major']]['page_all']);
     $fragment = '';
     if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
-        $LISTURL->insert( array( 'id' => $id_data['gid'] ) );
+        $LISTURL->insert([ 'id' => $id_data['gid'] ]);
     } else {
         $parent_epobject_id = $id_data['subsection_id'];
         $parent_gid = '';
         $r = $db->query("SELECT gid
                 FROM 	hansard
-                WHERE	epobject_id = :epobject_id", array(
-                    ':epobject_id' => $parent_epobject_id
-                    ))->first();
+                WHERE	epobject_id = :epobject_id", [
+            ':epobject_id' => $parent_epobject_id,
+        ])->first();
         if ($r) {
             $parent_gid = fix_gid_from_db($r['gid']);
         }
         if ($parent_gid != '') {
-            $LISTURL->insert( array( 'id' => $parent_gid ) );
+            $LISTURL->insert([ 'id' => $parent_gid ]);
             $fragment = '#g' . gid_to_anchor($id_data['gid']);
         }
     }
@@ -63,34 +63,34 @@ function get_listurl($q) {
 function api_converturl_url_output($q) {
     $gid = $q['gid'];
     $url = get_listurl($q);
-    $output = array(
+    $output = [
         'gid' => $gid,
-        'url' => 'https://www.theyworkforyou.com' . $url
-    );
+        'url' => 'https://www.theyworkforyou.com' . $url,
+    ];
     api_output($output);
 }
 function api_converturl_url($url) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $url_nohash = preg_replace('/#.*/', '', $url);
-    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = :url order by gid limit 1', array(
-        ':url' => $url
-        ))->first();
+    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url = :url order by gid limit 1', [
+        ':url' => $url,
+    ])->first();
     if ($q) {
         return api_converturl_url_output($q);
     }
 
-    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
-        ':url' => $url_nohash . '%'
-        ))->first();
+    $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', [
+        ':url' => $url_nohash . '%',
+    ])->first();
     if ($q) {
         return api_converturl_url_output($q);
     }
 
     $url_bound = str_replace('cmhansrd/cm', 'cmhansrd/vo', $url_nohash);
     if ($url_bound != $url_nohash) {
-        $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', array(
-            ':url' => $url_bound . '%'
-            ))->first();
+        $q = $db->query('select gid,major,htype,subsection_id from hansard where source_url like :url order by gid limit 1', [
+            ':url' => $url_bound . '%',
+        ])->first();
         if ($q) {
             return api_converturl_url_output($q);
         }

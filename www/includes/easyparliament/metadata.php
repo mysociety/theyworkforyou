@@ -1,4 +1,5 @@
 <?php
+
 // This file will be included by data.php
 // The path of the file should be set as METADATAPATH in config.php.
 
@@ -65,1268 +66,1268 @@
 
 */
 
-$page = array (
+$page =  [
 
-// Things used on EVERY page, unless overridden for a page:
-    'default' => array (
+    // Things used on EVERY page, unless overridden for a page:
+    'default' =>  [
         'parent'	=> '',
-        'session_vars' => array('super_debug'),
+        'session_vars' => ['super_debug'],
         'sitetitle'		=> 'TheyWorkForYou',
-    ),
+    ],
 
-// Every page on the site should have an entry below...
+    // Every page on the site should have an entry below...
 
-// KEEP THE PAGES IN ALPHABETICAL ORDER! TA.
+    // KEEP THE PAGES IN ALPHABETICAL ORDER! TA.
 
-    'about' => array (
+    'about' =>  [
         'title'			=> gettext('About us'),
-        'url'			=> 'about/'
-    ),
-    'parliaments' => array (
+        'url'			=> 'about/',
+    ],
+    'parliaments' =>  [
         'title' 	=> 'Parliaments and assemblies',
-        'url'       => 'parliaments/'
-    ),
+        'url'       => 'parliaments/',
+    ],
 
-    'alert_stats' => array (
+    'alert_stats' =>  [
         'title'			=> 'Email alerts statistics',
         'parent'		=> 'admin',
         'url'			=> 'admin/alert_stats.php',
-    ),
-    'admin_badusers' => array (
+    ],
+    'admin_badusers' =>  [
         'title'			=> 'Bad users',
         'parent'		=> 'admin',
-        'url'			=> 'admin/badusers.php'
-    ),
-    'admin_home' => array (
+        'url'			=> 'admin/badusers.php',
+    ],
+    'admin_home' =>  [
         'title'			=> 'Home',
         'parent'		=> 'admin',
-        'url'			=> 'admin/'
-    ),
-    'admin_comments' => array (
+        'url'			=> 'admin/',
+    ],
+    'admin_comments' =>  [
         'title'			=> 'Recent comments',
         'parent'		=> 'admin',
-        'url'			=> 'admin/comments.php'
-    ),
-    'admin_commentreport' => array (
+        'url'			=> 'admin/comments.php',
+    ],
+    'admin_commentreport' =>  [
         'title'			=> 'Processing a comment report',
         'parent'		=> 'admin',
         'url'			=> 'admin/report.php',
-        'session_vars'	=> array ('rid', 'cid')
-    ),
-    'admin_commentreports' => array (
+        'session_vars'	=>  ['rid', 'cid'],
+    ],
+    'admin_commentreports' =>  [
         'title'			=> 'Outstanding comment reports',
         'parent'		=> 'admin',
-        'url'			=> 'admin/reports.php'
-    ),
-    'admin_failedsearches' => array (
+        'url'			=> 'admin/reports.php',
+    ],
+    'admin_failedsearches' =>  [
         'title'			=> 'Failed searches',
         'parent'		=> 'admin',
-        'url'			=> 'admin/failedsearches.php'
-    ),
-    'admin_glossary' => array (
+        'url'			=> 'admin/failedsearches.php',
+    ],
+    'admin_glossary' =>  [
         'title'			=> 'Manage glossary entries',
         'parent'		=> 'admin',
-        'url'			=> 'admin/glossary.php'
-    ),
-    'admin_glossary_pending' => array (
+        'url'			=> 'admin/glossary.php',
+    ],
+    'admin_glossary_pending' =>  [
         'title'			=> 'Review pending glossary entries',
         'parent'		=> 'admin',
-        'url'			=> 'admin/glossary_pending.php'
-    ),
-    'admin_searchlogs' => array (
+        'url'			=> 'admin/glossary_pending.php',
+    ],
+    'admin_searchlogs' =>  [
         'title'			=> 'Recent searches',
         'parent'		=> 'admin',
-        'url'			=> 'admin/searchlogs.php'
-    ),
-    'admin_popularsearches' => array (
+        'url'			=> 'admin/searchlogs.php',
+    ],
+    'admin_popularsearches' =>  [
         'title'			=> 'Popular searches in last 30 days (first 1000)',
         'parent'		=> 'admin',
-        'url'			=> 'admin/popularsearches.php'
-    ),
-    'admin_statistics' => array (
+        'url'			=> 'admin/popularsearches.php',
+    ],
+    'admin_statistics' =>  [
         'title'			=> 'General statistics',
         'parent'		=> 'admin',
-        'url'			=> 'admin/statistics.php'
-    ),
-    'admin_reportstats' => array (
+        'url'			=> 'admin/statistics.php',
+    ],
+    'admin_reportstats' =>  [
         'title'			=> 'Reporting statistics',
         'parent'		=> 'admin',
-        'url'			=> 'admin/reporting_stats.php'
-    ),
-    'admin_photos' => array (
+        'url'			=> 'admin/reporting_stats.php',
+    ],
+    'admin_photos' =>  [
         'title'			=> 'Photo upload/attribution',
         'parent'		=> 'admin',
         'url'			=> 'admin/photos.php',
-    ),
-    'admin_profile_message' => array (
+    ],
+    'admin_profile_message' =>  [
         'title'			=> 'Profile message banner',
         'parent'		=> 'admin',
         'url'			=> 'admin/profile-message.php',
-    ),
-    'admin_mpurls' => array (
+    ],
+    'admin_mpurls' =>  [
         'title'			=> 'MP Websites',
         'parent'		=> 'admin',
         'url'			=> 'admin/websites.php',
-    ),
-    'admin_policies' => array (
+    ],
+    'admin_policies' =>  [
         'title'			=> 'MP Policy details',
         'parent'		=> 'admin',
         'url'			=> 'admin/policies.php',
-    ),
-    'admin_banner' => array (
+    ],
+    'admin_banner' =>  [
         'title'			=> 'Edit Banners',
         'parent'		=> 'admin',
         'url'			=> 'admin/banner.php?editorial_option=banner',
-    ),
-    'admin_announcement' => array (
+    ],
+    'admin_announcement' =>  [
         'title'			=> 'Edit Announcements',
         'parent'		=> 'admin',
         'url'			=> 'admin/banner.php?editorial_option=announcements',
-    ),
-    'admin_featured' => array (
+    ],
+    'admin_featured' =>  [
         'title'			=> 'Featured debates',
         'parent'		=> 'admin',
         'url'			=> 'admin/featured.php',
-    ),
-    'admin_topics' => array (
+    ],
+    'admin_topics' =>  [
         'title'			=> 'Topics',
         'parent'		=> 'admin',
         'url'			=> 'admin/topics.php',
-    ),
-    'admin_edittopics' => array (
+    ],
+    'admin_edittopics' =>  [
         'title'			=> 'Edit Topic',
         'parent'		=> 'admin_topics',
         'url'			=> 'admin/edittopic.php',
-    ),
-    'admin_wikipedia' => array (
+    ],
+    'admin_wikipedia' =>  [
         'title' => 'Wikipedia links',
         'parent' => 'admin',
         'url' => 'admin/wikipedia.php',
-    ),
+    ],
 
-// Added by Richard Allan for email alert functions
+    // Added by Richard Allan for email alert functions
 
-    'alert' => array (
-        'menu'			=> array (
+    'alert' =>  [
+        'menu'			=>  [
             'text'			=> 'Email Alerts',
             'title'			=> "Set up alerts for updates on an MP or Peer by email",
-            'sidebar'		=> 'alert'
+            'sidebar'		=> 'alert',
 
-        ),
+        ],
         'title'			=> 'TheyWorkForYou Email Alerts',
         'url'			=> 'alert/',
-    ),
-    'alertwelcome' => array (
+    ],
+    'alertwelcome' =>  [
         'title'			=> 'Email Alerts',
         'url'			=> 'alert/',
-    ),
+    ],
 
-// End of ALERTS additions
+    // End of ALERTS additions
 
-    'api_front'		=> array (
-        'menu'			=> array (
+    'api_front'		=>  [
+        'menu'			=>  [
             'text'			=> 'API',
-            'title'			=> 'Access our data'
-        ),
+            'title'			=> 'Access our data',
+        ],
         'title'			=> 'TheyWorkForYou API',
-        'url'			=> 'api/'
-    ),
-    'api_doc_front'		=> array (
-        'menu'			=> array (
+        'url'			=> 'api/',
+    ],
+    'api_doc_front'		=>  [
+        'menu'			=>  [
             'text'			=> 'API',
-            'title'			=> 'Access our data'
-        ),
+            'title'			=> 'Access our data',
+        ],
         'parent'		=> 'api_front',
-        'url'			=> 'api/'
-    ),
-    'api_key'		=> array (
+        'url'			=> 'api/',
+    ],
+    'api_key'		=>  [
         'title'			=> 'Plan and keys',
         'parent'		=> 'api_front',
-        'url'			=> 'api/key'
-    ),
-    'api_invoices'		=> array (
+        'url'			=> 'api/key',
+    ],
+    'api_invoices'		=>  [
         'title'			=> 'Invoices',
         'parent'		=> 'api_front',
-        'url'			=> 'api/invoices'
-    ),
+        'url'			=> 'api/invoices',
+    ],
 
-    'boundaries' => array(
+    'boundaries' => [
         'title' => 'Constituency boundaries',
         'url' => 'boundaries/',
-    ),
+    ],
 
-    'calendar_summary' => array (
-        'menu'			=> array (
+    'calendar_summary' =>  [
+        'menu'			=>  [
             'text'			=> 'Upcoming',
             'title'			=> '',
-        ),
+        ],
         'parent'		=> 'hansard',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_future_head' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_future_head' =>  [
         'parent'		=> 'calendar_summary',
         'title'			=> 'Upcoming business',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_future' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_future' =>  [
         'parent'		=> 'calendar_future_head',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_today_head' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_today_head' =>  [
         'parent'		=> 'calendar_summary',
         'title'			=> 'Today&rsquo;s business',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_today' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_today' =>  [
         'parent'		=> 'calendar_today_head',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_past_head' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_past_head' =>  [
         'parent'		=> 'calendar_summary',
         'title'			=> 'Previous business',
-        'url'			=> 'calendar/'
-    ),
-    'calendar_past' => array (
+        'url'			=> 'calendar/',
+    ],
+    'calendar_past' =>  [
         'parent'		=> 'calendar_past_head',
-        'url'			=> 'calendar/'
-    ),
+        'url'			=> 'calendar/',
+    ],
 
-    'cards' => array (
+    'cards' =>  [
         'title'			=> 'MP Stats Cards',
-        'url'			=> 'cards/'
-    ),
+        'url'			=> 'cards/',
+    ],
 
-    'campaign_foi' => array (
+    'campaign_foi' =>  [
         'title'			=> 'Freedom of Information (Parliament) Order 2009',
-        'url'			=> 'foiorder2009/'
-    ),
-    'campaign' => array (
+        'url'			=> 'foiorder2009/',
+    ],
+    'campaign' =>  [
         'title'			=> '', #Free Our Bills!',
-        'url'			=> 'freeourbills/'
-    ),
-    'campaign_edm' => array (
+        'url'			=> 'freeourbills/',
+    ],
+    'campaign_edm' =>  [
         'title'			=> 'Early Day Motion',
         'parent'		=> 'campaign',
-        'url'			=> 'freeourbills/'
-    ),
+        'url'			=> 'freeourbills/',
+    ],
 
-    'commentreport' => array (
+    'commentreport' =>  [
         'title'			=> 'Reporting a comment',
         'url'			=> 'report/',
-        'session_vars'	=> array ('id')
-    ),
+        'session_vars'	=>  ['id'],
+    ],
 
-    'comments_recent' => array (
-        'menu'			=> array (
+    'comments_recent' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent comments',
-            'title'			=> "Recently posted comments"
-        ),
+            'title'			=> "Recently posted comments",
+        ],
         'parent'		=> 'home',
         'title'			=> "Recent comments",
-        'url'			=> 'comments/recent/'
-    ),
+        'url'			=> 'comments/recent/',
+    ],
 
-    'contact' => array (
-        'menu'			=> array (
+    'contact' =>  [
+        'menu'			=>  [
             'text'			=> gettext('Contact'),
             'title'			=> '',
-        ),
+        ],
         'title'			=> gettext('Contact'),
-        'url'			=> 'contact/'
-    ),
-    'news' => array(
+        'url'			=> 'contact/',
+    ],
+    'news' => [
         'title' => gettext('News'),
-        'url' => 'https://www.mysociety.org/category/projects/theyworkforyou/'
-    ),
-    'debate'  => array (
+        'url' => 'https://www.mysociety.org/category/projects/theyworkforyou/',
+    ],
+    'debate'  =>  [
         'parent'		=> 'debatesfront',
         'url'			=> 'debates/',
-        'session_vars'	=> array ('id'),
-    ),
-    'debates'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'debates'  =>  [
         'parent'		=> 'debatesfront',
         'url'			=> 'debates/',
-        'session_vars'	=> array ('id'),
-    ),
-    'debatesday' => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'debatesday' =>  [
         'parent'		=> 'debatesfront',
-        'session_vars'	=> array ('d'),
+        'session_vars'	=>  ['d'],
         'url'			=> 'debates/',
-    ),
-    'alldebatesfront' => array (
-        'menu'			=> array (
+    ],
+    'alldebatesfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Debates',
-            'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords"
-        ),
+            'title'			=> "Debates in the House of Commons, Westminster Hall, and the House of Lords",
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'UK Parliament Hansard Debates',
         'rss'			=> 'rss/debates.rss',
-        'url'			=> 'debates/'
-    ),
-    'debatesfront' => array (
-        'menu'			=> array (
+        'url'			=> 'debates/',
+    ],
+    'debatesfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Commons debates',
-            'title'			=> "Debates in the House of Commons"
-        ),
+            'title'			=> "Debates in the House of Commons",
+        ],
         'parent'		=> 'alldebatesfront',
         'title'			=> 'House of Commons debates',
         'rss'			=> 'rss/debates.rss',
-        'url'			=> 'debates/'
-    ),
-    'debatesyear' => array (
+        'url'			=> 'debates/',
+    ],
+    'debatesyear' =>  [
         'parent'		=> 'debatesfront',
-        'url'			=> 'debates/'
-    ),
-    'divisions_recent' => array (
-        'menu'			=> array (
+        'url'			=> 'debates/',
+    ],
+    'divisions_recent' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent Votes',
-            'title'			=> ''
-        ),
+            'title'			=> '',
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'Recent Votes',
-        'url'			=> 'divisions/'
-    ),
-    'divisions_recent_commons' => array (
-        'menu'			=> array (
+        'url'			=> 'divisions/',
+    ],
+    'divisions_recent_commons' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent Votes (Commons)',
-            'title'			=> 'Recent Votes (Commons)'
-        ),
+            'title'			=> 'Recent Votes (Commons)',
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'Recent Votes',
-        'url'			=> 'divisions/?house=commons'
-    ),
-    'divisions_recent_lords' => array (
-        'menu'			=> array (
+        'url'			=> 'divisions/?house=commons',
+    ],
+    'divisions_recent_lords' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent Votes (Lords)',
-            'title'			=> 'Recent Votes (Lords)'
-        ),
+            'title'			=> 'Recent Votes (Lords)',
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'Recent Votes',
-        'url'			=> 'divisions/?house=lords'
-    ),
-    'divisions_recent_wales' => array (
-        'menu'			=> array (
+        'url'			=> 'divisions/?house=lords',
+    ],
+    'divisions_recent_wales' =>  [
+        'menu'			=>  [
             'text'			=> gettext('Recent Votes'),
-            'title'			=> gettext('Recent Votes')
-        ),
+            'title'			=> gettext('Recent Votes'),
+        ],
         'parent'		=> 'wales_home',
         'title'			=> gettext('Recent Votes'),
-        'url'			=> 'divisions/?house=senedd'
-    ),
-    'divisions_recent_sp' => array (
-        'menu'			=> array (
+        'url'			=> 'divisions/?house=senedd',
+    ],
+    'divisions_recent_sp' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent Votes',
-            'title'			=> 'Recent Votes'
-        ),
+            'title'			=> 'Recent Votes',
+        ],
         'parent'		=> 'sp_home',
         'title'			=> 'Recent Votes',
-        'url'			=> 'divisions/?house=scotland'
-    ),
-    'divisions_vote' => array (
+        'url'			=> 'divisions/?house=scotland',
+    ],
+    'divisions_vote' =>  [
         'parent'		=> 'divisions_recent',
         'title'			=> 'Vote',
         'url'			=> 'divisions/division.php',
-        'session_vars'	=> array('vote'),
-    ),
-    'donate' => array (
-        'menu'			=> array (
+        'session_vars'	=> ['vote'],
+    ],
+    'donate' =>  [
+        'menu'			=>  [
             'text'			=> gettext('Donate'),
             'title'			=> '',
-        ),
+        ],
         'title'			=> gettext('Donate'),
         'url'			=> 'support-us/',
-    ),
-    'epvote' => array (
-        'url'			=> 'vote/'
-    ),
+    ],
+    'epvote' =>  [
+        'url'			=> 'vote/',
+    ],
 
-    'gadget' => array(
+    'gadget' => [
         'url'			=> 'gadget/',
         'title'			=> 'TheyWorkForYou Google gadget',
-    ),
+    ],
 
-    'glossary' => array (
+    'glossary' =>  [
         'heading'		=> 'Glossary',
         'parent'		=> 'help_us_out',
-        'url'			=> 'glossary/'
-    ),
-    'glossary_item' => array (
+        'url'			=> 'glossary/',
+    ],
+    'glossary_item' =>  [
         'heading'		=> 'Glossary heading',
         'parent'		=> 'help_us_out',
         'url'			=> 'glossary/',
-        'session_vars'	=> array ('g')
-    ),
-    'hansard' => array (
-        'menu'			=> array (
+        'session_vars'	=>  ['g'],
+    ],
+    'hansard' =>  [
+        'menu'			=>  [
             'text'			=> 'UK Parliament',
-            'title'			=> "Houses of Parliament debates, Written Answers, Statements, Westminster Hall debates, and Bill Committees"
-        ),
+            'title'			=> "Houses of Parliament debates, Written Answers, Statements, Westminster Hall debates, and Bill Committees",
+        ],
         'title'			=> '',
-        'url'			=> ''
-    ),
-        // Hansard landing page
-        'hansard_landing' => array (
-                'title'                 => 'Hansard',
-                'url'                   => 'search-hansard/',
-        ),
-    'help' => array (
+        'url'			=> '',
+    ],
+    // Hansard landing page
+    'hansard_landing' =>  [
+        'title'                 => 'Hansard',
+        'url'                   => 'search-hansard/',
+    ],
+    'help' =>  [
         'title'			=> gettext('Help - Frequently Asked Questions'),
-        'url'			=> 'help/'
-    ),
-    'help_us_out' => array (
-        'menu'			=> array (
+        'url'			=> 'help/',
+    ],
+    'help_us_out' =>  [
+        'menu'			=>  [
             'text'			=> 'Glossary',
-            'title'			=> "Parliament's jargon explained"
-        ),
+            'title'			=> "Parliament's jargon explained",
+        ],
         'title'			=> 'Glossary',
         'heading'		=> 'Add a glossary item',
         'url'			=> 'addterm/',
-        'sidebar'		=> 'glossary_add'
-    ),
-    'home' => array (
+        'sidebar'		=> 'glossary_add',
+    ],
+    'home' =>  [
         'title'			=> "UK Parliament",
         'rss'			=> 'news/index.rdf',
-        'url'			=> ''
-    ),
-    'houserules' => array (
+        'url'			=> '',
+    ],
+    'houserules' =>  [
         'title'			=> 'House rules',
-        'url'			=> 'houserules/'
-    ),
+        'url'			=> 'houserules/',
+    ],
 
-    'linktous' => array (
+    'linktous' =>  [
         'title'			=> gettext('Link to us'),
         'heading'		=> gettext('How to link to us'),
-        'url'			=> 'help/linktous/'
-    ),
-    'api' => array (
+        'url'			=> 'help/linktous/',
+    ],
+    'api' =>  [
         'title'			=> gettext('API'),
         'heading'		=> gettext('API - Query the TheyWorkForYou database'),
-        'url'			=> 'api/'
-    ),
-    'data' => array (
+        'url'			=> 'api/',
+    ],
+    'data' =>  [
         'title'			=> gettext('Raw Data'),
         'heading'		=> gettext('Raw data (XML) - the data behind TheyWorkForYou and Public Whip'),
-        'url'			=> 'https://parser.theyworkforyou.com'
-    ),
-    'devmailinglist' => array (
+        'url'			=> 'https://parser.theyworkforyou.com',
+    ],
+    'devmailinglist' =>  [
         'title'			=> gettext('Developer mailing list'),
-        'url'			=> 'https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou'
-    ),
-    'code' => array (
+        'url'			=> 'https://groups.google.com/a/mysociety.org/forum/#!forum/theyworkforyou',
+    ],
+    'code' =>  [
         'title'			=> gettext('Source code'),
         'heading'		=> gettext('TheyWorkForYou Source code'),
-        'url'			=> 'https://github.com/mysociety/theyworkforyou'
-    ),
-    'australia' => array (
+        'url'			=> 'https://github.com/mysociety/theyworkforyou',
+    ],
+    'australia' =>  [
         'title'			=> 'Australia',
         'heading'		=> 'Open Australia',
-        'url'			=> 'https://www.openaustralia.org/'
-    ),
-    'ireland' => array (
+        'url'			=> 'https://www.openaustralia.org/',
+    ],
+    'ireland' =>  [
         'title'			=> 'Ireland',
         'heading'		=> 'TheyWorkForYou for the Houses of the Oireachtas',
-        'url'			=> 'https://www.kildarestreet.com/'
-    ),
-    'mzalendo' => array (
+        'url'			=> 'https://www.kildarestreet.com/',
+    ],
+    'mzalendo' =>  [
         'title'			=> 'Mzalendo',
         'heading'		=> 'Keeping an eye on the Kenyan Parliament',
-        'url'			=> 'https://info.mzalendo.com/'
-    ),
-    'lordsdebate'  => array (
+        'url'			=> 'https://info.mzalendo.com/',
+    ],
+    'lordsdebate'  =>  [
         'parent'		=> 'lordsdebatesfront',
         'url'			=> 'lords/',
-        'session_vars'	=> array ('id'),
-    ),
-    'lordsdebates'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'lordsdebates'  =>  [
         'parent'		=> 'lordsdebatesfront',
         'url'			=> 'lords/',
-        'session_vars'	=> array ('id'),
-    ),
-    'lordsdebatesday' => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'lordsdebatesday' =>  [
         'parent'		=> 'lordsdebatesfront',
-        'session_vars'	=> array ('d'),
+        'session_vars'	=>  ['d'],
         'url'			=> 'lords/',
-    ),
-    'lordsdebatesfront' => array (
-        'menu'			=> array (
+    ],
+    'lordsdebatesfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Lords debates',
-            'title'			=> "House of Lords debates"
-        ),
+            'title'			=> "House of Lords debates",
+        ],
         'parent'		=> 'alldebatesfront',
         'title'			=> 'House of Lords debates',
         'rss'			=> 'rss/lords.rss',
-        'url'			=> 'lords/'
-    ),
-    'lordsdebatesyear' => array (
+        'url'			=> 'lords/',
+    ],
+    'lordsdebatesyear' =>  [
         'parent'		=> 'lordsdebatesfront',
-        'url'			=> 'lords/'
-    ),
+        'url'			=> 'lords/',
+    ],
 
-        // Parliament landing page
-        'parliament_landing' => array (
-                'title'                 => 'Parliament',
-                'url'                   => 'parliament/',
-        ),
+    // Parliament landing page
+    'parliament_landing' =>  [
+        'title'                 => 'Parliament',
+        'url'                   => 'parliament/',
+    ],
 
-    'peer' => array (
+    'peer' =>  [
         'parent'		=> 'peers',
         'title'			=> 'Peer',
-        'url'			=> 'peer/'
-    ),
-    'peers' => array (
-            'menu'			=> array (
+        'url'			=> 'peer/',
+    ],
+    'peers' =>  [
+        'menu'			=>  [
             'text'			=> 'Lords',
-            'title'			=> "List of Lords"
-        ),
+            'title'			=> "List of Lords",
+        ],
         'parent'		=> 'hansard',
         'title'			=> '',
-        'url'			=> 'peers/'
-    ),
-'overview' => array (
-        'menu'			=> array (
-        'text'			=> 'Overview',
-        'title'			=> "Overview of the UK Parliament"
-    ),
-    'parent'		=> 'hansard',
-    'title'			=> "Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly - done right",
-    'rss'			=> 'news/index.rdf',
-    'url'			=> ''
-),
-    'mla' => array (
+        'url'			=> 'peers/',
+    ],
+    'overview' =>  [
+        'menu'			=>  [
+            'text'			=> 'Overview',
+            'title'			=> "Overview of the UK Parliament",
+        ],
+        'parent'		=> 'hansard',
+        'title'			=> "Hansard and Official Reports for the UK Parliament, Scottish Parliament, and Northern Ireland Assembly - done right",
+        'rss'			=> 'news/index.rdf',
+        'url'			=> '',
+    ],
+    'mla' =>  [
         'parent'		=> 'mlas',
         'title'			=> 'Find your MLA',
-        'url'			=> 'mla/'
-    ),
-    'mlas' => array (
+        'url'			=> 'mla/',
+    ],
+    'mlas' =>  [
         'parent'		=> 'ni_home',
-        'menu'			=> array (
+        'menu'			=>  [
             'text'			=> 'MLAs',
-            'title'			=> "List of Members of the Northern Ireland Assembly (MLAs)"
-        ),
+            'title'			=> "List of Members of the Northern Ireland Assembly (MLAs)",
+        ],
         'title'			=> '',
-        'url'			=> 'mlas/'
-    ),
-    'msps' => array (
+        'url'			=> 'mlas/',
+    ],
+    'msps' =>  [
         'parent'		=> 'sp_home',
-        'menu'			=> array (
+        'menu'			=>  [
             'text'			=> 'MSPs',
-            'title'			=> "List of Members of the Scottish Parliament (MSPs)"
-        ),
+            'title'			=> "List of Members of the Scottish Parliament (MSPs)",
+        ],
         'title'			=> '',
-        'url'			=> 'msps/'
-    ),
-    'msp' => array (
+        'url'			=> 'msps/',
+    ],
+    'msp' =>  [
         'parent'		=> 'msps',
         'title'			=> 'Find your MSP',
-        'url'			=> 'msp/'
-    ),
+        'url'			=> 'msp/',
+    ],
     /* Not 'Your MP', whose name is 'yourmp'... */
-    'mp' => array (
+    'mp' =>  [
         'parent'			=> 'mps',
         'title'			=> 'Find your MP',
-        'url'			=> 'mp/'
-    ),
-    'emailfriend' => array (
+        'url'			=> 'mp/',
+    ],
+    'emailfriend' =>  [
         'title'			=> 'Send this page to a friend',
-        'url'			=> 'email/'
-    ),
+        'url'			=> 'email/',
+    ],
     // The directory MPs' RSS feeds are stored in.
-    'mp_rss' => array (
-        'url'			=> 'rss/mp/'
-    ),
-    'mps' => array (
-            'menu'			=> array (
+    'mp_rss' =>  [
+        'url'			=> 'rss/mp/',
+    ],
+    'mps' =>  [
+        'menu'			=>  [
             'text'			=> 'MPs',
-            'title'			=> "List of Members of Parliament (MPs)"
-        ),
+            'title'			=> "List of Members of Parliament (MPs)",
+        ],
         'parent'		=> 'hansard',
         'title'			=> '',
-        'url'			=> 'mps/'
-    ),
+        'url'			=> 'mps/',
+    ],
 
     /* Northern Ireland Assembly */
-    'ni_home' => array(
-        'menu'			=> array (
+    'ni_home' => [
+        'menu'			=>  [
             'text'			=> 'Northern Ireland Assembly',
-            'title'			=> 'Full authority over <em>transferred matters</em>, which include agriculture, education, employment, the environment and health'
-        ),
+            'title'			=> 'Full authority over <em>transferred matters</em>, which include agriculture, education, employment, the environment and health',
+        ],
         'title'			=> 'Northern Ireland Assembly',
-        'url'			=> 'ni/'
-    ),
-    'nioverview' => array (
+        'url'			=> 'ni/',
+    ],
+    'nioverview' =>  [
         'parent'		=> 'ni_home',
-        'menu'			=> array (
+        'menu'			=>  [
             'text'			=> 'Debates',
-            'title'			=> "Debates in the Northern Ireland Assembly"
-        ),
+            'title'			=> "Debates in the Northern Ireland Assembly",
+        ],
         'title'			=> '',
         'rss'			=> 'rss/ni.rss',
-        'url'			=> 'ni/?more=1'
-    ),
-    'nidebate'  => array (
+        'url'			=> 'ni/?more=1',
+    ],
+    'nidebate'  =>  [
         'parent'		=> 'nidebatesfront',
         'url'			=> 'ni/',
-        'session_vars'	=> array ('id'),
-    ),
-    'nidebates'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'nidebates'  =>  [
         'parent'		=> 'nidebatesfront',
         'url'			=> 'ni/',
-        'session_vars'	=> array ('id'),
-    ),
-    'nidebatesday' => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'nidebatesday' =>  [
         'parent'		=> 'nidebatesfront',
-        'session_vars'	=> array ('d'),
+        'session_vars'	=>  ['d'],
         'url'			=> 'ni/',
-    ),
-    'nidebatesfront' => array (
-        'menu'			=> array (
+    ],
+    'nidebatesfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Debates',
-            'title'			=> "Northern Ireland Assembly debates"
-        ),
+            'title'			=> "Northern Ireland Assembly debates",
+        ],
         'parent'		=> 'nioverview',
         'title'			=> 'Northern Ireland Assembly debates',
         'rss'			=> 'rss/ni.rss',
-        'url'			=> 'ni/'
-    ),
-    'nidebatesyear' => array (
+        'url'			=> 'ni/',
+    ],
+    'nidebatesyear' =>  [
         'parent'		=> 'nidebatesfront',
-        'url'			=> 'ni/'
-    ),
+        'url'			=> 'ni/',
+    ],
 
     /* London Assembly */
 
-    'london_home' => array(
-        'menu'          => array (
+    'london_home' => [
+        'menu'          =>  [
             'text'      => 'London Assembly',
-            'title'     => 'Members of the London Assembly, answers from the Mayor of London'
-        ),
+            'title'     => 'Members of the London Assembly, answers from the Mayor of London',
+        ],
         'title'         => 'London Assembly',
-        'url'           => 'london/'
-    ),
+        'url'           => 'london/',
+    ],
 
-    'london-assembly-members' => array (
+    'london-assembly-members' =>  [
         'parent'        => 'london_home',
-        'menu'          => array (
+        'menu'          =>  [
             'text'      => 'London Assembly Members',
-            'title'     => "List of Members of the London Assembly)"
-        ),
+            'title'     => "List of Members of the London Assembly)",
+        ],
         'title'         => '',
-        'url'           => 'london-assembly-members/'
-    ),
+        'url'           => 'london-assembly-members/',
+    ],
 
-    'london-assembly-member' => array (
+    'london-assembly-member' =>  [
         'parent'        => 'london-assembly-members',
         'title'         => 'Find your London Assembly Member',
-        'url'           => 'london-assembly-member/'
-    ),
+        'url'           => 'london-assembly-member/',
+    ],
 
-    'lmqs' => array (
+    'lmqs' =>  [
         'parent'		=> 'london_home',
         'url'			=> 'london/',
-        'session_vars'	=> array ('id')
-    ),
-    'lmqsday'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'lmqsday'  =>  [
         'parent'		=> 'london_home',
         'url'			=> 'london/',
-    ),
-    'lmqsfront' => array (
+    ],
+    'lmqsfront' =>  [
         'parent'		=> 'london_home',
-        'menu'			=> array (
+        'menu'			=>  [
             'text'			=> 'Questions to the Mayor of London',
-            'title'			=> "Questions to the Mayor of London"
-        ),
+            'title'			=> "Questions to the Mayor of London",
+        ],
         'title'			=> 'questions to the Mayor of London',
         'url'			=> 'london/',
-    ),
-    'lmqsyear' => array (
+    ],
+    'lmqsyear' =>  [
         'parent'		=> 'london_home',
         'url'			=> 'london/',
-    ),
+    ],
 
-    'otheruseredit' => array (
+    'otheruseredit' =>  [
         'pg'			=> 'editother',
         'title'			=> "Editing a user's data",
-        'url'			=> 'user/'
-    ),
-    'privacy' => array (
+        'url'			=> 'user/',
+    ],
+    'privacy' =>  [
         'title'			=> gettext('Privacy Policy'),
-        'url'			=> 'privacy/'
-    ),
+        'url'			=> 'privacy/',
+    ],
 
     /* Public bill committees */
-    'pbc_front' => array (
-        'menu'			=> array (
+    'pbc_front' =>  [
+        'menu'			=>  [
             'text'			=> 'Bill Committees',
-            'title'			=> "Public Bill Committees (formerly Standing Committees) debates"
-        ),
+            'title'			=> "Public Bill Committees (formerly Standing Committees) debates",
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'Public Bill Committees',
         'rss'			=> 'rss/pbc.rss',
-        'url'			=> 'pbc/'
-    ),
-    'pbc_session' => array(
+        'url'			=> 'pbc/',
+    ],
+    'pbc_session' => [
         'title' => 'Session',
         'url' => 'pbc/',
         'parent' => 'pbc_front',
-    ),
-    'pbc_bill' => array(
+    ],
+    'pbc_bill' => [
         'title' => '',
         'url' => 'pbc/',
         'parent' => 'pbc_front',
-        'session_vars'	=> array ('bill'),
-    ),
-    'pbc_clause' => array(
+        'session_vars'	=>  ['bill'],
+    ],
+    'pbc_clause' => [
         'parent'		=> 'pbc_front',
         'url'			=> 'pbc/',
-        'session_vars'	=> array ('id'),
-    ),
-    'pbc_speech' => array(
+        'session_vars'	=>  ['id'],
+    ],
+    'pbc_speech' => [
         'parent'		=> 'pbc_front',
         'url'			=> 'pbc/',
-        'session_vars'	=> array ('id'),
-    ),
+        'session_vars'	=>  ['id'],
+    ],
 
-    'people' => array(
-        'menu' => array(
+    'people' => [
+        'menu' => [
             'text' => 'People',
             'title' => '',
-        ),
+        ],
         'title'			=> 'Representatives',
         'url'			=> '',
-    ),
+    ],
 
-    'raw' => array (
+    'raw' =>  [
         'title'			=> 'Raw data',
-        'url'			=> 'raw/'
-    ),
+        'url'			=> 'raw/',
+    ],
 
-    'regmem' => array (
+    'regmem' =>  [
         'title'			=> 'Changes to the Register of Members\' Interests',
-        'url'			=> 'regmem/'
-    ),
-
-    'regmem_date' => array (
         'url'			=> 'regmem/',
-        'parent'		=> 'regmem'
-    ),
+    ],
 
-    'regmem_mp' => array (
+    'regmem_date' =>  [
         'url'			=> 'regmem/',
-        'parent'		=> 'regmem'
-    ),
+        'parent'		=> 'regmem',
+    ],
 
-    'regmem_diff' => array (
+    'regmem_mp' =>  [
         'url'			=> 'regmem/',
-        'parent'		=> 'regmem'
-    ),
+        'parent'		=> 'regmem',
+    ],
 
-    'royal' => array (
+    'regmem_diff' =>  [
+        'url'			=> 'regmem/',
+        'parent'		=> 'regmem',
+    ],
+
+    'royal' =>  [
         'parent'        => 'hansard',
         'title'         => 'Royal',
         'url'           => 'royal/',
-    ),
+    ],
 
-    'topic' => array (
+    'topic' =>  [
         'parent'        => 'topics',
         'url'           => 'topic/topic.php',
-    ),
+    ],
 
-    'topics' => array (
+    'topics' =>  [
         'title'        => 'Topics',
         'url'          => 'topic/',
-    ),
+    ],
 
-    'search'		=> array (
+    'search'		=>  [
         'sidebar'		=> 'search',
         'url'			=> 'search/',
         'robots'		=> 'noindex, nofollow',
         'heading'		=> '',
-        'session_vars'	=> array ('q', 'o', 'pop')
-    ),
+        'session_vars'	=>  ['q', 'o', 'pop'],
+    ],
 
-    'sitenews'		=> array (
-        'menu'			=> array (
+    'sitenews'		=>  [
+        'menu'			=>  [
             'text'			=> 'TheyWorkForYou news',
-            'title'			=> "News about changes to this website"
-        ),
+            'title'			=> "News about changes to this website",
+        ],
         'parent'		=> 'home',
         'rss'			=> 'news/index.rdf',
         'sidebar'		=> 'sitenews',
         'title'			=> 'TheyWorkForYou news',
-        'url'			=> 'news/'
-    ),
-    'sitenews_archive'		=> array (
+        'url'			=> 'news/',
+    ],
+    'sitenews_archive'		=>  [
         'parent'		=> 'sitenews',
         'rss'			=> 'news/index.rdf',
         'sidebar'		=> 'sitenews',
         'title'			=> 'Archive',
-        'url'			=> 'news/archives/'
-    ),
-    'sitenews_atom' 	=> array (
-        'url'			=> 'news/atom.xml'
-    ),
-    'sitenews_date'	=> array (
-        'parent'		=> 'sitenews',
-        'rss'			=> 'news/index.rdf',
-        'sidebar'		=> 'sitenews'
-    ),
-    'sitenews_individual'	=> array (
+        'url'			=> 'news/archives/',
+    ],
+    'sitenews_atom' 	=>  [
+        'url'			=> 'news/atom.xml',
+    ],
+    'sitenews_date'	=>  [
         'parent'		=> 'sitenews',
         'rss'			=> 'news/index.rdf',
         'sidebar'		=> 'sitenews',
-    ),
-    'sitenews_rss1' 	=> array (
-        'url'			=> 'news/index.rdf'
-    ),
-    'sitenews_rss2' 	=> array (
-        'url'			=> 'news/index.xml'
-    ),
+    ],
+    'sitenews_individual'	=>  [
+        'parent'		=> 'sitenews',
+        'rss'			=> 'news/index.rdf',
+        'sidebar'		=> 'sitenews',
+    ],
+    'sitenews_rss1' 	=>  [
+        'url'			=> 'news/index.rdf',
+    ],
+    'sitenews_rss2' 	=>  [
+        'url'			=> 'news/index.xml',
+    ],
 
     /* Scottish Parliament */
-    'sp_home' => array(
-        'menu'			=> array (
+    'sp_home' => [
+        'menu'			=>  [
             'text'			=> 'Scottish Parliament',
-            'title'			=> 'Scottish education, health, agriculture, justice, prisons and other devolved areas. Some tax-varying powers'
-        ),
+            'title'			=> 'Scottish education, health, agriculture, justice, prisons and other devolved areas. Some tax-varying powers',
+        ],
         'title'			=> 'Scottish Parliament',
-        'url'			=> 'scotland/'
-    ),
-    'spoverview' => array (
+        'url'			=> 'scotland/',
+    ],
+    'spoverview' =>  [
         'parent'		=> 'sp_home',
-        'menu'			=> array (
+        'menu'			=>  [
             'text'			=> 'Overview',
-            'title'			=> "Overview of the Scottish Parliament"
-        ),
+            'title'			=> "Overview of the Scottish Parliament",
+        ],
         'title'			=> '',
-        'url'			=> 'scotland/'
-    ),
-    'spdebate'  => array (
+        'url'			=> 'scotland/',
+    ],
+    'spdebate'  =>  [
         'parent'		=> 'spdebatesfront',
         'url'			=> 'sp/',
-        'session_vars'	=> array ('id'),
-    ),
-    'spdebates'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'spdebates'  =>  [
         'parent'		=> 'spdebatesfront',
         'url'			=> 'sp/',
-        'session_vars'	=> array ('id'),
-    ),
-    'spdebatesday' => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'spdebatesday' =>  [
         'parent'		=> 'spdebatesfront',
-        'session_vars'	=> array ('d'),
+        'session_vars'	=>  ['d'],
         'url'			=> 'sp/',
-    ),
-    'spdebatesfront' => array (
-        'menu'			=> array (
+    ],
+    'spdebatesfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Debates',
-            'title'			=> 'Debates in the Scottish Parliament'
-        ),
+            'title'			=> 'Debates in the Scottish Parliament',
+        ],
         'parent'		=> 'sp_home',
         'title'			=> 'Scottish Parliament debates',
-        'url'			=> 'sp/'
-    ),
+        'url'			=> 'sp/',
+    ],
 
-    'spdebatesyear' => array (
+    'spdebatesyear' =>  [
         'parent'		=> 'spdebatesfront',
-        'url'			=> 'sp/'
-    ),
-    'spwrans'  => array (
+        'url'			=> 'sp/',
+    ],
+    'spwrans'  =>  [
         'parent'		=> 'spwransfront',
         'url'			=> 'spwrans/',
         #'session_vars'	=> array ('id'),
-    ),
-    'spwransday'  => array (
+    ],
+    'spwransday'  =>  [
         'parent'		=> 'spwransfront',
-        'url'			=> 'spwrans/'
-    ),
-    'spwransfront'  => array (
-        'menu'			=> array (
+        'url'			=> 'spwrans/',
+    ],
+    'spwransfront'  =>  [
+        'menu'			=>  [
             'text'			=> 'Written Answers',
-            'title'			=> 'Written Answers and Statements'
-        ),
+            'title'			=> 'Written Answers and Statements',
+        ],
         'parent'		=> 'sp_home',
         'title'			=> 'Scottish Parliament Written answers',
-        'url'			=> 'spwrans/'
-    ),
-    'spwransmp' => array(
+        'url'			=> 'spwrans/',
+    ],
+    'spwransmp' => [
         'parent'		=> 'spwransfront',
         'title'			=> 'For questions asked by ',
-        'url'			=> 'spwrans/'
-    ),
-    'spwransyear' => array (
+        'url'			=> 'spwrans/',
+    ],
+    'spwransyear' =>  [
         'parent'		=> 'spwransfront',
-        'url'			=> 'spwrans/'
-    ),
+        'url'			=> 'spwrans/',
+    ],
 
     // Topic pages
 
-    'topic' => array (
+    'topic' =>  [
         'url'           => 'topic/',
-        'title'         => 'Topics'
-    ),
+        'title'         => 'Topics',
+    ],
 
-    'topicbenefits' => array (
+    'topicbenefits' =>  [
         'url'           => 'topic/benefits',
         'parent'        => 'topic',
-        'title'         => 'Benefits'
-    ),
+        'title'         => 'Benefits',
+    ],
 
-    'topiccrimestats' => array (
+    'topiccrimestats' =>  [
         'url'           => 'topic/crime-stats',
         'parent'        => 'topic',
-        'title'         => 'Crime Statistics'
-    ),
+        'title'         => 'Crime Statistics',
+    ],
 
-    'topicnhs' => array (
+    'topicnhs' =>  [
         'url'           => 'topic/nhs',
         'parent'        => 'topic',
-        'title'         => 'NHS'
-    ),
+        'title'         => 'NHS',
+    ],
 
-    'useralerts' => array(
-        'menu'			=> array(
+    'useralerts' => [
+        'menu'			=> [
             'text'			=> 'Email Alerts',
-            'title'			=> 'Check your email alerts'
-        ),
+            'title'			=> 'Check your email alerts',
+        ],
         'title'			=> 'Your Email Alerts',
         'url'			=> 'user/alerts/',
-        'parent'		=> 'userviewself'
-    ),
-    'userchangepc' => array (
+        'parent'		=> 'userviewself',
+    ],
+    'userchangepc' =>  [
         'title'			=> 'Change your postcode',
-        'url'			=> 'user/changepc/'
-    ),
-    'userconfirm' => array (
-        'url'			=> 'user/confirm/'
-    ),
-    'userconfirmed' => array (
+        'url'			=> 'user/changepc/',
+    ],
+    'userconfirm' =>  [
+        'url'			=> 'user/confirm/',
+    ],
+    'userconfirmed' =>  [
         'sidebar'		=> 'userconfirmed',
         'title'			=> 'Welcome to TheyWorkForYou!',
-        'url'			=> 'user/confirm/'
-    ),
-    'userconfirmfailed' => array (
+        'url'			=> 'user/confirm/',
+    ],
+    'userconfirmfailed' =>  [
         'title'			=> 'Oops!',
-        'url'			=> 'user/confirm/'
-    ),
-    'useredit' => array (
+        'url'			=> 'user/confirm/',
+    ],
+    'useredit' =>  [
         'pg'			=> 'edit',
         'title'			=> 'Edit your details',
-        'url'			=> 'user/'
-    ),
-    'userjoin' => array (
-                'menu'                  => array (
-                        'text'                  => gettext('Join'),
-                        'title'                 => gettext("Joining is free and allows you to manage your email alerts")
-                ),
-                'pg'                    => 'join',
-                'sidebar'               => 'userjoin',
-                'title'                 => gettext('Join TheyWorkForYou'),
-                'url'                   => 'user/'
-        ),
-    'userlogin' => array (
-        'menu'			=> array (
+        'url'			=> 'user/',
+    ],
+    'userjoin' =>  [
+        'menu'                  =>  [
+            'text'                  => gettext('Join'),
+            'title'                 => gettext("Joining is free and allows you to manage your email alerts"),
+        ],
+        'pg'                    => 'join',
+        'sidebar'               => 'userjoin',
+        'title'                 => gettext('Join TheyWorkForYou'),
+        'url'                   => 'user/',
+    ],
+    'userlogin' =>  [
+        'menu'			=>  [
             'text'			=> gettext('Sign in'),
-            'title'			=> gettext("If you've already joined, sign in to your account")
-        ),
+            'title'			=> gettext("If you've already joined, sign in to your account"),
+        ],
         'sidebar'		=> 'userlogin',
         'title'			=> gettext('Sign in'),
-        'url'			=> 'user/login/'
-    ),
+        'url'			=> 'user/login/',
+    ],
 
-    'userlogout' => array (
-        'menu'			=> array (
+    'userlogout' =>  [
+        'menu'			=>  [
             'text'			=> 'Sign out',
-            'title'			=> "Sign out"
-        ),
-        'url'			=> 'user/logout/'
-    ),
-    'userpassword' => array (
+            'title'			=> "Sign out",
+        ],
+        'url'			=> 'user/logout/',
+    ],
+    'userpassword' =>  [
         'title'			=> 'Change password',
-        'url'			=> 'user/password/'
-    ),
-    'userprompt' => array (
+        'url'			=> 'user/password/',
+    ],
+    'userprompt' =>  [
         'title'			=> 'Please sign in',
-        'url'			=> 'user/prompt/'
-    ),
-    'userview' => array (
-        'session_vars'	=> array('u'),
-        'url'			=> 'user/'
-    ),
-    'userviewself' => array (
-        'menu'			=> array (
+        'url'			=> 'user/prompt/',
+    ],
+    'userview' =>  [
+        'session_vars'	=> ['u'],
+        'url'			=> 'user/',
+    ],
+    'userviewself' =>  [
+        'menu'			=>  [
             'text'			=> 'Your details',
-            'title'			=> "View and edit your details"
-        ),
-        'url'			=> 'user/'
-    ),
-    'userwelcome' => array (
+            'title'			=> "View and edit your details",
+        ],
+        'url'			=> 'user/',
+    ],
+    'userwelcome' =>  [
         'title'			=> 'Welcome!',
-        'url'			=> 'user/'
-    ),
+        'url'			=> 'user/',
+    ],
 
     /* Welsh Parliament */
-    'wales_home' => array(
-        'menu' => array(
+    'wales_home' => [
+        'menu' => [
             'text' => 'Senedd / Welsh Parliament',
             'title' => 'Welsh economic development, transport, finance, local government, health, housing, the Welsh Language and other devolved areas',
-        ),
+        ],
         'title' => 'Senedd Cymru / Welsh Parliament',
-        'url' => 'senedd/'
-    ),
-    'mss' => array (
+        'url' => 'senedd/',
+    ],
+    'mss' =>  [
         'parent' => 'wales_home',
-        'menu' => array (
+        'menu' =>  [
             'text' => gettext('MSs'),
-            'title' => gettext("List of Members of the Senedd (MSs)")
-        ),
+            'title' => gettext("List of Members of the Senedd (MSs)"),
+        ],
         'title' => '',
-        'url' => 'mss/'
-    ),
-    'wales_debates' => array (
+        'url' => 'mss/',
+    ],
+    'wales_debates' =>  [
         'parent' => 'wales_home',
-        'menu' => array (
+        'menu' =>  [
             'text' => gettext('Debates'),
-            'title' => gettext("Debates in the Senedd")
-        ),
+            'title' => gettext("Debates in the Senedd"),
+        ],
         'title' => '',
-        'url' => 'senedd/?more=1'
-    ),
-    'ms' => array (
+        'url' => 'senedd/?more=1',
+    ],
+    'ms' =>  [
         'parent' => 'mss',
         'title' => gettext('Find your MS'),
-        'url' => 'ms/'
-    ),
-    'yourms' => array (
-        'menu'			=> array (
+        'url' => 'ms/',
+    ],
+    'yourms' =>  [
+        'menu'			=>  [
             'text'		=> gettext('Your MSs'),
-            'title'		=> gettext("Find out about your Members of the Senedd")
-        ),
+            'title'		=> gettext("Find out about your Members of the Senedd"),
+        ],
         #'parent'		=> 'yourreps',
         'sidebar'		=> 'yourms',
         'title'			=> gettext('Your MSs'),
-        'url'			=> 'ms/'
-    ),
+        'url'			=> 'ms/',
+    ],
 
-    'seneddoverview' => array (
+    'seneddoverview' =>  [
         'parent' => 'wales_home',
-        'menu' => array (
+        'menu' =>  [
             'text' => gettext('Overview'),
-            'title' => gettext("Overview of the Senedd debates")
-        ),
+            'title' => gettext("Overview of the Senedd debates"),
+        ],
         'title' => '',
         'rss' => 'rss/senedd.rss',
-        'url' => 'senedd/'
-    ),
-    'senedddebate'  => array (
+        'url' => 'senedd/',
+    ],
+    'senedddebate'  =>  [
         'parent' => 'senedddebatesfront',
         'url' => 'senedd/',
-        'session_vars' => array ('id'),
-    ),
-    'senedddebates'  => array (
+        'session_vars' =>  ['id'],
+    ],
+    'senedddebates'  =>  [
         'parent' => 'senedddebatesfront',
         'url' => 'senedd/',
-        'session_vars' => array ('id'),
-    ),
-    'senedddebatesday' => array (
+        'session_vars' =>  ['id'],
+    ],
+    'senedddebatesday' =>  [
         'parent' => 'senedddebatesfront',
-        'session_vars' => array ('d'),
+        'session_vars' =>  ['d'],
         'url' => 'senedd/',
-    ),
-    'senedddebatesfront' => array (
-        'menu' => array (
+    ],
+    'senedddebatesfront' =>  [
+        'menu' =>  [
             'text' => 'Debates',
-            'title' => gettext("Senedd debates")
-        ),
+            'title' => gettext("Senedd debates"),
+        ],
         'parent' => 'seneddoverview',
         'title' => gettext('Senedd debates'),
         'rss' => 'rss/senedd.rss',
-        'url' => 'senedd/'
-    ),
-    'senedddebatesyear' => array (
+        'url' => 'senedd/',
+    ],
+    'senedddebatesyear' =>  [
         'parent' => 'senedddebatesfront',
-        'url' => 'senedd/'
-    ),
+        'url' => 'senedd/',
+    ],
 
     /* Westminster Hall */
-    'whall'  => array (
+    'whall'  =>  [
         'parent'		=> 'whallfront',
         'url'			=> 'whall/',
-        'session_vars'	=> array ('id'),
-    ),
-    'whalls'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'whalls'  =>  [
         'parent'		=> 'whallfront',
         'url'			=> 'whall/',
-        'session_vars'	=> array ('id'),
-    ),
-    'whallday' => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'whallday' =>  [
         'parent'		=> 'whallfront',
-        'session_vars'	=> array ('d'),
+        'session_vars'	=>  ['d'],
         'url'			=> 'whall/',
-    ),
-    'whallfront' => array (
-        'menu'			=> array (
+    ],
+    'whallfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Westminster Hall',
-            'title'			=> "Westminster Hall debates"
-        ),
+            'title'			=> "Westminster Hall debates",
+        ],
         'parent'		=> 'alldebatesfront',
         'title'			=> 'Westminster Hall debates',
         'rss'			=> 'rss/whall.rss',
-        'url'			=> 'whall/'
-    ),
-    'whallyear' => array (
+        'url'			=> 'whall/',
+    ],
+    'whallyear' =>  [
         'parent'		=> 'whallfront',
-        'url'			=> 'whall/'
-    ),
+        'url'			=> 'whall/',
+    ],
 
-    'wms' => array (
+    'wms' =>  [
         'parent'		=> 'wranswmsfront',
         'url'			=> 'wms/',
-        'session_vars'	=> array('id')
-    ),
-    'wmsday' => array (
+        'session_vars'	=> ['id'],
+    ],
+    'wmsday' =>  [
         'parent'		=> 'wmsfront',
-        'session_vars'	=> array('d'),
-        'url'			=> 'wms/'
-    ),
-    'wmsfront' => array (
-        'menu'			=> array (
+        'session_vars'	=> ['d'],
+        'url'			=> 'wms/',
+    ],
+    'wmsfront' =>  [
+        'menu'			=>  [
             'text'			=> 'Written Ministerial Statements',
-            'title'			=> ''
-        ),
+            'title'			=> '',
+        ],
         'parent'		=> 'wranswmsfront',
         'title'			=> 'Written Ministerial Statements',
         'rss'			=> 'rss/wms.rss',
-        'url'			=> 'wms/'
-    ),
-    'wmsyear' => array (
+        'url'			=> 'wms/',
+    ],
+    'wmsyear' =>  [
         'parent'		=> 'wmsfront',
-        'url'			=> 'wms/'
-    ),
+        'url'			=> 'wms/',
+    ],
 
-    'wrans'  => array (
+    'wrans'  =>  [
         'parent'		=> 'wranswmsfront',
         'url'			=> 'wrans/',
-        'session_vars'	=> array ('id')
-    ),
-    'wransday'  => array (
+        'session_vars'	=>  ['id'],
+    ],
+    'wransday'  =>  [
         'parent'		=> 'wransfront',
-        'url'			=> 'wrans/'
-    ),
-    'wransfront'  => array (
-        'menu'			=> array (
+        'url'			=> 'wrans/',
+    ],
+    'wransfront'  =>  [
+        'menu'			=>  [
             'text'			=> 'Written Answers',
-            'title'			=> "Written Answers"
-        ),
+            'title'			=> "Written Answers",
+        ],
         'parent'		=> 'wranswmsfront',
         'title'			=> 'Written answers',
-        'url'			=> 'wrans/'
-    ),
-    'wransmp' => array(
+        'url'			=> 'wrans/',
+    ],
+    'wransmp' => [
         'parent'		=> 'wransfront',
         'title'			=> 'For questions asked by ',
-        'url'			=> 'wrans/'
-    ),
-    'wransyear' => array (
+        'url'			=> 'wrans/',
+    ],
+    'wransyear' =>  [
         'parent'		=> 'wransfront',
-        'url'			=> 'wrans/'
-    ),
+        'url'			=> 'wrans/',
+    ],
 
-    'wranswmsfront'  => array (
-        'menu'			=> array (
+    'wranswmsfront'  =>  [
+        'menu'			=>  [
             'text'			=> 'Written Answers',
             'title'			=> 'Written Answers and Statements',
-        ),
+        ],
         'parent'		=> 'hansard',
         'title'			=> 'Hansard Written Answers',
-        'url'			=> 'written-answers-and-statements/'
-    ),
+        'url'			=> 'written-answers-and-statements/',
+    ],
 
-    'yourreps' => array(
-        'menu' => array(
+    'yourreps' => [
+        'menu' => [
             'text' => 'Your representative',
             'title' => '',
-        ),
+        ],
         'title' => 'Your representative',
         'url' => 'your/',
-    ),
-    'yourmp' => array (
-        'menu'			=> array (
+    ],
+    'yourmp' =>  [
+        'menu'			=>  [
             'text'			=> gettext('Your MP'),
-            'title'			=> gettext("Find out about your Member of Parliament")
-        ),
+            'title'			=> gettext("Find out about your Member of Parliament"),
+        ],
         'sidebar'		=> 'yourmp',
         'title'			=> gettext('Your MP'),
         'url'			=> 'mp/',
         'parent'			=> 'mps',
-    ),
-    'yourmp_recent' => array (
-        'menu'			=> array (
+    ],
+    'yourmp_recent' =>  [
+        'menu'			=>  [
             'text'			=> 'Recent appearances',
-            'title'			=> "Recent speeches and written answers by this MP"
-        ),
+            'title'			=> "Recent speeches and written answers by this MP",
+        ],
         'parent'		=> 'yourmp',
         'title'			=> "Your MP's recent appearances in parliament",
-        'url'			=> 'mp/?recent=1'
-    ),
-    'yourmsp' => array (
-        'menu'			=> array (
+        'url'			=> 'mp/?recent=1',
+    ],
+    'yourmsp' =>  [
+        'menu'			=>  [
             'text'			=> 'Your MSPs',
-            'title'			=> "Find out about your Members of the Scottish Parliament"
-        ),
+            'title'			=> "Find out about your Members of the Scottish Parliament",
+        ],
         #'parent'		=> 'yourreps',
         'sidebar'		=> 'yourmsp',
         'title'			=> 'Your MSPs',
-        'url'			=> 'msp/'
-    ),
-    'yourmla' => array (
-        'menu'			=> array (
+        'url'			=> 'msp/',
+    ],
+    'yourmla' =>  [
+        'menu'			=>  [
             'text'			=> 'Your MLAs',
-            'title'			=> "Find out about your Members of the Legislative Assembly"
-        ),
+            'title'			=> "Find out about your Members of the Legislative Assembly",
+        ],
         #'parent'		=> 'yourreps',
         'sidebar'		=> 'yourmla',
         'title'			=> 'Your MLAs',
-        'url'			=> 'mla/'
-    ),
-);
+        'url'			=> 'mla/',
+    ],
+];
 
 // We just use the sections for creating page headings/titles.
 // The 'title' is always used for the <title> tag of the page.
 // The text displayed on the page itself will also be this,
 // UNLESS the section has a 'heading', in which case that's used instead.
 
-$section = array (
+$section =  [
 
 
-    'about' => array (
-        'title' 	=> 'About Us'
-    ),
-    'admin' => array (
-        'title'		=> 'Admin'
-    ),
-    'debates' => array (
+    'about' =>  [
+        'title' 	=> 'About Us',
+    ],
+    'admin' =>  [
+        'title'		=> 'Admin',
+    ],
+    'debates' =>  [
         'title' 	=> 'Debates',
-        'heading'	=> 'House of Commons Debates'
-    ),
-    'help_us_out' => array (
-        'title' 	=> 'Help Us Out'
-    ),
-    'hansard' => array (
-        'title' 	=> 'Hansard'
-    ),
-    'home' => array (
-        'title' 	=> 'Home'
-    ),
-    'mp' => array (
-        'title' 	=> 'Your MP'
-    ),
-    'search' => array (
-        'title' 	=> 'Search'
-    ),
-    'sitenews' => array (
-        'title' 	=> 'TheyWorkForYou news'
-    ),
-    'wrans' => array (
-        'title' 	=> 'Written Answers'
-    )
+        'heading'	=> 'House of Commons Debates',
+    ],
+    'help_us_out' =>  [
+        'title' 	=> 'Help Us Out',
+    ],
+    'hansard' =>  [
+        'title' 	=> 'Hansard',
+    ],
+    'home' =>  [
+        'title' 	=> 'Home',
+    ],
+    'mp' =>  [
+        'title' 	=> 'Your MP',
+    ],
+    'search' =>  [
+        'title' 	=> 'Search',
+    ],
+    'sitenews' =>  [
+        'title' 	=> 'TheyWorkForYou news',
+    ],
+    'wrans' =>  [
+        'title' 	=> 'Written Answers',
+    ],
 
-);
+];

@@ -3,7 +3,7 @@
 include_once '../../includes/easyparliament/init.php';
 $this_page = "admin_statistics";
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 
@@ -14,10 +14,10 @@ $PAGE->stripe_start();
 <h4>Hansard data in database</h4>
 
 <?php
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new DEBATELIST();
 $debate_items = $DEBATELIST->total_items();
 
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new WRANSLIST();
 $wrans_items = $WRANSLIST->total_items();
 
 $debate_speeches = $DEBATELIST->total_speeches();
@@ -37,22 +37,22 @@ $uniquedates = $db->query("SELECT count(distinct hdate) as count from hansard")-
 <p>There are <b><?=number_format($debate_speeches)?></b> debate speeches (<?=number_format($debate_items)?> items including headers).
 <br>There are <b><?=number_format($wrans_questions)?></b> written questions (<?=number_format($wrans_items)?> items including headers and answers).
 
-<!-- Debate items / in-session day: <?=round($debate_items/$uniquedates,0)?>
-Wrans items / in-session day: <?=round($wrans_items/$uniquedates,0)?> -->
+<!-- Debate items / in-session day: <?=round($debate_items / $uniquedates, 0)?>
+Wrans items / in-session day: <?=round($wrans_items / $uniquedates, 0)?> -->
 
-<p>Per sitting day, MPs are producing <b><?=round($debate_speeches/$uniquedates,0)?></b> speeches, and <b><?=round($wrans_questions/$uniquedates,0)?></b> written answers.
+<p>Per sitting day, MPs are producing <b><?=round($debate_speeches / $uniquedates, 0)?></b> speeches, and <b><?=round($wrans_questions / $uniquedates, 0)?></b> written answers.
 </p>
 
 <?php
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();
 

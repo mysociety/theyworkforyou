@@ -1,11 +1,11 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
+include_once(INCLUDESPATH . "easyparliament/commentreportlist.php");
 
 $this_page = "admin_home";
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 
@@ -14,13 +14,13 @@ $PAGE->stripe_start();
 ///////////////////////////////////////////////////////////////
 // General stats.
 
-$PAGE->block_start(array('title'=>'Stats'));
+$PAGE->block_start(['title' => 'Stats']);
 
 $confirmedusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '1'")->first()['count'];
 $unconfirmedusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE confirmed = '0'")->first()['count'];
-$olddate = gmdate("Y-m-d H:i:s", time()-86400);
+$olddate = gmdate("Y-m-d H:i:s", time() - 86400);
 $dayusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'")->first()['count'];
-$olddate = gmdate("Y-m-d H:i:s", time()-86400*7);
+$olddate = gmdate("Y-m-d H:i:s", time() - 86400 * 7);
 $weekusers = $db->query("SELECT COUNT(*) AS count FROM users WHERE lastvisit > '$olddate'")->first()['count'];
 ?>
 <ul>
@@ -56,13 +56,13 @@ $q = $db->query("SELECT firstname,
                 LIMIT 50
                 ");
 
-$rows = array();
+$rows = [];
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 foreach ($q as $row) {
     $user_id = $row['user_id'];
 
-    $USERURL->insert(array('u'=>$user_id));
+    $USERURL->insert(['u' => $user_id]);
 
     if ($row['confirmed'] == 1) {
         $confirmed = 'Yes';
@@ -73,34 +73,34 @@ foreach ($q as $row) {
         $name = _htmlspecialchars($row['firstname'] . ' ' . $row['lastname']);
     }
 
-    $rows[] = array (
+    $rows[] =  [
         $name,
         '<a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a>',
         $confirmed,
-        $row['registrationtime']
-    );
+        $row['registrationtime'],
+    ];
 }
 
-$tabledata = array (
-    'header' => array (
+$tabledata =  [
+    'header' =>  [
         'Name',
         'Email',
         'Confirmed?',
-        'Registration time'
-    ),
-    'rows' => $rows
-);
+        'Registration time',
+    ],
+    'rows' => $rows,
+];
 
 $PAGE->display_table($tabledata);
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();
 

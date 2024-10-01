@@ -18,14 +18,14 @@ if (get_http_var('welcome') == 't') {
     // then been redirected here.
     // So welcome them!
 
-        $this_page = 'userconfirmed';
+    $this_page = 'userconfirmed';
 
-        $PAGE->page_start();
+    $PAGE->page_start();
 
-        $PAGE->stripe_start();
+    $PAGE->stripe_start();
 
-        if ($THEUSER->isloggedin()) {
-            ?>
+    if ($THEUSER->isloggedin()) {
+        ?>
 
     <p>Welcome to TheyWorkForYou! You are now logged in.</p>
 
@@ -37,54 +37,54 @@ if (get_http_var('welcome') == 't') {
     <p>If you are looking to sign up for our API, please begin by <a href="/api/key">getting a key here</a>.</p>
 
 <?php
-        } else {
-            // Oops, something must have gone wrong when the user was logged in.
-            // It shouldn't do, but...
-            $PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
+    } else {
+        // Oops, something must have gone wrong when the user was logged in.
+        // It shouldn't do, but...
+        $PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
 you logged in, so please make sure they're enabled for this site.");
-        }
+    }
 
-        $PAGE->page_end();
+    $PAGE->page_end();
 
 
 } elseif (get_http_var('email') == 't') {
-        $this_page = 'emailconfirmed';
+    $this_page = 'emailconfirmed';
 
-        $PAGE->page_start();
+    $PAGE->page_start();
 
-        $PAGE->stripe_start();
+    $PAGE->stripe_start();
 
-        if ($THEUSER->isloggedin()) {
-            ?>
+    if ($THEUSER->isloggedin()) {
+        ?>
     <p>Hi, Your email address has now been updated.</p>
 
     <p>Do <a href="mailto:<?php echo str_replace('@', '&#64;', CONTACTEMAIL); ?>">let us know</a> if you find a bug, or have a suggestion.</p>
 
 <?php
-        } else {
-            // Oops, something must have gone wrong when the user was logged in.
-            // It shouldn't do, but...
-            $PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
+    } else {
+        // Oops, something must have gone wrong when the user was logged in.
+        // It shouldn't do, but...
+        $PAGE->error_message("Sorry, we couldn't log you in - TheyWorkForYou requires cookies to keep
 you logged in, so please make sure they're enabled for this site.");
-        }
+    }
 
-        $PAGE->stripe_end(array(
-            array (
-                'type'		=> 'include',
-                'content'	=> 'userconfirmed'
-            )
-        ));
+    $PAGE->stripe_end([
+        [
+            'type'		=> 'include',
+            'content'	=> 'userconfirmed',
+        ],
+    ]);
 
-        $PAGE->page_end();
+    $PAGE->page_end();
 
 } elseif (get_http_var('t') != '') {
     // The user's first visit to this page, and they have a registration token.
     // So let's confirm them and hope they get logged in...
 
-    if (get_http_var('c') == 'email' ) {
-        $success = $THEUSER->confirm_email( get_http_var('t') );
+    if (get_http_var('c') == 'email') {
+        $success = $THEUSER->confirm_email(get_http_var('t'));
     } else {
-        $success = $THEUSER->confirm( get_http_var('t') );
+        $success = $THEUSER->confirm(get_http_var('t'));
     }
 
     if (!$success) {
@@ -103,12 +103,12 @@ function confirm_error() {
 
     $this_page = 'userconfirmfailed';
 
-    if ( !$PAGE->page_started() ) {
+    if (!$PAGE->page_started()) {
         $PAGE->page_start();
 
         $PAGE->stripe_start();
 
-    ?>
+        ?>
 
     <p>The link you followed to reach this page appears to be incomplete.</p>
 
@@ -116,7 +116,7 @@ function confirm_error() {
     } else {
         $PAGE->stripe_start();
     }
-?>
+    ?>
 
     <p>If you clicked a link in your confirmation email you may need to manually copy and paste the entire link to the 'Location' bar of the web browser and try again.</p>
 
@@ -124,7 +124,7 @@ function confirm_error() {
 
 <?php
 
-    $PAGE->stripe_end();
+        $PAGE->stripe_end();
 
     $PAGE->page_end();
 }

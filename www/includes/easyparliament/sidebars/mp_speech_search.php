@@ -7,7 +7,7 @@ $SEARCHURL = new \MySociety\TheyWorkForYou\Url("search");
 
 if ($MEMBER->person_id()) {
     $pid = $MEMBER->person_id();
-    $this->block_start(array('id'=>'mpsearch', 'title'=>"Search this person's speeches"));
+    $this->block_start(['id' => 'mpsearch', 'title' => "Search this person's speeches"]);
     ?>
 
                 <div class="mpsearchbox">

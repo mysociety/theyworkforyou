@@ -4,7 +4,7 @@ include_once '../../includes/easyparliament/init.php';
 
 $this_page = 'admin_featured';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -12,7 +12,7 @@ $PAGE->stripe_start();
 $out = '';
 if (get_http_var('preview')) {
     preview_featured();
-} else if ( get_http_var('confirm') ) {
+} elseif (get_http_var('confirm')) {
     $out = update_featured();
 }
 
@@ -23,27 +23,27 @@ edit_featured_form();
 print '</div>';
 
 function gid_to_url($gid) {
-    if ( !$gid ) {
+    if (!$gid) {
         return '';
     }
     global $hansardmajors;
     global $db;
 
-    $q = $db->query("SELECT major FROM hansard WHERE gid = :gid", array( ':gid' => $gid ))->first();
+    $q = $db->query("SELECT major FROM hansard WHERE gid = :gid", [ ':gid' => $gid ])->first();
     $url_gid = fix_gid_from_db($gid);
     $url = new \MySociety\TheyWorkForYou\Url($hansardmajors[$q['major']]['page']);
-    $url->insert(array('id' => $url_gid));
+    $url->insert(['id' => $url_gid]);
     return $url->generate();
 }
 
 function edit_featured_form() {
-    $featured = new MySociety\TheyWorkForYou\Model\Featured;
+    $featured = new MySociety\TheyWorkForYou\Model\Featured();
     $title = $featured->get_title();
     $gid = $featured->get_gid();
     $related = $featured->get_related();
     $context = $featured->get_context();
 
-    if ( get_http_var('url') ) {
+    if (get_http_var('url')) {
         $url = get_http_var('url');
         $title = get_http_var('title');
         $context = get_http_var('context');
@@ -57,7 +57,7 @@ function edit_featured_form() {
         $related3 = gid_to_url($related[2]);
     }
 
-?>
+    ?>
     <form action="featured.php" method="POST">
         <input type="hidden" name="preview" value="1">
 
@@ -113,16 +113,16 @@ function preview_featured() {
     $related_gid3 = $related3 ? get_gid_from_url($related3) : null;
 
     print "<h2>Preview Content</h2>";
-    if ( $gid !== null ) {
-        $h = new MySociety\TheyWorkForYou\Homepage;
-        $featured = $h->getFeaturedDebate($gid, $title, $context, array( $related_gid1, $related_gid2, $related_gid3 ));
+    if ($gid !== null) {
+        $h = new MySociety\TheyWorkForYou\Homepage();
+        $featured = $h->getFeaturedDebate($gid, $title, $context, [ $related_gid1, $related_gid2, $related_gid3 ]);
 
         include INCLUDESPATH . 'easyparliament/templates/html/homepage/featured.php';
     } else {
         print "<p>A random debate from the last 7 days will be displayed</p>";
     }
 
-?>
+    ?>
 <style>
 .confirm-panel {
     margin-left: 18px;
@@ -157,7 +157,7 @@ function get_gid_from_url($url) {
     $parts = parse_url($url);
     parse_str($parts['query'], $query);
 
-    if ( $query['id'] ) {
+    if ($query['id']) {
         if (strpos($parts['path'], 'lords') !== false) {
             $gid = 'uk.org.publicwhip/lords/';
         } elseif (strpos($parts['path'], 'whall') !== false) {
@@ -171,7 +171,7 @@ function get_gid_from_url($url) {
 }
 
 function update_featured() {
-    $featured = new MySociety\TheyWorkForYou\Model\Featured;
+    $featured = new MySociety\TheyWorkForYou\Model\Featured();
 
     $title = get_http_var('title');
     $context = get_http_var('context');
@@ -183,7 +183,7 @@ function update_featured() {
     $featured->set_title($title);
     $featured->set_context($context);
     $featured->set_gid($gid);
-    $featured->set_related(array($related1, $related2, $related3));
+    $featured->set_related([$related1, $related2, $related3]);
 
     $out = "<h4>update successful</h4>";
     $out .= "<p>Title set to " . _htmlspecialchars($title) . " and gid to " . _htmlspecialchars($gid) . "</p>";
@@ -193,11 +193,11 @@ function update_featured() {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

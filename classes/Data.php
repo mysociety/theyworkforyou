@@ -82,10 +82,10 @@ class Data {
 
     public function page_metadata($page, $key) {
         return $this->getMetadata(
-            array(
+            [
                 'page' => $page,
-                'key'  => $key
-            ),
+                'key'  => $key,
+            ],
             'page'
         );
     }
@@ -99,10 +99,10 @@ class Data {
 
     public function section_metadata($section, $key) {
         return $this->getMetadata(
-            array(
+            [
                 'section' => $section,
-                'key'     => $key
-            ),
+                'key'     => $key,
+            ],
             'section'
         );
     }
@@ -116,7 +116,7 @@ class Data {
      */
 
     public function set_page_metadata($page, $key, $value) {
-        $this->setMetadata(array("page"=>$page, "key"=>$key, "value"=>$value));
+        $this->setMetadata(["page" => $page, "key" => $key, "value" => $value]);
     }
 
     /**
@@ -128,7 +128,7 @@ class Data {
      */
 
     public function set_section_metadata($section, $key, $value) {
-        $this->setMetadata(array("section"=>$section, "key"=>$key, "value"=>$value));
+        $this->setMetadata(["section" => $section, "key" => $key, "value" => $value]);
     }
 
     /**

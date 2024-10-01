@@ -4,7 +4,7 @@
             <input type="text" name="q" value="<?= _htmlentities($search_keyword) ?>" class="form-control">
             <input type="submit" class="button" value="<?= gettext('Search') ?>">
         </p>
-      <?php if (isset($warnings) ) { ?>
+      <?php if (isset($warnings)) { ?>
         <p class="error">
             <?= $warnings ?>
         </p>
@@ -18,7 +18,7 @@
         <p>
             <ul class="search-result-display-options">
                 <li><a href="#options" class="search-options-toggle js-toggle-search-options"><?= gettext('Advanced search') ?></a></li>
-              <?php if ( $is_adv ) { ?>
+              <?php if ($is_adv) { ?>
                 <?= $search_phrase ? '<li>' . gettext('Exactly:') . ' ' . _htmlentities($search_phrase) . '</li>' : '' ?>
                 <?= $search_exclude ? '<li>' . gettext('Excluding:') . ' ' . _htmlentities($search_exclude) . '</li>' : '' ?>
                 <?= $search_from ? '<li>' . gettext('From:') . ' ' . _htmlentities($search_from) . '</li>' : '' ?>

@@ -1,9 +1,9 @@
 <?php
+
 // This script contains the internal API that routes between the submission form
 // and stripe.
 
-function donate_post_api($token, $url, $data, $type, $headers = [])
-{
+function donate_post_api($token, $url, $data, $type, $headers = []) {
     $headers = array_merge($headers, ["Authorization: Bearer $token"]);
     if ($type == "json") {
         $data = json_encode($data);
@@ -27,8 +27,7 @@ function donate_post_api($token, $url, $data, $type, $headers = [])
     return $result;
 }
 
-function donate_amount()
-{
+function donate_amount() {
     $amount = $_POST["how-much"];
     if ($amount == "other") {
         $amount = $_POST["how-much-other"];
@@ -36,8 +35,7 @@ function donate_amount()
     return $amount;
 }
 
-function giftaid_decision()
-{
+function giftaid_decision() {
     if (isset($_POST["gift-aid"])) {
         return "Yes";
     } else {
@@ -47,8 +45,7 @@ function giftaid_decision()
 
 # Stripe
 
-function stripe_post($path, $data)
-{
+function stripe_post($path, $data) {
     $result = donate_post_api(
         STRIPE_DONATE_SECRET_KEY,
         "https://api.stripe.com/v1" . $path,
@@ -61,8 +58,7 @@ function stripe_post($path, $data)
     return $result;
 }
 
-function stripe_session_ajax($successPage, $cancelPage)
-{
+function stripe_session_ajax($successPage, $cancelPage) {
     $amount = donate_amount();
     $giftaid = giftaid_decision();
     $howoften = $_POST["how-often"];
@@ -161,8 +157,7 @@ function stripe_session_ajax($successPage, $cancelPage)
     }
 }
 
-function verify_recaptcha()
-{
+function verify_recaptcha() {
     $url = "https://www.google.com/recaptcha/api/siteverify";
     $data = [
         "secret" => OPTION_RECAPTCHA_SECRET,
@@ -207,8 +202,7 @@ function check_for_stripe_submission(
     }
 }
 
-function get_checked($value, $checked_value, $echo = true)
-{
+function get_checked($value, $checked_value, $echo = true) {
     $checked = $value == $checked_value ? 'checked="checked"' : "";
 
     if ($echo) {
@@ -218,7 +212,6 @@ function get_checked($value, $checked_value, $echo = true)
     }
 }
 
-function wp_esc_attr($text)
-{
+function wp_esc_attr($text) {
     return htmlspecialchars($text, ENT_QUOTES, "UTF-8");
 }

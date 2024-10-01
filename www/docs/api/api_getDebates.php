@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getHansard.php';
 
 function api_getDebates_front() {
-?>
+    ?>
 <p><big>Fetch Debates.</big></p>
 <p>This includes Oral Questions.</p>
 <h4>Arguments</h4>
@@ -127,11 +127,11 @@ function api_getDebates_type($t) {
     } elseif (get_http_var('search') || get_http_var('person')) {
         $s = get_http_var('search');
         $pid = get_http_var('person');
-        _api_getHansard_search(array(
+        _api_getHansard_search([
             's' => $s,
             'pid' => $pid,
             'type' => $type,
-        ));
+        ]);
     } elseif ($gid = get_http_var('gid')) {
         _api_getHansard_gid($list, $gid);
     } elseif ($y = get_http_var('year')) {

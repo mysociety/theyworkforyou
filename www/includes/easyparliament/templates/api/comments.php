@@ -87,16 +87,16 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
             && $THEUSER->is_able_to('reportcomment')
             && $THEUSER->user_id() != $comment['user_id']
             && !$comment['modflagged']
-            ) {
+        ) {
 
             // The comment hasn't been reported and we're on a page where we want to
             // display this link.
 
             $URL = new \MySociety\TheyWorkForYou\Url('commentreport');
-            $URL->insert(array(
+            $URL->insert([
                 'id'	=> $comment['comment_id'],
-                'ret' 	=> $comment['url']
-            ));
+                'ret' 	=> $comment['url'],
+            ]);
 
             $reporthtml = '(<a href="' . $URL->generate() . '" title="Notify moderators that this comment should be deleted">Report this comment</a>)';
 
@@ -111,13 +111,13 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         // USERNAME AND DATE AND TIME.
 
         $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
-        $USERURL->insert(array('u'=>$comment['user_id']));
+        $USERURL->insert(['u' => $comment['user_id']]);
 
-        list($date, $time) = explode(' ', $comment['posted']);
+        [$date, $time] = explode(' ', $comment['posted']);
         $date = format_date($date, SHORTDATEFORMAT);
         $time = format_time($time, TIMEFORMAT);
         ?>
-                    <p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) .' '. _htmlentities($comment['lastname']); ?></strong></a><br>
+                    <p class="credit"><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) . ' ' . _htmlentities($comment['lastname']); ?></strong></a><br>
                     <small>Posted on <?php echo $date;
 
         if (isset($comment['url'])) {
@@ -125,7 +125,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
         } else {
             // There won't be a URL when we're just previewing a comment.
-            print ' '.$time;
+            print ' ' . $time;
         }
         ?> <?php echo $reporthtml; ?></small></p>
 

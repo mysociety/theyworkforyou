@@ -33,7 +33,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
     // If image_url is null, render nothing
     $image_url = image_from_person_id($person_id);
     if ($image_url) {
-        echo '<a class="postcode-rep-list__link" href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name .'"></a>';
+        echo '<a class="postcode-rep-list__link" href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name . '"></a>';
     }
 }
 
@@ -53,7 +53,7 @@ function member_image_box(string $person_id, string $person_url, string $person_
                 echo 'They are standing down at the general election.';
             } ?>
             </span>
-            <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'],  $mp['name']) ?>
+            <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'], $mp['name']) ?>
         </span></li>
 <?php } else { ?>
         <li>Your MP is currently unknown.</li>
@@ -86,35 +86,35 @@ function member_image_box(string $person_id, string $person_url, string $person_
         member_image_box($mcon["person_id"], $url, $name);
         echo '</span></li>';
     }
-    if (isset($mreg)) {
-        if ($current) {
-            if ($house == HOUSE_TYPE_NI) {
-                echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
-            } elseif ($house == HOUSE_TYPE_WALES){
-                echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), gettext($areas[$area_type]));
-            } else {
-                echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
-            }
+if (isset($mreg)) {
+    if ($current) {
+        if ($house == HOUSE_TYPE_NI) {
+            echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), gettext($areas[$area_type]));
         } else {
-            if ($house == HOUSE_TYPE_NI) {
-                echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
-            } elseif ($house == HOUSE_TYPE_WALES){
-                echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), gettext($areas[$area_type]));
-            } else {
-                echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
-            }
+            echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
         }
-        echo '<ul>';
-        foreach ($mreg as $reg) {
-            $url = $urlp . $reg['person_id'];
-            $name = $reg['given_name'] . ' ' . $reg['family_name'];
-            echo '<li><span class="postcode-rep-list__sub-item"><a href="' . $url . '">' . $name  . '</a>';
-            member_image_box($reg["person_id"], $url, $name );
-            echo '</span></li>';
+    } else {
+        if ($house == HOUSE_TYPE_NI) {
+            echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
+        } elseif ($house == HOUSE_TYPE_WALES) {
+            echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), gettext($areas[$area_type]));
+        } else {
+            echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
         }
-        echo '</ul>';
+    }
+    echo '<ul>';
+    foreach ($mreg as $reg) {
+        $url = $urlp . $reg['person_id'];
+        $name = $reg['given_name'] . ' ' . $reg['family_name'];
+        echo '<li><span class="postcode-rep-list__sub-item"><a href="' . $url . '">' . $name . '</a>';
+        member_image_box($reg["person_id"], $url, $name);
+        echo '</span></li>';
     }
     echo '</ul>';
+}
+echo '</ul>';
 
 echo '</div>';
 

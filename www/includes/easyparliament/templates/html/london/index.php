@@ -4,10 +4,10 @@
             <div class="hero__mp-search__wrap">
                 <h1>Find out more about your AMs</h1>
                 <div class="row collapse">
-                    <?php if ( count($data['regional']) > 0 ) { ?>
+                    <?php if (count($data['regional']) > 0) { ?>
                         <ul class="homepage-rep-list">
                             <li>Your Assembly Memberss: </li>
-                        <?php foreach ( $data['regional'] as $member ) { ?>
+                        <?php foreach ($data['regional'] as $member) { ?>
                             <li class="homepage-rep-list__rep"><a href="/london-assembly-member/?p=<?= $member['person_id'] ?>"><?= $member['name'] ?></a></li>
                         <?php } ?>
                         </ul>
@@ -40,8 +40,8 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-featured-content homepage-content-section">
-                        <?php if ( $featured ) {
-                             include dirname(__FILE__) . "/../homepage/featured.php";
+                        <?php if ($featured) {
+                            include dirname(__FILE__) . "/../homepage/featured.php";
                         } ?>
                     </div>
                     <div class="homepage-create-alert homepage-content-section">
@@ -85,10 +85,10 @@
                     <div class="homepage-recently homepage-content-section">
                         <h2>Recently answered questions to the Mayor of London</h2>
                         <ul class="recently__list"><?php
-                            foreach ( $debates['recent'] as $recent ) {
+                            foreach ($debates['recent'] as $recent) {
                                 include dirname(__FILE__) . '/../homepage/recent-debates.php';
                             }
-                        ?></ul>
+                    ?></ul>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
                         <h2>What is the London Assembly?</h2>

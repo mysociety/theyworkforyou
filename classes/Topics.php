@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou;
 
 class Topics {
-
     /**
      * DB handle
      */
@@ -20,15 +19,15 @@ class Topics {
      */
 
     public function __construct() {
-        $this->db = new \ParlDB;
+        $this->db = new \ParlDB();
     }
 
-    private function query($where='') {
+    private function query($where = '') {
         $q = $this->db->query(
             "SELECT id, slug, title, description, search_string, front_page, image FROM topics $where"
         );
 
-        $topics = array();
+        $topics = [];
         foreach ($q as $row) {
             $topic = $row;
             $topics[$topic['slug']] = new Topic($topic);
@@ -43,7 +42,7 @@ class Topics {
     public function getTopic($topic_name) {
         $q = $this->db->query(
             "SELECT id, slug, title, description, search_string, front_page, image FROM topics WHERE slug = :slug",
-            array(':slug' => $topic_name)
+            [':slug' => $topic_name]
         )->first();
         if ($q) {
             return new Topic($q);
@@ -58,7 +57,7 @@ class Topics {
 
     public function updateFrontPageTopics($topics) {
         // PDO doesn't cope with arrays so we have to do this by hand :|
-        $quoted = array();
+        $quoted = [];
         if ($topics) {
             foreach ($topics as $topic) {
                 $quoted[] = $this->db->quote($topic);

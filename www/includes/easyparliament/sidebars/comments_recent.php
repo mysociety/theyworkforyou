@@ -1,3 +1,4 @@
 <?php
-$COMMENTLIST = new COMMENTLIST;
-$COMMENTLIST->display('recent', array('num'=>10));
+
+$COMMENTLIST = new COMMENTLIST();
+$COMMENTLIST->display('recent', ['num' => 10]);

@@ -28,7 +28,7 @@
                         print $chamber['list'] ? "</ul>\n" : "</dl>\n";
                     }
                 }
-            ?>
+                ?>
         </div>
         <div class="business-section__secondary">
             <div class="business-section__secondary__item">
@@ -53,11 +53,11 @@
             <div class="business-section__secondary__item">
                 <h3>Future business calendar</h3>
                 <?php
-                foreach ($data['years'] as $year => $months) {
-                    foreach ($months as $month => $dates) {
-                        include dirname(__FILE__) . '/../section/_calendar.php';
+                    foreach ($data['years'] as $year => $months) {
+                        foreach ($months as $month => $dates) {
+                            include dirname(__FILE__) . '/../section/_calendar.php';
+                        }
                     }
-                }
                 ?>
             </div>
         </div>

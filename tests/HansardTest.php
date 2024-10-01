@@ -3,22 +3,18 @@
 /**
  * Provides test methods for Hansard functionality.
  */
-class HansardTest extends TWFY_Database_TestCase
-{
-
+class HansardTest extends TWFY_Database_TestCase {
     /**
      * Loads the Hansard testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/hansard.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/hansard.xml');
     }
 
     /**
      * Ensures the database is prepared and the alert class is included for every test.
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         include_once('www/includes/easyparliament/hansardlist.php');
@@ -27,8 +23,7 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Test getting the most recent day
      */
-    public function testMostRecentDay()
-    {
+    public function testMostRecentDay() {
         $HANSARD = new HANSARDLIST();
         $HANSARD->major = 1;
         $HANSARD->listpage = 'test';
@@ -42,13 +37,12 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Test that getting data by person works
      */
-    public function testGetDataByPerson()
-    {
+    public function testGetDataByPerson() {
         $HANSARD = new HANSARDLIST();
 
-        $args = array(
-            'person_id' => '2'
-        );
+        $args = [
+            'person_id' => '2',
+        ];
 
         $response = $HANSARD->_get_data_by_person($args);
 
@@ -65,16 +59,15 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Test that getting data by date works
      */
-    public function testGetDataByDate()
-    {
+    public function testGetDataByDate() {
         $HANSARD = new HANSARDLIST();
 
         $HANSARD->major = 1;
         $HANSARD->listpage = 'test';
 
-        $args = array(
-            'date' => '2014-01-01'
-        );
+        $args = [
+            'date' => '2014-01-01',
+        ];
 
         $response = $HANSARD->_get_data_by_date($args);
 
@@ -93,17 +86,16 @@ class HansardTest extends TWFY_Database_TestCase
      *
      * This test inadvertently runs about a billion other bits of code.
      */
-    public function testGetDataByGid()
-    {
+    public function testGetDataByGid() {
         $HANSARD = new HANSARDLIST();
 
         $HANSARD->major = 1;
         $HANSARD->gidprefix = 'com.theyworkforyou/test/hansard/';
         $HANSARD->listpage = 'test';
 
-        $args = array(
-            'gid' => '3'
-        );
+        $args = [
+            'gid' => '3',
+        ];
 
         $response = $HANSARD->_get_data_by_gid($args);
 
@@ -117,16 +109,15 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Test that getting an item works as expected.
      */
-    public function testGetItem()
-    {
+    public function testGetItem() {
         $HANSARD = new HANSARDLIST();
 
         $HANSARD->major = 1;
         $HANSARD->gidprefix = 'com.theyworkforyou/test/hansard/';
 
-        $args = array(
-            'gid' => '3'
-        );
+        $args = [
+            'gid' => '3',
+        ];
 
         $response = $HANSARD->_get_item($args);
 
@@ -137,8 +128,7 @@ class HansardTest extends TWFY_Database_TestCase
     /**
      * Test that getting a speaker works.
      */
-    public function testGetSpeaker()
-    {
+    public function testGetSpeaker() {
         $HANSARD = new HANSARDLIST();
 
         $response = $HANSARD->_get_speaker(3, '2014-01-01', '00:00:00', 1);

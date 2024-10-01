@@ -8,9 +8,7 @@ namespace MySociety\TheyWorkForYou\Utility;
  * Utility functions related to members
  */
 
-class Member
-{
-
+class Member {
     /**
      * Find Member Image
      *
@@ -24,7 +22,8 @@ class Member
      */
 
     public static function findMemberImage($pid, $smallonly = false, $substitute_missing = false) {
-        $image = null; $sz = null;
+        $image = null;
+        $sz = null;
         if (!$smallonly && is_file(BASEDIR . IMAGEPATH . 'mpsL/' . $pid . '.jpeg')) {
             $image = IMAGEPATH . 'mpsL/' . $pid . '.jpeg';
             $sz = 'L';
@@ -63,7 +62,7 @@ class Member
                 $sz = 'L';
             }
         }
-        return array($image, $sz);
+        return [$image, $sz];
     }
 
 }

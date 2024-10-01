@@ -10,7 +10,7 @@ foreach ($all_news as $id => $news_row) {
     if ($c++ == 2) {
         break;
     }
-    list($title, $content, $date) = $news_row;
+    [$title, $content, $date] = $news_row;
     $url = news_individual_link($date, $title);
     print "<h5><a href=\"$url\">" . $title . "</a></h5>";
     print "<p>";

@@ -1,7 +1,7 @@
 <?php
 
 function api_getComments_front() {
-?>
+    ?>
 <p><big>Fetch comments left on TheyWorkForYou.</big></p>
 
 <p>With no arguments, returns most recent comments in reverse date order.</p>
@@ -24,40 +24,40 @@ function api_getComments_front() {
 }
 
 function api_getComments_start_date($start_date) {
-        $args = array (
-            'start_date' => $start_date,
-            'end_date' => get_http_var('end_date')
-        );
-    $commentlist = new COMMENTLIST;
+    $args =  [
+        'start_date' => $start_date,
+        'end_date' => get_http_var('end_date'),
+    ];
+    $commentlist = new COMMENTLIST();
     $commentlist->display('dates', $args, 'api');
 }
 
 function api_getComments_search($s) {
-        $args = array (
-            's' => $s,
-            'p' => get_http_var('page'),
-            'num' => get_http_var('num'),
-        );
-    $commentlist = new COMMENTLIST;
+    $args =  [
+        's' => $s,
+        'p' => get_http_var('page'),
+        'num' => get_http_var('num'),
+    ];
+    $commentlist = new COMMENTLIST();
     $commentlist->display('search', $args, 'api');
 }
 
 function api_getComments() {
-    $args = array(
+    $args = [
         'page' => get_http_var('p'),
-            'num' => get_http_var('num'),
-    );
-    $COMMENTLIST = new COMMENTLIST;
+        'num' => get_http_var('num'),
+    ];
+    $COMMENTLIST = new COMMENTLIST();
     $COMMENTLIST->display('recent', $args, 'api');
 }
 
 function api_getComments_pid($pid) {
-    $args = array(
+    $args = [
         'page' => get_http_var('p'),
-            'num' => get_http_var('num'),
-        'pid' => $pid
-    );
-    $COMMENTLIST = new COMMENTLIST;
+        'num' => get_http_var('num'),
+        'pid' => $pid,
+    ];
+    $COMMENTLIST = new COMMENTLIST();
     $COMMENTLIST->display('recent', $args, 'api');
 }
 

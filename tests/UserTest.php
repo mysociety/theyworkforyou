@@ -3,22 +3,18 @@
 /**
  * Provides test methods for user functionality.
  */
-class UserTest extends TWFY_Database_TestCase
-{
-
+class UserTest extends TWFY_Database_TestCase {
     /**
      * Loads the user testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/user.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/user.xml');
     }
 
     /**
      * Ensures the database is prepared and the user class is included for every test.
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         include_once('www/includes/easyparliament/user.php');
@@ -27,7 +23,7 @@ class UserTest extends TWFY_Database_TestCase
     public function testAddUser() {
         $u = new USER();
 
-        $details = array(
+        $details = [
             "firstname" => 'Test',
             "lastname" => 'User',
             "email" => 'test@example.org',
@@ -36,15 +32,15 @@ class UserTest extends TWFY_Database_TestCase
             "url" => '',
             "password" => '',
             "optin" => '0',
-            "status" => 'User'
-        );
+            "status" => 'User',
+        ];
         $u->add($details, false);
 
         $id = $u->user_id();
         $u->init($id);
 
-        $this->assertEquals( 'Test', $u->firstname() );
-        $this->assertEquals( 'EH1 99SP', $u->postcode() );
+        $this->assertEquals('Test', $u->firstname());
+        $this->assertEquals('EH1 99SP', $u->postcode());
     }
 
     public function testEditUser() {
@@ -52,19 +48,19 @@ class UserTest extends TWFY_Database_TestCase
         $u = new THEUSER();
         $u->loggedin = 1;
 
-        $this->assertEquals( 'Test', $u->firstname() );
+        $this->assertEquals('Test', $u->firstname());
 
-        $d = $u->update_self( array(
+        $d = $u->update_self([
             'firstname' => 'Experiment',
             'lastname' => 'User',
             'postcode' => 'EH1 99SP',
             'password' => '',
             'url' => '',
             'optin' => 0,
-            'user_id' => 1
-        ) );
+            'user_id' => 1,
+        ]);
 
-        $this->assertEquals( 'Experiment', $u->firstname() );
+        $this->assertEquals('Experiment', $u->firstname());
     }
 
     public function testEditUserEmail() {
@@ -72,9 +68,9 @@ class UserTest extends TWFY_Database_TestCase
         $u = new THEUSER();
         $u->loggedin = 1;
 
-        $this->assertEquals( 'user@example.org', $u->email() );
+        $this->assertEquals('user@example.org', $u->email());
 
-        $d = $u->update_self( array(
+        $d = $u->update_self([
             'firstname' => 'Experiment',
             'lastname' => 'User',
             'email' => 'user@example.com',
@@ -82,11 +78,11 @@ class UserTest extends TWFY_Database_TestCase
             'password' => '',
             'url' => '',
             'optin' => 0,
-            'user_id' => 1
-        ), false );
+            'user_id' => 1,
+        ], false);
 
         // email should not change as user needs to confirm
-        $this->assertEquals( 'user@example.org', $u->email() );
+        $this->assertEquals('user@example.org', $u->email());
 
         $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.com"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
@@ -108,9 +104,9 @@ class UserTest extends TWFY_Database_TestCase
 
         $token = '2-' . $tokenRow['token'];
 
-        $u->confirm_email($token,false);
+        $u->confirm_email($token, false);
 
-        $this->assertEquals( 'user@example.com', $u->email(), 'confirming with token updates email address' );
+        $this->assertEquals('user@example.com', $u->email(), 'confirming with token updates email address');
         $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.com"');
         $this->assertEquals(0, $tokenCount, 'token deleted once email confirmed');
 
@@ -126,15 +122,15 @@ class UserTest extends TWFY_Database_TestCase
         $u = new THEUSER();
         $u->loggedin = 1;
 
-        $this->assertEquals( 'user@example.org', $u->email(), 'confirming inital email address' );
+        $this->assertEquals('user@example.org', $u->email(), 'confirming inital email address');
 
         $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.net"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
 
         $token = '2-lkdsjafhsadjhf';
 
-        $u->confirm_email($token,false);
-        $this->assertEquals( 'user@example.org', $u->email(), 'expired token does not update email address' );
+        $u->confirm_email($token, false);
+        $this->assertEquals('user@example.org', $u->email(), 'expired token does not update email address');
 
         $tokenCount = $this->getRowCount('tokens', 'data = "1::user@example.net"');
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');

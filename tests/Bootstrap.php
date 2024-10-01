@@ -19,15 +19,15 @@ if (
     define('OPTION_TWFY_DB_USER', $_SERVER['TWFY_TEST_DB_USER']);
     define('OPTION_TWFY_DB_PASS', $_SERVER['TWFY_TEST_DB_PASS']);
     define('OPTION_TWFY_DB_NAME', $_SERVER['TWFY_TEST_DB_NAME']);
-    
+
     // Define the base directory
-    define ("BASEDIR", dirname(__FILE__) . '/../www/docs'); 
+    define("BASEDIR", dirname(__FILE__) . '/../www/docs');
 
     # point to the default mapit
     define('OPTION_MAPIT_URL', 'https://mapit.mysociety.org/');
 
     // If there isn't a config file (most likely this is running an automated test) copy one in.
-    if ( ! file_exists(dirname(__FILE__) . '/../conf/general')) {
+    if (! file_exists(dirname(__FILE__) . '/../conf/general')) {
         copy(dirname(__FILE__) . '/../conf/general-example', dirname(__FILE__) . '/../conf/general');
     }
 

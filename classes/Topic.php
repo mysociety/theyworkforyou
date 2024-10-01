@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou;
 
 class Topic {
-
     /**
      * DB handle
      */
@@ -28,12 +27,11 @@ class Topic {
      *
      */
 
-    public function __construct($data = null)
-    {
-        $this->db = new \ParlDB;
+    public function __construct($data = null) {
+        $this->db = new \ParlDB();
 
         if (is_null($data)) {
-          return;
+            return;
         }
 
         $this->id = $data['id'];
@@ -53,7 +51,7 @@ class Topic {
 
     public function sctitle() {
         $title = $this->title;
-        if (strpos($title, 'The ') === 0 ) {
+        if (strpos($title, 'The ') === 0) {
             $title = lcfirst($title);
         }
 
@@ -124,13 +122,13 @@ class Topic {
 
     private function _getContentIDs() {
         $q = $this->db->query(
-          "SELECT body, gid, ep.epobject_id FROM epobject ep
+            "SELECT body, gid, ep.epobject_id FROM epobject ep
            JOIN hansard h on ep.epobject_id = h.epobject_id
            JOIN topic_epobjects te on te.epobject_id = ep.epobject_id
            WHERE topic_key = :topic_key",
-            array(
-                ':topic_key' => $this->id
-            )
+            [
+                ':topic_key' => $this->id,
+            ]
         );
 
         return $q;
@@ -139,13 +137,13 @@ class Topic {
     public function getContent() {
         $q = $this->_getContentIDs();
 
-        $content = array();
+        $content = [];
         foreach ($q as $row) {
-            $content[] = array(
+            $content[] = [
                 'title' => $row['body'],
                 'href'  => Utility\Hansard::gid_to_url($row['gid']),
                 'id'    => $row['epobject_id'],
-            );
+            ];
         }
 
         return $content;
@@ -154,17 +152,17 @@ class Topic {
     public function getFullContent() {
         $q = $this->_getContentIDs();
 
-        $content = array();
+        $content = [];
         foreach ($q as $row) {
             $gid = $row['gid'];
             if (strpos($gid, 'lords') !== false) {
-                $debatelist = new \LORDSDEBATELIST;
+                $debatelist = new \LORDSDEBATELIST();
             } elseif (strpos($gid, 'westminhall') !== false) {
-                $debatelist = new \WHALLLIST;
+                $debatelist = new \WHALLLIST();
             } else {
-                $debatelist = new \DEBATELIST;
+                $debatelist = new \DEBATELIST();
             }
-            $data = $debatelist->display('featured_gid', array('gid' => $gid), 'none');
+            $data = $debatelist->display('featured_gid', ['gid' => $gid], 'none');
 
             $item = $data['data'];
             if (isset($item['parent']) && $item['body'] == $item['parent']['body']) {
@@ -178,24 +176,24 @@ class Topic {
 
     public function addContent($gid) {
         $q = $this->db->query(
-          "SELECT epobject_id FROM hansard WHERE gid = :gid",
-          array(
-            ":gid" => $gid
-          )
+            "SELECT epobject_id FROM hansard WHERE gid = :gid",
+            [
+                ":gid" => $gid,
+            ]
         )->first();
 
         if (!$q) {
-          return false;
+            return false;
         }
 
         $epobject_id = $q['epobject_id'];
 
         $q = $this->db->query(
-          "INSERT INTO topic_epobjects (topic_key, epobject_id) VALUES (:topic, :ep_id)",
-          array(
-            ":topic" => $this->id,
-            ":ep_id" => $epobject_id
-          )
+            "INSERT INTO topic_epobjects (topic_key, epobject_id) VALUES (:topic, :ep_id)",
+            [
+                ":topic" => $this->id,
+                ":ep_id" => $epobject_id,
+            ]
         );
 
         return $q->success();
@@ -203,25 +201,25 @@ class Topic {
 
     public function deleteContent($id) {
         $q = $this->db->query(
-          "DELETE FROM topic_epobjects WHERE topic_key = :topic AND epobject_id = :ep_id",
-          array(
-            ":topic" => $this->id,
-            ":ep_id" => $id
-          )
+            "DELETE FROM topic_epobjects WHERE topic_key = :topic AND epobject_id = :ep_id",
+            [
+                ":topic" => $this->id,
+                ":ep_id" => $id,
+            ]
         );
 
         return $q->success();
     }
 
     public function getPolicySets() {
-      $q = $this->db->query(
-        "SELECT policyset FROM topic_policysets WHERE topic_key = :key",
-        array(
-          ':key' => $this->id
-        )
-      );
+        $q = $this->db->query(
+            "SELECT policyset FROM topic_policysets WHERE topic_key = :key",
+            [
+                ':key' => $this->id,
+            ]
+        );
 
-        $sets = array();
+        $sets = [];
         foreach ($q as $row) {
             $sets[] = $row['policyset'];
         }
@@ -233,21 +231,21 @@ class Topic {
         if ($sets === '' or count($sets) == 0) {
             $q = $this->db->query(
                 "DELETE FROM topic_policysets WHERE topic_key = :topic_key",
-                array(
-                    ":topic_key" => $this->id
-                )
+                [
+                    ":topic_key" => $this->id,
+                ]
             );
         } else {
             foreach ($sets as $set) {
-                if ($set == '' ) {
+                if ($set == '') {
                     continue;
                 }
                 $q = $this->db->query(
                     "REPLACE INTO topic_policysets (policyset, topic_key) VALUES (:policyset, :topic_key)",
-                    array(
+                    [
                         ':topic_key' => $this->id,
-                        ':policyset' => $set
-                    )
+                        ':policyset' => $set,
+                    ]
                 );
             }
         }
@@ -256,14 +254,14 @@ class Topic {
     }
 
     public function getPolicies() {
-      $q = $this->db->query(
-        'SELECT policy_id FROM topic_policies WHERE topic_key = :key',
-        array(
-          ':key' => $this->id
-        )
-      );
+        $q = $this->db->query(
+            'SELECT policy_id FROM topic_policies WHERE topic_key = :key',
+            [
+                ':key' => $this->id,
+            ]
+        );
 
-        $policies = array();
+        $policies = [];
         foreach ($q as $row) {
             $policies[] = $row['policy_id'];
         }
@@ -275,21 +273,21 @@ class Topic {
         if ($policies === '' or count($policies) == 0) {
             $q = $this->db->query(
                 "DELETE FROM topic_policies WHERE topic_key = :topic_key",
-                array(
-                    ":topic_key" => $this->id
-                )
+                [
+                    ":topic_key" => $this->id,
+                ]
             );
         } else {
             foreach ($policies as $policy) {
-                if ($policy == '' ) {
+                if ($policy == '') {
                     continue;
                 }
                 $q = $this->db->query(
                     "REPLACE INTO topic_policies (policy_id, topic_key) VALUES (:policy, :topic_key)",
-                    array(
+                    [
                         ':topic_key' => $this->id,
-                        ':policy' => $policy
-                    )
+                        ':policy' => $policy,
+                    ]
                 );
             }
         }
@@ -299,7 +297,7 @@ class Topic {
 
     public function getAllPolicies() {
         $policy_sets = $this->getPolicySets();
-        $all_policies = array();
+        $all_policies = [];
         $policies = new Policies();
         foreach ($policy_sets as $set) {
             $all_policies = array_merge($all_policies, array_keys($policies->limitToSet($set)->getPolicies()));
@@ -312,19 +310,19 @@ class Topic {
 
     public function save() {
         $q = $this->db->query(
-          "REPLACE INTO topics
+            "REPLACE INTO topics
           (id, title, slug, description, search_string, front_page, image)
           VALUES
           (:id, :title, :slug, :description, :search_string, :front_page, :image)",
-            array(
+            [
                 ':id' => $this->id,
                 ':slug' => $this->slug(),
                 ':title' => $this->title(),
                 ':description' => $this->description(),
                 ':search_string' => $this->search_string(),
                 ':front_page' => $this->onFrontPage(),
-                ':image' => $this->image()
-            )
+                ':image' => $this->image(),
+            ]
         );
 
         return $q->success();

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertgonemps.php
  * Description: Mailer for those whose MP has gone
  * $Id: alertgonemps.php,v 1.2 2009-06-16 09:12:09 matthew Exp $
@@ -14,7 +14,7 @@ ini_set('memory_limit', -1);
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new ParlDB();
 
 $nomail = false;
 $onlyemail = '';
@@ -22,24 +22,24 @@ $fromemail = '';
 $fromflag = false;
 $toemail = '';
 $template = 'alert_gone';
-for ($k=1; $k<$argc; $k++) {
-	if ($argv[$k] == '--nomail') {
-		$nomail = true;
-	}
-	if (preg_match('#^--only=(.*)$#', $argv[$k], $m)) {
-		$onlyemail = $m[1];
-	}
-	if (preg_match('#^--from=(.*)$#', $argv[$k], $m)) {
-		$fromemail = $m[1];
-	}
-	if (preg_match('#^--to=(.*)$#', $argv[$k], $m)) {
-		$toemail = $m[1];
-	}
-	if (preg_match('#^--template=(.*)$#', $argv[$k], $m)) {
-		$template = $m[1];
-		# Tee hee
-		$template = "../../../../../../../../../../home/twfy-live/email-alert-templates/alert_mailout_$template";
-	}
+for ($k = 1; $k < $argc; $k++) {
+    if ($argv[$k] == '--nomail') {
+        $nomail = true;
+    }
+    if (preg_match('#^--only=(.*)$#', $argv[$k], $m)) {
+        $onlyemail = $m[1];
+    }
+    if (preg_match('#^--from=(.*)$#', $argv[$k], $m)) {
+        $fromemail = $m[1];
+    }
+    if (preg_match('#^--to=(.*)$#', $argv[$k], $m)) {
+        $toemail = $m[1];
+    }
+    if (preg_match('#^--template=(.*)$#', $argv[$k], $m)) {
+        $template = $m[1];
+        # Tee hee
+        $template = "../../../../../../../../../../home/twfy-live/email-alert-templates/alert_mailout_$template";
+    }
 }
 
 #if (DEVSITE)
@@ -49,8 +49,8 @@ if ($nomail) {
     mlog("NOT SENDING EMAIL\n");
 }
 if (($fromemail && $onlyemail) || ($toemail && $onlyemail)) {
-	mlog("Can't have both from/to and only!\n");
-	exit;
+    mlog("Can't have both from/to and only!\n");
+    exit;
 }
 
 $active = 0;
@@ -59,23 +59,24 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new ALERT();
 
-$current = array('email' => '', 'token' => '');
-$email_text = array();
+$current = ['email' => '', 'token' => ''];
+$email_text = [];
 $globalsuccess = 1;
 
 # Fetch all confirmed, non-deleted alerts
-$confirmed = 1; $deleted = 0;
+$confirmed = 1;
+$deleted = 0;
 $alertdata = $LIVEALERTS->fetch($confirmed, $deleted);
 $alertdata = $alertdata['data'];
 
 $outof = count($alertdata);
-$members = array();
+$members = [];
 $start_time = time();
 foreach ($alertdata as $alertitem) {
-	$active++;
-	$email = $alertitem['email'];
+    $active++;
+    $email = $alertitem['email'];
     if ($onlyemail && $email != $onlyemail) {
         continue;
     }
@@ -90,39 +91,39 @@ foreach ($alertdata as $alertitem) {
     }
     $criteria_raw = $alertitem['criteria'];
 
-	if (!strstr($criteria_raw, 'speaker:')) {
-	    continue;
-	}
+    if (!strstr($criteria_raw, 'speaker:')) {
+        continue;
+    }
 
-	preg_match('#speaker:(\d+)#', $criteria_raw, $m);
-	$person_id = $m[1];
-	if (!isset($members[$person_id])) {
+    preg_match('#speaker:(\d+)#', $criteria_raw, $m);
+    $person_id = $m[1];
+    if (!isset($members[$person_id])) {
         $queries++;
-        $members[$person_id] = new MEMBER(array('person_id' => $person_id));
-	}
+        $members[$person_id] = new MEMBER(['person_id' => $person_id]);
+    }
     $member = $members[$person_id];
     if ($member->current_member_anywhere()) {
         continue;
     }
 
-	if ($email != $current['email']) {
-		if ($email_text) {
-		    write_and_send_email($current, $email_text, $template);
-		}
-		$current['email'] = $email;
-		$current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
-		$email_text = array();
-		$q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
-            ':email' => $email))->first();
+    if ($email != $current['email']) {
+        if ($email_text) {
+            write_and_send_email($current, $email_text, $template);
+        }
+        $current['email'] = $email;
+        $current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
+        $email_text = [];
+        $q = $db->query('SELECT user_id FROM users WHERE email = :email', [
+            ':email' => $email])->first();
         if ($q) {
             $user_id = $q['user_id'];
             $registered++;
-		} else {
-			$user_id = 0;
-			$unregistered++;
-		}	
-		mlog("\nEMAIL: $email, uid $user_id; memory usage : ".memory_get_usage()."\n");
-	}
+        } else {
+            $user_id = 0;
+            $unregistered++;
+        }
+        mlog("\nEMAIL: $email, uid $user_id; memory usage : " . memory_get_usage() . "\n");
+    }
 
     $lh = $member->left_house();
     $lh = array_shift($lh);
@@ -143,37 +144,36 @@ if ($globalsuccess) {
 } else {
     $sss .= 'Something went wrong! Total time: ';
 }
-$sss .= (getmicrotime()-$global_start)."\n\n";
+$sss .= (getmicrotime() - $global_start) . "\n\n";
 mlog($sss);
 mlog(date('r') . "\n");
 
 function write_and_send_email($current, $data, $template) {
-	global $globalsuccess, $sentemails, $nomail, $start_time;
+    global $globalsuccess, $sentemails, $nomail, $start_time;
 
-	$sentemails++;
-	mlog("SEND $sentemails : Sending email to $current[email] ... ");
-	$d = array('to' => $current['email'], 'template' => $template);
-	$m = array(
-		'DATA' => join("\n", $data),
-		'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
-        'ALERT_IS' => count($data)==1 ? 'alert is' : 'alerts are',
-        'ALERTS' => count($data)==1 ? 'an alert' : 'some alerts',
-	);
-	if (!$nomail) {
-		$success = send_template_email($d, $m, true);
-		mlog("sent ... ");
-		# sleep if time between sending mails is less than a certain number of seconds on average
-		if (((time() - $start_time) / $sentemails) < 0.5 ) { # number of seconds per mail not to be quicker than
-			mlog("pausing ... ");
-			sleep(1);
-		}
-	} else {
-		mlog(join('', $data));
-		$success = 1;
-	}
-	mlog("done\n");
-	if (!$success) {
-	    $globalsuccess = 0;
-	}
+    $sentemails++;
+    mlog("SEND $sentemails : Sending email to $current[email] ... ");
+    $d = ['to' => $current['email'], 'template' => $template];
+    $m = [
+        'DATA' => join("\n", $data),
+        'MANAGE' => 'https://www.theyworkforyou.com/D/' . $current['token'],
+        'ALERT_IS' => count($data) == 1 ? 'alert is' : 'alerts are',
+        'ALERTS' => count($data) == 1 ? 'an alert' : 'some alerts',
+    ];
+    if (!$nomail) {
+        $success = send_template_email($d, $m, true);
+        mlog("sent ... ");
+        # sleep if time between sending mails is less than a certain number of seconds on average
+        if (((time() - $start_time) / $sentemails) < 0.5) { # number of seconds per mail not to be quicker than
+            mlog("pausing ... ");
+            sleep(1);
+        }
+    } else {
+        mlog(join('', $data));
+        $success = 1;
+    }
+    mlog("done\n");
+    if (!$success) {
+        $globalsuccess = 0;
+    }
 }
-

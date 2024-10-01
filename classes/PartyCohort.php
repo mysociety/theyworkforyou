@@ -12,25 +12,22 @@ namespace MySociety\TheyWorkForYou;
  * Party
  */
 
-class PartyCohort
-{
+class PartyCohort {
     private $db;
     private $party;
     private $hash;
 
-    public function __construct($person_id, $party)
-    {
+    public function __construct($person_id, $party) {
         // treat Labour and Labour/Co-operative the same as that's how
         // people view them and it'll confuse the results otherwise
 
         $this->party = $party;
         $this->hash = "$person_id-$party";
-        $this->db = new \ParlDB;
+        $this->db = new \ParlDB();
     }
 
-    public function getAllPolicyPositions($policies)
-    {
-        $positions = array();
+    public function getAllPolicyPositions($policies) {
+        $positions = [];
 
         $party = $this->party;
         if ($party == 'Independent') {
@@ -51,8 +48,7 @@ class PartyCohort
         return $positions;
     }
 
-    public function policy_position($policy_id)
-    {
+    public function policy_position($policy_id) {
         $position = $this->db->query(
             "SELECT score, divisions, date_min, date_max
             FROM partypolicy
@@ -60,10 +56,10 @@ class PartyCohort
                 party = :party
                 AND house = 1
                 AND policy_id = :policy_id",
-            array(
+            [
                 ':party' => $this->hash,
-                ':policy_id' => $policy_id
-            )
+                ':policy_id' => $policy_id,
+            ]
         )->first();
 
         if ($position) {

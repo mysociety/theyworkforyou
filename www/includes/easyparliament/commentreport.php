@@ -21,7 +21,6 @@
 */
 
 class COMMENTREPORT {
-
     public $report_id = '';
     public $comment_id = '';
     public $firstname = '';
@@ -40,10 +39,10 @@ class COMMENTREPORT {
     public $email = '';
 
 
-    public function __construct($report_id='') {
+    public function __construct($report_id = '') {
         // Pass it a report id and it gets and sets this report's data.
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
 
         if (is_numeric($report_id)) {
 
@@ -65,9 +64,9 @@ class COMMENTREPORT {
                                     users
                             WHERE	commentreports.report_id = :report_id
                             AND		commentreports.user_id = users.user_id
-                            ", array(
-                                ':report_id' => $report_id
-                            ))->first();
+                            ", [
+                ':report_id' => $report_id,
+            ])->first();
 
             if ($q) {
                 $this->report_id = $report_id;
@@ -105,9 +104,9 @@ class COMMENTREPORT {
                                     commentreports.lastname,
                                     commentreports.email
                             FROM	commentreports
-                            WHERE	commentreports.report_id = :report_id", array(
-                                ':report_id' => $report_id
-                            ))->first();
+                            WHERE	commentreports.report_id = :report_id", [
+                    ':report_id' => $report_id,
+                ])->first();
                 if ($q) {
                     $this->report_id = $report_id;
                     $this->comment_id = $q['comment_id'];
@@ -127,20 +126,48 @@ class COMMENTREPORT {
     }
 
 
-    public function report_id() { return $this->report_id; }
-    public function comment_id() { return $this->comment_id; }
-    public function user_id() { return $this->user_id; }
-    public function user_name() { return $this->firstname . ' ' . $this->lastname; }
-    public function firstname() { return $this->firstname; }
-    public function lastname() { return $this->lastname; }
-    public function email() { return $this->email; }
-    public function body() { return $this->body; }
-    public function reported() { return $this->reported; }
-    public function resolved() { return $this->resolved; }
-    public function resolvedby() { return $this->resolvedby; }
-    public function locked() { return $this->locked; }
-    public function lockedby() { return $this->lockedby; }
-    public function upheld() { return $this->upheld; }
+    public function report_id() {
+        return $this->report_id;
+    }
+    public function comment_id() {
+        return $this->comment_id;
+    }
+    public function user_id() {
+        return $this->user_id;
+    }
+    public function user_name() {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+    public function firstname() {
+        return $this->firstname;
+    }
+    public function lastname() {
+        return $this->lastname;
+    }
+    public function email() {
+        return $this->email;
+    }
+    public function body() {
+        return $this->body;
+    }
+    public function reported() {
+        return $this->reported;
+    }
+    public function resolved() {
+        return $this->resolved;
+    }
+    public function resolvedby() {
+        return $this->resolvedby;
+    }
+    public function locked() {
+        return $this->locked;
+    }
+    public function lockedby() {
+        return $this->lockedby;
+    }
+    public function upheld() {
+        return $this->upheld;
+    }
 
     public function create($COMMENT, $reportdata) {
         // For when a user posts a report on a comment.
@@ -161,7 +188,7 @@ class COMMENTREPORT {
         global $THEUSER, $PAGE;
 
         if (!$THEUSER->is_able_to('reportcomment')) {
-            $PAGE->error_message ("Sorry, you are not allowed to post reports.");
+            $PAGE->error_message("Sorry, you are not allowed to post reports.");
             return false;
         }
 
@@ -198,12 +225,12 @@ class COMMENTREPORT {
                                     :user_id
                                     )
                         ";
-            $params = array(
+            $params = [
                 ':comment_id' => $COMMENT->comment_id(),
                 ':body' => $body,
                 ':time' => $time,
-                ':user_id' => $THEUSER->user_id()
-            );
+                ':user_id' => $THEUSER->user_id(),
+            ];
         } else {
             $sql = "INSERT INTO commentreports
                                     (comment_id, body, reported, firstname, lastname, email)
@@ -215,14 +242,14 @@ class COMMENTREPORT {
                                     :email
                                     )
                         ";
-            $params = array(
+            $params = [
                 ':comment_id' => $COMMENT->comment_id(),
                 ':body' => $body,
                 ':time' => $time,
                 ':firstname' => $reportdata['firstname'],
                 ':lastname' => $reportdata['lastname'],
                 ':email' => $reportdata['email'],
-            );
+            ];
         }
 
         $q = $this->db->query($sql, $params);
@@ -252,10 +279,10 @@ class COMMENTREPORT {
             // Notify those who need to know that there's a new report.
 
             $URL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
-            $URL->insert(array(
-                'rid'=>$this->report_id,
-                'cid'=>$this->comment_id
-            ));
+            $URL->insert([
+                'rid' => $this->report_id,
+                'cid' => $this->comment_id,
+            ]);
 
             $emailbody = "A new comment report has been filed by " . $this->user_name() . ".\n\n";
             $emailbody .= "COMMENT:\n" . $COMMENT->body() . "\n\n";
@@ -273,14 +300,14 @@ class COMMENTREPORT {
                 $email = $this->email();
             }
 
-            $data = array (
+            $data =  [
                 'to' 			=> $email,
-                'template' 		=> 'report_acknowledge'
-            );
-            $merge = array (
+                'template' 		=> 'report_acknowledge',
+            ];
+            $merge =  [
                 'COMMENTURL' 	=> "https://" . DOMAIN . $COMMENT->url(),
-                'REPORTBODY' 	=> strip_tags($this->body())
-            );
+                'REPORTBODY' 	=> strip_tags($this->body()),
+            ];
 
 
             // send_template_email in utility.php.
@@ -296,10 +323,10 @@ class COMMENTREPORT {
 
     public function display() {
 
-        $data = array();
+        $data = [];
 
         if (is_numeric($this->report_id)) {
-            $data = array (
+            $data =  [
                 'report_id' 	=> $this->report_id(),
                 'comment_id' 	=> $this->comment_id(),
                 'user_id' 		=> $this->user_id(),
@@ -310,8 +337,8 @@ class COMMENTREPORT {
                 'resolvedby' 	=> $this->resolvedby(),
                 'locked' 		=> $this->locked(),
                 'lockedby'		=> $this->lockedby(),
-                'upheld'	 	=> $this->upheld()
-            );
+                'upheld'	 	=> $this->upheld(),
+            ];
         }
 
         $this->render($data);
@@ -336,7 +363,7 @@ class COMMENTREPORT {
         if ($THEUSER->is_able_to('deletecomment')) {
             $time = gmdate("Y-m-d H:i:s");
 
-            $q = $this->db->query ("UPDATE commentreports
+            $q = $this->db->query("UPDATE commentreports
                             SET		locked = '$time',
                                     lockedby = '" . $THEUSER->user_id() . "'
                             WHERE	report_id = '" . $this->report_id . "'
@@ -347,11 +374,11 @@ class COMMENTREPORT {
                 $this->lockedby = $THEUSER->user_id();
                 return true;
             } else {
-                $PAGE->error_message ("Sorry, we were unable to lock this report.");
+                $PAGE->error_message("Sorry, we were unable to lock this report.");
                 return false;
             }
         } else {
-            $PAGE->error_message ("You are not authorised to delete annotations.");
+            $PAGE->error_message("You are not authorised to delete annotations.");
             return false;
         }
     }
@@ -360,7 +387,7 @@ class COMMENTREPORT {
     public function unlock() {
         // Unlock a comment so it can be examined by someone else.
 
-        $q = $this->db->query ("UPDATE commentreports
+        $q = $this->db->query("UPDATE commentreports
                         SET		locked = NULL,
                                 lockedby = NULL
                         WHERE	report_id = '" . $this->report_id . "'
@@ -417,12 +444,12 @@ class COMMENTREPORT {
                                         lockedby = NULL,
                                         upheld = :upheld
                                 WHERE 	report_id = :report_id
-                                ", array(
-                                    ':time' => $time,
-                                    ':resolved_by' => $THEUSER->user_id(),
-                                    ':upheld' => $upheldsql,
-                                    ':report_id' => $this->report_id
-                                ));
+                                ", [
+                    ':time' => $time,
+                    ':resolved_by' => $THEUSER->user_id(),
+                    ':upheld' => $upheldsql,
+                    ':report_id' => $this->report_id,
+                ]);
 
                 if ($q->success()) {
 
@@ -434,16 +461,16 @@ class COMMENTREPORT {
 
                     return true;
                 } else {
-                    $PAGE->error_message ("Sorry, we couldn't resolve this report.");
+                    $PAGE->error_message("Sorry, we couldn't resolve this report.");
                     return false;
                 }
             } else {
-                $PAGE->error_message ("This report has already been resolved (on " . $this->resolved . ")");
+                $PAGE->error_message("This report has already been resolved (on " . $this->resolved . ")");
                 return false;
             }
 
         } else {
-            $PAGE->error_message ("You are not authorised to resolve reports.");
+            $PAGE->error_message("You are not authorised to resolve reports.");
             return false;
         }
     }

@@ -2,7 +2,7 @@
 
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
-$this->block_start(array('id'=>'help', 'title'=>"What is the Scottish Parliament?"));
+$this->block_start(['id' => 'help', 'title' => "What is the Scottish Parliament?"]);
 ?>
 
 <p>The Scottish Parliament is the national legislature of Scotland, located in

@@ -7,7 +7,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $this_page = 'admin_photos';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -33,7 +33,7 @@ print $out;
 function submit_photo() {
     $dir = "../images";
     $pid = intval(get_http_var('pid'));
-    $errors = array();
+    $errors = [];
 
     if (!array_key_exists('photo', $_FILES)) {
         array_push($errors, 'Not got the photo.');
@@ -49,7 +49,7 @@ function submit_photo() {
         if (!$image) {
             array_push($errors, 'Failed to read image from uploaded file');
         }
-            $imageS = clone $image;
+        $imageS = clone $image;
         if (!$image->scaleImage(0, 118)) {
             array_push($errors, 'Scaling large failed');
         }
@@ -97,7 +97,7 @@ function person_drop_down() {
     ';
     $q = $db->query($query);
 
-    $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
+    $houses = [1 => 'MP', 'Lord', 'MLA', 'MSP'];
 
     foreach ($q as $row) {
         $p_id = $row['person_id'];
@@ -111,7 +111,7 @@ function person_drop_down() {
             $desc .= ', ' . $row['constituency'];
         }
 
-        list($dummy, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
+        [$dummy, $sz] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($p_id);
         if ($sz == 'L') {
             $desc .= ' [has large photo]';
         } elseif ($sz == 'S') {
@@ -119,7 +119,7 @@ function person_drop_down() {
         } else {
             $desc .= ' [no photo]';
         }
-        $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
+        $out .= '<option value="' . $p_id . '">' . $desc . '</option>' . "\n";
     }
 
     $out .= ' </select></span> </div> ';
@@ -127,7 +127,7 @@ function person_drop_down() {
     return $out;
 }
 
-function display_photo_form($errors = array()) {
+function display_photo_form($errors = []) {
     $out = '';
     if ($errors) {
         $out .= '<ul class="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
@@ -135,18 +135,18 @@ function display_photo_form($errors = array()) {
     $out .= '<form method="post" action="photos.php" enctype="multipart/form-data">';
     $out .= person_drop_down();
     $out .= <<<EOF
-<div class="row">
-    <span class="label"><label for="form_photo">Photo:</label></span>
-    <span class="formw"><input type="file" name="photo" id="form_photo" size="50"></span>
-</div>
-<div class="row">
-    <span class="label">&nbsp;</span>
-    <span class="formw"><input type="submit" name="submit" value="Upload photo"></span>
-</div>
-</form>
+        <div class="row">
+            <span class="label"><label for="form_photo">Photo:</label></span>
+            <span class="formw"><input type="file" name="photo" id="form_photo" size="50"></span>
+        </div>
+        <div class="row">
+            <span class="label">&nbsp;</span>
+            <span class="formw"><input type="submit" name="submit" value="Upload photo"></span>
+        </div>
+        </form>
 
-<p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
-EOF;
+        <p style="clear:both; margin-top: 3em"><a href="/images/mps/photo-status.php">List MPs without photos</a></p>
+        EOF;
 
     return $out;
 }
@@ -155,7 +155,7 @@ function submit_attribution() {
     $pid = intval(get_http_var('pid'));
     $attr_text = get_http_var('attr_text');
     $attr_link = get_http_var('attr_link');
-    $errors = array();
+    $errors = [];
 
     if (!$pid || !$attr_text) {
         array_push($errors, 'Missing information');
@@ -173,15 +173,15 @@ function submit_attribution() {
             ($pid,'photo_attribution_text',:attr_text),
             ($pid,'photo_attribution_link',:attr_link)
         ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
-    $db->query($query, array(
+    $db->query($query, [
         ':attr_text' => $attr_text,
-        ':attr_link' => $attr_link
-        ));
+        ':attr_link' => $attr_link,
+    ]);
 
     return "<p><em>Attribution text/link set for pid $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>" . display_attribution_form();
 }
 
-function display_attribution_form($errors = array()) {
+function display_attribution_form($errors = []) {
     $out = '';
     if ($errors) {
         $out .= '<ul class="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
@@ -189,30 +189,30 @@ function display_attribution_form($errors = array()) {
     $out .= '<form method="post" action="photos.php">';
     $out .= person_drop_down();
     $out .= <<<EOF
-<div class="row">
-    <span class="label"><label for="form_attr_link">Attribution link:</label></span>
-    <span class="formw"><input type="text" name="attr_link" id="form_attr_link" size="50"></span>
-</div>
-<div class="row">
-    <span class="label"><label for="form_attr_text">Attribution text:</label></span>
-    <span class="formw"><input type="text" name="attr_text" id="form_attr_text" size="50"></span>
-</div>
-<div class="row">
-    <span class="label">&nbsp;</span>
-    <span class="formw"><input type="submit" name="submit" value="Update attribution"></span>
-</div>
-</form>
-EOF;
+        <div class="row">
+            <span class="label"><label for="form_attr_link">Attribution link:</label></span>
+            <span class="formw"><input type="text" name="attr_link" id="form_attr_link" size="50"></span>
+        </div>
+        <div class="row">
+            <span class="label"><label for="form_attr_text">Attribution text:</label></span>
+            <span class="formw"><input type="text" name="attr_text" id="form_attr_text" size="50"></span>
+        </div>
+        <div class="row">
+            <span class="label">&nbsp;</span>
+            <span class="formw"><input type="submit" name="submit" value="Update attribution"></span>
+        </div>
+        </form>
+        EOF;
 
     return $out;
 }
 
 $menu = $PAGE->admin_menu();
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

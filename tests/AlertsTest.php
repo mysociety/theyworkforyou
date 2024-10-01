@@ -3,22 +3,18 @@
 /**
  * Provides test methods for alerts functionality.
  */
-class AlertsTest extends TWFY_Database_TestCase
-{
-
+class AlertsTest extends TWFY_Database_TestCase {
     /**
      * Loads the alerts testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/alerts.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/alerts.xml');
     }
 
     /**
      * Ensures the database is prepared and the alert class is included for every test.
      */
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         include_once('www/includes/easyparliament/alert.php');
@@ -27,11 +23,10 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that unconfirmed, undeleted tests are correctly retrieved
      */
-    public function testFetchUnconfirmedUndeleted()
-    {
+    public function testFetchUnconfirmedUndeleted() {
         $ALERT = new ALERT();
 
-        $response = $ALERT->fetch(0,0);
+        $response = $ALERT->fetch(0, 0);
 
         // Make sure we only get one response
         $this->assertEquals(1, count($response['data']));
@@ -44,11 +39,10 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that confirmed, undeleted tests are correctly retrieved
      */
-    public function testFetchConfirmedUndeleted()
-    {
+    public function testFetchConfirmedUndeleted() {
         $ALERT = new ALERT();
 
-        $response = $ALERT->fetch(1,0);
+        $response = $ALERT->fetch(1, 0);
 
         // Make sure we only get two responses
         $this->assertEquals(2, count($response['data']));
@@ -61,11 +55,10 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that the correct alerts between given dates are retrieved
      */
-    public function testFetchBetween()
-    {
+    public function testFetchBetween() {
         $ALERT = new ALERT();
 
-        $response = $ALERT->fetch_between(1,0, '2014-02-03', '2014-02-04');
+        $response = $ALERT->fetch_between(1, 0, '2014-02-03', '2014-02-04');
 
         // Make sure we only get one response
         $this->assertEquals(1, count($response['alerts']));
@@ -74,15 +67,14 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that alerts can be added
      */
-    public function testAdd()
-    {
+    public function testAdd() {
         $ALERT = new ALERT();
 
-        $details = array(
+        $details = [
             'email' => 'test@theyworkforyou.com',
             'keyword' => 'test',
-            'pc' => 'SW1A 1AA'
-        );
+            'pc' => 'SW1A 1AA',
+        ];
 
         $response = $ALERT->add($details, false, true);
 
@@ -97,15 +89,14 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that adding an already existing alert works as expected
      */
-    public function testAddExisting()
-    {
+    public function testAddExisting() {
         $ALERT = new ALERT();
 
-        $details = array(
+        $details = [
             'email' => 'test3@theyworkforyou.com',
             'keyword' => 'test3',
-            'pc' => 'SW1A 1AA'
-        );
+            'pc' => 'SW1A 1AA',
+        ];
 
         $response = $ALERT->add($details, false, true);
 
@@ -119,15 +110,14 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that adding an already deleted alert works as expected
      */
-    public function testAddDeleted()
-    {
+    public function testAddDeleted() {
         $ALERT = new ALERT();
 
-        $details = array(
+        $details = [
             'email' => 'test6@theyworkforyou.com',
             'keyword' => 'test6',
-            'pc' => 'SW1A 1AA'
-        );
+            'pc' => 'SW1A 1AA',
+        ];
 
         $response = $ALERT->add($details, false, true);
 
@@ -141,8 +131,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that email_exists() returns true for correct emails
      */
-    public function testEmailExistsPositive()
-    {
+    public function testEmailExistsPositive() {
         $ALERT = new ALERT();
 
         $response = $ALERT->email_exists('test@theyworkforyou.com');
@@ -153,8 +142,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that email_exists() returns false for incorrect emails
      */
-    public function testEmailExistsNegative()
-    {
+    public function testEmailExistsNegative() {
         $ALERT = new ALERT();
 
         $response = $ALERT->email_exists('badtest@theyworkforyou.com');
@@ -165,24 +153,22 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that a correct token will pass
      */
-    public function testCheckTokenCorrect()
-    {
+    public function testCheckTokenCorrect() {
         $ALERT = new ALERT();
 
         $response = $ALERT->check_token('1::token1');
 
-        $this->assertEquals(array(
-                'id' => 1,
-                'email' => 'test@theyworkforyou.com',
-                'criteria' => 'test1',
-            ), $response);
+        $this->assertEquals([
+            'id' => 1,
+            'email' => 'test@theyworkforyou.com',
+            'criteria' => 'test1',
+        ], $response);
     }
 
     /**
      * Test that an incorrect token (wrong token for the alert ID) will fail
      */
-    public function testCheckTokenIncorrectToken()
-    {
+    public function testCheckTokenIncorrectToken() {
         $ALERT = new ALERT();
 
         $response = $ALERT->check_token('1::token2');
@@ -193,8 +179,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that an incorrect token (wrong parts count) will fail
      */
-    public function testCheckTokenWrongPartsCount()
-    {
+    public function testCheckTokenWrongPartsCount() {
         $ALERT = new ALERT();
 
         $response = $ALERT->check_token('foo');
@@ -205,8 +190,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that an incorrect token (non-numeric alert ID) will fail
      */
-    public function testCheckTokenNonNumericId()
-    {
+    public function testCheckTokenNonNumericId() {
         $ALERT = new ALERT();
 
         $response = $ALERT->check_token('one:token1');
@@ -217,8 +201,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that fetching alerts for an MP succeeds
      */
-    public function testCheckFetchByMpExists()
-    {
+    public function testCheckFetchByMpExists() {
         $ALERT = new ALERT();
 
         $response = $ALERT->fetch_by_mp('test5@theyworkforyou.com', 1234);
@@ -229,8 +212,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that fetching alerts for an MP which doesn't exist fails
      */
-    public function testCheckFetchByMpNotExists()
-    {
+    public function testCheckFetchByMpNotExists() {
         $ALERT = new ALERT();
 
         $response = $ALERT->fetch_by_mp('test5@theyworkforyou.com', 9876);
@@ -241,8 +223,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that confirming an alert with a valid token succeeds
      */
-    public function testConfirm()
-    {
+    public function testConfirm() {
         $ALERT = new ALERT();
 
         $response = $ALERT->confirm('1::token1');
@@ -255,8 +236,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that confirming an alert with an invalid token succeeds
      */
-    public function testConfirmInvalid()
-    {
+    public function testConfirmInvalid() {
         $ALERT = new ALERT();
 
         $response = $ALERT->confirm('1::badtoken');
@@ -267,8 +247,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can delete an alert
      */
-    public function testDelete()
-    {
+    public function testDelete() {
         $ALERT = new ALERT();
 
         $response = $ALERT->delete('1::token1');
@@ -281,8 +260,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can't delete an alert with a bad token
      */
-    public function testDeleteInvalid()
-    {
+    public function testDeleteInvalid() {
         $ALERT = new ALERT();
 
         $response = $ALERT->delete('1::badtoken');
@@ -293,8 +271,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can suspend an alert
      */
-    public function testSuspend()
-    {
+    public function testSuspend() {
         $ALERT = new ALERT();
 
         $response = $ALERT->suspend('3::token3');
@@ -307,8 +284,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can't suspend an alert with a bad token
      */
-    public function testSuspendInvalid()
-    {
+    public function testSuspendInvalid() {
         $ALERT = new ALERT();
 
         $response = $ALERT->suspend('3::badtoken');
@@ -319,8 +295,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can resume an alert
      */
-    public function testResume()
-    {
+    public function testResume() {
         $ALERT = new ALERT();
 
         $response = $ALERT->resume('6::token6');
@@ -333,8 +308,7 @@ class AlertsTest extends TWFY_Database_TestCase
     /**
      * Test that we can't delete an alert with a bad token
      */
-    public function testResumeInvalid()
-    {
+    public function testResumeInvalid() {
         $ALERT = new ALERT();
 
         $response = $ALERT->resume('6::badtoken');

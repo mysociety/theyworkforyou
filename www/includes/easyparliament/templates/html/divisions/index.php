@@ -7,9 +7,9 @@
           </div>
           <div class="business-section__primary">
                <?php
-                if ( isset($divisions) && $divisions ) {
+                if (isset($divisions) && $divisions) {
                     $current_date = '';
-                ?>
+                    ?>
                <ul class="business-list">
                     <?php foreach ($divisions as $division) { ?>
                     <li id="<?= $division['division_id'] ?>">
@@ -18,7 +18,7 @@
                         <h3><?= format_date($division['date'], LONGERDATEFORMAT) ?></h3>
                         </span>
                         <?php
-                            $current_date = $division['date'];
+                                $current_date = $division['date'];
                         } ?>
                         <a href="/divisions/<?= $division['division_id'] ?>" class="business-list__title">
                             <h3><?= $division['division_title'] ?></h3>

@@ -20,7 +20,7 @@ $message2 = "You'll be able to post your annotation straight after.";
 $anchor = '#addcomment';
 
 $URL = new \MySociety\TheyWorkForYou\Url('userjoin');
-$URL->insert(array('ret'=>$returl.$anchor));
+$URL->insert(['ret' => $returl . $anchor]);
 $joinurl = $URL->generate();
 
 

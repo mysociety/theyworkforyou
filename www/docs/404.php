@@ -31,12 +31,12 @@ and so on.
 
 <?php
 
-$includes = array(
-    array (
+$includes = [
+    [
         'type' => 'include',
-        'content' => 'whatisthissite'
-    ),
-);
+        'content' => 'whatisthissite',
+    ],
+];
 $PAGE->stripe_end($includes);
 $PAGE->page_end();
 exit;

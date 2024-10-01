@@ -28,7 +28,7 @@ if (!count($data)) {
                           <?= sprintf(gettext('Based on postcode <strong>%s</strong>'), $mp_data['postcode']) ?>
                           <a href="<?= $mp_data['change_url'] ?>"><?= gettext('(Change postcode)') ?></a>
                       </p>
-                    <?php if ( isset( $mp_data ) && $type != 'mlas' ) { ?>
+                    <?php if (isset($mp_data) && $type != 'mlas') { ?>
                       <h3><?php
                         if ($mp_data['former']) {
                             printf(gettext('Your former %s is'), $rep_name);
@@ -46,8 +46,8 @@ if (!count($data)) {
                         </p>
                     </a>
                     <?php }
-                    if ( isset($reps) ) {
-                        if ( isset($mp_data) && $type != 'mlas' ) { ?>
+                    if (isset($reps)) {
+                        if (isset($mp_data) && $type != 'mlas') { ?>
                     <div class="people-list__your-mp__replist-header">
                         <?php } ?>
                       <h3><?php
@@ -66,7 +66,7 @@ if (!count($data)) {
                         }
                         ?></h3>
                     </div>
-                        <?php foreach ( $reps as $rep ) { ?>
+                        <?php foreach ($reps as $rep) { ?>
                     <a href="<?= $rep['mp_url'] ?>" class="people-list__person">
                     <img class="people-list__person__image" src="<?= $rep['image'] ?>">
                         <h2 class="people-list__person__name"><?= $rep['name'] ?></h2>
@@ -82,14 +82,14 @@ if (!count($data)) {
         </div>
 
       <?php } else {
-      $pc_form = ($type == 'mlas' || $type == 'msps' || $type == 'mss');
-?>
+          $pc_form = ($type == 'mlas' || $type == 'msps' || $type == 'mss');
+          ?>
 
         <form action="/<?= $pc_form ? 'postcode' : 'search' ?>/">
             <div class="search-page__section search-page__section--search">
                 <div class="search-page__section__primary">
                     <p class="search-page-main-inputs">
-                    <?php if ( $type == 'peers' ) { ?>
+                    <?php if ($type == 'peers') { ?>
                         <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find %s by name:'), $rep_plural) ?></label>
                     <?php } elseif ($pc_form) { ?>
                         <label for="find-mp-by-name-or-postcode"><?= sprintf(gettext('Find your %s by postcode:'), $rep_name) ?></label>
@@ -107,10 +107,10 @@ if (!count($data)) {
 
         <div class="search-page__section search-page__section--results">
         <?php
-        if (isset($former)) {
-            if ($type == 'mps') {
-            # No reps. Election period!
-        ?>
+                  if (isset($former)) {
+                      if ($type == 'mps') {
+                          # No reps. Election period!
+                          ?>
             <div class="search-page__section__primary">
                 During the period from the dissolution of Parliament to the general election, there are no Members of Parliament.
                 <a href="/mps/?date=<?=$dissolution[1] ?>">View list of MPs as it was when Parliament was dissolved</a>
@@ -131,18 +131,18 @@ if (!count($data)) {
                 <a href="/mss/?date=<?=$dissolution[5] ?>"><?= gettext('View list of MSs as it was when the Senedd was dissolved') ?></a>
             </div>
         <?php
-            }
-        } else { ?>
+        }
+                  } else { ?>
 
             <div class="search-page__section__primary">
             <h2><?= sprintf(gettext('All %s'), $rep_plural) ?></h2>
 
-                <?php if ( $type != 'peers' ) { ?>
+                <?php if ($type != 'peers') { ?>
                 <ul class="search-result-display-options">
-                    <?php if ( $order == 'given_name' ) { ?>
+                    <?php if ($order == 'given_name') { ?>
                     <li><?= gettext('<strong>Sorted by</strong> First name') ?></li>
                     <li><?= gettext('Sort by') ?> <a href="<?= $urls['by_last'] ?>"><?= gettext('Last name') ?></a> / <a href="<?= $urls['by_party'] ?>"><?= gettext('Party') ?></a></li>
-                    <?php } else if ( $order == 'party' ) { ?>
+                    <?php } elseif ($order == 'party') { ?>
                     <li><?= gettext('<strong>Sorted by</strong> Party') ?></li>
                     <li><?= gettext('Sort by') ?> <a href="<?= $urls['by_first'] ?>"><?= gettext('First name') ?></a> / <a href="<?= $urls['by_last'] ?>"><?= gettext('Last name') ?></a></li>
                     <?php } else { ?>
@@ -152,7 +152,7 @@ if (!count($data)) {
                 </ul>
                 <?php } else { ?>
                 <ul class="search-result-display-options">
-                    <?php if ( $order == 'party' ) { ?>
+                    <?php if ($order == 'party') { ?>
                     <li><?= gettext('<strong>Sorted by</strong> Party') ?></li>
                     <li>Sort by <a href="<?= $urls['by_name'] ?>"><?= gettext('Name') ?></a></li>
                     <?php } else { ?>
@@ -201,25 +201,25 @@ if (!count($data)) {
                         $a_to_z_key = 'given_name';
                     }
                 }
-                $initial_link = '';
-                foreach ( $data as $person ) {
-                    if ($order != 'party') {
-                        $initial = substr( strtoupper($person[$a_to_z_key]), 0, 1);
-                        if ( $initial != $current_initial ) {
-                            $current_initial = $initial;
-                            $initial_link = "name=\"$initial\" ";
-                        } else {
-                            $initial_link = "";
-                        }
-                    }
-                ?>
+                      $initial_link = '';
+                      foreach ($data as $person) {
+                          if ($order != 'party') {
+                              $initial = substr(strtoupper($person[$a_to_z_key]), 0, 1);
+                              if ($initial != $current_initial) {
+                                  $current_initial = $initial;
+                                  $initial_link = "name=\"$initial\" ";
+                              } else {
+                                  $initial_link = "";
+                              }
+                          }
+                          ?>
                 <a <?= $initial_link ?>href="/mp/<?= $person['url'] ?>" class="people-list__person">
                 <noscript class="loading-lazy">
                     <img class="people-list__person__image" src="<?= $person['image'] ?>" loading="lazy" alt="">
                 </noscript>
                         <h2 class="people-list__person__name"><?= ucfirst($person['name']) ?></h2>
                         <p class="people-list__person__memberships">
-                        <?php if ( $person['constituency'] ) { ?>
+                        <?php if ($person['constituency']) { ?>
                         <span class="people-list__person__constituency"><?= $person['constituency'] ?></span>
                         <?php } ?>
                         <span class="people-list__person__party <?= slugify($person['party']) ?>"><?= $person['party'] ?></span>
@@ -237,7 +237,7 @@ if (!count($data)) {
                 <a href="<?= $urls['by_csv'] ?>"><?= gettext('Download this list as a CSV') ?></a>
                     <?= gettext('suitable for Excel') ?>
                 </p>
-                <?php if ( $type == 'mps' ) { ?>
+                <?php if ($type == 'mps') { ?>
                 <style>
                 .js #past-list-dates { display: none; }
                 </style>
@@ -282,7 +282,7 @@ if (!count($data)) {
                     </p>
                 </form>
 
-                <?php } else if ( $type == 'msps' ) { ?>
+                <?php } elseif ($type == 'msps') { ?>
                     <p class="past-list-dates" id="past-list-dates">
                         <a href="<?= $urls['plain'] ?>?date=2011-05-05">MSPs at 2011 election</a>
                         <a href="<?= $urls['plain'] ?>?date=2007-05-03">MSPs at 2007 election</a>

@@ -3,9 +3,8 @@
 namespace MySociety\TheyWorkForYou;
 
 class AlertView {
-
-    const ALERT_EXISTS = -2;
-    const CREATE_FAILED = -1;
+    public const ALERT_EXISTS = -2;
+    public const CREATE_FAILED = -1;
 
     protected $user;
     protected $db;
@@ -13,8 +12,8 @@ class AlertView {
 
     public function __construct($THEUSER = null) {
         $this->user = $THEUSER;
-        $this->db = new \ParlDB;
-        $this->alert = new \ALERT;
+        $this->db = new \ParlDB();
+        $this->alert = new \ALERT();
     }
 
     protected function confirmAlert($token) {

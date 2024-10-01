@@ -3,7 +3,7 @@
 include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 
 function api_getConstituency_front() {
-?>
+    ?>
 <p><big>Fetch a UK Parliament constituency.</big></p>
 
 <h4>Arguments</h4>
@@ -56,10 +56,10 @@ function api_getConstituency_name($constituency) {
 }
 
 function _api_getConstituency_name($constituency) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query("select constituency, data_key, data_value from consinfo
-                     where constituency = :constituency", array(':constituency' => $constituency));
-    $output = array();
+                     where constituency = :constituency", [':constituency' => $constituency]);
+    $output = [];
     foreach ($q as $row) {
         $data_key = $row['data_key'];
         $output[$data_key] = $row['data_value'];

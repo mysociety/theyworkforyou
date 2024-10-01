@@ -1,5 +1,5 @@
 <?php
-$this->block_start(array('id'=>'help', 'title'=>"What's all this about?"));
+$this->block_start(['id' => 'help', 'title' => "What's all this about?"]);
 ?>
 
 <p>This is the summary page for a Bill that is going or has gone through Parliament.

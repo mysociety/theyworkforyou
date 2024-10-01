@@ -7,8 +7,8 @@ $this_page = "admin_reportstats";
 
 $PAGE->page_start();
 $PAGE->stripe_start();
-$PAGE->block_start(array ('id'=>'alerts', 'title'=>'Reporting Statistics'));
-$db = new ParlDB;
+$PAGE->block_start(['id' => 'alerts', 'title' => 'Reporting Statistics']);
+$db = new ParlDB();
 $q = $db->query('select year(created) as the_year, month(created) as the_month, count(*) as c from alerts where confirmed and not deleted group by year(created) desc, month(created) desc');
 print '<h3>Alert signups per month</h3> <table>';
 
@@ -29,11 +29,11 @@ $PAGE->block_end();
 
 
 $menu = $PAGE->admin_menu();
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

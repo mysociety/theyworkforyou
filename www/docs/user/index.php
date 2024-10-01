@@ -13,7 +13,7 @@ include_once '../../includes/easyparliament/page.php';
 
 $user = new \MySociety\TheyWorkForYou\User();
 
-$data = array();
+$data = [];
 
 // work out what sort of page we are displaying
 switch (get_http_var("pg")) {
@@ -30,7 +30,7 @@ switch (get_http_var("pg")) {
         // We need a user_id. So make sure that exists.
         // And make sure the user is allowed to do this!
         $template = 'user/form';
-        if (is_numeric( get_http_var("u") ) && $THEUSER->is_able_to("edituser")) {
+        if (is_numeric(get_http_var("u")) && $THEUSER->is_able_to("edituser")) {
 
             $data = $user->getUserDetails(get_http_var('u'));
             $data['showall'] = true;
@@ -44,6 +44,7 @@ switch (get_http_var("pg")) {
             exit;
         }
 
+        // no break
     case "edit": // Edit this user's owninfo.
 
         $template = 'user/form';
@@ -57,16 +58,17 @@ switch (get_http_var("pg")) {
             exit;
         }
 
+        // no break
     default:
 
         if ($THEUSER->isloggedin() &&
             (get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
-            ) {
+        ) {
             // Logged in user viewing their own details.
             $template = 'user/index';
             $data = $user->getUserDetails();
             $this_page = 'userviewself';
-        } else if (is_numeric(get_http_var('u'))) {
+        } elseif (is_numeric(get_http_var('u'))) {
             // Viewing someone else's details.
             $template = 'user/view_user';
             $data = $user->getUserDetails(get_http_var('u'));
@@ -74,7 +76,7 @@ switch (get_http_var("pg")) {
         } else {
             // probably want to login
             $URL = new \MySociety\TheyWorkForYou\Url('userlogin');
-            $URL->insert(array('ret'=>'/user/'));
+            $URL->insert(['ret' => '/user/']);
             $loginurl = $URL->generate();
             header("Location: $loginurl");
             exit;
@@ -83,10 +85,10 @@ switch (get_http_var("pg")) {
 
 // if data has been submitted then handle that
 if (
-      get_http_var("submitted") == "true" && (
+    get_http_var("submitted") == "true" && (
         $this_page == 'useredit' || $this_page == 'otheruseredit' || $this_page == 'userjoin'
-      )
-   ) {
+    )
+) {
     // Put all the user-submitted data in an array.
     $data = $user->getUpdateDetails($this_page, $THEUSER);
     $data['ret'] = get_http_var("ret");

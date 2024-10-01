@@ -3,7 +3,7 @@
 namespace MySociety\TheyWorkForYou;
 
 class Stripe {
-    static private $instance;
+    private static $instance;
 
     public function __construct($stripeSecretKey) {
         if (self::$instance) {

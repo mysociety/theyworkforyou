@@ -11,9 +11,8 @@
 */
 
 class COMMENTREPORTLIST {
-
     public function __construct() {
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
     }
 
 
@@ -24,7 +23,7 @@ class COMMENTREPORTLIST {
         // available for editing, it's accurate.
         $this->_update_locked();
 
-        $data = $this->_get_data_by_recent ();
+        $data = $this->_get_data_by_recent();
 
         $this->render($data);
 
@@ -84,7 +83,7 @@ class COMMENTREPORTLIST {
         $r = $this->db->query("SELECT comments.comment_id,
         commentreports.report_id,
         commentreports.body,
-        DATE_FORMAT(commentreports.reported, '". SHORTDATEFORMAT_SQL . ' ' . TIMEFORMAT_SQL . "') AS reported,
+        DATE_FORMAT(commentreports.reported, '" . SHORTDATEFORMAT_SQL . ' ' . TIMEFORMAT_SQL . "') AS reported,
         commentreports.locked,
         commentreports.firstname,
         commentreports.lastname
@@ -95,28 +94,28 @@ class COMMENTREPORTLIST {
         ORDER BY commentreports.reported ASC
         LIMIT $number_to_fetch");
 
-        $data = array();
+        $data = [];
         foreach ($q as $row) {
-            $data[] = array (
+            $data[] =  [
                 'report_id'		=> $row['report_id'],
                 'comment_id' 	=> $row['comment_id'],
                 'firstname'		=> $row['firstname'],
                 'lastname'		=> $row['lastname'],
                 'body'			=> $row['body'],
                 'reported'		=> $row['reported'],
-                'locked'		=> $row['locked']
-            );
+                'locked'		=> $row['locked'],
+            ];
         }
         foreach ($r as $row) {
-            $data[] = array (
+            $data[] =  [
                 'report_id'		=> $row['report_id'],
                 'comment_id' 	=> $row['comment_id'],
                 'firstname'		=> $row['firstname'],
                 'lastname'		=> $row['lastname'],
                 'body'			=> $row['body'],
                 'reported'		=> $row['reported'],
-                'locked'		=> $row['locked']
-            );
+                'locked'		=> $row['locked'],
+            ];
         }
 
         return $data;

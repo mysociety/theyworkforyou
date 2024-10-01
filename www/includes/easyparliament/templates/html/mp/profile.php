@@ -82,7 +82,7 @@ $display_wtt_stats_banner = '2015';
                             if (strpos($link['href'], 'http') === 0) {?>
                                 <li><a href="<?= $link['href'] ?>"><?= $link['text'] ?></a></li>
                         <?php }
-                        } ?>
+                            } ?>
 
                     </ul>
 

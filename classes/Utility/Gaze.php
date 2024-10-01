@@ -8,17 +8,14 @@ namespace MySociety\TheyWorkForYou\Utility;
  * Provides a wrapper for Gaze functions within commonlib.
  */
 
-class Gaze
-{
-
+class Gaze {
     /**
      * Get Country by IP Address
      *
      * Takes an IP address and looks it up against Gaze to return the country.
      */
 
-    public static function getCountryByIp($ip)
-    {
+    public static function getCountryByIp($ip) {
 
         include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
 

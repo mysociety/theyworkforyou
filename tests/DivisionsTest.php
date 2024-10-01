@@ -3,42 +3,37 @@
 /**
  * Provides test methods to ensure pages contain what we want them to in various ways.
  */
-class DivisionsTest extends FetchPageTestCase
-{
-
-    public function getDataSet()
-    {
+class DivisionsTest extends FetchPageTestCase {
+    public function getDataSet() {
         return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/divisions.xml');
     }
 
-    private function fetch_page($vars)
-    {
+    private function fetch_page($vars) {
         return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/divisions.php');
     }
 
     private function fetch_division_page() {
-        return $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
+        return $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
     }
 
-    private function fetch_mp_recent_page()
-    {
-        $vars = array( 'pagetype' => 'recent', 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/recent' );
+    private function fetch_mp_recent_page() {
+        $vars = [ 'pagetype' => 'recent', 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/recent' ];
         return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/recent.php');
     }
 
     private function fetch_recent_page() {
-        return $this->base_fetch_page( array('url' => '/divisions' ), 'divisions', 'index.php', '/divisions/index.php' );
+        return $this->base_fetch_page(['url' => '/divisions' ], 'divisions', 'index.php', '/divisions/index.php');
     }
 
 
     public function testSinglePolicy() {
-        $p = new MySociety\TheyWorkForYou\Policies;
+        $p = new MySociety\TheyWorkForYou\Policies();
         $this->assertEquals(count($p->getPoliciesData()), 92);
 
         $p = $p->limitToSet('health');
         $this->assertEquals(count($p->getPoliciesData()), 5);
 
-        $p = new MySociety\TheyWorkForYou\Policies;
+        $p = new MySociety\TheyWorkForYou\Policies();
         $p = $p->limitToSet('education');
         $this->assertEquals(count($p->getPoliciesData()), 5);
 
@@ -54,17 +49,15 @@ class DivisionsTest extends FetchPageTestCase
 
     }
 
-    public function testMPPageContainsAgreement()
-    {
+    public function testMPPageContainsAgreement() {
         // Checks this MP contains a reference to the agreement
-        $page = $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
+        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
         $this->assertStringContainsString('Example Agreement', $page);
     }
 
-    public function testMPPageDoesNotContainsAgreement()
-    {
+    public function testMPPageDoesNotContainsAgreement() {
         // Checks this MP does not contain agreement - should be out of time scope
-        $page = $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 6, 'policy' => 363, 'url' => '/mp/6/test_current-mp/test_westminster_constituency/divisions' ) );
+        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 6, 'policy' => 363, 'url' => '/mp/6/test_current-mp/test_westminster_constituency/divisions' ]);
         $this->assertStringNotContainsString('Example Agreement', $page);
         $this->assertStringNotContainsString('This person has not voted on this policy', $page);
 
@@ -128,7 +121,7 @@ class DivisionsTest extends FetchPageTestCase
     }
 
     public function testNotEnoughInfoStatement() {
-        return $this->fetch_page( array( 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ) );
+        return $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
         $this->assertStringContainsString('we don&rsquo;t have enough information to calculate Test Current-MP&rsquo;s position', $page);
     }
 
@@ -139,7 +132,7 @@ class DivisionsTest extends FetchPageTestCase
     }
 
     public function testSingleDivision() {
-        $page = $this->base_fetch_page( array('url' => '/divisions/division.php', 'vote' => 'pw-3012-01-01-1-commons' ), 'divisions', 'division.php', '/divisions/division.php' );
+        $page = $this->base_fetch_page(['url' => '/divisions/division.php', 'vote' => 'pw-3012-01-01-1-commons' ], 'divisions', 'division.php', '/divisions/division.php');
         $this->assertStringContainsString('A majority of MPs  <b>voted in favour</b> of a thing', $page);
         $this->assertStringContainsString('Aye: 200', $page);
         $this->assertStringNotContainsString('No:', $page); # Summary 100, but no actual votes. In reality, summary can only be <= actual.

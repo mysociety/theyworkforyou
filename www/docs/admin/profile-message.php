@@ -2,7 +2,7 @@
 
 include_once '../../includes/easyparliament/init.php';
 $this_page = 'profile_message';
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -10,12 +10,12 @@ $PAGE->stripe_start();
 print get_http_var('submit') ? submit_message() : display_message_form();
 
 $menu = $PAGE->admin_menu();
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type' => 'html',
-        'content' => $menu
-    )
-));
+        'content' => $menu,
+    ],
+]);
 
 $PAGE->page_end();
 
@@ -36,7 +36,7 @@ function person_drop_down() {
     ';
     $q = $db->query($query);
 
-    $houses = array(1 => 'MP', 'Lord', 'MLA', 'MSP');
+    $houses = [1 => 'MP', 'Lord', 'MLA', 'MSP'];
 
     foreach ($q as $row) {
         $p_id = $row['person_id'];
@@ -49,7 +49,7 @@ function person_drop_down() {
         if ($row['constituency']) {
             $desc .= ', ' . $row['constituency'];
         }
-        $out .= '<option value="'.$p_id.'">'.$desc.'</option>' . "\n";
+        $out .= '<option value="' . $p_id . '">' . $desc . '</option>' . "\n";
     }
 
     $out .= ' </select></span> </div> ';
@@ -64,23 +64,23 @@ function submit_message() {
     $message = get_http_var('profile_message');
 
     if (!$pid) {
-        return display_message_form(array('Please pick a person'));
+        return display_message_form(['Please pick a person']);
     }
 
     $query = "INSERT INTO personinfo (person_id, data_key, data_value) VALUES
             ($pid,'profile_message',:profile_message)
         ON DUPLICATE KEY UPDATE data_value=VALUES(data_value)";
-    $db->query($query, array(':profile_message' => $message));
+    $db->query($query, [':profile_message' => $message]);
 
-    $person = new MySociety\TheyWorkForYou\Member(array(
-        'person_id' => $pid));
+    $person = new MySociety\TheyWorkForYou\Member([
+        'person_id' => $pid]);
     $person->load_extra_info(true, true);
 
     return "<p><em>Profile message set for $pid</em> &mdash; check how it looks <a href=\"/mp?p=$pid\">on their page</a></p>"
         . display_message_form();
 }
 
-function display_message_form($errors = array()) {
+function display_message_form($errors = []) {
     $out = '';
     if ($errors) {
         $out .= '<ul class="error"><li>' . join('</li><li>', $errors) . '</li></ul>';
@@ -88,15 +88,15 @@ function display_message_form($errors = array()) {
     $out .= '<form method="post">';
     $out .= person_drop_down();
     $out .= <<<EOF
-<div class="row">
-    <span class="label"><label for="profile_message">Profile message:</label></span>
-    <span class="formw"><textarea name="profile_message" id="profile_message" rows="5" cols="50"></textarea></span>
-</div>
-<div class="row">
-    <span class="label">&nbsp;</span>
-    <span class="formw"><input type="submit" name="submit" value="Update"></span>
-</div>
-</form>
-EOF;
+        <div class="row">
+            <span class="label"><label for="profile_message">Profile message:</label></span>
+            <span class="formw"><textarea name="profile_message" id="profile_message" rows="5" cols="50"></textarea></span>
+        </div>
+        <div class="row">
+            <span class="label">&nbsp;</span>
+            <span class="formw"><input type="submit" name="submit" value="Update"></span>
+        </div>
+        </form>
+        EOF;
     return $out;
 }

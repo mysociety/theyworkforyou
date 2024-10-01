@@ -25,14 +25,13 @@ into being more popular.
 */
 
 class SEARCHLOG {
-
     private $SEARCHURL;
     private $db;
 
     public function __construct() {
         $this->SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
     }
 
     public function add($searchlogdata) {
@@ -59,12 +58,12 @@ class SEARCHLOG {
                 :ip_address,
                 NOW()
             )
-        ", array(
+        ", [
             ':query_string' => $searchlogdata['query'],
             ':page_number' => $searchlogdata['page'],
             ':count_hits' => $searchlogdata['hits'],
-            ':ip_address' => $ip
-        ));
+            ':ip_address' => $ip,
+        ]);
 
     }
 
@@ -77,7 +76,7 @@ class SEARCHLOG {
                 AND query_time > date_sub(NOW(), INTERVAL 1 DAY)
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
-        $popular_searches = array();
+        $popular_searches = [];
         foreach ($q as $row) {
             array_push($popular_searches, $this->_db_row_to_array($row));
         }
@@ -85,7 +84,7 @@ class SEARCHLOG {
         //maximum number of chars?
         if (isset($max_chars) && $max_chars > 0) {
             $lentotal = 0;
-            $correct_amount = array();
+            $correct_amount = [];
             // Select a number of queries that will fit in the space
             foreach ($popular_searches as $popular_search) {
                 $len = strlen($popular_search['visible_name']);
@@ -103,7 +102,7 @@ class SEARCHLOG {
 
     public function _db_row_to_array($row) {
         $query = $row['query_string'];
-        $this->SEARCHURL->insert(array('s'=>$query, 'pop'=>1));
+        $this->SEARCHURL->insert(['s' => $query, 'pop' => 1]);
         $url = $this->SEARCHURL->generate();
         $htmlescape = 1;
         if (preg_match('#speaker:(\d+)#', $query, $m)) {
@@ -111,7 +110,7 @@ class SEARCHLOG {
                 FROM member, person_names pn
                 WHERE member.person_id = pn.person_id and member.person_id=:pid
                 AND pn.type="name" AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id=member.person_id)
-                ORDER BY end_date DESC LIMIT 1', array(':pid' => $m[1]))->first();
+                ORDER BY end_date DESC LIMIT 1', [':pid' => $m[1]])->first();
             if ($qq) {
                 $name = member_full_name($qq['house'], $qq['title'], $qq['given_name'], $qq['family_name'], $qq['lordofname']);
                 $query = preg_replace('#speaker:(\d+)#', $name, $query);
@@ -124,7 +123,7 @@ class SEARCHLOG {
         $rowarray['query'] = $query;
         $rowarray['visible_name'] = $visible_name;
         $rowarray['url'] = $url;
-        $rowarray['display'] = '<a href="' . $url . '">' . ($htmlescape ? _htmlentities($visible_name) : $visible_name). '</a>';
+        $rowarray['display'] = '<a href="' . $url . '">' . ($htmlescape ? _htmlentities($visible_name) : $visible_name) . '</a>';
 
         return $rowarray;
     }
@@ -133,7 +132,7 @@ class SEARCHLOG {
 
         $q = $this->db->query("SELECT query_string, page_number, count_hits, ip_address, query_time
                 FROM search_query_log ORDER BY query_time desc LIMIT $count");
-        $searches_array = array();
+        $searches_array = [];
         foreach ($q as $row) {
             array_push($searches_array, $this->_db_row_to_array($row));
         }
@@ -148,7 +147,7 @@ class SEARCHLOG {
                 AND query_time > date_sub(NOW(), INTERVAL 30 DAY)
                 GROUP BY query_string ORDER BY c desc LIMIT $count;");
 
-        $popular_searches = array();
+        $popular_searches = [];
         foreach ($q as $row) {
             array_push($popular_searches, $this->_db_row_to_array($row));
         }
@@ -164,7 +163,7 @@ class SEARCHLOG {
                 COUNT(distinct ip_address) as count_ips
                 FROM search_query_log GROUP BY query_string HAVING count_hits = 0
                 ORDER BY count_ips DESC, max_time DESC");
-        $searches_array = array();
+        $searches_array = [];
         foreach ($q as $row) {
             array_push($searches_array, $this->_db_row_to_array($row));
         }

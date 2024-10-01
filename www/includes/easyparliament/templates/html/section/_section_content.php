@@ -13,17 +13,20 @@ foreach($data['rows'] as $speech) { ?>
     if ($speech['htype'] == 12) {
         if ($hansardmajors[$data['info']['major']]['location'] == 'Scotland') {
             $body = preg_replace('# (S\d[O0WF]-\d+)[, ]#', ' <a href="/spwrans/?spid=$1">$1</a> ', $body);
-            $body = preg_replace_callback('#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#', function($matches) {
-                   if ($matches[1] == 'spor') {
-                       $href_segment = 'sp/?g';
-                   } elseif ($matches[1] == 'spwa') {
+            $body = preg_replace_callback(
+                '#<citation id="uk\.org\.publicwhip/(.*?)/(.*?)">\[(.*?)\]</citation>#',
+                function ($matches) {
+                    if ($matches[1] == 'spor') {
+                        $href_segment = 'sp/?g';
+                    } elseif ($matches[1] == 'spwa') {
                         $href_segment = 'spwrans/?';
                     } else {
                         $href_segment = 'debates/?';
                     }
                     return '[<a href="' . $href_segment . 'id=' . $matches[2] . '\">' . $matches[3] . '</a>]';
                 },
-                $body);
+                $body
+            );
             $body = str_replace('href="../../../', 'href="http://www.scottish.parliament.uk/', $body);
         }
 
@@ -55,35 +58,35 @@ foreach($data['rows'] as $speech) { ?>
         # Assume a paragraph starting with a lowercase character should be run on
         $body = preg_replace('#(?<!:|\]|&\#8221;,)</p>\s*<p[^>]*>(?=[a-z])(?![ivx]+\.)#', ' ', $body);
 
-        $body = str_replace(array('<br/>', '</p><p'), array('</p> <p>', '</p> <p'), $body); # NN4 font size bug
+        $body = str_replace(['<br/>', '</p><p'], ['</p> <p>', '</p> <p'], $body); # NN4 font size bug
     }
 
     # TODO Do in the view, not in the template
 
-    $source = array();
+    $source = [];
 
     $major = $data['info']['major'];
-    if ($major==1 || $major==2 || (($major==3 || $major==4) && isset($speech['speaker']['house'])) || $major==101 || $major==6) {
+    if ($major == 1 || $major == 2 || (($major == 3 || $major == 4) && isset($speech['speaker']['house'])) || $major == 101 || $major == 6) {
         $source['title'] = 'Citation: ';
-        if ($major==1 || $major==2) {
+        if ($major == 1 || $major == 2) {
             $source['title'] .= 'HC';
-        } elseif ($major==3 || $major==4) {
-            if ($speech['speaker']['house']==1) {
+        } elseif ($major == 3 || $major == 4) {
+            if ($speech['speaker']['house'] == 1) {
                 $source['title'] .= 'HC';
             } else {
                 $source['title'] .= 'HL';
             }
-        } elseif ($major==6) {
+        } elseif ($major == 6) {
             $source['title'] .= $data['section_title'];
         } else {
             $source['title'] .= 'HL';
         }
         $source['title'] .= ' Deb, ' . format_date($data['info']['date'], LONGDATEFORMAT) . ', c' . $speech['colnum'];
-        if ($major==2) {
+        if ($major == 2) {
             $source['title'] .= 'WH';
-        } elseif ($major==3) {
+        } elseif ($major == 3) {
             $source['title'] .= 'W';
-        } elseif ($major==4) {
+        } elseif ($major == 4) {
             $source['title'] .= 'WS';
         }
     }
@@ -121,32 +124,32 @@ foreach($data['rows'] as $speech) { ?>
                 <?php
 
                 $speaker = $speech['speaker'];
-                $speaker_name = ucfirst($speaker['name']);
+              $speaker_name = ucfirst($speaker['name']);
 
-                list($image_url, $size) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage(
-                    $speaker['person_id'],
-                    true,
-                    $data['info']['major'] == 101 ? 'lord' : 'general'
-                );
+              [$image_url, $size] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage(
+                  $speaker['person_id'],
+                  true,
+                  $data['info']['major'] == 101 ? 'lord' : 'general'
+              );
 
-                if (count($speaker['office'])) {
-                    $desc = array();
-                    foreach ($speaker['office'] as $off) {
-                        $desc[] = $off['pretty'];
-                    }
-                    $speaker_position = join(', ', $desc);
-                } else {
-                    $speaker_position = _htmlentities($speaker['party']);
-                    if ($speaker['house'] == 1 &&
-                        $speaker['party'] != 'Speaker' &&
-                        $speaker['party'] != 'Deputy Speaker' &&
-                        $speaker['constituency']
-                    ) {
-                        $speaker_position .= ', ' . $speaker['constituency'];
-                    }
-                }
+              if (count($speaker['office'])) {
+                  $desc = [];
+                  foreach ($speaker['office'] as $off) {
+                      $desc[] = $off['pretty'];
+                  }
+                  $speaker_position = join(', ', $desc);
+              } else {
+                  $speaker_position = _htmlentities($speaker['party']);
+                  if ($speaker['house'] == 1 &&
+                      $speaker['party'] != 'Speaker' &&
+                      $speaker['party'] != 'Deputy Speaker' &&
+                      $speaker['constituency']
+                  ) {
+                      $speaker_position .= ', ' . $speaker['constituency'];
+                  }
+              }
 
-                ?>
+              ?>
                 <a href="<?= $speech['speaker']['url'] ?>">
                     <img src="<?= $image_url ?>" alt="Photo of <?= $speaker_name ?>">
                     <strong class="debate-speech__speaker__name"><?= $speaker_name ?></strong>
@@ -162,8 +165,8 @@ foreach($data['rows'] as $speech) { ?>
               <?php } ?>
 
               <?php # XXX
-                if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $speech['gid'], $m)) {
-                    ?><p class="debate-speech__question_id"><small>
+              if ($data['info']['major'] == 8 && preg_match('#\d{4}-\d\d-\d\d\.(.*?)\.q#', $speech['gid'], $m)) {
+                  ?><p class="debate-speech__question_id"><small>
                     <?= "Question $m[1]" ?>
                     </small></p>
               <?php } ?>
@@ -184,20 +187,20 @@ foreach($data['rows'] as $speech) { ?>
                 <?php if ($division['has_description']) { ?>
                 <div class="debate-speech__division__details">
                     <span class="policy-vote__text">
-                        <?php include( dirname(__FILE__) . '/../divisions/_vote_description.php'); ?>
+                        <?php include(dirname(__FILE__) . '/../divisions/_vote_description.php'); ?>
                     </span><br>
                 </div>
                 <?php } ?>
 
               <?php if (isset($speech['mp_vote'])) {
-                $mp_vote = array( 'vote' => $speech['mp_vote']['vote'] );
-                if ( isset($speech['before_mp']) ) {
-                    $before_mp = $speech['before_mp'];
-                }
-                if ( isset($speech['after_mp']) ) {
-                    $after_mp = $speech['after_mp'];
-                }
-                include dirname(__FILE__) . '/../divisions/_your_mp.php';
+                  $mp_vote = [ 'vote' => $speech['mp_vote']['vote'] ];
+                  if (isset($speech['before_mp'])) {
+                      $before_mp = $speech['before_mp'];
+                  }
+                  if (isset($speech['after_mp'])) {
+                      $after_mp = $speech['after_mp'];
+                  }
+                  include dirname(__FILE__) . '/../divisions/_your_mp.php';
               } ?>
                 <div class="debate-speech__division__details">
                   <?php include dirname(__FILE__) . '/../divisions/_votes.php'; ?>
@@ -213,7 +216,7 @@ foreach($data['rows'] as $speech) { ?>
             </div>
             <?php } ?>
 
-            <?php if ( $section ) {
+            <?php if ($section) {
                 if ($speech['voting_data']) { ?>
 
                 <div class="debate-speech__question-answered">
@@ -267,41 +270,41 @@ foreach($data['rows'] as $speech) { ?>
                         $in_context = gettext('See this item in context');
                         $link_to = gettext('Link to this item');
                     }
-                ?>
+    ?>
                 <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) { ?>
                 <li class="link-to-speech">
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= $in_context ?></a>
                 </li>
                 <?php
                 }
-                if (!$section || !$individual_item) { ?>
+    if (!$section || !$individual_item) { ?>
                 <li class="link-to-speech">
                     <span class="link-to-speech__label"><?= $link_to ?></span>
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= gettext('In context') ?></a>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
                 </li>
                 <?php
-                }
-                if ($speech['socialteaser'] && $speech['socialurl']) {
-                    $twitter_href = sprintf(
-                        'https://twitter.com/share?url=%s&text=%s&amp;related=%s',
-                        urlencode($speech['socialurl']),
-                        urlencode($speech['socialteaser']),
-                        urlencode('theyworkforyou,mysociety')
-                    );
-                    $facebook_href = sprintf(
-                        'https://www.facebook.com/dialog/share?app_id=%s&display=popup&href=%s&quote=%s',
-                        urlencode(FACEBOOK_APP_ID),
-                        urlencode($speech['socialurl']),
-                        urlencode($speech['socialteaser'])
-                    ); ?>
+    }
+    if ($speech['socialteaser'] && $speech['socialurl']) {
+        $twitter_href = sprintf(
+            'https://twitter.com/share?url=%s&text=%s&amp;related=%s',
+            urlencode($speech['socialurl']),
+            urlencode($speech['socialteaser']),
+            urlencode('theyworkforyou,mysociety')
+        );
+        $facebook_href = sprintf(
+            'https://www.facebook.com/dialog/share?app_id=%s&display=popup&href=%s&quote=%s',
+            urlencode(FACEBOOK_APP_ID),
+            urlencode($speech['socialurl']),
+            urlencode($speech['socialteaser'])
+        ); ?>
                 <li class="link-to-speech">
                     <a href="<?=htmlspecialchars($twitter_href)?>" class="twitter debate-speech__meta__link js-twitter-share" target="_blank"><?= gettext('Tweet') ?></a>
                     <a href="<?=htmlspecialchars($facebook_href)?>" data-url="<?=htmlspecialchars($speech['socialurl'])?>" data-text="<?=htmlspecialchars($speech['socialteaser'])?>" class="facebook debate-speech__meta__link js-facebook-share"><?= gettext('Share') ?></a>
                 </li>
                 <?php
-                }
-                if ($source) { ?>
+    }
+    if ($source) { ?>
                 <li class="link-to-hansard">
                   <?php if (isset($source['url'])) { ?>
                     <a href="<?=$source['url'] ?>" class="debate-speech__meta__link"><?=$source['text'] ?></a>
@@ -309,10 +312,10 @@ foreach($data['rows'] as $speech) { ?>
                     <?php if (isset($source['title'])) { ?><span> (<?=$source['title'] ?>)</span><?php } ?>
                 </li>
                 <?php
-                }
-                if (isset($speech['mentions'])) {
-                    echo $speech['mentions'];
-                } ?>
+    }
+    if (isset($speech['mentions'])) {
+        echo $speech['mentions'];
+    } ?>
 
             </ul>
 
@@ -327,55 +330,55 @@ foreach($data['rows'] as $speech) { ?>
 
 } // end foreach
 
-    if (isset($data['subrows'])) {
-        print '<div class="subrows"><div class="full-page__row"><div class="full-page__unit"><ul>';
-        foreach ($data['subrows'] as $row) {
-            print '<li class="subrows__list-item">';
-            if (isset($row['contentcount']) && $row['contentcount'] > 0) {
-                $has_content = true;
-            } elseif ($row['htype'] == '11' && $hansardmajors[$row['major']]['type'] == 'other') {
-                $has_content = true;
-            } else {
-                $has_content = false;
-            }
-            if ($has_content) {
-                print '<a href="' . $row['listurl'] . '">' . $row['body'] . '</a> ';
-                // For the "x speeches, x comments" text.
-                $moreinfo = array();
-                if ($hansardmajors[$row['major']]['type'] != 'other') {
-                    // All wrans have 2 speeches, so no need for this.
-                    // All WMS have 1 speech
-                    $moreinfo[] = sprintf(ngettext('%s speech', '%s speeches', $row['contentcount']), $row['contentcount']);
-                }
-                if ($row['totalcomments'] > 0) {
-                    $moreinfo[] = sprintf(ngettext('%s annotation', '%s annotations', $row['totalcomments']), $row['totalcomments']);
-                }
-                if (count($moreinfo) > 0) {
-                    print "<small>(" . implode (', ', $moreinfo) . ") </small>";
-                }
-            } else {
-                // Nothing in this item, so no link.
-                print $row['body'];
-            }
-            if (isset($row['excerpt'])) {
-                print "<p class=\"subrows__excerpt\">" . trim_characters($row['excerpt'], 0, 200) . "</p>";
-            }
+if (isset($data['subrows'])) {
+    print '<div class="subrows"><div class="full-page__row"><div class="full-page__unit"><ul>';
+    foreach ($data['subrows'] as $row) {
+        print '<li class="subrows__list-item">';
+        if (isset($row['contentcount']) && $row['contentcount'] > 0) {
+            $has_content = true;
+        } elseif ($row['htype'] == '11' && $hansardmajors[$row['major']]['type'] == 'other') {
+            $has_content = true;
+        } else {
+            $has_content = false;
         }
-        print '</ul></div></div></div>';
+        if ($has_content) {
+            print '<a href="' . $row['listurl'] . '">' . $row['body'] . '</a> ';
+            // For the "x speeches, x comments" text.
+            $moreinfo = [];
+            if ($hansardmajors[$row['major']]['type'] != 'other') {
+                // All wrans have 2 speeches, so no need for this.
+                // All WMS have 1 speech
+                $moreinfo[] = sprintf(ngettext('%s speech', '%s speeches', $row['contentcount']), $row['contentcount']);
+            }
+            if ($row['totalcomments'] > 0) {
+                $moreinfo[] = sprintf(ngettext('%s annotation', '%s annotations', $row['totalcomments']), $row['totalcomments']);
+            }
+            if (count($moreinfo) > 0) {
+                print "<small>(" . implode(', ', $moreinfo) . ") </small>";
+            }
+        } else {
+            // Nothing in this item, so no link.
+            print $row['body'];
+        }
+        if (isset($row['excerpt'])) {
+            print "<p class=\"subrows__excerpt\">" . trim_characters($row['excerpt'], 0, 200) . "</p>";
+        }
     }
+    print '</ul></div></div></div>';
+}
 
-    if ($section && $individual_item) { ?>
+if ($section && $individual_item) { ?>
         <div class="debate-comments">
             <div class="full-page__row">
                 <div class="full-page__unit">
                 <?php
-                    # XXX
-                    global $PAGE;
-                    $comments['object']->display('ep', $comments['args']);
-                    # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
-                ?>
+                # XXX
+                global $PAGE;
+    $comments['object']->display('ep', $comments['args']);
+    # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+    ?>
                 </div>
             </div>
         </div>
 <?php
-    }
+}

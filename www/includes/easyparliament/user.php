@@ -55,7 +55,6 @@ THEUSER
 */
 
 class USER {
-
     public $user_id = "0";         // So we have an ID for non-logged in users reporting comments etc.
     public $firstname = "Guest";   // So we have something to print for non-logged in users.
     public $lastname = "";
@@ -82,7 +81,7 @@ class USER {
     //      Change things in the add/edit/view user page.
 
     public function __construct() {
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
     }
 
     public function init($user_id) {
@@ -91,7 +90,8 @@ class USER {
         // Returns true if we've found user_id in the DB, false otherwise.
 
         // Look for this user_id's details.
-        $q = $this->db->query("SELECT firstname,
+        $q = $this->db->query(
+            "SELECT firstname,
                                 lastname,
                                 password,
                                 email,
@@ -109,7 +109,8 @@ class USER {
                                 facebook_token
                         FROM    users
                         WHERE   user_id = :user_id",
-                        array(':user_id' => $user_id))->first();
+            [':user_id' => $user_id]
+        )->first();
 
 
         if ($q) {
@@ -142,7 +143,7 @@ class USER {
 
     }
 
-    public function add($details, $confirmation_required=true) {
+    public function add($details, $confirmation_required = true) {
         // Adds a new user's info into the db.
         // Then optionally (and usually) calls another function to
         // send them a confirmation email.
@@ -196,7 +197,7 @@ class USER {
                 :facebook_id,
                 '0'
             )
-        ", array(
+        ", [
             ':firstname' => $details["firstname"],
             ':lastname' => $details["lastname"],
             ':email' => $details["email"],
@@ -207,8 +208,8 @@ class USER {
             ':status' => $details["status"],
             ':registrationtime' => $registrationtime,
             ':facebook_id' => $details["facebook_id"],
-            ':registrationip' => $REMOTE_ADDR
-        ));
+            ':registrationip' => $REMOTE_ADDR,
+        ]);
 
         if ($q->success()) {
             // Set these so we can log in.
@@ -222,7 +223,7 @@ class USER {
             // This will be sent to them via email, so we can confirm they exist.
             // The token will be the first 16 characters of a hash.
 
-            $token = substr( password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16 );
+            $token = substr(password_hash($details["email"] . microtime(), PASSWORD_BCRYPT), 29, 16);
 
             // Full stops don't work well at the end of URLs in emails, so
             // replace them. And double slash would be treated as single and
@@ -235,24 +236,24 @@ class USER {
             $r = $this->db->query("UPDATE users
                             SET registrationtoken = :registrationtoken
                             WHERE   user_id = :user_id
-                            ", array (
-                                ':registrationtoken' => $this->registrationtoken,
-                                ':user_id' => $this->user_id
-                            ));
+                            ", [
+                ':registrationtoken' => $this->registrationtoken,
+                ':user_id' => $this->user_id,
+            ]);
 
             if ($r->success()) {
                 // Updated DB OK.
 
                 if ($details['mp_alert'] && $details['postcode']) {
-                    $MEMBER = new MEMBER(array('postcode'=>$details['postcode'], 'house'=>HOUSE_TYPE_COMMONS));
+                    $MEMBER = new MEMBER(['postcode' => $details['postcode'], 'house' => HOUSE_TYPE_COMMONS]);
                     $pid = $MEMBER->person_id();
                     # No confirmation email, but don't automatically confirm
-                    $ALERT = new ALERT;
-                    $ALERT->add(array(
+                    $ALERT = new ALERT();
+                    $ALERT->add([
                         'email' => $details['email'],
                         'pid' => $pid,
                         'pc' => $details['postcode'],
-                    ), false, false);
+                    ], false, false);
                 }
 
                 if ($confirmation_required) {
@@ -282,11 +283,13 @@ class USER {
     }
 
     public function add_facebook_id($facebook_id) {
-        $q = $this->db->query ("UPDATE users SET facebook_id = :facebook_id WHERE email = :email",
-            array(
+        $q = $this->db->query(
+            "UPDATE users SET facebook_id = :facebook_id WHERE email = :email",
+            [
                 ':facebook_id' => $facebook_id,
-                ':email' => $this->email
-            ));
+                ':email' => $this->email,
+            ]
+        );
 
         if ($q->success()) {
             $this->facebook_id = $facebook_id;
@@ -303,7 +306,7 @@ class USER {
             !isset($details['email']) ||
             $details['email'] == '' ||
             !isset($details['token']) ||
-            $details['token'] == '' ) {
+            $details['token'] == '') {
             return false;
         }
 
@@ -315,14 +318,14 @@ class USER {
         $confirmurl = 'https://' . DOMAIN . '/E/' . $urltoken;
 
         // Arrays we need to send a templated email.
-        $data = array (
+        $data =  [
             'to'        => $details['email'],
-            'template'  => 'email_confirmation'
-        );
+            'template'  => 'email_confirmation',
+        ];
 
-        $merge = array (
-            'CONFIRMURL'    => $confirmurl
-        );
+        $merge =  [
+            'CONFIRMURL'    => $confirmurl,
+        ];
 
         $success = send_template_email($data, $merge);
 
@@ -358,14 +361,14 @@ class USER {
         }
 
         // Arrays we need to send a templated email.
-        $data = array (
+        $data =  [
             'to'        => $details['email'],
-            'template'  => 'join_confirmation'
-        );
+            'template'  => 'join_confirmation',
+        ];
 
-        $merge = array (
-            'CONFIRMURL'    => $confirmurl
-        );
+        $merge =  [
+            'CONFIRMURL'    => $confirmurl,
+        ];
 
         $success = send_template_email($data, $merge);
 
@@ -423,30 +426,38 @@ class USER {
             $this->email = $email;
             for (;;) {
 
-                $pwd=null;
-                $o=null;
+                $pwd = null;
+                $o = null;
 
                 // Generates the password ....
-                for ($x=0; $x < 6;) {
-                    $y = rand(1,1000);
-                    if($y>350 && $y<601) $d=chr(rand(48,57));
-                    if($y<351) $d=chr(rand(65,90));
-                    if($y>600) $d=chr(rand(97,122));
-                    if ($d!=$o && !preg_match('#[O01lI]#', $d)) {
-                        $o=$d; $pwd.=$d; $x++;
+                for ($x = 0; $x < 6;) {
+                    $y = rand(1, 1000);
+                    if($y > 350 && $y < 601) {
+                        $d = chr(rand(48, 57));
+                    }
+                    if($y < 351) {
+                        $d = chr(rand(65, 90));
+                    }
+                    if($y > 600) {
+                        $d = chr(rand(97, 122));
+                    }
+                    if ($d != $o && !preg_match('#[O01lI]#', $d)) {
+                        $o = $d;
+                        $pwd .= $d;
+                        $x++;
                     }
                 }
 
                 // If the PW fits your purpose (e.g. this regexpression) return it, else make a new one
                 // (You can change this regular-expression how you want ....)
-                if (preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/",$pwd)) {
+                if (preg_match("/^[a-zA-Z]{1}([a-zA-Z]+[0-9][a-zA-Z]+)+/", $pwd)) {
                     break;
                 }
 
             }
             $pwd = strtoupper($pwd);
 
-        // End password generating stuff.
+            // End password generating stuff.
 
         } else {
 
@@ -457,11 +468,13 @@ class USER {
 
         $passwordforDB = password_hash($pwd, PASSWORD_BCRYPT);
 
-        $q = $this->db->query ("UPDATE users SET password = :password WHERE email = :email",
-            array(
+        $q = $this->db->query(
+            "UPDATE users SET password = :password WHERE email = :email",
+            [
                 ':password' => $passwordforDB,
-                ':email' => $email
-            ));
+                ':email' => $email,
+            ]
+        );
 
         if ($q->success()) {
             $this->password = $pwd;
@@ -485,18 +498,18 @@ class USER {
             return false;
         }
 
-        $data = array (
+        $data =  [
             'to'            => $this->email(),
-            'template'      => 'new_password'
-        );
+            'template'      => 'new_password',
+        ];
 
         $URL = new \MySociety\TheyWorkForYou\Url("userlogin");
 
-        $merge = array (
+        $merge =  [
             'EMAIL'         => $this->email(),
             'LOGINURL'      => "https://" . DOMAIN . $URL->generate(),
-            'PASSWORD'      => $this->password()
-        );
+            'PASSWORD'      => $this->password(),
+        ];
 
         // send_template_email in utility.php.
         $success = send_template_email($data, $merge);
@@ -512,8 +525,10 @@ class USER {
         // Returns true if there's a user with this user_id.
 
         if (is_numeric($user_id)) {
-            $q = $this->db->query("SELECT user_id FROM users WHERE user_id = :user_id",
-                array(':user_id' => $user_id));
+            $q = $this->db->query(
+                "SELECT user_id FROM users WHERE user_id = :user_id",
+                [':user_id' => $user_id]
+            );
             if ($q->rows() > 0) {
                 return true;
             } else {
@@ -530,7 +545,7 @@ class USER {
         // Returns true if there's a user with this email address.
 
         if ($email != "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE email = :email", array(':email' => $email))->first();
+            $q = $this->db->query("SELECT user_id FROM users WHERE email = :email", [':email' => $email])->first();
             if ($q) {
                 if ($return_id) {
                     return $q['user_id'];
@@ -547,8 +562,8 @@ class USER {
     public function facebook_id_exists($id, $return_id = false) {
         // Returns true if there's a user with this facebook id.
 
-        if ($id!= "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE facebook_id = :id", array(':id' => $id))->first();
+        if ($id != "") {
+            $q = $this->db->query("SELECT user_id FROM users WHERE facebook_id = :id", [':id' => $id])->first();
             if ($q) {
                 if ($return_id) {
                     return $q['user_id'];
@@ -588,6 +603,7 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             case "edituser":
 
                 switch ($status) {
@@ -598,6 +614,7 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             case "reportcomment":   // Report a comment for moderation.
 
                 switch ($status) {
@@ -608,6 +625,7 @@ class USER {
                     default: /* Viewer */   return true;
                 }
 
+                // no break
             case "viewadminsection":    // Access pages in the Admin section.
 
                 switch ($status) {
@@ -618,11 +636,12 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             case "voteonhansard":   // Rate hansard things interesting/not.
                 /* Everyone */              return true;
 
             default:
-                $PAGE->error_message ("You need to set permissions for '$action'!");
+                $PAGE->error_message("You need to set permissions for '$action'!");
 
                 return false;
 
@@ -640,7 +659,7 @@ class USER {
         // Maybe there's a way of fetching these from the DB,
         // so we don't duplicate them here...?
 
-        $statuses = array ("Viewer", "User", "Moderator", "Administrator", "Superuser");
+        $statuses =  ["Viewer", "User", "Moderator", "Administrator", "Superuser"];
 
         return $statuses;
 
@@ -650,28 +669,62 @@ class USER {
 
     // Functions for accessing the user's variables.
 
-    public function user_id() { return $this->user_id; }
-    public function firstname() { return $this->firstname; }
-    public function lastname() { return $this->lastname; }
-    public function password() { return $this->password; }
-    public function email() { return $this->email; }
-    public function postcode() { return $this->postcode; }
-    public function url() { return $this->url; }
-    public function lastvisit() { return $this->lastvisit; }
-    public function facebook_id() { return $this->facebook_id; }
-    public function facebook_token() { return $this->facebook_token; }
-    public function facebook_user() { return $this->facebook_user; }
+    public function user_id() {
+        return $this->user_id;
+    }
+    public function firstname() {
+        return $this->firstname;
+    }
+    public function lastname() {
+        return $this->lastname;
+    }
+    public function password() {
+        return $this->password;
+    }
+    public function email() {
+        return $this->email;
+    }
+    public function postcode() {
+        return $this->postcode;
+    }
+    public function url() {
+        return $this->url;
+    }
+    public function lastvisit() {
+        return $this->lastvisit;
+    }
+    public function facebook_id() {
+        return $this->facebook_id;
+    }
+    public function facebook_token() {
+        return $this->facebook_token;
+    }
+    public function facebook_user() {
+        return $this->facebook_user;
+    }
 
-    public function registrationtime() { return $this->registrationtime; }
-    public function registrationip() { return $this->registrationip; }
-    public function optin() { return $this->optin; }
+    public function registrationtime() {
+        return $this->registrationtime;
+    }
+    public function registrationip() {
+        return $this->registrationip;
+    }
+    public function optin() {
+        return $this->optin;
+    }
     // Don't use the status to check access privileges - use the is_able_to() function.
     // But you might use status() to return text to display, describing a user.
     // We can then change what status() does in the future if our permissions system
     // changes.
-    public function status() { return $this->status; }
-    public function deleted() { return $this->deleted; }
-    public function confirmed() { return $this->confirmed; }
+    public function status() {
+        return $this->status;
+    }
+    public function deleted() {
+        return $this->deleted;
+    }
+    public function confirmed() {
+        return $this->confirmed;
+    }
 
 
     public function postcode_is_set() {
@@ -685,7 +738,7 @@ class USER {
     }
 
 
-/////////// PRIVATE FUNCTIONS BELOW... ////////////////
+    /////////// PRIVATE FUNCTIONS BELOW... ////////////////
 
     public function _update($details) {
         // Update a user's info.
@@ -697,11 +750,13 @@ class USER {
 
         // Update email alerts if email address changed
         if (isset($details['email']) && $this->email != $details['email']) {
-            $this->db->query('UPDATE alerts SET email = :details_email WHERE email = :email',
-            array(
-                ':details_email' => $details['email'],
-                ':email' => $this->email
-            ));
+            $this->db->query(
+                'UPDATE alerts SET email = :details_email WHERE email = :email',
+                [
+                    ':details_email' => $details['email'],
+                    ':email' => $this->email,
+                ]
+            );
         }
 
         // These are used to put optional fragments of SQL in, depending
@@ -712,7 +767,7 @@ class USER {
         $statussql = "";
         $emailsql = '';
 
-        $params = array();
+        $params = [];
 
         if (isset($details["password"]) && $details["password"] != "") {
             // The password is being updated.
@@ -776,14 +831,14 @@ class USER {
                                 . $statussql . "
                                 optin       = :optin
                         WHERE   user_id     = :user_id
-                        ", array_merge($params, array(
-                            ':firstname' => $details['firstname'],
-                            ':lastname' => $details['lastname'],
-                            ':postcode' => $details['postcode'],
-                            ':url' => $details['url'],
-                            ':optin' => $details['optin'],
-                            ':user_id' => $details['user_id']
-                        )));
+                        ", array_merge($params, [
+                                    ':firstname' => $details['firstname'],
+                                    ':lastname' => $details['lastname'],
+                                    ':postcode' => $details['postcode'],
+                                    ':url' => $details['url'],
+                                    ':optin' => $details['optin'],
+                                    ':user_id' => $details['user_id'],
+                                ]));
 
         // If we're returning to
         // $this->update_self() then $THEUSER will have its variables
@@ -792,7 +847,7 @@ class USER {
             return $details;
 
         } else {
-            $PAGE->error_message ("Sorry, we were unable to update user id '" . _htmlentities($details["user_id"]) . "'");
+            $PAGE->error_message("Sorry, we were unable to update user id '" . _htmlentities($details["user_id"]) . "'");
 
             return false;
         }
@@ -812,7 +867,6 @@ class USER {
 
 
 class THEUSER extends USER {
-
     // Handles all the login/out functionality and checking for the user
     // who is using the site right NOW. Yes, him, over there.
 
@@ -825,7 +879,7 @@ class THEUSER extends USER {
         // This function is run automatically when a THEUSER
         // object is instantiated.
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
 
         // We look at the user's cookie and see if it's valid.
         // If so, we're going to log them in.
@@ -865,13 +919,13 @@ class THEUSER extends USER {
 
                     if ($this->facebook_user) {
                         if (md5($this->facebook_token()) == $matches[2] && $this->deleted() == false) {
-                            twfy_debug ("THEUSER", "init SUCCESS: setting as logged in");
+                            twfy_debug("THEUSER", "init SUCCESS: setting as logged in");
                             $this->loggedin = true;
-                        } elseif (md5 ($this->facebook_token()) != $matches[2]) {
-                            twfy_debug ("THEUSER", "init FAILED: Facebook token doesn't match cookie");
+                        } elseif (md5($this->facebook_token()) != $matches[2]) {
+                            twfy_debug("THEUSER", "init FAILED: Facebook token doesn't match cookie");
                             $this->loggedin = false;
                         } else {
-                            twfy_debug ("THEUSER", "init FAILED: User is deleted");
+                            twfy_debug("THEUSER", "init FAILED: User is deleted");
                             $this->loggedin = false;
                         }
                     } else {
@@ -884,30 +938,30 @@ class THEUSER extends USER {
                             // to need. Their preferences and saved things or something.
 
 
-                            twfy_debug ("THEUSER init SUCCEEDED", "setting as logged in");
+                            twfy_debug("THEUSER init SUCCEEDED", "setting as logged in");
                             $this->loggedin = true;
 
-                        } elseif (md5 ($this->password()) != $matches[2]) {
-                            twfy_debug ("THEUSER init FAILED", "Password doesn't match cookie");
+                        } elseif (md5($this->password()) != $matches[2]) {
+                            twfy_debug("THEUSER init FAILED", "Password doesn't match cookie");
                             $this->loggedin = false;
                         } else {
-                            twfy_debug ("THEUSER init FAILED", "User is deleted");
+                            twfy_debug("THEUSER init FAILED", "User is deleted");
                             $this->loggedin = false;
                         }
                     }
 
                 } else {
-                    twfy_debug ("THEUSER init FAILED", "didn't get 1 row from db");
+                    twfy_debug("THEUSER init FAILED", "didn't get 1 row from db");
                     $this->loggedin = false;
                 }
 
             } else {
-                twfy_debug ("THEUSER init FAILED", "cookie's user_id is not numeric");
+                twfy_debug("THEUSER init FAILED", "cookie's user_id is not numeric");
                 $this->loggedin = false;
             }
 
         } else {
-            twfy_debug ("THEUSER init FAILED", "cookie is not of the correct form");
+            twfy_debug("THEUSER init FAILED", "cookie is not of the correct form");
             $this->loggedin = false;
         }
 
@@ -932,8 +986,10 @@ class THEUSER extends USER {
         if ($this->isloggedin()) {
             // Set last_visit to now.
             $date_now = gmdate("Y-m-d H:i:s");
-            $this->db->query("UPDATE users SET lastvisit = :lastvisit WHERE user_id = :user_id",
-                [ ':lastvisit' => $date_now, ':user_id' => $this->user_id() ]);
+            $this->db->query(
+                "UPDATE users SET lastvisit = :lastvisit WHERE user_id = :user_id",
+                [ ':lastvisit' => $date_now, ':user_id' => $this->user_id() ]
+            );
 
             $this->lastvisit = $date_now;
         }
@@ -941,7 +997,9 @@ class THEUSER extends USER {
 
     // For completeness, but it's better to call $this->isloggedin()
     // if you want to check the log in status.
-    public function loggedin() { return $this->loggedin; }
+    public function loggedin() {
+        return $this->loggedin;
+    }
 
 
 
@@ -973,7 +1031,7 @@ class THEUSER extends USER {
 
         $error_string = 'There is no user registered with an email of ' . _htmlentities($email) . ', or the given password is incorrect. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
 
-        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email = :email", array(':email' => $email))->first();
+        $q = $this->db->query("SELECT user_id, password, deleted, confirmed FROM users WHERE email = :email", [':email' => $email])->first();
 
         if ($q) {
             // OK.
@@ -989,20 +1047,20 @@ class THEUSER extends USER {
 
             } else {
                 // Failed.
-                return array ("invalidemail" => $error_string);
+                return  ["invalidemail" => $error_string];
 
             }
 
         } else {
             // Failed.
-            return array ("invalidemail" => $error_string);
+            return  ["invalidemail" => $error_string];
         }
 
     }
 
     public function has_postcode() {
         $has_postcode = false;
-        if ( $this->isloggedin() && $this->postcode() != '' || $this->postcode_is_set() ) {
+        if ($this->isloggedin() && $this->postcode() != '' || $this->postcode_is_set()) {
             $has_postcode = true;
         }
         return $has_postcode;
@@ -1016,28 +1074,30 @@ class THEUSER extends USER {
         twfy_debug("THEUSER", "Faceook login, facebook_id " . $this->facebook_id);
         twfy_debug("THEUSER", "Faceook login, email" . $this->email);
         if ($this->facebook_id() == "") {
-            $PAGE->error_message ("We don't have a facebook id for this user.", true);
+            $PAGE->error_message("We don't have a facebook id for this user.", true);
 
             return;
         }
 
         twfy_debug("THEUSER", "Faceook login, facebook_token: " . $accessToken);
 
-        $q = $this->db->query ("UPDATE users SET facebook_token = :token WHERE email = :email",
-            array(
+        $q = $this->db->query(
+            "UPDATE users SET facebook_token = :token WHERE email = :email",
+            [
                 ':token' => $accessToken,
-                ':email' => $this->email
-            ));
+                ':email' => $this->email,
+            ]
+        );
 
         if (!$q->success()) {
-            $PAGE->error_message ("There was a problem logging you in", true);
+            $PAGE->error_message("There was a problem logging you in", true);
             twfy_debug("THEUSER", "Faceook login, failed to set accessToken");
 
             return false;
         }
 
         // facebook login users probably don't have a password
-        $cookie = $this->user_id() . "." . md5 ($accessToken);
+        $cookie = $this->user_id() . "." . md5($accessToken);
         twfy_debug("THEUSER", "Faceook login, cookie: " . $cookie);
 
         twfy_debug("USER", "logging in user from facebook " . $this->user_id);
@@ -1069,21 +1129,21 @@ class THEUSER extends USER {
 
         // Various checks about the user - if they fail, we exit.
         if ($this->user_id() == "" || $this->password == "") {
-            $PAGE->error_message ("We don't have the user_id or password to make the cookie.", true);
+            $PAGE->error_message("We don't have the user_id or password to make the cookie.", true);
 
             return;
         } elseif ($this->deleted) {
-            $PAGE->error_message ("This user has been deleted.", true);
+            $PAGE->error_message("This user has been deleted.", true);
 
             return;
         } elseif (!$this->confirmed) {
-            $PAGE->error_message ("You have not yet confirmed your account by clicking the link in the confirmation email we sent to you. If you don't have the email, you can <a href='/user/login/?resend=" . $this->user_id() . "'>have it resent</a>. If it still doesn't arrive, get in touch.", true);
+            $PAGE->error_message("You have not yet confirmed your account by clicking the link in the confirmation email we sent to you. If you don't have the email, you can <a href='/user/login/?resend=" . $this->user_id() . "'>have it resent</a>. If it still doesn't arrive, get in touch.", true);
 
             return;
         }
 
         // Reminder: $this->password is actually a hashed version of the plaintext pw.
-        $cookie = $this->user_id() . "." . md5 ($this->password());
+        $cookie = $this->user_id() . "." . md5($this->password());
 
         $this->_login($returl, $expire, $cookie);
     }
@@ -1099,7 +1159,7 @@ class THEUSER extends USER {
         $cookie_expires = 0;
         if ($expire == 'never') {
             twfy_debug("THEUSER", "cookie never expires");
-            $cookie_expires = time()+86400*365*20;
+            $cookie_expires = time() + 86400 * 365 * 20;
         } elseif (is_int($expire) && $expire > time()) {
             twfy_debug("THEUSER", "cookie expires at " . $expire);
             $cookie_expires = $expire;
@@ -1137,11 +1197,15 @@ class THEUSER extends USER {
         }
     }
 
-    public function confirm_email($token, $redirect=true) {
+    public function confirm_email($token, $redirect = true) {
         $arg = '';
-        if (strstr($token, '::')) $arg = '::';
-        if (strstr($token, '-')) $arg = '-';
-        list($user_id, $registrationtoken) = explode($arg, $token);
+        if (strstr($token, '::')) {
+            $arg = '::';
+        }
+        if (strstr($token, '-')) {
+            $arg = '-';
+        }
+        [$user_id, $registrationtoken] = explode($arg, $token);
 
         if (!is_numeric($user_id) || $registrationtoken == '') {
             return false;
@@ -1150,24 +1214,24 @@ class THEUSER extends USER {
             FROM    tokens
             WHERE   token = :token
             AND   type = 'E'
-        ", array (':token' => $registrationtoken))->first();
+        ", [':token' => $registrationtoken])->first();
 
         if ($q) {
             $expires = $q['expires'];
             $expire_time = strtotime($expires);
-            if ( $expire_time < time() ) {
+            if ($expire_time < time()) {
                 global $PAGE;
                 if ($PAGE && $redirect) {
-                    $PAGE->error_message ("Sorry, that token seems to have expired");
+                    $PAGE->error_message("Sorry, that token seems to have expired");
                 }
 
                 return false;
             }
 
-            list( $user_id, $email ) = explode('::', $q['data']);
+            [$user_id, $email] = explode('::', $q['data']);
 
             // if we are logged in as someone else don't change the email
-            if ( $this->user_id() != 0 && $this->user_id() != $user_id ) {
+            if ($this->user_id() != 0 && $this->user_id() != $user_id) {
                 return false;
             }
 
@@ -1177,7 +1241,7 @@ class THEUSER extends USER {
                 return false;
             }
 
-            $details = array(
+            $details = [
                 'email' => $email,
                 'firstname' => $this->firstname(),
                 'lastname' => $this->lastname(),
@@ -1185,7 +1249,7 @@ class THEUSER extends USER {
                 'url' => $this->url(),
                 'optin' => $this->optin(),
                 'user_id' => $user_id,
-            );
+            ];
             $ret = $this->_update($details);
 
             if ($ret) {
@@ -1194,7 +1258,7 @@ class THEUSER extends USER {
                     FROM    tokens
                     WHERE   token = :token
                     AND   type = 'E'
-                ", array(':token' => $registrationtoken));
+                ", [':token' => $registrationtoken]);
 
                 $this->email = $email;
 
@@ -1205,7 +1269,7 @@ class THEUSER extends USER {
                 }
 
                 $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
-                $URL->insert(array('email'=>'t'));
+                $URL->insert(['email' => 't']);
                 $redirecturl = $URL->generate();
                 if ($redirect) {
                     $this->login($redirecturl, 'session');
@@ -1228,9 +1292,13 @@ class THEUSER extends USER {
 
         // Split the token into its parts.
         $arg = '';
-        if (strstr($token, '::')) $arg = '::';
-        if (strstr($token, '-')) $arg = '-';
-        list($user_id, $registrationtoken) = explode($arg, $token);
+        if (strstr($token, '::')) {
+            $arg = '::';
+        }
+        if (strstr($token, '-')) {
+            $arg = '-';
+        }
+        [$user_id, $registrationtoken] = explode($arg, $token);
 
         if (!is_numeric($user_id) || $registrationtoken == '') {
             return false;
@@ -1240,10 +1308,10 @@ class THEUSER extends USER {
                         FROM    users
                         WHERE   user_id = :user_id
                         AND     registrationtoken = :token
-                        ", array(
-                            ':user_id' => $user_id,
-                            ':token' => $registrationtoken
-                        ))->first();
+                        ", [
+            ':user_id' => $user_id,
+            ':token' => $registrationtoken,
+        ])->first();
 
         if ($q) {
 
@@ -1256,17 +1324,17 @@ class THEUSER extends USER {
             $r = $this->db->query("UPDATE users
                             SET     confirmed = '1'
                             WHERE   user_id = :user_id
-                            ", array(':user_id' => $user_id));
+                            ", [':user_id' => $user_id]);
 
             if ($q['postcode']) {
                 try {
-                    $MEMBER = new MEMBER(array('postcode'=>$q['postcode'], 'house'=>HOUSE_TYPE_COMMONS));
+                    $MEMBER = new MEMBER(['postcode' => $q['postcode'], 'house' => HOUSE_TYPE_COMMONS]);
                     $pid = $MEMBER->person_id();
                     # This should probably be in the ALERT class
-                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
-                            ':email' => $this->email,
-                            ':criteria' => 'speaker:' . $pid
-                        ));
+                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', [
+                        ':email' => $this->email,
+                        ':criteria' => 'speaker:' . $pid,
+                    ]);
                 } catch (MySociety\TheyWorkForYou\MemberException $e) {
                 }
             }
@@ -1280,7 +1348,7 @@ class THEUSER extends USER {
                     // Log the user in, redirecting them to the confirm page
                     // where they should get a nice welcome message.
                     $URL = new \MySociety\TheyWorkForYou\Url('userconfirmed');
-                    $URL->insert(array('welcome'=>'t'));
+                    $URL->insert(['welcome' => 't']);
                     $redirecturl = $URL->generate();
                 }
 
@@ -1308,9 +1376,9 @@ class THEUSER extends USER {
         $q = $this->db->query("SELECT email, password, postcode
                         FROM    users
                         WHERE   user_id = :user_id
-                        ", array(
-                            ':user_id' => $this->user_id,
-                        ))->first();
+                        ", [
+            ':user_id' => $this->user_id,
+        ])->first();
 
         if ($q) {
 
@@ -1322,17 +1390,17 @@ class THEUSER extends USER {
             $r = $this->db->query("UPDATE users
                             SET     confirmed = '1'
                             WHERE   user_id = :user_id
-                            ", array(':user_id' => $this->user_id));
+                            ", [':user_id' => $this->user_id]);
 
             if ($q['postcode']) {
                 try {
-                    $MEMBER = new MEMBER(array('postcode'=>$q['postcode'], 'house'=>HOUSE_TYPE_COMMONS));
+                    $MEMBER = new MEMBER(['postcode' => $q['postcode'], 'house' => HOUSE_TYPE_COMMONS]);
                     $pid = $MEMBER->person_id();
                     # This should probably be in the ALERT class
-                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', array(
-                            ':email' => $this->email,
-                            ':criteria' => 'speaker:' . $pid
-                        ));
+                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', [
+                        ':email' => $this->email,
+                        ':criteria' => 'speaker:' . $pid,
+                    ]);
                 } catch (MySociety\TheyWorkForYou\MemberException $e) {
                 }
             }
@@ -1362,15 +1430,17 @@ class THEUSER extends USER {
         // not-logged-in users.
 
         $this->postcode = $pc;
-        if (!headers_sent()) // if in debug mode
-            setcookie (POSTCODE_COOKIE, $pc, time()+7*86400, "/", COOKIEDOMAIN);
+        if (!headers_sent()) { // if in debug mode
+            setcookie(POSTCODE_COOKIE, $pc, time() + 7 * 86400, "/", COOKIEDOMAIN);
+        }
 
         twfy_debug('USER', "Set the cookie named '" . POSTCODE_COOKIE . " to '$pc' for " . COOKIEDOMAIN . " domain");
     }
 
     public function unset_postcode_cookie() {
-        if (!headers_sent()) // if in debug mode
-            setcookie (POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
+        if (!headers_sent()) { // if in debug mode
+            setcookie(POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
+        }
     }
 
     // mostly here for updating from facebook where we do not need
@@ -1383,8 +1453,8 @@ class THEUSER extends USER {
 
             // this is checked elsewhere but just in case we check here and
             // bail out to be on the safe side
-            if ( isset($details['email'] ) ) {
-                if ( $details['email'] != $this->email() && $this->email_exists( $details['email'] ) ) {
+            if (isset($details['email'])) {
+                if ($details['email'] != $this->email() && $this->email_exists($details['email'])) {
                     return false;
                 }
             }
@@ -1432,8 +1502,8 @@ class THEUSER extends USER {
             // this is checked elsewhere but just in case we check here and
             // bail out to be on the safe side
             $email = '';
-            if ( isset($details['email'] ) ) {
-                if ( $details['email'] != $this->email() && $this->email_exists( $details['email'] ) ) {
+            if (isset($details['email'])) {
+                if ($details['email'] != $this->email() && $this->email_exists($details['email'])) {
                     return false;
                 }
                 $email = $details['email'];
@@ -1459,7 +1529,7 @@ class THEUSER extends USER {
                 }
 
                 if ($email && $email != $this->email) {
-                    $token = substr( password_hash($email . microtime(), PASSWORD_BCRYPT), 29, 16 );
+                    $token = substr(password_hash($email . microtime(), PASSWORD_BCRYPT), 29, 16);
                     $data = $this->user_id() . '::' . $email;
                     $r = $this->db->query("INSERT INTO tokens
                         ( expires, token, type, data )
@@ -1470,13 +1540,13 @@ class THEUSER extends USER {
                             'E',
                             :data
                         )
-                    ", array(
+                    ", [
                         ':token' => $token,
-                        ':data' => $data
-                    ));
+                        ':data' => $data,
+                    ]);
 
                     // send confirmation email here
-                    if ( $r->success() ) {
+                    if ($r->success()) {
                         $newdetails['email'] = $email;
                         $newdetails['token'] = $token;
                         if ($confirm_email) {
@@ -1503,4 +1573,4 @@ class THEUSER extends USER {
 }
 
 // Yes, we instantiate a new global $THEUSER object when every page loads.
-$THEUSER = new THEUSER;
+$THEUSER = new THEUSER();

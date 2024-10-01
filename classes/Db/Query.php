@@ -37,10 +37,9 @@ namespace MySociety\TheyWorkForYou\Db;
  */
 
 class Query implements \IteratorAggregate, \ArrayAccess {
-
     private $success = true;
     private $rows = null;
-    private $data = array();
+    private $data = [];
     private $insert_id = null;
     private $affected_rows = null;
 
@@ -118,7 +117,7 @@ class Query implements \IteratorAggregate, \ArrayAccess {
             }
             $this->affected_rows = $pdoStatement->rowCount();
 
-            twfy_debug("SQLRESULT", array($this, 'displayResult'));
+            twfy_debug("SQLRESULT", [$this, 'displayResult']);
             // mysql_free_result($q);
         }
     }
@@ -146,7 +145,7 @@ class Query implements \IteratorAggregate, \ArrayAccess {
     }
 
     public function offsetSet($offset, $value) {
-        throw new \Exception;
+        throw new \Exception();
     }
 
     public function offsetExists($offset) {
@@ -154,7 +153,7 @@ class Query implements \IteratorAggregate, \ArrayAccess {
     }
 
     public function offsetUnset($offset) {
-        throw new \Exception;
+        throw new \Exception();
     }
 
     public function fetchAll() {
@@ -185,7 +184,7 @@ class Query implements \IteratorAggregate, \ArrayAccess {
         if ($this->success && $this->rows > 0) {
             return $this->data[$row_index];
         }
-        return array();
+        return [];
     }
 
     public function exists() {

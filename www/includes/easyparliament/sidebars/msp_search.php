@@ -3,9 +3,9 @@
 
 global $MEMBER;
 
-    $SEARCHURL = new \MySociety\TheyWorkForYou\Url("search");
-    $this->block_start(array('id'=>'mpsearch', 'title'=>"Search by name (including former MSPs)"));
-    ?>
+$SEARCHURL = new \MySociety\TheyWorkForYou\Url("search");
+$this->block_start(['id' => 'mpsearch', 'title' => "Search by name (including former MSPs)"]);
+?>
 
     <div class="mpsearchbox">
         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
@@ -18,5 +18,5 @@ global $MEMBER;
     </div>
 
 <?php
-    $this->block_end();
+$this->block_end();
 ?>

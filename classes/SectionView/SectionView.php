@@ -1,4 +1,5 @@
 <?php
+
 # For displaying any debate calendar, day, debate, speech page or related.
 
 namespace MySociety\TheyWorkForYou\SectionView;
@@ -22,7 +23,7 @@ class SectionView {
             $this->list = new $this->class();
         }
 
-        list($country, $location, $assembly) = $this->getCountryDetails();
+        [$country, $location, $assembly] = $this->getCountryDetails();
         $this->location = $location;
         $this->assembly = $assembly;
     }
@@ -38,7 +39,7 @@ class SectionView {
             $data = $this->addCommonData($data);
         } elseif ($date = get_http_var('d')) {
             $data = $this->display_day($date);
-            if ( !isset($data['template']) ) {
+            if (!isset($data['template'])) {
                 $data['template'] = 'section/day';
             }
             $data = $this->addCommonData($data);
@@ -46,7 +47,7 @@ class SectionView {
             $data = $this->display_section_or_speech();
         } else {
             $data = $this->display_front();
-            if ( !isset($data['template']) ) {
+            if (!isset($data['template'])) {
                 $data['template'] = 'section/recent';
             }
             $data['search_sections'] = $this->getSearchSections();
@@ -62,16 +63,16 @@ class SectionView {
     protected function addCommonData($data) {
         global $DATA, $this_page;
 
-        $common = new \MySociety\TheyWorkForYou\Common;
+        $common = new \MySociety\TheyWorkForYou\Common();
         $data['urls'] = $this->getURLs($data);
         $data['popular_searches'] = []; #$common->getPopularSearches();
         $data['recess_major'] = $this->getRecessMajor();
 
         $nextprev = $DATA->page_metadata($this_page, 'nextprev');
-        if ( isset($nextprev['next']['url']) ) {
+        if (isset($nextprev['next']['url'])) {
             $data['next'] = $nextprev['next'];
         }
-        if ( isset($nextprev['prev']['url']) ) {
+        if (isset($nextprev['prev']['url'])) {
             $data['prev'] = $nextprev['prev'];
         }
 
@@ -80,7 +81,7 @@ class SectionView {
         if (!isset($data['title']) && $parent_page != '') {
             $data['title'] = $DATA->page_metadata($parent_page, 'title');
         }
-        if ( $parent_page ) {
+        if ($parent_page) {
             $data['parent_title'] = $DATA->page_metadata($parent_page, 'title');
         }
 
@@ -92,11 +93,11 @@ class SectionView {
     protected function getURLs($data) {
         global $DATA, $this_page;
 
-        $urls = array();
+        $urls = [];
 
         $urls = array_merge($urls, $this->getViewUrls());
 
-        if ( isset($data['info']['page']) ) {
+        if (isset($data['info']['page'])) {
             $day = new \MySociety\TheyWorkForYou\Url($data['info']['page']);
             $urls['day'] = $day;
         }
@@ -105,7 +106,7 @@ class SectionView {
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('debates');
         $urls['debatesday'] = $day;
         $urls['day'] = $day;
@@ -117,7 +118,7 @@ class SectionView {
     }
 
     protected function getSearchSections() {
-        return array();
+        return [];
     }
 
     protected function getRecessMajor() {
@@ -140,7 +141,7 @@ class SectionView {
             $DATA->set_page_metadata($this_page, 'title', $year);
         }
 
-        $args = array ( 'year' => $year );
+        $args =  [ 'year' => $year ];
         $data = $this->list->display('calendar', $args, 'none');
         return $data;
     }
@@ -148,18 +149,18 @@ class SectionView {
     protected function display_column($date, $column) {
         global $this_page;
         $this_page = $this->page_base;
-        $args = array( 'date' => $date, 'column' => $column );
+        $args = [ 'date' => $date, 'column' => $column ];
         $content = $this->list->display('column', $args, 'none');
 
-        $data = array();
+        $data = [];
         $data['column'] = $column;
         $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
-        $URL->insert(array('d' => $date));
+        $URL->insert(['d' => $date]);
         $data['debate_day_link'] = $URL->generate();
         $data['debate_day_human'] = format_date($date, LONGDATEFORMAT);
 
         $data['rows'] = $content;
-        $data['info'] = array('major' => $this->major, 'date' => $date);
+        $data['info'] = ['major' => $this->major, 'date' => $date];
 
         $data['template'] = 'section/column';
         return $data;
@@ -168,26 +169,26 @@ class SectionView {
     protected function display_day($date) {
         global $this_page;
         $this_page = $this->page_base . 'day';
-        $args = array ( 'date' => get_http_var('d') );
+        $args =  [ 'date' => get_http_var('d') ];
         $data = $this->list->display('date', $args, 'none');
-        list($year, $month, $day) = explode('-', $date);
-        $args = array( 'year' => $year, 'month' => $month, 'day' => $day);
+        [$year, $month, $day] = explode('-', $date);
+        $args = [ 'year' => $year, 'month' => $month, 'day' => $day];
         $calendar = $this->list->display('calendar', $args, 'none');
-        if ( isset($calendar['years']) ) {
+        if (isset($calendar['years'])) {
             $data['calendar'] = $calendar['years'];
         }
         return $data;
     }
 
-    protected function display_section_or_speech($args = array()) {
+    protected function display_section_or_speech($args = []) {
         global $DATA, $this_page, $THEUSER;
 
         # += as we *don't* want to override any already supplied argument
-        $args += array (
+        $args +=  [
             'gid' => get_http_var('id'),
             's' => get_http_var('s'), // Search terms to be highlighted.
             'member_id' => get_http_var('m'), // Member's speeches to be highlighted.
-        );
+        ];
 
         if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm)) {
             $args['person_id'] = $mmm[1];
@@ -200,14 +201,14 @@ class SectionView {
             if ($this->major == 6) {
                 # Magically (as in I can't remember quite why), pbc_clause will
                 # contain the new URL without any change...
-                $URL->remove( array('id') );
+                $URL->remove(['id']);
             } else {
-                $URL->insert( array('id'=>$e->getMessage()) );
+                $URL->insert(['id' => $e->getMessage()]);
             }
             # put the search term back in so highlighting works.
             # NB: as we don't see the # part of the URL we lose this :(
-            if ( $args['s'] !== '' ) {
-                $URL->insert( array('s'=>$args['s']) );
+            if ($args['s'] !== '') {
+                $URL->insert(['s' => $args['s']]);
             }
             redirect($URL->generate('none'), 301);
         }
@@ -215,16 +216,16 @@ class SectionView {
         $data['individual_item'] = ($this->list->commentspage == $this_page);
 
         if ($data['individual_item']) {
-            $COMMENTLIST = new \COMMENTLIST;
+            $COMMENTLIST = new \COMMENTLIST();
             $args['user_id'] = get_http_var('u');
             $args['epobject_id'] = $this->list->epobject_id();
             $data['comments']['object'] = $COMMENTLIST;
             $data['comments']['args'] = $args;
-            $data['comments']['commentdata'] = array(
+            $data['comments']['commentdata'] = [
                 'epobject_id' => $this->list->epobject_id(),
                 'gid' => get_http_var('id'), # wrans is LIST->gid?
-                'return_page' => $this_page
-            );
+                'return_page' => $this_page,
+            ];
         }
 
         if (!isset($data['info'])) {
@@ -235,9 +236,9 @@ class SectionView {
 
         # Okay, let's set up highlighting and glossarisation
 
-        list($bodies, $speeches) = $this->highlightSpeeches($data);
+        [$bodies, $speeches] = $this->highlightSpeeches($data);
 
-        list($data, $first_speech, $subsection_title) = $this->annotateSpeeches($data, $bodies, $speeches);
+        [$data, $first_speech, $subsection_title] = $this->annotateSpeeches($data, $bodies, $speeches);
 
         $data = $this->setTitleAndAlertText($data, $subsection_title);
 
@@ -247,8 +248,8 @@ class SectionView {
         $data['debate_day_human'] = format_date($data['info']['date'], LONGDATEFORMAT);
 
         $URL = new \MySociety\TheyWorkForYou\Url($this->list->listpage);
-        $URL->insert(array('d' => $data['info']['date']));
-        $URL->remove(array('id'));
+        $URL->insert(['d' => $data['info']['date']]);
+        $URL->remove(['id']);
         $data['debate_day_link'] = $URL->generate();
 
         $data['nextprev'] = $DATA->page_metadata($this_page, 'nextprev');
@@ -286,7 +287,7 @@ class SectionView {
         if (array_key_exists('text_heading', $data['info'])) {
             // avoid having Clause 1 etc as the alert text search string on PBC pages as it's
             // almost certainly not what the person wants
-            if ( $this->major == 6 ) {
+            if ($this->major == 6) {
                 $data['email_alert_text'] = $data['section_title'];
             } else {
                 $data['email_alert_text'] = $data['info']['text_heading'];
@@ -323,7 +324,7 @@ class SectionView {
         // and highlight search string words.
 
         $speeches = 0;
-        $bodies = array();
+        $bodies = [];
         foreach ($data['rows'] as $row) {
             $htype = $row['htype'];
             if ($htype == 12 || $htype == 13 || $htype == 14) {
@@ -332,8 +333,8 @@ class SectionView {
             $body = $row['body'];
             $body = preg_replace('#<phrase class="honfriend" id="uk.org.publicwhip/member/(\d+)" name="([^"]*?)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?m=$1" title="Our page on $2 - \'$3\'">$4</a>', $body);
             $body = preg_replace('#<phrase class="honfriend" name="([^"]*?)" person_id="uk.org.publicwhip/person/(\d+)">(.*?\s*\((.*?)\))</phrase>#', '<a href="/mp/?p=$2" title="Our page on $1 - \'$3\'">$4</a>', $body);
-            $body = preg_replace_callback('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', function($matches) {
-                return '<a href="/search/?pop=1&s=date:' . $matches[2] . $matches[3] . $matches[4] . '+column:' . $matches[5] . '+section:' . $matches[1] .'">' . str_replace("Official Report", "Hansard", $matches[6]) . '</a>';
+            $body = preg_replace_callback('#<phrase class="offrep" id="(.*?)/(\d+)-(\d+)-(\d+)\.(.*?)">(.*?)</phrase>#', function ($matches) {
+                return '<a href="/search/?pop=1&s=date:' . $matches[2] . $matches[3] . $matches[4] . '+column:' . $matches[5] . '+section:' . $matches[1] . '">' . str_replace("Official Report", "Hansard", $matches[6]) . '</a>';
             }, $body);
             #$body = preg_replace('#<phrase class="offrep" id="((.*?)/(\d+)-(\d+)-(\d+)\.(.*?))">(.*?)</phrase>#e', "\"<a href='/search/?pop=1&amp;s=date:$3$4$5+column:$6+section:$2&amp;match=$1'>\" . str_replace('Official Report', 'Hansard', '$7') . '</a>'", $body);
             $bodies[] = $body;
@@ -357,7 +358,7 @@ class SectionView {
             twfy_debug_timestamp('After glossarise');
         }
 
-        return array($bodies, $speeches);
+        return [$bodies, $speeches];
     }
 
     private function annotateSpeeches($data, $bodies, $speeches) {
@@ -366,7 +367,7 @@ class SectionView {
         $data['section_title'] = '';
         $subsection_title = '';
         $rows = count($data['rows']);
-        for ($i=0; $i<$rows; $i++) {
+        for ($i = 0; $i < $rows; $i++) {
             $row = $data['rows'][$i];
             $htype = $row['htype'];
             // HPOS should be defined below if it's needed; otherwise default to 0
@@ -389,7 +390,7 @@ class SectionView {
                 # Voting links
                 $data['rows'][$i]['voting_data'] = '';
                 if (isset($row['votes'])) {
-                    $data['rows'][$i]['voting_data'] = $this->generate_votes( $row['votes'], $row['epobject_id'], $row['gid'] );
+                    $data['rows'][$i]['voting_data'] = $this->generate_votes($row['votes'], $row['epobject_id'], $row['gid']);
                 }
 
                 # Annotation link
@@ -421,79 +422,79 @@ class SectionView {
             }
         }
 
-        return array($data, $first_speech, $subsection_title);
+        return [$data, $first_speech, $subsection_title];
     }
 
     private function getCountryDetails() {
-        $details = array(
-            1 => array (
+        $details = [
+            1 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-commons',
-                'location' => '&ndash; in the House of Commons'
-            ),
-            2 => array (
+                'location' => '&ndash; in the House of Commons',
+            ],
+            2 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-commons',
-                'location' => '&ndash; in Westminster Hall'
-            ),
-            3 => array (
+                'location' => '&ndash; in Westminster Hall',
+            ],
+            3 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-commons',
-                'location' => 'written question &ndash; answered'
-            ),
-            4 => array (
+                'location' => 'written question &ndash; answered',
+            ],
+            4 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-commons',
-                'location' => 'written statement &ndash; made'
-            ),
-            5 => array (
+                'location' => 'written statement &ndash; made',
+            ],
+            5 =>  [
                 'country' => 'NORTHERN IRELAND',
                 'assembly' => 'ni',
-                'location' => '&ndash; in the Northern Ireland Assembly'
-            ),
-            6 => array (
+                'location' => '&ndash; in the Northern Ireland Assembly',
+            ],
+            6 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-commons',
-                'location' => '&ndash; in a Public Bill Committee'
-            ),
-            7 => array (
+                'location' => '&ndash; in a Public Bill Committee',
+            ],
+            7 =>  [
                 'country' => 'SCOTLAND',
                 'assembly' => 'scotland',
-                'location' => '&ndash; in the Scottish Parliament'
-            ),
-            8 => array (
+                'location' => '&ndash; in the Scottish Parliament',
+            ],
+            8 =>  [
                 'country' => 'SCOTLAND',
                 'assembly' => 'scotland',
-                'location' => '&ndash; Scottish Parliament written question &ndash; answered'
-            ),
-            9 => array (
+                'location' => '&ndash; Scottish Parliament written question &ndash; answered',
+            ],
+            9 =>  [
                 'country' => 'LONDON',
                 'assembly' => 'london-assembly',
-                'location' => 'Questions to the Mayor of London &ndash; answered'
-            ),
-            10 => array (
+                'location' => 'Questions to the Mayor of London &ndash; answered',
+            ],
+            10 =>  [
                 'country' => 'WALES',
                 'assembly' => 'senedd',
-                'location' => '&ndash; in the Senedd'
-            ),
-            11 => array (
+                'location' => '&ndash; in the Senedd',
+            ],
+            11 =>  [
                 'country' => 'WALES',
                 'assembly' => 'senedd',
-                'location' => '&ndash; Senedd Cymru'
-            ),
-            101 => array (
+                'location' => '&ndash; Senedd Cymru',
+            ],
+            101 =>  [
                 'country' => 'UK',
                 'assembly' => 'uk-lords',
-                'location' => '&ndash; in the House of Lords'
-            )
-        );
+                'location' => '&ndash; in the House of Lords',
+            ],
+        ];
 
         $detail = $details[$this->major];
-        return array($detail['country'], $detail['location'], $detail['assembly']);
+        return [$detail['country'], $detail['location'], $detail['assembly']];
     }
 
     private function majorToConsType() {
-        $major_to_cons_type = array(
+        $major_to_cons_type = [
             1 => 'WMC',
             2 => 'WMC',
             3 => 'WMC',
@@ -505,7 +506,7 @@ class SectionView {
             10 => 'WAC',
             11 => 'WAC',
             101 => '',
-        );
+        ];
 
         return $major_to_cons_type[$this->major];
     }
@@ -513,18 +514,18 @@ class SectionView {
     protected function display_front() {
         global $DATA, $this_page;
         $this_page = $this->page_base . 'front';
-        $data = array();
-        if ( $this->index_template ) {
+        $data = [];
+        if ($this->index_template) {
             $data['template'] = $this->index_template;
         }
 
-        $class = new $this->class;
-        $content = array();
+        $class = new $this->class();
+        $content = [];
         $content['data'] = $this->front_content();
 
-        $content['calendar'] = $class->display('calendar', array('months' => 1), 'none');
+        $content['calendar'] = $class->display('calendar', ['months' => 1], 'none');
 
-        if ( $rssurl = $DATA->page_metadata($this_page, 'rss') ) {
+        if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
             $content['rssurl'] = $rssurl;
         }
 
@@ -539,7 +540,7 @@ class SectionView {
     }
 
     //$totalcomments, $comment, $commenturl
-    function generate_commentteaser ($row) {
+    public function generate_commentteaser($row) {
         // Returns HTML for the one fragment of comment and link for the sidebar.
         // $totalcomments is the number of comments this item has on it.
         // $comment is an array like:
@@ -588,13 +589,13 @@ class SectionView {
             }
         }
 
-        return array(
+        return [
             'body' => prepare_comment_for_display($commentbody),
             'username' => _htmlentities($comment['username']),
             'linktext' => $linktext,
             'commentsurl' => $row['commentsurl'],
             'comment_id' => $comment['comment_id'],
-        );
+        ];
     }
 
     protected function get_question_mentions_html($row_data) {
@@ -602,7 +603,7 @@ class SectionView {
     }
 
     private function pageToSection() {
-        $sections = array(
+        $sections = [
             1 => 'debates',
             2 => 'whall',
             3 => 'wrans',
@@ -614,8 +615,8 @@ class SectionView {
             9 => 'lmqs',
             10 => 'senedd',
             11 => 'senedd',
-            101 => 'lords'
-        );
+            101 => 'lords',
+        ];
 
         return $sections[$this->major];
     }

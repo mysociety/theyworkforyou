@@ -5,7 +5,7 @@ namespace MySociety\TheyWorkForYou;
 class Redis extends \Predis\Client {
     public function __construct() {
         if (REDIS_SENTINELS) {
-            $sentinels = array();
+            $sentinels = [];
             $sentinel_port = REDIS_SENTINEL_PORT;
             foreach (explode(",", REDIS_SENTINELS) as $sentinel) {
                 // Wrap IPv6 addresses in square brackets

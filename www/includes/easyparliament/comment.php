@@ -24,14 +24,13 @@
 
 
 class COMMENT {
-
     public $comment_id = '';
     public $user_id = '';
     public $epobject_id = '';
     public $body = '';
     public $posted = '';
     public $visible = false;
-    public $modflagged = NULL;	// Is a datetime when set.
+    public $modflagged = null;	// Is a datetime when set.
     public $firstname = '';	// Of the person who posted it.
     public $lastname = '';
     public $url = '';
@@ -41,9 +40,9 @@ class COMMENT {
     public $exists = false;
 
 
-    public function __construct($comment_id='') {
+    public function __construct($comment_id = '') {
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
 
         // Set in init.php
         if (ALLOWCOMMENTS == true) {
@@ -56,7 +55,8 @@ class COMMENT {
         if (is_numeric($comment_id)) {
             // We're getting the data for an existing comment from the DB.
 
-            $q = $this->db->query("SELECT user_id,
+            $q = $this->db->query(
+                "SELECT user_id,
                                     epobject_id,
                                     body,
                                     posted,
@@ -64,7 +64,8 @@ class COMMENT {
                                     modflagged
                             FROM	comments
                             WHERE 	comment_id=:comment_id",
-                    array(':comment_id' => $comment_id))->first();
+                [':comment_id' => $comment_id]
+            )->first();
 
             if ($q) {
 
@@ -89,24 +90,48 @@ class COMMENT {
 
 
     // Use these for accessing the object's variables externally.
-    public function comment_id() { return $this->comment_id; }
-    public function user_id() { return $this->user_id; }
-    public function epobject_id() { return $this->epobject_id; }
-    public function body() { return $this->body; }
-    public function posted() { return $this->posted; }
-    public function visible() { return $this->visible; }
-    public function modflagged() { return $this->modflagged; }
-    public function exists() { return $this->exists; }
-    public function firstname() { return $this->firstname; }
-    public function lastname() { return $this->lastname; }
-    public function url() { return $this->url; }
+    public function comment_id() {
+        return $this->comment_id;
+    }
+    public function user_id() {
+        return $this->user_id;
+    }
+    public function epobject_id() {
+        return $this->epobject_id;
+    }
+    public function body() {
+        return $this->body;
+    }
+    public function posted() {
+        return $this->posted;
+    }
+    public function visible() {
+        return $this->visible;
+    }
+    public function modflagged() {
+        return $this->modflagged;
+    }
+    public function exists() {
+        return $this->exists;
+    }
+    public function firstname() {
+        return $this->firstname;
+    }
+    public function lastname() {
+        return $this->lastname;
+    }
+    public function url() {
+        return $this->url;
+    }
 
-    public function comments_enabled() { return $this->comments_enabled; }
+    public function comments_enabled() {
+        return $this->comments_enabled;
+    }
 
 
-    public function display($format='html', $template='comments') {
+    public function display($format = 'html', $template = 'comments') {
 
-        $data['comments'][0] = array (
+        $data['comments'][0] =  [
             'comment_id'	=> $this->comment_id,
             'user_id'		=> $this->user_id,
             'epobject_id'	=> $this->epobject_id,
@@ -117,7 +142,7 @@ class COMMENT {
             'firstname'		=> $this->firstname,
             'lastname'		=> $this->lastname,
             'visible'		=> $this->visible,
-        );
+        ];
 
         // Use the same renderer as the COMMENTLIST class.
         $COMMENTLIST = new COMMENTLIST();
@@ -138,11 +163,11 @@ class COMMENT {
             $flag = "'$date'";
 
         } elseif ($switch == 'off') {
-            $date = NULL;
+            $date = null;
             $flag = 'NULL';
 
         } else {
-            $PAGE->error_message ("Why are you trying to switch this comment's modflag to '" . _htmlentities($switch) . "'!");
+            $PAGE->error_message("Why are you trying to switch this comment's modflag to '" . _htmlentities($switch) . "'!");
         }
 
         $q = $this->db->query("UPDATE comments
@@ -154,10 +179,10 @@ class COMMENT {
             $this->modflagged = $date;
             return true;
         } else {
-            $message = array (
+            $message =  [
                 'title' => 'Sorry',
-                'text' => "We couldn't update the annotation's modflag."
-            );
+                'text' => "We couldn't update the annotation's modflag.",
+            ];
             $PAGE->error_message($message);
             return false;
         }
@@ -176,19 +201,19 @@ class COMMENT {
             if ($q->success()) {
                 return true;
             } else {
-                $message = array (
+                $message =  [
                     'title' => 'Sorry',
-                    'text' => "We were unable to delete the annotation."
-                );
+                    'text' => "We were unable to delete the annotation.",
+                ];
                 $PAGE->error_message($message);
                 return false;
             }
 
         } else {
-            $message = array (
+            $message =  [
                 'title' => 'Sorry',
-                'text' => "You are not authorised to delete annotations."
-            );
+                'text' => "You are not authorised to delete annotations.",
+            ];
             $PAGE->error_message($message);
             return false;
         }
@@ -203,15 +228,17 @@ class COMMENT {
 
         if ($this->url == '') {
 
-            $q = $this->db->query("SELECT major,
+            $q = $this->db->query(
+                "SELECT major,
                                     gid
                             FROM	hansard
                             WHERE	epobject_id = :epobject_id",
-                            array(':epobject_id' => $this->epobject_id))->first();
+                [':epobject_id' => $this->epobject_id]
+            )->first();
 
             if ($q) {
-                 // If you change stuff here, you might have to change it in
-                 // $COMMENTLIST->_get_comment_data() too...
+                // If you change stuff here, you might have to change it in
+                // $COMMENTLIST->_get_comment_data() too...
 
                 $gid = fix_gid_from_db($q['gid']); // In includes/utility.php
 
@@ -219,7 +246,7 @@ class COMMENT {
                 $page = $hansardmajors[$major]['page'];
 
                 $URL = new \MySociety\TheyWorkForYou\Url($page);
-                $URL->insert(array('id'=>$gid));
+                $URL->insert(['id' => $gid]);
                 $this->url = $URL->generate() . '#c' . $this->comment_id;
             }
         }
@@ -231,11 +258,13 @@ class COMMENT {
         // Gets and sets the user's name who posted the comment.
 
         if ($this->firstname == '' && $this->lastname == '') {
-            $q = $this->db->query("SELECT firstname,
+            $q = $this->db->query(
+                "SELECT firstname,
                                     lastname
                             FROM	users
                             WHERE	user_id = :user_id",
-                            array(':user_id' => $this->user_id))->first();
+                [':user_id' => $this->user_id]
+            )->first();
 
             if ($q) {
                 $this->firstname = $q['firstname'];

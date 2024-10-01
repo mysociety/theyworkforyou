@@ -2,7 +2,7 @@
 
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
-$this->block_start(array('id'=>'help', 'title'=>"What is TheyWorkForYou?"));
+$this->block_start(['id' => 'help', 'title' => "What is TheyWorkForYou?"]);
 ?>
 
 <p>

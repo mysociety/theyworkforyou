@@ -7,7 +7,7 @@ $this_page = 'campaign_foi';
 
 $PAGE->page_start();
 $PAGE->stripe_start();
-$PAGE->block_start(array('id'=>'intro', 'title'=>'We need your help:'));
+$PAGE->block_start(['id' => 'intro', 'title' => 'We need your help:']);
 
 echo '<div id="foi2009">';
 echo $foi2009_message;

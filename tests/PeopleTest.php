@@ -3,25 +3,21 @@
 /**
  * Provides test methods for people list functionality.
  */
-class PeopleTest extends TWFY_Database_TestCase
-{
-
+class PeopleTest extends TWFY_Database_TestCase {
     /**
      * Loads the member testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/people.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/people.xml');
     }
 
     /**
      * Test that a member is correctly retrieved by person ID alone.
      */
-    public function testGetMPList()
-    {
+    public function testGetMPList() {
         $people = new MySociety\TheyWorkForYou\People\MPs();
 
-        $expectedMP = array(
+        $expectedMP = [
             'person_id' => '2',
             'given_name' => 'Test',
             'family_name' => 'Current-MP',
@@ -31,19 +27,18 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Westminster Constituency',
             'party' => 'Lab',
             'left_reason' => 'still_in_office',
-            'image' => '/images/unknownperson.png'
-        );
+            'image' => '/images/unknownperson.png',
+        ];
         $MPList = $people->getData();
 
         $this->assertEquals(9, count($MPList['data']));
         $this->assertEquals($expectedMP, $MPList['data'][2]);
     }
 
-    public function testGetMSPList()
-    {
+    public function testGetMSPList() {
         $people = new MySociety\TheyWorkForYou\People\MSPs();
 
-        $expectedMSP = array(
+        $expectedMSP = [
             'person_id' => '5',
             'given_name' => 'Test',
             'family_name' => 'Current-MSP',
@@ -53,19 +48,18 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Scotland Constituency',
             'party' => 'Scottish National Party',
             'left_reason' => 'still_in_office',
-            'image' => '/images/unknownperson.png'
-        );
+            'image' => '/images/unknownperson.png',
+        ];
         $MSPList = $people->getData();
 
         $this->assertEquals(4, count($MSPList['data']));
         $this->assertEquals($expectedMSP, $MSPList['data'][5]);
     }
 
-    public function testGetMLAList()
-    {
+    public function testGetMLAList() {
         $people = new MySociety\TheyWorkForYou\People\MLAs();
 
-        $expectedMLA = array(
+        $expectedMLA = [
             'person_id' => '4',
             'given_name' => 'Test',
             'family_name' => 'Current-MLA',
@@ -75,19 +69,18 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => 'Test Northern Ireland Constituency',
             'party' => 'Sinn Féin',
             'left_reason' => 'still_in_office',
-            'image' => '/images/unknownperson.png'
-        );
+            'image' => '/images/unknownperson.png',
+        ];
         $MLAList = $people->getData();
 
         $this->assertEquals(4, count($MLAList['data']));
         $this->assertEquals($expectedMLA, $MLAList['data'][4]);
     }
 
-    public function testGetPeerList()
-    {
+    public function testGetPeerList() {
         $people = new MySociety\TheyWorkForYou\People\Peers();
 
-        $expectedPeer = array(
+        $expectedPeer = [
             'person_id' => '3',
             'given_name' => 'Test',
             'family_name' => 'Current-Lord',
@@ -97,8 +90,8 @@ class PeopleTest extends TWFY_Database_TestCase
             'constituency' => '',
             'party' => 'XB',
             'left_reason' => 'still_in_office',
-            'image' => '/images/unknownlord.png'
-        );
+            'image' => '/images/unknownlord.png',
+        ];
         $PeerList = $people->getData();
 
         $this->assertEquals(2, count($PeerList['data']));
@@ -108,7 +101,7 @@ class PeopleTest extends TWFY_Database_TestCase
     public function getOldMPList() {
         $people = new MySociety\TheyWorkForYou\People\MPs();
 
-        $MPList = $people->getData(array('date' => '1995-01-01'));
+        $MPList = $people->getData(['date' => '1995-01-01']);
 
         $this->assertEquals(2, count($MPList['data']));
     }
@@ -116,7 +109,7 @@ class PeopleTest extends TWFY_Database_TestCase
     public function getAllMPList() {
         $people = new MySociety\TheyWorkForYou\People\MPs();
 
-        $MPList = $people->getData(array('all' => 1));
+        $MPList = $people->getData(['all' => 1]);
 
         $this->assertEquals(11, count($MPList['data']));
     }

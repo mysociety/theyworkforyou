@@ -1,4 +1,5 @@
 <?php
+
 // For displaying the main Hansard content listings (by date) for the API.
 // Remember, we are currently within the DEBATELIST or WRANSLISTS class,
 // in the render() function.
@@ -9,9 +10,9 @@
 
 global $hansardmajors;
 
-if (isset ($data['rows'])) {
-    $out = array();
-    for ($i=0; $i<count($data['rows']); $i++) {
+if (isset($data['rows'])) {
+    $out = [];
+    for ($i = 0; $i < count($data['rows']); $i++) {
         $row = $data['rows'][$i];
 
         if ($row['htype'] == '10' && isset($row['excerpt']) && strstr($row['excerpt'], "was asked&#8212;")) {
@@ -39,9 +40,9 @@ if (isset ($data['rows'])) {
         }
 
         if ($row['htype'] == '10') {
-            $out[] = array('entry' => $entry, 'subs' => array());
+            $out[] = ['entry' => $entry, 'subs' => []];
         } else {
-            $out[sizeof($out)-1]['subs'][] = $entry;
+            $out[sizeof($out) - 1]['subs'][] = $entry;
         }
 
     }

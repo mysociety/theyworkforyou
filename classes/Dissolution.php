@@ -4,10 +4,10 @@ namespace MySociety\TheyWorkForYou;
 
 class Dissolution {
     public static function dates() {
-        $out = array();
+        $out = [];
         $dates = array_filter(explode(',', DISSOLUTION_DATE));
         foreach ($dates as $houseanddate) {
-            list ($house, $date) = explode(':', $houseanddate);
+            [$house, $date] = explode(':', $houseanddate);
             $out[$house] = $date;
         }
         return $out;
@@ -18,16 +18,16 @@ class Dissolution {
             return null;
         }
 
-        $params = array();
-        $query = array();
+        $params = [];
+        $query = [];
         foreach ($dates as $house => $date) {
             $params[":dissdate$house"] = $date;
             $query[] = "left_house = :dissdate$house";
         }
 
-        return array(
+        return [
             'query' => '(' . join(' OR ', $query) . ')',
             'params' => $params,
-        );
+        ];
     }
 }

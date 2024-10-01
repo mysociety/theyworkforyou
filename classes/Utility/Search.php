@@ -8,10 +8,9 @@ namespace MySociety\TheyWorkForYou\Utility;
 * Utility functions related to search and search strings
  */
 
-class Search
-{
+class Search {
     public static function searchByUsage($search, $house = 0) {
-        $data = array();
+        $data = [];
         $SEARCHENGINE = new \SEARCHENGINE($search);
         $data['pagetitle'] = $SEARCHENGINE->query_description_short();
         $SEARCHENGINE = new \SEARCHENGINE($search . ' groupby:speech');
@@ -33,9 +32,9 @@ class Search
         }
 
         # Fetch all the speakers of the results, count them up and get min/max date usage
-        $speaker_count = array();
+        $speaker_count = [];
         $gids = join('","', $gids);
-        $db = new \ParlDB;
+        $db = new \ParlDB();
         $q = $db->query('SELECT person_id,hdate FROM hansard WHERE gid IN ("' . $gids . '")');
         foreach ($q as $row) {
             $person_id = $row['person_id'];
@@ -55,8 +54,8 @@ class Search
         }
 
         # Fetch details of all the speakers
-        $speakers = array();
-        $pids = array();
+        $speakers = [];
+        $pids = [];
         if (count($speaker_count)) {
             $person_ids = join(',', array_keys($speaker_count));
             $q = $db->query('SELECT member_id, member.person_id, title, given_name, family_name, lordofname,
@@ -89,17 +88,17 @@ class Search
                     $speakers[$pid]['office'][$moffice_id] = prettify_office($posn, $dept);
                 }
                 if (!isset($speakers[$pid]['name'])) {
-                    $speakers[$pid]['name'] = $full_name . ($house==1?' MP':'');
+                    $speakers[$pid]['name'] = $full_name . ($house == 1 ? ' MP' : '');
                 }
-                if ( !isset($speakers[$pid]['party']) && $party ) {
+                if (!isset($speakers[$pid]['party']) && $party) {
                     $speakers[$pid]['party'] = $party;
                 }
             }
         }
         if (isset($speaker_count[0])) {
-            $speakers[0] = array('party'=>'', 'name'=>'Headings, procedural text, etc.', 'house'=>0, 'count'=>0);
+            $speakers[0] = ['party' => '', 'name' => 'Headings, procedural text, etc.', 'house' => 0, 'count' => 0];
         }
-        $party_count = array();
+        $party_count = [];
         $ok = 0;
         foreach ($speakers as $pid => &$speaker) {
             $speaker['count'] = $speaker_count[$pid];
@@ -114,7 +113,7 @@ class Search
             }
         }
 
-        uasort($speakers, function($a, $b) {
+        uasort($speakers, function ($a, $b) {
 
             if ($a['count'] > $b['count']) {
                 return -1;
@@ -144,12 +143,12 @@ class Search
      * Return query result from looking for MPs
      */
 
-    public static function searchMemberDbLookup($searchstring, $current_only=false) {
+    public static function searchMemberDbLookup($searchstring, $current_only = false) {
         if (!$searchstring) {
-            return array();
+            return [];
         }
         $searchwords = explode(' ', $searchstring, 3);
-        $params = array();
+        $params = [];
         if (count($searchwords) == 1) {
             $params[':like_0'] = '%' . $searchwords[0] . '%';
             $where = "given_name LIKE :like_0 OR family_name LIKE :like_0 OR lordofname LIKE :like_0";
@@ -158,8 +157,8 @@ class Search
             // And here we're assuming the user's put the names in the right order.
             $params[':like_0'] = '%' . $searchwords[0] . '%';
             $params[':like_1'] = '%' . $searchwords[1] . '%';
-            $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
-            $params[':like_0_and_1_hyphen'] = '%' . $searchwords[0] . '-'. $searchwords[1] . '%';
+            $params[':like_0_and_1'] = '%' . $searchwords[0] . ' ' . $searchwords[1] . '%';
+            $params[':like_0_and_1_hyphen'] = '%' . $searchwords[0] . '-' . $searchwords[1] . '%';
             $where = "(given_name LIKE :like_0 AND family_name LIKE :like_1)";
             $where .= " OR (given_name LIKE :like_1 AND family_name LIKE :like_0)";
             $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1)";
@@ -174,9 +173,9 @@ class Search
             $params[':like_0'] = '%' . $searchwords[0] . '%';
             $params[':like_1'] = '%' . $searchwords[1] . '%';
             $params[':like_2'] = '%' . $searchwords[2] . '%';
-            $params[':like_0_and_1'] = '%' . $searchwords[0] . ' '. $searchwords[1] . '%';
-            $params[':like_1_and_2'] = '%' . $searchwords[1] . ' '. $searchwords[2] . '%';
-            $params[':like_1_and_2_hyphen'] = '%' . $searchwords[1] . '-'. $searchwords[2] . '%';
+            $params[':like_0_and_1'] = '%' . $searchwords[0] . ' ' . $searchwords[1] . '%';
+            $params[':like_1_and_2'] = '%' . $searchwords[1] . ' ' . $searchwords[2] . '%';
+            $params[':like_1_and_2_hyphen'] = '%' . $searchwords[1] . '-' . $searchwords[2] . '%';
             $where = "(given_name LIKE :like_0_and_1 AND family_name LIKE :like_2)";
             $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2)";
             $where .= " OR (given_name LIKE :like_0 AND family_name LIKE :like_1_and_2_hyphen)";
@@ -186,15 +185,16 @@ class Search
             $where .= " OR (title LIKE :like_0 AND family_name LIKE :like_1 AND lordofname LIKE :like_2)";
         }
 
-        $db = new \ParlDB;
+        $db = new \ParlDB();
         $q = $db->query("SELECT person_id FROM person_names WHERE type='name' AND ($where)", $params);
 
         # Check for redirects
-        $pids = array();
+        $pids = [];
         foreach ($q as $row) {
             $pid = $row['person_id'];
-            $redirect = $db->query("SELECT gid_to FROM gidredirect WHERE gid_from = :gid_from",
-                array(':gid_from' => "uk.org.publicwhip/person/$pid")
+            $redirect = $db->query(
+                "SELECT gid_to FROM gidredirect WHERE gid_from = :gid_from",
+                [':gid_from' => "uk.org.publicwhip/person/$pid"]
             )->first();
             if ($redirect) {
                 $pid = str_replace('uk.org.publicwhip/person/', '', $redirect['gid_to']);
@@ -205,7 +205,7 @@ class Search
         return array_unique($pids);
     }
 
-    public static function searchMemberDbLookupWithNames($searchstring, $current_only=false) {
+    public static function searchMemberDbLookupWithNames($searchstring, $current_only = false) {
         $pids = self::searchMemberDbLookup($searchstring, $current_only);
 
         if (!count($pids)) {
@@ -221,7 +221,7 @@ class Search
 
         # This is not totally accurate (e.g. minimum entered date may be from a
         # different house, or similar), but should be good enough.
-        $db = new \ParlDB;
+        $db = new \ParlDB();
         $q = $db->query("SELECT member.person_id,
                                 title, given_name, family_name, lordofname,
                                 constituency, party,
@@ -254,7 +254,7 @@ class Search
             // Looks like a postcode - can we find the constituency?
             $constituency = Postcode::postcodeToConstituency($searchterm);
             if ($constituency) {
-                return array( array($constituency), true );
+                return [ [$constituency], true ];
             }
         }
 
@@ -264,15 +264,15 @@ class Search
                 (select name from constituency where cons_id = o.cons_id and main_name) as name
             from constituency AS o where name like :try
             and from_date <= date(now()) and date(now()) <= to_date";
-        $db = new \ParlDB;
-        $q = $db->query($query, array(':try' => '%' . $try . '%'));
+        $db = new \ParlDB();
+        $q = $db->query($query, [':try' => '%' . $try . '%']);
 
-        $constituencies = array();
+        $constituencies = [];
         foreach ($q as $row) {
             $constituencies[] = $row['name'];
         }
 
-        return array( $constituencies, false );
+        return [ $constituencies, false ];
     }
 
     /**
@@ -288,8 +288,8 @@ class Search
         $speakers = [];
 
         foreach ($criteria as $c) {
-            if (preg_match('#^speaker:(\d+)#',$c,$m)) {
-                $MEMBER = new \MEMBER(array('person_id'=>$m[1]));
+            if (preg_match('#^speaker:(\d+)#', $c, $m)) {
+                $MEMBER = new \MEMBER(['person_id' => $m[1]]);
                 $speakers[$m[1]] = $MEMBER->full_name();
             }
         }
@@ -307,7 +307,7 @@ class Search
     public static function speakerIDsToNames($searchstring) {
         $speakers = self::speakerNamesForIDs($searchstring);
 
-        foreach ( $speakers as $id => $name ) {
+        foreach ($speakers as $id => $name) {
             $searchstring = str_replace('speaker:' . $id, "speaker:$name", $searchstring);
         }
 

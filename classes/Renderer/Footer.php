@@ -9,15 +9,13 @@ namespace MySociety\TheyWorkForYou\Renderer;
  * for use in header and footer.
  */
 
-class Footer
-{
-
+class Footer {
     public $data;
 
-    private $about_links = array ('help', 'about', 'linktous', 'news', 'privacy');
-    private $assemblies_links = array('hansard', 'sp_home', 'wales_home', 'ni_home', 'london_home');
-    private $international_links = array('australia', 'ireland', 'mzalendo');
-    private $tech_links = array('code', 'api', 'data', 'devmailinglist', 'contact');
+    private $about_links =  ['help', 'about', 'linktous', 'news', 'privacy'];
+    private $assemblies_links = ['hansard', 'sp_home', 'wales_home', 'ni_home', 'london_home'];
+    private $international_links = ['australia', 'ireland', 'mzalendo'];
+    private $tech_links = ['code', 'api', 'data', 'devmailinglist', 'contact'];
 
 
     /*
@@ -26,12 +24,12 @@ class Footer
      * Populates $data with array of array of links in the footer
      */
     public function __construct() {
-        $this->data = array();
+        $this->data = [];
 
-        $this->data['about'] = $this->get_menu_links( $this->about_links );
-        $this->data['assemblies'] = $this->get_menu_links( $this->assemblies_links );
-        $this->data['international'] = $this->get_menu_links( $this->international_links );
-        $this->data['tech'] = $this->get_menu_links( $this->tech_links );
+        $this->data['about'] = $this->get_menu_links($this->about_links);
+        $this->data['assemblies'] = $this->get_menu_links($this->assemblies_links);
+        $this->data['international'] = $this->get_menu_links($this->international_links);
+        $this->data['tech'] = $this->get_menu_links($this->tech_links);
     }
 
     /**
@@ -43,7 +41,7 @@ class Footer
     private function get_menu_links($pages) {
 
         global $DATA, $this_page;
-        $links = array();
+        $links = [];
 
         foreach ($pages as $page) {
 
@@ -65,19 +63,19 @@ class Footer
 
             //make the link
             if ($page == $this_page) {
-                $links[] = array(
+                $links[] = [
                     'href'    => '#',
                     'title'   => '',
                     'classes' => '',
-                    'text'    => $title
-                );
+                    'text'    => $title,
+                ];
             } else {
-                $links[] = array(
+                $links[] = [
                     'href'    => $url,
                     'title'   => $tooltip,
                     'classes' => '',
-                    'text'    => $title
-                );
+                    'text'    => $title,
+                ];
             }
         }
 

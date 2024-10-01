@@ -12,7 +12,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Office {
-
     public $title;
     public $from_date;
     public $to_date;
@@ -27,7 +26,7 @@ class Office {
      */
 
     public function __toString() {
-        if (isset ($this->title)) {
+        if (isset($this->title)) {
             return (string) $this->title;
         } else {
             return 'Unnamed Office';
@@ -70,7 +69,7 @@ class Office {
             if ($this->source == 'chgpages/privsec' && $this->from_date == '2005-11-10') {
                 $output .= 'before ';
             }
-            $output .= format_date($this->from_date,SHORTDATEFORMAT) . ' ';
+            $output .= format_date($this->from_date, SHORTDATEFORMAT) . ' ';
         }
 
         $output .= 'to ';

@@ -3,7 +3,7 @@
 
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
-$this->block_start(array('id'=>'help', 'title'=>"What are Debates?"));
+$this->block_start(['id' => 'help', 'title' => "What are Debates?"]);
 ?>
 
 <p><strong>Debates</strong> in the House of Lords are an opportunity for Peers from all parties (and crossbench peers, and Bishops) to <strong>scrutinise</strong> government legislation and <strong>raise important local, national or topical issues</strong>.</p>

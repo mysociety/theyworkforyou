@@ -1,7 +1,7 @@
 <?php
-    global $hansardmajors;
+global $hansardmajors;
 
-    $previous_speech_time = null;
+$previous_speech_time = null;
 
 ?>
 
@@ -19,11 +19,11 @@
 </div>
 <div class="full-page">
 
-  <?php if ( count($data['rows']) == 0 ) { ?>
+  <?php if (count($data['rows']) == 0) { ?>
     <div class="debate-speech">
         <div class="full-page__row">
             <div class="full-page__unit">
-                <?php if ( $current_assembly != 'uk-commons' && $current_assembly != 'uk-lords' ) { ?>
+                <?php if ($current_assembly != 'uk-commons' && $current_assembly != 'uk-lords') { ?>
                     We only have information about columns for debates in the House of Commons and the House of Lords.
                 <?php } else { ?>
                     We can't find anything in column <?= $column ?> on <?= $debate_day_human ?>.
@@ -32,7 +32,8 @@
         </div>
     </div>
   <?php } else {
-      $section = false; include '_section_content.php';
+      $section = false;
+      include '_section_content.php';
   } ?>
 
 </div>

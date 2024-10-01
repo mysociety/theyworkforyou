@@ -7,27 +7,27 @@ class WransView extends SectionView {
     protected $class = 'WRANSLIST';
 
     protected function front_content() {
-        return $this->list->display('recent_wrans', array('days'=>7, 'num'=>20), 'none');
+        return $this->list->display('recent_wrans', ['days' => 7, 'num' => 20], 'none');
     }
 
     protected function display_front() {
         global $DATA, $this_page;
-        if ( get_http_var('type') == 'wrans') {
+        if (get_http_var('type') == 'wrans') {
             return parent::display_front();
         }
 
-        $data = array();
+        $data = [];
 
-        $args = array( 'months' => 1 );
-        $WRANSLIST = new \WRANSLIST;
+        $args = [ 'months' => 1 ];
+        $WRANSLIST = new \WRANSLIST();
 
-        $wrans = array();
-        $wrans['data'] = $WRANSLIST->display('recent_wrans', array('days'=>7, 'num'=>5), 'none');
+        $wrans = [];
+        $wrans['data'] = $WRANSLIST->display('recent_wrans', ['days' => 7, 'num' => 5], 'none');
         $wrans['calendar'] = $WRANSLIST->display('calendar', $args, 'none');
 
-        $WMSLIST = new \WMSLIST;
-        $wms = array();
-        $wms['data'] = $WMSLIST->display('recent_wms', array('days'=>7, 'num'=>20), 'none');
+        $WMSLIST = new \WMSLIST();
+        $wms = [];
+        $wms['data'] = $WMSLIST->display('recent_wms', ['days' => 7, 'num' => 20], 'none');
         $wms['calendar'] = $WMSLIST->display('calendar', $args, 'none');
         $wms['rssurl'] = $DATA->page_metadata('wmsfront', 'rss');
 
@@ -39,7 +39,7 @@ class WransView extends SectionView {
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('wrans');
         $urls['day'] = $day;
         $urls['wransday'] = $day;
@@ -49,11 +49,11 @@ class WransView extends SectionView {
     }
 
     protected function getSearchSections() {
-        $sections = array(
-            array( 'section' => 'wrans', 'title' => 'Written Answers' ),
-        );
-        if ( get_http_var('type') == '') {
-            $sections[] = array( 'section' => 'wms', 'title' => 'Written Ministerial Statements' );
+        $sections = [
+            [ 'section' => 'wrans', 'title' => 'Written Answers' ],
+        ];
+        if (get_http_var('type') == '') {
+            $sections[] = [ 'section' => 'wms', 'title' => 'Written Ministerial Statements' ];
         }
         return $sections;
     }
@@ -62,7 +62,7 @@ class WransView extends SectionView {
     # speech bar the first (assuming that's the question)
     private $votelinks_so_far = 0;
 
-    protected function generate_votes ($votes, $id, $gid) {
+    protected function generate_votes($votes, $id, $gid) {
         /*
         Returns HTML for the 'Does this answer the question?' links (wrans) in the sidebar.
         $votes = => array (
@@ -78,7 +78,7 @@ class WransView extends SectionView {
             return;
         }
 
-        $data = array();
+        $data = [];
         if ($this->votelinks_so_far > 0 || strstr($gid, 'r')) {
             $yesvotes = $votes['user']['yes'] + $votes['anon']['yes'];
             $novotes = $votes['user']['no'] + $votes['anon']['no'];
@@ -89,19 +89,19 @@ class WransView extends SectionView {
             $URL = new \MySociety\TheyWorkForYou\Url($this_page);
             $returl = $URL->generate();
             $VOTEURL = new \MySociety\TheyWorkForYou\Url('epvote');
-            $VOTEURL->insert(array('v'=>'1', 'id'=>$id, 'ret'=>$returl));
+            $VOTEURL->insert(['v' => '1', 'id' => $id, 'ret' => $returl]);
             $yes_vote_url = $VOTEURL->generate();
-            $VOTEURL->insert(array('v'=>'0'));
+            $VOTEURL->insert(['v' => '0']);
             $no_vote_url = $VOTEURL->generate();
 
-            $data = array(
+            $data = [
                 'yesvotes' => $yesvotes,
                 'yesplural' => $yesplural,
                 'yesvoteurl' => $yes_vote_url,
                 'novoteurl' => $no_vote_url,
                 'novotes' => $novotes,
                 'noplural' => $noplural,
-            );
+            ];
         }
 
         $this->votelinks_so_far++;

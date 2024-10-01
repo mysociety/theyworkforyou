@@ -5,8 +5,8 @@
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
-$data = array();
-$errors = array();
+$data = [];
+$errors = [];
 
 // handling to switch the GE message based either on time or a query string
 
@@ -18,7 +18,7 @@ $data['pc'] = $pc;
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
-    twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+    twfy_debug('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
 }
 
@@ -62,15 +62,15 @@ function postcode_error($error) {
     exit;
 }
 
-function fetch_mp($pc, $constituencies, $house=null) {
+function fetch_mp($pc, $constituencies, $house = null) {
     global $THEUSER;
-    $args = array('constituency' => $constituencies['WMC']);
+    $args = ['constituency' => $constituencies['WMC']];
     if ($house) {
         $args['house'] = $house;
     }
     try {
         $MEMBER = new MEMBER($args);
-    } catch (MySociety\TheyWorkForYou\MemberException $e){
+    } catch (MySociety\TheyWorkForYou\MemberException $e) {
         postcode_error($e->getMessage());
     }
     if ($MEMBER->person_id()) {
@@ -81,7 +81,7 @@ function fetch_mp($pc, $constituencies, $house=null) {
 
 function pick_multiple($pc, $areas, $area_type, $house) {
     global $PAGE, $data;
-    $db = new ParlDB;
+    $db = new ParlDB();
 
     $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
     if ($house == HOUSE_TYPE_SCOTLAND) {
@@ -102,10 +102,10 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         WHERE constituency = :constituency
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-        AND house = 1 ORDER BY left_house DESC LIMIT 1", array(
-            ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC'])
-            ))->first();
-    $mp = array();
+        AND house = 1 ORDER BY left_house DESC LIMIT 1", [
+        ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC']),
+    ])->first();
+    $mp = [];
     if ($q) {
         $mp = $q;
         $mp['former'] = ($mp['left_house'] != '9999-12-31');
@@ -124,11 +124,14 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
-        $q = $db->query($query_base . " AND $dissolution[query]",
-            $dissolution['params']);
+        $q = $db->query(
+            $query_base . " AND $dissolution[query]",
+            $dissolution['params']
+        );
     }
 
-    $mcon = array(); $mreg = array();
+    $mcon = [];
+    $mreg = [];
     foreach ($q as $row) {
         $cons = $row['constituency'];
         if ($house == HOUSE_TYPE_NI) {
@@ -181,14 +184,19 @@ function mapit_postcode($postcode) {
 function mapit_lookup($type, $filename) {
     $file = web_lookup(OPTION_MAPIT_URL . $filename);
     $r = json_decode($file);
-    if (isset($r->error)) return '';
-    if ($type == 'postcode' && !isset($r->areas)) return '';
+    if (isset($r->error)) {
+        return '';
+    }
+    if ($type == 'postcode' && !isset($r->areas)) {
+        return '';
+    }
 
     $input = ($type == 'postcode') ? $r->areas : $r;
-    $areas = array();
+    $areas = [];
     foreach ($input as $row) {
-        if (in_array($row->type, array('WMC', 'WMCF', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE')))
+        if (in_array($row->type, ['WMC', 'WMCF', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE'])) {
             $areas[$row->type] = $row->name;
+        }
     }
     if (!isset($areas['WMC'])) {
         return '';

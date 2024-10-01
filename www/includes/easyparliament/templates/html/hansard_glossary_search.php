@@ -37,21 +37,21 @@ if (isset($info['total_results']) && $info['total_results'] > 0) {
 
 }
 
-if (isset ($data['rows']) && count($data['rows']) > 0) {
+if (isset($data['rows']) && count($data['rows']) > 0) {
 
     ?>
                 <dl id="searchresults">
 <?php
-    for ($i=0; $i<count($data['rows']); $i++) {
+    for ($i = 0; $i < count($data['rows']); $i++) {
 
         $row = $data['rows'][$i];
 
         ?>
                     <dt><a href="<?php echo $row['listurl']; ?>"><?php
         if (isset($row['parent']) && count($row['parent']) > 0) {
-            echo ('<strong>' . $row['parent']['body'] . '</strong>');
+            echo('<strong>' . $row['parent']['body'] . '</strong>');
         }
-        echo ('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')</small>');
+        echo('</a> <small>(' . format_date($row['hdate'], SHORTDATEFORMAT) . ')</small>');
         ?></dt>
                     <dd><p><?php
 

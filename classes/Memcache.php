@@ -9,16 +9,15 @@
 namespace MySociety\TheyWorkForYou;
 
 class Memcache {
-
-    static $memcache;
+    public static $memcache;
 
     public function __construct() {
         if (!self::$memcache) {
             if (class_exists('\Memcached')) {
-                self::$memcache = new \Memcached;
+                self::$memcache = new \Memcached();
                 self::$memcache->addServer(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
             } elseif (class_exists('\Memcache')) {
-                self::$memcache = new \Memcache;
+                self::$memcache = new \Memcache();
                 self::$memcache->connect(OPTION_TWFY_MEMCACHED_HOST, OPTION_TWFY_MEMCACHED_PORT);
             }
         }
@@ -29,9 +28,9 @@ class Memcache {
             return;
         }
         if (class_exists('\Memcached')) {
-            self::$memcache->set(OPTION_TWFY_DB_NAME.':'.$key, $value, $timeout);
+            self::$memcache->set(OPTION_TWFY_DB_NAME . ':' . $key, $value, $timeout);
         } else {
-            self::$memcache->set(OPTION_TWFY_DB_NAME.':'.$key, $value, MEMCACHE_COMPRESSED, $timeout);
+            self::$memcache->set(OPTION_TWFY_DB_NAME . ':' . $key, $value, MEMCACHE_COMPRESSED, $timeout);
         }
     }
 
@@ -39,9 +38,9 @@ class Memcache {
         // see http://php.net/manual/en/memcache.get.php#112056 for explanation of this
         $was_found = false;
         if (class_exists('\Memcached')) {
-            $value = self::$memcache->get(OPTION_TWFY_DB_NAME.':'.$key, null, $was_found);
+            $value = self::$memcache->get(OPTION_TWFY_DB_NAME . ':' . $key, null, $was_found);
         } elseif (class_exists('\Memcache')) {
-            $value = self::$memcache->get(OPTION_TWFY_DB_NAME.':'.$key, $was_found);
+            $value = self::$memcache->get(OPTION_TWFY_DB_NAME . ':' . $key, $was_found);
         }
         if ($was_found === false) {
             return false; // mmmmm

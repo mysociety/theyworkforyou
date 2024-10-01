@@ -20,7 +20,7 @@ try {
 
 $obj = $event->data->object;
 if ($event->type == 'customer.subscription.deleted') {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $sub = new \MySociety\TheyWorkForYou\Subscription($obj->id);
     if ($sub->stripe) {
         $sub->delete_from_redis();
@@ -35,9 +35,9 @@ if ($event->type == 'customer.subscription.deleted') {
     $customer = \Stripe\Customer::retrieve($obj->customer);
     $email = $customer->email;
     if ($obj->next_payment_attempt) {
-        send_template_email(array('template' => 'api_payment_failed', 'to' => $email), array());
+        send_template_email(['template' => 'api_payment_failed', 'to' => $email], []);
     } else {
-        send_template_email(array('template' => 'api_cancelled', 'to' => $email), array());
+        send_template_email(['template' => 'api_cancelled', 'to' => $email], []);
     }
 } elseif ($event->type == 'invoice.payment_succeeded' && stripe_twfy_sub($obj)) {
     # If this isn't a manual invoice (so it's the monthly one), reset the quota

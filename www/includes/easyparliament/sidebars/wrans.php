@@ -4,7 +4,7 @@
 $URL = new \MySociety\TheyWorkForYou\Url('help');
 $helpurl = $URL->generate();
 
-$this->block_start(array('id'=>'help', 'title'=>"What are Written Answers?"));
+$this->block_start(['id' => 'help', 'title' => "What are Written Answers?"]);
 ?>
 
 <p>The <strong>parliamentary question</strong> is a great way for MPs and Peers to discover information which the government may not wish to reveal. Ministers reply via <strong>written answers</strong>, a list of which gets published daily.

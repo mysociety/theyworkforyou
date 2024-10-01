@@ -2,12 +2,11 @@
 
 namespace MySociety\TheyWorkForYou\Utility;
 
-class Shuffle
-{
+class Shuffle {
     public static function keyValue($arr) {
         $keys = array_keys($arr);
         shuffle($keys);
-        $new = array();
+        $new = [];
         foreach ($keys as $key) {
             $new[$key] = $arr[$key];
         }

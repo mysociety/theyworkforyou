@@ -2,10 +2,11 @@
 
         <?php
             $data = $content['data']['data'];
-            $urls['day'] = $urls['niday'];
-            include '_business_section.php';
+        $urls['day'] = $urls['niday'];
+        include '_business_section.php';
         ?>
 
-    <?php $search_title = 'Search Northern Ireland Assembly debates'; include '_search.php'; ?>
+    <?php $search_title = 'Search Northern Ireland Assembly debates';
+        include '_search.php'; ?>
 
 </div>

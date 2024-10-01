@@ -7,7 +7,7 @@ class SpView extends SectionView {
     protected $class = 'SPLIST';
 
     protected function front_content() {
-        return $this->list->display('biggest_debates', array('days'=>7, 'num'=>20), 'none');
+        return $this->list->display('biggest_debates', ['days' => 7, 'num' => 20], 'none');
     }
 
     protected function get_question_mentions_html($row_data) {
@@ -15,7 +15,7 @@ class SpView extends SectionView {
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('spdebates');
         $urls['spdebatesday'] = $day;
         $urls['day'] = $day;
@@ -23,8 +23,8 @@ class SpView extends SectionView {
     }
 
     protected function getSearchSections() {
-        return array(
-            array( 'section' => 'sp' )
-        );
+        return [
+            [ 'section' => 'sp' ],
+        ];
     }
 }

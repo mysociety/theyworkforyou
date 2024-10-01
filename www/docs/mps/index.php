@@ -26,7 +26,7 @@ switch (get_http_var('representative_type')) {
 $args = $people->getArgs();
 $people->setMetaData($args);
 $data = $people->getData($args);
-if ( isset($args['f']) && $args['f'] == 'csv' ) {
+if (isset($args['f']) && $args['f'] == 'csv') {
     $people->sendAsCSV($data);
 } else {
     MySociety\TheyWorkForYou\Renderer::output("people/index", $data);

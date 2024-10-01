@@ -13,16 +13,16 @@ $PAGE->stripe_start();
 //  SEARCH AND RECENT HANSARD
 
 // Get the dates, timestamps and links for the most recent debates and wrans.
-$DEBATELIST = new DEBATELIST;
+$DEBATELIST = new DEBATELIST();
 $debatesdata = $DEBATELIST->most_recent_day();
 
-$WRANSLIST = new WRANSLIST;
+$WRANSLIST = new WRANSLIST();
 $wransdata = $WRANSLIST->most_recent_day();
 
-$WHALLLIST = new WHALLLIST;
+$WHALLLIST = new WHALLLIST();
 $whalldata = $WHALLLIST->most_recent_day();
 
-$WMSLIST = new WMSLIST;
+$WMSLIST = new WMSLIST();
 $wmsdata = $WMSLIST->most_recent_day();
 
 if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 && count($wmsdata) > 0) {
@@ -58,7 +58,7 @@ if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 &&
         $daytext = "the most recent ";
     }
 
-#	$hansardline = "Comment on $daytext <ul><li>$debatestext</li><li>$wranstext</li><li>$whalltext</li><li>$wmstext</li></ul>";
+    #	$hansardline = "Comment on $daytext <ul><li>$debatestext</li><li>$wranstext</li><li>$whalltext</li><li>$wmstext</li></ul>";
     $hansardline = "Comment on $daytext $debatestext, $wranstext, $whalltext, and $wmstext";
 
 } else {
@@ -72,7 +72,7 @@ if (count($debatesdata) > 0 && count($wransdata) > 0 && count($whalldata) > 0 &&
 $HANSARDURL = new \MySociety\TheyWorkForYou\Url('hansard');
 $MPURL = new \MySociety\TheyWorkForYou\Url('yourmp');
 
-$PAGE->block_start(array ('id'=>'intro', 'title'=>'Election special! Find out how they performed for YOU:'));
+$PAGE->block_start(['id' => 'intro', 'title' => 'Election special! Find out how they performed for YOU:']);
 ?>
                         <ol>
 
@@ -89,7 +89,7 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
     } else {
         $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
     }
-    $MEMBER = new MEMBER(array ('postcode'=>$THEUSER->postcode(), 'house'=>1));
+    $MEMBER = new MEMBER(['postcode' => $THEUSER->postcode(), 'house' => 1]);
     $mpname = $MEMBER->full_name();
     ?>
       <p><a href="<?php echo $MPURL->generate(); ?>"><strong>Find out more about how <?php echo $mpname; ?>, your ex-MP, represented you over the last parliament</strong></a><br>
@@ -111,40 +111,40 @@ if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_i
                         <li>
 <?php
     $SEARCHURL = new \MySociety\TheyWorkForYou\Url('search');
-    ?>
+?>
                         <form action="<?php echo $SEARCHURL->generate(); ?>" method="get">
                         <p><strong>Search everything said in Parliament since 2001, or for an ex-MP or constituency</strong><br>
                         <label for="search_input">Type what you are looking for:</label>&nbsp; <input type="text" name="q" id="search_input" size="15" maxlength="100" class="text">&nbsp;&nbsp;<input type="submit" value="SEARCH" class="submit"></p>
                         <?php
-                            // Display popular queries
-                            global $SEARCHLOG;
-                            $popular_searches = $SEARCHLOG->popular_recent(10);
-                            if (count($popular_searches) > 0) {
-                                ?> <p>Popular searches today: <?php
-                                $lentotal = 0;
-                                $correct_amount = array();
-                                // Select a number of queries that will fit in the space
-                                foreach ($popular_searches as $popular_search) {
-                                    $len = strlen($popular_search['visible_name']);
-                                    if ($lentotal + $len > 32) {
-#                                        continue;
-                                    }
-                                    $lentotal += $len;
-                                    array_push($correct_amount, $popular_search['display']);
-                                }
-                                print implode(", ", $correct_amount);
-                                ?> </p> <?php
-                            }
-                        ?>
+                        // Display popular queries
+                        global $SEARCHLOG;
+$popular_searches = $SEARCHLOG->popular_recent(10);
+if (count($popular_searches) > 0) {
+    ?> <p>Popular searches today: <?php
+    $lentotal = 0;
+    $correct_amount = [];
+    // Select a number of queries that will fit in the space
+    foreach ($popular_searches as $popular_search) {
+        $len = strlen($popular_search['visible_name']);
+        if ($lentotal + $len > 32) {
+            #                                        continue;
+        }
+        $lentotal += $len;
+        array_push($correct_amount, $popular_search['display']);
+    }
+    print implode(", ", $correct_amount);
+    ?> </p> <?php
+}
+?>
                         </form>
                         </li>
 <?php
 
     // Get the data for the Busiest Debate stuff.
     $biggest_data = $DEBATELIST->biggest_debates();
-    // Because it could return multiple debates, and we only want one.
-    $biggest_data = $biggest_data['data'][0];
-    ?>
+// Because it could return multiple debates, and we only want one.
+$biggest_data = $biggest_data['data'][0];
+?>
 
                         </ol>
 <a href="nonelection.php"> old homepage</a>
@@ -184,16 +184,16 @@ $URL = new \MySociety\TheyWorkForYou\Url('glossary');
 <?php
 //$PAGE->block_end();
 
-$PAGE->stripe_end(array(
-    array (
+$PAGE->stripe_end([
+    [
         'type' => 'include',
-        'content' => 'whatisthissite'
-    ),
-    array (
+        'content' => 'whatisthissite',
+    ],
+    [
         'type' => 'include',
-        'content' => 'sitenews_recent'
-    )
-));
+        'content' => 'sitenews_recent',
+    ],
+]);
 
 $PAGE->page_end();
 

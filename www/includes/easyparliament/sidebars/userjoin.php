@@ -1,7 +1,7 @@
 <?php
 // This sidebar is on the sign-up page, where users fill out the joining form.
 
-$this->block_start(array('id'=>'help', 'title'=>"Your privacy"));
+$this->block_start(['id' => 'help', 'title' => "Your privacy"]);
 ?>
 
 <p>Welcome to <strong>TheyWorkForYou.com</strong> - the more you contribute and participate, the better the site will get for everyone.</p>

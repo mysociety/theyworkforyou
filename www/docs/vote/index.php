@@ -2,7 +2,7 @@
 
 include_once '../../includes/easyparliament/init.php';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $this_page = "epvote";
 
@@ -31,7 +31,7 @@ if (get_http_var('testing') == 'true') {
         voteerror("Your browser must be able to accept cookies before you can register a vote.");
     } else {
         // Delete the test cookie.
-        setcookie ('testcookie', '');
+        setcookie('testcookie', '');
     }
     // On with the voting...!
 
@@ -40,7 +40,7 @@ if (get_http_var('testing') == 'true') {
     // We need to check the user can accept cookies, so...
 
     // Set a cookie
-    setcookie ('testcookie', 'true');
+    setcookie('testcookie', 'true');
 
     $ret = get_http_var('ret');
     $id = get_http_var('id');
@@ -48,12 +48,12 @@ if (get_http_var('testing') == 'true') {
 
     $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $URL->reset();
-    $URL->insert(array(
+    $URL->insert([
         'v'		=> $v,
         'id'	=> $id,
         'ret' 	=> $ret,
-        'testing' => 'true'
-    ));
+        'testing' => 'true',
+    ]);
 
     // Redirect to this same URL with 'testing=true' on the end.
     header("Location: " . $URL->generate('none'));
@@ -67,10 +67,10 @@ function voteerror($text) {
 
     $PAGE->page_start();
 
-    $message = array (
+    $message =  [
         'title'	=> 'Sorry',
-        'text'	=> $text
-    );
+        'text'	=> $text,
+    ];
 
     if (get_http_var('ret') != '') {
         $message['linkurl'] = get_http_var('ret');
@@ -101,7 +101,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
     }
 
     // Make sure it's a valid epobject_id.
-    $q = $db->query("SELECT epobject_id FROM epobject WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
+    $q = $db->query("SELECT epobject_id FROM epobject WHERE epobject_id=:epobject_id", [':epobject_id' => $epobject_id]);
     if ($q->rows() != 1) {
         voteerror("We need a valid epobject id.");
     }
@@ -122,7 +122,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
             // just doing it.
             $prev_epvotes = explode('+', $votecookie);
         } else {
-            $prev_epvotes = array();
+            $prev_epvotes = [];
         }
 
         if (in_array($epobject_id, $prev_epvotes)) {
@@ -130,19 +130,19 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
         }
 
         // Vote!
-        $q = $db->query("SELECT epobject_id FROM anonvotes WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
+        $q = $db->query("SELECT epobject_id FROM anonvotes WHERE epobject_id=:epobject_id", [':epobject_id' => $epobject_id]);
 
         if ($q->rows() == 1) {
             if ($vote == 1) {
-                $q = $db->query("UPDATE anonvotes SET yes_votes = yes_votes + 1 WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
+                $q = $db->query("UPDATE anonvotes SET yes_votes = yes_votes + 1 WHERE epobject_id=:epobject_id", [':epobject_id' => $epobject_id]);
             } else {
-                $q = $db->query("UPDATE anonvotes SET no_votes = no_votes + 1 WHERE epobject_id=:epobject_id", array(':epobject_id' => $epobject_id));
+                $q = $db->query("UPDATE anonvotes SET no_votes = no_votes + 1 WHERE epobject_id=:epobject_id", [':epobject_id' => $epobject_id]);
             }
         } else {
             if ($vote == 1) {
-                $q = $db->query("INSERT INTO anonvotes (epobject_id, yes_votes) VALUES (:epobject_id, '1')", array(':epobject_id' => $epobject_id));
+                $q = $db->query("INSERT INTO anonvotes (epobject_id, yes_votes) VALUES (:epobject_id, '1')", [':epobject_id' => $epobject_id]);
             } else {
-                $q = $db->query("INSERT INTO anonvotes (epobject_id, no_votes) VALUES (:epobject_id, '1')", array(':epobject_id' => $epobject_id));
+                $q = $db->query("INSERT INTO anonvotes (epobject_id, no_votes) VALUES (:epobject_id, '1')", [':epobject_id' => $epobject_id]);
             }
         }
         if (!$q->success()) {
@@ -158,14 +158,14 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
         $prev_epvotes[] = $epobject_id;
         $new_cookie = implode('+', $prev_epvotes);
 
-        setcookie ("epvotes", $new_cookie, time()+60*60*24*365, "/", COOKIEDOMAIN);
+        setcookie("epvotes", $new_cookie, time() + 60 * 60 * 24 * 365, "/", COOKIEDOMAIN);
 
 
     } else {
         // User is logged in.
 
         // See if the user's already voted for this.
-        $q = $db->query("SELECT vote FROM uservotes WHERE epobject_id = :epobject_id AND user_id = :user_id", array(':user_id' => $THEUSER->user_id(), ':epobject_id' => $epobject_id));
+        $q = $db->query("SELECT vote FROM uservotes WHERE epobject_id = :epobject_id AND user_id = :user_id", [':user_id' => $THEUSER->user_id(), ':epobject_id' => $epobject_id]);
         if (!$q->success()) {
             voteerror("Something went wrong and we couldn't register your vote");
         }
@@ -174,7 +174,7 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
             voteerror("You have already rated this item. You can only rate something once.");
         } else {
             // Add the vote.
-            $q = $db->query("INSERT INTO uservotes (user_id, epobject_id, vote) VALUES (:user_id, :epobject_id, :vote)", array(':user_id' => $THEUSER->user_id(), ':vote' => $vote, ':epobject_id' => $epobject_id));
+            $q = $db->query("INSERT INTO uservotes (user_id, epobject_id, vote) VALUES (:user_id, :epobject_id, :vote)", [':user_id' => $THEUSER->user_id(), ':vote' => $vote, ':epobject_id' => $epobject_id]);
             if (!$q->success()) {
                 voteerror("Something went wrong and we couldn't register your vote");
             }
@@ -189,10 +189,10 @@ if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
 
 $PAGE->page_start();
 
-$message = array (
+$message =  [
     'title'	=> "Thanks for your vote",
-    'text'	=> "<strong>Would you like to ask a question like this yourself?</strong> Use our <a href=\"https://www.whatdotheyknow.com\">Freedom of Information site</a>."
-);
+    'text'	=> "<strong>Would you like to ask a question like this yourself?</strong> Use our <a href=\"https://www.whatdotheyknow.com\">Freedom of Information site</a>.",
+];
 
 if (get_http_var('ret') != '') {
     $message['linkurl'] = get_http_var('ret');

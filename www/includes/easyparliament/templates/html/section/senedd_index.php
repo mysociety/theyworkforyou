@@ -2,10 +2,11 @@
 
         <?php
             $data = $content['data']['data'];
-            $urls['day'] = $urls['seneddday'];
-            include '_business_section.php';
+        $urls['day'] = $urls['seneddday'];
+        include '_business_section.php';
         ?>
 
-    <?php $search_title = gettext('Search Senedd debates'); include '_search.php'; ?>
+    <?php $search_title = gettext('Search Senedd debates');
+        include '_search.php'; ?>
 
 </div>

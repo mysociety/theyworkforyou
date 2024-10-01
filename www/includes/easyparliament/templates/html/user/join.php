@@ -86,17 +86,17 @@
                 <?php } ?>
 
                 <?php
-                $optin_options = array(
+                $optin_options = [
                     "optin_service" => "Do you wish to receive occasional update emails about TheyWorkForYou.com?",
                     "optin_stream" => "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?",
                     "optin_org" => gettext("Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"),
-                );
-                
-                for ($i = 0; $i < count($optin_options); $i++) { 
-                $optin_key = array_keys($optin_options)[$i];
-                $optin_txt = array_values($optin_options)[$i];
-                $optin_value = isset($$optin_key) ? $$optin_key : null;  
-                ?>
+                ];
+
+                for ($i = 0; $i < count($optin_options); $i++) {
+                    $optin_key = array_keys($optin_options)[$i];
+                    $optin_txt = array_values($optin_options)[$i];
+                    $optin_value = $$optin_key ?? null;
+                    ?>
 
                 <div class="row">
                 &nbsp;<br><?= $optin_txt ?>
@@ -110,7 +110,7 @@
 
                 <div class="row">
                 <span class="formw"><input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>true" value="true" <?= $optin_value == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="<?= $optin_key ?>true">Yes</label><br>
-                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' :  !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
+                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' : !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
                 </div>
 
                 <?php } ?>

@@ -33,12 +33,12 @@
                 </div>
         </div>
 
-        <?php if ( $featured_debate_shown == false && count($topics) > 0) { ?>
+        <?php if ($featured_debate_shown == false && count($topics) > 0) { ?>
         <div class="panel panel--flushtop clearfix">
             <div class="row nested-row">
                 <div class="homepage-featured-content homepage-content-section">
-                    <?php if ( $featured_debate_shown == false ) { ?>
-                    <?php if ( count($featured) > 0 ) {
+                    <?php if ($featured_debate_shown == false) { ?>
+                    <?php if (count($featured) > 0) {
                         include 'homepage/featured.php';
                     } else { ?>
                         No debates found.
@@ -65,14 +65,14 @@
 
                     <h2>Recently in Parliament</h2>
                     <ul class="recently__list"><?php
-                        foreach ( $debates['recent'] as $recent ) {
+                        foreach ($debates['recent'] as $recent) {
                             include 'homepage/recent-debates.php';
                         }
-                    ?></ul>
+?></ul>
                 </div>
                 <div class="homepage-upcoming homepage-content-section">
                     <h2>Upcoming</h2>
-                    <?php if ( count($calendar) ) { ?>
+                    <?php if (count($calendar)) { ?>
                     <div class="upcoming__controls">
                         <!--
                             These controls should make the upcoming section slide to the next day.
@@ -90,18 +90,19 @@
                             </div>
                         </div>
                     </div>
-                    <?php $first = true; $count = 0;
-                        foreach ( $calendar as $date => $places ) {
+                    <?php $first = true;
+                        $count = 0;
+                        foreach ($calendar as $date => $places) {
                             $count++; ?>
                             <div class="cal-wrapper <?= $first ? 'visible' : 'hidden' ?>" id="day-<?= $count ?>" data-count="<?= $count ?>" data-date="<?= format_date($date, SHORTDATEFORMAT); ?>">
                             <?php foreach ($places as $place => $events) { ?>
                                 <?php $first = false; ?>
                                 <h3><?= $place ?></h3>
                                 <ul class="upcoming__list">
-                                    <?php for ( $i = 0; $i < 3; $i++ ) {
-                                        if ( isset( $events[$i] ) ) {
-                                            list($event_title, $meta_items) = MySociety\TheyWorkForYou\Utility\Calendar::meta($events[$i]);
-                                    ?>
+                                    <?php for ($i = 0; $i < 3; $i++) {
+                                        if (isset($events[$i])) {
+                                            [$event_title, $meta_items] = MySociety\TheyWorkForYou\Utility\Calendar::meta($events[$i]);
+                                            ?>
                                     <li>
                                         <h4 class="upcoming__title"><a href="<?= $events[$i]['link_calendar'] ?>"><?= $event_title ?></a></h4>
                                         <p class="meta"><?= implode('; ', array_filter($meta_items)) ?></p>
@@ -109,15 +110,15 @@
                                     <?php } ?>
                                     <?php } ?>
                                 </ul>
-                                <?php if ( count($events) - 3 > 0 ) { ?>
+                                <?php if (count($events) - 3 > 0) { ?>
                                 <a href="/calendar/?d=<?= format_date($date, '%Y-%m-%d') ?>" class="upcoming__more">And <?= count($events) - 3 ?> more</a><!-- (just links to relevant upcoming page) -->
                                 <?php } ?>
                         <?php } ?>
                             </div>
                     <?php } ?>
                     <?php } else {
-                        list($recess, $from, $to) = recess_prettify(date('j'), date('n'), date('Y'), 1);
-                        if ( $recess ) { ?>
+                        [$recess, $from, $to] = recess_prettify(date('j'), date('n'), date('Y'), 1);
+                        if ($recess) { ?>
                             <p>
                             Parliament is on holiday until <?= format_date($to, LONGERDATEFORMAT) ?>.
                             Follow us on <a href="https://twitter.com/theyworkforyou">Twitter</a> and you'll
@@ -128,7 +129,7 @@
                             We don&rsquo;t have details of any upcoming events.
                             </p>
                         <?php }
-                    } ?>
+                        } ?>
                 </div>
             </div>
         </div>

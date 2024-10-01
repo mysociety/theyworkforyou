@@ -11,7 +11,7 @@ namespace MySociety\TheyWorkForYou;
  * User
  */
 
- function calculateOptinValue($optin_service, $optin_stream, $optin_org) {
+function calculateOptinValue($optin_service, $optin_stream, $optin_org) {
     // combine three booleans into a single integer to store in the database
     // +1 = optin_service
     // +2 = optin_stream
@@ -28,12 +28,12 @@ namespace MySociety\TheyWorkForYou;
 
 function extractOptinValues($value) {
     // convert an integer into three seperate optin values ('Yes', 'No')
-        return [
-            'optin_service' => ($value & 1) ? "Yes" : "No",
-            'optin_stream' => ($value & 2) ? "Yes" : "No",
-            'optin_org' => ($value & 4) ? "Yes" : "No",
-        ];
-    }
+    return [
+        'optin_service' => ($value & 1) ? "Yes" : "No",
+        'optin_stream' => ($value & 2) ? "Yes" : "No",
+        'optin_org' => ($value & 4) ? "Yes" : "No",
+    ];
+}
 
 class User {
     public function getUserDetails($user_id = false) {
@@ -41,15 +41,15 @@ class User {
 
         $user = $THEUSER;
         if ($user_id && $user_id != $THEUSER->user_id()) {
-            $user = new \USER;
+            $user = new \USER();
             $valid = $user->init($user_id);
 
             if (!$valid || !$user->confirmed || $user->deleted()) {
-                return array('error' => 'User does not exist');
+                return ['error' => 'User does not exist'];
             }
         }
 
-        $data = array();
+        $data = [];
         $data['firstname'] = $user->firstname();
         $data['lastname'] = $user->lastname();
         $data['name'] = $user->firstname() . " " . $user->lastname();
@@ -62,7 +62,7 @@ class User {
         $data['postcode']	= $user->postcode();
         $data['website']	= $user->url();
         $data['registrationtime']	= $user->registrationtime();
-        $data['status']= $user->status();
+        $data['status'] = $user->status();
         $data["deleted"] = $user->deleted();
         $data["confirmed"] = $user->confirmed();
         $data["status"] = $user->status();
@@ -72,7 +72,7 @@ class User {
     }
 
     public function getUpdateDetails($this_page, $user) {
-        $details = array();
+        $details = [];
 
         if ($user->facebook_user) {
             $details = $this->getUserDetails();
@@ -138,7 +138,7 @@ class User {
     public function checkUpdateDetails($details) {
         global $THEUSER, $this_page;
 
-        $errors = array();
+        $errors = [];
 
         // Check each of the things the user has input.
         // If there is a problem with any of them, set an entry in the $errors array.
@@ -165,7 +165,7 @@ class User {
 
                 } else {
 
-                    $USER = new \USER;
+                    $USER = new \USER();
                     $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
                     if ($this_page == "useredit" &&
@@ -227,10 +227,10 @@ class User {
                 $errors["postcode"] = gettext("Sorry, this isn't a valid UK postcode.");
             } else {
                 try {
-                    new \MySociety\TheyWorkForYou\Member(array(
+                    new \MySociety\TheyWorkForYou\Member([
                         'postcode' => $details['postcode'],
                         'house' => HOUSE_TYPE_COMMONS,
-                    ));
+                    ]);
                 } catch (MemberException $e) {
                     $errors["postcode"] = gettext("Sorry, we could not find an MP for that postcode.");
                 }
@@ -256,17 +256,17 @@ class User {
     public function update($details) {
         global $THEUSER, $this_page, $PAGE;
 
-        $results = array();
+        $results = [];
         // There were no errors when the edit user form was submitted,
         // so make the changes in the DB.
 
         // Who are we updating? $THEUSER or someone else?
         if ($this_page == "otheruseredit") {
             $who = 'the user&rsquo;s';
-            $success = $THEUSER->update_other_user ( $details );
+            $success = $THEUSER->update_other_user($details);
         } else {
             $who = 'your';
-            $success = $THEUSER->update_self ( $details );
+            $success = $THEUSER->update_self($details);
         }
 
 
@@ -285,7 +285,7 @@ class User {
 
 
         } else {
-            $results['errors'] = array("db" => "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks.");
+            $results['errors'] = ["db" => "Sorry, we were unable to update $who details. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a> what you were trying to change. Thanks."];
         }
 
         return $results;
@@ -298,12 +298,12 @@ class User {
         // If this goes well, the user will have their data
         // added to the database and a confirmation email
         // will be sent to them.
-        $success = $THEUSER->add ( $details );
+        $success = $THEUSER->add($details);
 
-        $errors = array();
+        $errors = [];
 
         if (!$success) {
-            $errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:". str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks.";
+            $errors["db"] = "Sorry, we were unable to create an account for you. Please <a href=\"mailto:" . str_replace('@', '&#64;', CONTACTEMAIL) . "\">let us know</a>. Thanks.";
         }
 
         return $errors;
@@ -311,8 +311,8 @@ class User {
 
     public function getRep($cons_type, $mp_house) {
         global $THEUSER;
-        if ( !$THEUSER->has_postcode() ) {
-            return array();
+        if (!$THEUSER->has_postcode()) {
+            return [];
         }
 
         // User is logged in and has a postcode, or not logged in with a cookied postcode.
@@ -324,23 +324,23 @@ class User {
         // Scottish homepage
         try {
             $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($THEUSER->postcode());
-            if ( isset($constituencies[$cons_type]) ) {
+            if (isset($constituencies[$cons_type])) {
                 $constituency = $constituencies[$cons_type];
-                $MEMBER = new Member(array('constituency'=>$constituency, 'house'=> $mp_house));
+                $MEMBER = new Member(['constituency' => $constituency, 'house' => $mp_house]);
             }
-        } catch ( MemberException $e ) {
-            return array();
+        } catch (MemberException $e) {
+            return [];
         }
 
         if (isset($MEMBER) && $MEMBER->valid) {
             return $this->constructMPData($MEMBER, $THEUSER, $mp_house);
         }
 
-        return array();
+        return [];
     }
 
     private function constructMPData($member, $user, $mp_house) {
-        $mp_data = array();
+        $mp_data = [];
         $mp_data['name'] = $member->full_name();
         $mp_data['party'] = $member->party();
         $mp_data['constituency'] = $member->constituency();
@@ -362,11 +362,11 @@ class User {
     public function getRegionalReps($cons_type, $mp_house) {
         global $THEUSER;
 
-        $mreg = array();
+        $mreg = [];
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
             $reps = \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, $mp_house, $cons_type);
-            foreach ( $reps as $rep ) {
-                $member = new \MySociety\TheyWorkForYou\Member(array('person_id' => $rep['person_id']));
+            foreach ($reps as $rep) {
+                $member = new \MySociety\TheyWorkForYou\Member(['person_id' => $rep['person_id']]);
                 $mreg[$rep['person_id']] = $this->constructMPData($member, $THEUSER, $mp_house);
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 namespace MySociety\TheyWorkForYou\Utility;
 
 /**
@@ -6,9 +7,7 @@ namespace MySociety\TheyWorkForYou\Utility;
  *
  * Utility functions related to postcodes
  */
-class Postcode
-{
-
+class Postcode {
     /**
      * Postcode To Constituency
      */
@@ -39,7 +38,7 @@ class Postcode
 
         if ($last_postcode == $postcode) {
             $return_value = $mp_only ? $last_postcode_value['WMC'] : $last_postcode_value;
-            twfy_debug ("TIME", "Postcode $postcode looked up last time, is " . ( is_array($return_value) ? implode(', ', $return_value) : $return_value ));
+            twfy_debug("TIME", "Postcode $postcode looked up last time, is " . (is_array($return_value) ? implode(', ', $return_value) : $return_value));
             return $return_value;
         }
 
@@ -52,7 +51,9 @@ class Postcode
             $ret = self::postcodeFetchFromMapit($postcode);
         }
 
-        if (is_string($ret)) return $ret;
+        if (is_string($ret)) {
+            return $ret;
+        }
 
         $last_postcode = $postcode;
         $last_postcode_value = $ret;
@@ -66,10 +67,10 @@ class Postcode
      */
 
     private static function postcodeFetchFromDb($postcode) {
-        $db = new \ParlDB;
-        $q = $db->query('select name from postcode_lookup where postcode = :postcode', array(
-            ':postcode' => $postcode
-            ))->first();
+        $db = new \ParlDB();
+        $q = $db->query('select name from postcode_lookup where postcode = :postcode', [
+            ':postcode' => $postcode,
+        ])->first();
 
         if ($q) {
             $name = $q['name'];
@@ -81,13 +82,13 @@ class Postcode
             }
             $name = explode('|', $name);
             if ($country == 'W') {
-                return array('WMC' => $name[0], 'WAC' => $name[1], 'WAE' => $name[2]);
-            } elseif ($country == 'S' || count($name)==3) {
-                return array('WMC' => $name[0], 'SPC' => $name[1], 'SPE' => $name[2]);
-            } elseif ($country == 'N' || count($name)==2) {
-                return array('WMC' => $name[0], 'NIE' => $name[1]);
+                return ['WMC' => $name[0], 'WAC' => $name[1], 'WAE' => $name[2]];
+            } elseif ($country == 'S' || count($name) == 3) {
+                return ['WMC' => $name[0], 'SPC' => $name[1], 'SPE' => $name[2]];
+            } elseif ($country == 'N' || count($name) == 2) {
+                return ['WMC' => $name[0], 'NIE' => $name[1]];
             } else {
-                return array('WMC' => $name[0]);
+                return ['WMC' => $name[0]];
             }
         }
     }
@@ -118,16 +119,17 @@ class Postcode
 
         $r = json_decode($file, true);
         if (!$r) {
-            trigger_error("Postcode database is not working. Content:\n".$file.", request: ". $filename, E_USER_WARNING);
+            trigger_error("Postcode database is not working. Content:\n" . $file . ", request: " . $filename, E_USER_WARNING);
             return '';
         }
         if (isset($r['error']) || !isset($r['areas'])) {
             return '';
         }
-        $areas = array();
+        $areas = [];
         foreach ($r['areas'] as $row) {
-            if (in_array($row['type'], array('WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE')))
+            if (in_array($row['type'], ['WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE'])) {
                 $areas[$row['type']] = $row['name'];
+            }
         }
 
         if (!isset($areas['WMC'])) {
@@ -147,12 +149,14 @@ class Postcode
             } else {
                 $serialized = "E;$areas[WMC]";
             }
-            $db = new \ParlDB;
-            $db->query('replace into postcode_lookup values(:postcode, :serialized)',
-                array(
+            $db = new \ParlDB();
+            $db->query(
+                'replace into postcode_lookup values(:postcode, :serialized)',
+                [
                     ':postcode' => $postcode,
-                    ':serialized' => $serialized
-                ));
+                    ':serialized' => $serialized,
+                ]
+            );
         } else {
             return '';
         }
@@ -175,4 +179,3 @@ class Postcode
     }
 
 }
-

@@ -4,22 +4,18 @@
  * Testing for postcode Utility functions
  */
 
-class PostcodeTest extends TWFY_Database_TestCase
-{
-
+class PostcodeTest extends TWFY_Database_TestCase {
     /**
      * Loads the member testing fixture.
      */
-    public function getDataSet()
-    {
-        return $this->createMySQLXMLDataSet(dirname(__FILE__).'/_fixtures/postcode.xml');
+    public function getDataSet() {
+        return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/postcode.xml');
     }
 
     /**
      * Test converting a postcode to a constituency
      */
-    public function testPostcodeToConstituency()
-    {
+    public function testPostcodeToConstituency() {
         $this->assertEquals(
             'Cities of London and Westminster',
             MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('SW1A 1AA')
@@ -29,8 +25,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     /**
      * Test converting a broken postcode to a constituency, make sure we get an empty string
      */
-    public function testBrokenPostcodeToConstituency()
-    {
+    public function testBrokenPostcodeToConstituency() {
         $this->assertEquals(
             '',
             MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('ZZ00 ABC')
@@ -40,8 +35,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     /**
      * Test canonicalising a postcode
      */
-    public function testCanonicalisePostcode()
-    {
+    public function testCanonicalisePostcode() {
         $this->assertEquals(
             'SW1A 1AA',
             MySociety\TheyWorkForYou\Utility\Postcode::canonicalisePostcode('SW1A 1AA')
@@ -67,8 +61,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     /**
      * Test testing for Scottish postcode
      */
-    public function testPostcodeIsScottish()
-    {
+    public function testPostcodeIsScottish() {
         $this->assertEquals(
             "Edinburgh",
             MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('EH1 0AA')
@@ -78,8 +71,7 @@ class PostcodeTest extends TWFY_Database_TestCase
     /**
      * Test testing for NI postcode
      */
-    public function testPostcodeIsNi()
-    {
+    public function testPostcodeIsNi() {
         $this->assertEquals(
             "Belfast",
             MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency('BT1 0AA')

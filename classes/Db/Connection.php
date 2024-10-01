@@ -43,7 +43,6 @@ $global_connection = null;
  */
 
 class Connection {
-
     /**
      * Initialise Connection
      *

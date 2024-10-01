@@ -28,11 +28,10 @@
 */
 
 class COMMENTLIST {
-
     public function __construct() {
         global $this_page;
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
 
         // We use this to create permalinks to comments. For the moment we're
         // assuming they're on the same page we're currently looking at:
@@ -42,7 +41,7 @@ class COMMENTLIST {
     }
 
 
-    public function display ($view, $args=array(), $format='html') {
+    public function display($view, $args = [], $format = 'html') {
         // $view is what we're viewing by:
         //	'ep' is all the comments attached to an epobject.
         //	'user' is all the comments written by a user.
@@ -54,19 +53,19 @@ class COMMENTLIST {
         // Or 'gid' is a hansard item gid.
 
         // Replace a hansard object gid with an epobject_id.
-//		$args = $this->_fix_gid($args);
+        //		$args = $this->_fix_gid($args);
 
         // $format is the format the data should be rendered in.
 
         if ($view == 'ep' || $view == 'user' || $view == 'recent' || $view == 'search' || $view == 'dates') {
             // What function do we call for this view?
-            $function = '_get_data_by_'.$view;
+            $function = '_get_data_by_' . $view;
             // Get all the dta that's to be rendered.
             $data = $this->$function($args);
 
         } else {
             // Don't have a valid $view;
-            $PAGE->error_message ("You haven't specified a view type.");
+            $PAGE->error_message("You haven't specified a view type.");
             return false;
         }
 
@@ -85,34 +84,34 @@ class COMMENTLIST {
         return true;
     }
 
-    public function render($data, $format='html', $template='comments') {
-        include (INCLUDESPATH."easyparliament/templates/$format/$template.php");
+    public function render($data, $format = 'html', $template = 'comments') {
+        include(INCLUDESPATH . "easyparliament/templates/$format/$template.php");
     }
 
     public function _get_data_by_ep($args) {
         // Get all the data attached to an epobject.
         global $PAGE;
 
-        twfy_debug (get_class($this), "getting data by epobject");
+        twfy_debug(get_class($this), "getting data by epobject");
 
         // What we return.
-        $data = array();
+        $data = [];
         if (!is_numeric($args['epobject_id'])) {
-            $PAGE->error_message ("Sorry, we don't have a valid epobject id");
+            $PAGE->error_message("Sorry, we don't have a valid epobject id");
             return $data;
         }
 
         // For getting the data.
-        $input = array (
-            'amount' => array (
-                'user' => true
-            ),
-            'where' => array (
+        $input =  [
+            'amount' =>  [
+                'user' => true,
+            ],
+            'where' =>  [
                 'comments.epobject_id=' => $args['epobject_id'],
                 #'visible=' => '1'
-            ),
-            'order' => 'posted ASC'
-        );
+            ],
+            'order' => 'posted ASC',
+        ];
 
         $commentsdata = $this->_get_comment_data($input);
 
@@ -135,13 +134,13 @@ class COMMENTLIST {
         // comments by things in $args?
         global $PAGE;
 
-        twfy_debug (get_class($this), "getting data by user");
+        twfy_debug(get_class($this), "getting data by user");
 
         // What we return.
-        $data = array();
+        $data = [];
 
         if (!is_numeric($args['user_id'])) {
-            $PAGE->error_message ("Sorry, we don't have a valid user id");
+            $PAGE->error_message("Sorry, we don't have a valid user id");
             return $data;
         }
 
@@ -151,13 +150,13 @@ class COMMENTLIST {
             $num = 10;
         }
 
-        if (isset($args['page']) && is_numeric($args['page']) && $args['page']>1) {
+        if (isset($args['page']) && is_numeric($args['page']) && $args['page'] > 1) {
             $page = $args['page'];
         } else {
             $page = 1;
         }
 
-        $limit = $num*($page-1) . ',' . $num;
+        $limit = $num * ($page - 1) . ',' . $num;
 
         // We're getting the most recent comments posted to epobjects.
         // We're grouping them by epobject so we can just link to each hansard thing once.
@@ -167,7 +166,8 @@ class COMMENTLIST {
         // We're NOT getting the comment bodies. Why? Because adding them to this query
         // would fetch the text for the oldest comment on an epobject group, rather
         // than the most recent. So we'll get the comment bodies later...
-        $q = $this->db->query("SELECT MAX(comments.comment_id) AS comment_id,
+        $q = $this->db->query(
+            "SELECT MAX(comments.comment_id) AS comment_id,
                                 MAX(comments.posted) AS posted,
                                 COUNT(*) AS total_comments,
                                 comments.epobject_id,
@@ -185,24 +185,24 @@ class COMMENTLIST {
                         GROUP BY epobject_id
                         ORDER BY posted DESC
                         LIMIT " . $limit,
-                        array(':user_id' => $args['user_id'])
-                        );
+            [':user_id' => $args['user_id']]
+        );
 
-        $comments = array();
-        $comment_ids = array();
+        $comments = [];
+        $comment_ids = [];
 
         if ($q->rows() > 0) {
 
             foreach ($q as $row) {
 
-                $urldata = array(
+                $urldata = [
                     'major' => $row['major'],
                     'gid' => $row['gid'],
                     'comment_id' => $row['comment_id'],
-                    'user_id' => $args['user_id']
-                );
+                    'user_id' => $args['user_id'],
+                ];
 
-                $comments[] = array(
+                $comments[] = [
                     'comment_id' => $row['comment_id'],
                     'posted' => $row['posted'],
                     'total_comments' => $row['total_comments'],
@@ -212,7 +212,7 @@ class COMMENTLIST {
                     // Hansard item body, not comment body.
                     'hbody' => $row['body'],
                     'url' => $this->_comment_url($urldata),
-                );
+                ];
 
                 // We'll need these for getting the comment bodies.
                 $comment_ids[] = $row['comment_id'];
@@ -229,7 +229,7 @@ class COMMENTLIST {
 
             if ($r->rows() > 0) {
 
-                $commentbodies = array();
+                $commentbodies = [];
 
                 foreach ($r as $row2) {
                     $commentbodies[$row2['comment_id']] = $row2['body'];
@@ -258,10 +258,10 @@ class COMMENTLIST {
         // $args should contain 'num', indicating how many to get.
         // and perhaps pid too, for a particular person
 
-        twfy_debug (get_class($this), "getting data by recent");
+        twfy_debug(get_class($this), "getting data by recent");
 
         // What we return.
-        $data = array();
+        $data = [];
 
         if (isset($args['num']) && is_numeric($args['num'])) {
             $num = $args['num'];
@@ -275,33 +275,33 @@ class COMMENTLIST {
             $page = 1;
         }
 
-        $limit = $num*($page-1) . ',' . $num;
+        $limit = $num * ($page - 1) . ',' . $num;
 
-        $where = array(
-            'visible=' => '1'
-        );
+        $where = [
+            'visible=' => '1',
+        ];
         if (isset($args['pid']) && is_numeric($args['pid'])) {
             $where['person_id='] = $args['pid'];
         }
-        $input = array (
-            'amount' => array (
-                'user' => true
-            ),
+        $input =  [
+            'amount' =>  [
+                'user' => true,
+            ],
             'where'  => $where,
             'order' => 'posted DESC',
-            'limit' => $limit
-        );
+            'limit' => $limit,
+        ];
 
         $commentsdata = $this->_get_comment_data($input);
 
         $data['comments'] = $commentsdata;
         $data['results_per_page'] = $num;
         $data['page'] = $page;
-        $params = array();
+        $params = [];
         if (isset($args['pid']) && is_numeric($args['pid'])) {
             $data['pid'] = $args['pid'];
             $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND left_house="9999-12-31" AND m.person_id = :pid';
-            $q = $this->db->query($q, array(':pid' => $args['pid']))->first();
+            $q = $this->db->query($q, [':pid' => $args['pid']])->first();
             $data['full_name'] = member_full_name($q['house'], $q['title'], $q['given_name'], $q['family_name'], $q['lordofname']);
             $q = 'SELECT COUNT(*) AS count FROM comments,hansard WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.person_id = :pid';
             $params[':pid'] = $args['pid'];
@@ -314,22 +314,22 @@ class COMMENTLIST {
     }
 
     public function _get_data_by_dates($args) {
-    // $args should contain start_date and end_date
+        // $args should contain start_date and end_date
 
-        twfy_debug (get_class($this), "getting data by recent");
-        $data = array();
-        $where = array(
+        twfy_debug(get_class($this), "getting data by recent");
+        $data = [];
+        $where = [
             'visible=' => '1',
             'date(posted)>=' => $args['start_date'],
-            'date(posted)<=' => $args['end_date']
-        );
-        $input = array (
-            'amount' => array (
-                'user' => true
-            ),
+            'date(posted)<=' => $args['end_date'],
+        ];
+        $input =  [
+            'amount' =>  [
+                'user' => true,
+            ],
             'where'  => $where,
-            'order'  => 'posted DESC'
-        );
+            'order'  => 'posted DESC',
+        ];
         $commentsdata = $this->_get_comment_data($input);
         $data['comments'] = $commentsdata;
         return $data;
@@ -338,10 +338,10 @@ class COMMENTLIST {
     public function _get_data_by_search($args) {
         // $args should contain 'num', indicating how many to get.
 
-        twfy_debug (get_class($this), "getting data by search");
+        twfy_debug(get_class($this), "getting data by search");
 
         // What we return.
-        $data = array();
+        $data = [];
 
         if (isset($args['num']) && is_numeric($args['num'])) {
             $num = $args['num'];
@@ -355,18 +355,18 @@ class COMMENTLIST {
             $page = 1;
         }
 
-        $limit = $num*($page-1) . ',' . $num;
+        $limit = $num * ($page - 1) . ',' . $num;
 
-        $input = array (
-            'amount' => array (
-                'user'=> true
-            ),
-            'where'  => array (
-                'comments.body LIKE' => "%$args[s]%"
-            ),
+        $input =  [
+            'amount' =>  [
+                'user' => true,
+            ],
+            'where'  =>  [
+                'comments.body LIKE' => "%$args[s]%",
+            ],
             'order' => 'posted DESC',
-            'limit' => $limit
-        );
+            'limit' => $limit,
+        ];
 
         $commentsdata = $this->_get_comment_data($input);
 
@@ -390,7 +390,7 @@ class COMMENTLIST {
         $major 		= $urldata['major'];
         $gid 		= $urldata['gid'];
         $comment_id = $urldata['comment_id'];
-        $user_id = isset($urldata['user_id']) ? $urldata['user_id'] : false;
+        $user_id = $urldata['user_id'] ?? false;
 
         // If you change stuff here, you might have to change it in
         // $COMMENT->_set_url() too...
@@ -402,9 +402,9 @@ class COMMENTLIST {
         $URL = new \MySociety\TheyWorkForYou\Url($page);
 
         $gid = fix_gid_from_db($gid); // In includes/utility.php
-        $URL->insert(array('id' => $gid ));
+        $URL->insert(['id' => $gid ]);
         if ($user_id) {
-            $URL->insert(array('u' => $user_id));
+            $URL->insert(['u' => $user_id]);
         }
         $url = $URL->generate() . '#c' . $comment_id;
 
@@ -413,36 +413,36 @@ class COMMENTLIST {
 
 
 
-/*	function _fix_gid($args) {
+    /*	function _fix_gid($args) {
 
-        // Replace a hansard object gid with an epobject_id.
-        // $args may have a 'gid' element. If so, we replace it
-        // with the hansard object's epobject_id as 'epobject_id', because
-        // comments are tied to epobject_ids.
-        // Returns the corrected $args array.
+            // Replace a hansard object gid with an epobject_id.
+            // $args may have a 'gid' element. If so, we replace it
+            // with the hansard object's epobject_id as 'epobject_id', because
+            // comments are tied to epobject_ids.
+            // Returns the corrected $args array.
 
-        global $this_page;
+            global $this_page;
 
-        if (isset($args['gid']) && !isset($args['epobject_id'])) {
+            if (isset($args['gid']) && !isset($args['epobject_id'])) {
 
-            if ($this_page == 'wran' || $this_page == 'wrans') {
-                $gidextra = 'wrans';
-            } else {
-                $gidextra = 'debate';
+                if ($this_page == 'wran' || $this_page == 'wrans') {
+                    $gidextra = 'wrans';
+                } else {
+                    $gidextra = 'debate';
+                }
+
+                $q = $this->db->query ("SELECT epobject_id FROM hansard WHERE gid = 'uk.org.publicwhip/" . $gidextra . '/' . addslashes($args['gid']) . "'")->first();
+
+                if ($q) {
+                    unset($args['gid']);
+                    $args['epobject_id'] = $q['epobject_id'];
+                }
             }
 
-            $q = $this->db->query ("SELECT epobject_id FROM hansard WHERE gid = 'uk.org.publicwhip/" . $gidextra . '/' . addslashes($args['gid']) . "'")->first();
+            return $args;
 
-            if ($q) {
-                unset($args['gid']);
-                $args['epobject_id'] = $q['epobject_id'];
-            }
         }
-
-        return $args;
-
-    }
-    */
+        */
 
     public function _get_comment_data($input) {
         // Generic function for getting hansard data from the DB.
@@ -474,16 +474,16 @@ class COMMENTLIST {
         // 'order' is a string for the $order clause, eg 'hpos DESC'.
         // 'limit' as a string for the $limit clause, eg '21,20'.
 
-        $amount = isset($input['amount']) ? $input['amount'] : array();
+        $amount = $input['amount'] ?? [];
         $wherearr = $input['where'];
-        $order = isset($input['order']) ? $input['order'] : '';
-        $limit = isset($input['limit']) ? $input['limit'] : '';
+        $order = $input['order'] ?? '';
+        $limit = $input['limit'] ?? '';
 
         // The fields to fetch from db. 'table' => array ('field1', 'field2').
-        $fieldsarr = array (
-            'comments' => array ('comment_id', 'user_id', 'epobject_id', 'body', 'posted', 'modflagged', 'visible'),
-            'hansard' => array ('major', 'gid')
-        );
+        $fieldsarr =  [
+            'comments' =>  ['comment_id', 'user_id', 'epobject_id', 'body', 'posted', 'modflagged', 'visible'],
+            'hansard' =>  ['major', 'gid'],
+        ];
 
         // Yes, we need the gid of a comment's associated hansard object
         // to make the comment's URL. And we have to go via the epobject
@@ -493,7 +493,7 @@ class COMMENTLIST {
 
         // Add on the stuff for getting a user's details.
         if (isset($amount['user']) && $amount['user'] == true) {
-            $fieldsarr['users'] = array ('firstname', 'lastname', 'user_id');
+            $fieldsarr['users'] =  ['firstname', 'lastname', 'user_id'];
             // Like doing "FROM comments, users" but it's easier to add
             // an "INNER JOIN..." automatically to the query.
             $join .= ' INNER JOIN users ON comments.user_id = users.user_id ';
@@ -501,10 +501,10 @@ class COMMENTLIST {
 
         // Add on that we need to get the hansard item's body.
         if (isset($amount['hansard']) && $amount['hansard'] == true) {
-            $fieldsarr['epobject'] = array('body');
+            $fieldsarr['epobject'] = ['body'];
         }
 
-        $fieldsarr2 = array ();
+        $fieldsarr2 =  [];
         // Construct the $fields clause.
         foreach ($fieldsarr as $table => $tablesfields) {
             foreach ($tablesfields as $n => $field) {
@@ -515,14 +515,14 @@ class COMMENTLIST {
                 if ($table == 'epobject' && $field == 'body') {
                     $field .= ' AS hbody';
                 }
-                $fieldsarr2[] = $table.'.'.$field;
+                $fieldsarr2[] = $table . '.' . $field;
             }
         }
         $fields = implode(', ', $fieldsarr2);
 
 
-        $wherearr2 = array ();
-        $params = array();
+        $wherearr2 =  [];
+        $params = [];
         $i = 0;
         // Construct the $where clause.
         foreach ($wherearr as $key => $val) {
@@ -530,7 +530,7 @@ class COMMENTLIST {
             $params[":where$i"] = $val;
             $i++;
         }
-        $where = implode (" AND ", $wherearr2);
+        $where = implode(" AND ", $wherearr2);
 
         if ($order != '') {
             $order = "ORDER BY $order";
@@ -541,7 +541,7 @@ class COMMENTLIST {
         }
 
         // Finally, do the query!
-        $q = $this->db->query ("SELECT $fields
+        $q = $this->db->query("SELECT $fields
                         FROM 	comments
                         $join
                         WHERE $where
@@ -550,7 +550,7 @@ class COMMENTLIST {
                         ", $params);
 
         // Format the data into an array for returning.
-        $data = array ();
+        $data =  [];
 
         // If you change stuff here, you might have to change it in
         // $COMMENT->_set_url() too...
@@ -560,7 +560,7 @@ class COMMENTLIST {
 
         foreach ($q as $row) {
 
-            $out = array();
+            $out = [];
 
             // Put each row returned into its own array in $data.
             foreach ($fieldsarr as $table => $tablesfields) {
@@ -578,12 +578,12 @@ class COMMENTLIST {
                 }
             }
 
-            $urldata = array(
+            $urldata = [
                 'major' => $row['major'],
                 'gid' => $out['gid'],
                 'comment_id' => $out['comment_id'],
-#					'user_id' =>
-            );
+                #					'user_id' =>
+            ];
             $out['url'] = $this->_comment_url($urldata);
             $data[] = $out;
         }

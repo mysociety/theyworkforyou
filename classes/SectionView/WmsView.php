@@ -7,11 +7,11 @@ class WmsView extends SectionView {
     protected $class = 'WMSLIST';
 
     protected function front_content() {
-        return $this->list->display('recent_wms', array('days'=>7, 'num'=>20), 'none');
+        return $this->list->display('recent_wms', ['days' => 7, 'num' => 20], 'none');
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('wms');
         $urls['day'] = $day;
         $urls['wmsday'] = $day;

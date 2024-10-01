@@ -3,11 +3,8 @@
 /**
  * Provides acceptance(ish) tests for API functions.
  */
-abstract class FetchPageTestCase extends TWFY_Database_TestCase
-{
-
-    protected function base_fetch_page($vars, $dir, $page = 'index.php', $req_uri = '')
-    {
+abstract class FetchPageTestCase extends TWFY_Database_TestCase {
+    protected function base_fetch_page($vars, $dir, $page = 'index.php', $req_uri = '') {
         foreach ($vars as $k => $v) {
             $vars[$k] = $k . '=' . urlencode($v);
         }
@@ -23,8 +20,7 @@ abstract class FetchPageTestCase extends TWFY_Database_TestCase
         return $page;
     }
 
-    protected function base_fetch_page_user($vars, $cookie, $dir, $page = 'index.php', $req_uri = '')
-    {
+    protected function base_fetch_page_user($vars, $cookie, $dir, $page = 'index.php', $req_uri = '') {
         foreach ($vars as $k => $v) {
             $vars[$k] = $k . '=' . urlencode($v);
         }
@@ -40,8 +36,7 @@ abstract class FetchPageTestCase extends TWFY_Database_TestCase
         return $page;
     }
 
-    protected function base_post_page_user($vars, $cookie, $dir, $page = 'index.php', $req_uri = '')
-    {
+    protected function base_post_page_user($vars, $cookie, $dir, $page = 'index.php', $req_uri = '') {
         foreach ($vars as $k => $v) {
             $vars[$k] = $k . '=' . urlencode($v);
         }

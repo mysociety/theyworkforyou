@@ -9,7 +9,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
     foreach ($data['comments'] as $key => $value) {
         unset($data['comments'][$key]['modflagged']);
         unset($data['comments'][$key]['visible']);
-        $USERURL->insert(array('u'=>$value['user_id']));
+        $USERURL->insert(['u' => $value['user_id']]);
         $data['comments'][$key]['userurl'] = $USERURL->generate();
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 include_once '../../includes/easyparliament/init.php';
 include_once '../../includes/easyparliament/helper-donate.php';
 
@@ -10,6 +11,5 @@ check_for_stripe_submission(
 
 use MySociety\TheyWorkForYou\Renderer\Markdown;
 
-$markdown = new Markdown;
+$markdown = new Markdown();
 $markdown->markdown_document('support-us');
-?>

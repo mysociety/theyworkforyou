@@ -4,7 +4,7 @@ include_once INCLUDESPATH . '../../commonlib/phplib/mapit.php';
 include_once dirname(__FILE__) . '/api_getGeometry.php';
 
 function api_getBoundary_front() {
-?>
+    ?>
 <p><big>Returns KML file for a UK Parliament constituency.</big></p>
 
 <p>Returns the bounding polygon of the constituency, in KML format (see <a

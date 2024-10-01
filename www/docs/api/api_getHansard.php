@@ -1,9 +1,9 @@
 <?php
 
-include_once INCLUDESPATH."easyparliament/member.php";
+include_once INCLUDESPATH . "easyparliament/member.php";
 
 function api_getHansard_front() {
-?>
+    ?>
 <p><big>Fetch all Hansard.</big></p>
 
 <h4>Arguments</h4>
@@ -29,34 +29,34 @@ use the <kbd>search</kbd> parameter, and supply
 }
 
 function api_getHansard_search($s) {
-    _api_getHansard_search( array(
+    _api_getHansard_search([
         's' => $s,
-        'pid' => get_http_var('person')
-    ) );
+        'pid' => get_http_var('person'),
+    ]);
 }
 function api_getHansard_person($pid) {
-    _api_getHansard_search(array(
-        'pid' => $pid
-    ));
+    _api_getHansard_search([
+        'pid' => $pid,
+    ]);
 }
 
 function _api_getHansard_date($type, $d) {
-    $args = array ('date' => $d);
+    $args =  ['date' => $d];
     $LIST = _api_getListObject($type);
     $LIST->display('date', $args, 'api');
 }
 function _api_getHansard_year($type, $y) {
-    $args = array('year' => $y);
+    $args = ['year' => $y];
     $LIST = _api_getListObject($type);
     $LIST->display('calendar', $args, 'api');
 }
 function _api_getHansard_search($array) {
     $search = isset($array['s']) ? trim($array['s']) : '';
     $pid = trim($array['pid']);
-    $type = isset($array['type']) ? $array['type'] : '';
+    $type = $array['type'] ?? '';
     $search = filter_user_input($search, 'strict');
     if ($pid) {
-        $search .= ($search?' ':'') . 'speaker:' . $pid;
+        $search .= ($search ? ' ' : '') . 'speaker:' . $pid;
     }
     if ($type) {
         $search .= " section:" . $type;
@@ -65,19 +65,19 @@ function _api_getHansard_search($array) {
     $o = get_http_var('order');
     if ($o == 'p') {
         $data = \MySociety\TheyWorkForYou\Utility\Search::searchByUsage($search);
-        $out = array();
+        $out = [];
         if (!isset($data['speakers'])) {
-            $data['speakers'] = array();
+            $data['speakers'] = [];
         }
         foreach ($data['speakers'] as $pid => $s) {
-            $out[$pid] = array(
+            $out[$pid] = [
                 'house' => $s['house'],
                 'name' => $s['name'],
                 'party' => $s['party'],
                 'count' => $s['count'],
                 'mindate' => substr($s['pmindate'], 0, 7),
                 'maxdate' => substr($s['pmaxdate'], 0, 7),
-            );
+            ];
         }
         api_output($out);
 
@@ -91,22 +91,22 @@ function _api_getHansard_search($array) {
 
         return;
     }
-#    $query_desc_short = $SEARCHENGINE->query_description_short();
+    #    $query_desc_short = $SEARCHENGINE->query_description_short();
     $pagenum = get_http_var('page');
-    $args = array (
+    $args =  [
         's' => $search,
         'p' => $pagenum,
         'num' => get_http_var('num'),
         'pop' => 1,
-        'o' => ($o=='d' || $o=='r') ? $o : 'd',
-    );
+        'o' => ($o == 'd' || $o == 'r') ? $o : 'd',
+    ];
     $LIST = new HANSARDLIST();
     $data = $LIST->display('search', $args, 'none');
     api_output($data);
 }
 
 function _api_getHansard_gid($type, $gid) {
-    $args = array('gid' => $gid);
+    $args = ['gid' => $gid];
     $LIST = _api_getListObject($type);
 
     try {
@@ -120,7 +120,7 @@ function _api_getHansard_gid($type, $gid) {
 }
 
 function _api_getHansard_department($type, $dept) {
-    $args = array('department' => $dept);
+    $args = ['department' => $dept];
     $LIST = _api_getListObject($type);
     $LIST->display('department', $args, 'api');
 }

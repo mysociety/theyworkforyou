@@ -6,7 +6,7 @@ $this_page = 'admin_topics';
 
 $topics = new \MySociety\TheyWorkForYou\Topics();
 $all_topics = $topics->getTopics();
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -79,11 +79,11 @@ function update_frontpage($topics) {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'    => 'html',
-        'content' => $menu
-    )
-));
+        'content' => $menu,
+    ],
+]);
 
 $PAGE->page_end();
