@@ -1,0 +1,169 @@
+.label {
+    background-color: #fff;
+    color: $primary-color;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+
+    &--primary-light {
+        background-color: $primary-color-200;
+        color: $body-font-color;
+    }
+
+    &--red {
+        background-color: lighten($color-red, 40%);
+        color: $body-font-color;
+    }
+}
+
+.alert-page-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+
+    &[aria-expanded="true"] {
+        background-color: $primary-color-200;
+        color: $body-font-color;
+        & + .accordion-content{
+            max-height: 1000px;
+            transition: max-height 0.3s ease;
+        }
+
+        i {
+            transform: rotate(45deg);
+        }
+    }
+
+    .accordion-button--content {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        gap: 0.75rem;
+
+        .content-subtitle {
+            @extend .label;
+        }
+    }
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+
+    .alert-controller-wrapper {
+        margin-bottom: 2rem;
+        button {
+            margin-bottom: 0;
+            span {
+                margin-right: 0.2rem;
+            }
+        }
+    }
+
+    .accordion-section {
+        margin-bottom: 2rem;
+    }
+
+    dl {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 4rem;
+        row-gap: 1rem;
+        align-items: center;
+
+        dt { 
+            color: $light-text;
+            font-size: 0.9rem;
+        }
+    }
+
+    .add-remove-tool {
+        display: flex;
+        flex-direction: row;
+
+        input {
+            margin: 0;
+            height: 40px;
+        }
+
+        button {
+            max-width: 100px;
+            height: 40px;
+        }
+    }
+
+    label {
+        font-size: inherit;
+        color: inherit;
+    }
+
+    select {
+        max-width: 350px;
+    }
+}
+
+.keyword-list {
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-left: 0;
+
+        li {
+            font-weight: bold;
+            i {
+                margin-left: 0.25rem;
+            }
+        }
+
+    }
+}
+
+.heading-with-bold-word {
+    font-weight: 400;
+
+    span {
+        font-weight: bold;
+    }
+}
+
+button {
+    i {
+        margin-left: 0.25rem;
+    }
+}
+
+.internal-comment {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.8rem;
+    color: rgb(114, 8, 8);
+    background-color: rgb(230, 170, 170);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.fi-x {
+    display: none;
+}
+
+.display-none {
+    display:none !important;
+}
