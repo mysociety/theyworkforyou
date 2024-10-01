@@ -11,36 +11,36 @@ $PAGE->stripe_start();
 
 $slug = get_http_var('id');
 if ($slug) {
-  $topic = $topics->getTopic($slug);
+    $topic = $topics->getTopic($slug);
 } else {
-  $topic = new \MySociety\TheyWorkForYou\Topic();
+    $topic = new \MySociety\TheyWorkForYou\Topic();
 }
 
 $action = get_http_var('action');
 switch ($action) {
     case 'add':
-      $success = add_topic($topic);
-      break;
+        $success = add_topic($topic);
+        break;
     case 'update':
-      $success = update_topic($topic);
-      break;
+        $success = update_topic($topic);
+        break;
     case 'setimage':
-      $success = add_image($topic);
-      break;
+        $success = add_image($topic);
+        break;
     case 'addcontent':
-      $success = add_content($topic);
-      break;
+        $success = add_content($topic);
+        break;
     case 'deletecontent':
-      $success = delete_content($topic);
-      break;
+        $success = delete_content($topic);
+        break;
     case 'addpolicysets':
-      $success = add_policy_sets($topic);
-      break;
+        $success = add_policy_sets($topic);
+        break;
     case 'addpolicies':
-      $success = add_policies($topic);
-      break;
+        $success = add_policies($topic);
+        break;
     default:
-      $success = null;
+        $success = null;
 }
 
 if (!is_null($success)) {
@@ -125,10 +125,10 @@ if (!is_null($success)) {
             <select name="sets[]" multiple>
               <option value="">None</option>
             <?php
-              $policies = new \MySociety\TheyWorkForYou\Policies;
-              $set_descriptions = $policies->getSetDescriptions();
-              $related_sets = $topic->getPolicySets();
-              foreach ($set_descriptions as $set => $description) { ?>
+              $policies = new \MySociety\TheyWorkForYou\Policies();
+$set_descriptions = $policies->getSetDescriptions();
+$related_sets = $topic->getPolicySets();
+foreach ($set_descriptions as $set => $description) { ?>
               <option value="<?= $set ?>" <?= in_array($set, $related_sets) ? 'selected' : '' ?>><?= $description ?></option>
             <?php } ?>
             <input type="submit" value="Update">
@@ -143,10 +143,10 @@ if (!is_null($success)) {
             <select name="policies[]" multiple>
               <option value="">None</option>
             <?php
-              $policies = new \MySociety\TheyWorkForYou\Policies;
-              $all_policies = $policies->getPolicies();
-              $related_policies = $topic->getPolicies();
-              foreach ($all_policies as $number => $description) { ?>
+$policies = new \MySociety\TheyWorkForYou\Policies();
+$all_policies = $policies->getPolicies();
+$related_policies = $topic->getPolicies();
+foreach ($all_policies as $number => $description) { ?>
               <option value="<?= $number ?>" <?= in_array($number, $related_policies) ? 'selected' : '' ?>><?= $description ?></option>
             <?php } ?>
 
@@ -196,10 +196,10 @@ function add_image($topic) {
     $mime_info = $finfo->file($file_info['tmp_name']);
     $ext = array_search(
         $mime_info,
-        array(
+        [
             'jpg' => 'image/jpeg',
-            'png' => 'image/png'
-        ),
+            'png' => 'image/png',
+        ],
         true
     );
 
@@ -214,9 +214,9 @@ function add_image($topic) {
             $file_info['tmp_name'],
             $topic->image_path()
         );
-     } catch (ErrorException $e) {
+    } catch (ErrorException $e) {
         return false;
-     }
+    }
 
     if ($image_saved) {
         return $topic->save();
@@ -233,7 +233,7 @@ function add_policy_sets($topic) {
     $sets = get_http_var('sets', '', true);
 
     if ($sets[0] == '' && count($sets) == 1) {
-        $sets = array();
+        $sets = [];
     }
 
     return $topic->addPolicySets($sets);
@@ -243,7 +243,7 @@ function add_policies($topic) {
     $policies = get_http_var('policies', '', true);
 
     if ($policies[0] == '' && count($policies) == 1) {
-        $policies = array();
+        $policies = [];
     }
 
     return $topic->addPolicies($policies);
@@ -251,11 +251,11 @@ function add_policies($topic) {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'    => 'html',
-        'content' => $menu
-    )
-));
+        'content' => $menu,
+    ],
+]);
 
 $PAGE->page_end();

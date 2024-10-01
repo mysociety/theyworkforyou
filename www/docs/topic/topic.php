@@ -29,7 +29,7 @@ $this_page = 'topic';
 // Make sure the requested topic actually exists, otherwise throw a 404.
 if ($topic = $topics->getTopic($topicname)) {
 
-    $data = array();
+    $data = [];
     $data['topic'] = $topic;
     // Assume, unless we hear otherwise, that we don't want the postcode form displayed.
     $data['display_postcode_form'] = false;
@@ -52,27 +52,27 @@ if ($topic = $topics->getTopic($topicname)) {
                 $pc = get_http_var('pc');
                 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
                 if (validate_postcode($pc)) {
-                    twfy_debug ('MP', "MP lookup by postcode");
+                    twfy_debug('MP', "MP lookup by postcode");
                     $constituency = strtolower(Utility\Postcode::postcodeToConstituency($pc));
                     if ($constituency == "connection_timed_out") {
                         throw new \Exception('Sorry, we couldn&rsquo;t check your postcode right now, as our postcode lookup server is under quite a lot of load.');
                     } elseif ($constituency == "") {
-                        twfy_debug ('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
+                        twfy_debug('MP', "Can't display an MP, as submitted postcode didn't match a constituency");
                         throw new \Exception('Sorry, ' . _htmlentities($pc) . ' isn&rsquo;t a known postcode');
                     } else {
                         // Generate the Member object
-                        $member = new Member(array('constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS));
+                        $member = new Member(['constituency' => $constituency, 'house' => HOUSE_TYPE_COMMONS]);
                         if ($member->person_id()) {
                             // This will cookie the postcode.
                             $THEUSER->set_postcode_cookie($pc);
                         }
                     }
                 } else {
-                    twfy_debug ('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
+                    twfy_debug('MP', "Can't display an MP because the submitted postcode wasn't of a valid form.");
                     throw new \Exception('Sorry, ' . _htmlentities($pc) . ' isn&rsquo;t a valid postcode');
                 }
             } catch (\Exception $e) {
-                Renderer::output('topic/error', array('error' => $e->getMessage()));
+                Renderer::output('topic/error', ['error' => $e->getMessage()]);
             }
 
         }
@@ -80,7 +80,7 @@ if ($topic = $topics->getTopic($topicname)) {
         /////////////////////////////////////////////////////////
         // DOES THE USER HAVE A POSTCODE ALREADY SET?
         elseif ($THEUSER->postcode_is_set()) {
-            $member = new Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+            $member = new Member(['postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS]);
         }
 
         /////////////////////////////////////////////////////////
@@ -105,11 +105,11 @@ if ($topic = $topics->getTopic($topicname)) {
 
         $divisions = new Divisions($member);
         $policySummaries = $divisions->getMemberDivisionDetails();
-        $policies = new Policies;
+        $policies = new Policies();
         $positions = new \MySociety\TheyWorkForYou\PolicyPositions(
             $policies->limitToArray($topic_policies),
             $member,
-            array('summaries' => $policySummaries)
+            ['summaries' => $policySummaries]
         );
 
         $data['positions'] = $positions->positions;
@@ -122,6 +122,6 @@ if ($topic = $topics->getTopic($topicname)) {
 } else {
 
     header('HTTP/1.0 404 Not Found');
-    Renderer::output('topic/error', array('error' => 'Sorry, but there isn&rsquo;t a topic page by that name.'));
+    Renderer::output('topic/error', ['error' => 'Sorry, but there isn&rsquo;t a topic page by that name.']);
 
 }

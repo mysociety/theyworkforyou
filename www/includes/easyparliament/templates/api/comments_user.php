@@ -34,7 +34,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
 
         $hansardtext = trim_characters($comment['hbody'], 0, 65);
 
-        list($date, $time) = explode(' ', $comment['posted']);
+        [$date, $time] = explode(' ', $comment['posted']);
         $date = format_date($date, SHORTDATEFORMAT);
 
         // Get the name of the member whose epobject was commented upon (if any).

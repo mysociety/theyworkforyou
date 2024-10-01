@@ -23,7 +23,7 @@ if (get_http_var("submitted")) {
     // Form's been submitted.
 
     // Where we'll store any errors that occur...
-    $errors = array();
+    $errors = [];
 
 
     $email = trim(get_http_var("email"));
@@ -35,7 +35,7 @@ if (get_http_var("submitted")) {
         $errors["email"] = gettext("Please enter a valid email address");
     } else {
 
-        $USER = new USER;
+        $USER = new USER();
         $emailexists = $USER->email_exists($email);
         if (!$emailexists) {
             $errors["email"] = 'There is no user registered with that email address. If you are subscribed to email alerts, you are not necessarily registered on the website. If you register, you will be able to manage your email alerts, as well as leave annotations.';
@@ -90,7 +90,7 @@ if (get_http_var("submitted")) {
 
 
 
-function display_page ($errors=array()) {
+function display_page($errors = []) {
     global $this_page, $PAGE;
 
     if (isset($errors["sending"])) {
@@ -98,19 +98,20 @@ function display_page ($errors=array()) {
     } else {
         print "<p>If you can't remember your password we can send you a new one.</p>\n<p>If you would like a new password, enter your address below.</p>\n";
     }
-?>
+    ?>
 
-<form method="get" class="password-form" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page); echo $URL->generate(); ?>">
+<form method="get" class="password-form" action="<?php $URL = new \MySociety\TheyWorkForYou\Url($this_page);
+    echo $URL->generate(); ?>">
 
     <?php
-        if (isset($errors["email"])) {
-            $PAGE->error_message($errors["email"]);
-        }
+            if (isset($errors["email"])) {
+                $PAGE->error_message($errors["email"]);
+            }
 
-        if (isset($errors["passwordchange"])) {
-            $PAGE->error_message($errors["passwordchange"]);
-        }
-        ?>
+    if (isset($errors["passwordchange"])) {
+        $PAGE->error_message($errors["passwordchange"]);
+    }
+    ?>
 
     <div class="row">
     <label for="em">Email address</label>

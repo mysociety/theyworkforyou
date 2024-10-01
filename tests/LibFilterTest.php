@@ -4,22 +4,18 @@
  * Testing for LibFilter
  */
 
-class LibFilterTest extends PHPUnit\Framework\TestCase
-{
-
+class LibFilterTest extends PHPUnit\Framework\TestCase {
     private $libFilter;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
-        $this->libFilter = new \MySociety\TheyWorkForYou\Utility\LibFilter;
+        $this->libFilter = new \MySociety\TheyWorkForYou\Utility\LibFilter();
     }
 
     /**
      * Test that HTML inside comment tags is correctly escaped.
      */
-    public function testEscapeComments()
-    {
+    public function testEscapeComments() {
         $this->assertEquals(
             'Outside <b>bold</b> <!-- Inside &lt;b&gt;bold&lt;/b&gt; -->',
             $this->libFilter->escape_comments('Outside <b>bold</b> <!-- Inside <b>bold</b> -->')
@@ -29,8 +25,7 @@ class LibFilterTest extends PHPUnit\Framework\TestCase
     /**
      * Test that tags are properly balanced, uneven pairs escaped etc
      */
-    public function testBalanceHTML()
-    {
+    public function testBalanceHTML() {
         $this->assertEquals(
             '<p>Hello World!</p>',
             $this->libFilter->balance_html('<<<p>Hello World!</p>>')
@@ -40,8 +35,7 @@ class LibFilterTest extends PHPUnit\Framework\TestCase
     /**
      * Test that we allow allowed tags, and remove prohibited ones.
      */
-    public function testCheckTags()
-    {
+    public function testCheckTags() {
         $this->assertEquals(
             'bad_code();',
             $this->libFilter->check_tags('<script>bad_code();</script>')
@@ -59,8 +53,7 @@ class LibFilterTest extends PHPUnit\Framework\TestCase
     /**
      * Test that tags are removed as expected
      */
-    public function testRemoveBlanks()
-    {
+    public function testRemoveBlanks() {
         $this->assertEquals(
             'Hello World!',
             $this->libFilter->process_remove_blanks('Hello <b></b>World!')
@@ -70,8 +63,7 @@ class LibFilterTest extends PHPUnit\Framework\TestCase
     /**
      * Test that comments are properly stripped.
      */
-    public function testStripComments()
-    {
+    public function testStripComments() {
         $this->assertEquals(
             'Outside ',
             $this->libFilter->check_tags('Outside <!-- Inside -->')

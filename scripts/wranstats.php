@@ -3,7 +3,7 @@
 include '/data/vhost/www.theyworkforyou.com/includes/easyparliament/init.php';
 # include INCLUDESPATH . 'easyparliament/member.php';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $q = $db->query(
     'select person_id,
@@ -17,7 +17,8 @@ $q = $db->query(
 	from hansard
 		left join anonvotes on hansard.epobject_id=anonvotes.epobject_id
 		where major = 3 and minor = 2 and left_house > curdate()
-	group by person_id');
+	group by person_id'
+);
 
 foreach ($q as $row) {
     $p_id = $row['person_id'];
@@ -29,11 +30,11 @@ foreach ($q as $row) {
     if ($p_id) {
         $qq = $db->query('(select hansard.epobject_id from hansard, uservotes
 			where hansard.epobject_id=uservotes.epobject_id
-            and hansard.person_id = '.$p_id.' and major=3 and minor=2 and left_house>curdate())
+            and hansard.person_id = ' . $p_id . ' and major=3 and minor=2 and left_house>curdate())
 		union
 			(select hansard.epobject_id from hansard,member,anonvotes
 			 where hansard.epobject_id=anonvotes.epobject_id
-             and hansard.person_id = '.$p_id.' and major=3 and minor=2 and left_house>curdate())');
+             and hansard.person_id = ' . $p_id . ' and major=3 and minor=2 and left_house>curdate())');
         $wrans_with_votes = $qq->rows();
     } else {
         $wrans_with_votes = '';

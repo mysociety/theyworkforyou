@@ -1,7 +1,7 @@
 <div class="full-page">
     <div class="full-page__row">
 
-      <?php if ( $message ) { ?>
+      <?php if ($message) { ?>
         <div class="alert-section alert-section--feedback">
             <div class="alert-section__primary">
                 <h3><?= $message['title'] ?></h3>
@@ -12,10 +12,10 @@
         </div>
       <?php } ?>
 
-      <?php if ( $results ) { ?>
+      <?php if ($results) { ?>
         <div class="alert-section alert-section--feedback">
             <div class="alert-section__primary">
-              <?php if ( $results == 'alert-confirmed' ) { ?>
+              <?php if ($results == 'alert-confirmed') { ?>
                 <h3><?= gettext('Your alert has been confirmed') ?></h3>
                 <p>
                     <?= gettext('You will now receive email alerts for the following criteria:') ?>
@@ -44,31 +44,31 @@
                 </div>
                 </noscript>
 
-              <?php } elseif ( $results == 'alert-suspended' ) { ?>
+              <?php } elseif ($results == 'alert-suspended') { ?>
                 <h3><?= gettext('Alert suspended') ?></h3>
                 <p>
                     <?= gettext('You can reactivate the alert at any time, from the sidebar below.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-resumed' ) { ?>
+              <?php } elseif ($results == 'alert-resumed') { ?>
                 <h3><?= gettext('Alert resumed') ?></h3>
                 <p>
                     <?= gettext('You will now receive email alerts on any day when there are entries in Hansard that match your criteria.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-deleted' ) { ?>
+              <?php } elseif ($results == 'alert-deleted') { ?>
                 <h3><?= gettext('Alert deleted') ?></h3>
                 <p>
                     <?= gettext('You will no longer receive this alert.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'all-alerts-deleted' ) { ?>
+              <?php } elseif ($results == 'all-alerts-deleted') { ?>
                 <h3><?= gettext('All alerts deleted') ?></h3>
                 <p>
                     <?= gettext('You will no longer receive any alerts.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-fail' ) { ?>
+              <?php } elseif ($results == 'alert-fail') { ?>
                 <h3><?= gettext('Hmmm, something’s not right') ?></h3>
                 <p>
                     <?= gettext('The link you followed to reach this page appears to be incomplete.') ?>
@@ -80,31 +80,31 @@
                     <?= sprintf(gettext('If you still get this message, please do <a href="mailto:%s">email us</a> and let us know, and we’ll help out!'), str_replace('@', '&#64;', CONTACTEMAIL)) ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-added' ) { ?>
+              <?php } elseif ($results == 'alert-added') { ?>
                 <h3><?= gettext('Your alert has been added') ?></h3>
                 <p>
                     <?= sprintf(gettext('You will now receive email alerts on any day when %s in parliament.'), _htmlspecialchars($criteria)) ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-confirmation' ) { ?>
+              <?php } elseif ($results == 'alert-confirmation') { ?>
                 <h3><?= gettext('We’re nearly done…') ?></h3>
                 <p>
                     <?= gettext('You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address and receive future alerts. Thanks.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-exists' ) { ?>
+              <?php } elseif ($results == 'alert-exists') { ?>
                 <h3><?= gettext('You’re already subscribed to that!') ?></h3>
                 <p>
                     <?= gettext('It’s good to know you’re keen though.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-already-signed' ) { ?>
+              <?php } elseif ($results == 'alert-already-signed') { ?>
                 <h3><?= gettext('We’re nearly done') ?></h3>
                 <p>
                     <?= gettext('You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address and receive future alerts. Thanks.') ?>
                 </p>
 
-              <?php } elseif ( $results == 'alert-fail' ) { ?>
+              <?php } elseif ($results == 'alert-fail') { ?>
                 <h3><?= gettext('Alert could not be created') ?></h3>
                 <p>
                     <?= sprintf(gettext('Sorry, we were unable to create that alert. Please <a href="mailto:%s">let us know</a>. Thanks.'), str_replace('@', '&#64;', CONTACTEMAIL)) ?>
@@ -123,7 +123,7 @@
           ) {
               /* We need to disambiguate the user's instructions */
               $member_options = false;
-      ?>
+              ?>
         <div class="alert-section alert-section--disambiguation">
             <div class="alert-section__primary">
 
@@ -133,19 +133,19 @@
                 <ul>
                   <?php
                     foreach ($members as $row) {
-                  ?>
+                        ?>
                     <li>
                         <form action="<?= $actionurl ?>" method="post">
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
                             <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
                             <?php
-                            $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
-                            if ($row['constituency']) {
-                                $name .= ' (' . gettext($row['constituency']) . ')';
-                            }
-                            printf(gettext('When %s speaks.'), $name);
-                            ?>
+                                  $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
+                        if ($row['constituency']) {
+                            $name .= ' (' . gettext($row['constituency']) . ')';
+                        }
+                        printf(gettext('When %s speaks.'), $name);
+                        ?>
                             <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
                         </form>
                     </li>
@@ -172,7 +172,7 @@
               <?php } ?>
 
               <?php if ($alertsearch) {
-                if ( $member_options ) { ?>
+                  if ($member_options) { ?>
                 <h3><?= gettext('Sign up for alerts for topics') ?></h3>
                 <?php } else { ?>
                 <h3><?= gettext('Great! Can you just confirm what you mean?') ?></h3>
@@ -186,7 +186,7 @@
                             <?= sprintf(gettext('Receive alerts when %s'), _htmlspecialchars($alertsearch_pretty)) ?>
                             <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>">
                         </form>
-                      <?php if ( isset($mistakes['multiple']) ) { ?>
+                      <?php if (isset($mistakes['multiple'])) { ?>
                         <em class="error"><?= gettext('
                             You have used a comma in your search term –
                             are you sure this is what you want? You cannot
@@ -195,14 +195,14 @@
                             for each individual term.') ?>
                         </em>
                       <?php } ?>
-                      <?php if ( isset($mistakes['postcode_and']) ) { ?>
+                      <?php if (isset($mistakes['postcode_and'])) { ?>
                         <em class="error"><?= gettext('
                             You have used a postcode and something else in your
                             search term – are you sure this is what you
                             want? You will only get an alert if all of these
                             are mentioned in the same debate.') ?>
                           <?php if (isset($member_alertsearch)) {
-                                printf(gettext('Did you mean to get alerts for when your representative mentions something instead? If so maybe you want to subscribe to…'));
+                              printf(gettext('Did you mean to get alerts for when your representative mentions something instead? If so maybe you want to subscribe to…'));
                           } ?>
                         </em>
                       <?php } ?>
@@ -253,11 +253,11 @@
             <div class="alert-section__secondary">
               <?php if ($email_verified) { ?>
 
-                  <?php if ( $alerts ) { ?>
+                  <?php if ($alerts) { ?>
                     <?php include('_list.php'); ?>
                   <?php } ?>
 
-                  <?php if ( $current_mp ) { ?>
+                  <?php if ($current_mp) { ?>
                     <h3><?= gettext('Your MP alert') ?></h3>
                     <ul class="alerts-manage__list">
                         <li>
@@ -287,9 +287,9 @@
                 <h3>
                     <?php
                         $name = $pid_member->full_name();
-                        if ($pid_member->constituency()) {
-                            $name .= ' (' . _htmlspecialchars($pid_member->constituency()) . ')';
-                        } ?>
+                  if ($pid_member->constituency()) {
+                      $name .= ' (' . _htmlspecialchars($pid_member->constituency()) . ')';
+                  } ?>
                     <?= sprintf(gettext('Sign up for an alert when %s speaks.'), $name) ?>
                 </h3>
               <?php } elseif ($keyword) { ?>

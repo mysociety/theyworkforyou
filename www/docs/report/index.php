@@ -5,7 +5,7 @@
 $this_page = "commentreport";
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreport.php");
+include_once(INCLUDESPATH . "easyparliament/commentreport.php");
 
 $PAGE->page_start();
 
@@ -32,7 +32,7 @@ if (is_numeric(get_http_var('id'))) {
     if (get_http_var('submitted') == true) {
         // The form has been submitted.
 
-        $errors = array();
+        $errors = [];
 
         if (get_http_var('body') == '') {
             $errors['body'] = "Please enter a reason why you think this annotation is not appropriate.";
@@ -57,19 +57,19 @@ if (is_numeric(get_http_var('id'))) {
 
             // Report this comment.
 
-            $REPORT = new COMMENTREPORT;
+            $REPORT = new COMMENTREPORT();
 
-            $reportdata = array (
+            $reportdata =  [
                 'body'		=> get_http_var('body'),
                 'firstname'	=> get_http_var('firstname'),
                 'lastname'	=> get_http_var('lastname'),
-                'email'		=> get_http_var('em')
-            );
+                'email'		=> get_http_var('em'),
+            ];
 
             $success = $REPORT->create($COMMENT, $reportdata);
 
             if ($success) {
-                    ?>
+                ?>
     <p><strong>The annotation has been reported</strong> and a moderator will look into it as soon as possible. You should receive an email shortly confirming your report. Thanks for taking the time let us know about this.</p>
 <?php
                 if (!$THEUSER->isloggedin()) {
@@ -87,7 +87,7 @@ if (is_numeric(get_http_var('id'))) {
 
 
             } else {
-                $PAGE->error_message ("Sorry, we were unable to add the report to the database.");
+                $PAGE->error_message("Sorry, we were unable to add the report to the database.");
             }
         }
 
@@ -102,7 +102,7 @@ if (is_numeric(get_http_var('id'))) {
 
 
 
-function display_form($COMMENT, $errors=array()) {
+function display_form($COMMENT, $errors = []) {
     global $this_page, $THEUSER, $PAGE;
 
     ?>
@@ -117,7 +117,7 @@ function display_form($COMMENT, $errors=array()) {
     // Now display the form.
 
     $FORMURL = new \MySociety\TheyWorkForYou\Url($this_page);
-    $FORMURL->remove(array('id'));
+    $FORMURL->remove(['id']);
 
     ?>
                 <br>

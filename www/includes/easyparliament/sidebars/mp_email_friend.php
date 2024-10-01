@@ -7,7 +7,7 @@ $SEARCHURL = new \MySociety\TheyWorkForYou\Url("emailfriend");
 
 if ($MEMBER->person_id()) {
     $pid = $MEMBER->person_id();
-    $this->block_start(array('id'=>'emailfriend', 'title'=>"Email this page to a friend"));
+    $this->block_start(['id' => 'emailfriend', 'title' => "Email this page to a friend"]);
     ?>
     <style type="text/css">
     label {

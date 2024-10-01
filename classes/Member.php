@@ -12,7 +12,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Member extends \MEMBER {
-
     /**
      * Is Dead
      *
@@ -30,14 +29,14 @@ class Member extends \MEMBER {
             // This member has left a house, and might be dead. See if they are.
 
             // Types of house to test for death.
-            $house_types = array(
+            $house_types = [
                 HOUSE_TYPE_COMMONS,
                 HOUSE_TYPE_LORDS,
                 HOUSE_TYPE_SCOTLAND,
                 HOUSE_TYPE_NI,
                 HOUSE_TYPE_WALES,
                 HOUSE_TYPE_LONDON_ASSEMBLY,
-            );
+            ];
 
             foreach ($house_types as $house_type) {
 
@@ -63,15 +62,15 @@ class Member extends \MEMBER {
     public function cohortPartyComparisonDirection() {
         // Is this MP and their cohort compared against the
         // first or last party they have?
-        // By default, mirroring the partycohort query, 
-        // this is the first party. 
+        // By default, mirroring the partycohort query,
+        // this is the first party.
         // However, this is ignored for the Speaker, and additional
         // individual overrides can be added below.
         // This makes most sense when a party switch was a long time ago.
-        // As long as this person is in a cohort of 1 and has a unique set 
+        // As long as this person is in a cohort of 1 and has a unique set
         // of memberships (which is likely for edge cases) it doesn't matter
         // that their original party is what is used when in the party cohort
-        // construction query. 
+        // construction query.
 
         $person_id = $this->person_id();
 
@@ -82,7 +81,7 @@ class Member extends \MEMBER {
 
         // MPs who have switched parties but should be compared against their
         // current party can go here.
-        $use_last_party = array(10172, 14031, 25873, 10218);
+        $use_last_party = [10172, 14031, 25873, 10218];
 
         if (in_array($person_id, $use_last_party)) {
             $direction = "last";
@@ -91,23 +90,23 @@ class Member extends \MEMBER {
         return $direction;
     }
 
-    public function currentPartyComparison(){
+    public function currentPartyComparison() {
         # Simplify the current party when being compared to the original
         # Stops co-op and labour being seen as different
         $party = $this->party;
-        if ( $party == 'Labour/Co-operative' ) {
+        if ($party == 'Labour/Co-operative') {
             $party = 'Labour';
         }
         return $party;
     }
 
-    public function cohortParty($house = HOUSE_TYPE_COMMONS){
+    public function cohortParty($house = HOUSE_TYPE_COMMONS) {
         // The party being compared against for party comparison purposes
         // Unless specified by the condition in cohortPartyComparisonDirection
         // This is the first, not last, party a person has.
 
         $person_id = $this->person_id();
-        $db = new \ParlDB;
+        $db = new \ParlDB();
 
         $cohort_direction = $this->cohortPartyComparisonDirection();
 
@@ -122,11 +121,11 @@ class Member extends \MEMBER {
         and person_id = :person_id
         and party != ''
         order by entered_house
-        " . $direction, array(":house" => $house,
-                 ":person_id" => $person_id))->first();
+        " . $direction, [":house" => $house,
+            ":person_id" => $person_id])->first();
         if ($row) {
             $party = $row["party"];
-            if ( $party == 'Labour/Co-operative' ) {
+            if ($party == 'Labour/Co-operative') {
                 $party = 'Labour';
             } elseif ($party == 'Sinn Féin') {
                 $party = 'Sinn Fein';
@@ -156,7 +155,7 @@ class Member extends \MEMBER {
             $now = new \DateTime();
 
             $diff = $date_entered->diff($now);
-            if ( $diff->y == 0 && $diff->m <= 6 ) {
+            if ($diff->y == 0 && $diff->m <= 6) {
                 return true;
             }
         }
@@ -177,7 +176,7 @@ class Member extends \MEMBER {
 
         $entered_house = $this->entered_house($house);
 
-        if ( $entered_house ) {
+        if ($entered_house) {
             $date_entered = $entered_house['date'];
         }
 
@@ -197,7 +196,7 @@ class Member extends \MEMBER {
 
         $left_house = $this->left_house($house);
 
-        if ( $left_house ) {
+        if ($left_house) {
             $date_left = $left_house['date'];
         }
 
@@ -225,9 +224,9 @@ class Member extends \MEMBER {
 
         $is_lord = $this->house(HOUSE_TYPE_LORDS);
         if ($is_lord) {
-            list($image,$size) = Utility\Member::findMemberImage($this->person_id(), false, 'lord');
+            [$image, $size] = Utility\Member::findMemberImage($this->person_id(), false, 'lord');
         } else {
-            list($image,$size) = Utility\Member::findMemberImage($this->person_id(), false, true);
+            [$image, $size] = Utility\Member::findMemberImage($this->person_id(), false, true);
         }
 
         // We can determine if the image exists or not by testing if size is set
@@ -237,11 +236,11 @@ class Member extends \MEMBER {
             $exists = false;
         }
 
-        return array(
+        return [
             'url' => $image,
             'size' => $size,
-            'exists' => $exists
-        );
+            'exists' => $exists,
+        ];
 
     }
 
@@ -251,9 +250,9 @@ class Member extends \MEMBER {
         usort(
             $departures,
             function ($a, $b) {
-                if ( $a['date'] == $b['date'] ) {
+                if ($a['date'] == $b['date']) {
                     return 0;
-                } else if ( $a['date'] < $b['date'] ) {
+                } elseif ($a['date'] < $b['date']) {
                     return -1;
                 } else {
                     return 1;
@@ -284,14 +283,14 @@ class Member extends \MEMBER {
 
     public function offices($include_only = null, $ignore_committees = false) {
 
-        $out = array();
+        $out = [];
 
         if (array_key_exists('office', $this->extra_info())) {
             $office = $this->extra_info();
             $office = $office['office'];
 
             foreach ($office as $row) {
-                if ( $officeObject = $this->getOfficeObject($include_only, $ignore_committees, $row) ) {
+                if ($officeObject = $this->getOfficeObject($include_only, $ignore_committees, $row)) {
                     $out[] = $officeObject;
                 }
             }
@@ -309,7 +308,7 @@ class Member extends \MEMBER {
             return null;
         }
 
-        $officeObject = new Office;
+        $officeObject = new Office();
         $officeObject->title = prettify_office($row['position'], $row['dept']);
         $officeObject->from_date = $row['from_date'];
         $officeObject->to_date = $row['to_date'];
@@ -345,7 +344,7 @@ class Member extends \MEMBER {
 
         if (!empty($this->other_parties) && $this->party != 'Speaker' && $this->party != 'Deputy Speaker') {
             $output = 'Party was ';
-            $other_parties = array();
+            $other_parties = [];
             foreach ($this->other_parties as $r) {
                 $other_parties[] = $r['from'] . ' until ' . format_date($r['date'], SHORTDATEFORMAT);
             }
@@ -385,7 +384,7 @@ class Member extends \MEMBER {
     * @return array An array of strings of when this member entered or left houses.
     */
     public function getEnterLeaveStrings() {
-        $output = array();
+        $output = [];
 
         $output[] = $this->entered_house_line(HOUSE_TYPE_LORDS, gettext('House of Lords'));
 
@@ -430,7 +429,7 @@ class Member extends \MEMBER {
     private function entered_house_line($house, $house_name) {
         if (isset($this->entered_house[$house]['date'])) {
             $string = "<strong>";
-            if (strlen($this->entered_house[$house]['date_pretty'])==4) {
+            if (strlen($this->entered_house[$house]['date_pretty']) == 4) {
                 $string .= sprintf(gettext("Entered the %s in %s"), $house_name, $this->entered_house[$house]['date_pretty']);
             } else {
                 $string .= sprintf(gettext("Entered the %s on %s"), $house_name, $this->entered_house[$house]['date_pretty']);
@@ -446,7 +445,7 @@ class Member extends \MEMBER {
     private function left_house_line($house, $house_name) {
         if ($this->house($house) && !$this->current_member($house)) {
             $string = "<strong>";
-            if (strlen($this->left_house[$house]['date_pretty'])==4) {
+            if (strlen($this->left_house[$house]['date_pretty']) == 4) {
                 $string .= sprintf(gettext("Left the %s in %s"), $house_name, $this->left_house[$house]['date_pretty']);
             } else {
                 $string .= sprintf(gettext("Left the %s on %s"), $house_name, $this->left_house[$house]['date_pretty']);
@@ -460,15 +459,15 @@ class Member extends \MEMBER {
     }
 
     public function getPartyPolicyDiffs($partyCohort, $policiesList, $positions) {
-        $policy_diffs = array();
+        $policy_diffs = [];
         $party_positions = $partyCohort->getAllPolicyPositions($policiesList);
 
-        if ( !$party_positions ) {
+        if (!$party_positions) {
             return $policy_diffs;
         }
 
-        foreach ( $positions->positionsById as $policy_id => $details ) {
-            if ( $details['has_strong'] && $details['score'] != -1 && isset($party_positions[$policy_id])) {
+        foreach ($positions->positionsById as $policy_id => $details) {
+            if ($details['has_strong'] && $details['score'] != -1 && isset($party_positions[$policy_id])) {
                 $mp_score = $details['score'];
                 $party_position = $party_positions[$policy_id];
                 $party_score = $party_position['score'];
@@ -493,25 +492,25 @@ class Member extends \MEMBER {
             }
         }
 
-        uasort($policy_diffs, function($a, $b) {
+        uasort($policy_diffs, function ($a, $b) {
             return $b['score_difference'] - $a['score_difference'];
         });
 
         return $policy_diffs;
     }
 
-    private function calculatePolicyDiffScore( $mp_score, $party_score ) {
+    private function calculatePolicyDiffScore($mp_score, $party_score) {
         $score_diff = abs($mp_score - $party_score);
         // if they are on opposite sides of mixture of for and against
         if (
-            ( $mp_score < 0.4 && $party_score > 0.6 ) ||
-            ( $mp_score > 0.6 && $party_score < 0.4 )
+            ($mp_score < 0.4 && $party_score > 0.6) ||
+            ($mp_score > 0.6 && $party_score < 0.4)
         ) {
             $score_diff += 2;
-        // if on is mixture of for and against and one is for/against
-        } else if (
-            ( $mp_score > 0.4 && $mp_score < 0.6 && ( $party_score > 0.6 || $party_score < 0.4 ) ) ||
-            ( $party_score > 0.4 && $party_score < 0.6 && ( $mp_score > 0.6 || $mp_score < 0.4 ) )
+            // if on is mixture of for and against and one is for/against
+        } elseif (
+            ($mp_score > 0.4 && $mp_score < 0.6 && ($party_score > 0.6 || $party_score < 0.4)) ||
+            ($party_score > 0.4 && $party_score < 0.6 && ($mp_score > 0.6 || $mp_score < 0.4))
         ) {
             $score_diff += 1;
         }
@@ -520,11 +519,11 @@ class Member extends \MEMBER {
     }
 
     public static function getRegionalList($postcode, $house, $type) {
-        $db = new \ParlDB;
+        $db = new \ParlDB();
 
-        $mreg = array();
+        $mreg = [];
         $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
-        if ( isset($constituencies[$type]) ) {
+        if (isset($constituencies[$type])) {
             $cons_name = $constituencies[$type];
             $query_base = "SELECT member.person_id, title, lordofname, given_name, family_name, constituency, house
                 FROM member, person_names
@@ -535,29 +534,31 @@ class Member extends \MEMBER {
                 AND house = :house
                 AND left_house >= start_date
                 AND left_house <= end_date";
-            $q = $db->query("$query_base AND left_reason = 'still_in_office'",
-                array(
+            $q = $db->query(
+                "$query_base AND left_reason = 'still_in_office'",
+                [
                     ':house' => $house,
-                    ':cons_name' => $cons_name
-                )
+                    ':cons_name' => $cons_name,
+                ]
             );
-            if ( !$q->rows() && ($dissolution = Dissolution::db()) ) {
-                $q = $db->query("$query_base AND $dissolution[query]",
-                    array(
+            if (!$q->rows() && ($dissolution = Dissolution::db())) {
+                $q = $db->query(
+                    "$query_base AND $dissolution[query]",
+                    [
                         ':house' => $house,
                         ':cons_name' => $cons_name,
-                    ) + $dissolution['params']
+                    ] + $dissolution['params']
                 );
             }
 
             foreach ($q as $row) {
                 $name = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
-                $mreg[] = array(
+                $mreg[] = [
                     'person_id' => $row['person_id'],
                     'name' => $name,
                     'house' => $row['house'],
-                    'constituency' => gettext($row['constituency'])
-                );
+                    'constituency' => gettext($row['constituency']),
+                ];
             }
         }
 
@@ -565,7 +566,7 @@ class Member extends \MEMBER {
     }
 
     public static function getRepNameForHouse($house) {
-        switch ( $house ) {
+        switch ($house) {
             case HOUSE_TYPE_COMMONS:
                 $name = 'MP';
                 break;

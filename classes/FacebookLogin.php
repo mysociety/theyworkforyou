@@ -39,7 +39,7 @@ class FacebookLogin {
     public function handleFacebookRedirect() {
         $helper = $this->getFacebookObject()->getRedirectLoginHelper();
 
-        $data = array('login_url' => $this->getLoginURL());
+        $data = ['login_url' => $this->getLoginURL()];
 
         try {
             $accessToken = $helper->getAccessToken();
@@ -54,7 +54,7 @@ class FacebookLogin {
         $token = $this->checkAccessToken($accessToken);
 
         if ($token) {
-            return array('token' => $token);
+            return ['token' => $token];
         } else {
             $data['error'] = 'Problem getting Facebook token';
             return $data;
@@ -127,7 +127,7 @@ class FacebookLogin {
         $first_name = array_shift($name_parts);
         $last_name = implode(' ', $name_parts);
         global $THEUSER;
-        $details = array(
+        $details = [
             'firstname' => $first_name,
             'lastname' => $last_name,
             'email' => $user['email'],
@@ -137,8 +137,8 @@ class FacebookLogin {
             'password' => '',
             'optin' => false,
             'mp_alert' => false,
-            'facebook_id' => $user['id']
-        );
+            'facebook_id' => $user['id'],
+        ];
         $added = $THEUSER->add($details, false);
         if ($added) {
             twfy_debug("THEUSER", "Added new user from facebook details " . $THEUSER->user_id());
@@ -155,7 +155,7 @@ class FacebookLogin {
         $first_name = array_shift($name_parts);
         $last_name = implode(' ', $name_parts);
 
-        $details = array(
+        $details = [
             'firstname' => $first_name,
             'lastname' => $last_name,
             'email' => $user['email'],
@@ -163,7 +163,7 @@ class FacebookLogin {
             'url' => $THEUSER->url(),
             'optin' => $THEUSER->optin(),
             'password' => '',
-        );
+        ];
 
         $THEUSER->update_self_no_confirm($details);
     }

@@ -9,7 +9,7 @@ class TestStripe extends Stripe {
                 'id' => 'sub_123',
                 'discount' => [
                     'coupon' => ['percent_off' => 100],
-                    'end' => null
+                    'end' => null,
                 ],
                 'plan' => [
                     'amount' => '2000',

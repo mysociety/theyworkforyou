@@ -1,4 +1,5 @@
 <?php
+
 # For displaying any debate calendar, day, debate, speech page or related.
 
 include_once '../includes/easyparliament/init.php';
@@ -25,15 +26,15 @@ $view = new $class_name();
 global $THEUSER, $MEMBER;
 if (isset($THEUSER) && $THEUSER->postcode_is_set()) {
     try {
-        $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => \MySociety\TheyWorkForYou\Utility\House::majorToHouse($view->major)[0]));
-    } catch ( MySociety\TheyWorkForYou\MemberException $e ) {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $THEUSER->postcode(), 'house' => \MySociety\TheyWorkForYou\Utility\House::majorToHouse($view->major)[0]]);
+    } catch (MySociety\TheyWorkForYou\MemberException $e) {
         $MEMBER = null;
     }
 }
 
 $data = $view->display();
 if ($data) {
-    if ( !empty($data['template']) ) {
+    if (!empty($data['template'])) {
         $template = $data['template'];
     } else {
         $template = 'section/section';

@@ -3,21 +3,27 @@
 require_once '../../../commonlib/phplib/sharethis.php';
 
 function freeourbills_share_details() {
-    $name = ''; $email = '';
+    $name = '';
+    $email = '';
 
-    return array(
+    return [
         'name' => $name,
         'email' => $email,
         'url' => "http://www.theyworkforyou.com/freeourbills",
         'title' => 'Free Our Bills! - TheyWorkForYou',
-        'email_url' => '/freeourbills'
-    );
+        'email_url' => '/freeourbills',
+    ];
 }
 
 function freeourbills_share_form() {
     $data = freeourbills_share_details();
-    share_form($data['url'], $data['title'],
-        $data['email_url'], $data['name'], $data['email']);
+    share_form(
+        $data['url'],
+        $data['title'],
+        $data['email_url'],
+        $data['name'],
+        $data['email']
+    );
 }
 
 function freeourbills_email_friends_link() {
@@ -38,7 +44,7 @@ Thank you so much for your help - forward this email to friends!
 ";
     $subject = "Help make the laws we have to obey better! - TheyWorkForYou.com";
 
-    print '<a href="mailto:?subject=' . rawurlencode($subject) . '&body='. rawurlencode($email) . '">Click here to open a new email and invite your friends, family and colleagues to get involved.</a>';
+    print '<a href="mailto:?subject=' . rawurlencode($subject) . '&body=' . rawurlencode($email) . '">Click here to open a new email and invite your friends, family and colleagues to get involved.</a>';
 }
 
 function freeourbills_share_page() {
@@ -58,7 +64,7 @@ function freeourbills_sharethis_link() {
     print '<p><a href="/freeourbills/doshare"';
     #print 'onclick="share(this); return false;"';
     print ' title="' .
-        _('E-mail this, post to del.icio.us, etc.'). '" class="share_link" rel="nofollow">'.
-        _('Share this'). '</a></p>';
+        _('E-mail this, post to del.icio.us, etc.') . '" class="share_link" rel="nofollow">' .
+        _('Share this') . '</a></p>';
     #freeourbills_share_form();
 }

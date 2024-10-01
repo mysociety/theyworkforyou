@@ -1,7 +1,7 @@
 <?php
 
 function api_getQuota_front() {
-?>
+    ?>
 <p><big>Returns your current API usage and quota limit.</big></p>
 
 <h4>Arguments</h4>
@@ -19,5 +19,5 @@ function api_getQuota_front() {
 }
 
 function api_getQuota() {
-    api_output(array('error' => "getQuota is implemented by redis, not here."));
+    api_output(['error' => "getQuota is implemented by redis, not here."]);
 }

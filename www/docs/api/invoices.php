@@ -14,7 +14,7 @@ if ($THEUSER->loggedin()) {
         $PAGE->stripe_start();
         include_once INCLUDESPATH . 'easyparliament/templates/html/api/invoices.php';
         $sidebar = api_sidebar($subscription);
-        $PAGE->stripe_end(array($sidebar));
+        $PAGE->stripe_end([$sidebar]);
         $PAGE->page_end();
         exit;
     }

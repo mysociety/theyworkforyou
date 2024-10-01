@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou\People;
 
 class MLAs extends \MySociety\TheyWorkForYou\People {
-
     public $type = 'mlas';
     public $rep_name = 'MLA';
     public $rep_plural = 'MLAs';

@@ -6,7 +6,7 @@
 // where rid is a report_id and cid is a comment_id.
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreport.php");
+include_once(INCLUDESPATH . "easyparliament/commentreport.php");
 
 $this_page = "admin_commentreport";
 
@@ -52,12 +52,12 @@ if ($REPORT->locked() && $REPORT->lockedby() != $THEUSER->user_id()) {
 
     $REPORT->display();
 
-    $PAGE->stripe_end(array(
-        array(
+    $PAGE->stripe_end([
+        [
             'type'		=> 'html',
-            'content'	=> $menu
-        )
-    ));
+            'content'	=> $menu,
+        ],
+    ]);
 
     $PAGE->page_end();
     exit;
@@ -106,12 +106,12 @@ if (get_http_var('resolve') != '') {
 
 }
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();
 
@@ -176,9 +176,9 @@ function prepare_emails_for_deleting($REPORT, $COMMENT, $FORMURL) {
 
     global $this_page;
 
-#	$commentermail = preg_replace("/\n/", "<br>\n", get_template_contents('comment_deleted') );
-    $commentermail = preg_replace('/^Subject:.*\n/', '', get_template_contents('comment_deleted') );
-    $reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_upheld') );
+    #	$commentermail = preg_replace("/\n/", "<br>\n", get_template_contents('comment_deleted') );
+    $commentermail = preg_replace('/^Subject:.*\n/', '', get_template_contents('comment_deleted'));
+    $reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_upheld'));
 
     ?>
         <p><strong>You've chosen to delete this comment.</strong> You can now send an email to both the person who posted the comment, and the person who made the report. Uncheck a box to prevent an email from being sent. The comment will not be deleted until you click the button below.</p>
@@ -211,7 +211,7 @@ function prepare_emails_for_not_deleting($REPORT, $COMMENT, $FORMURL) {
 
     global $this_page;
 
-    $reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_declined') );
+    $reportermail = preg_replace("/\n/", "<br>\n", get_template_contents('report_declined'));
 
     ?>
         <p><strong>You have chosen not to delete this comment.</strong> You can now send an email to the person who made the report (uncheck the box to send no email). The report will not be resolved until you click the button below.</p>
@@ -243,7 +243,7 @@ function resolve($REPORT, $COMMENT) {
         $upheld = false;
     }
 
-    $success = $REPORT->resolve ($upheld, $COMMENT);
+    $success = $REPORT->resolve($upheld, $COMMENT);
 
     if ($success) {
 
@@ -260,8 +260,8 @@ function resolve($REPORT, $COMMENT) {
             if ($REPORT->user_id() > 0) {
                 // The reporting user was logged in at the time,
                 // so get their email address.
-                $USER = new USER;
-                $USER->init( $REPORT->user_id() );
+                $USER = new USER();
+                $USER->init($REPORT->user_id());
                 $email = $USER->email();
             } else {
                 // Non-logged-in user; they should have left their address.
@@ -269,12 +269,12 @@ function resolve($REPORT, $COMMENT) {
             }
 
             // Prepare the data needed for either email.
-            $data = array (
-                'to' 			=> $email
-            );
-            $merge = array (
-                'REPORTBODY' 	=> strip_tags($REPORT->body())
-            );
+            $data =  [
+                'to' 			=> $email,
+            ];
+            $merge =  [
+                'REPORTBODY' 	=> strip_tags($REPORT->body()),
+            ];
 
             // Add stuff specific to each type of email.
             if ($upheld == true) {
@@ -299,24 +299,24 @@ function resolve($REPORT, $COMMENT) {
 
         if (get_http_var('sendtocommenter') == 'true') {
             // We're telling the commenter that their comment has been deleted.
-            $USER = new USER;
+            $USER = new USER();
             $USER->init($COMMENT->user_id());
 
             // Create the URL for if a user wants to return and post another comment.
             // Remove the anchor for their now deleted comment.
             $addcommentsurl = 'https://' . DOMAIN . preg_replace("/#.*$/", '#addcomment', $COMMENT->url());
 
-            $data = array (
+            $data =  [
                 'to' => $USER->email(),
                 'template' => 'comment_deleted_blank',
                 'subject' => 'One of your comments has been deleted',
-            );
-            $merge = array (
+            ];
+            $merge =  [
                 'REPLYBODY' => get_http_var('commentermail'),
-#				'DELETEDREASON'	=> get_http_var('deletedreason'),
+                #				'DELETEDREASON'	=> get_http_var('deletedreason'),
                 'ADDCOMMENTURL'	=> $addcommentsurl,
-                'COMMENTBODY'	=> strip_tags($COMMENT->body())
-            );
+                'COMMENTBODY'	=> strip_tags($COMMENT->body()),
+            ];
 
             // We only send this email if a comment has been deleted.
             $success = send_template_email($data, $merge);

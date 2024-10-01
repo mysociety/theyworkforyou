@@ -11,5 +11,5 @@ $gid = $db->query("select gid from hansard where htype in (10,11) and major=1 an
 $gid = fix_gid_from_db($gid);
 
 $URL = new \MySociety\TheyWorkForYou\Url('debates');
-$URL->insert( array( 'id' => $gid ) );
+$URL->insert([ 'id' => $gid ]);
 header('Location: ' . $URL->generate());

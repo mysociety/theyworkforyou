@@ -32,7 +32,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Url {
-
     public function __construct($pagename) {
         // Initialise.
         global $DATA;
@@ -42,7 +41,7 @@ class Url {
 
         // These stores an associative array of key/value pairs that
         // we'll want passed on to other pages.
-        $this->session_vars = array ();
+        $this->session_vars =  [];
 
         // Prevent things using $DATA running if it hasn't been set, ie in testing
         if (isset($DATA)) {
@@ -93,7 +92,7 @@ class Url {
 
     public function reset() {
         // Call this to remove all the session_vars.
-        $this->session_vars = array ();
+        $this->session_vars =  [];
     }
 
     /**
@@ -162,11 +161,11 @@ class Url {
      *                            override just one or two of them.
      */
 
-    public function generate($encode = "html", $overrideVars=array()) {
+    public function generate($encode = "html", $overrideVars = []) {
 
         global $DATA;
 
-        $url_args = array ();
+        $url_args =  [];
 
         foreach (array_merge($this->session_vars, $overrideVars) as $key => $var) {
             if (is_array($var)) {

@@ -36,7 +36,7 @@
     <?php } ?>
     <?php if ($latest_membership['end_date'] == '2024-05-30') { ?>
         <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
-    <?php } else if ($current_member[1]) { ?>
+    <?php } elseif ($current_member[1]) { ?>
         <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC23/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
     <?php } ?>
     </ul>

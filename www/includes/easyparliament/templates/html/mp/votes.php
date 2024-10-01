@@ -113,32 +113,32 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <ul class="vote-descriptions">
                       <?php foreach ($sorted_diffs_only as $policy_id => $diff) {
 
-                        $key_vote = $diff;
-                        $covid_affected = in_array($policy_id, $covid_policy_list);
-                        $policy_desc = strip_tags($key_vote['policy_text']);
-                        $policy_direction = $key_vote["person_position"];
-                        $policy_group = "highlighted";
-                        $party_score_difference = $key_vote["score_difference"];
-                        $party_position = $key_vote['party_position'] ;
-                        $comparison_party = $data["comparison_party"];
-                        $current_party_comparison = $data["current_party_comparison"];
-                        $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
-        
-                        if (strlen($unslugified_comparison_party) == 3) {
-                            $unslugified_comparison_party = strtoupper($comparison_party);
-                        }
-                        $description = sprintf(
-                            '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
-                            $full_name,
-                            $diff['person_position'],
-                            strip_tags($diff['policy_text']),
-                            $unslugified_comparison_party,
-                            $diff['party_position']
-                        );
-                        $link = $member_url . '/divisions?policy=' . $policy_id;
-                        $link_text = 'Show votes';
+                          $key_vote = $diff;
+                          $covid_affected = in_array($policy_id, $covid_policy_list);
+                          $policy_desc = strip_tags($key_vote['policy_text']);
+                          $policy_direction = $key_vote["person_position"];
+                          $policy_group = "highlighted";
+                          $party_score_difference = $key_vote["score_difference"];
+                          $party_position = $key_vote['party_position'] ;
+                          $comparison_party = $data["comparison_party"];
+                          $current_party_comparison = $data["current_party_comparison"];
+                          $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
 
-                        include '_vote_description.php';
+                          if (strlen($unslugified_comparison_party) == 3) {
+                              $unslugified_comparison_party = strtoupper($comparison_party);
+                          }
+                          $description = sprintf(
+                              '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
+                              $full_name,
+                              $diff['person_position'],
+                              strip_tags($diff['policy_text']),
+                              $unslugified_comparison_party,
+                              $diff['party_position']
+                          );
+                          $link = $member_url . '/divisions?policy=' . $policy_id;
+                          $link_text = 'Show votes';
+
+                          include '_vote_description.php';
 
                       } ?>
                     </ul>
@@ -175,54 +175,54 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                             <ul class="vote-descriptions">
                               <?php foreach ($segment['votes']->positions as $key_vote) {
-                                $policy_id = $key_vote['policy_id'];
-                                $covid_affected = in_array($policy_id, $covid_policy_list);
-                                $policy_desc = strip_tags($key_vote['policy']);
-                                $policy_direction = $key_vote["position"];
-                                $policy_group = $segment['key'];
+                                  $policy_id = $key_vote['policy_id'];
+                                  $covid_affected = in_array($policy_id, $covid_policy_list);
+                                  $policy_desc = strip_tags($key_vote['policy']);
+                                  $policy_direction = $key_vote["position"];
+                                  $policy_group = $segment['key'];
 
-                                if (isset($policy_last_update[$policy_id]) && $policy_last_update[$policy_id] > $most_recent) {
-                                  $most_recent = $policy_last_update[$policy_id];
-                                }
+                                  if (isset($policy_last_update[$policy_id]) && $policy_last_update[$policy_id] > $most_recent) {
+                                      $most_recent = $policy_last_update[$policy_id];
+                                  }
 
-                                if ( $key_vote['has_strong'] || $key_vote['position'] == 'has never voted on' ) {
-                                    $description = ucfirst($key_vote['desc']);
-                                } else {
-                                    $description = sprintf(
-                                        'We don&rsquo;t have enough information to calculate %s&rsquo;s position on %s.',
-                                        $full_name,
-                                        $key_vote['policy']
-                                    );
-                                }
-                                $link = sprintf(
-                                    '%s/divisions?policy=%s',
-                                    $member_url,
-                                    $policy_id
-                                );
-                                $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
-                                $comparison_party = $data["comparison_party"];
+                                  if ($key_vote['has_strong'] || $key_vote['position'] == 'has never voted on') {
+                                      $description = ucfirst($key_vote['desc']);
+                                  } else {
+                                      $description = sprintf(
+                                          'We don&rsquo;t have enough information to calculate %s&rsquo;s position on %s.',
+                                          $full_name,
+                                          $key_vote['policy']
+                                      );
+                                  }
+                                  $link = sprintf(
+                                      '%s/divisions?policy=%s',
+                                      $member_url,
+                                      $policy_id
+                                  );
+                                  $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
+                                  $comparison_party = $data["comparison_party"];
 
-                                # Unslugify for display
-                                $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
-        
-                                if (strlen($unslugified_comparison_party) == 3) {
-                                    $unslugified_comparison_party = strtoupper($comparison_party);
-                                }
-                                $min_diff_score = 0; // setting this to 0 means that all comparisons are displayed.
-                                if (isset($sorted_diffs[$policy_id])) {
-                                    $diff = $sorted_diffs[$policy_id];
-                                    $party_position = $diff['party_position'];
-                                    $party_score_difference = $diff["score_difference"];
-                                    if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1) {
-                                        $party_voting_line = sprintf( 'Comparable %s MPs %s.', $unslugified_comparison_party, $diff['party_position']);
-                                    }
-                                } else {
-                                    $party_voting_line = null;
-                                    $party_position = null;
-                                    $party_score_difference = null;
-                                }
+                                  # Unslugify for display
+                                  $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
 
-                                include '_vote_description.php';
+                                  if (strlen($unslugified_comparison_party) == 3) {
+                                      $unslugified_comparison_party = strtoupper($comparison_party);
+                                  }
+                                  $min_diff_score = 0; // setting this to 0 means that all comparisons are displayed.
+                                  if (isset($sorted_diffs[$policy_id])) {
+                                      $diff = $sorted_diffs[$policy_id];
+                                      $party_position = $diff['party_position'];
+                                      $party_score_difference = $diff["score_difference"];
+                                      if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1) {
+                                          $party_voting_line = sprintf('Comparable %s MPs %s.', $unslugified_comparison_party, $diff['party_position']);
+                                      }
+                                  } else {
+                                      $party_voting_line = null;
+                                      $party_position = null;
+                                      $party_score_difference = null;
+                                  }
+
+                                  include '_vote_description.php';
 
                               } ?>
                             </ul>

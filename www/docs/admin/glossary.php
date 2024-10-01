@@ -1,16 +1,17 @@
 <?php
+
 // Some sketchy crap for displaying pending glossary additions
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/glossary.php");
+include_once(INCLUDESPATH . "easyparliament/glossary.php");
 
 $this_page = "admin_glossary";
 
-$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue;
+$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
 
-$args = array (
-    'sort' => "regexp_replace"
-);
+$args =  [
+    'sort' => "regexp_replace",
+];
 
 $GLOSSARY = new GLOSSARY($args);
 
@@ -21,21 +22,21 @@ $GLOSSARY = new GLOSSARY($args);
 if (get_http_var('approve')) {
     $approve = get_http_var('approve', '', true);
     if (!is_array($approve)) {
-        $approve = array ( $approve );
+        $approve =  [ $approve ];
     }
     // Add all approved items
-    $data = array (
+    $data =  [
         'approvals' => $approve,
-        'epobject_type' => 2
-    );
+        'epobject_type' => 2,
+    ];
     $EDITQUEUE->approve($data);
 } elseif (get_http_var('decline')) {
-    $decline = array (get_http_var('decline'));
+    $decline =  [get_http_var('decline')];
     // Dump all declined items
-    $data = array (
+    $data =  [
         'declines' => $decline,
-        'epobject_type' => 2
-    );
+        'epobject_type' => 2,
+    ];
     $EDITQUEUE->decline($data);
 } elseif (get_http_var('delete_confirm')) {
     $delete_id = get_http_var('delete_confirm');
@@ -61,11 +62,11 @@ if (isset($GLOSSARY->terms)) {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

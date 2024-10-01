@@ -1,7 +1,7 @@
 <?php
 
 function api_getCommittee_front() {
-?>
+    ?>
 <p><big>Fetch the members of a Select Committee.</big></p>
 
 <p class="informational">We have no information since the 2010 general election, and information before may be inaccurate.</p>
@@ -52,7 +52,7 @@ function api_getCommittee() {
 }
 
 function api_getCommittee_name($name) {
-    $db = new ParlDB;
+    $db = new ParlDB();
 
     $name = preg_replace('#\s+Committee#', '', $name);
 
@@ -64,16 +64,16 @@ function api_getCommittee_name($name) {
     }
     $q = $db->query("select distinct(dept) from moffice
         where dept like :department
-        and from_date <= $date and $date <= to_date", array(
-            ':department' => '%' . $name . '%Committee',
-            ));
+        and from_date <= $date and $date <= to_date", [
+        ':department' => '%' . $name . '%Committee',
+    ]);
     if ($q->rows() > 1) {
         # More than one committee matches
-        $output = array();
+        $output = [];
         foreach ($q as $row) {
-            $output['committees'][] = array(
-                'name' => $row['dept']
-            );
+            $output['committees'][] = [
+                'name' => $row['dept'],
+            ];
         }
         api_output($output);
     } elseif ($q->rows()) {
@@ -83,17 +83,17 @@ function api_getCommittee_name($name) {
                 AND member.person_id = pn.person_id AND pn.type='name' AND pn.start_date <= $date AND $date <= pn.end_date
             and dept like :department
             and from_date <= $date and $date <= to_date
-            and entered_house <= $date and $date <= left_house", array(
-                ':department' => '%' . $name . '%Committee',
-            ));
+            and entered_house <= $date and $date <= left_house", [
+            ':department' => '%' . $name . '%Committee',
+        ]);
         if ($q->rows()) {
-            $output = array();
+            $output = [];
             $output['committee'] = $q->first()['dept'];
             foreach ($q as $row) {
-                $member = array(
+                $member = [
                     'person_id' => $row['person'],
                     'name' => $row['given_name'] . ' ' . $row['family_name'],
-                );
+                ];
                 if ($row['position'] == 'Chairman') {
                     $member['position'] = $row['position'];
                 }
@@ -109,7 +109,7 @@ function api_getCommittee_name($name) {
 }
 
 function api_getCommittee_date($date) {
-    $db = new ParlDB;
+    $db = new ParlDB();
 
     $date = parse_date($date);
     if ($date) {
@@ -121,11 +121,11 @@ function api_getCommittee_date($date) {
         where source = 'chgpages/selctee'
         and from_date <= $date and $date <= to_date");
     if ($q->rows()) {
-        $output = array();
+        $output = [];
         foreach ($q as $row) {
-            $output['committees'][] = array(
-                'name' => $row['dept']
-            );
+            $output['committees'][] = [
+                'name' => $row['dept'],
+            ];
         }
         api_output($output);
     } else {

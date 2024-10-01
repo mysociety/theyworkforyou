@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getMPsInfo.php';
 
 function api_getMPInfo_front() {
-?>
+    ?>
 <p><big>Fetch extra information for a particular person.</big></p>
 
 <h4>Arguments</h4>

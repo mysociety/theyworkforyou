@@ -1,4 +1,4 @@
-<?php if ( count($divisions) > 0 ) { ?>
+<?php if (count($divisions) > 0) { ?>
     <h2 style="position: relative;">
         <?= gettext('Recent Votes') ?>
         <div class="meta excerpt__category"><a href="/divisions/"><?= gettext('Show all recent votes') ?></a></div>

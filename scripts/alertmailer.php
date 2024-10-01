@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Name: alertmailer.php
  * Description: Mailer for email alerts
  * $Id: alertmailer.php,v 1.34 2009-06-23 10:11:10 matthew Exp $
@@ -14,7 +14,7 @@ ini_set('memory_limit', -1);
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $global_start = getmicrotime();
-$db = new ParlDB;
+$db = new ParlDB();
 
 # Get current value of latest batch
 $q = $db->query('SELECT max(indexbatch_id) as max_batch_id FROM indexbatch')->first();
@@ -26,7 +26,7 @@ mlog("max_batch_id: " . $max_batch_id . "\n");
 if (is_file(RAWDATA . '/alerts-lastsent')) {
     $lastsent = file(RAWDATA . '/alerts-lastsent');
 } else {
-    $lastsent = array('', 0);
+    $lastsent = ['', 0];
 }
 
 $lastupdated = trim($lastsent[0]);
@@ -98,21 +98,22 @@ $unregistered = 0;
 $registered = 0;
 $sentemails = 0;
 
-$LIVEALERTS = new ALERT;
+$LIVEALERTS = new ALERT();
 
-$current = array('email' => '', 'token' => '', 'lang' => '');
+$current = ['email' => '', 'token' => '', 'lang' => ''];
 $email_text = '';
 $html_text = '';
 $globalsuccess = 1;
 
 # Fetch all confirmed, non-deleted alerts
-$confirmed = 1; $deleted = 0;
+$confirmed = 1;
+$deleted = 0;
 $alertdata = $LIVEALERTS->fetch($confirmed, $deleted);
 $alertdata = $alertdata['data'];
 
-$DEBATELIST = new DEBATELIST; # Nothing debate specific, but has to be one of them
+$DEBATELIST = new DEBATELIST(); # Nothing debate specific, but has to be one of them
 
-$sects = array(
+$sects = [
     1 => gettext('Commons debate'),
     2 => gettext('Westminster Hall debate'),
     3 => gettext('Written Answer'),
@@ -127,8 +128,8 @@ $sects = array(
     101 => gettext('Lords debate'),
     'F' => gettext('event'),
     'V' => gettext('vote'),
-);
-$sects_plural = array(
+];
+$sects_plural = [
     1 => gettext('Commons debates'),
     2 => gettext('Westminster Hall debates'),
     3 => gettext('Written Answers'),
@@ -143,8 +144,8 @@ $sects_plural = array(
     101 => gettext('Lords debate'),
     'F' => gettext('event'),
     'V' => gettext('vote'),
-);
-$sects_gid = array(
+];
+$sects_gid = [
     1 => 'debate',
     2 => 'westminhall',
     3 => 'wrans',
@@ -158,8 +159,8 @@ $sects_gid = array(
     11 => 'senedd/cy',
     101 => 'lords',
     'F' => 'calendar',
-);
-$sects_search = array(
+];
+$sects_search = [
     1 => 'debate',
     2 => 'westminhall',
     3 => 'wrans',
@@ -173,7 +174,7 @@ $sects_search = array(
     11 => 'wales',
     101 => 'lords',
     'F' => 'future',
-);
+];
 
 $domain = '';
 $outof = count($alertdata);
@@ -217,9 +218,9 @@ foreach ($alertdata as $alertitem) {
         $current['lang'] = $lang;
         $email_text = '';
         $html_text = '';
-        $q = $db->query('SELECT user_id FROM users WHERE email = :email', array(
-            ':email' => $email
-            ))->first();
+        $q = $db->query('SELECT user_id FROM users WHERE email = :email', [
+            ':email' => $email,
+        ])->first();
         if ($q) {
             $user_id = $q['user_id'];
             $registered++;
@@ -234,27 +235,27 @@ foreach ($alertdata as $alertitem) {
     $start = getmicrotime();
     $SEARCHENGINE = new SEARCHENGINE($criteria_batch, $lang);
     #mlog("query_remade: " . $SEARCHENGINE->query_remade() . "\n");
-    $args = array(
+    $args = [
         's' => $criteria_raw, # Note: use raw here for URLs, whereas search engine has batch
         'threshold' => $lastupdated, # Return everything added since last time this script was run
         'o' => 'c',
         'num' => 1000, // this is limited to 1000 in hansardlist.php anyway
         'pop' => 1,
-        'e' => 1 # Don't escape ampersands
-    );
+        'e' => 1, # Don't escape ampersands
+    ];
     $data = $DEBATELIST->_get_data_by_search($args);
     $total_results = $data['info']['total_results'];
     $queries++;
-    mlog(", hits " . $total_results . ", time " . (getmicrotime()-$start) . "\n");
+    mlog(", hits " . $total_results . ", time " . (getmicrotime() - $start) . "\n");
 
     # Divisions
     if (preg_match('#^speaker:(\d+)$#', $criteria_raw, $m)) {
         $pid = $m[1];
         $q = $db->query('SELECT * FROM persondivisionvotes pdv JOIN divisions USING(division_id)
-            WHERE person_id=:person_id AND pdv.lastupdate >= :time', array(
-                'person_id' => $pid,
-                ':time' => date('Y-m-d H:i:s', $lastupdated),
-            ));
+            WHERE person_id=:person_id AND pdv.lastupdate >= :time', [
+            'person_id' => $pid,
+            ':time' => date('Y-m-d H:i:s', $lastupdated),
+        ]);
         foreach ($q as $row) {
             # Skip other-language divisions if needed, set locale
             if (strpos($row['division_id'], '-cy-')) {
@@ -310,11 +311,15 @@ foreach ($alertdata as $alertitem) {
 
     if (isset($data['rows']) && count($data['rows']) > 0) {
         usort($data['rows'], 'sort_by_stuff'); # Sort results into order, by major, then date, then hpos
-        $o = array(); $major = 0; $count = array(); $total = 0;
+        $o = [];
+        $major = 0;
+        $count = [];
+        $total = 0;
         $any_content = false;
         foreach ($data['rows'] as $row) {
             if ($major !== $row['major']) {
-                $count[$major] = $total; $total = 0;
+                $count[$major] = $total;
+                $total = 0;
                 $major = $row['major'];
                 $o[$major] = ['text' => '', 'html' => ''];
                 $k = 3;
@@ -322,9 +327,9 @@ foreach ($alertdata as $alertitem) {
             #mlog($row['major'] . " " . $row['gid'] ."\n");
 
             if (isset($sects_gid[$major])) {
-                $q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', array(
-                    ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid']
-                    ));
+                $q = $db->query('SELECT gid_from FROM gidredirect WHERE gid_to = :gid_to', [
+                    ':gid_to' => 'uk.org.publicwhip/' . $sects_gid[$major] . '/' . $row['gid'],
+                ]);
                 if ($q->rows() > 0) {
                     continue;
                 }
@@ -461,12 +466,12 @@ function write_and_send_email($current, $text, $html, $template) {
     $text .= '====================';
     $sentemails++;
     mlog("SEND $sentemails : Sending email to $current[email] ... ");
-    $d = array('to' => $current['email'], 'template' => $template);
-    $m = array(
+    $d = ['to' => $current['email'], 'template' => $template];
+    $m = [
         'DATA' => $text,
         '_HTML_' => $html,
         'MANAGE' => "https://$domain/D/" . $current['token'],
-    );
+    ];
     if (!$nomail) {
         $success = send_template_email($d, $m, true, true, $current['lang']); # true = "Precedence: bulk", want bounces
         mlog("sent ... ");
@@ -490,8 +495,8 @@ function text_html_to_email($s) {
     $s = preg_replace('#</?(i|b|small)>#', '', $s);
     $s = preg_replace('#</?span[^>]*>#', '*', $s);
     $s = str_replace(
-        array('&#163;', '&#8211;', '&#8212;', '&#8217;', '<br>'),
-        array("\xa3", '-', '-', "'", "\n"),
+        ['&#163;', '&#8211;', '&#8212;', '&#8217;', '<br>'],
+        ["\xa3", '-', '-', "'", "\n"],
         $s
     );
     return $s;

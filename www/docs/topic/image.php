@@ -8,7 +8,7 @@ if ($slug) {
     $topic = $topics->getTopic($slug);
 }
 
-if (!$slug || !isset($topic) || $topic === NULL) {
+if (!$slug || !isset($topic) || $topic === null) {
     header('HTTP/1.0 404 Not Found');
     exit();
 }

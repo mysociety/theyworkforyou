@@ -1,10 +1,10 @@
 <?php
+
 # vim:sw=4:ts=4:et:nowrap
 
 namespace MySociety\TheyWorkForYou;
 
 class Search {
-
     protected $searchstring;
     private $searchkeyword;
 
@@ -14,12 +14,12 @@ class Search {
     }
 
     public function display() {
-        $data = array();
+        $data = [];
         $argparser = new Search\ParseArgs();
         $this->searchstring = $argparser->construct_search_string();
         $this->searchkeyword = $argparser->searchkeyword;
 
-        if ( !$this->searchstring ) {
+        if (!$this->searchstring) {
             $data = $this->get_form_params($data);
             $data['searchstring'] = '';
             $data['template'] = 'search/results';
@@ -28,14 +28,14 @@ class Search {
 
         $this->searchstring = filter_user_input($this->searchstring, 'strict');
         $warnings = $this->validate_search_string();
-        if ( $warnings ) {
+        if ($warnings) {
             $data['warnings'] = $warnings;
             $data['template'] = 'search/results';
             $data['searchstring'] = $this->searchstring;
             $data = $this->get_form_params($data);
             return $data;
         } else {
-            if (get_http_var('o')=='p') {
+            if (get_http_var('o') == 'p') {
                 $search = new Search\ByUsage();
                 $data = $search->search($this->searchstring);
                 $data['template'] = 'search/by-person';
@@ -48,11 +48,11 @@ class Search {
 
         $data['person_id'] = $argparser->person_id;
         if ($argparser->person_id) {
-            $MEMBER = new \MEMBER(array('person_id'=>$argparser->person_id));
+            $MEMBER = new \MEMBER(['person_id' => $argparser->person_id]);
             $data['person_name'] = $MEMBER->full_name();
         }
 
-        if ( isset($data['info']['spelling_correction']) ) {
+        if (isset($data['info']['spelling_correction'])) {
             $data['info']['spelling_correction_display'] = $this->prettifySearchString($data['info']['spelling_correction']);
         }
 
@@ -131,16 +131,16 @@ class Search {
 
     private function get_urls() {
         global $this_page;
-        $urls = array();
+        $urls = [];
 
         $url = new Url($this_page);
-        $url->insert(array('o' => 'r'));
+        $url->insert(['o' => 'r']);
         $urls['relevance'] = $url->generate();
-        $url->insert(array('o' => 'o'));
+        $url->insert(['o' => 'o']);
         $urls['oldest'] = $url->generate();
-        $url->insert(array('o' => 'd'));
+        $url->insert(['o' => 'd']);
         $urls['newest'] = $url->generate();
-        $url->insert(array('o' => 'p'));
+        $url->insert(['o' => 'p']);
         $urls['by-person'] = $url->generate();
 
         return $urls;
@@ -150,15 +150,15 @@ class Search {
         $data['search_keyword'] = $this->searchkeyword;
 
         $is_adv = false;
-        foreach ( array('to', 'from', 'person', 'section', 'column', 'phrase', 'exclude' ) as $var ) {
+        foreach (['to', 'from', 'person', 'section', 'column', 'phrase', 'exclude' ] as $var) {
             $key = "search_$var";
-            $data[$key] = get_http_var( $var );
-            if ( $data[$key] ) {
+            $data[$key] = get_http_var($var);
+            if ($data[$key]) {
                 $is_adv = true;
             }
         }
 
-        if ( isset($data['search_section']) ) {
+        if (isset($data['search_section'])) {
             $data['search_section_pretty'] = $this->prettify_search_section($data['search_section']);
         }
 
@@ -168,16 +168,16 @@ class Search {
 
     private function set_wtt_options($data) {
         $data['wtt'] = '';
-        if ( $wtt = get_http_var('wtt') ) {
+        if ($wtt = get_http_var('wtt')) {
             $data['wtt'] = $wtt;
-            if ( $wtt == 2 && $pid = get_http_var('pid') ) {
+            if ($wtt == 2 && $pid = get_http_var('pid')) {
                 $data['pid'] = null;
                 try {
-                    $lord = new Member(array('person_id' => $pid, 'house' => 2));
-                } catch ( MemberException $e ) {
+                    $lord = new Member(['person_id' => $pid, 'house' => 2]);
+                } catch (MemberException $e) {
                     return $data;
                 }
-                if ( $lord->valid ) {
+                if ($lord->valid) {
                     $data['pid'] = $pid;
                     $data['wtt_lord_name'] = $lord->full_name();
                 }
@@ -197,20 +197,20 @@ class Search {
             if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
                 $person_id = $m[1][0];
                 $value = str_replace('speaker:' . $person_id, '', $value);
-                $url->insert(array('pid' => $person_id));
-                }
-            $url->insert(array('q' => $value));
+                $url->insert(['pid' => $person_id]);
+            }
+            $url->insert(['q' => $value]);
         }
 
-        if ( $params ) {
-            if ( get_http_var('house') ) {
-                $url->insert(array('house' => get_http_var('house')));
+        if ($params) {
+            if (get_http_var('house')) {
+                $url->insert(['house' => get_http_var('house')]);
             }
-            if ( get_http_var('wtt') ) {
-                $url->insert(array('wtt' => get_http_var('wtt')));
+            if (get_http_var('wtt')) {
+                $url->insert(['wtt' => get_http_var('wtt')]);
             }
         } else {
-            $url->remove(array('o', 'house'));
+            $url->remove(['o', 'house']);
         }
 
         return $url;
@@ -220,7 +220,7 @@ class Search {
         global $DATA, $this_page;
 
         $pagetitle = '';
-        if ( isset($data['search_type']) && $data['search_type'] == 'person' ) {
+        if (isset($data['search_type']) && $data['search_type'] == 'person') {
             if (isset($data['wtt']) && $data['wtt'] > 0) {
                 $pagetitle = 'League table of Lords who say ' . $data['pagetitle'];
             } else {

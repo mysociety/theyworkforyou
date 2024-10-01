@@ -1,32 +1,32 @@
 <?php
 
-$vote_sets = array(
-    'yes_votes' => array(
+$vote_sets = [
+    'yes_votes' => [
         'title' => gettext('Aye'),
         'anchor' => 'for',
-    ),
-    'no_votes' => array(
+    ],
+    'no_votes' => [
         'title' => gettext('No'),
         'anchor' => 'against',
-    ),
-    'absent_votes' => array(
+    ],
+    'absent_votes' => [
         'title' => gettext('Absent'),
         'anchor' => 'absent',
-    ),
-    'both_votes' => array(
+    ],
+    'both_votes' => [
         'title' => gettext('Abstained'),
         'anchor' => 'both',
-    ),
-);
+    ],
+];
 
-$sections_with_votes = array_filter(array_keys($vote_sets), function($s) use($division) {
+$sections_with_votes = array_filter(array_keys($vote_sets), function ($s) use ($division) {
     return count($division[$s]);
 });
 $sections_with_votes = array_values($sections_with_votes);
 
-for ($i=0; $i<count($sections_with_votes); $i+=2) {
+for ($i = 0; $i < count($sections_with_votes); $i += 2) {
     $l = $sections_with_votes[$i];
-    $r = $i+1 < count($sections_with_votes) ? $sections_with_votes[$i+1] : null;
+    $r = $i + 1 < count($sections_with_votes) ? $sections_with_votes[$i + 1] : null;
 
     $vote_title = $vote_sets[$l]['title'];
     $anchor = $vote_sets[$l]['anchor'];

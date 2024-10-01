@@ -5,9 +5,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Provides acceptance(ish) tests for API functions.
  */
-abstract class TWFY_Database_TestCase extends TestCase
-{
-
+abstract class TWFY_Database_TestCase extends TestCase {
     /**
      * database handle for database queries in tests
      */
@@ -16,8 +14,7 @@ abstract class TWFY_Database_TestCase extends TestCase
     /**
      * Connects to the testing database.
      */
-    public static function setUpBeforeClass(): void
-    {
+    public static function setUpBeforeClass(): void {
         $dsn = 'mysql:dbname=' . OPTION_TWFY_DB_NAME . ';charset=utf8';
         if (OPTION_TWFY_DB_HOST) {
             $dsn .= ';host=' . OPTION_TWFY_DB_HOST;
@@ -28,14 +25,14 @@ abstract class TWFY_Database_TestCase extends TestCase
         self::$db = $pdo;
     }
 
-    function setUp(): void {
+    public function setUp(): void {
         parent::setUp();
         $dataset = $this->getDataSet();
     }
 
     private $xmlFileContents;
 
-    function createMySQLXMLDataSet($xmlFile) {
+    public function createMySQLXMLDataSet($xmlFile) {
         $this->xmlFileContents = \simplexml_load_file($xmlFile, 'SimpleXMLElement', LIBXML_COMPACT | LIBXML_PARSEHUGE);
         if (!$this->xmlFileContents) {
             $message = '';
@@ -52,8 +49,7 @@ abstract class TWFY_Database_TestCase extends TestCase
         $this->createTables($tableColumns, $tableValues);
     }
 
-    protected function getTableInfo(array &$tableColumns, array &$tableValues): void
-    {
+    protected function getTableInfo(array &$tableColumns, array &$tableValues): void {
         if ($this->xmlFileContents->getName() != 'mysqldump') {
             throw new RuntimeException('The root element of a MySQL XML data set file must be called <mysqldump>');
         }
@@ -139,12 +135,11 @@ abstract class TWFY_Database_TestCase extends TestCase
         }
     }
 
-    protected function createTables(array &$tableColumns, array &$tableValues): void
-    {
+    protected function createTables(array &$tableColumns, array &$tableValues): void {
         foreach ($tableValues as $tableName => $values) {
             self::$db->query("TRUNCATE TABLE $tableName");
             foreach ($values as $value) {
-                $sth = self::$db->prepare("INSERT INTO $tableName (`" . join('`,`', array_keys($value)) . "`) VALUES (" . str_repeat('?,', count($value)-1) . '?)');
+                $sth = self::$db->prepare("INSERT INTO $tableName (`" . join('`,`', array_keys($value)) . "`) VALUES (" . str_repeat('?,', count($value) - 1) . '?)');
                 $sth->execute(array_values($value));
             }
         }
@@ -156,8 +151,7 @@ abstract class TWFY_Database_TestCase extends TestCase
         return $sth->fetch()[0];
     }
 
-    public static function tearDownAfterClass(): void
-    {
+    public static function tearDownAfterClass(): void {
         self::$db = null;
     }
 }

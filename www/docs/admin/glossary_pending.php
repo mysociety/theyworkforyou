@@ -2,15 +2,15 @@
 // Some sketchy crap for displaying pending glossary additions
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/glossary.php");
+include_once(INCLUDESPATH . "easyparliament/glossary.php");
 
 $this_page = "admin_glossary_pending";
 
-$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue;
+$EDITQUEUE = new \MySociety\TheyWorkForYou\GlossaryEditQueue();
 
-$args = array (
-    'sort' => "regexp_replace"
-);
+$args =  [
+    'sort' => "regexp_replace",
+];
 $GLOSSARY = new GLOSSARY($args);
 
 // This will build a list of pending requests for everything by default.
@@ -23,21 +23,21 @@ $EDITQUEUE->get_pending();
 if (get_http_var('approve')) {
     $approve = get_http_var('approve', '', true);
     if (!is_array($approve)) {
-        $approve = array ( $approve );
+        $approve =  [ $approve ];
     }
     // Add all approved items
-    $data = array (
+    $data =  [
         'approvals' => $approve,
-        'epobject_type' => 2
-    );
+        'epobject_type' => 2,
+    ];
     $EDITQUEUE->approve($data);
 } elseif (get_http_var('decline')) {
-    $decline = array (get_http_var('decline'));
+    $decline =  [get_http_var('decline')];
     // Dump all declined items
-    $data = array (
+    $data =  [
         'declines' => $decline,
-        'epobject_type' => 2
-    );
+        'epobject_type' => 2,
+    ];
     $EDITQUEUE->decline($data);
 }
 
@@ -91,7 +91,7 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
     // Wiki woo!
     // We need to work out how best to work this...
     $wiki_link = _htmlspecialchars("https://en.wikipedia.org/wiki/" . strtr($title, " ", "_"));
-?>
+    ?>
         <p>Guessing the wikipedia link - give it a go:<br>
         <a href="<?php echo $wiki_link; ?>" target="_blank"><?php echo $wiki_link; ?></a></p>
         <p>Tick here if it worked <input type="checkbox" name="wikiguess"$checked></p>
@@ -101,8 +101,8 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
 <?php
 
-    // Off it goes...
-    print "<p>This is what it was going to look like:</p>";
+        // Off it goes...
+        print "<p>This is what it was going to look like:</p>";
     print "<h3>$title</h3>";
 
     $PAGE->glossary_display_term($GLOSSARY);
@@ -111,11 +111,11 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
     // add a modification to the database
     if (get_http_var('submitterm') && get_http_var('modify')) {
-        $data = array (
+        $data =  [
             'user_id'	=> get_http_var('userid'),
             'title'		=> get_http_var('g'),
-            'body'		=> get_http_var('definition')
-        );
+            'body'		=> get_http_var('definition'),
+        ];
         vardump($data);
         // $success = $EDITQUEUE->modify($data);
     }
@@ -133,12 +133,12 @@ if (get_http_var('modify') && (!get_http_var('submitterm'))) {
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();
 

@@ -9,4 +9,3 @@ $alert = new MySociety\TheyWorkForYou\AlertView\Simple($THEUSER);
 $data = $alert->display();
 
 MySociety\TheyWorkForYou\Renderer::output('alert/postcode', $data);
-

@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou\People;
 
 class MSs extends \MySociety\TheyWorkForYou\People {
-
     public $type = 'mss';
     public $house = HOUSE_TYPE_WALES;
     public $cons_type = 'WAC';
@@ -25,4 +24,3 @@ class MSs extends \MySociety\TheyWorkForYou\People {
         parent::__construct();
     }
 }
-

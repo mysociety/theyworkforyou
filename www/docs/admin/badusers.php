@@ -1,11 +1,11 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-include_once (INCLUDESPATH."easyparliament/commentreportlist.php");
+include_once(INCLUDESPATH . "easyparliament/commentreportlist.php");
 
 $this_page = "admin_badusers";
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 
@@ -29,7 +29,7 @@ $q = $db->query("SELECT COUNT(*) AS deletedcount,
                 GROUP BY user_id
                 ORDER BY deletedcount DESC");
 
-$rows = array();
+$rows = [];
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 foreach ($q as $row) {
@@ -42,7 +42,7 @@ foreach ($q as $row) {
 
     $totalcomments = $r['totalcount'];
 
-    $percentagedeleted = ( $row['deletedcount'] / $totalcomments ) * 100;
+    $percentagedeleted = ($row['deletedcount'] / $totalcomments) * 100;
 
 
     // Get complaints made about this user's comments, but not upheld.
@@ -55,27 +55,27 @@ foreach ($q as $row) {
 
     $notupheldcount = $r['count'];
 
-    $USERURL->insert(array('u'=>$user_id));
+    $USERURL->insert(['u' => $user_id]);
 
-    $rows[] = array (
+    $rows[] =  [
         '<a href="' . $USERURL->generate() . '">' . $row['firstname'] . ' ' . $row['lastname'] . '</a>',
         $totalcomments,
         $row['deletedcount'],
-        $percentagedeleted.'%',
-        $notupheldcount
-    );
+        $percentagedeleted . '%',
+        $notupheldcount,
+    ];
 }
 
-$tabledata = array (
-    'header' => array (
+$tabledata =  [
+    'header' =>  [
         'Name',
         'Total comments',
         'Number deleted',
         'Percentage deleted',
-        'Reports against not upheld'
-    ),
-    'rows' => $rows
-);
+        'Reports against not upheld',
+    ],
+    'rows' => $rows,
+];
 $PAGE->display_table($tabledata);
 
 
@@ -100,13 +100,13 @@ $q = $db->query("SELECT COUNT(*) AS rejectedcount,
                 GROUP BY cr.user_id
                 ORDER BY rejectedcount DESC");
 
-$rows = array();
+$rows = [];
 $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
 
 foreach ($q as $row) {
     $user_id = $row['user_id'];
 
-    $USERURL->insert(array('u'=>$user_id));
+    $USERURL->insert(['u' => $user_id]);
 
     // Get how many valid complaints they've submitted.
     $r = $db->query("SELECT COUNT(*) AS upheldcount
@@ -114,21 +114,21 @@ foreach ($q as $row) {
                     WHERE	user_id = '$user_id'
                     AND		upheld = '1'")->first();
 
-    $rows[] = array (
+    $rows[] =  [
         '<a href="' . $USERURL->generate() . '">' . $row['firstname'] . ' ' . $row['lastname'] . '</a>',
         $row['rejectedcount'],
-        $r['upheldcount']
-    );
+        $r['upheldcount'],
+    ];
 
 }
-$tabledata = array (
-    'header' => array (
+$tabledata =  [
+    'header' =>  [
         'Name',
         'Reports not upheld',
-        'Reports upheld'
-    ),
-    'rows' => $rows
-);
+        'Reports upheld',
+    ],
+    'rows' => $rows,
+];
 
 $PAGE->display_table($tabledata);
 
@@ -138,11 +138,11 @@ $PAGE->display_table($tabledata);
 
 $menu = $PAGE->admin_menu();
 
-$PAGE->stripe_end(array(
-    array(
+$PAGE->stripe_end([
+    [
         'type'		=> 'html',
-        'content'	=> $menu
-    )
-));
+        'content'	=> $menu,
+    ],
+]);
 
 $PAGE->page_end();

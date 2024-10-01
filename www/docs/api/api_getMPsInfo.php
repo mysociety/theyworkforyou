@@ -1,7 +1,7 @@
 <?php
 
 function api_getMPsInfo_front() {
-?>
+    ?>
 <p><big>Fetch extra information for particular people.</big></p>
 
 <h4>Arguments</h4>
@@ -18,7 +18,7 @@ function api_getMPsInfo_front() {
 function _api_getMPsInfo_id($ids) {
     $fields = preg_split('#\s*,\s*#', get_http_var('fields'), -1, PREG_SPLIT_NO_EMPTY);
     $ids = preg_split('#\s*,\s*#', $ids, -1, PREG_SPLIT_NO_EMPTY);
-    $safe_ids = array(0);
+    $safe_ids = [0];
     foreach ($ids as $id) {
         if (ctype_digit($id)) {
             $safe_ids[] = $id;
@@ -26,12 +26,12 @@ function _api_getMPsInfo_id($ids) {
     }
     $ids = join(',', $safe_ids);
 
-    $db = new ParlDB;
+    $db = new ParlDB();
     $last_mod = 0;
     $q = $db->query("select person_id, data_key, data_value, lastupdate from personinfo
         where person_id in (" . $ids . ")");
     if ($q->rows()) {
-        $output = array();
+        $output = [];
         foreach ($q as $row) {
             $data_key = $row['data_key'];
             if (count($fields) && !in_array($data_key, $fields)) {
@@ -56,10 +56,10 @@ function _api_getMPsInfo_id($ids) {
                 $mid = $row['member_id'];
                 $pid = $row['person_id'];
                 if (!isset($output[$pid]['by_member_id'])) {
-                    $output[$pid]['by_member_id'] = array();
+                    $output[$pid]['by_member_id'] = [];
                 }
                 if (!isset($output[$pid]['by_member_id'][$mid])) {
-                    $output[$pid]['by_member_id'][$mid] = array();
+                    $output[$pid]['by_member_id'][$mid] = [];
                 }
                 $output[$pid]['by_member_id'][$mid][$data_key] = $row['data_value'];
                 $time = strtotime($row['lastupdate']);
@@ -69,7 +69,7 @@ function _api_getMPsInfo_id($ids) {
             }
         }
         ksort($output);
-        return array($output, $last_mod);
+        return [$output, $last_mod];
     } else {
         return null;
     }

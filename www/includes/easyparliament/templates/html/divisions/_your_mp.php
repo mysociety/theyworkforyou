@@ -1,5 +1,5 @@
 <div class="debate-speech__division__your-mp">
-  <?php if ( !isset($main_vote_mp) || ! $main_vote_mp) { /* $main_vote_mp is true if an MP has been requested via the URL */ ?>
+  <?php if (!isset($main_vote_mp) || ! $main_vote_mp) { /* $main_vote_mp is true if an MP has been requested via the URL */ ?>
     <div class="your-mp__header">
       <h3>How your <?= $division['members']['singular'] ?> voted</h3>
       <p>
@@ -9,7 +9,7 @@
     </div>
   <?php } ?>
     <a href="<?= $data['mp_data']['mp_url'] ?>" class="your-mp__content">
-      <?php if ( isset($mp_vote) ) { ?>
+      <?php if (isset($mp_vote)) { ?>
         <span class="your-mp__vote your-mp__vote--<?= $mp_vote['vote'] ?>"><?php
           switch ($mp_vote['vote']) {
               case 'aye':
@@ -33,8 +33,8 @@
               default:
                   echo 'N/A';
           }
-        ?></span>
-      <?php } else if ( isset($before_mp) || isset($after_mp) ) { ?>
+          ?></span>
+      <?php } elseif (isset($before_mp) || isset($after_mp)) { ?>
         <span class="your-mp__vote">N/A</span>
       <?php } ?>
         <img class="your-mp__image" src="<?= $data['mp_data']['image'] ?>">
@@ -42,7 +42,7 @@
             <h2 class="people-list__person__name"><?= $data['mp_data']['name'] ?></h2>
             <p class="people-list__person__memberships">
                 <span class="people-list__person__constituency"><?= $data['mp_data']['constituency'] ?></span>
-                <span class="people-list__person__party <?= slugify( $data['mp_data']['party'] ) ?>"><?= $data['mp_data']['party'] ?></span>
+                <span class="people-list__person__party <?= slugify($data['mp_data']['party']) ?>"><?= $data['mp_data']['party'] ?></span>
             </p>
         </div>
     </a>
@@ -52,7 +52,7 @@
         <p>
             This vote happened before <a href="<?= $data['mp_data']['mp_url'] ?>"><?= $data['mp_data']['name'] ?></a> was elected.
         </p>
-      <?php } else if (isset($after_mp)) { ?>
+      <?php } elseif (isset($after_mp)) { ?>
         <p>
         This vote happened after <a href="<?= $data['mp_data']['mp_url'] ?>"><?= $data['mp_data']['name'] ?></a> left the <?= $assembly_name ?>.
         </p>

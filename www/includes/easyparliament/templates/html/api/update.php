@@ -9,7 +9,7 @@ $charity_number = $stripe ? $stripe->metadata['charity_number'] : '';
 $description = $stripe ? $stripe->metadata['description'] : '';
 
 function rdio($name, $value, $text, $id, $required = false, $checked = false) {
-?>
+    ?>
     <li><label for="<?= $id ?>"><input type="radio" name="<?= $name ?>" value="<?= $value ?>" id="<?= $id ?>"
     <?= $required ? 'required' : '' ?>
     <?= $value == $checked ? 'checked' : '' ?>>
@@ -51,43 +51,51 @@ If you update your plan below, it will be reactivated.
 <div class="row">
     <label for="id_plan_0">Please choose a plan (all prices include VAT):</label>
     <ul id="id_plan">
-        <?php 
+        <?php
         $plan = $stripe ? $stripe->plan->id : get_http_var('plan');
-        rdio('plan', 'twfy-1k', '£20/mth – 1,000 calls per month', 'id_plan_0', 1, $plan);
-        rdio('plan', 'twfy-5k', '£50/mth – 5,000 calls per month', 'id_plan_1', 1, $plan);
-        rdio('plan', 'twfy-10k', '£100/mth – 10,000 calls per month', 'id_plan_2', 1, $plan);
-        rdio('plan', 'twfy-0k', '£300/mth – Unlimited calls', 'id_plan_3', 1, $plan);
-        ?>
+rdio('plan', 'twfy-1k', '£20/mth – 1,000 calls per month', 'id_plan_0', 1, $plan);
+rdio('plan', 'twfy-5k', '£50/mth – 5,000 calls per month', 'id_plan_1', 1, $plan);
+rdio('plan', 'twfy-10k', '£100/mth – 10,000 calls per month', 'id_plan_2', 1, $plan);
+rdio('plan', 'twfy-0k', '£300/mth – Unlimited calls', 'id_plan_3', 1, $plan);
+?>
     </ul>
 </div>
 
 <div class="row">
     <label>
-        <input type="checkbox" name="charitable_tick" id="id_charitable_tick"<?php if ($charitable_tick) { echo ' checked'; } ?>>
+        <input type="checkbox" name="charitable_tick" id="id_charitable_tick"<?php if ($charitable_tick) {
+            echo ' checked';
+        } ?>>
         I qualify for a charitable discounted price
     </label>
 </div>
 
-<div id="charitable-qns"<?php if (!$charitable_tick) { echo ' style="display:none"'; } ?>>
+<div id="charitable-qns"<?php if (!$charitable_tick) {
+    echo ' style="display:none"';
+} ?>>
     <div class="row">
         <label for="id_charitable_0">Are you?</label>
         <ul id="id_charitable">
             <?php
             rdio('charitable', 'c', 'Registered charity', 'id_charitable_0', 0, $charitable);
-            rdio('charitable', 'i', 'Individual pursuing a non-profit project on an unpaid basis', 'id_charitable_1', 0, $charitable);
-            rdio('charitable', 'o', 'Neither', 'id_charitable_2', 0, $charitable);
-        ?>
+rdio('charitable', 'i', 'Individual pursuing a non-profit project on an unpaid basis', 'id_charitable_1', 0, $charitable);
+rdio('charitable', 'o', 'Neither', 'id_charitable_2', 0, $charitable);
+?>
         </ul>
     </div>
 
-    <div id="charity-number"<?php if (!$stripe || !$charity_number) { echo ' style="display:none"'; } ?>>
+    <div id="charity-number"<?php if (!$stripe || !$charity_number) {
+        echo ' style="display:none"';
+    } ?>>
         <div class="row">
             <label for="id_charity_number">If charity, please provide your registered charity number:</label>
             <input type="text" name="charity_number" id="id_charity_number" maxlength="500" value="<?=_htmlentities($charity_number) ?>">
         </div>
     </div>
 
-    <div id="charitable-desc"<?php if (!$stripe || !$description) { echo ' style="display:none"'; } ?>>
+    <div id="charitable-desc"<?php if (!$stripe || !$description) {
+        echo ' style="display:none"';
+    } ?>>
         <div class="row">
             <label for="id_description">If an individual, please provide details of your project:</label>
             <input type="text" name="description" id="id_description" maxlength="500" value="<?=_htmlentities($description) ?>">
@@ -146,7 +154,11 @@ If you update your plan below, it will be reactivated.
 
 <script src="https://js.stripe.com/v3"></script>
 <script id="js-payment"
-    <?php if ($subscription->has_payment_data) { echo 'data-has-payment-data="1"'; } ?>
-    <?php if ($stripe) { echo 'data-has-subscription="1"'; } ?>
+    <?php if ($subscription->has_payment_data) {
+        echo 'data-has-payment-data="1"';
+    } ?>
+    <?php if ($stripe) {
+        echo 'data-has-subscription="1"';
+    } ?>
     data-key="<?= STRIPE_PUBLIC_KEY ?>"
     src="<?= cache_version('js/payment.js') ?>"></script>

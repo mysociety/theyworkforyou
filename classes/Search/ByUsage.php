@@ -1,10 +1,10 @@
 <?php
+
 # vim:sw=4:ts=4:et:nowrap
 
 namespace MySociety\TheyWorkForYou\Search;
 
 class ByUsage {
-
     public function search($searchstring) {
         $q_house = '';
         if (ctype_digit(get_http_var('house'))) {

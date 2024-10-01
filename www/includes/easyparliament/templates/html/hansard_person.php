@@ -11,7 +11,7 @@ global $PAGE, $hansardmajors;
 
 twfy_debug("TEMPLATE", "hansard_person.php");
 
-if (isset ($data['rows']) && count($data['rows']) > 0) {
+if (isset($data['rows']) && count($data['rows']) > 0) {
 
     foreach ($data['rows'] as $n => $row) {
 

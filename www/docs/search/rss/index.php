@@ -1,9 +1,10 @@
 <?php
+
 # vim:sw=4:ts=4:et:nowrap
 
 include_once '../../../includes/easyparliament/init.php';
-include_once INCLUDESPATH."easyparliament/member.php";
-include_once INCLUDESPATH."easyparliament/glossary.php";
+include_once INCLUDESPATH . "easyparliament/member.php";
+include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 if (!DEVSITE) {
     header('Cache-Control: max-age=86400'); # Once a day
@@ -50,13 +51,13 @@ if (get_http_var('s') != '' or get_http_var('maj') != '' or get_http_var('pid') 
 
     $DATA->set_page_metadata($this_page, 'title', $pagetitle);
 
-    $args = array (
+    $args =  [
         's' => $searchstring,
         'p' => $pagenum,
         'pop' => 1,
         'o' => get_http_var('o'),
         'num' => $num,
-    );
+    ];
 
     $LIST = new HANSARDLIST();
     $LIST->display('search', $args, 'rss');

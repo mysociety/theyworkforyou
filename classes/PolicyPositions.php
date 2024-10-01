@@ -15,7 +15,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class PolicyPositions {
-
     /**
      * Member
      */
@@ -40,9 +39,9 @@ class PolicyPositions {
      * Array of positions held by the member.
      */
 
-    public $positions = array();
+    public $positions = [];
 
-    public $positionsById = array();
+    public $positionsById = [];
 
     /**
      * 'Since' String
@@ -62,14 +61,13 @@ class PolicyPositions {
      * @param int      $limit    The number of policies to limit the list to.
      */
 
-    public function __construct(Policies $policies, Member $member, $options = array())
-    {
+    public function __construct(Policies $policies, Member $member, $options = []) {
         $this->policies = $policies;
         $this->member = $member;
-        $this->summaries = isset($options['summaries']) ? $options['summaries'] : array();
+        $this->summaries = $options['summaries'] ?? [];
         $this->divisions = new \MySociety\TheyWorkForYou\Divisions($member);
 
-        $limit = isset($options['limit']) ? $options['limit'] : null;
+        $limit = $options['limit'] ?? null;
 
         // Do the actual getting of positions
         $this->getMemberPolicyPositions($limit);
@@ -83,7 +81,7 @@ class PolicyPositions {
      * @param int $limit The number of results to limit the output to.
      */
 
-    private function getMemberPolicyPositions ($limit = null) {
+    private function getMemberPolicyPositions($limit = null) {
 
         // Make sure member info has actually been set.
         if (count($this->member->extra_info) === 0) {
@@ -104,7 +102,7 @@ class PolicyPositions {
         // Set the current policy count to 0
         $i = 0;
 
-        $this->positions = array();
+        $this->positions = [];
 
         // Loop around all the policies.
         foreach ($policies as $policy) {
@@ -124,35 +122,35 @@ class PolicyPositions {
                 continue;
             }
 
-            $votes_summary = array_key_exists($policy['id'], $this->summaries) ? $this->summaries[$policy['id']] : array();
+            $votes_summary = array_key_exists($policy['id'], $this->summaries) ? $this->summaries[$policy['id']] : [];
             $dream_info = $this->displayDreamComparison($policy['id'], $policy['text'], $votes_summary);
 
             // don't return votes where they haven't voted on a strong division
             // if we're limiting the number of votes
-            if ( $limit && !empty($dream_info) && !$dream_info['has_strong'] ) {
+            if ($limit && !empty($dream_info) && !$dream_info['has_strong']) {
                 continue;
             }
 
             // Make sure the dream actually exists
             if (!empty($dream_info)) {
                 $summary = $votes_summary ? $this->divisions->generateSummary($votes_summary) : '';
-                $this->positions[] = array(
+                $this->positions[] = [
                     'policy_id' => $policy['id'],
                     'policy' => $policy['text'],
                     'desc' => $dream_info['full_sentence'],
                     'has_strong' => $dream_info['has_strong'],
                     'position' => $dream_info['position'],
-                    'summary' => $summary
-                );
-                $this->positionsById[$policy['id']] = array(
+                    'summary' => $summary,
+                ];
+                $this->positionsById[$policy['id']] = [
                     'policy_id' => $policy['id'],
                     'policy' => $policy['text'],
                     'desc' => $dream_info['full_sentence'],
                     'position' => $dream_info['position'],
                     'has_strong' => $dream_info['has_strong'],
                     'score' => $dream_info['score'],
-                    'summary' => $summary
-                );
+                    'summary' => $summary,
+                ];
                 $i++;
             }
         }
@@ -183,7 +181,7 @@ class PolicyPositions {
      */
 
     private function displayDreamComparison($dreamid, $policy_description, $votes_summary) {
-        $out = array();
+        $out = [];
 
         $extra_info = $this->member->extra_info();
 
@@ -208,14 +206,13 @@ class PolicyPositions {
                 $has_strong = 1;
             }
             $full_sentence = $consistency . ' ' . $policy_description;
-            $out = array( 'full_sentence' => $full_sentence, 'score' => $dmpscore, 'position' => $consistency, 'has_strong' => $has_strong );
+            $out = [ 'full_sentence' => $full_sentence, 'score' => $dmpscore, 'position' => $consistency, 'has_strong' => $has_strong ];
         }
 
         return $out;
     }
 
-    private function generateSinceString()
-    {
+    private function generateSinceString() {
 
         $member_houses = $this->member->houses();
         $entered_house = $this->member->entered_house();
@@ -239,7 +236,7 @@ class PolicyPositions {
             # If not current MP/Lord, but current MLA/MSP, need to say voting record is when MP
             if (!$current_member[HOUSE_TYPE_COMMONS] and
                 !$current_member[HOUSE_TYPE_LORDS] and
-                ( $current_member[HOUSE_TYPE_SCOTLAND] or $current_member[HOUSE_TYPE_NI] )
+                ($current_member[HOUSE_TYPE_SCOTLAND] or $current_member[HOUSE_TYPE_NI])
             ) {
                 $since .= ' whilst an MP';
             }
@@ -248,23 +245,22 @@ class PolicyPositions {
         }
     }
 
-    private function generateMoreLinksString()
-    {
+    private function generateMoreLinksString() {
 
         $extra_info = $this->member->extra_info;
 
         // Links to full record at Guardian and Public Whip
-        $record = array();
+        $record = [];
         if (isset($extra_info['guardian_howtheyvoted'])) {
             $record[] = '<a href="' . $extra_info['guardian_howtheyvoted'] .
                 '" title="At The Guardian">well-known issues</a> <small>(from the Guardian)</small>';
         }
         if (
-            ( isset($extra_info['public_whip_division_attendance']) and
-            $extra_info['public_whip_division_attendance'] != 'n/a' )
+            (isset($extra_info['public_whip_division_attendance']) and
+            $extra_info['public_whip_division_attendance'] != 'n/a')
             or
-            ( isset($extra_info['Lpublic_whip_division_attendance']) and
-            $extra_info['Lpublic_whip_division_attendance'] != 'n/a' )
+            (isset($extra_info['Lpublic_whip_division_attendance']) and
+            $extra_info['Lpublic_whip_division_attendance'] != 'n/a')
         ) {
             $record[] = '<a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' .
                 $this->member->member_id() .

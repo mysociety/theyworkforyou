@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou\People;
 
 class MSPs extends \MySociety\TheyWorkForYou\People {
-
     public $type = 'msps';
     public $rep_name = 'MSP';
     public $rep_plural = 'MSPs';

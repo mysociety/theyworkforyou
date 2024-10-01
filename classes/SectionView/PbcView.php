@@ -33,10 +33,10 @@ class PbcView extends SectionView {
         $bill_id = null;
         if ($this->session && $this->bill) {
             $q = $this->list->db->query('select id,standingprefix from bills where title = :bill
-                and session = :session', array(
+                and session = :session', [
                 ':bill' => $this->bill,
-                ':session' => $this->session
-            ))->first();
+                ':session' => $this->session,
+            ])->first();
             if ($q) {
                 $bill_id = $q['id'];
                 $standingprefix = $q['standingprefix'];
@@ -44,18 +44,18 @@ class PbcView extends SectionView {
         }
 
         if ($bill_id && $id) {
-            return $this->display_section_or_speech(array(
+            return $this->display_section_or_speech([
                 'gid' => $standingprefix . $id,
-            ));
+            ]);
         } elseif ($bill_id) {
             # Display the page for a particular bill
             $this_page = 'pbc_bill';
-            $args = array (
+            $args =  [
                 'id' => $bill_id,
                 'title' => $this->bill,
                 'session' => $this->session,
-            );
-            $data = array();
+            ];
+            $data = [];
             $data['content'] = $this->list->display('bill', $args, 'none');
             $data['session'] = $this->session;
             $data['template'] = 'section/pbc_bill';
@@ -69,10 +69,10 @@ class PbcView extends SectionView {
             # Display the bills for a particular session
             $this_page = 'pbc_session';
             $DATA->set_page_metadata($this_page, 'title', "Session $this->session");
-            $args = array (
+            $args =  [
                 'session' => $this->session,
-            );
-            $data = array();
+            ];
+            $data = [];
             $data['rows'] = $this->list->display('session', $args, 'none');
             $data['template'] = 'section/pbc_session';
             $data['session'] = $this->session;
@@ -83,30 +83,30 @@ class PbcView extends SectionView {
     }
 
     protected function getViewUrls() {
-        $urls = array();
+        $urls = [];
         $day = new \MySociety\TheyWorkForYou\Url('pbc_front');
         $urls['pbcday'] = $day;
         return $urls;
     }
 
     protected function getSearchSections() {
-        return array(
-            array( 'section' => 'pbc' )
-        );
+        return [
+            [ 'section' => 'pbc' ],
+        ];
     }
 
     protected function front_content() {
-        return $this->list->display( 'recent_pbc_debates', array( 'num' => 50 ), 'none' );
+        return $this->list->display('recent_pbc_debates', [ 'num' => 50 ], 'none');
     }
 
     protected function display_front() {
         global $DATA, $this_page;
         $this_page = 'pbc_front';
 
-        $data = array();
+        $data = [];
         $data['template'] = $this->index_template;
 
-        $content = array();
+        $content = [];
         $content['data'] = $this->front_content();
 
         $content['rssurl'] = $DATA->page_metadata($this_page, 'rss');

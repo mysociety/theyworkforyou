@@ -16,13 +16,13 @@ class Subscription {
     public function __construct($arg) {
         # User ID
         if (is_int($arg)) {
-            $user = new \USER;
+            $user = new \USER();
             $user->init($arg);
             $arg = $user;
         }
 
-        $this->db = new \ParlDB;
-        $this->redis = new Redis;
+        $this->db = new \ParlDB();
+        $this->redis = new Redis();
         if (defined('TESTING')) {
             $this->api = new TestStripe("");
         } else {
@@ -46,7 +46,7 @@ class Subscription {
             $q = $this->db->query('SELECT * FROM api_subscription WHERE stripe_id = :stripe_id', [
                 ':stripe_id' => $id])->first();
             if ($q) {
-                $user = new \USER;
+                $user = new \USER();
                 $user->init($q['user_id']);
                 $this->user = $user;
                 $this->redis_prefix = "user:{$this->user->user_id}:quota:" . REDIS_API_NAME;
@@ -80,7 +80,8 @@ class Subscription {
         $data = $this->stripe;
         if ($data->discount && $data->discount->coupon && $data->discount->coupon->percent_off) {
             $this->actual_paid = add_vat(floor(
-                $data->plan->amount * (100 - $data->discount->coupon->percent_off) / 100));
+                $data->plan->amount * (100 - $data->discount->coupon->percent_off) / 100
+            ));
             $data->plan->amount = add_vat($data->plan->amount);
         } else {
             $data->plan->amount = add_vat($data->plan->amount);
@@ -117,7 +118,7 @@ class Subscription {
             $invoice = \Stripe\Invoice::create([
                 'customer' => $this->stripe->customer,
                 'subscription' => $this->stripe,
-                'tax_percent' => 20
+                'tax_percent' => 20,
             ]);
             $invoice->finalizeInvoice();
             $invoice->pay();
@@ -179,7 +180,7 @@ class Subscription {
             'customer' => $customer,
             'plan' => $form_data['plan'],
             'coupon' => $form_data['coupon'],
-            'metadata' => $form_data['metadata']
+            'metadata' => $form_data['metadata'],
         ]);
         $stripe_id = $obj->id;
 
@@ -192,7 +193,7 @@ class Subscription {
     public function invoices() {
         $invoices = $this->api->getInvoices([
             'subscription' => $this->stripe->id,
-            'limit' => 24
+            'limit' => 24,
         ]);
         $invoices = $invoices->data;
         return $invoices;
@@ -213,9 +214,9 @@ class Subscription {
     private function checkPaymentGivenIfNeeded() {
         $payment_data = $this->form_data['stripeToken'] || $this->form_data['payment_method'];
         return ($this->has_payment_data || $payment_data || (
-                    $this->form_data['plan'] == $this::$plans[0]
+            $this->form_data['plan'] == $this::$plans[0]
                 && in_array($this->form_data['charitable'], ['c', 'i'])
-                ));
+        ));
     }
 
     public function checkForErrors() {

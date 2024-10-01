@@ -1,10 +1,10 @@
-<?php 
-$nav_items = array (
-    array('hansard', 'alldebatesfront', 'mps', 'peers', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'),
-    array('sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront', 'divisions_recent_sp'),
-    array('wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage', 'divisions_recent_wales'),
-    array('ni_home', 'ni_home', 'nioverview', 'mlas'),
-);
+<?php
+$nav_items =  [
+    ['hansard', 'alldebatesfront', 'mps', 'peers', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'],
+    ['sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront', 'divisions_recent_sp'],
+    ['wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage', 'divisions_recent_wales'],
+    ['ni_home', 'ni_home', 'nioverview', 'mlas'],
+];
 
 ?>  
     <nav>
@@ -12,34 +12,34 @@ $nav_items = array (
     <div class="row nested-row">
     <?php
         foreach ($nav_items as $item_list) {
-        $top_level = $item_list[0];
-        $remaining = array_slice($item_list, 1);
-        $menu_data = $DATA->page_metadata($top_level, 'menu');
-        $URL = new \MySociety\TheyWorkForYou\Url($top_level);
-        $url = $URL->generate();
-    ?>
+            $top_level = $item_list[0];
+            $remaining = array_slice($item_list, 1);
+            $menu_data = $DATA->page_metadata($top_level, 'menu');
+            $URL = new \MySociety\TheyWorkForYou\Url($top_level);
+            $url = $URL->generate();
+            ?>
     <div class="homepage-parl-column">
     <li class="top-level-parl">
         <p class="parl-top-link"><?= $menu_data['text'] ?></p>
         <?php if (count($remaining)) { ?>
             <ul>
                 <?php foreach ($remaining as $item) {
-                if ($item == "welshlanguage") {
-                    $menu_data = $DATA->page_metadata('wales_home', 'menu');
-                    $menu_data["title"] = "Welsh language / Cymraeg";
-                    $URL = new \MySociety\TheyWorkForYou\Url('wales_home');
-                    $url = $URL->generate();
-                    if (strpos(DOMAIN, 'www') !== false) {
-                        $url = "//" . str_replace('www.', 'cy.', DOMAIN) . $url;
+                    if ($item == "welshlanguage") {
+                        $menu_data = $DATA->page_metadata('wales_home', 'menu');
+                        $menu_data["title"] = "Welsh language / Cymraeg";
+                        $URL = new \MySociety\TheyWorkForYou\Url('wales_home');
+                        $url = $URL->generate();
+                        if (strpos(DOMAIN, 'www') !== false) {
+                            $url = "//" . str_replace('www.', 'cy.', DOMAIN) . $url;
+                        } else {
+                            $url = "//cy." . DOMAIN . $url;
+                        }
                     } else {
-                        $url = "//cy." . DOMAIN . $url;
+                        $menu_data = $DATA->page_metadata($item, 'menu');
+                        $URL = new \MySociety\TheyWorkForYou\Url($item);
+                        $url = $URL->generate();
                     }
-                } else {
-                    $menu_data = $DATA->page_metadata($item, 'menu');
-                    $URL = new \MySociety\TheyWorkForYou\Url($item);
-                    $url = $URL->generate();
-            }
-                ?>  
+                    ?>  
                     <?php if ($item == $top_level) { ?>
                     <li><a href="<?= $url ?>">Homepage</a></li>
                     <?php } else { ?>

@@ -3,7 +3,7 @@
 include '../www/includes/easyparliament/init.php';
 # include INCLUDESPATH . 'easyparliament/member.php';
 
-$db = new ParlDB;
+$db = new ParlDB();
 
 $q = $db->query('select count(*) as c from hansard where major=3 and minor=2')->first();
 $answers = $q['c'];
@@ -16,25 +16,28 @@ $q = mysql_query(
 		left join anonvotes on hansard.epobject_id = anonvotes.epobject_id
 	where
 		major = 3 and minor = 2
-');
+'
+);
 
 #$rows = mysql_num_rows($q);
 #echo "Number of answers with votes: $rows\n";
 #echo "Number of answers in system: $answers\n";
 
-$votes = array();
+$votes = [];
 while ($row = mysql_fetch_assoc($q)) {
     $dept = $row['body'];
-    if (!isset($votes[$dept])) $votes[$dept] = array(
-        'verymoreyes'=>0, 'moreyes'=>0, 'verymoreno'=>0, 'moreno'=>0, 'same'=>0, 'none'=>0
-    );
+    if (!isset($votes[$dept])) {
+        $votes[$dept] = [
+            'verymoreyes' => 0, 'moreyes' => 0, 'verymoreno' => 0, 'moreno' => 0, 'same' => 0, 'none' => 0,
+        ];
+    }
     $yes = $row['yes_votes'];
     $no = $row['no_votes'];
     $gid = $row['gid'];
     if (is_null($yes)) {
         $votes[$dept]['none']++;
     } else {
-        if ($no > $yes+10) {
+        if ($no > $yes + 10) {
             $votes[$dept]['verymoreno']++;
         } elseif ($no > $yes) {
             $votes[$dept]['moreno']++;

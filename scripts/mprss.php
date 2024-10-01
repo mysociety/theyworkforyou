@@ -9,7 +9,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 $rsspath = BASEDIR . '/rss/mp/';
 
 // Make things group writable.
-umask (002);
+umask(002);
 
 $HANSARDLIST = new HANSARDLIST();
 $db = $HANSARDLIST->db;
@@ -24,47 +24,47 @@ $starttime = time();
 foreach ($q as $person) {
     $person_id = $person['person_id'];
 
-	$args = array ( 'person_id' => $person_id );
-	$speeches = $HANSARDLIST->display('person', $args, 'none');
+    $args =  [ 'person_id' => $person_id ];
+    $speeches = $HANSARDLIST->display('person', $args, 'none');
 
-	// Some data about this person that we'll need for the feed.
-	$MEMBER = new MEMBER(array('person_id' => $person_id));
-	$MPURL = new \MySociety\TheyWorkForYou\Url('mp');
-	$MPURL->insert(array('pid'=>$person_id));
-	$mpurl = $MPURL->generate();
+    // Some data about this person that we'll need for the feed.
+    $MEMBER = new MEMBER(['person_id' => $person_id]);
+    $MPURL = new \MySociety\TheyWorkForYou\Url('mp');
+    $MPURL->insert(['pid' => $person_id]);
+    $mpurl = $MPURL->generate();
 
-	$date = gmdate('Y-m-d');
-	$time = gmdate('H:i:s');
-	$datenow = $date . 'T' . $time . '+00:00';
+    $date = gmdate('Y-m-d');
+    $time = gmdate('H:i:s');
+    $datenow = $date . 'T' . $time . '+00:00';
 
-	// Prepare the meat of the RSS file.
-	$items = '';
-	$entries = '';
-	if (isset ($speeches['rows']) && count($speeches['rows']) > 0) {
+    // Prepare the meat of the RSS file.
+    $items = '';
+    $entries = '';
+    if (isset($speeches['rows']) && count($speeches['rows']) > 0) {
 
-		foreach ($speeches['rows'] as $n => $row) {
+        foreach ($speeches['rows'] as $n => $row) {
 
-			// While we're linking to individual speeches,
-			// the text is the body of the parent, ie (sub)section.
-			$title = _htmlentities(str_replace('&#8212;', '-', $row['parent']['body']));
+            // While we're linking to individual speeches,
+            // the text is the body of the parent, ie (sub)section.
+            $title = _htmlentities(str_replace('&#8212;', '-', $row['parent']['body']));
 
-			$link = isset($row['listurl']) ? $row['listurl'] : '';
-			$link = 'https://' . DOMAIN . $link;
+            $link = $row['listurl'] ?? '';
+            $link = 'https://' . DOMAIN . $link;
 
-			$description = _htmlentities(trim_characters($row['body'], 0, 200));
-			$contentencoded = $row['body'];
+            $description = _htmlentities(trim_characters($row['body'], 0, 200));
+            $contentencoded = $row['body'];
 
-			$hdate = format_date($row['hdate'], '%Y-%m-%d');
-			if ($row['htime'] != null) {
-				$htime = format_time($row['htime'], '%H:%M:%S');
-			} else {
-				$htime = '00:00:00';
-			}
+            $hdate = format_date($row['hdate'], '%Y-%m-%d');
+            if ($row['htime'] != null) {
+                $htime = format_time($row['htime'], '%H:%M:%S');
+            } else {
+                $htime = '00:00:00';
+            }
 
-			$date = $hdate . 'T' . $htime . '+00:00';
+            $date = $hdate . 'T' . $htime . '+00:00';
 
-			$items .= '<rdf:li rdf:resource="' . $link . '" />' . "\n";
-			$entries .= "<item rdf:about=\"$link\">
+            $items .= '<rdf:li rdf:resource="' . $link . '" />' . "\n";
+            $entries .= "<item rdf:about=\"$link\">
 	<title>$title</title>
 	<link>$link</link>
 	<description>$description</description>
@@ -73,11 +73,11 @@ foreach ($q as $person) {
 </item>
 ";
 
-		}
-	}
+        }
+    }
 
-	// Prepare the whole text of the RSS file.
-	$rsstext = '<?xml version="1.0" encoding="utf-8"?>
+    // Prepare the whole text of the RSS file.
+    $rsstext = '<?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -103,17 +103,15 @@ foreach ($q as $person) {
 
 </rdf:RDF>';
 
-	// Write the text to the file...
-	$filename = $rsspath . $person_id . '.rdf';
-	$fh = @fopen($filename, "w");
-	if (!$fh) { # Problem writing, just carry on
-		echo "Could not write to file ($filename)\n";
-		continue;
-	}
-	fwrite($fh, $rsstext);
-	fclose ($fh);
+    // Write the text to the file...
+    $filename = $rsspath . $person_id . '.rdf';
+    $fh = @fopen($filename, "w");
+    if (!$fh) { # Problem writing, just carry on
+        echo "Could not write to file ($filename)\n";
+        continue;
+    }
+    fwrite($fh, $rsstext);
+    fclose($fh);
 }
 
 #print "Took " . (time()-$starttime) . " seconds\n";
-
-?>

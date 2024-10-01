@@ -2,30 +2,30 @@
 
 # define array of payment amounts and current/one-off options
 # note - new annual and monthly payments need to be defined as new prices in stripe
-# e.g. 'donate_monthly_10'. 
-$payment_amounts = array(
-  'monthly' => array(
-    '2' => '£2',
-    '5' => '£5',
-    '10' => '£10',
-  ),
-  'annually' => array(
-    '10' => '£10',
-    '50' => '£50',
-    '100' => '£100',
-  ),
-  'one-off' => array(
-    '5' => '£5',
-    '10' => '£10',
-    '20' => '£20',
-  ),
-);
+# e.g. 'donate_monthly_10'.
+$payment_amounts = [
+    'monthly' => [
+        '2' => '£2',
+        '5' => '£5',
+        '10' => '£10',
+    ],
+    'annually' => [
+        '10' => '£10',
+        '50' => '£50',
+        '100' => '£100',
+    ],
+    'one-off' => [
+        '5' => '£5',
+        '10' => '£10',
+        '20' => '£20',
+    ],
+];
 
-$default_amounts = array(
-  'monthly' => '5',
-  'annually' => '10',
-  'one-off' => '10',
-);
+$default_amounts = [
+    'monthly' => '5',
+    'annually' => '10',
+    'one-off' => '10',
+];
 
 $default_type = 'one-off';
 
@@ -37,10 +37,10 @@ $how_much = get_http_var('how-much', $default_amounts[$initial_payment_type]);
 
 # if how-much is not in the allowed values for the current payment type, set to 'other', and set $other_how_much to the value of how-much
 if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
-  $how_much = 'other';
-  $other_how_much = get_http_var('how-much');
+    $how_much = 'other';
+    $other_how_much = get_http_var('how-much');
 } else {
-  $other_how_much = '';
+    $other_how_much = '';
 }
 
 ?>
@@ -80,7 +80,7 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
               id="how-much-<?=$payment_type?>-<?=$amount?>"
               name="how-much"
               value="<?=$amount?>"
-              required <?= (($how_much == $amount) and ($payment_type == $initial_payment_type) ) ? ' checked': '' ?> />
+              required <?= (($how_much == $amount) and ($payment_type == $initial_payment_type)) ? ' checked' : '' ?> />
             <span class="radio-label-large"><?=$label?></span>
         </label>
       <?php } ?>

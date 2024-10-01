@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getGeometry.php';
 
 function api_getConstituencies_front() {
-?>
+    ?>
 <p><big>Fetch a list of UK Parliament constituencies.</big></p>
 
 <h4>Arguments</h4>
@@ -35,23 +35,23 @@ function api_getConstituencies_search($s) {
     api_output($output);
 }
 function _api_getConstituencies_search($s) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query('select c_main.name from constituency, constituency as c_main
         where constituency.cons_id = c_main.cons_id
         and c_main.main_name and constituency.name like :constituency_name and constituency.from_date <= date(now())
         and date(now()) <= constituency.to_date
-        order by name', array(
-        ':constituency_name' => '%' . $s .'%'
-        ));
-    $output = array();
-    $done = array();
+        order by name', [
+        ':constituency_name' => '%' . $s . '%',
+    ]);
+    $output = [];
+    $done = [];
     foreach ($q as $row) {
         $name = $row['name'];
         if (!in_array($name, $done)) {
-            $output[] = array(
+            $output[] = [
                 # 'id' => $row['cons_id'],
-                'name' => $name
-            );
+                'name' => $name,
+            ];
             $done[] = $name;
         }
     }
@@ -68,16 +68,16 @@ function api_getConstituencies_date($date) {
 }
 
 function api_getConstituencies($date = 'now()') {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query('select cons_id, name from constituency
-        where main_name and from_date <= date('.$date.') and date('.$date.') <= to_date
+        where main_name and from_date <= date(' . $date . ') and date(' . $date . ') <= to_date
         order by name');
-    $output = array();
+    $output = [];
     foreach ($q as $row) {
-        $output[] = array(
+        $output[] = [
             # 'id' => $row['cons_id'],
-            'name' => $row['name']
-        );
+            'name' => $row['name'],
+        ];
     }
     api_output($output);
 }
@@ -106,7 +106,7 @@ function api_getConstituencies_latitude($lat) {
 
 function _api_getConstituencies_latitude($lat, $lon, $d) {
     $geometry = _api_getGeometry();
-    $out = array();
+    $out = [];
     foreach ($geometry['data'] as $name => $data) {
         if (!isset($data['centre_lat']) || !isset($data['centre_lon'])) {
             continue;
@@ -114,19 +114,21 @@ function _api_getConstituencies_latitude($lat, $lon, $d) {
         $distance = R_e * acos(
             sin(deg2rad($lat)) * sin(deg2rad($data['centre_lat']))
             + cos(deg2rad($lat)) * cos(deg2rad($data['centre_lat']))
-            * cos(deg2rad($lon - $data['centre_lon'])));
+            * cos(deg2rad($lon - $data['centre_lon']))
+        );
         if (deg2rad($data['centre_lat']) > deg2rad($lat) - ($d / R_e)
             && deg2rad($data['centre_lat']) < deg2rad($lat) + ($d / R_e)
             && (abs(deg2rad($lat)) + ($d / R_e) > M_PI_2 # case where search pt is near pole
                 || _api_angle_between(deg2rad($data['centre_lon']), deg2rad($lon))
                     < $d / (R_e * cos(deg2rad($lat + $d / R_e))))
             && $distance < $d) {
-                $out[] = array_merge($data,
-                    array('distance' => $distance, 'name' => $name)
-                );
+            $out[] = array_merge(
+                $data,
+                ['distance' => $distance, 'name' => $name]
+            );
         }
     }
-    usort($out, function($a, $b) {
+    usort($out, function ($a, $b) {
         if ($a['distance'] > $b['distance']) {
             return 1;
         }
@@ -152,7 +154,7 @@ function api_getConstituencies_distance($d) {
  */
 function _api_angle_between($a1, $a2) {
     if (abs($a1 - $a2) > M_PI) {
-        return 2*M_PI - abs($a1 - $a2);
+        return 2 * M_PI - abs($a1 - $a2);
     }
     return abs($a1 - $a2);
 }

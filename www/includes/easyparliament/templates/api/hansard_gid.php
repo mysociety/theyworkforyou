@@ -1,4 +1,5 @@
 <?php
+
 // For displaying the main Hansard content listings (by gid),
 // and individual Hansard items (the comments are handled separately
 // by COMMENTLIST and the comments.php template).
@@ -8,11 +9,14 @@
 
 global $this_page, $hansardmajors;
 
-if (!isset($data['info'])) { header("HTTP/1.0 404 Not Found"); exit; }
+if (!isset($data['info'])) {
+    header("HTTP/1.0 404 Not Found");
+    exit;
+}
 
-$out = array();
-if (isset ($data['rows'])) {
-    for ($i=0; $i<count($data['rows']); $i++) {
+$out = [];
+if (isset($data['rows'])) {
+    for ($i = 0; $i < count($data['rows']); $i++) {
         $row = $data['rows'][$i];
         if (count($row) == 0) {
             continue;
@@ -20,13 +24,13 @@ if (isset ($data['rows'])) {
         if ($row['htype'] == '12') {
             if (isset($row['speaker']) && count($row['speaker']) > 0) {
                 $speaker = $row['speaker'];
-                list($image, $sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($speaker['person_id'], true);
+                [$image, $sz] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($speaker['person_id'], true);
                 if ($image) {
                     $row['speaker']['image'] = $image;
                 }
                 $desc = '';
                 if (isset($speaker['office'])) {
-                    $desc = array();
+                    $desc = [];
                     foreach ($speaker['office'] as $off) {
                         $desc[] = $off['pretty'];
                     }
@@ -71,4 +75,4 @@ if (isset ($data['rows'])) {
     api_output($out);
 } else {
     api_error('Nothing');
-   }
+}

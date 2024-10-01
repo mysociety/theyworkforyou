@@ -8,7 +8,7 @@ if (!$THEUSER->loggedin()) {
 }
 
 $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
-$errors = array();
+$errors = [];
 
 MySociety\TheyWorkForYou\Utility\Session::start();
 if (get_http_var('plan')) {
@@ -33,5 +33,5 @@ $PAGE->stripe_start();
 include_once INCLUDESPATH . 'easyparliament/templates/html/api/update.php';
 
 $sidebar = api_sidebar($subscription);
-$PAGE->stripe_end(array($sidebar));
+$PAGE->stripe_end([$sidebar]);
 $PAGE->page_end();

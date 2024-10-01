@@ -4,7 +4,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getMP_front() {
-?>
+    ?>
 <p><big>Fetch a particular MP.</big></p>
 
 <h4>Arguments</h4>

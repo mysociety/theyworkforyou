@@ -28,7 +28,8 @@ if ($pc) {
     }
 }
 if ($pc) {
-    $current = array(); $current_id = array();
+    $current = [];
+    $current_id = [];
     foreach ($mapit['areas'] as $id => $val) {
         $current[$val['type']] = $val['name'];
         $current_id[$val['type']] = $id;
@@ -41,10 +42,10 @@ if ($pc) {
 
 if ($pc) {
     if (array_key_exists('SPC', $current)) {
-        $a = array($current['SPC'], $current['SPE']);
+        $a = [$current['SPC'], $current['SPE']];
         $country = 'S';
     } else {
-        $a = array($current['NIE']);
+        $a = [$current['NIE']];
         $country = 'N';
     }
 }
@@ -64,12 +65,12 @@ It does not currently function.
 }
 
 if ($pc) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     # Just left politicians
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
         WHERE constituency IN ('" . join("','", $a) . "')
         AND ( ( house = 3 and left_house = '2011-03-24' ) or ( house = 4 and left_house = '2011-03-23') )");
-    $mreg = array();
+    $mreg = [];
     foreach ($q as $row) {
         $cons = $row['constituency'];
         $house = $row['house'];
@@ -81,15 +82,16 @@ if ($pc) {
     }
 
     # If Scottish, has SPC and SPE. Otherwise, empty.
-    $mapit = mapit_call('postcode', $pc, array('generation' => 15)); # Magic number 15
-    $new = array(); $new_id = array();
+    $mapit = mapit_call('postcode', $pc, ['generation' => 15]); # Magic number 15
+    $new = [];
+    $new_id = [];
     foreach ($mapit['areas'] as $id => $val) {
         $new[$val['type']] = $val['name'];
         $new_id[$val['type']] = $id;
     }
 
     if ($country == 'S') {
-?>
+        ?>
 
 <div id="maps">
 <h3>Maps</h3>
@@ -118,33 +120,33 @@ $(function () {
 </script>
 <?php
     }
-?>
+    ?>
     <ul class="results">
 <?php
-    if (count($new)) {
-        print "<li>For the Parliament election, you are in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
-    } elseif ($country == 'N') {
-        print "<li>For the Assembly election, you are in the <strong>$current[WMC]</strong> constituency.";
-    } else {
-        print '<li>We cannot look up the constituency for the election for some reason, sorry.';
-    }
+        if (count($new)) {
+            print "<li>For the Parliament election, you are in the <strong>$new[SPC]</strong> constituency, in the <strong>$new[SPE]</strong> region.";
+        } elseif ($country == 'N') {
+            print "<li>For the Assembly election, you are in the <strong>$current[WMC]</strong> constituency.";
+        } else {
+            print '<li>We cannot look up the constituency for the election for some reason, sorry.';
+        }
 
     if ($country == 'S') {
         $mp_url = '/msp/' . make_member_url($name, '', 4);
-?>
+        ?>
 <li>You were in the <strong><?=$current['SPC']?></strong> constituency, in the <strong><?=$current['SPE']?></strong> region; your constituency MSP was <a href='<?=$mp_url?>'><?=$name?></a>, and your regional MSPs were <?php
-        foreach ($mreg as $k => $n) {
-            print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
-            if ($k < count($mreg)-2) {
-                print ', ';
-            } elseif ($k == count($mreg)-2) {
-                print ' and ';
-            }
-        }
+                foreach ($mreg as $k => $n) {
+                    print "<a href='/msp/" . make_member_url($n, '', 4) . "'>$n</a>";
+                    if ($k < count($mreg) - 2) {
+                        print ', ';
+                    } elseif ($k == count($mreg) - 2) {
+                        print ' and ';
+                    }
+                }
         echo '.</li>';
     } elseif ($country == 'N') {
         $mp_url = '/mla/' . make_member_url($name, '', 3);
-?>
+        ?>
 <li>You were in the <strong><?=$current['NIE']?></strong> constituency; your constituency MLA was <a href='<?=$mp_url?>'><?=$name?></a>.</li>
 <?php
     }

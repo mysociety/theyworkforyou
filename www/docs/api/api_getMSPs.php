@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getMembers.php';
 
 function api_getMSPs_front() {
-?>
+    ?>
 <p><big>Fetch a list of MSPs.</big></p>
 
 <h4>Arguments</h4>

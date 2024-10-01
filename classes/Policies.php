@@ -14,12 +14,11 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Policies {
-
-    private $commons_only = array(
+    private $commons_only = [
         811,
         826,
         1053,
-    );
+    ];
 
     # policies where votes affected by covid voting restrictions
     protected $covid_affected = [1136, 6860];
@@ -34,22 +33,22 @@ class Policies {
     private array $policies;
 
     /**
-     * @var array $sets - key-value pair of a set slug to an array of policy IDs 
+     * @var array $sets - key-value pair of a set slug to an array of policy IDs
      * in that set.
      * e.g. "foreignpolicy": ["975", "984"[]
      */
     private array $sets;
 
     /**
-     * @var array $set_descs - key-value pairs of a set slug to a description 
+     * @var array $set_descs - key-value pairs of a set slug to a description
      * of that set.
      * e.g. "foreignpolicy": "Foreign Policy"
      */
     private array $set_descs;
 
     /**
-     * @var array $all_policy_agreements - key-value pair of a policy ID to 
-     * an array of 
+     * @var array $all_policy_agreements - key-value pair of a policy ID to
+     * an array of
      * agreements links.
      * e.g. "1030": [{
      *   "division_name": "Approval of SI setting 2050 Net Zero target date",
@@ -64,7 +63,7 @@ class Policies {
     public array $all_policy_agreements;
 
     public function __construct($policy_id = null) {
-        $this->db = new \ParlDB;
+        $this->db = new \ParlDB();
 
         if (defined('TESTING') && TESTING == true) {
             $policy_data = json_decode(file_get_contents(dirname(__FILE__) . '/../tests/policies.json'), true);
@@ -77,11 +76,11 @@ class Policies {
 
         $this->all_policy_agreements = $policy_data['agreements'] ?? [];
 
-        if ( $policy_id ) {
+        if ($policy_id) {
             $this->policy_id = $policy_id;
-            $this->policies = array(
-                $policy_id => $this->policies[$policy_id]
-            );
+            $this->policies = [
+                $policy_id => $this->policies[$policy_id],
+            ];
         }
     }
 
@@ -109,13 +108,13 @@ class Policies {
      * @return array Array of policies in the form `[ {id} , {text} ]`
      */
     public function getPoliciesData() {
-        $out = array();
+        $out = [];
         foreach ($this->policies as $policy_id => $policy_text) {
-            $out[] = array(
+            $out[] = [
                 'id' => $policy_id,
                 'text' => $policy_text,
-                'commons_only'=> in_array($policy_id, $this->commons_only),
-            );
+                'commons_only' => in_array($policy_id, $this->commons_only),
+            ];
         }
         return $out;
     }
@@ -149,22 +148,19 @@ class Policies {
     public function limitToSet($set) {
 
         // Sanity check the set exists
-        if (isset($this->sets[$set]))
-        {
-            $out = array();
+        if (isset($this->sets[$set])) {
+            $out = [];
             // Reassemble the new policies list based on the set.
-            foreach ($this->sets[$set] as $set_policy)
-            {
-                if (isset($this->policies[$set_policy]))
-                {
+            foreach ($this->sets[$set] as $set_policy) {
+                if (isset($this->policies[$set_policy])) {
                     $out[$set_policy] = $this->policies[$set_policy];
                 } else {
                     // if we've limited the policies to a single one then we only
                     // want to complain here if we're looking for that policy and
                     // it does not exist. Otherwise, if the single policy isn't in
                     // the set we want to return an empty set
-                    if ( !isset($this->policy_id) || $set_policy == $this->policy_id ) {
-                        throw new \Exception ('Policy ' . $set_policy . ' in set "' . $set . '" does not exist.');
+                    if (!isset($this->policy_id) || $set_policy == $this->policy_id) {
+                        throw new \Exception('Policy ' . $set_policy . ' in set "' . $set . '" does not exist.');
                     }
                 }
             }
@@ -175,33 +171,33 @@ class Policies {
             return $new_policies->shuffle();
 
         } else {
-            throw new \Exception ('Policy set "' . $set . '" does not exist.');
+            throw new \Exception('Policy set "' . $set . '" does not exist.');
         }
     }
 
     public function limitToArray($policies) {
-          $out = array();
-          // Reassemble the new policies list based on the set.
-          foreach ($policies as $policy) {
-              if (isset($this->policies[$policy])) {
-                  $out[$policy] = $this->policies[$policy];
-              }
-          }
+        $out = [];
+        // Reassemble the new policies list based on the set.
+        foreach ($policies as $policy) {
+            if (isset($this->policies[$policy])) {
+                $out[$policy] = $this->policies[$policy];
+            }
+        }
 
-          $new_policies = new self();
-          $new_policies->policies = $out;
+        $new_policies = new self();
+        $new_policies->policies = $out;
 
-          return $new_policies;
+        return $new_policies;
     }
 
     public function getPolicyDetails($policyID) {
         $q = $this->db->query(
             "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source
             FROM policies WHERE policy_id = :policy_id",
-            array(':policy_id' => $policyID)
+            [':policy_id' => $policyID]
         )->first();
 
-        $props = array(
+        $props = [
             'policy_id' => $q['policy_id'],
             'title' => $q['title'],
             // remove full stops from the end of descriptions. Some of them have them and
@@ -211,12 +207,12 @@ class Policies {
             'image_license' => '',
             'image_attribution' => '',
             'image_source' => '',
-            'image_license_url' => ''
-        );
+            'image_license_url' => '',
+        ];
 
         $image = $q['image'];
 
-        if ( $image && file_exists(BASEDIR . '/' . $image)) {
+        if ($image && file_exists(BASEDIR . '/' . $image)) {
             $props['image'] = $image;
             $props['image_license'] = $q['image_license'];
             $props['image_attribution'] = $q['image_attrib'];

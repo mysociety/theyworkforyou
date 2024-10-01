@@ -9,9 +9,7 @@ namespace MySociety\TheyWorkForYou;
  * for use in header and footer.
  */
 
-class Renderer
-{
-
+class Renderer {
     /**
      * Output Page
      *
@@ -21,8 +19,7 @@ class Renderer
      * @param array  $data     An associative array of data to be made available to the template.
      */
 
-    public static function output($template, $data = array(), $template_only = false)
-    {
+    public static function output($template, $data = [], $template_only = false) {
 
         global $page_errors;
         ////////////////////////////////////////////////////////////
@@ -43,7 +40,7 @@ class Renderer
         $user = new Renderer\User();
         $data = array_merge($user->data, $data);
 
-        if ( isset($page_errors) ) {
+        if (isset($page_errors)) {
             $data['page_errors'] = $page_errors;
         }
 
@@ -62,7 +59,7 @@ class Renderer
         $data['footer_links'] = $footer->data;
 
         # banner text
-        $announcement_manager = new Model\AnnouncementManagement;
+        $announcement_manager = new Model\AnnouncementManagement();
         $data['random_banner'] = $announcement_manager->get_random_valid_banner();
         $data = self::addCommonURLs($data);
 
@@ -86,15 +83,15 @@ class Renderer
     }
 
     private static function addCommonURLs($data) {
-        $urls = array();
-        if ( isset($data['urls']) ) {
+        $urls = [];
+        if (isset($data['urls'])) {
             $urls = $data['urls'];
         }
 
-        $common_urls = array('search', 'alert');
+        $common_urls = ['search', 'alert'];
 
-        foreach ( $common_urls as $path ) {
-            if (!isset($urls[$path]) ) {
+        foreach ($common_urls as $path) {
+            if (!isset($urls[$path])) {
                 $url = new Url($path);
                 $urls[$path] = $url->generate();
             }

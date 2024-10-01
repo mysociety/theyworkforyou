@@ -22,64 +22,63 @@ namespace MySociety\TheyWorkForYou\Utility;
  */
 
 class LibFilter {
-
-    public $tag_counts = array();
+    public $tag_counts = [];
 
     #
     # tags and attributes that are allowed
     #
 
-    public $allowed = array(
-        'a' => array('href', 'target'),
-        'b' => array(),
-        'img' => array('src', 'width', 'height', 'alt'),
-    );
+    public $allowed = [
+        'a' => ['href', 'target'],
+        'b' => [],
+        'img' => ['src', 'width', 'height', 'alt'],
+    ];
 
     #
     # tags which should always be self-closing (e.g. "<img />")
     #
 
-    public $no_close = array(
+    public $no_close = [
         'img',
-    );
+    ];
 
     #
     # tags which must always have seperate opening and closing tags (e.g. "<b></b>")
     #
 
-    public $always_close = array(
+    public $always_close = [
         'a',
         'b',
-    );
+    ];
 
     #
     # attributes which should be checked for valid protocols
     #
 
-    public $protocol_attributes = array(
+    public $protocol_attributes = [
         'src',
         'href',
-    );
+    ];
 
     #
     # protocols which are allowed
     #
 
-    public $allowed_protocols = array(
+    public $allowed_protocols = [
         'http',
         'https',
         'ftp',
         'mailto',
-    );
+    ];
 
     #
     # tags which should be removed if they contain no content (e.g. "<b></b>" or "<b />")
     #
 
-    public $remove_blanks = array(
+    public $remove_blanks = [
         'a',
         'b',
-    );
+    ];
 
     #
     # should we remove comments?
@@ -105,12 +104,12 @@ class LibFilter {
     # converted from '&foo;' to '&amp;foo;'
     #
 
-    public $allowed_entities = array(
+    public $allowed_entities = [
         'amp',
         'gt',
         'lt',
         'quot',
-    );
+    ];
 
     #
     # should we convert dec/hex entities in the general doc (not inside protocol attribute)
@@ -133,7 +132,7 @@ class LibFilter {
 
     public function go($data) {
 
-        $this->tag_counts = array();
+        $this->tag_counts = [];
 
         $data = $this->escape_comments($data);
         $data = $this->balance_html($data);
@@ -154,9 +153,9 @@ class LibFilter {
 
     public function escape_comments($data) {
 
-        $data = preg_replace_callback("/<!--(.*?)-->/s", function($matches) {
-                return '<!--' . HtmlSpecialChars($this->StripSingle($matches[1])) . '-->';
-            }, $data);
+        $data = preg_replace_callback("/<!--(.*?)-->/s", function ($matches) {
+            return '<!--' . HtmlSpecialChars($this->StripSingle($matches[1])) . '-->';
+        }, $data);
 
         return $data;
     }
@@ -204,9 +203,9 @@ class LibFilter {
 
     public function check_tags($data) {
 
-        $data = preg_replace_callback("/<(.*?)>/s", function($matches) {
-                return $this->process_tag($this->StripSingle($matches[1]));
-            }, $data);
+        $data = preg_replace_callback("/<(.*?)>/s", function ($matches) {
+            return $this->process_tag($this->StripSingle($matches[1]));
+        }, $data);
 
         foreach (array_keys($this->tag_counts) as $tag) {
             for ($i = 0; $i < $this->tag_counts[$tag]; $i++) {
@@ -373,7 +372,7 @@ class LibFilter {
 
         return preg_replace_callback(
             "/(>|^)([^<]+?)(<|$)/s",
-            array($this, 'fix_case_inner'),
+            [$this, 'fix_case_inner'],
             $data
         );
     }
@@ -392,7 +391,7 @@ class LibFilter {
 
         $data = preg_replace_callback(
             '/(^|[^\w\s\';,\\-])(\s*)([a-z])/',
-            function($m) {
+            function ($m) {
                 return $m[1] . $m[2] . strtoupper($m[3]);
             },
             $data
@@ -432,7 +431,8 @@ class LibFilter {
         #
 
         $data = preg_replace_callback(
-            '!&([^&;]*)(?=(;|&|$))!', function($matches) {
+            '!&([^&;]*)(?=(;|&|$))!',
+            function ($matches) {
                 return $this->check_entity($this->StripSingle($matches[1]), $this->StripSingle($matches[2]));
             },
             $data
@@ -451,7 +451,7 @@ class LibFilter {
 
         return preg_replace_callback(
             "/(>|^)([^<]+?)(<|$)/s",
-            array($this, 'cleanup_non_tags_inner'),
+            [$this, 'cleanup_non_tags_inner'],
             $data
         );
 
@@ -565,11 +565,11 @@ class LibFilter {
 
     public function decode_entities($data, $in_attribute = 1) {
 
-        $data = preg_replace_callback('!(&)#(\d+);?!', array($this, 'decode_dec_entity'), $data);
-        $data = preg_replace_callback('!(&)#x([0-9a-f]+);?!i', array($this, 'decode_hex_entity'), $data);
+        $data = preg_replace_callback('!(&)#(\d+);?!', [$this, 'decode_dec_entity'], $data);
+        $data = preg_replace_callback('!(&)#x([0-9a-f]+);?!i', [$this, 'decode_hex_entity'], $data);
 
         if ($in_attribute) {
-            $data = preg_replace_callback('!(%)([0-9a-f]{2});?!i', array($this, 'decode_hex_entity'), $data);
+            $data = preg_replace_callback('!(%)([0-9a-f]{2});?!i', [$this, 'decode_hex_entity'], $data);
         }
 
         return $data;
@@ -595,7 +595,9 @@ class LibFilter {
 
     public function decode_num_entity($orig_type, $d) {
 
-        if ($d < 0) { $d = 32; } # treat control characters as spaces
+        if ($d < 0) {
+            $d = 32;
+        } # treat control characters as spaces
 
         #
         # don't mess with high characters - what to replace them with is
@@ -604,8 +606,12 @@ class LibFilter {
         #
 
         if ($d > 127) {
-            if ($orig_type == '%') { return '%' . dechex($d); }
-            if ($orig_type == '&') { return "&#$d;"; }
+            if ($orig_type == '%') {
+                return '%' . dechex($d);
+            }
+            if ($orig_type == '&') {
+                return "&#$d;";
+            }
         }
 
         #
@@ -620,7 +626,7 @@ class LibFilter {
     #####################################################################################
 
     public function StripSingle($data) {
-        return str_replace(array('\\"', "\\0"), array('"', chr(0)), $data);
+        return str_replace(['\\"', "\\0"], ['"', chr(0)], $data);
     }
 
     #####################################################################################

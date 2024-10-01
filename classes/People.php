@@ -12,7 +12,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class People {
-
     public $type;
     public $rep_name;
     public $rep_plural;
@@ -32,18 +31,18 @@ class People {
         return $user->getRegionalReps($this->reg_cons_type, $this->house);
     }
 
-    public function getData($args = array()) {
+    public function getData($args = []) {
         $data = $this->_get_data_by_group($args);
 
         $user = new User();
-        if ( $reps = $this->getRegionalReps($user) ) {
+        if ($reps = $this->getRegionalReps($user)) {
             $data['reps'] = $reps;
         }
 
         $data['mp_data'] = $user->getRep($this->cons_type, $this->house);
         $data['data'] = $this->addImagesToData($data['data']);
         $data['urls'] = $this->addUrlsToData();
-        $data['order'] = isset($args['order']) ? $args['order'] : 'l';
+        $data['order'] = $args['order'] ?? 'l';
         $data['rep_plural'] = $this->rep_plural;
         $data['rep_name'] = $this->rep_name;
         $data['type'] = $this->type;
@@ -55,7 +54,7 @@ class People {
     }
 
     public function getArgs() {
-        $args = array();
+        $args = [];
 
         if (get_http_var('f') == 'csv') {
             $args['f'] = 'csv';
@@ -71,15 +70,15 @@ class People {
             $args['all'] = true;
         }
 
-        if ( $this->type == 'peers' ) {
+        if ($this->type == 'peers') {
             $args['order'] = 'name';
         }
 
         $order = get_http_var('o');
-        $orders = array(
+        $orders = [
             'n' => 'name', 'f' => 'given_name', 'l' => 'family_name',
             'c' => 'constituency', 'p' => 'party',
-        );
+        ];
         if (array_key_exists($order, $orders)) {
             $args['order'] = $orders[$order];
         }
@@ -100,17 +99,17 @@ class People {
     }
 
     protected function getCSVHeaders() {
-        return array(gettext('Person ID'), gettext('Name'), gettext('Party'), gettext('Constituency'), gettext('URI'));
+        return [gettext('Person ID'), gettext('Name'), gettext('Party'), gettext('Constituency'), gettext('URI')];
     }
 
     protected function getCSVRow($details) {
-        return array(
+        return [
             $details['person_id'],
             $details['name'],
             $details['party'],
             $details['constituency'],
-            'https://www.theyworkforyou.com/mp/' . $details['url']
-        );
+            'https://www.theyworkforyou.com/mp/' . $details['url'],
+        ];
     }
 
     public function sendAsCSV($data) {
@@ -130,9 +129,9 @@ class People {
     }
 
     private function addImagesToData($data) {
-        $new_data = array();
-        foreach ( $data as $pid => $details ) {
-            list($image, ) = Utility\Member::findMemberImage($pid, true, $this->subs_missing_image);
+        $new_data = [];
+        foreach ($data as $pid => $details) {
+            [$image, ] = Utility\Member::findMemberImage($pid, true, $this->subs_missing_image);
             $details['image'] = $image;
             $new_data[$pid] = $details;
         }
@@ -143,28 +142,28 @@ class People {
     private function addUrlsToData() {
         global $this_page;
 
-        $urls = array();
+        $urls = [];
 
         $URL = new Url($this_page);
 
         $urls['plain'] = $URL->generate();
 
-        $URL->insert(array( 'o' => 'n'));
+        $URL->insert([ 'o' => 'n']);
         $urls['by_name'] = $URL->generate();
 
-        $URL->insert(array( 'o' => 'l'));
+        $URL->insert([ 'o' => 'l']);
         $urls['by_last'] = $URL->generate();
 
-        $URL->insert(array( 'o' => 'f'));
+        $URL->insert([ 'o' => 'f']);
         $urls['by_first'] = $URL->generate();
 
-        $URL->insert(array( 'o' => 'p'));
+        $URL->insert([ 'o' => 'p']);
         $urls['by_party'] = $URL->generate();
 
-        $URL->insert(array( 'f' => 'csv'));
-        $URL->remove(array( 'o'));
-        if ( $date = get_http_var('date') ) {
-            $URL->insert(array('date' => $date));
+        $URL->insert([ 'f' => 'csv']);
+        $URL->remove([ 'o']);
+        if ($date = get_http_var('date')) {
+            $URL->insert(['date' => $date]);
         }
         $urls['by_csv'] = $URL->generate();
 
@@ -176,7 +175,7 @@ class People {
         $order = 'family_name';
         $sqlorder = 'family_name, given_name';
 
-        $params = array();
+        $params = [];
         $query = 'SELECT distinct member.person_id, title, given_name, family_name, lordofname, constituency, party, left_reason ';
         $query .= 'FROM member JOIN person_names p ON p.person_id = member.person_id AND p.type = "name" ';
         if (isset($args['date'])) {
@@ -206,7 +205,7 @@ class People {
 
         $q = $this->db->query($query . "ORDER BY $sqlorder", $params);
 
-        $data = array();
+        $data = [];
         foreach ($q as $row) {
             $p_id = $row['person_id'];
             if (!isset($data[$p_id])) {
@@ -214,7 +213,7 @@ class People {
                 $constituency = $row['constituency'] ? gettext($row['constituency']) : '';
                 $party = $row['party'] ? gettext($row['party']) : '';
                 $url = make_member_url($name, $constituency, $this->house, $p_id);
-                $narray = array (
+                $narray =  [
                     'person_id' 	=> $p_id,
                     'given_name' => $row['given_name'],
                     'family_name' => $row['family_name'],
@@ -224,7 +223,7 @@ class People {
                     'constituency' 	=> $constituency,
                     'party' 	=> $party,
                     'left_reason' 	=> $row['left_reason'],
-                );
+                ];
                 $data[$p_id] = $narray;
             }
         }
@@ -232,12 +231,12 @@ class People {
             uasort($data, 'by_peer_name');
         }
 
-        $data = array (
-            'info' => array (
-                'order' => $order
-            ),
-            'data' => $data
-        );
+        $data =  [
+            'info' =>  [
+                'order' => $order,
+            ],
+            'data' => $data,
+        ];
 
         return $data;
 

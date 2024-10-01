@@ -20,28 +20,28 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php
 
                 $displayed_votes = false;
-                $current_date = '';
-                $sidebar_links = array();
+$current_date = '';
+$sidebar_links = [];
 
-                if ( isset($divisions) && $divisions ) {
-                        foreach ($divisions as $division) {
-                          $displayed_votes = true;
+if (isset($divisions) && $divisions) {
+    foreach ($divisions as $division) {
+        $displayed_votes = true;
 
-                          if ($current_date != $division['date']) {
-                            if ($current_date != '' ) {
-                              print('</ul></div>');
-                            }
-                            $current_date = $division['date'];
-                            $sidebar_links[] = $division['date'];
-                            ?>
+        if ($current_date != $division['date']) {
+            if ($current_date != '') {
+                print('</ul></div>');
+            }
+            $current_date = $division['date'];
+            $sidebar_links[] = $division['date'];
+            ?>
                           <div class="panel" id="<?= strftime('%Y-%m-%d', strtotime($division['date'])) ?>">
                             <h2><?= strftime('%e %b %Y', strtotime($division['date'])) ?></h2>
                              <ul class="vote-descriptions policy-votes">
                           <?php }
-                          include('_division_description.php');
-                        }
-                        echo('</div>');
-                } ?>
+        include('_division_description.php');
+    }
+    echo('</div>');
+} ?>
 
                 <?php if (!$displayed_votes) { ?>
                     <div class="panel">
@@ -49,7 +49,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     </div>
                 <?php }
                 include('_covid19_panel.php');
-                include('_profile_footer.php'); ?>
+include('_profile_footer.php'); ?>
             </div>
 
             <div class="sidebar__unit in-page-nav">

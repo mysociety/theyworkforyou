@@ -1,10 +1,10 @@
 <?php
+
 # vim:sw=4:ts=4:et:nowrap
 
 namespace MySociety\TheyWorkForYou\Search;
 
 class ParseArgs {
-
     private $searchstring;
     public $searchkeyword;
     public $person_id;

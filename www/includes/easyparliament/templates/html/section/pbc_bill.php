@@ -24,12 +24,12 @@
             <ul class="business-list">
             <?php
                 $first = 0;
-                foreach ( $content['rows'] as $row ) {
-                    if ( $row['htype'] == 10 ) {
-                        if ( !$first ) {
-                            print '</li>';
-                            $first = 1;
-                        } ?>
+            foreach ($content['rows'] as $row) {
+                if ($row['htype'] == 10) {
+                    if (!$first) {
+                        print '</li>';
+                        $first = 1;
+                    } ?>
                         <li>
                             <a <?= isset($row['sitting']) ? 'id="sitting' . $row['sitting'] . '" ' : '' ?>href="<?= $row['listurl'] ?>" class="business-list__title">
                                 <h3>
@@ -37,16 +37,16 @@
                                 </h3>
                             </a>
                             <p class="business-list__meta">
-                                <?php if ( isset($row['sitting']) ) { ?>
+                                <?php if (isset($row['sitting'])) { ?>
                                     <?= make_ranking($row['sitting']) ?> sitting &middot;
                                 <?php } ?>
-                                <?= format_date($row['hdate'], LONGERDATEFORMAT ) ?>
-                                <?php if ( $row['contentcount'] > 0 ) { ?>
+                                <?= format_date($row['hdate'], LONGERDATEFORMAT) ?>
+                                <?php if ($row['contentcount'] > 0) { ?>
                                 &middot; <?= $row['contentcount'] == 1 ? '1 speech' : $row['contentcount'] . ' speeches' ?>
                                 <?php } ?>
                             </p>
                             <p class="business-list__excerpt">
-                                <?= trim_characters($row['excerpt'], 0, 200 ) ?>
+                                <?= trim_characters($row['excerpt'], 0, 200) ?>
                             </p>
                     <?php } else { ?>
                     <ul>
@@ -61,7 +61,7 @@
                                     <?= $row['contentcount'] == 1 ? '1 speech' : $row['contentcount'] . ' speeches' ?>
                                 </p>
                             <?php } ?>
-                            <?php if ( isset($row['excerpt']) ) { ?>
+                            <?php if (isset($row['excerpt'])) { ?>
                                 <p class="business-list__excerpt">
                                     <?= trim_characters($row['excerpt'], 0, 200) ?>
                                 </p>
@@ -69,13 +69,13 @@
                         </li>
                     </ul>
                 <?php }
-                } ?>
+                    } ?>
             </ul>
         </div>
 
-        <?php if ( isset($content['info']['committee']) ) {
+        <?php if (isset($content['info']['committee'])) {
             $committee = $content['info']['committee'];
-        ?>
+            ?>
         <div class="business-section__secondary">
             <p>
             <a href="/pbc/<?= $session ?>/">All bills in this session</a>
@@ -85,13 +85,13 @@
 
             <p><strong>Chairpersons</strong></p>
             <ul>
-            <?php foreach( $committee['chairmen'] as $chair ) { ?>
+            <?php foreach($committee['chairmen'] as $chair) { ?>
                 <li><?= $chair['name'] ?> (<?= $chair['attending'] ?>)</li>
             <?php } ?>
             </ul>
             <p><strong>Members</strong></p>
             <ul>
-            <?php foreach( $committee['members'] as $chair ) { ?>
+            <?php foreach($committee['members'] as $chair) { ?>
                 <li><?= $chair['name'] ?> (<?= $chair['attending'] ?>)</li>
             <?php } ?>
             </ul>

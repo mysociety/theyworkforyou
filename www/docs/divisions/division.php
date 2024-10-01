@@ -14,17 +14,17 @@ if (!$vote) {
 
 $divisions = new MySociety\TheyWorkForYou\Divisions();
 $division_votes = $divisions->getDivisionResults($vote);
-list($country, $location, $assembly, $cons_type, $assembly_name) = MySociety\TheyWorkForYou\Utility\House::getCountryDetails($division_votes['house_number']);
+[$country, $location, $assembly, $cons_type, $assembly_name] = MySociety\TheyWorkForYou\Utility\House::getCountryDetails($division_votes['house_number']);
 
 $main_vote_mp = false;
 if ($mp = get_http_var('p')) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('person_id' => $mp, 'house' => $division_votes['house_number']));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => $mp, 'house' => $division_votes['house_number']]);
     $main_vote_mp = true;
 } elseif ($THEUSER->postcode_is_set() && $cons_type == 'WMC') {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS]);
 }
 
-$data = array('division' => $division_votes);
+$data = ['division' => $division_votes];
 
 if (!$data['division']) {
     $PAGE->error_message("Vote not found", true);
@@ -48,19 +48,19 @@ if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
     } else {
         if ($data['division']['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
             $data['before_mp'] = true;
-        } else if ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
+        } elseif ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
             $data['after_mp'] = true;
         }
     }
 
-    $mp_data = array(
+    $mp_data = [
         'name' => $MEMBER->full_name(),
         'party' => $MEMBER->party(),
         'constituency' => $MEMBER->constituency(),
         'former' => '',
         'mp_url' => $MEMBER->url(),
         'image' => $MEMBER->image()['url'],
-    );
+    ];
     $left_house = $MEMBER->left_house();
     if ($left_house[$division_votes['house_number']]['date'] != '9999-12-31') {
         $mp_data['former'] = 'former';
@@ -82,6 +82,6 @@ $data['debate_day_human'] = format_date($data['division']['date'], LONGDATEFORMA
 $data['location'] = $location;
 $data['current_assembly'] = $assembly;
 $data['assembly_name'] = $assembly_name;
-$data['nextprev'] = array('up' => array('url' => '/divisions/', 'body' => 'Recent Votes'));
+$data['nextprev'] = ['up' => ['url' => '/divisions/', 'body' => 'Recent Votes']];
 
 MySociety\TheyWorkForYou\Renderer::output($template, $data);

@@ -5,32 +5,27 @@
  * Currently only the highlighting and constituency search.
  */
 
-class SearchTest extends FetchPageTestCase
-{
-	public function setUp(): void
-	{
+class SearchTest extends FetchPageTestCase {
+    public function setUp(): void {
         parent::setUp();
         include_once('www/includes/easyparliament/searchengine.php');
     }
 
-    public function getDataSet()
-    {
+    public function getDataSet() {
         return $this->createMySQLXMLDataSet(dirname(__FILE__) . '/_fixtures/search.xml');
     }
 
-    private function fetch_page($vars)
-    {
+    private function fetch_page($vars) {
         return $this->base_fetch_page($vars, 'search');
     }
 
-    public function testConstituencySearch()
-    {
+    public function testConstituencySearch() {
         $this->assertEquals(
-            array( array( 'Alyn and Deeside' ), false ),
+            [ [ 'Alyn and Deeside' ], false ],
             \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery('Alyn')
         );
         $this->assertEquals(
-            array( array( 'Alyn and Deeside' ), false ),
+            [ [ 'Alyn and Deeside' ], false ],
             \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery('Alyn and Deeside')
         );
     }
@@ -39,8 +34,7 @@ class SearchTest extends FetchPageTestCase
      * Test looking up a person by a single name works as expected.
      */
 
-    public function testSearchMemberDbLookupSingleName()
-    {
+    public function testSearchMemberDbLookupSingleName() {
         // Test a single (first) name.
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Joseph');
 
@@ -59,8 +53,7 @@ class SearchTest extends FetchPageTestCase
      * Test looking up a person by full name works as expected.
      */
 
-    public function testSearchMemberDbLookupFullName()
-    {
+    public function testSearchMemberDbLookupFullName() {
 
         // Test a full name.
         $results = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookup('Mary Smith');
@@ -87,8 +80,7 @@ class SearchTest extends FetchPageTestCase
      *
      * @group xapian
      */
-	public function testSearchNormal()
-    {
+    public function testSearchNormal() {
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(
@@ -102,8 +94,7 @@ class SearchTest extends FetchPageTestCase
      *
      * @group xapian
      */
-	public function testSearchLink()
-    {
+    public function testSearchLink() {
         $SEARCHENGINE = new SEARCHENGINE('test');
 
         $this->assertEquals(
@@ -117,9 +108,8 @@ class SearchTest extends FetchPageTestCase
      *
      * @group xapian
      */
-    public function testSearchPage()
-    {
-        $page = $this->fetch_page( array( ) );
+    public function testSearchPage() {
+        $page = $this->fetch_page([ ]);
         $this->assertStringContainsString('Search', $page);
     }
 
@@ -128,9 +118,8 @@ class SearchTest extends FetchPageTestCase
      *
      * @group xapian
      */
-    public function testSearchPageMP()
-    {
-        $page = $this->fetch_page( array( 'q' => 'Mary Smith' ) );
+    public function testSearchPageMP() {
+        $page = $this->fetch_page([ 'q' => 'Mary Smith' ]);
         $this->assertStringContainsString('Mary Smith', $page);
         $this->assertStringContainsString('MP, Amber Valley', $page);
     }
@@ -140,9 +129,8 @@ class SearchTest extends FetchPageTestCase
      *
      * @group xapian
      */
-    public function testSearchPageMultipleMP()
-    {
-        $page = $this->fetch_page( array( 'q' => 'Jones' ) );
+    public function testSearchPageMultipleMP() {
+        $page = $this->fetch_page([ 'q' => 'Jones' ]);
         $this->assertStringContainsString('People matching <em class="current-search-term">Jones</em>', $page);
         $this->assertStringContainsString('Andrew Jones', $page);
         $this->assertStringContainsString('Simon Jones', $page);
@@ -154,7 +142,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageCons() {
-        $page = $this->fetch_page( array( 'q' => 'Amber' ) );
+        $page = $this->fetch_page([ 'q' => 'Amber' ]);
         $this->assertStringContainsString('MP for <em class="current-search-term">Amber</em>', $page);
         $this->assertStringContainsString('Mary Smith', $page);
     }
@@ -166,7 +154,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageConsWithNoMp() {
-        $page = $this->fetch_page( array( 'q' => 'Alyn' ) );
+        $page = $this->fetch_page([ 'q' => 'Alyn' ]);
         $this->assertStringNotContainsString('MP for <em class="current-search-term">Alyn</em>', $page);
         $this->assertStringNotContainsString('MPs in constituencies matching', $page);
     }
@@ -178,7 +166,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageMultipleCons() {
-        $page = $this->fetch_page( array( 'q' => 'Liverpool' ) );
+        $page = $this->fetch_page([ 'q' => 'Liverpool' ]);
         $this->assertStringContainsString('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
         $this->assertStringContainsString('Susan Brown', $page);
         $this->assertStringContainsString('MP, Liverpool, Riverside', $page);
@@ -192,7 +180,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageGlossary() {
-        $page = $this->fetch_page( array( 'q' => 'other place' ) );
+        $page = $this->fetch_page([ 'q' => 'other place' ]);
         $this->assertStringContainsString('Glossary items matching', $page);
         $this->assertStringContainsString('<a href="/glossary/?gl=1">&ldquo;other place', $page);
     }
@@ -203,7 +191,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageSpellCorrect() {
-        $page = $this->fetch_page( array( 'q' => 'plice' ) );
+        $page = $this->fetch_page([ 'q' => 'plice' ]);
         $this->assertStringContainsString('Did you mean <a href="/search/?q=place">place', $page);
     }
 
@@ -213,7 +201,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchBySpeakerNoResults() {
-        $page = $this->fetch_page( array( 'q' => 'splice', 'o' => 'p' ) );
+        $page = $this->fetch_page([ 'q' => 'splice', 'o' => 'p' ]);
         $this->assertStringContainsString('Who says splice the most', $page);
         $this->assertStringContainsString('No results', $page);
     }
@@ -240,7 +228,7 @@ class SearchTest extends FetchPageTestCase
      * @group xapian
      */
     public function testSearchPageRSS() {
-        $page = $this->fetch_page( array( 'q' => 'test' ) );
+        $page = $this->fetch_page([ 'q' => 'test' ]);
         $this->assertStringContainsString('<a href="/search/rss/?s=test">get an RSS feed', $page);
     }
 

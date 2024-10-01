@@ -13,39 +13,39 @@ class DebatesView extends SectionView {
 
         $this_page = "alldebatesfront";
 
-        $DEBATELIST = new \DEBATELIST;
-        $debates = array();
-        $debates['data'] = $DEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10), 'none');
-        $args = array( 'months' => 1 );
+        $DEBATELIST = new \DEBATELIST();
+        $debates = [];
+        $debates['data'] = $DEBATELIST->display('biggest_debates', ['days' => 7, 'num' => 10], 'none');
+        $args = [ 'months' => 1 ];
         $debates['calendar'] = $DEBATELIST->display('calendar', $args, 'none');
         $debates['rssurl'] = $DATA->page_metadata($this_page, 'rss');
 
         $this_page = "whallfront";
 
-        $whall = array();
+        $whall = [];
 
-        $WHALLLIST = new \WHALLLIST;
-        $whall['data'] = $WHALLLIST->display('biggest_debates', array('days'=>7, 'num'=>10), 'none');
-        $args = array( 'months' => 1 );
+        $WHALLLIST = new \WHALLLIST();
+        $whall['data'] = $WHALLLIST->display('biggest_debates', ['days' => 7, 'num' => 10], 'none');
+        $args = [ 'months' => 1 ];
         $whall['calendar'] = $WHALLLIST->display('calendar', $args, 'none');
         $whall['rssurl'] = $DATA->page_metadata($this_page, 'rss');
 
         $this_page = "lordsdebatesfront";
 
-        $lords = array();
+        $lords = [];
 
-        $LORDSDEBATELIST = new \LORDSDEBATELIST;
-        $lords['data'] = $LORDSDEBATELIST->display('biggest_debates', array('days'=>7, 'num'=>10), 'none');
-        $args = array( 'months' => 1 );
+        $LORDSDEBATELIST = new \LORDSDEBATELIST();
+        $lords['data'] = $LORDSDEBATELIST->display('biggest_debates', ['days' => 7, 'num' => 10], 'none');
+        $args = [ 'months' => 1 ];
         $lords['calendar'] = $LORDSDEBATELIST->display('calendar', $args, 'none');
 
         $lords['rssurl'] = $DATA->page_metadata($this_page, 'rss');
 
-        $data = array(
+        $data = [
             'debates' => $debates,
             'lords' => $lords,
-            'whall' => $whall
-        );
+            'whall' => $whall,
+        ];
 
         $data['template'] = 'section/index';
         $this_page = "alldebatesfront";
@@ -54,10 +54,10 @@ class DebatesView extends SectionView {
     }
 
     protected function getSearchSections() {
-        return array(
-            array( 'section' => 'debates', 'title' => 'House of Commons' ),
-            array( 'section' => 'lords', 'title' => 'House of Lords' ),
-            array( 'section' => 'whall', 'title' => 'Westminster Hall' )
-        );
+        return [
+            [ 'section' => 'debates', 'title' => 'House of Commons' ],
+            [ 'section' => 'lords', 'title' => 'House of Lords' ],
+            [ 'section' => 'whall', 'title' => 'Westminster Hall' ],
+        ];
     }
 }

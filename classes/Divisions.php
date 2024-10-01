@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou;
 
 class Divisions {
-
     /**
      * Member
      */
@@ -29,16 +28,15 @@ class Divisions {
      * @param Member   $member   The member to get positions for.
      */
 
-    public function __construct(Member $member = null, PolicyPositions $positions = null)
-    {
+    public function __construct(Member $member = null, PolicyPositions $positions = null) {
         $this->member = $member;
         $this->positions = $positions;
-        $this->policies = new Policies;
-        $this->db = new \ParlDB;
+        $this->policies = new Policies();
+        $this->db = new \ParlDB();
     }
 
     public static function getMostRecentDivisionDate() {
-        $db = new \ParlDB;
+        $db = new \ParlDB();
         $q = $db->query(
             "SELECT policy_id, max(division_date) as recent
             FROM policydivisions
@@ -46,7 +44,7 @@ class Divisions {
             GROUP BY policy_id"
         );
 
-        $policy_maxes = array();
+        $policy_maxes = [];
         foreach ($q as $row) {
             $policy_maxes[$row['policy_id']] = $row['recent'];
         }
@@ -63,14 +61,14 @@ class Divisions {
         $select = '';
         $order = 'ORDER BY division_date DESC, division_number DESC';
         $limit = 'LIMIT :count';
-        $params = array(
-            ':count' => $number
-        );
+        $params = [
+            ':count' => $number,
+        ];
 
         $where = [];
         if ($houses) {
-            if ( is_string($houses) ) {
-                $houses = array( $houses );
+            if (is_string($houses)) {
+                $houses = [ $houses ];
             }
             $where[] = 'house IN ("' . implode('", "', $houses) . '")';
         }
@@ -83,7 +81,7 @@ class Divisions {
         }
         $where = 'WHERE ' . join(' AND ', $where);
 
-        if ( $this->member ) {
+        if ($this->member) {
             $select = "SELECT divisions.*, vote FROM divisions
                 LEFT JOIN persondivisionvotes ON divisions.division_id=persondivisionvotes.division_id AND person_id=:person_id";
             $params[':person_id'] = $this->member->person_id;
@@ -96,7 +94,7 @@ class Divisions {
             $params
         );
 
-        $divisions = array();
+        $divisions = [];
         foreach ($q as $division) {
             $data = $this->getParliamentDivisionDetails($division);
 
@@ -122,7 +120,7 @@ class Divisions {
             $divisions[] = $data;
         }
 
-        return array('divisions' => $divisions);
+        return ['divisions' => $divisions];
     }
 
     /**
@@ -157,10 +155,10 @@ class Divisions {
             GROUP BY h.subsection_id
             ORDER BY h.hdate DESC, h.hpos DESC
             LIMIT :count",
-            array(':count' => $number)
+            [':count' => $number]
         );
 
-        $debates = array();
+        $debates = [];
         foreach ($q as $debate) {
             $debate_gid = fix_gid_from_db($debate['debate_gid']);
             $anchor = '';
@@ -168,7 +166,7 @@ class Divisions {
                 $anchor = '#g' . gid_to_anchor(fix_gid_from_db($debate['gid']));
             }
             $url = new Url($hansardmajors[$debate['major']]['page']);
-            $url->insert(array('gid' => $debate_gid));
+            $url->insert(['gid' => $debate_gid]);
             $debates[] = [
                 'url' => $url->generate() . $anchor,
                 'title' => "$debate[section_body] : $debate[subsection_body]",
@@ -180,9 +178,9 @@ class Divisions {
     }
 
     public function getRecentDivisionsForPolicies($policies, $number = 20) {
-        $args = array(':number' => $number);
+        $args = [':number' => $number];
 
-        $quoted = array();
+        $quoted = [];
         foreach ($policies as $policy) {
             $quoted[] = $this->db->quote($policy);
         }
@@ -198,9 +196,9 @@ class Divisions {
             $args
         );
 
-        $divisions = array();
+        $divisions = [];
         foreach ($q as $row) {
-          $divisions[] = $this->getParliamentDivisionDetails($row);
+            $divisions[] = $this->getParliamentDivisionDetails($row);
         }
 
         return $divisions;
@@ -222,8 +220,8 @@ class Divisions {
 
     public function getMemberDivisionsForPolicy($policyID = null) {
         $where_extra = '';
-        $args = array(':person_id' => $this->member->person_id);
-        if ( $policyID ) {
+        $args = [':person_id' => $this->member->person_id];
+        if ($policyID) {
             $where_extra = 'AND policy_id = :policy_id';
             $args[':policy_id'] = $policyID;
         }
@@ -240,9 +238,9 @@ class Divisions {
     }
 
     public function getMemberDivisionDetails($strong_only = false) {
-        $args = array(':person_id' => $this->member->person_id);
+        $args = [':person_id' => $this->member->person_id];
 
-        $policy_divisions = array();
+        $policy_divisions = [];
         if ($strong_only) {
             $where_extra = "AND (policy_vote = 'no3' OR policy_vote = 'aye3')";
         } else {
@@ -259,54 +257,54 @@ class Divisions {
         );
 
         foreach ($q as $row) {
-          $policy_id = $row['policy_id'];
+            $policy_id = $row['policy_id'];
 
-          if (!array_key_exists($policy_id, $policy_divisions)) {
-            $summary = array(
-              'max' => $row['latest'],
-              'min' => $row['earliest'],
-              'total' => $row['total'],
-              'for' => 0, 'against' => 0, 'absent' => 0, 'both' => 0, 'tell' => 0
-            );
+            if (!array_key_exists($policy_id, $policy_divisions)) {
+                $summary = [
+                    'max' => $row['latest'],
+                    'min' => $row['earliest'],
+                    'total' => $row['total'],
+                    'for' => 0, 'against' => 0, 'absent' => 0, 'both' => 0, 'tell' => 0,
+                ];
+
+                $policy_divisions[$policy_id] = $summary;
+            }
+
+            $summary = $policy_divisions[$policy_id];
+
+            $summary['total'] += $row['total'];
+            if ($summary['max'] < $row['latest']) {
+                $summary['max'] = $row['latest'];
+            }
+            if ($summary['min'] > $row['latest']) {
+                $summary['min'] = $row['latest'];
+            }
+
+            $vote = $row['vote'];
+            $policy_vote = str_replace('3', '', $row['policy_vote']);
+            if ($vote == 'absent') {
+                $summary['absent'] += $row['total'];
+            } elseif ($vote == 'both') {
+                $summary['both'] += $row['total'];
+            } elseif (strpos($vote, 'tell') !== false) {
+                $summary['tell'] += $row['total'];
+            } elseif ($policy_vote == $vote) {
+                $summary['for'] += $row['total'];
+            } elseif ($policy_vote != $vote) {
+                $summary['against'] += $row['total'];
+            }
 
             $policy_divisions[$policy_id] = $summary;
-          }
-
-          $summary = $policy_divisions[$policy_id];
-
-          $summary['total'] += $row['total'];
-          if ($summary['max'] < $row['latest']) {
-              $summary['max'] = $row['latest'];
-          }
-          if ($summary['min'] > $row['latest']) {
-              $summary['min'] = $row['latest'];
-          }
-
-          $vote = $row['vote'];
-          $policy_vote = str_replace('3', '', $row['policy_vote']);
-          if ( $vote == 'absent' ) {
-              $summary['absent'] += $row['total'];
-          } else if ( $vote == 'both' ) {
-              $summary['both'] += $row['total'];
-          } else if ( strpos($vote, 'tell') !== false ) {
-              $summary['tell'] += $row['total'];
-          } else if ( $policy_vote == $vote ) {
-              $summary['for'] += $row['total'];
-          } else if ( $policy_vote != $vote ) {
-              $summary['against'] += $row['total'];
-          }
-
-          $policy_divisions[$policy_id] = $summary;
         }
 
         // for each key in $policy_divisions, we want to add agreement information
-    
+
         $policies_list = new \MySociety\TheyWorkForYou\Policies();
         foreach ($policy_divisions as $policy_id => &$summary) {
-            $agreement_details = $this->member->member_agreements($policy_id, HOUSE_TYPE_COMMONS, $policies_list );
+            $agreement_details = $this->member->member_agreements($policy_id, HOUSE_TYPE_COMMONS, $policies_list);
             $summary["agreements_for"] = 0;
             $summary["agreements_against"] = 0;
-            foreach ($agreement_details as $agreement){
+            foreach ($agreement_details as $agreement) {
                 if ($strong_only == true & $agreement["strength"] != "strong") {
                     continue;
                 }
@@ -321,9 +319,9 @@ class Divisions {
     }
 
     public function getDivisionByGid($gid) {
-        $args = array(
-            ':gid' => $gid
-        );
+        $args = [
+            ':gid' => $gid,
+        ];
         $q = $this->db->query("SELECT * FROM divisions WHERE gid = :gid", $args)->first();
 
         if (!$q) {
@@ -334,9 +332,9 @@ class Divisions {
     }
 
     public function getDivisionResults($division_id) {
-        $args = array(
-            ':division_id' => $division_id
-        );
+        $args = [
+            ':division_id' => $division_id,
+        ];
         $q = $this->db->query("SELECT * FROM divisions WHERE division_id = :division_id", $args)->first();
 
         if (!$q) {
@@ -367,19 +365,19 @@ class Divisions {
             $args
         );
 
-        $votes = array(
-          'yes_votes' => array(),
-          'no_votes' => array(),
-          'absent_votes' => array(),
-          'both_votes' => array()
-        );
+        $votes = [
+            'yes_votes' => [],
+            'no_votes' => [],
+            'absent_votes' => [],
+            'both_votes' => [],
+        ];
 
-        $party_breakdown = array(
-          'yes_votes' => array(),
-          'no_votes' => array(),
-          'absent_votes' => array(),
-          'both_votes' => array()
-        );
+        $party_breakdown = [
+            'yes_votes' => [],
+            'no_votes' => [],
+            'absent_votes' => [],
+            'both_votes' => [],
+        ];
 
         # Sort Lords specially
         $data = $q->fetchAll();
@@ -388,14 +386,19 @@ class Divisions {
         }
 
         foreach ($data as $vote) {
-            $detail = array(
-              'person_id' => $vote['person_id'],
-              'name' => ucfirst(member_full_name($args['house'], $vote['title'], $vote['given_name'],
-                    $vote['family_name'], $vote['lordofname'])),
-              'party' => $vote['party'],
-              'proxy' => false,
-              'teller' => false
-            );
+            $detail = [
+                'person_id' => $vote['person_id'],
+                'name' => ucfirst(member_full_name(
+                    $args['house'],
+                    $vote['title'],
+                    $vote['given_name'],
+                    $vote['family_name'],
+                    $vote['lordofname']
+                )),
+                'party' => $vote['party'],
+                'proxy' => false,
+                'teller' => false,
+            ];
 
             if (strpos($vote['vote'], 'tell') !== false) {
                 $detail['teller'] = true;
@@ -410,34 +413,38 @@ class Divisions {
                     [ ':person_id' => $vote['proxy'], ':division_date' => $row['division_date'] ]
                 )->first();
                 $detail['proxy'] = ucfirst(member_full_name(
-                    HOUSE_TYPE_COMMONS, $q['title'], $q['given_name'],
-                    $q['family_name'], $q['lordofname']));
+                    HOUSE_TYPE_COMMONS,
+                    $q['title'],
+                    $q['given_name'],
+                    $q['family_name'],
+                    $q['lordofname']
+                ));
             }
 
             if ($vote['vote'] == 'aye' or $vote['vote'] == 'tellaye') {
-              $votes['yes_votes'][] = $detail;
-              @$party_breakdown['yes_votes'][$detail['party']]++;
-            } else if ($vote['vote'] == 'no' or $vote['vote'] == 'tellno') {
-              $votes['no_votes'][] = $detail;
-              @$party_breakdown['no_votes'][$detail['party']]++;
-            } else if ($vote['vote'] == 'absent') {
-              $votes['absent_votes'][] = $detail;
-              @$party_breakdown['absent_votes'][$detail['party']]++;
-            } else if ($vote['vote'] == 'both') {
-              $votes['both_votes'][] = $detail;
-              @$party_breakdown['both_votes'][$detail['party']]++;
+                $votes['yes_votes'][] = $detail;
+                @$party_breakdown['yes_votes'][$detail['party']]++;
+            } elseif ($vote['vote'] == 'no' or $vote['vote'] == 'tellno') {
+                $votes['no_votes'][] = $detail;
+                @$party_breakdown['no_votes'][$detail['party']]++;
+            } elseif ($vote['vote'] == 'absent') {
+                $votes['absent_votes'][] = $detail;
+                @$party_breakdown['absent_votes'][$detail['party']]++;
+            } elseif ($vote['vote'] == 'both') {
+                $votes['both_votes'][] = $detail;
+                @$party_breakdown['both_votes'][$detail['party']]++;
             }
         }
 
         foreach ($votes as $vote => $count) { // array('yes_votes', 'no_votes', 'absent_votes', 'both_votes') as $vote) {
-          $votes[$vote . '_by_party'] = $votes[$vote];
-          usort($votes[$vote . '_by_party'], function ($a, $b) {
-                return $a['party']>$b['party'];
+            $votes[$vote . '_by_party'] = $votes[$vote];
+            usort($votes[$vote . '_by_party'], function ($a, $b) {
+                return $a['party'] > $b['party'];
             });
         }
 
         foreach ($party_breakdown as $vote => $parties) {
-            $summary = array();
+            $summary = [];
             foreach ($parties as $party => $count) {
                 array_push($summary, "$party: $count");
             }
@@ -456,10 +463,10 @@ class Divisions {
     }
 
     public function getDivisionResultsForMember($division_id, $person_id) {
-        $args = array(
+        $args = [
             ':division_id' => $division_id,
-            ':person_id' => $person_id
-        );
+            ':person_id' => $person_id,
+        ];
         $q = $this->db->query(
             "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, vote
             FROM divisions JOIN persondivisionvotes USING(division_id)
@@ -481,23 +488,23 @@ class Divisions {
         $max = $votes['max'];
         $min = $votes['min'];
 
-        $actions = array(
+        $actions = [
             $votes['for'] . ' ' . make_plural('vote', $votes['for']) . ' for',
-            $votes['against'] . ' ' . make_plural('vote', $votes['against']) . ' against'
-        );
+            $votes['against'] . ' ' . make_plural('vote', $votes['against']) . ' against',
+        ];
 
-        if ( $votes['agreements_for']) {
+        if ($votes['agreements_for']) {
             $actions[] = $votes['agreements_for'] . ' ' . make_plural('agreement', $votes['agreements_for']) . ' for';
         }
 
-        if ( $votes['agreements_against']) {
+        if ($votes['agreements_against']) {
             $actions[] = $votes['agreements_against'] . ' ' . make_plural('agreement', $votes['agreements_against']) . ' against';
         }
 
-        if ( $votes['both'] ) {
+        if ($votes['both']) {
             $actions[] = $votes['both'] . ' ' . make_plural('abstention', $votes['both']);
         }
-        if ( $votes['absent'] ) {
+        if ($votes['absent']) {
             $actions[] = $votes['absent'] . ' ' . make_plural('absence', $votes['absent']);
         }
         if ($max == $min) {
@@ -535,7 +542,7 @@ class Divisions {
      * Returns an array of divisions
      */
     public function getRecentMemberDivisions($number = 20) {
-        $args = array(':person_id' => $this->member->person_id, ':number' => $number);
+        $args = [':person_id' => $this->member->person_id, ':number' => $number];
         $q = $this->db->query(
             "SELECT *
             FROM persondivisionvotes
@@ -545,7 +552,7 @@ class Divisions {
             $args
         );
 
-        $divisions = array();
+        $divisions = [];
         foreach ($q as $row) {
             $divisions[] = $this->getDivisionDetails($row);
         }
@@ -555,7 +562,7 @@ class Divisions {
 
     private function constructYesNoVoteDescription($direction, $title, $short_text) {
         $text = ' ' ;
-        if ( $short_text ) {
+        if ($short_text) {
             $text .= sprintf(gettext('voted %s'), $short_text);
         } else {
             $text .= sprintf(gettext('voted %s on <em>%s</em>'), $direction, $title);
@@ -572,7 +579,7 @@ class Divisions {
          * votes so we need to generate some text using the title of the division
          */
 
-        switch ( strtolower($vote) ) {
+        switch (strtolower($vote)) {
             case 'yes':
             case 'aye':
                 $description = $this->constructYesNoVoteDescription('yes', $division_title, $yes_text);
@@ -602,7 +609,7 @@ class Divisions {
         $yes_text = $row['yes_text'];
         $no_text = $row['no_text'];
 
-        $division = array(
+        $division = [
             'division_id' => $row['division_id'],
             'date' => $row['division_date'],
             'gid' => fix_gid_from_db($row['gid']),
@@ -610,7 +617,7 @@ class Divisions {
             'text' => $this->constructVoteDescription($vote, $yes_text, $no_text, $row['division_title']),
             'has_description' => $yes_text && $no_text,
             'vote' => $vote,
-        );
+        ];
 
         if ($row['gid']) {
             $division['debate_url'] = $this->divisionUrlFromGid($row['gid']);
@@ -628,22 +635,22 @@ class Divisions {
             "SELECT policy_id, direction
             FROM policydivisions
             WHERE division_id = :division_id",
-            array(':division_id' => $row['division_id'])
+            [':division_id' => $row['division_id']]
         );
-        $division['related_policies'] = array();
+        $division['related_policies'] = [];
 
         $policy_lookup = $this->policies->getPolicies();
         foreach ($q as $policy) {
-            $division['related_policies'][] = array(
+            $division['related_policies'][] = [
                 'policy_id' => $policy['policy_id'],
                 'policy_title' => preg_replace('#</?a[^>]*>#', '', $policy_lookup[$policy['policy_id']]),
                 'direction' => $policy['direction'],
-            );
+            ];
         }
 
         if (array_key_exists('direction', $row)) {
             $division['direction'] = $row['direction'];
-            if ( strpos( $row['direction'], 'strong') !== false ) {
+            if (strpos($row['direction'], 'strong') !== false) {
                 $division['strong'] = true;
             } else {
                 $division['strong'] = false;
@@ -670,7 +677,7 @@ class Divisions {
     }
 
     private function divisionsByPolicy($q) {
-        $policies = array();
+        $policies = [];
 
         # iterate through each division, and adds it to an array of policies
         # if there is only one policy being queried, it will be an array of 1
@@ -678,19 +685,19 @@ class Divisions {
             $policy_id = $row['policy_id'];
 
             # if this policy hasn't come up yet, create the key for it
-            if ( !array_key_exists($policy_id, $policies) ) {
-                $policies[$policy_id] = array(
+            if (!array_key_exists($policy_id, $policies)) {
+                $policies[$policy_id] = [
                     'policy_id' => $policy_id,
-                    'divisions' => array()
-                );
+                    'divisions' => [],
+                ];
                 $policies[$policy_id]['desc'] = $this->policies->getPolicies()[$policy_id];
                 $policies[$policy_id]['header'] = $this->policies->getPolicyDetails($policy_id);
-                if ( $this->positions ) {
+                if ($this->positions) {
                     $policies[$policy_id]['position'] = $this->positions->positionsById[$policy_id];
                 }
             }
 
-            
+
             $division = $this->getDivisionDetails($row);
 
             $policies[$policy_id]['divisions'][] = $division;
@@ -704,13 +711,13 @@ class Divisions {
 
         $gid = get_canonical_gid($gid);
 
-        $q = $this->db->query("SELECT gid, major FROM hansard WHERE epobject_id = ( SELECT subsection_id FROM hansard WHERE gid = :gid )", array( ':gid' => $gid ))->first();
+        $q = $this->db->query("SELECT gid, major FROM hansard WHERE epobject_id = ( SELECT subsection_id FROM hansard WHERE gid = :gid )", [ ':gid' => $gid ])->first();
         if (!$q) {
             return '';
         }
         $parent_gid = fix_gid_from_db($q['gid']);
         $url = new Url($hansardmajors[$q['major']]['page']);
-        $url->insert(array('gid' => $parent_gid));
+        $url->insert(['gid' => $parent_gid]);
         return $url->generate() . '#g' . gid_to_anchor(fix_gid_from_db($gid));
     }
 }

@@ -8,6 +8,4 @@ namespace MySociety\TheyWorkForYou;
  * For when something has gone wrong identifying a member.
  */
 
-class MemberException extends \Exception {
-
-}
+class MemberException extends \Exception {}

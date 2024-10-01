@@ -26,20 +26,22 @@
                     </h2>
 
                   <?php if (isset($data['mp_data'])) {
-                    include('_your_mp.php');
+                      include('_your_mp.php');
                   } ?>
 
                     <div class="debate-speech__division__details">
                       <p>
-                      <?php if (!$division['has_description'] || !isset($mp_vote) || !in_array($mp_vote['vote'], array('aye', 'no'))) { ?>
+                      <?php if (!$division['has_description'] || !isset($mp_vote) || !in_array($mp_vote['vote'], ['aye', 'no'])) { ?>
                           <span class="policy-vote__text">
                               <?php include('_vote_description.php'); ?>
                           </span><br>
                       <?php } else { ?>
                           <?php if ($mp_vote['with_majority']) { ?>
-                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural']  . ' <b>agreed</b> and'; include('_vote_description.php'); ?>
+                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural'] . ' <b>agreed</b> and';
+                              include('_vote_description.php'); ?>
                           <?php } else { ?>
-                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural'] . ' <b>disagreed</b> and'; include('_vote_description.php'); ?>
+                              <?php $vote_prefix = 'A majority of ' . $division['members']['plural'] . ' <b>disagreed</b> and';
+                              include('_vote_description.php'); ?>
                           <?php } ?>
                       <?php } ?>
                       </p>

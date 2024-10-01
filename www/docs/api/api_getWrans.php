@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getHansard.php';
 
 function api_getWrans_front() {
-?>
+    ?>
 <p><big>Fetch Written Questions/Answers.</big></p>
 
 <h4>Arguments</h4>
@@ -57,17 +57,17 @@ function api_getWrans_year($y) {
     _api_getHansard_year('WRANS', $y);
 }
 function api_getWrans_search($s) {
-    _api_getHansard_search( array(
+    _api_getHansard_search([
         's' => $s,
         'pid' => get_http_var('person'),
         'type' => 'wrans',
-    ) );
+    ]);
 }
 function api_getWrans_person($pid) {
-    _api_getHansard_search(array(
+    _api_getHansard_search([
         'pid' => $pid,
         'type' => 'wrans',
-    ));
+    ]);
 }
 function api_getWrans_gid($gid) {
     _api_getHansard_gid('WRANS', $gid);

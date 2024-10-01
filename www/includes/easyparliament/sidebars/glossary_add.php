@@ -1,7 +1,7 @@
 <?php
 // This sidebar is used on Glossary_add_* pages.
 
-$this->block_start(array('title'=>'How this works', 'id'=>'help'));
+$this->block_start(['title' => 'How this works', 'id' => 'help']);
 ?>
 
 <p><strong>Step 1:</strong> Search for a target phrase, and check how many times it occurs in Hansard.</p

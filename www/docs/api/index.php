@@ -47,8 +47,8 @@ if ($q_method = get_http_var('method')) {
             foreach ($data['parameters'] as $parameter) {
                 if ($q_param = trim(get_http_var($parameter))) {
                     $match++;
-                    include_once 'api_'. $method . '.php';
-                    api_call_user_func_or_error('api_' . $method . '_' . $parameter, array($q_param), 'API call not yet functional', 'api');
+                    include_once 'api_' . $method . '.php';
+                    api_call_user_func_or_error('api_' . $method . '_' . $parameter, [$q_param], 'API call not yet functional', 'api');
                     break;
                 }
             }
@@ -57,10 +57,10 @@ if ($q_method = get_http_var('method')) {
                     api_error('No parameter provided to function "' .
                     _htmlspecialchars($q_method) .
                         '". Possible choices are: ' .
-                        join(', ', $data['parameters']) );
+                        join(', ', $data['parameters']));
                 } else {
-                    include_once 'api_'. $method . '.php';
-                    api_call_user_func_or_error('api_' . $method, array(), 'API call not yet functional', 'api');
+                    include_once 'api_' . $method . '.php';
+                    api_call_user_func_or_error('api_' . $method, [], 'API call not yet functional', 'api');
                     break;
                 }
             }
@@ -87,9 +87,9 @@ if ($q_method = get_http_var('method')) {
     api_front_page();
 } else {
     $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
-    MySociety\TheyWorkForYou\Renderer::output('static/api-index', array(
+    MySociety\TheyWorkForYou\Renderer::output('static/api-index', [
         'subscription' => $subscription->stripe,
-    ));
+    ]);
 }
 
 function api_documentation_front($method, $explorer) {
@@ -98,43 +98,54 @@ function api_documentation_front($method, $explorer) {
     $DATA->set_page_metadata($this_page, 'title', "$method function");
     $PAGE->page_start();
     $PAGE->stripe_start();
-    include_once 'api_'. $method . '.php';
+    include_once 'api_' . $method . '.php';
     print '<p align="center"><strong>https://www.theyworkforyou.com/api/' . $method . '</strong></p>';
-    api_call_user_func_or_error('api_' . $method . '_front', array(), 'No documentation yet', 'html');
+    api_call_user_func_or_error('api_' . $method . '_front', [], 'No documentation yet', 'html');
     if ($method != 'getQuota') {
         api_documentation_explorer($method, $explorer);
     }
 
     $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
     $sidebar = api_sidebar($subscription);
-    $PAGE->stripe_end(array($sidebar));
+    $PAGE->stripe_end([$sidebar]);
     $PAGE->page_end();
 }
 
 function api_documentation_explorer($method, $explorer) {
     global $methods;
-?>
+    ?>
 <h4>Explorer</h4>
 <p>Try out this function without writing any code!</p>
 <form method="get" action="?#output">
 <p>
 <?php foreach ($methods[$method]['parameters'] as $parameter) {
-    print $parameter . ': <input type="text" name="'.$parameter.'" value="';
-    if ($val = get_http_var($parameter))
+    print $parameter . ': <input type="text" name="' . $parameter . '" value="';
+    if ($val = get_http_var($parameter)) {
         print _htmlspecialchars($val);
+    }
     print '" size="30"><br>';
 }
-?>
+    ?>
 Output:
-<input id="output_json" type="radio" name="output" value="json"<?php if (get_http_var('output')=='json' || !get_http_var('output')) print ' checked'?>>
+<input id="output_json" type="radio" name="output" value="json"<?php if (get_http_var('output') == 'json' || !get_http_var('output')) {
+    print ' checked';
+}?>>
 <label for="output_json" class="inline">JSON</label>
-<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output')=='js') print ' checked'?>>
+<input id="output_js" type="radio" name="output" value="js"<?php if (get_http_var('output') == 'js') {
+    print ' checked';
+}?>>
 <label for="output_js" class="inline">JS</label>
-<input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output')=='xml') print ' checked'?>>
+<input id="output_xml" type="radio" name="output" value="xml"<?php if (get_http_var('output') == 'xml') {
+    print ' checked';
+}?>>
 <label for="output_xml" class="inline">XML</label>
-<input id="output_php" type="radio" name="output" value="php"<?php if (get_http_var('output')=='php') print ' checked'?>>
+<input id="output_php" type="radio" name="output" value="php"<?php if (get_http_var('output') == 'php') {
+    print ' checked';
+}?>>
 <label for="output_php" class="inline">Serialised PHP</label>
-<input id="output_rabx" type="radio" name="output" value="rabx"<?php if (get_http_var('output')=='rabx') print ' checked'?>>
+<input id="output_rabx" type="radio" name="output" value="rabx"<?php if (get_http_var('output') == 'rabx') {
+    print ' checked';
+}?>>
 <label for="output_rabx" class="inline">RABX</label>
 
 <input type="submit" value="Go">
@@ -142,14 +153,15 @@ Output:
 </form>
 <?php
     if ($explorer) {
-        $qs = array();
+        $qs = [];
         foreach ($methods[$method]['parameters'] as $parameter) {
-            if (get_http_var($parameter))
+            if (get_http_var($parameter)) {
                 $qs[] = _htmlspecialchars(rawurlencode($parameter) . '=' . urlencode(get_http_var($parameter)));
+            }
         }
         print '<h4><a name="output"></a>Output</h4>';
         print '<p>URL for this: <strong>https://www.theyworkforyou.com/api/';
-        print $method . '?' . join('&amp;', $qs) . '&amp;output='._htmlspecialchars(get_http_var('output')).'</strong></p>';
+        print $method . '?' . join('&amp;', $qs) . '&amp;output=' . _htmlspecialchars(get_http_var('output')) . '</strong></p>';
         print '<pre>' . _htmlspecialchars($explorer) . '</pre>';
     }
 }
@@ -165,7 +177,7 @@ function api_front_page($error = '') {
 
     $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
 
-?>
+    ?>
 
 <p>
     Welcome to TheyWorkForYou’s API section. The API (Application Programming
@@ -304,7 +316,7 @@ more suitable that using the API.
 </p>
 
 <?php
-    $sidebar = api_sidebar($subscription);
-    $PAGE->stripe_end(array($sidebar));
+        $sidebar = api_sidebar($subscription);
+    $PAGE->stripe_end([$sidebar]);
     $PAGE->page_end();
 }

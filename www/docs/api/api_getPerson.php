@@ -3,7 +3,7 @@
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 function api_getPerson_front() {
-?>
+    ?>
 <p><big>Fetch a particular person.</big></p>
 
 <h4>Arguments</h4>
@@ -17,10 +17,15 @@ This will return all database entries for this person, so will include previous 
 <?php
 }
 
-function _api_getPerson_row($row, $has_party=false) {
+function _api_getPerson_row($row, $has_party = false) {
     global $parties;
-    $row['full_name'] = member_full_name($row['house'], $row['title'], $row['given_name'],
-        $row['family_name'], $row['lordofname']);
+    $row['full_name'] = member_full_name(
+        $row['house'],
+        $row['title'],
+        $row['given_name'],
+        $row['family_name'],
+        $row['lordofname']
+    );
     if ($row['house'] != HOUSE_TYPE_LORDS) {
         unset($row['lordofname']);
     }
@@ -31,9 +36,9 @@ function _api_getPerson_row($row, $has_party=false) {
     if ($has_party && isset($parties[$row['party']])) {
         $row['party'] = $parties[$row['party']];
     }
-    list($image,$sz) = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
+    [$image, $sz] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($row['person_id']);
     if ($image) {
-        list($width, $height) = getimagesize(str_replace(IMAGEPATH, BASEDIR . IMAGEPATH, $image));
+        [$width, $height] = getimagesize(str_replace(IMAGEPATH, BASEDIR . IMAGEPATH, $image));
         $row['image'] = $image;
         $row['image_height'] = $height;
         $row['image_width'] = $width;
@@ -42,7 +47,7 @@ function _api_getPerson_row($row, $has_party=false) {
     $dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
     if ($row['house'] == HOUSE_TYPE_COMMONS && ($row['left_house'] == '9999-12-31' || (isset($dissolution[1]) && $row['left_house'] == $dissolution[1]))) {
         # Ministerialships and Select Committees
-        $db = new ParlDB;
+        $db = new ParlDB();
         $q = $db->query('SELECT * FROM moffice WHERE to_date="9999-12-31" and person=' . $row['person_id'] . ' ORDER BY from_date DESC');
         foreach ($q as $office) {
             $row['office'][] = $office;
@@ -58,11 +63,11 @@ function _api_getPerson_row($row, $has_party=false) {
     return $row;
 }
 
-function api_getPerson_id($id, $house='') {
-    $db = new ParlDB;
-    $params = array(
-        ':person_id' => $id
-    );
+function api_getPerson_id($id, $house = '') {
+    $db = new ParlDB();
+    $params = [
+        ':person_id' => $id,
+    ];
     if ($house) {
         $params[':house'] = $house;
         $house = 'house = :house AND';
@@ -80,8 +85,8 @@ function api_getPerson_id($id, $house='') {
     }
 }
 
-function _api_getPerson_output($q, $flatten=false) {
-    $output = array();
+function _api_getPerson_output($q, $flatten = false) {
+    $output = [];
     $last_mod = 0;
     $house = null;
     foreach ($q as $row) {
@@ -101,30 +106,30 @@ function _api_getPerson_output($q, $flatten=false) {
 }
 
 function api_getPerson_constituency($constituency, $house) {
-    _api_getPerson_constituency(array($constituency), $house);
+    _api_getPerson_constituency([$constituency], $house);
 }
 
 function api_getPerson_postcode($pc, $house) {
     $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
-    $types = array();
+    $types = [];
     if ($house == HOUSE_TYPE_NI) {
-        $types = array('NIE');
+        $types = ['NIE'];
     } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-        $types = array('SPC', 'SPE');
+        $types = ['SPC', 'SPE'];
     } elseif ($house == HOUSE_TYPE_WALES) {
-        $types = array('WAC', 'WAE');
+        $types = ['WAC', 'WAE'];
     }
     if (validate_postcode($pc)) {
         $constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);
         if ($constituencies == 'CONNECTION_TIMED_OUT') {
             api_error('Connection timed out');
         } elseif ($types && isset($constituencies[$types[0]])) {
-            $constituencies = array_map(function($c) use ($constituencies) { return $constituencies[$c]; }, $types);
+            $constituencies = array_map(function ($c) use ($constituencies) { return $constituencies[$c]; }, $types);
             _api_getPerson_constituency($constituencies, $house);
         } elseif ($types && isset($constituencies['WMC'])) {
             api_error('Postcode not in correct region');
         } elseif (isset($constituencies['WMC'])) {
-            _api_getPerson_constituency(array($constituencies['WMC']), $house);
+            _api_getPerson_constituency([$constituencies['WMC']], $house);
         } else {
             api_error('Unknown postcode');
         }
@@ -136,10 +141,10 @@ function api_getPerson_postcode($pc, $house) {
 # Very similary to MEMBER's constituency_to_person_id
 # Should all be abstracted properly :-/
 function _api_getPerson_constituency($constituencies, $house) {
-    $db = new ParlDB;
+    $db = new ParlDB();
     $dissolution = MySociety\TheyWorkForYou\Dissolution::db();
 
-    $cons = array();
+    $cons = [];
     foreach ($constituencies as $constituency) {
         if ($constituency == '') {
             continue;
@@ -158,8 +163,8 @@ function _api_getPerson_constituency($constituencies, $house) {
         $cons[] = $constituency;
     }
 
-    $cons_params = array();
-    $params = array(':house' => $house);
+    $cons_params = [];
+    $params = [':house' => $house];
     foreach ($cons as $key => $constituency) {
         $cons_params[] = ':constituency' . $key;
         $params[':constituency' . $key] = $constituency;

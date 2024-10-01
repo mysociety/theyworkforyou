@@ -4,7 +4,6 @@ include_once INCLUDESPATH . '../../commonlib/phplib/gaze.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 class PAGE {
-
     // So we can tell from other places whether we need to output the page_start or not.
     // Use the page_started() function to do this.
     public $page_start_done = false;
@@ -19,7 +18,7 @@ class PAGE {
     public $within_stripe_sidebar = false;
 
     public function page_start() {
-        if ( !$this->page_started() ) {
+        if (!$this->page_started()) {
             $this->checkForAdmin();
             $this->displayHeader();
         }
@@ -32,7 +31,7 @@ class PAGE {
 
         $data = $h->data;
         $data = array_merge($u->data, $data);
-        if ( isset($page_errors) ) {
+        if (isset($page_errors)) {
             $data['page_errors'] = $page_errors;
         }
         $data['banner_text'] = '';
@@ -52,7 +51,7 @@ class PAGE {
                 $THISPAGE = new \MySociety\TheyWorkForYou\Url($this_page);
 
                 $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
-                $LOGINURL->insert(array('ret' => $THISPAGE->generate('none') ));
+                $LOGINURL->insert(['ret' => $THISPAGE->generate('none') ]);
 
                 $text = "<a href=\"" . $LOGINURL->generate() . '">' . gettext('You’d better sign in!') . '</a>';
             } else {
@@ -67,7 +66,7 @@ class PAGE {
     }
 
     public function page_end() {
-        if ( !$this->page_started() ) {
+        if (!$this->page_started()) {
             $this->page_start();
         }
 
@@ -101,7 +100,7 @@ class PAGE {
         }
     }
 
-    public function stripe_start($type='side', $id='', $extra_class = '') {
+    public function stripe_start($type = 'side', $id = '', $extra_class = '') {
         // $type is one of:
         //  'full' - a full width div
         //  'side' - a white stripe with a coloured sidebar.
@@ -115,12 +114,12 @@ class PAGE {
         // $id is the value of an id for this div (if blank, not used).
         ?>
         <div class="stripe-<?php echo $type; ?><?php if ($extra_class != '') {
-    echo ' ' . $extra_class;
-}
-?>"<?php
-        if ($id != '') {
-            print ' id="' . $id . '"';
+            echo ' ' . $extra_class;
         }
+        ?>"<?php
+                if ($id != '') {
+                    print ' id="' . $id . '"';
+                }
         ?>>
             <div class="main">
 <?php
@@ -134,7 +133,7 @@ class PAGE {
     }
 
 
-    public function stripe_end ($contents = array(), $extra = '') {
+    public function stripe_end($contents = [], $extra = '') {
         // $contents is an array containing 0 or more hashes.
         // Each hash has two values, 'type' and 'content'.
         // 'Type' could be one of these:
@@ -225,8 +224,8 @@ class PAGE {
             ?>
             <div class="extra"><?php echo $extrahtml; ?></div>
 <?php
-            }
-            ?>
+        }
+        ?>
         </div> <!-- end .stripe-* -->
 
 <?php
@@ -237,15 +236,15 @@ class PAGE {
     public function include_sidebar_template($sidebarname) {
         global $this_page, $DATA;
 
-            $sidebarpath = INCLUDESPATH.'easyparliament/sidebars/'.$sidebarname.'.php';
+        $sidebarpath = INCLUDESPATH . 'easyparliament/sidebars/' . $sidebarname . '.php';
 
-            if (file_exists($sidebarpath)) {
-                include $sidebarpath;
-            }
+        if (file_exists($sidebarpath)) {
+            include $sidebarpath;
+        }
     }
 
 
-    public function block_start($data=array()) {
+    public function block_start($data = []) {
         // Starts a 'block' div, used mostly on the home page,
         // on the MP page, and in the sidebars.
         // $data is a hash like this:
@@ -263,7 +262,7 @@ class PAGE {
             $id = '';
         }
 
-        $title = isset($data['title']) ? $data['title'] : '';
+        $title = $data['title'] ?? '';
 
         if (isset($data['url'])) {
             $title = '<a href="' . $data['url'] . '">' . $title . '</a>';
@@ -277,7 +276,7 @@ class PAGE {
                     <div class="blockbody">
 <?php
             $this->blockbody_open = true;
-            }
+        }
     }
 
     public function block_end() {
@@ -285,8 +284,8 @@ class PAGE {
             ?>
                     </div>
 <?php
-            }
-            ?>
+        }
+        ?>
                 </div> <!-- end .block -->
 
 <?php
@@ -358,11 +357,11 @@ class PAGE {
         global $THEUSER;
 
         echo '<br>';
-        $this->block_start(array('id'=>'mp', 'title'=>'Find out about your MP/MSPs/MLAs'));
+        $this->block_start(['id' => 'mp', 'title' => 'Find out about your MP/MSPs/MLAs']);
         echo '<form action="/postcode/" method="get">';
         if ($THEUSER->postcode_is_set()) {
             $FORGETURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
-            $FORGETURL->insert(array('forget'=>'t'));
+            $FORGETURL->insert(['forget' => 't']);
             ?>
                         <p><?= gettext('Your current postcode:') ?> <strong><?php echo $THEUSER->postcode(); ?></strong> &nbsp; <small>(<a href="<?php echo $FORGETURL->generate(); ?>" title="<?= gettext('The cookie storing your postcode will be erased') ?>"><?= gettext('Forget this postcode') ?></a>)</small></p>
 <?php
@@ -392,19 +391,19 @@ class PAGE {
         if (is_string($message)) {
             // Sometimes we're just sending a single line to this function
             // rather like the bigger array...
-            $message = array (
-                'text' => $message
-            );
+            $message =  [
+                'text' => $message,
+            ];
         }
 
         // if the page has started then we're most likely in an old school page
         // so we should just print out the error, otherwise stick it in the error
         // global which will then be displayed by the header template
-        if ( $this->page_started() ) {
+        if ($this->page_started()) {
             $this->message($message, 'error');
         } else {
-            if ( !isset($page_errors) ) {
-                $page_errors = array();
+            if (!isset($page_errors)) {
+                $page_errors = [];
             }
             $page_errors[]  = $message;
         }
@@ -423,7 +422,7 @@ class PAGE {
     }
 
 
-    public function message($message, $class='') {
+    public function message($message, $class = '') {
         // Generates a very simple but common page content.
         // Used for when a user logs out, or votes, or any simple thing
         // where there's a little message and probably a link elsewhere.
@@ -513,7 +512,7 @@ class PAGE {
             if ($page_title != '') {
                 $page_title .= ': ';
             }
-            $page_title .= format_date ($info['date'], SHORTDATEFORMAT);
+            $page_title .= format_date($info['date'], SHORTDATEFORMAT);
         }
 
         if ($page_title != '') {
@@ -568,7 +567,7 @@ class PAGE {
 
         if (isset($nextprev['up'])) {
 
-            $uplink = '<span class="up"><a href="' .  $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
+            $uplink = '<span class="up"><a href="' . $nextprev['up']['url'] . '" title="' . $nextprev['up']['title'] . '">' . $nextprev['up']['body'] . '</a>';
             if (get_http_var('s')) {
                 $URL = new \MySociety\TheyWorkForYou\Url($this_page);
                 $uplink .= '<br><a href="' . $URL->generate() . '">' . gettext('Remove highlighting') . '</a>';
@@ -583,7 +582,7 @@ class PAGE {
             $next = $nextprev['next'];
 
             if (isset($next['url'])) {
-                $nextlink = '<a href="' .  $next['url'] . '" title="' . $next['title'] . '" class="linkbutton">' . $next['body'] . ' &raquo;</a>';
+                $nextlink = '<a href="' . $next['url'] . '" title="' . $next['title'] . '" class="linkbutton">' . $next['body'] . ' &raquo;</a>';
             } else {
                 $nextlink = $next['body'] . ' &raquo;';
             }
@@ -600,7 +599,7 @@ class PAGE {
     }
 
 
-    public function search_form($value='') {
+    public function search_form($value = '') {
         global $SEARCHENGINE;
         // Search box on the search page.
         // If $value is set then it will be displayed in the form.
@@ -622,31 +621,31 @@ class PAGE {
         $person_name = '';
         if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
             $person_id = $m[1][0];
-            $member = new MEMBER(array('person_id' => $person_id));
+            $member = new MEMBER(['person_id' => $person_id]);
             if ($member->valid) {
                 $value = str_replace("speaker:$person_id", '', $value);
-                    $person_name = $member->full_name();
-                }
+                $person_name = $member->full_name();
             }
+        }
 
         echo '<div class="mainsearchbox">';
-        if ($wtt<2) {
-                echo '<form action="', $URL->generate(), '" method="get">';
-                if (get_http_var('o')) {
-                    echo '<input type="hidden" name="o" value="', _htmlentities(get_http_var('o')), '">';
-                }
-                if (get_http_var('house')) {
-                    echo '<input type="hidden" name="house" value="', _htmlentities(get_http_var('house')), '">';
-                }
-                echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
-                echo '<input type="submit" value=" ', ($wtt ? gettext('Modify search') : gettext('Search')), ' ">';
-                $URL = new \MySociety\TheyWorkForYou\Url('search');
-            $URL->insert(array('adv' => 1));
-                echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">' . gettext('More&nbsp;options') . '</a>';
-                echo '<br>';
-                if ($wtt) {
-                    print '<input type="hidden" name="wtt" value="1">';
-                }
+        if ($wtt < 2) {
+            echo '<form action="', $URL->generate(), '" method="get">';
+            if (get_http_var('o')) {
+                echo '<input type="hidden" name="o" value="', _htmlentities(get_http_var('o')), '">';
+            }
+            if (get_http_var('house')) {
+                echo '<input type="hidden" name="house" value="', _htmlentities(get_http_var('house')), '">';
+            }
+            echo '<input type="text" name="q" value="', _htmlentities($value), '" size="50"> ';
+            echo '<input type="submit" value=" ', ($wtt ? gettext('Modify search') : gettext('Search')), ' ">';
+            $URL = new \MySociety\TheyWorkForYou\Url('search');
+            $URL->insert(['adv' => 1]);
+            echo '&nbsp;&nbsp; <a href="' . $URL->generate() . '">' . gettext('More&nbsp;options') . '</a>';
+            echo '<br>';
+            if ($wtt) {
+                print '<input type="hidden" name="wtt" value="1">';
+            }
         } else { ?>
     <form action="https://www.writetothem.com/lords" method="get">
     <input type="hidden" name="pid" value="<?=_htmlentities(get_http_var('pid')) ?>">
@@ -657,38 +656,38 @@ class PAGE {
         if (!$wtt && ($value || $person_name)) {
             echo '<div style="margin-top: 5px">';
             $orderUrl = new \MySociety\TheyWorkForYou\Url('search');
-            $orderUrl->insert(array('s'=>$value)); # Need the parsed value
-                $ordering = get_http_var('o');
-                if ($ordering != 'r' && $ordering != 'd' && $ordering != 'p' && $ordering != 'o') {
-                    $ordering = 'd';
-                }
+            $orderUrl->insert(['s' => $value]); # Need the parsed value
+            $ordering = get_http_var('o');
+            if ($ordering != 'r' && $ordering != 'd' && $ordering != 'p' && $ordering != 'o') {
+                $ordering = 'd';
+            }
 
-                if ($ordering=='r') {
+            if ($ordering == 'r') {
                 print '<strong>' . gettext('Sorted by relevance') . '</strong>';
-                } else {
-                printf(gettext("<a href='%s'>Sort by relevance</a>"), $orderUrl->generate('html', array('o'=>'r')));
-                }
-
-                print "&nbsp;|&nbsp;";
-                if ($ordering=='d') {
-                print '<strong>' . gettext('Sorted by date:') . ' ' . gettext('newest') . '</strong> / <a href="' . $orderUrl->generate('html', array('o'=>'o')) . '">' . gettext('oldest') . '</a>';
-                } elseif ($ordering=='o') {
-                print '<strong>' . gettext('Sorted by date:') . '</strong> <a href="' . $orderUrl->generate('html', array('o'=>'d')) . '">' . gettext('newest') . '</a> / <strong>' . gettext('oldest') . '</strong>';
-                } else {
-                print gettext("Sort by date:") . ' ';
-                printf("<a href='%s'>", $orderUrl->generate('html', array('o'=>'d')));
-                print gettext("newest");
-                print '</a> / ';
-                printf("<a href='%s'>", $orderUrl->generate('html', array('o'=>'o')));
-                print gettext('oldest');
-                print '</a>';
-                }
+            } else {
+                printf(gettext("<a href='%s'>Sort by relevance</a>"), $orderUrl->generate('html', ['o' => 'r']));
+            }
 
             print "&nbsp;|&nbsp;";
-            if ($ordering=='p') {
+            if ($ordering == 'd') {
+                print '<strong>' . gettext('Sorted by date:') . ' ' . gettext('newest') . '</strong> / <a href="' . $orderUrl->generate('html', ['o' => 'o']) . '">' . gettext('oldest') . '</a>';
+            } elseif ($ordering == 'o') {
+                print '<strong>' . gettext('Sorted by date:') . '</strong> <a href="' . $orderUrl->generate('html', ['o' => 'd']) . '">' . gettext('newest') . '</a> / <strong>' . gettext('oldest') . '</strong>';
+            } else {
+                print gettext("Sort by date:") . ' ';
+                printf("<a href='%s'>", $orderUrl->generate('html', ['o' => 'd']));
+                print gettext("newest");
+                print '</a> / ';
+                printf("<a href='%s'>", $orderUrl->generate('html', ['o' => 'o']));
+                print gettext('oldest');
+                print '</a>';
+            }
+
+            print "&nbsp;|&nbsp;";
+            if ($ordering == 'p') {
                 print '<strong>' . gettext('Use by person') . '</strong>';
             } else {
-                printf('<a href="%s">', $orderUrl->generate('html', array('o'=>'p')));
+                printf('<a href="%s">', $orderUrl->generate('html', ['o' => 'p']));
                 print gettext('Show use by person') . '</a>';
             }
             echo '</div>';
@@ -700,17 +699,19 @@ class PAGE {
                     <input type="radio" name="pid" value=""><?= gettext('Search all speeches') ?>
                     </p>
                 <?php
-                }
+            }
         }
 
         echo '</form> </div>';
     }
 
-    public function login_form ($errors = array()) {
+    public function login_form($errors = []) {
         // Used for /user/login/ and /user/prompt/
         // $errors is a hash of potential errors from a previous log in attempt.
         ?>
-        <form method="post" action="<?php $URL = new \MySociety\TheyWorkForYou\Url('userlogin'); $URL->reset(); echo $URL->generate(); ?>" class="login-form">
+        <form method="post" action="<?php $URL = new \MySociety\TheyWorkForYou\Url('userlogin');
+        $URL->reset();
+        echo $URL->generate(); ?>" class="login-form">
 
 <?php
         if (isset($errors["email"])) {
@@ -719,20 +720,20 @@ class PAGE {
         if (isset($errors["invalidemail"])) {
             $this->error_message($errors['invalidemail']);
         }
-?>
+        ?>
             <p>
                 <label for="email"><?= gettext('Email address:') ?></label></span>
                 <input type="text" name="email" id="email" value="<?php echo _htmlentities(get_http_var("email")); ?>" maxlength="100" class="form-control"></span>
             </p>
 
 <?php
-        if (isset($errors["password"])) {
-            $this->error_message($errors['password']);
-        }
+                if (isset($errors["password"])) {
+                    $this->error_message($errors['password']);
+                }
         if (isset($errors["invalidpassword"])) {
             $this->error_message($errors['invalidpassword']);
         }
-?>
+        ?>
             <p>
                 <label for="password"><?= gettext('Password:') ?></label>
                 <input type="password" name="password" id="password" maxlength="30" class="form-control">
@@ -740,7 +741,7 @@ class PAGE {
 
             <p>
                 <input type="checkbox" name="remember" id="remember" value="true"<?php
-        $remember = get_http_var("remember");
+                $remember = get_http_var("remember");
         if (get_http_var("submitted") != "true" || $remember == "true") {
             print " checked";
         }
@@ -775,14 +776,15 @@ class PAGE {
                 <?= gettext('Forgotten your password?') ?>
                 <a href="<?php
                     $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
-                    $URL->insert(array("email"=>get_http_var("email")));
-                    echo $URL->generate();
-                ?>"><?= gettext('Set a new one!') ?></a>
+        $URL->insert(["email" => get_http_var("email")]);
+        echo $URL->generate();
+        ?>"><?= gettext('Set a new one!') ?></a>
             </p>
 
             <p>
                 <?= gettext('Not yet a member?') ?>
-                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin"); echo $URL->generate(); ?>"><?= gettext('Join now!') ?></a>
+                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin");
+        echo $URL->generate(); ?>"><?= gettext('Join now!') ?></a>
             </p>
 
         </form>
@@ -793,7 +795,7 @@ class PAGE {
         // Search box on the MP page.
 
         $URL = new \MySociety\TheyWorkForYou\Url('search');
-        $URL->remove(array('s', 'q'));
+        $URL->remove(['s', 'q']);
         ?>
                 <div class="mpsearchbox">
                     <form action="<?php echo $URL->generate(); ?>" method="get">
@@ -807,9 +809,9 @@ class PAGE {
     }
 
     public function glossary_atoz(&$GLOSSARY) {
-    // Print out a nice list of lettered links to glossary pages
+        // Print out a nice list of lettered links to glossary pages
 
-        $letters = array ();
+        $letters =  [];
 
         foreach ($GLOSSARY->alphabet as $letter => $eps) {
             // if we're writing out the current letter (list or item)
@@ -817,7 +819,7 @@ class PAGE {
                 // if we're in item view - show the letter as "on" but make it a link
                 if ($GLOSSARY->current_term != '') {
                     $URL = new \MySociety\TheyWorkForYou\Url('glossary');
-                    $URL->insert(array('az' => $letter));
+                    $URL->insert(['az' => $letter]);
                     $letter_link = $URL->generate('url');
 
                     $letters[] = "<li class=\"on\"><a href=\"" . $letter_link . "\">" . $letter . "</a></li>";
@@ -828,7 +830,7 @@ class PAGE {
                 }
             } elseif (!empty($GLOSSARY->alphabet[$letter])) {
                 $URL = new \MySociety\TheyWorkForYou\Url('glossary');
-                $URL->insert(array('az' => $letter));
+                $URL->insert(['az' => $letter]);
                 $letter_link = $URL->generate('url');
 
                 $letters[] = "<li><a href=\"" . $letter_link . "\">" . $letter . "</a></li>";
@@ -840,14 +842,14 @@ class PAGE {
                     <div class="letters">
                         <ul>
     <?php
-        for ($n=0; $n<13; $n++) {
+        for ($n = 0; $n < 13; $n++) {
             print $letters[$n];
         }
         ?>
                         </ul>
                         <ul>
     <?php
-        for ($n=13; $n<26; $n++) {
+        for ($n = 13; $n < 26; $n++) {
             print $letters[$n];
         }
         ?>
@@ -857,7 +859,7 @@ class PAGE {
     }
 
     public function glossary_display_term(&$GLOSSARY) {
-    // Display a single glossary term
+        // Display a single glossary term
         global $this_page;
 
         $term = $GLOSSARY->current_term;
@@ -866,19 +868,19 @@ class PAGE {
 
         // add some extra controls for the administrators
         if ($this_page == "admin_glossary") {
-            print "<a id=\"gl".$term['glossary_id']."\"></a>";
+            print "<a id=\"gl" . $term['glossary_id'] . "\"></a>";
             print "<h3>" . $term['title'] . "</h3>";
             $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary');
-            $URL->insert(array("delete_confirm" => $term['glossary_id']));
+            $URL->insert(["delete_confirm" => $term['glossary_id']]);
             $delete_url = $URL->generate();
-            $admin_links = "<br><small><a href=\"".$delete_url."\">delete</a></small>";
+            $admin_links = "<br><small><a href=\"" . $delete_url . "\">delete</a></small>";
         } else {
             $admin_links = "";
         }
 
         if (isset($term['user_id'])) {
             $URL = new \MySociety\TheyWorkForYou\Url('userview');
-            $URL->insert(array('u' => $term['user_id']));
+            $URL->insert(['u' => $term['user_id']]);
             $user_link = $URL->generate('url');
 
             $user_details = "\t\t\t\t<p><small>contributed by user <a href=\"" . $user_link . "\">" . $term['firstname'] . " " . $term['lastname'] . "</a></small>" . $admin_links . "</p>\n";
@@ -892,39 +894,39 @@ class PAGE {
             // Add a direct search link for current glossary item
             $URL = new \MySociety\TheyWorkForYou\Url('search');
             // remember to quote the term for phrase matching in search
-            $URL->insert(array('s' => '"'.$term['title'].'"'));
+            $URL->insert(['s' => '"' . $term['title'] . '"']);
             $search_url = $URL->generate();
-            printf ("\t\t\t\t<p>Search hansard for \"<a href=\"%s\" title=\"View search results for this glossary item\">%s</a>\"</p>", $search_url, $term['title']);
+            printf("\t\t\t\t<p>Search hansard for \"<a href=\"%s\" title=\"View search results for this glossary item\">%s</a>\"</p>", $search_url, $term['title']);
         }
     }
 
     public function glossary_display_match_list(&$GLOSSARY) {
-            if ($GLOSSARY->num_search_matches > 1) {
-                $plural = "them";
-                $definition = "some definitions";
-            } else {
-                $plural = "it";
-                $definition = "a definition";
-            }
-            ?>
+        if ($GLOSSARY->num_search_matches > 1) {
+            $plural = "them";
+            $definition = "some definitions";
+        } else {
+            $plural = "it";
+            $definition = "a definition";
+        }
+        ?>
             <h4>Found <?php echo $GLOSSARY->num_search_matches; ?> matches for <em><?php echo $GLOSSARY->query; ?></em></h4>
             <p>It seems we already have <?php echo $definition; ?> for that. Would you care to see <?php echo $plural; ?>?</p>
             <ul class="glossary"><?php
-            foreach ($GLOSSARY->search_matches as $match) {
-                $URL = new \MySociety\TheyWorkForYou\Url('glossary');
-                $URL->insert(array('gl' => $match['glossary_id']));
-                $URL->remove(array('g'));
-                $term_link = $URL->generate('url');
-                ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?php
-            }
-            ?></ul>
+        foreach ($GLOSSARY->search_matches as $match) {
+            $URL = new \MySociety\TheyWorkForYou\Url('glossary');
+            $URL->insert(['gl' => $match['glossary_id']]);
+            $URL->remove(['g']);
+            $term_link = $URL->generate('url');
+            ?><li><a href="<?php echo $term_link ?>"><?php echo $match['title']?></a></li><?php
+        }
+        ?></ul>
 <?php
     }
 
     public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
         $URL = new \MySociety\TheyWorkForYou\Url('glossary');
-        $URL->remove(array("g"));
+        $URL->remove(["g"]);
         $glossary_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_link . "\">Browse the glossary</a></small>";
     }
@@ -948,7 +950,7 @@ class PAGE {
 
             $numpages = ceil($total_results / $results_per_page);
 
-            $pagelinks = array();
+            $pagelinks = [];
 
             // How many links are we going to display on the page - don't want to
             // display all of them if we have 100s...
@@ -969,28 +971,28 @@ class PAGE {
 
             // Generate all the page links.
             $URL = new \MySociety\TheyWorkForYou\Url($this_page);
-            $URL->insert( array('wtt' => get_http_var('wtt')) );
+            $URL->insert(['wtt' => get_http_var('wtt')]);
             if (isset($pagedata['s'])) {
                 # XXX: Should be taken out in *one* place, not here + search_form etc.
                 $value = $pagedata['s'];
                 if (preg_match_all('#speaker:(\d+)#', $value, $m) == 1) {
                     $person_id = $m[1][0];
                     $value = str_replace('speaker:' . $person_id, '', $value);
-                    $URL->insert(array('pid' => $person_id));
-                    }
-                $URL->insert(array('s' => $value));
+                    $URL->insert(['pid' => $person_id]);
+                }
+                $URL->insert(['s' => $value]);
             }
 
             for ($n = $firstpage; $n <= $lastpage; $n++) {
 
                 if ($n > 1) {
-                    $URL->insert(array('p'=>$n));
+                    $URL->insert(['p' => $n]);
                 } else {
                     // No page number for the first page.
-                    $URL->remove(array('p'));
+                    $URL->remove(['p']);
                 }
                 if (isset($pagedata['pid'])) {
-                    $URL->insert(array('pid'=>$pagedata['pid']));
+                    $URL->insert(['pid' => $pagedata['pid']]);
                 }
 
                 if ($n != $page) {
@@ -1009,7 +1011,7 @@ class PAGE {
 
             if ($page != 1) {
                 $prevpage = $page - 1;
-                $URL->insert(array('p'=>$prevpage));
+                $URL->insert(['p' => $prevpage]);
                 ?>
                     <big><strong><a href="<?php echo $URL->generate(); ?>"><big>&laquo;</big> <?=gettext('Previous') ?></a></strong></big>
 <?php
@@ -1019,7 +1021,7 @@ class PAGE {
 
             if ($page != $numpages) {
                 $nextpage = $page + 1;
-                $URL->insert(array('p'=>$nextpage));
+                $URL->insert(['p' => $nextpage]);
                 ?>
 
                     <big><strong><a href="<?php echo $URL->generate(); ?>"><?= gettext('Next') ?> <big>&raquo;</big></a></strong></big> <?php
@@ -1040,7 +1042,7 @@ class PAGE {
 
         if ($data['user_id'] > 0) {
             $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
-            $USERURL->insert(array('id'=>$data['user_id']));
+            $USERURL->insert(['id' => $data['user_id']]);
             $username = '<a href="' . $USERURL->generate() . '">' . _htmlentities($data['user_name']) . '</a>';
         } else {
             $username = _htmlentities($data['user_name']);
@@ -1079,14 +1081,14 @@ class PAGE {
             <h3>Reported annotations</h3>
 <?php
             // Put the data in an array which we then display using $PAGE->display_table().
-            $tabledata['header'] = array(
+            $tabledata['header'] = [
                 'Reported by',
                 'Begins...',
                 'Reported on',
-                ''
-            );
+                '',
+            ];
 
-            $tabledata['rows'] = array();
+            $tabledata['rows'] = [];
 
             $EDITURL = new \MySociety\TheyWorkForYou\Url('admin_commentreport');
 
@@ -1096,10 +1098,10 @@ class PAGE {
                     // Yes, we could probably cope if we just passed the report_id
                     // through, but this isn't a public-facing page and life's
                     // easier if we have the comment_id too.
-                    $EDITURL->insert(array(
+                    $EDITURL->insert([
                         'rid' => $report['report_id'],
                         'cid' => $report['comment_id'],
-                    ));
+                    ]);
                     $editlink = '<a href="' . $EDITURL->generate() . '">View</a>';
                 } else {
                     $editlink = 'Locked';
@@ -1107,12 +1109,12 @@ class PAGE {
 
                 $body = trim_characters($report['body'], 0, 40);
 
-                $tabledata['rows'][] = array (
+                $tabledata['rows'][] =  [
                     _htmlentities($report['firstname'] . ' ' . $report['lastname']),
                     _htmlentities($body),
                     $report['reported'],
-                    $editlink
-                );
+                    $editlink,
+                ];
 
             }
 
@@ -1177,7 +1179,7 @@ class PAGE {
     </tbody>
 <?php
         }
-    ?>
+        ?>
     </table>
 <?php
 
@@ -1189,15 +1191,15 @@ class PAGE {
         // Returns HTML suitable for putting in the sidebar on Admin pages.
         global $this_page, $DATA;
 
-        $pages = array ('admin_home',
-                'admin_comments', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
-                'alert_stats', 'admin_statistics', 'admin_reportstats',
-                'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
-                'admin_profile_message', 'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner', 'admin_announcement' ,'admin_featured', 'admin_topics',
-                'admin_wikipedia',
-                );
+        $pages =  ['admin_home',
+            'admin_comments', 'admin_searchlogs', 'admin_popularsearches', 'admin_failedsearches',
+            'alert_stats', 'admin_statistics', 'admin_reportstats',
+            'admin_commentreports', 'admin_glossary', 'admin_glossary_pending', 'admin_badusers',
+            'admin_profile_message', 'admin_photos', 'admin_mpurls', 'admin_policies', 'admin_banner', 'admin_announcement','admin_featured', 'admin_topics',
+            'admin_wikipedia',
+        ];
 
-        $links = array();
+        $links = [];
 
         foreach ($pages as $page) {
             $title = $DATA->page_metadata($page, 'title');
@@ -1222,4 +1224,4 @@ class PAGE {
     }
 }
 
-$PAGE = new PAGE;
+$PAGE = new PAGE();

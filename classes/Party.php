@@ -12,7 +12,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Party {
-
     public $name;
 
     private $db;
@@ -20,11 +19,11 @@ class Party {
     public function __construct($name) {
         // treat Labour and Labour/Co-operative the same as that's how
         // people view them and it'll confuse the results otherwise
-        if ( $name == 'Labour/Co-operative' ) {
+        if ($name == 'Labour/Co-operative') {
             $name = 'Labour';
         }
         $this->name = $name;
-        $this->db = new \ParlDB;
+        $this->db = new \ParlDB();
     }
 
     public function getCurrentMemberCount($house) {
@@ -42,11 +41,11 @@ class Party {
                 AND house = :house
                 AND entered_house <= :date
                 AND left_house >= :date",
-            array(
+            [
                 ':party' => $this->name,
                 ':house' => $house,
                 ':date' => $date,
-            )
+            ]
         )->first();
         if ($member_count) {
             $num_members = $member_count['num_members'];
@@ -57,13 +56,13 @@ class Party {
     }
 
     public static function getParties() {
-        $db = new \ParlDB;
+        $db = new \ParlDB();
 
         $party_list = $db->query(
             "SELECT DISTINCT party FROM member WHERE party <> ''"
         );
 
-        $parties = array();
+        $parties = [];
         foreach ($party_list as $row) {
             $party = $row['party'];
             if (

@@ -2,12 +2,12 @@
 
 $this_page = 'bill_index';
 include_once '../../../../includes/easyparliament/init.php';
-$DATA->set_page_metadata($this_page, 'heading','Identity Cards Act 2006');
+$DATA->set_page_metadata($this_page, 'heading', 'Identity Cards Act 2006');
 
 $PAGE->page_start();
 $PAGE->stripe_start();
 
-$PAGE->block_start(array ('title'=>'House of Commons - Normal Run'));
+$PAGE->block_start(['title' => 'House of Commons - Normal Run']);
 ?>
 <ul> <li>Back on 25th May 2005, a bill was introduced: the <a
 href="http://www.publications.parliament.uk/pa/cm200506/cmbills/009/2006009.htm">Identity
@@ -32,7 +32,7 @@ the Commons on the 18th October</a>.
 
 <?php
 $PAGE->block_end();
-$PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
+$PAGE->block_start(['title' => 'House of Lords - Normal Run']);
 ?>
 
 <ul>
@@ -49,7 +49,7 @@ $PAGE->block_start(array ('title'=>'House of Lords - Normal Run'));
 
 <?php
 $PAGE->block_end();
-$PAGE->block_start(array ('title'=>'Ping Pong'));
+$PAGE->block_start(['title' => 'Ping Pong']);
 ?>
 
 <ul>
@@ -93,11 +93,11 @@ Motions, <a href="http://www.theyworkforyou.com/debates/?id=2006-03-29a.999.0">d
 
 $PAGE->block_end();
 
-    $includes = array(
-        array (
-            'type' => 'include',
-            'content' => 'bills_intro'
-        ),
-    );
+$includes = [
+    [
+        'type' => 'include',
+        'content' => 'bills_intro',
+    ],
+];
 $PAGE->stripe_end($includes);
 $PAGE->page_end();

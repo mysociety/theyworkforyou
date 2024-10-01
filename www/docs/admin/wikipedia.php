@@ -2,7 +2,7 @@
 
 include_once '../../includes/easyparliament/init.php';
 $this_page = 'admin_wikipedia';
-$db = new ParlDB;
+$db = new ParlDB();
 
 $PAGE->page_start();
 $PAGE->stripe_start();
@@ -20,7 +20,7 @@ function remove_form() {
         $db->query('INSERT INTO titles_ignored (title) VALUES (:title)', [':title' => $title]);
         print '<p>Ignored!</p>';
     }
-?>
+    ?>
 <form method="post">
 Title: <input type="text" name="title" value="">
 <input type="submit" value="Remove">

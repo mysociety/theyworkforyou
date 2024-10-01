@@ -37,7 +37,7 @@
                     </p>
                 </li>
                 <?php }
-                } ?>
+                    } ?>
             </ul>
         </div>
         <div class="business-section__secondary">
@@ -47,6 +47,7 @@
         </div>
     </div>
 
-    <?php $search_title = 'Search Public Bill Committees'; include '_search.php'; ?>
+    <?php $search_title = 'Search Public Bill Committees';
+                include '_search.php'; ?>
 
 </div>

@@ -4,7 +4,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 include_once dirname(__FILE__) . '/api_getPerson.php';
 
 function api_getMS_front() {
-?>
+    ?>
 <p><big>Fetch a particular MS.</big></p>
 
 <h4>Arguments</h4>
@@ -42,4 +42,3 @@ function api_getMS_postcode($pc) {
 function api_getMS_constituency($constituency) {
     api_getPerson_constituency($constituency, HOUSE_TYPE_WALES);
 }
-

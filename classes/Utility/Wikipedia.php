@@ -18,9 +18,7 @@ namespace MySociety\TheyWorkForYou\Utility;
  * antiTaginTag stuff)
  */
 
-class Wikipedia
-{
-
+class Wikipedia {
     public static function wikipedize($source) {
         global $format_date_months;
         $months = join('|', array_slice($format_date_months, 1));
@@ -67,8 +65,14 @@ class Wikipedia
         preg_match_all("/\b[A-Z]{2,}/ms", $source, $acronyms);
 
         # We don't want no steenking duplicates
-        $phrases = array_unique(array_merge($propernounphrases1[0], $propernounphrases2[0],
-            $propernounphrases3[1], $propernounphrases4[1], $propernounphrases5[0], $acronyms[0]));
+        $phrases = array_unique(array_merge(
+            $propernounphrases1[0],
+            $propernounphrases2[0],
+            $propernounphrases3[1],
+            $propernounphrases4[1],
+            $propernounphrases5[0],
+            $acronyms[0]
+        ));
         foreach ($phrases as $i => $phrase) {
             # Ignore months
             if (preg_match("#^($months)\s+\d+$#", $phrase)) {
@@ -78,7 +82,7 @@ class Wikipedia
         }
 
         // Assemble the resulting phrases into a parameter array
-        $params = array();
+        $params = [];
         foreach ($phrases as $i => $phrase) {
             $params[':phrase' . $i] = $phrase;
         }
@@ -92,17 +96,17 @@ class Wikipedia
 
         # Open up a db connection, and whittle our list down even further, against
         # the real titles.
-        $matched = array();
-        $db = new \ParlDB;
+        $matched = [];
+        $db = new \ParlDB();
         $source = explode('|||', $source);
         $q = $db->query("SELECT titles.title FROM titles LEFT JOIN titles_ignored ON titles.title=titles_ignored.title WHERE titles.title IN (" . join(',', array_keys($params)) . ") AND titles_ignored.title IS NULL", $params);
-        $phrases = array();
+        $phrases = [];
         foreach ($q as $row) {
             $phrases[] = $row['title'];
         }
 
         # Sort into order, largest first
-        usort($phrases, function($a, $b) {
+        usort($phrases, function ($a, $b) {
             return strlen($a) < strlen($b);
         });
 
@@ -120,7 +124,7 @@ class Wikipedia
 
             twfy_debug("WIKIPEDIA", "Matched '$phrase'");
             # 1 means only replace one match for phrase per paragraph
-            $source = preg_replace ('{
+            $source = preg_replace('{
             \b(' . $phrase_re . ')\b # Match the phrase itself
             (?!                      # Match as long as the following does *not* apply:
                 (?:                  #   Match, possessively, as many strings of:
@@ -150,63 +154,60 @@ class Wikipedia
      * @todo Remove this, it seems to be redundant.
      */
 
-    public static function antiTagInTag($content = '', $format = 'htmlhead')
-    {
-      $tagend = -1;
-      for( $tagstart = strpos( $content, '<', $tagend + 1 ) ; $tagstart !== false && $tagstart < strlen( $content ); $tagstart = strpos( $content, '<', $tagend ) )
-        {
-          // got the start of a tag.  Now find the proper end!
-          $walker = $tagstart + 1;
-          $open = 1;
-          while( $open != 0 && $walker < strlen( $content ) )
-        {
-          $nextopen = strpos( $content, '<', $walker );
-          $nextclose = strpos( $content, '>', $walker );
-          if( $nextclose === false ) {
-              // ERROR! Open waka without close waka!
-              // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
-              return $content;
-          }
-          if( $nextopen === false || $nextopen > $nextclose ) {
-              // No more opens, but there was a close; or, a close happens before the next open.
-              // walker goes to the close+1, and open decrements
-              $open --;
-              $walker = $nextclose + 1;
-          } elseif( $nextopen < $nextclose ) {
-              // an open before the next close
-              $open ++;
-              $walker = $nextopen + 1;
-          }
+    public static function antiTagInTag($content = '', $format = 'htmlhead') {
+        $tagend = -1;
+        for($tagstart = strpos($content, '<', $tagend + 1) ; $tagstart !== false && $tagstart < strlen($content); $tagstart = strpos($content, '<', $tagend)) {
+            // got the start of a tag.  Now find the proper end!
+            $walker = $tagstart + 1;
+            $open = 1;
+            while($open != 0 && $walker < strlen($content)) {
+                $nextopen = strpos($content, '<', $walker);
+                $nextclose = strpos($content, '>', $walker);
+                if($nextclose === false) {
+                    // ERROR! Open waka without close waka!
+                    // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
+                    return $content;
+                }
+                if($nextopen === false || $nextopen > $nextclose) {
+                    // No more opens, but there was a close; or, a close happens before the next open.
+                    // walker goes to the close+1, and open decrements
+                    $open--;
+                    $walker = $nextclose + 1;
+                } elseif($nextopen < $nextclose) {
+                    // an open before the next close
+                    $open++;
+                    $walker = $nextopen + 1;
+                }
+            }
+            $tagend = $walker;
+            if($tagend > strlen($content)) {
+                $tagend = strlen($content);
+            } else {
+                $tagend--;
+                $tagstart++;
+            }
+            $tag = substr($content, $tagstart, $tagend - $tagstart);
+            $tags[] = '<' . $tag . '>';
+
+            if (function_exists('format_to_output')) {
+                $newtag = format_to_output($tag, $format);
+            } else {
+                $newtag = strip_tags($tag);
+            }
+
+            $newtags[] = '<' . $newtag . '>';
+
+            if (function_exists('format_to_output')) {
+                $newtag = format_to_output($tag, $format);
+            } else {
+                $newtag = strip_tags($tag);
+            }
         }
-          $tagend = $walker;
-          if( $tagend > strlen( $content ) ) {
-              $tagend = strlen( $content );
-          } else {
-              $tagend --;
-              $tagstart ++;
-          }
-          $tag = substr( $content, $tagstart, $tagend - $tagstart );
-          $tags[] = '<' . $tag . '>';
-
-          if (function_exists('format_to_output')) {
-            $newtag = format_to_output($tag, $format);
-          } else {
-            $newtag = strip_tags($tag);
-          }
-
-          $newtags[] = '<' . $newtag . '>';
-
-          if (function_exists('format_to_output')) {
-            $newtag = format_to_output($tag, $format);
-          } else {
-            $newtag = strip_tags($tag);
-          }
+        if (isset($tags) && isset($newtags)) {
+            $content = str_replace($tags, $newtags, $content);
         }
-      if (isset($tags)&&isset($newtags)) {
-      $content = str_replace($tags, $newtags, $content);
-      }
 
-    return $content;
+        return $content;
 
     }
 

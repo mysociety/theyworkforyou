@@ -8,16 +8,14 @@ namespace MySociety\TheyWorkForYou\Utility;
  * Utility functions related to calendars
  */
 
-class Calendar
-{
-
+class Calendar {
     public static function minFutureDate() {
         $db = new \ParlDB();
         $q = $db->query('SELECT MIN(event_date) AS m FROM future WHERE event_date >= DATE(NOW()) AND deleted = 0')->first();
         return $q['m'];
     }
 
-    private static function fetchQuery($where, $order_by='', $params=null) {
+    private static function fetchQuery($where, $order_by = '', $params = null) {
         $query = "SELECT pn.person_id, pn.given_name, pn.family_name, pn.lordofname, pn.title AS name_title, member.house,
             future.*
             FROM future
@@ -50,7 +48,7 @@ class Calendar
                 $PAGE->error_message('There is no information available for that date.', false, 404);
             }
 
-            return array();
+            return [];
         }
 
         $DATA->set_page_metadata($this_page, 'date', $date);
@@ -64,9 +62,9 @@ class Calendar
     }
 
     private static function tidyData($q) {
-        $data = array();
-        $seen = array();
-        $people = array();
+        $data = [];
+        $seen = [];
+        $people = [];
         foreach ($q as $row) {
             if ($row['person_id']) {
                 $name = member_full_name($row['house'], $row['name_title'], $row['given_name'], $row['family_name'], $row['lordofname']);
@@ -87,7 +85,7 @@ class Calendar
     }
 
     public static function displayEntry($e) {
-        list($title, $meta) = self::meta($e);
+        [$title, $meta] = self::meta($e);
 
         if (strstr($e['chamber'], 'Select Committee')) {
             print '<dt class="sc" id="cal' . $e['id'] . '">';
@@ -130,7 +128,7 @@ class Calendar
             }
         }
 
-        $meta = array();
+        $meta = [];
 
         if ($d = $e['debate_type']) {
 
@@ -159,7 +157,7 @@ class Calendar
             }
         }
 
-        return array($title, $meta);
+        return [$title, $meta];
     }
 
 }

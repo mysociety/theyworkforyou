@@ -4,20 +4,24 @@
 
 function _api_getMembers_output($sql, $params) {
     global $parties;
-    $db = new ParlDB;
+    $db = new ParlDB();
     $q = $db->query($sql, $params);
-    $output = array();
+    $output = [];
     $last_mod = 0;
     foreach ($q as $row) {
         $pid = $row['person_id'];
-        $out = array(
+        $out = [
             'member_id' => $row['member_id'],
             'person_id' => $pid,
-            'name' => html_entity_decode(member_full_name($row['house'], $row['title'],
-                $row['given_name'], $row['family_name'],
-                $row['lordofname'] )),
-            'party' => isset($parties[$row['party']]) ? $parties[$row['party']] : $row['party'],
-        );
+            'name' => html_entity_decode(member_full_name(
+                $row['house'],
+                $row['title'],
+                $row['given_name'],
+                $row['family_name'],
+                $row['lordofname']
+            )),
+            'party' => $parties[$row['party']] ?? $row['party'],
+        ];
         if ($row['house'] != HOUSE_TYPE_LORDS) {
             $out['constituency'] = $row['constituency'];
         }
@@ -52,10 +56,10 @@ function api_getMembers_party($house, $s) {
         where house = :house
         AND member.person_id = p.person_id AND p.type = "name"
             AND p.start_date <= date(now()) and date(now()) <= p.end_date
-        and party like :party and entered_house <= date(now()) and date(now()) <= left_house', array(
-            ':house' => $house,
-            ':party' => '%' . $s . '%'
-            ));
+        and party like :party and entered_house <= date(now()) and date(now()) <= left_house', [
+        ':house' => $house,
+        ':party' => '%' . $s . '%',
+    ]);
 }
 
 function api_getMembers_search($house, $s) {
@@ -69,12 +73,12 @@ function api_getMembers_search($house, $s) {
         or lordofname like :name
         or concat(given_name,' ',family_name) like :name";
 
-        $query .= ") and entered_house <= date(now()) and date(now()) <= left_house";
+    $query .= ") and entered_house <= date(now()) and date(now()) <= left_house";
 
-    _api_getMembers_output($query, array(
+    _api_getMembers_output($query, [
         ':house' => $house,
-        ':name' => '%' . $s . '%'
-        ));
+        ':name' => '%' . $s . '%',
+    ]);
 }
 
 function api_getMembers_date($house, $date) {
@@ -88,12 +92,13 @@ function api_getMembers_date($house, $date) {
 function api_getMembers($house, $date = 'now()') {
     # $date may be a function such as now(), the default, and so cannot be used
     # as a parameter.
-    _api_getMembers_output("SELECT * FROM member, person_names p
+    _api_getMembers_output(
+        "SELECT * FROM member, person_names p
         WHERE house = :house
             AND member.person_id = p.person_id AND p.type = 'name'
                 AND p.start_date <= date($date) and date($date) <= p.end_date
             AND entered_house <= date($date)
             AND date($date) <= left_house",
-        array(':house' => $house)
+        [':house' => $house]
     );
 }

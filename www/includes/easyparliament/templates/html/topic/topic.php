@@ -61,7 +61,7 @@
               <?php else: ?>
                 <ul class="vote-descriptions">
                   <?php
-                  $policy_ids = array();
+                  $policy_ids = [];
 
                   foreach ($positions as $position) {
                       if (!in_array($position['policy_id'], $policy_ids)) {

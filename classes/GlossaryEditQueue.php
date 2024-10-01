@@ -13,10 +13,9 @@ namespace MySociety\TheyWorkForYou;
 
 // Glossary overrides
 class GlossaryEditQueue extends EditQueue {
-
     public function approve($data) {
-    // Approve items for inclusion
-    // Create new epobject and update the editqueue
+        // Approve items for inclusion
+        // Create new epobject and update the editqueue
 
         global $THEUSER;
 
@@ -61,7 +60,7 @@ class GlossaryEditQueue extends EditQueue {
             // the new epobject id and approval details.
             $q = $this->db->query("UPDATE editqueue
                             SET
-                            glossary_id='" .  $this->current_epobject_id. "',
+                            glossary_id='" . $this->current_epobject_id . "',
                             editor_id='" . addslashes($THEUSER->user_id()) . "',
                             approved='1',
                             decided='" . $timestamp . "'
@@ -70,7 +69,7 @@ class GlossaryEditQueue extends EditQueue {
                 break;
             } else {
                 // Scrub that one from the list of pending items
-                unset ($this->pending[$approval_id]);
+                unset($this->pending[$approval_id]);
             }
         }
 

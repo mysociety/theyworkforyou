@@ -28,7 +28,7 @@ if (get_http_var("submitted") == "true") {
     // We can then send the user there after log in.
     $returnurl 	= get_http_var("ret");
 
-    $errors = array();
+    $errors = [];
 
     if ($email == "") {
         $errors["email"] = gettext("Please enter your email address");
@@ -53,7 +53,7 @@ if (get_http_var("submitted") == "true") {
             if ($remember == "true") {
                 $expire = "never";
             } else {
-                $expire ="session";
+                $expire = "session";
             }
 
             // $returnurl is the url of where we'll send the user after login.
@@ -73,19 +73,19 @@ if (get_http_var("submitted") == "true") {
     $USER = new USER();
     $USER->init($resend);
     if (!$USER->confirmed()) {
-        $details = array(
+        $details = [
             'email' => $USER->email(),
             'firstname' => $USER->firstname(),
             'lastname' => $USER->lastname(),
-        );
+        ];
         $USER->send_confirmation_email($details);
         $this_page = 'userwelcome';
         $PAGE->page_start();
         $PAGE->stripe_start();
-        $message = array(
+        $message = [
             'title' => gettext("Confirmation email resent"),
-            'text' => gettext("You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks.")
-        );
+            'text' => gettext("You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address before you can log in. Thanks."),
+        ];
         $PAGE->message($message);
         $PAGE->stripe_end();
         $PAGE->page_end();
@@ -96,7 +96,7 @@ if (get_http_var("submitted") == "true") {
 }
 
 
-function display_page( $errors=array() ) {
+function display_page($errors = []) {
     global $PAGE, $this_page, $THEUSER;
 
     $PAGE->page_start();
@@ -126,14 +126,14 @@ function display_page( $errors=array() ) {
 
     <?php
 
-        $PAGE->stripe_end(array(
-            array (
+        $PAGE->stripe_end([
+            [
                 'type' => 'include',
-                'content' => 'userlogin'
-            )
-        ));
+                'content' => 'userlogin',
+            ],
+        ]);
 
-        $PAGE->page_end();
+    $PAGE->page_end();
 
 } // End display_page()
 

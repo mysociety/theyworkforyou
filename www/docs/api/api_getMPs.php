@@ -3,7 +3,7 @@
 include_once dirname(__FILE__) . '/api_getMembers.php';
 
 function api_getMPs_front() {
-?>
+    ?>
 <p><big>Fetch a list of MPs.</big></p>
 
 <p>

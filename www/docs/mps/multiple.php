@@ -14,7 +14,7 @@ $q = $db->query("select m1.person_id, m1.house as house1, m2.house as house2
         and m1.left_house='9999-12-31' and m2.left_house='9999-12-31'");
 foreach ($q as $row) {
     $pid = $row['person_id'];
-    $member = new MEMBER(array('person_id' => $pid));
+    $member = new MEMBER(['person_id' => $pid]);
     $h1 = $row['house1'];
     $h2 = $row['house2'];
     $out[$h1][$h2][] = $member;
@@ -38,7 +38,7 @@ function out($h1, $h2, $title) {
     print '</ul>';
 }
 
-$PAGE->stripe_end(array(
-    array('type'=>'include', 'content'=>'donate')
-));
+$PAGE->stripe_end([
+    ['type' => 'include', 'content' => 'donate'],
+]);
 $PAGE->page_end();

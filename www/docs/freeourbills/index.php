@@ -134,8 +134,8 @@ Suck it up and sign up, soldier.
 <?php freeourbills_sharethis_link(); ?>
 
 <?php
-$PAGE->stripe_end(array(array(
+$PAGE->stripe_end([[
     'type' => 'html',
-    'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>'
-)));
+    'content' => '<p align="center"><img title="Duck-billed platypus" src="bill3.jpg" alt="" hspace="10"></p>',
+]]);
 $PAGE->page_end();

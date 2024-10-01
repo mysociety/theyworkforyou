@@ -52,7 +52,9 @@ if (isset($data['comments'][0]['preview']) && $data['comments'][0]['preview'] ==
 ?>
 <div class="comments" id="comments">
     <a name="comments"></a>
-    <?php if ($subheading != '') { echo "<h4>$subheading</h4>"; }?>
+    <?php if ($subheading != '') {
+        echo "<h4>$subheading</h4>";
+    }?>
 <?php
 
 if (isset($data['comments']) && count($data['comments']) > 0) {
@@ -74,10 +76,10 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         }
 
         $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
-        $USERURL->insert(array('u'=>$comment['user_id']));
+        $USERURL->insert(['u' => $comment['user_id']]);
         ?>
         <div class="comment">
-            <p><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) .' '. _htmlentities($comment['lastname']); ?></strong></a><br>
+            <p><a href="<?php echo $USERURL->generate(); ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) . ' ' . _htmlentities($comment['lastname']); ?></strong></a><br>
 <?php
         // Make URLs into links and do <br>s.
         $body = prepare_comment_for_display($comment['body']); // In utility.php
@@ -89,7 +91,7 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
         <div class="sidebar">
         <p> Posted on
 <?php
-        list($date, $time) = explode(' ', $comment['posted']);
+        [$date, $time] = explode(' ', $comment['posted']);
         $date = format_date($date, SHORTDATEFORMAT);
         $time = format_time($time, TIMEFORMAT);
 
@@ -109,16 +111,16 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
             $this_page != 'admin_commentreport')
             && $THEUSER->is_able_to('reportcomment')
             && !$comment['modflagged']
-            ) {
+        ) {
 
             // The comment hasn't been reported and we're on a page where we want to
             // display this link.
 
             $URL = new \MySociety\TheyWorkForYou\Url('commentreport');
-            $URL->insert(array(
+            $URL->insert([
                 'id'	=> $comment['comment_id'],
-                'ret' 	=> $comment['url']
-            ));
+                'ret' 	=> $comment['url'],
+            ]);
 
             ?><br>
         <a href="<?php echo $URL->generate(); ?>" title="Notify moderators that this annotation needs editing or deleting">Report this annotation</a>

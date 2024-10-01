@@ -1,4 +1,5 @@
 <?php
+
 // authed.php:
 // Returns whether an email address has signed up to a TWFY alert for an MP.
 // Uses shared secret for authentication.
@@ -16,20 +17,22 @@ header("Content-Type: text/plain");
 $email = get_http_var('email');
 $sign = get_http_var('sign');
 $pid = get_http_var('pid');
-if (!$pid || !ctype_digit($pid)) print 'not valid';
-else {
+if (!$pid || !ctype_digit($pid)) {
+    print 'not valid';
+} else {
     $authed = auth_verify_with_shared_secret($email, OPTION_AUTH_SHARED_SECRET, $sign);
     if ($authed) {
-        $db = new ParlDB;
-        $q = $db->query('select alert_id from alerts where email = :email and criteria = :criteria and confirmed and not deleted', array(
+        $db = new ParlDB();
+        $q = $db->query('select alert_id from alerts where email = :email and criteria = :criteria and confirmed and not deleted', [
             ':email' => $email,
-            ':criteria' => 'speaker:' . $pid
-            ));
+            ':criteria' => 'speaker:' . $pid,
+        ]);
         $already_signed = $q->rows();
-        if ($already_signed)
+        if ($already_signed) {
             print "already signed";
-        else
+        } else {
             print "not signed";
+        }
     } else {
         print "not authed";
     }

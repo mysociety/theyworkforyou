@@ -1,12 +1,10 @@
 <?php
 
-include_once INCLUDESPATH."easyparliament/glossary.php";
+include_once INCLUDESPATH . "easyparliament/glossary.php";
 
 use MySociety\TheyWorkForYou\Policies as Policies;
 
-
 class MEMBER {
-
     public $valid = false;
     public $member_id;
     public $person_id;
@@ -16,20 +14,20 @@ class MEMBER {
     public $lordofname;
     public $constituency;
     public $party;
-    public $other_parties = array();
+    public $other_parties = [];
     public $other_constituencies;
-    public $memberships = array();
-    public $houses = array();
-    public $entered_house = array();
-    public $left_house = array();
-    public $extra_info = array();
+    public $memberships = [];
+    public $houses = [];
+    public $entered_house = [];
+    public $left_house = [];
+    public $extra_info = [];
     // Is this MP THEUSERS's MP?
     public $the_users_mp = false;
     public $house_disp = 0; # Which house we should display this person in
 
     // Mapping member table 'house' numbers to text.
     private function houses_pretty() {
-        return array(
+        return [
             0 => gettext('Royal Family'),
             1 => gettext('House of Commons'),
             2 => gettext('House of Lords'),
@@ -37,12 +35,12 @@ class MEMBER {
             4 => gettext('Scottish Parliament'),
             5 => gettext('Senedd'),
             6 => gettext('London Assembly'),
-        );
+        ];
     }
 
     // Mapping member table reasons to text.
     private function reasons() {
-        return array(
+        return [
             'became_peer'		=> gettext('Became peer'),
             'by_election'		=> gettext('Byelection'),
             'changed_party'		=> gettext('Changed party'),
@@ -51,7 +49,7 @@ class MEMBER {
             'died'			=> gettext('Died'),
             'disqualified'		=> gettext('Disqualified'),
             'general_election' 	=> gettext('General election'),
-            'general_election_standing' 	=> array(gettext('General election (standing again)'), gettext('General election (stood again)')),
+            'general_election_standing' 	=> [gettext('General election (standing again)'), gettext('General election (stood again)')],
             'general_election_not_standing' 	=> gettext('did not stand for re-election'),
             'reinstated'		=> gettext('Reinstated'),
             'resigned'		=> gettext('Resigned'),
@@ -60,7 +58,7 @@ class MEMBER {
             'dissolution'		=> gettext('Dissolved for election'),
             'regional_election'	=> gettext('Election'), # Scottish Parliament
             'replaced_in_region'	=> gettext('Appointed, regional replacement'),
-        );
+        ];
     }
 
     private $db;
@@ -75,8 +73,7 @@ class MEMBER {
      * @return boolean
      */
 
-    private function isHigherPriorityHouse(int $house)
-    {
+    private function isHigherPriorityHouse(int $house) {
         # The monarch always takes priority, so if the house is royal always say "yes"
         if ($house == HOUSE_TYPE_ROYAL) {
             return true;
@@ -115,26 +112,27 @@ class MEMBER {
 
         global $this_page;
 
-        $house = isset($args['house']) ? $args['house'] : null;
+        $house = $args['house'] ?? null;
 
-        $this->db = new ParlDB;
+        $this->db = new ParlDB();
 
         $person_id = '';
         if (isset($args['member_id']) && is_numeric($args['member_id'])) {
             $person_id = $this->member_id_to_person_id($args['member_id']);
         } elseif (isset($args['name'])) {
-            $con = isset($args['constituency']) ? $args['constituency'] : '';
+            $con = $args['constituency'] ?? '';
             $person_id = $this->name_to_person_id($args['name'], $con);
         } elseif (isset($args['constituency'])) {
-            $still_in_office = isset($args['still_in_office']) ? $args['still_in_office'] : false;
+            $still_in_office = $args['still_in_office'] ?? false;
             $person_id = $this->constituency_to_person_id($args['constituency'], $house, $still_in_office);
         } elseif (isset($args['postcode'])) {
             $person_id = $this->postcode_to_person_id($args['postcode'], $house);
         } elseif (isset($args['person_id']) && is_numeric($args['person_id'])) {
             $person_id = $args['person_id'];
-            $q = $this->db->query("SELECT gid_to FROM gidredirect
+            $q = $this->db->query(
+                "SELECT gid_to FROM gidredirect
                     WHERE gid_from = :gid_from",
-                array(':gid_from' => "uk.org.publicwhip/person/$person_id")
+                [':gid_from' => "uk.org.publicwhip/person/$person_id"]
             )->first();
             if ($q) {
                 $person_id = str_replace('uk.org.publicwhip/person/', '', $q['gid_to']);
@@ -152,9 +150,9 @@ class MEMBER {
             FROM member, person_names pn
             WHERE member.person_id = :person_id
                 AND member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= left_house AND left_house <= pn.end_date
-            ORDER BY left_house DESC, house", array(
-                ':person_id' => $person_id
-            ));
+            ORDER BY left_house DESC, house", [
+            ':person_id' => $person_id,
+        ]);
 
         if (!$q->rows() > 0) {
             return;
@@ -179,23 +177,23 @@ class MEMBER {
             $left_reason = $row['left_reason'];
 
             if (!isset($this->entered_house[$house]) || $entered_house < $this->entered_house[$house]['date']) {
-                $this->entered_house[$house] = array(
+                $this->entered_house[$house] = [
                     'date' => $entered_house,
                     'date_pretty' => $this->entered_house_text($entered_house),
                     'reason' => $this->entered_reason_text($entered_reason),
-                    'house' => $house
-                );
+                    'house' => $house,
+                ];
             }
 
             if (!isset($this->left_house[$house])) {
-                $this->left_house[$house] = array(
+                $this->left_house[$house] = [
                     'date' => $left_house,
                     'date_pretty' => $this->left_house_text($left_house),
                     'reason' => $this->left_reason_text($left_reason, $left_house, $house),
                     'constituency' => $const,
                     'party' => $this->party_text($party),
-                    'house' => $house
-                );
+                    'house' => $house,
+                ];
             }
 
             if ($this->isHigherPriorityHouse($house)) {
@@ -212,10 +210,10 @@ class MEMBER {
             }
 
             if (($last_party && $party && $party != $last_party) || $left_reason == 'changed_party') {
-                $this->other_parties[] = array(
+                $this->other_parties[] = [
                     'from' => $this->party_text($party),
                     'date' => $left_house,
-                );
+                ];
             }
             $last_party = $party;
 
@@ -226,14 +224,14 @@ class MEMBER {
         $this->other_parties = array_reverse($this->other_parties);
 
         // Loads extra info from DB - you now have to call this from outside
-            // when you need it, as some uses of MEMBER are lightweight (e.g.
-            // in searchengine.php)
+        // when you need it, as some uses of MEMBER are lightweight (e.g.
+        // in searchengine.php)
         // $this->load_extra_info();
 
         $this->set_users_mp();
     }
 
-    public function date_in_memberships($house, $date){
+    public function date_in_memberships($house, $date) {
         // Given a date, see if they had any memberships during that time
         foreach ($this->memberships as $membership) {
             if ($membership['entered_house'] <= $date && $membership['left_house'] >= $date) {
@@ -253,22 +251,24 @@ class MEMBER {
             $policiesList = new Policies($policyID);
         }
         $rel_agreements = $policiesList->all_policy_agreements[$policyID] ?? [];
-        $rel_agreements = array_filter($rel_agreements, function($agreement) use ($house) {
+        $rel_agreements = array_filter($rel_agreements, function ($agreement) use ($house) {
             return $this->date_in_memberships($house, $agreement['date']);
         });
         return $rel_agreements;
     }
 
     public function member_id_to_person_id($member_id) {
-        $q = $this->db->query("SELECT person_id FROM member
+        $q = $this->db->query(
+            "SELECT person_id FROM member
                     WHERE member_id = :member_id",
-            array(':member_id' => $member_id)
+            [':member_id' => $member_id]
         )->first();
         if (!$q) {
-            $q = $this->db->query("SELECT person_id FROM gidredirect, member
+            $q = $this->db->query(
+                "SELECT person_id FROM gidredirect, member
                     WHERE gid_from = :gid_from AND
                         CONCAT('uk.org.publicwhip/member/', member_id) = gid_to",
-                array(':gid_from' => "uk.org.publicwhip/member/$member_id")
+                [':gid_from' => "uk.org.publicwhip/member/$member_id"]
             )->first();
         }
         if ($q) {
@@ -278,13 +278,13 @@ class MEMBER {
         }
     }
 
-    public function postcode_to_person_id($postcode, $house=null) {
-        twfy_debug ('MP', "postcode_to_person_id converting postcode to person");
+    public function postcode_to_person_id($postcode, $house = null) {
+        twfy_debug('MP', "postcode_to_person_id converting postcode to person");
         $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($postcode));
         return $this->constituency_to_person_id($constituency, $house);
     }
 
-    public function constituency_to_person_id($constituency, $house=null) {
+    public function constituency_to_person_id($constituency, $house = null) {
         if ($constituency == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no constituency was found.');
         }
@@ -298,7 +298,7 @@ class MEMBER {
             $constituency = $normalised;
         }
 
-        $params = array();
+        $params = [];
 
         $left = "left_reason = 'still_in_office'";
         if ($dissolution = MySociety\TheyWorkForYou\Dissolution::db()) {
@@ -326,13 +326,13 @@ class MEMBER {
         }
     }
 
-    public function name_to_person_id($name, $const='') {
+    public function name_to_person_id($name, $const = '') {
         global $this_page;
         if ($name == '') {
             throw new MySociety\TheyWorkForYou\MemberException('Sorry, no name was found.');
         }
 
-        $params = array();
+        $params = [];
         $q = "SELECT person_id FROM person_names WHERE type = 'name' ";
         if ($this_page == 'peer') {
             $success = preg_match('#^(.*?) (.*?) of (.*?)$#', $name, $m);
@@ -369,7 +369,7 @@ class MEMBER {
                 OR (title=:given_name AND given_name=:middle_name AND family_name=:family_name)
             )";
         } elseif ($this_page == 'royal') {
-            twfy_debug ('MP', $name);
+            twfy_debug('MP', $name);
             if (stripos($name, 'elizabeth') !== false) {
                 $q .= "AND person_id=13935";
             } elseif (stripos($name, 'charles') !== false) {
@@ -385,14 +385,14 @@ class MEMBER {
         }
 
         # More than one person ID matching the given name
-        $person_ids = array();
+        $person_ids = [];
         foreach ($q as $row) {
             $pid = $row['person_id'];
             $person_ids[$pid] = 1;
         }
         $pids = array_keys($person_ids);
 
-        $params = array();
+        $params = [];
         if ($this_page == 'peer') {
             $params[':house'] = HOUSE_TYPE_LORDS;
         } elseif ($this_page == 'msp') {
@@ -420,7 +420,7 @@ class MEMBER {
 
         $q = $this->db->query($q, $params);
         if ($q->rows() > 1) {
-            $person_ids = array();
+            $person_ids = [];
             foreach ($q as $row) {
                 $person_ids[$row['person_id']] = $row['constituency'];
             }
@@ -439,7 +439,7 @@ class MEMBER {
         global $THEUSER;
         if (is_object($THEUSER) && $THEUSER->postcode_is_set() && $this->current_member(1)) {
             $pc = $THEUSER->postcode();
-            twfy_debug ('MP', "set_users_mp converting postcode to person");
+            twfy_debug('MP', "set_users_mp converting postcode to person");
             $constituency = strtolower(MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituency($pc));
             if ($constituency == strtolower($this->constituency())) {
                 $this->the_users_mp = true;
@@ -450,23 +450,27 @@ class MEMBER {
     // Grabs extra information (e.g. external links) from the database
     # DISPLAY is whether it's to be displayed on MP page.
     public function load_extra_info($display = false, $force = false) {
-        $memcache = new MySociety\TheyWorkForYou\Memcache;
+        $memcache = new MySociety\TheyWorkForYou\Memcache();
         $memcache_key = 'extra_info:' . $this->person_id . ($display ? '' : ':plain');
         $this->extra_info = $memcache->get($memcache_key);
         if (!DEVSITE && !$force && $this->extra_info) {
             return;
         }
-        $this->extra_info = array();
+        $this->extra_info = [];
 
-        $q = $this->db->query('SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC, moffice_id',
-                              array(':person_id' => $this->person_id));
+        $q = $this->db->query(
+            'SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC, moffice_id',
+            [':person_id' => $this->person_id]
+        );
         $this->extra_info['office'] = $q->fetchAll();
 
         // Info specific to member id (e.g. attendance during that period of office)
-        $q = $this->db->query("SELECT data_key, data_value
+        $q = $this->db->query(
+            "SELECT data_key, data_value
                         FROM 	memberinfo
                         WHERE	member_id = :member_id",
-            array(':member_id' => $this->member_id));
+            [':member_id' => $this->member_id]
+        );
         foreach ($q as $row) {
             $this->extra_info[$row['data_key']] = $row['data_value'];
             #		if ($row['joint'] > 1)
@@ -474,22 +478,26 @@ class MEMBER {
         }
 
         // Info specific to person id (e.g. their permanent page on the Guardian website)
-        $q = $this->db->query("SELECT data_key, data_value
+        $q = $this->db->query(
+            "SELECT data_key, data_value
                         FROM 	personinfo
                         WHERE	person_id = :person_id",
-            array(':person_id' => $this->person_id));
+            [':person_id' => $this->person_id]
+        );
         foreach ($q as $row) {
             $this->extra_info[$row['data_key']] = $row['data_value'];
-        #	    if ($row['count'] > 1)
-        #	    	$this->extra_info[$row['data_key'].'_joint'] = true;
+            #	    if ($row['count'] > 1)
+            #	    	$this->extra_info[$row['data_key'].'_joint'] = true;
         }
 
         // Info specific to constituency (e.g. election results page on Guardian website)
         if ($this->house(HOUSE_TYPE_COMMONS)) {
 
-            $q = $this->db->query("SELECT data_key, data_value FROM consinfo
+            $q = $this->db->query(
+                "SELECT data_key, data_value FROM consinfo
             WHERE constituency = :constituency",
-                array(':constituency' => $this->constituency));
+                [':constituency' => $this->constituency]
+            );
             foreach ($q as $row) {
                 $this->extra_info[$row['data_key']] = $row['data_value'];
             }
@@ -518,38 +526,40 @@ class MEMBER {
         }
 
         if ($display && array_key_exists('register_member_interests_html', $this->extra_info) && ($this->extra_info['register_member_interests_html'] != '')) {
-            $args = array (
-                "sort" => "regexp_replace"
-            );
+            $args =  [
+                "sort" => "regexp_replace",
+            ];
             $GLOSSARY = new GLOSSARY($args);
             $this->extra_info['register_member_interests_html'] =
         $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }
 
-        $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:'.$this->person_id.'%" and confirmed and not deleted')->first();
+        $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:' . $this->person_id . '%" and confirmed and not deleted')->first();
         $this->extra_info['number_of_alerts'] = $q['c'];
 
         # Public Bill Committees
-        $q = $this->db->query('select bill_id,
+        $q = $this->db->query(
+            'select bill_id,
             min(session) AS session,
             min(title) AS title,
             sum(attending) as a, sum(chairman) as c
             from pbc_members, bills
             where bill_id = bills.id and person_id = :person_id
             group by bill_id order by session desc',
-            array(':person_id' => $this->person_id()));
-        $this->extra_info['pbc'] = array();
+            [':person_id' => $this->person_id()]
+        );
+        $this->extra_info['pbc'] = [];
         foreach ($q as $row) {
             $bill_id = $row['bill_id'];
-            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor=:bill_id and htype=10', array(':bill_id' => $bill_id))->first();
+            $c = $this->db->query('select count(*) as c from hansard where major=6 and minor=:bill_id and htype=10', [':bill_id' => $bill_id])->first();
             $c = $c['c'];
             $title = $row['title'];
             $attending = $row['a'];
             $chairman = $row['c'];
-            $this->extra_info['pbc'][$bill_id] = array(
+            $this->extra_info['pbc'][$bill_id] = [
                 'title' => $title, 'session' => $row['session'],
-                'attending'=>$attending, 'chairman'=>($chairman>0), 'outof' => $c
-            );
+                'attending' => $attending, 'chairman' => ($chairman > 0), 'outof' => $c,
+            ];
         }
 
         $memcache->set($memcache_key, $this->extra_info);
@@ -557,13 +567,21 @@ class MEMBER {
 
     // Functions for accessing things about this Member.
 
-    public function member_id() { return $this->member_id; }
-    public function person_id() { return $this->person_id; }
-    public function given_name() { return $this->given_name; }
-    public function family_name() { return $this->family_name; }
+    public function member_id() {
+        return $this->member_id;
+    }
+    public function person_id() {
+        return $this->person_id;
+    }
+    public function given_name() {
+        return $this->given_name;
+    }
+    public function family_name() {
+        return $this->family_name;
+    }
     public function full_name($no_mp_title = false) {
         $title = $this->title;
-        if ($no_mp_title && ($this->house_disp==HOUSE_TYPE_COMMONS || $this->house_disp==HOUSE_TYPE_NI || $this->house_disp==HOUSE_TYPE_SCOTLAND || $this->house_disp==HOUSE_TYPE_WALES)) {
+        if ($no_mp_title && ($this->house_disp == HOUSE_TYPE_COMMONS || $this->house_disp == HOUSE_TYPE_NI || $this->house_disp == HOUSE_TYPE_SCOTLAND || $this->house_disp == HOUSE_TYPE_WALES)) {
             $title = '';
         }
         return member_full_name($this->house_disp, $title, $this->given_name, $this->family_name, $this->lordofname);
@@ -577,8 +595,12 @@ class MEMBER {
     public function house_text($house) {
         return $this->houses_pretty()[$house];
     }
-    public function constituency() { return $this->constituency; }
-    public function party() { return $this->party; }
+    public function constituency() {
+        return $this->constituency;
+    }
+    public function party() {
+        return $this->party;
+    }
     public function party_text($party = null) {
         global $parties;
         if (!$party) {
@@ -592,8 +614,8 @@ class MEMBER {
     }
 
     public function entered_house($house = null) {
-        if ( isset($house) ) {
-            if ( array_key_exists($house, $this->entered_house) ) {
+        if (isset($house)) {
+            if (array_key_exists($house, $this->entered_house)) {
                 return $this->entered_house[$house];
             } else {
                 return null;
@@ -606,10 +628,10 @@ class MEMBER {
         if (!$entered_house) {
             return '';
         }
-        list($year, $month, $day) = explode('-', $entered_house);
-        if ($month==1 && $day==1 && $this->house(HOUSE_TYPE_LORDS)) {
+        [$year, $month, $day] = explode('-', $entered_house);
+        if ($month == 1 && $day == 1 && $this->house(HOUSE_TYPE_LORDS)) {
             return $year;
-        } elseif ($month==0 && $day==0) {
+        } elseif ($month == 0 && $day == 0) {
             return $year;
         } elseif (checkdate($month, $day, $year) && $year != '9999') {
             return format_date($entered_house, LONGDATEFORMAT);
@@ -619,8 +641,8 @@ class MEMBER {
     }
 
     public function left_house($house = null) {
-        if ( isset($house) ) {
-            if ( array_key_exists($house, $this->left_house) ) {
+        if (isset($house)) {
+            if (array_key_exists($house, $this->left_house)) {
                 return $this->left_house[$house];
             } else {
                 return null;
@@ -633,10 +655,10 @@ class MEMBER {
         if (!$left_house) {
             return '';
         }
-        list($year, $month, $day) = explode('-', $left_house);
+        [$year, $month, $day] = explode('-', $left_house);
         if (checkdate($month, $day, $year) && $year != '9999') {
             return format_date($left_house, LONGDATEFORMAT);
-        } elseif ($month==0 && $day==0) {
+        } elseif ($month == 0 && $day == 0) {
             # Left house date is stored as 1942-00-00 to mean "at some point in 1941"
             return $year - 1;
         } else {
@@ -644,7 +666,9 @@ class MEMBER {
         }
     }
 
-    public function entered_reason() { return $this->entered_reason; }
+    public function entered_reason() {
+        return $this->entered_reason;
+    }
     public function entered_reason_text($entered_reason) {
         if (isset($this->reasons()[$entered_reason])) {
             return $this->reasons()[$entered_reason];
@@ -653,7 +677,9 @@ class MEMBER {
         }
     }
 
-    public function left_reason() { return $this->left_reason; }
+    public function left_reason() {
+        return $this->left_reason;
+    }
     public function left_reason_text($left_reason, $left_house, $house) {
         if (isset($this->reasons()[$left_reason])) {
             $left_reason = $this->reasons()[$left_reason];
@@ -673,10 +699,12 @@ class MEMBER {
         }
     }
 
-    public function extra_info() { return $this->extra_info; }
+    public function extra_info() {
+        return $this->extra_info;
+    }
 
     public function current_member($house = 0) {
-        $current = array();
+        $current = [];
         foreach (array_keys($this->houses_pretty()) as $h) {
             $lh = $this->left_house($h);
             $current[$h] = ($lh && $lh['date'] == '9999-12-31');
@@ -687,7 +715,9 @@ class MEMBER {
         return $current;
     }
 
-    public function the_users_mp() { return $this->the_users_mp; }
+    public function the_users_mp() {
+        return $this->the_users_mp;
+    }
 
     public function url($absolute = false) {
         $house = $this->house_disp;
@@ -744,27 +774,30 @@ class MEMBER {
         } else {
             $order = 'DESC';
         }
-        $q = $this->db->query('SELECT *
+        $q = $this->db->query(
+            'SELECT *
             FROM member, person_names pn
             WHERE member.person_id = pn.person_id AND pn.type = "name"
                 AND pn.start_date <= member.left_house AND member.left_house <= pn.end_date
                 AND house = :house AND constituency = :cons
                 AND member.person_id != :pid AND entered_house ' . $direction . ' :date ORDER BY entered_house ' . $order,
-            array(
+            [
                 ':house' => HOUSE_TYPE_COMMONS,
                 ':cons' => $this->constituency(),
                 ':pid' => $this->person_id(),
                 ':date' => $entered_house['date'],
-            ));
-        $mships = array(); $last_pid = null;
+            ]
+        );
+        $mships = [];
+        $last_pid = null;
         foreach ($q as $row) {
             $pid = $row['person_id'];
             $name = $row['given_name'] . ' ' . $row['family_name'];
             if ($last_pid != $pid) {
-                $mships[] = array(
-                    'href' => WEBPATH . 'mp/?pid='.$pid,
-                    'text' => $name
-                );
+                $mships[] = [
+                    'href' => WEBPATH . 'mp/?pid=' . $pid,
+                    'text' => $name,
+                ];
                 $last_pid = $pid;
             }
         }

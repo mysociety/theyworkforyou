@@ -6,8 +6,7 @@ namespace MySociety\TheyWorkForYou\Renderer;
  * User data for headers
  */
 
-class User
-{
+class User {
     public $data;
 
     private $user;
@@ -21,12 +20,12 @@ class User
         $this->user = $THEUSER;
         $this->pagedata = $DATA;
         $this->page = $this_page;
-        $this->data = array();
+        $this->data = [];
         $this->setupNavLinks();
     }
 
     private function setupNavLinks() {
-        $this->data['user_nav_links'] = array();
+        $this->data['user_nav_links'] = [];
 
         // We may want to send the user back to this current page after they've
         // joined, logged out or logged in. So we put the URL in $returl.
@@ -41,7 +40,7 @@ class User
         }
     }
 
-    private function AddLangSwitcher(){
+    private function AddLangSwitcher() {
         if (preg_match('#^(senedd|wales|ms(?!p))#', $this->page)) {
             $href = $_SERVER['REQUEST_URI'];
             if (LANGUAGE == 'cy') {
@@ -55,12 +54,12 @@ class User
                     $href = "//cy." . DOMAIN . $href;
                 }
             }
-            $this->data['user_nav_links'][] = array(
+            $this->data['user_nav_links'][] = [
                 'href' => $href,
                 'classes' => '',
                 'title' => '',
                 'text' => $text,
-            );
+            ];
         }
     }
 
@@ -69,7 +68,7 @@ class User
         $menudata   = $this->pagedata->page_metadata('userviewself', 'menu');
         $edittitle  = $menudata['title'];
         $EDITURL    = new \MySociety\TheyWorkForYou\Url('userviewself');
-        if ($this->page == 'userviewself' || $this->page == 'useredit' ) {
+        if ($this->page == 'userviewself' || $this->page == 'useredit') {
             $editclass = 'on';
         } else {
             $editclass = '';
@@ -78,11 +77,11 @@ class User
         // The 'Log out' link.
         $menudata   = $this->pagedata->page_metadata('userlogout', 'menu');
         $logouttext = $menudata['text'];
-        $logouttitle= $menudata['title'];
+        $logouttitle = $menudata['title'];
 
         $LOGOUTURL  = new \MySociety\TheyWorkForYou\Url('userlogout');
         if ($this->page != 'userlogout') {
-            $LOGOUTURL->insert(array("ret"=>$this->returl));
+            $LOGOUTURL->insert(["ret" => $this->returl]);
             $logoutclass = '';
         } else {
             $logoutclass = 'on';
@@ -92,19 +91,19 @@ class User
 
         $this->addRepLinks();
 
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $EDITURL->generate(),
             'title'   => $edittitle,
             'classes' => $editclass,
-            'text'    => _htmlentities($username)
-        );
+            'text'    => _htmlentities($username),
+        ];
 
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $LOGOUTURL->generate(),
             'title'   => $logouttitle,
             'classes' => $logoutclass,
-            'text'    => $logouttext
-        );
+            'text'    => $logouttext,
+        ];
 
         $this->addContactLink();
         $this->addDonateLink();
@@ -123,7 +122,7 @@ class User
                 // We don't do this on the logout page, because then the user
                 // will return straight to the logout page and be logged out
                 // immediately!
-                $JOINURL->insert(array("ret"=>$this->returl));
+                $JOINURL->insert(["ret" => $this->returl]);
             }
             $joinclass = '';
         } else {
@@ -145,26 +144,26 @@ class User
                 // immediately!
                 // And it's also silly if we're sent back to Change Password.
                 // And the join page.
-                $LOGINURL->insert(array("ret"=>$this->returl));
+                $LOGINURL->insert(["ret" => $this->returl]);
             }
             $loginclass = '';
         } else {
             $loginclass = 'on';
         }
 
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $LOGINURL->generate(),
             'title'   => $logintitle,
             'classes' => $loginclass,
-            'text'    => $logintext
-        );
+            'text'    => $logintext,
+        ];
 
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $JOINURL->generate(),
             'title'   => $jointitle,
             'classes' => $joinclass,
-            'text'    => $jointext
-        );
+            'text'    => $jointext,
+        ];
 
         $this->addRepLinks();
         $this->addContactLink();
@@ -177,7 +176,7 @@ class User
         if ($this->user->postcode_is_set()) {
 
             $areas = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($this->user->postcode());
-            $items = array('yourmp');
+            $items = ['yourmp'];
             if (isset($areas['SPC'])) {
                 $items[] = 'yourmsp';
             } elseif (isset($areas['NIE'])) {
@@ -190,12 +189,12 @@ class User
                 $menudata   = $this->pagedata->page_metadata($item, 'menu');
                 $logintext  = $menudata['text'];
                 $URL = new \MySociety\TheyWorkForYou\Url($item);
-                $this->data['user_nav_links'][] = array(
+                $this->data['user_nav_links'][] = [
                     'href'    => $URL->generate(),
                     'title'   => '',
                     'classes' => '',
-                    'text'    => $logintext
-                );
+                    'text'    => $logintext,
+                ];
             }
         }
 
@@ -206,12 +205,12 @@ class User
         $text = $menudata['text'];
         $title = $menudata['title'];
         $url = new \MySociety\TheyWorkForYou\Url('contact');
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $url->generate(),
             'title'   => $title,
             'classes' => '',
-            'text'    => $text
-        );
+            'text'    => $text,
+        ];
     }
 
     private function addDonateLink() {
@@ -222,12 +221,12 @@ class User
         $text = $menudata['text'];
         $title = $menudata['title'];
         $url = new \MySociety\TheyWorkForYou\Url('donate');
-        $this->data['user_nav_links'][] = array(
+        $this->data['user_nav_links'][] = [
             'href'    => $url->generate(),
             'title'   => $title,
             'classes' => 'donate-button',
-            'text'    => $text
-        );
+            'text'    => $text,
+        ];
     }
 
 }

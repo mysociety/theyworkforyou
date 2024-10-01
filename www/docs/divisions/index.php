@@ -6,7 +6,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $MEMBER = null;
 if ($THEUSER->postcode_is_set()) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(array('postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS));
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS]);
 }
 
 $houses = get_http_var('house', '', true);

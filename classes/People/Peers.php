@@ -8,7 +8,6 @@
 namespace MySociety\TheyWorkForYou\People;
 
 class Peers extends \MySociety\TheyWorkForYou\People {
-
     public $type = 'peers';
     public $rep_name = 'Member of the House of Lords';
     public $rep_plural = 'Members of the House of Lords';
@@ -20,15 +19,15 @@ class Peers extends \MySociety\TheyWorkForYou\People {
     }
 
     protected function getCSVHeaders() {
-        return array('Person ID', 'Name', 'Party', 'URI');
+        return ['Person ID', 'Name', 'Party', 'URI'];
     }
 
     protected function getCSVRow($details) {
-        return array(
+        return [
             $details['person_id'],
             $details['name'],
             $details['party'],
-            'https://www.theyworkforyou.com/peer/' . $details['url']
-        );
+            'https://www.theyworkforyou.com/peer/' . $details['url'],
+        ];
     }
 }

@@ -7,7 +7,6 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Hansard extends \HANSARDLIST {
-
     /**
      * Search
      *

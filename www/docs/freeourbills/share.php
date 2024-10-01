@@ -3,7 +3,7 @@
 # Shared function for FreeOurBills
 
 function signup_form() {
-?>
+    ?>
 <form class="free_our_bills_signup" method="post" action="subscribe">
 <input type="hidden" name="posted" value="1">
 <p><strong>This campaign can only succeed if normal internet users like you lend a hand.</strong>
@@ -22,7 +22,7 @@ Please sign up and we'll send you easy tasks (like emailing your MP, or coming u
 }
 
 function freeourbills_styles() {
-?>
+    ?>
 <style type="text/css">
 div.main p { margin-left: 3em; }
 div.main ul { margin-left: 3em;  }
