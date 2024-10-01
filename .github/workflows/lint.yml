@@ -1,0 +1,57 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  test:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: setup ruff
+      run: pip install ruff
+
+    - name: check ruff linter
+      run: ruff check --output-format=github .
+
+    - name: check ruff formatter
+      run: ruff format --check .
+    
+    - name: Restore php-cs-fixer
+      id: cache-php-cs-fixer
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          .php-cs-fixer.cache
+          tools/php-cs-fixer
+        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer74
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+
+    - name: Install PHP-CS-Fixer
+      if: steps.cache-php-cs-fixer.outputs.cache-hit != 'true'
+      run: |
+        php composer.phar install --working-dir=tools/php-cs-fixer
+
+    - name: Install PHP-CS-Fixer
+      run: |
+        tools/php-cs-fixer/vendor/bin/php-cs-fixer check
+
+    - name: Save php-cs-fixer
+      id: save-php-cs-fixer
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          .php-cs-fixer.cache
+          tools/php-cs-fixer
+        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer74
