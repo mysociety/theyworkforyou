@@ -320,13 +320,13 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
             $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
             foreach ($this->data['alerts'] as $alert) {
-                if (array_key_exists('words', $alert)) {
+                if (array_key_exists('spokenby', $alert) and sizeof($alert['spokenby']) == 1 and $alert['spokenby'][0] == $own_mp_criteria) {
+                    $this->data['own_member_alerts'][] = $alert;
+                } elseif (array_key_exists('spokenby', $alert)) {
+                    $this->data['spoken_alerts'][] = $alert;
+                } else {
                     $this->data['all_keywords'][] = implode(' ', $alert['words']);
                     $this->data['keyword_alerts'][] = $alert;
-                } elseif (array_key_exists('spokenby', $alert) and sizeof($alert['spokenby']) == 1 and $alert['spokenby'][0] == $own_mp_criteria) {
-                    $this->data['own_member_alerts'][] = $alert;
-                } else {
-                    $this->data['spoken_alerts'][] = $alert;
                 }
             }
         }

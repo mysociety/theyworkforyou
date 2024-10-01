@@ -250,38 +250,286 @@
       <?php } ?>
 
         <div class="alert-section">
-            <div class="alert-section__secondary">
-              <?php if ($email_verified) { ?>
-
-                  <?php if ($alerts) { ?>
-                    <?php include('_list.php'); ?>
-                  <?php } ?>
-
-                  <?php if ($current_mp) { ?>
-                    <h3><?= gettext('Your MP alert') ?></h3>
-                    <ul class="alerts-manage__list">
-                        <li>
-                            <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), $current_mp->full_name()) ?>.
-                            <form action="<?= $actionurl ?>" method="post">
-                                <input type="hidden" name="t" value="<?=_htmlspecialchars($token)?>">
-                                <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
-                                <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>">
-                            </form>
-                        </li>
-                    </ul>
-                  <?php } ?>
-
-              <?php } else { ?>
+            <div class="alert-section__primary">
+              <?php if (!$email_verified) { ?>
                 <p>
                     <?= sprintf(gettext('If you <a href="%s">join</a> or <a href="%s">sign in</a>, you can suspend, resume and delete your email alerts from your profile page.'), '/user/?pg=join', '/user/login/?ret=%2Falert%2F') ?>
                 </p>
                 <p>
                     <?= gettext('Plus, you won’t need to confirm your email address for every alert you set.') ?>
                 </p>
-              <?php } ?>
-            </div>
+              <?php } else { ?>
+              <div class="clearfix">
+                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
+                      <input type="hidden" name="t" value="< ?= _htmlspecialchars($alert['token']) ?>">
+                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
+                  </form>
+              </div>
 
-            <div class="alert-section__primary">
+              <div class="alert-page-header">
+                <div>
+                <h2><?= gettext('Keywords alerts') ?></h2>
+                <!-- Go to Create alert page -->
+                <?php if (!$alerts) { ?>
+                  <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
+                <?php } ?>
+                </div>
+                <a class="button" href="#new_alert">
+                  <?= gettext('Create new alert') ?>
+                  <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                </a>
+              </div>
+
+              <!-- The groups alerts should be sorted by default from most recent mention to oldest one -->
+              <!-- Future functionality: The groups alerts can be sorted alphabetically-->
+
+              <div class="accordion">
+                <?php foreach ($keyword_alerts as $index => $alert) { ?>
+                <div class="accordion-item">
+                <button class="accordion-button" href="#accordion-content-<?= $index ?>" aria-expanded="false">
+                    <div class="accordion-button--content">
+                      <span class="content-title"><?= _htmlspecialchars($alert['criteria']) ?></span>
+                      <?php if (array_key_exists("mentions", $alert)) { ?>
+                      <span class="content-subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['mentions']) ?></span>
+                      <?php } ?>
+                    </div>
+                    <i aria-hidden="true" role="img" class="fi-plus"></i>
+                  </button>
+                  <div id="accordion-content-<?= $index ?>" class="accordion-content" aria-hidden="true" role="img">
+                    <div class="accordion-content-header">
+                      <form action="<?= $actionurl ?>" method="POST">
+                        <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                        <div class="alert-controller-wrapper">
+                          <button class="button small display-none">Discard changes</button>
+                          <?php if ($alert['status'] == 'unconfirmed') { ?>
+                            <button type="submit" class="button small" name="action" value="Confirm">
+                              <span><?= gettext('Confirm alert') ?></span>
+                              <i aria-hidden="true" class="fi-save"></i>
+                            </button>
+                          <?php } elseif ($alert['status'] == 'suspended') { ?>
+                            <button type="submit" class="button small" name="action" value="Resume">
+                            <span><?= gettext('Resume alert') ?></span>
+                              <i aria-hidden="true" class="fi-play"></i>
+                            </button>
+                          <?php } else { ?>
+                            <button type="submit" class="button small" name="action" value="Suspend">
+                              <span><?= gettext('Suspend alert') ?></span>
+                              <i aria-hidden="true" class="fi-pause"></i>
+                            </button>
+                            <button type="submit" class="button small red" name="action" value="Delete">
+                              <span><?= gettext('Delete alert') ?></span>
+                              <i aria-hidden="true" class="fi-trash"></i>
+                            </button>
+                          <?php } ?>
+                        </div>
+                      </form>
+                      <dl class="alert-meta-info">
+                          <?php if (array_key_exists("mentions", $alert)) { ?>
+                           <div class="content-header-item">
+                             <dt><?= gettext('This week') ?></dt>
+                             <dd><?= sprintf(gettext('%d mentions'), $alert['mentions']) ?></dd>
+                           </div>
+                          <?php } ?>
+
+                          <?php if (array_key_exists("last_mention", $alert)) { ?>
+                          <div class="content-header-item">
+                          <dt><?= gettext('Date of last mention') ?></dt>
+                          <dd><?= $alert['last_mention'] ?></dd>
+                          </div>
+                          <?php } ?>
+
+                          <a href="/search/?q=<?= $alert['raw'] ?>" class="button small"><?= gettext('See results for this alert') ?></a>
+                        </dl>
+                    </div>
+
+                    <hr>
+
+                    <?php if ($alert["keywords"]) { ?>
+                    <div class="keyword-list alert-page-subsection">
+                      <h3 class="heading-with-bold-word">Keywords <span class="bold">included</span> in this alert:</h3>
+                      <ul>
+                        <?php foreach ($alert["keywords"] as $keyword) { ?>
+                        <li class="label label--primary-light"><?= _htmlspecialchars($keyword) ?>
+                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                        <?php } ?>
+                      </ul>
+                      <div class="add-remove-tool display-none">
+                        <input type="text" placeholder="e.g.'freedom of information'">
+                        <button type="submit" class="prefix">add</button>
+                      </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if ($alert["exclusions"]) { ?>
+                    <div class="keyword-list excluded-keywords alert-page-subsection">
+                      <h3 class="heading-with-bold-word">Keywords <span class="bold">excluded</span> in this alert:</h3>
+                      <ul>
+                        <?php foreach ($alert["exclusions"] as $exclusion) { ?>
+                        <li class="label label--red"><?= _htmlspecialchars($exclusion) ?>
+                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                        <?php } ?>
+                      </ul>
+                      <div class="add-remove-tool display-none">
+                        <input type="text" placeholder="e.g.'freedom of information'">
+                        <button type="submit" class="prefix">add</button>
+                      </div>
+                    </div>
+                    <?php } ?>
+
+                    <div class="keyword-list alert-page-subsection">
+                      <h3 class="display-none"><label for="sections">Which section should this alert apply to?</label></h3>
+                      <select name="sections" id="sections" class="display-none">
+                        <option value="uk-parliament">All sections</option>
+                        <option value="uk-parliament">UK Parliament</option>
+                        <option value="scottish-parliament">Scottish Parliament</option>
+                      </select>
+                      <h3 class="heading-with-bold-word">Which <span class="bold">section</span> should this alert apply to:</h3>
+                      <ul>
+                        <li class="label label--red">All sections
+                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                      </ul>
+                    </div>
+
+                    <!-- Only to be displayed if there is a person in this query -->
+
+                    <?php if (array_key_exists('spokenby', $alert)) { ?>
+                      <div class="keyword-list alert-page-subsection">
+                        <h3 class="heading-with-bold-word"><?= gettext('This alert applies to the following <span class="bold">representative</span>') ?></h3>
+                        <ul>
+                        <?php foreach ($alert['spokenby'] as $speaker) { ?>
+                        <li class="label label--primary-light"><?= $speaker ?>
+                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                        <?php } ?>
+                        </ul>
+                        <div class="add-remove-tool display-none">
+                          <input type="text" placeholder="e.g.'freedom of information'">
+                          <button type="submit" class="prefix">add</button>
+                        </div>
+                      </div>
+                    <?php } ?>
+
+                    <button class="display-none" style="margin: -1rem 0rem 3rem;">Save changes</button>
+                    <button class="display-none" style="margin: -1rem 0rem 3rem;">Discard changes</button>
+
+                  </div>
+                </div>
+                <?php } ?>
+
+                <hr>
+
+                <div class="alert-page-header alert-page-section">
+                  <div>
+                    <h2>Representative alerts</h2>
+                    <?php if ($current_mp) { ?>
+                      <ul class="alerts-manage__list">
+                          <li>
+                              <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), $current_mp->full_name()) ?>.
+                              <form action="<?= $actionurl ?>" method="post">
+                                  <input type="hidden" name="t" value="<?=_htmlspecialchars($token)?>">
+                                  <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
+                                  <input type="submit" class="button" value="<?= gettext('Subscribe') ?>">
+                              </form>
+                          </li>
+                      </ul>
+                    <?php } else { ?>
+                      <?php foreach ($own_member_alerts as $alert) { ?>
+                        <div class="alert-page-subsection">
+                          <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?> ﹒ XXX</h3>
+
+                          <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?></p>
+                          <form action="<?= $actionurl ?>" method="POST">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                            <div>
+                              <?php if ($alert['status'] == 'unconfirmed') { ?>
+                                <button type="submit" class="button small" name="action" value="Confirm">
+                                  <span><?= gettext('Confirm alert') ?></span>
+                                  <i aria-hidden="true" class="fi-save"></i>
+                                </button>
+                              <?php } elseif ($alert['status'] == 'suspended') { ?>
+                              <button type="submit" class="button small" name="action" value="Resume">
+                                <span><?= gettext('Resume alert') ?></span>
+                                <i aria-hidden="true" class="fi-play"></i>
+                              </button>
+                              <?php } else { ?>
+                              <button typ="submit" class="button small" value="Suspend">
+                                <span><?= gettext('Suspend alert') ?></span>
+                                <i aria-hidden="true" class="fi-pause"></i>
+                              </button>
+                              <button typ="submit" class="button small" value="Delete">
+                                <span><?= gettext('Delete alert') ?></span>
+                                <i aria-hidden="true" class="fi-trash"></i>
+                              </button>
+                              <?php } ?>
+                            </div>
+                          </form>
+
+                          <?php if (!in_array(implode('', $alert['spokenby']), $all_keywords)) { ?>
+                          <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
+                          <form action="<?= $actionurl ?>" method="post">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
+                            <input type="hidden" name="speaker" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
+                            <button type="submit" class="button small" name="action" value="Subscribe">
+                              <?= gettext('Create new alert') ?>
+                              <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                            </button>
+                          </form>
+                        </div>
+                        <?php } ?>
+                      <?php } ?>
+                    <?php } ?>
+
+                    <?php foreach ($spoken_alerts as $alert) { ?>
+                        <div class="alert-page-subsection">
+                        <h3 class="alert-page-subsection--heading"><?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?></h3>
+
+                          <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?>
+                          <form action="<?= $actionurl ?>" method="POST">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
+                            <div>
+                              <?php if ($alert['status'] == 'unconfirmed') { ?>
+                                <button type="submit" class="button small" name="action" value="Confirm">
+                                  <span><?= gettext('Confirm alert') ?></span>
+                                  <i aria-hidden="true" class="fi-save"></i>
+                                </button>
+                              <?php } elseif ($alert['status'] == 'suspended') { ?>
+                              <button type="submit" class="button small" name="action" value="Resume">
+                                <span><?= gettext('Resume alert') ?></span>
+                                <i aria-hidden="true" class="fi-play"></i>
+                              </button>
+                              <?php } else { ?>
+                              <button type="submit" class="button small" name="action" value="Suspend">
+                                <span><?= gettext('Suspend alert') ?></span>
+                                <i aria-hidden="true" class="fi-pause"></i>
+                              </button>
+                              <button type="submit" class="button small" name="action" value="Delete">
+                                <span><?= gettext('Delete alert') ?></span>
+                                <i aria-hidden="true" class="fi-trash"></i>
+                              </button>
+                              <?php } ?>
+                            </div>
+                          </form>
+
+                          <?php if (!in_array(implode('', $alert['spokenby']), $all_keywords)) { ?>
+                          <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
+                          <form action="<?= $actionurl ?>" method="post">
+                            <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
+                            <input type="hidden" name="speaker" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
+                            <button type="submit" class="button small" name="action" value="Subscribe">
+                              <?= gettext('Create new alert') ?>
+                              <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                            </button>
+                          </form>
+                        </div>
+                        <?php } ?>
+                    <?php } ?>
+                  </div>
+                  <a class="button">
+                    <?= gettext('Create new MP alert') ?>
+                    <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                  </a>
+              </div>
+              </div>
+              <?php } ?>
 
               <?php if ($pid) { ?>
                 <h3>
@@ -302,6 +550,7 @@
                 <h3><?= gettext('Request a new TheyWorkForYou email alert') ?></h3>
               <?php } ?>
 
+              <a name="new_alert"></a>
                 <form action="<?= $actionurl ?>" method="post" class="alert-page-main-inputs">
                   <?php if (!$email_verified) { ?>
                     <p>
