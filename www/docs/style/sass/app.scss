@@ -62,10 +62,10 @@
 @import url(https://fonts.googleapis.com/css2?family=Manrope:wght@700&family=Merriweather:wght@400;700&display=swap);
 /* Foundation Icons v 3.0 MIT License */
 @font-face {
-  font-family: "foundation-icons";
-  src: url("/style/foundation-icons/foundation-icons.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "foundation-icons";
+    src: url("/style/foundation-icons/foundation-icons.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
 }
 
 .fi-social-facebook:before,
@@ -75,17 +75,23 @@
 .fi-megaphone:before,
 .fi-pound:before,
 .fi-magnifying-glass:before,
-.fi-heart:before
+.fi-heart:before,
+.fi-plus:before,
+.fi-pause:before,
+.fi-trash:before,
+.fi-page-edit:before,
+.fi-x:before,
+.fi-save:before
 {
-  font-family: "foundation-icons";
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  text-decoration: inherit;
+    font-family: "foundation-icons";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    text-decoration: inherit;
 }
 
 // https://github.com/zurb/foundation-icon-fonts/blob/master/_foundation-icons.scss
@@ -97,6 +103,12 @@
 .fi-pound:before {content: "\f19a"}
 .fi-magnifying-glass:before {content: "\f16c"}
 .fi-heart:before { content: "\f159"; }
+.fi-plus:before { content: "\f199"; }
+.fi-pause:before { content: "\f191"; }
+.fi-trash:before { content: "\f204"; }
+.fi-page-edit:before { content: "\f184"; }
+.fi-x:before { content: "\f217"; }
+.fi-save:before { content: "\f1ac"; }
 
 html,
 body {
@@ -129,13 +141,13 @@ h3 {
 }
 
 .pull-right {
-     @media (min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
         float: right;
         margin-left: 1em;
     }
 }
 .pull-left {
-     @media (min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
         float: left;
         margin-left: 1em;
     }
@@ -166,12 +178,12 @@ ul {
 a {
     overflow-wrap: break-word;
     word-wrap: break-word;
-
+    
     -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-        -ms-hyphens: auto;
-            hyphens: auto;
-
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    
     color: $links;
 }
 
@@ -198,7 +210,7 @@ a:focus {
         // for .button elements!!
         vertical-align: -0.4em;
     }
-
+    
     &.tertiary {
         @include button-style($bg: $links);
     }
@@ -231,6 +243,7 @@ form {
 
 @import "parts/panels";
 @import "parts/promo-banner";
+@import "parts/accordion";
 
 @import "pages/mp";
 @import "pages/topics";

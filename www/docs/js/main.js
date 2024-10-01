@@ -423,6 +423,77 @@ function wrap_error($message){
   return '<div class="donate-form__error-wrapper"><p class="donate-form__error">' + $message + '</p></div>';
 }
 
+function createAccordion(triggerSelector, contentSelector) {
+  var triggers = document.querySelectorAll(triggerSelector);
+  
+  triggers.forEach(function(trigger) {
+    var content = document.querySelector(trigger.getAttribute('href'));
+
+    var openAccordion = function() {
+      content.style.maxHeight = content.scrollHeight + "px"; // Dynamically calculate height
+      content.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    var closeAccordion = function() {
+      content.style.maxHeight = null; // Collapse
+      content.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (content.style.maxHeight) {
+        closeAccordion();
+      } else {
+        openAccordion();
+      }
+    });
+    
+    // Accessibility
+    trigger.setAttribute('aria-controls', content.getAttribute('id'));
+    trigger.setAttribute('aria-expanded', 'false');
+    content.setAttribute('aria-hidden', 'true');
+    content.style.maxHeight = null;
+  });
+}
+
+// Initialize accordion when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  createAccordion('.accordion-button', '.accordion-content');
+});
+
+// Create alert form
+$(document).ready(function() {
+  let currentStep = 0;
+  let steps = $(".alert-step");
+
+  // Show the first step
+  $(steps[currentStep]).show();
+
+  // Focus management: Set focus to the first input on each step change
+  function focusFirstInput(stepIndex) {
+    $(steps[stepIndex]).find('input, button').first().focus();
+  }
+
+  // Next button click
+  $(".next").click(function() {
+    $(steps[currentStep]).hide();
+    currentStep++;
+    $(steps[currentStep]).show();
+    focusFirstInput(currentStep); // Set focus to the first input of the new step
+  });
+
+  // Previous button click
+  $(".prev").click(function() {
+    $(steps[currentStep]).hide();
+    currentStep--;
+    $(steps[currentStep]).show();
+    focusFirstInput(currentStep); // Set focus to the first input of the new step
+  });
+});
+
 $(function() {
 
   $('#how-often-annually').click(function() {
