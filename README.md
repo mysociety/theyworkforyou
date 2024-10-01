@@ -73,6 +73,10 @@ or
 * `cd www/docs/style`
 * `bundle exec compass compile` for a one-off compilation or `bundle exec compass watch` to recompile on changes
 
+## Code formatting
+
+`script/lint` will run php-cs-fixer for php files.
+
 ## Testing
 
 TheyWorkForYou includes a test suite, using PHPunit. To run tests, ensure that
