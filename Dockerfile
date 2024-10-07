@@ -40,6 +40,9 @@ RUN /usr/sbin/a2enmod expires rewrite && \
 RUN echo "cy_GB.UTF-8 UTF-8" >> /etc/locale.gen
 RUN /usr/sbin/locale-gen
 
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH="/root/.local/bin:$PATH"
+
 # Bind mount your working copy here
 WORKDIR /twfy
 

@@ -1,36 +1,24 @@
-#!/usr/bin/env python3
-# encoding: utf-8
 """
-division_io.py - Import and export division data from the TWFY database.
-
-See python scripts/division_io.py --help for usage.
-
+Import and export division data from the TWFY database.
 """
 
-import re
-import sys
+from __future__ import annotations
+
 from enum import Enum
 from pathlib import Path
-from typing import cast
-from warnings import filterwarnings
+from typing import Annotated, Optional
 
-import MySQLdb
 import pandas as pd
-import rich_click as click
+import typer
 from rich import print
 from rich.prompt import Prompt
-from pylib.mysociety import config
 
-repository_path = Path(__file__).parent.parent
+from ..common.config import config
+from ..db.connection import engine, get_twfy_db_connection
 
-config.set_file(repository_path / "conf" / "general")
+VerboseBool = Annotated[bool, typer.Option(help="Show verbose output")]
 
-# suppress warnings about using mysqldb in pandas
-filterwarnings(
-    "ignore",
-    category=UserWarning,
-    message=".*pandas only supports SQLAlchemy connectable.*",
-)
+app = typer.Typer()
 
 
 class TitlePriority(str, Enum):
@@ -39,33 +27,13 @@ class TitlePriority(str, Enum):
     MANUAL = "MANUAL"
 
     @classmethod
-    def get_priority(cls, priority: str) -> int:
-
+    def get_priority(cls, priority: TitlePriority) -> int:
         lookup = {
             cls.ORIGINAL_HEADER: 1,
             cls.PARLIAMENT_DESCRIBED: 5,
             cls.MANUAL: 10,
         }
         return lookup[priority]
-
-
-@click.group()
-def cli():
-    pass
-
-
-def get_twfy_db_connection() -> MySQLdb.Connection:
-    db_connection = cast(
-        MySQLdb.Connection,
-        MySQLdb.connect(
-            host=config.get("TWFY_DB_HOST"),
-            db=config.get("TWFY_DB_NAME"),
-            user=config.get("TWFY_DB_USER"),
-            passwd=config.get("TWFY_DB_PASS"),
-            charset="utf8",
-        ),
-    )
-    return db_connection
 
 
 def df_to_db(df: pd.DataFrame, *, new_priority: TitlePriority, verbose: bool = False):
@@ -104,8 +72,8 @@ def df_to_db(df: pd.DataFrame, *, new_priority: TitlePriority, verbose: bool = F
 
     # get all divisions with a title_priority below or equal to current priority
     existing_df = pd.read_sql(
-        f"SELECT division_id, title_priority FROM divisions",
-        db_connection,
+        "SELECT division_id, title_priority FROM divisions",
+        engine,
     )
     existing_df["int_title_priority"] = existing_df["title_priority"].apply(
         TitlePriority.get_priority
@@ -183,7 +151,7 @@ def run_schema_update(verbose: bool = False):
     """
 
     db_connection = get_twfy_db_connection()
-    df = pd.read_sql("SELECT * FROM divisions limit 1", db_connection)
+    df = pd.read_sql("SELECT * FROM divisions limit 1", engine)
     if "title_priority" in df.columns:
         if verbose:
             print("[blue]Schema already updated[/blue]")
@@ -212,13 +180,12 @@ def twfy_votes_url_to_pw_id(url: str) -> str:
     return f"pw-{date}-{division_no}-{chamber}"
 
 
-@cli.command()
-@click.option("--verbose", is_flag=True, help="Show verbose output")
-def export_division_data(verbose: bool = False):
+@app.command()
+def export_division_data(verbose: VerboseBool = False):
     """
     Export division data to publically accessible parquet files
     """
-    raw_data_dir = Path(config.get("RAWDATA"))
+    raw_data_dir = Path(config.RAWDATA)
     dest_path = raw_data_dir / "votes"
     dest_path.mkdir(parents=True, exist_ok=True)
 
@@ -232,7 +199,7 @@ def export_division_data(verbose: bool = False):
         division_id,
         house as chamber,
         CASE
-            WHEN division_id like '%-cy%' THEN 'cy' ELSE 'en'
+            WHEN division_id like '%%-cy%%' THEN 'cy' ELSE 'en'
         END as language,
         divisions.gid as source_gid,
         hansard_debate.gid as debate_gid,
@@ -287,12 +254,12 @@ def export_division_data(verbose: bool = False):
     """
 
     # get divisions
-    df = pd.read_sql(divisions_query, db_connection)
+    df = pd.read_sql(divisions_query, engine)
     df.to_parquet(dest_path / "divisions.parquet", index=False)
     if verbose:
         print(f"[green]Divisions written to {dest_path / 'divisions.parquet'}[/green]")
     # get votes
-    df = pd.read_sql(votes_query, db_connection)
+    df = pd.read_sql(votes_query, engine)
     df.to_parquet(dest_path / "votes.parquet", index=False)
     if verbose:
         print(f"[green]Votes written to {dest_path / 'votes.parquet'}[/green]")
@@ -300,29 +267,48 @@ def export_division_data(verbose: bool = False):
     db_connection.close()
 
 
-@cli.command()
-@click.option("--verbose", is_flag=True, help="Show verbose output")
-def update_schema(verbose: bool = False):
+@app.command()
+def update_schema(verbose: VerboseBool = False):
     """
     Run schema update to support division titles if necessary
     """
     run_schema_update(verbose=verbose)
 
 
-@cli.command()
-def update_division_title():
+@app.command()
+def update_division_title(
+    use_prompt: Annotated[bool, typer.Option(help="Use prompt for input")] = False,
+    division_id: Annotated[
+        Optional[str], typer.Option(help="Division ID (Public Whip style)")
+    ] = None,
+    division_title: Annotated[
+        Optional[str], typer.Option(help="Division title")
+    ] = None,
+    yes_text: Annotated[Optional[str], typer.Option(help="Division yes text")] = None,
+    no_text: Annotated[Optional[str], typer.Option(help="Division no text")] = None,
+):
     """
     Manually update a single division.
     """
-    item = {
-        "division_id": Prompt.ask("Division id (pw style)"),
-        "division_title": Prompt.ask("Division title"),
-        "yes_text": Prompt.ask(
+
+    if use_prompt:
+        division_id = division_id or Prompt.ask("Division id (pw style)")
+        division_title = division_title or Prompt.ask("Division title")
+        yes_text = yes_text or Prompt.ask(
             "Division yes text (optional)", default="", show_default=False
-        ),
-        "no_text": Prompt.ask(
+        )
+        no_text = no_text or Prompt.ask(
             "Division no text (optional)", default="", show_default=False
-        ),
+        )
+    else:
+        if division_id is None or division_title is None:
+            raise ValueError("Division id and title are required if not using prompt.")
+
+    item = {
+        "division_id": division_id,
+        "division_title": division_title,
+        "yes_text": yes_text or "",
+        "no_text": no_text or "",
     }
 
     if item["yes_text"] == "":
@@ -334,14 +320,17 @@ def update_division_title():
     df_to_db(df, new_priority=TitlePriority.MANUAL)
 
 
-@cli.command()
-@click.option(
-    "--url",
-    prompt="Link to URL of manual update data",
-    help="A csv, json or parquet file to update division information from.",
-)
-@click.option("--verbose", is_flag=True, help="Show verbose output")
-def update_from_url(url: str, verbose: bool = False):
+@app.command()
+def update_from_url(
+    url: Annotated[
+        str,
+        typer.Option(
+            prompt="Link to URL of manual update data",
+            help="A csv, json or parquet file to update division information from.",
+        ),
+    ],
+    verbose: VerboseBool = False,
+):
     """
     Fetch a bulk update file from a remote URL - assumes these are manual updates
     and so take priority over other approaches.
@@ -349,9 +338,8 @@ def update_from_url(url: str, verbose: bool = False):
     url_to_db(url, new_priority=TitlePriority.MANUAL, verbose=verbose)
 
 
-@cli.command()
-@click.option("--verbose", is_flag=True, help="Show verbose output")
-def update_from_commons_votes(verbose: bool = False):
+@app.command()
+def update_from_commons_votes(verbose: VerboseBool = False):
     """
     Import Commons votes description names into local database.
     Mid priority - higher than header based approaches, lower than manual approaches.
@@ -368,9 +356,5 @@ def update_from_commons_votes(verbose: bool = False):
     df_to_db(df, new_priority=TitlePriority.PARLIAMENT_DESCRIBED, verbose=verbose)
 
 
-def main():
-    cli()
-
-
 if __name__ == "__main__":
-    main()
+    app()

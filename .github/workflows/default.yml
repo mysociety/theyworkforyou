@@ -98,6 +98,18 @@ jobs:
         mkdir -p build/logs
         vendor/bin/phpunit --exclude-group xapian
 
+    - name: Install Poetry
+      if: matrix.php_version == '7.4'
+      uses: snok/install-poetry@v1
+
+    - name: Python testing
+      if: matrix.php_version == '7.4'
+      run: |
+        poetry install
+        poetry run ruff format . --check
+        poetry run ruff check .
+        poetry run pytest .
+
     - name: Afterwards
       if: matrix.php_version == '7.4'
       run: |
