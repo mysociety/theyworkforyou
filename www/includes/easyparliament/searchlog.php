@@ -153,7 +153,7 @@ class SEARCHLOG {
         $visible_name = preg_replace('/"/', '', $query);
 
         if (isset($section_string)) {
-            $visible_name = preg_replace('/' . $section_string . '/', '', $visible_name);
+            $visible_name = preg_replace('/' . preg_quote($section_string) . '/', '', $visible_name);
         }
 
         $rowarray = $row;
