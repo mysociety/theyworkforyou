@@ -68,17 +68,50 @@ class SEARCHLOG {
     }
 
     // Select popular queries
-    public function popular_recent($count, $max_chars = null) {
+    public function popular_recent(int $count, ?int $max_chars = null, ?int $minimum_hits = 5, ?string $section_string = null) {
 
-        $q =  $this->db->query("SELECT query_string, count(*) AS c FROM search_query_log
-                WHERE count_hits != 0 AND query_string != 'twat'
-           AND query_string != 'suffragettes' AND page_number=1
-                AND query_time > date_sub(NOW(), INTERVAL 1 DAY)
-                GROUP BY query_string ORDER BY c desc LIMIT $count;");
+        // Banned terms
+        $banned_terms = ["twat"];
+
+        $query = "SELECT query_string, COUNT(DISTINCT ip_address) AS c FROM search_query_log
+            WHERE count_hits != 0 AND page_number=1
+            AND query_time > date_sub(NOW(), INTERVAL 3 DAY)";
+
+        // allow limiting by section (e.g. to show a Scotland specific search)
+        if (!empty($section_string)) {
+            $query .= " AND query_string LIKE :section_string";
+        }
+
+        $query .= " GROUP BY query_string HAVING c >= :minimum_hits
+            ORDER BY c desc LIMIT :count;";
+
+        $params = [
+            ':minimum_hits' => $minimum_hits,
+            ':count' => $count,
+        ];
+
+        if (!empty($section_string)) {
+            $params[':section_string'] = '%' . $section_string . '%';
+        }
+
+        $q = $this->db->query($query, $params);
+
 
         $popular_searches = [];
         foreach ($q as $row) {
-            array_push($popular_searches, $this->_db_row_to_array($row));
+            $row_array = $this->_db_row_to_array($row, $section_string);
+
+            // exclude all queries where a banned term is part of the query
+            $banned = false;
+            foreach ($banned_terms as $term) {
+                if (stripos($row_array['query'], $term) !== false) {
+                    $banned = true;
+                    break;
+                }
+            }
+            if (!$banned) {
+                array_push($popular_searches, $row_array);
+            }
         }
 
         //maximum number of chars?
@@ -100,7 +133,7 @@ class SEARCHLOG {
         return $popular_searches;
     }
 
-    public function _db_row_to_array($row) {
+    public function _db_row_to_array($row, $section_string = null) {
         $query = $row['query_string'];
         $this->SEARCHURL->insert(['s' => $query, 'pop' => 1]);
         $url = $this->SEARCHURL->generate();
@@ -118,6 +151,10 @@ class SEARCHLOG {
             }
         }
         $visible_name = preg_replace('/"/', '', $query);
+
+        if (isset($section_string)) {
+            $visible_name = preg_replace('/' . preg_quote($section_string) . '/', '', $visible_name);
+        }
 
         $rowarray = $row;
         $rowarray['query'] = $query;
