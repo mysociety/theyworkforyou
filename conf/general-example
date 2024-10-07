@@ -173,6 +173,8 @@ define('OPTION_HEARFROMYOURMP_BASE_URL', '');
 if (!defined('OPTION_MAPIT_URL')) {
   define('OPTION_MAPIT_URL', '');
 }
+
+define('OPTION_MAPIT_API_KEY', '');
 define('OPTION_DEMOCRACYCLUB_TOKEN', '');
 define('OPTION_MAPIT_UPRN_LOOKUP', '');
 

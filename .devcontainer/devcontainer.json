@@ -1,6 +1,36 @@
 {
 	"name": "theyworkforyou",
+	"secrets": {
+		"TWFY_VOTES_URL": {
+			"description": "URL to the TWFY Votes page"
+		},
+		"MAPIT_URL": {
+			"description": "URL to the MapIt API - defaults to mapit.mysociety.org"
+		},
+		"MAPIT_API_KEY": {
+			"description": "API key for the MapIt API - optional for small numbers of queries"
+		},
+		"DEMOCRACYCLUB_TOKEN": {
+			"description": "API key for the Democracy Club API - only for election postcode lookups."
+		},
+		"RECAPTCHA_SITE_KEY": {
+			"description": "Recaptcha site key. Can use v2 test keys from link.",
+			"documentationUrl": "https://developers.google.com/recaptcha/docs/faq#:~:text=hidden%3B%20%7D-,I%27d%20like%20to%20run%20automated%20tests%20with%20reCAPTCHA.%20What%20should%20I%20do%3F,-For%20reCAPTCHA%20v3"
 
+		},
+		"RECAPTCHA_SECRET": {
+			"description": "Recaptcha secret key. Can use v2 test keys from link.",
+			"documentationUrl": "https://developers.google.com/recaptcha/docs/faq#:~:text=hidden%3B%20%7D-,I%27d%20like%20to%20run%20automated%20tests%20with%20reCAPTCHA.%20What%20should%20I%20do%3F,-For%20reCAPTCHA%20v3"
+
+		},
+		"STRIPE_DONATE_PUBLIC_KEY": {
+			"description": "Stripe donate public key (test key). Only needed for donate page testing."
+		},
+		"STRIPE_DONATE_SECRET_KEY": {
+			"description": "Stripe donate secret key (test key). Only needed for donate page testing."
+		}
+
+	},
 	"dockerComposeFile": "../docker-compose.yml",
 	"service": "twfy",
 	"workspaceFolder": "/twfy",
