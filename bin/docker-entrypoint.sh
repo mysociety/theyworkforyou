@@ -29,6 +29,8 @@ sed -r \
     -e 's!^(.*"PWMEMBERS", *)"[^"]*"!'"\\1'/twfy/data/parlparse/members/'!" \
     -e 's!^(.*"XAPIANDB", *)"[^"]*"!'"\\1'/twfy/searchdb/'!" \
     -e "s!^(.*define\('OPTION_MAPIT_URL', *)'[^']*"!"\\1'https://mapit.mysociety.org/!" \
+    -e "s!^(.*define\('OPTION_SMTP_SMARTHOST', *)'[^']*"!"\\1'email.svc!" \
+    -e "s!^(.*define\('OPTION_SMTP_PORT', *)[0-9]*"!"\\11025!" \
     -e "s/array\('127.0.0.1'\)/array\('sentinel'\)/" \
   conf/general-example > conf/general
 
