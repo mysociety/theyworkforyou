@@ -21,6 +21,7 @@ RUN apt-get -qq update && apt-get -qq install \
       php-xdebug \
       gettext \
       rsync \
+      mariadb-client \
     --no-install-recommends && \
     rm -r /var/lib/apt/lists/*
 
