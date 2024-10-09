@@ -5,9 +5,9 @@ namespace MySociety\TheyWorkForYou\Homepage;
 class UK extends Base {
     protected $mp_house = 1;
     protected $cons_type = 'WMC';
-    protected $mp_url = 'yourmp';
     protected $page = 'overview';
     protected $houses = [1, 101];
+    private $mp_url = 'yourmp';
 
     protected $recent_types = [
         'DEBATELIST' => ['recent_debates', 'debatesfront', 'Commons debates'],
@@ -42,7 +42,7 @@ class UK extends Base {
         return $search_box;
     }
 
-    protected function getEditorialContent() {
+    protected function getEditorialContent(&$data) {
         $debatelist = new \DEBATELIST();
         $featured = new \MySociety\TheyWorkForYou\Model\Featured();
         $gid = $featured->get_gid();

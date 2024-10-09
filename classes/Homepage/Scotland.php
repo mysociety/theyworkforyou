@@ -5,7 +5,6 @@ namespace MySociety\TheyWorkForYou\Homepage;
 class Scotland extends Base {
     protected $mp_house = 4;
     protected $cons_type = 'SPC';
-    protected $mp_url = 'yourmsp';
     protected $page = 'spoverview';
     protected $houses = [7];
 
@@ -32,7 +31,7 @@ class Scotland extends Base {
         return $search_box;
     }
 
-    protected function getEditorialContent() {
+    protected function getEditorialContent(&$data) {
         $debatelist = new \SPLIST();
         $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
         if (isset($item['data']) && count($item['data'])) {
