@@ -2,9 +2,7 @@
 
 namespace MySociety\TheyWorkForYou\Homepage;
 
-class UK {
-    private $db;
-
+class UK extends Base {
     protected $mp_house = 1;
     protected $cons_type = 'WMC';
     protected $mp_url = 'yourmp';
@@ -20,34 +18,10 @@ class UK {
         'StandingCommittee' => ['recent_pbc_debates', 'pbcfront', 'Public Bill committees'],
     ];
 
-    public function __construct() {
-        $this->db = new \ParlDB();
-    }
-
     public function display() {
-        global $this_page;
-        $this_page = $this->page;
-
-        $data = [];
-
-        $common = new \MySociety\TheyWorkForYou\Common();
-        $dissolution = Dissolution::dates();
-
-        $data['debates'] = $this->getDebatesData();
-
-        $user = new \MySociety\TheyWorkForYou\User();
-        $data['mp_data'] = $user->getRep($this->cons_type, $this->mp_house);
-        $data["commons_dissolved"] = isset($dissolution[1]);
-
-        $data['regional'] = $this->getRegionalList();
-        $data['popular_searches'] = []; # $common->getPopularSearches();
-        $data['urls'] = $this->getURLs();
+        $data = parent::display();
         $data['calendar'] = $this->getCalendarData();
-        $data['featured'] = $this->getEditorialContent();
         $data['topics'] = $this->getFrontPageTopics();
-        $data['divisions'] = $this->getRecentDivisions();
-        $data['search_box'] = $this->getSearchBox($data);
-
         return $data;
     }
 
@@ -66,10 +40,6 @@ class UK {
         $search_box->add_quick_link('Donate to support our work', '/support-us/', 'heart');
         $search_box->add_quick_link('Learn more about TheyWorkForYou', '/about/', 'magnifying-glass');
         return $search_box;
-    }
-
-    protected function getRegionalList() {
-        return null;
     }
 
     protected function getEditorialContent() {
@@ -129,48 +99,6 @@ class UK {
     protected function getFrontPageTopics() {
         $topics = new \MySociety\TheyWorkForYou\Topics();
         return $topics->getFrontPageTopics();
-    }
-
-    private function getRecentDivisions() {
-        $divisions = new \MySociety\TheyWorkForYou\Divisions();
-        return $divisions->getRecentDebatesWithDivisions(5, $this->houses);
-    }
-
-    protected function getURLs() {
-        $urls = [];
-
-        return $urls;
-    }
-
-    protected function getDebatesData() {
-        $debates = []; // holds the most recent data there is data for, indexed by type
-
-        $recent_content = [];
-
-        foreach ($this->recent_types as $class => $recent) {
-            $class = "\\$class";
-            $instance = new $class();
-            $more_url = new \MySociety\TheyWorkForYou\Url($recent[1]);
-            if ($recent[0] == 'recent_pbc_debates') {
-                $content = [ 'data' => $instance->display($recent[0], ['num' => 5], 'none') ];
-            } else {
-                $content = $instance->display($recent[0], ['days' => 7, 'num' => 1], 'none');
-                if (isset($content['data']) && count($content['data'])) {
-                    $content = $content['data'][0];
-                } else {
-                    $content = [];
-                }
-            }
-            if ($content) {
-                $content['more_url'] = $more_url->generate();
-                $content['desc'] = $recent[2];
-                $recent_content[] = $content;
-            }
-        }
-
-        $debates['recent'] = $recent_content;
-
-        return $debates;
     }
 
     private function getCalendarData() {
