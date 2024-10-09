@@ -781,6 +781,8 @@ function send_email($to, $subject, $message, $bulk = false, $from = '', $want_bo
     $mail->addAddress($to);
     $mail->Subject = $subject;
     $mail->CharSet = 'utf-8';
+    $mail->Host = OPTION_SMTP_SMARTHOST;
+    $mail->Port = OPTION_SMTP_PORT;
 
     if ($html) {
         $mail->msgHTML($html, INCLUDESPATH . 'easyparliament/templates/emails');
