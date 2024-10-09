@@ -224,10 +224,13 @@ a.business-list__title {
 
     th {
         text-align: inherit;
+        // This min-width minimises the odd uneven day width.
+        min-width: calc(100% / 7);
+        padding: 0;
     }
 
     td {
-        padding: 0;
+        padding: 0.1em;
         border-bottom: 1px solid $colour_off_white;
 
         & > * {
@@ -238,6 +241,24 @@ a.business-list__title {
         &.no {
             color: $colour_mid_grey;
         }
+
+        a {
+            background-color: $links;
+            color: $white-text;
+            border: 1px solid transparent;
+
+            &:hover {
+                background-color: $white-text;
+                color: $links;
+                border: 1px solid $links;
+            }
+
+            &:focus {
+                background-color: $color-yellow;
+                color: $body-font-color;
+                border: 1px solid $body-font-color;
+            }
+        }
     }
 
     tr:nth-of-type(even) {
@@ -245,8 +266,8 @@ a.business-list__title {
     }
 
     .on > * {
-        background: mix($colour_off_white, #fff, 50%);
-        color: $primary-color;
+        background: $primary-color;
+        color: $white-text;
     }
 }
 
