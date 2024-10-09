@@ -1,8 +1,8 @@
 <?php
 
-namespace MySociety\TheyWorkForYou;
+namespace MySociety\TheyWorkForYou\Homepage;
 
-class SPHomepage extends Homepage {
+class Scotland extends UK {
     protected $mp_house = 4;
     protected $cons_type = 'SPC';
     protected $mp_url = 'yourmsp';
@@ -14,8 +14,8 @@ class SPHomepage extends Homepage {
         'SPWRANSLIST' => ['recent_wrans', 'spwransfront', 'Written answers'],
     ];
 
-    protected function getSearchBox(array $data): Search\SearchBox {
-        $search_box = new Search\SearchBox();
+    protected function getSearchBox(array $data): \MySociety\TheyWorkForYou\Search\SearchBox {
+        $search_box = new \MySociety\TheyWorkForYou\Search\SearchBox();
         $search_box->homepage_panel_class = "panel--homepage--scotland";
         $search_box->homepage_subhead = "Scottish Parliament";
         $search_box->homepage_desc = "";
@@ -35,21 +35,21 @@ class SPHomepage extends Homepage {
     protected function getEditorialContent() {
         $debatelist = new \SPLIST();
         $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
-
-        $item = $item['data'][0];
-        $more_url = new Url('spdebatesfront');
-        $item['more_url'] = $more_url->generate();
-        $item['desc'] = 'Scottish Parliament debate';
-        $item['related'] = [];
-        $item['featured'] = false;
-
+        if (isset($item['data']) && count($item['data'])) {
+            $item = $item['data'][0];
+            $more_url = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
+            $item['more_url'] = $more_url->generate();
+            $item['desc'] = 'Scottish Parliament debate';
+            $item['related'] = [];
+            $item['featured'] = false;
+        }
         return $item;
     }
 
     protected function getURLs() {
         $urls = [];
 
-        $regional = new Url('msp');
+        $regional = new \MySociety\TheyWorkForYou\Url('msp');
         $urls['regional'] = $regional->generate();
 
         return $urls;

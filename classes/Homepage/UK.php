@@ -1,8 +1,8 @@
 <?php
 
-namespace MySociety\TheyWorkForYou;
+namespace MySociety\TheyWorkForYou\Homepage;
 
-class Homepage {
+class UK {
     private $db;
 
     protected $mp_house = 1;
@@ -30,12 +30,12 @@ class Homepage {
 
         $data = [];
 
-        $common = new Common();
+        $common = new \MySociety\TheyWorkForYou\Common();
         $dissolution = Dissolution::dates();
 
         $data['debates'] = $this->getDebatesData();
 
-        $user = new User();
+        $user = new \MySociety\TheyWorkForYou\User();
         $data['mp_data'] = $user->getRep($this->cons_type, $this->mp_house);
         $data["commons_dissolved"] = isset($dissolution[1]);
 
@@ -51,8 +51,8 @@ class Homepage {
         return $data;
     }
 
-    protected function getSearchBox(array $data): Search\SearchBox {
-        $search_box = new Search\SearchBox();
+    protected function getSearchBox(array $data): \MySociety\TheyWorkForYou\Search\SearchBox {
+        $search_box = new \MySociety\TheyWorkForYou\Search\SearchBox();
         $search_box->homepage_panel_class = "panel--homepage--overall";
         $search_box->homepage_subhead = "";
         $search_box->homepage_desc = "Understand who represents you, across the UK’s Parliaments.";
@@ -74,9 +74,9 @@ class Homepage {
 
     protected function getEditorialContent() {
         $debatelist = new \DEBATELIST();
-        $featured = new Model\Featured();
+        $featured = new \MySociety\TheyWorkForYou\Model\Featured();
         $gid = $featured->get_gid();
-        $gidCheck = new Gid($gid);
+        $gidCheck = new \MySociety\TheyWorkForYou\Gid($gid);
         $gid = $gidCheck->checkForRedirect();
         if ($gid) {
             $title = $featured->get_title();
@@ -87,7 +87,7 @@ class Homepage {
             $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
             if (isset($item['data']) && count($item['data'])) {
                 $item = $item['data'][0];
-                $more_url = new Url('debates');
+                $more_url = new \MySociety\TheyWorkForYou\Url('debates');
                 $item['more_url'] = $more_url->generate();
                 $item['desc'] = 'Commons Debates';
                 $item['related'] = [];
@@ -127,12 +127,12 @@ class Homepage {
     }
 
     protected function getFrontPageTopics() {
-        $topics = new Topics();
+        $topics = new \MySociety\TheyWorkForYou\Topics();
         return $topics->getFrontPageTopics();
     }
 
     private function getRecentDivisions() {
-        $divisions = new Divisions();
+        $divisions = new \MySociety\TheyWorkForYou\Divisions();
         return $divisions->getRecentDebatesWithDivisions(5, $this->houses);
     }
 
@@ -150,7 +150,7 @@ class Homepage {
         foreach ($this->recent_types as $class => $recent) {
             $class = "\\$class";
             $instance = new $class();
-            $more_url = new Url($recent[1]);
+            $more_url = new \MySociety\TheyWorkForYou\Url($recent[1]);
             if ($recent[0] == 'recent_pbc_debates') {
                 $content = [ 'data' => $instance->display($recent[0], ['num' => 5], 'none') ];
             } else {
@@ -174,7 +174,7 @@ class Homepage {
     }
 
     private function getCalendarData() {
-        return Utility\Calendar::fetchFuture();
+        return \MySociety\TheyWorkForYou\Utility\Calendar::fetchFuture();
     }
 
 }
