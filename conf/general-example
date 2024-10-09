@@ -144,6 +144,7 @@ define('ENTRIES_AFTER_LEFT', '{
 // More Email addresses.
 
 define('OPTION_SMTP_SMARTHOST', 'localhost');
+define('OPTION_SMTP_PORT', 25);
 
 // When a user reports an annotation, notification is sent to this address.
 define ("REPORTLIST", CONTACTEMAIL);
