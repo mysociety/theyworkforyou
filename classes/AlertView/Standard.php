@@ -305,14 +305,30 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     private function setUserData() {
         $this->data['current_mp'] = false;
         $this->data['alerts'] = [];
+        $this->data['keyword_alerts'] = [];
+        $this->data['speaker_alerts'] = [];
+        $this->data['own_member_alerts'] = [];
+        $this->data['all_keywords'] = [];
+        $own_mp_criteria = '';
         if ($this->data['email_verified']) {
             if ($this->user->postcode()) {
                 $current_mp = new \MEMBER(['postcode' => $this->user->postcode()]);
-                if (!$this->alert->fetch_by_mp($this->data['email'], $current_mp->person_id())) {
+                if ($current_mp_alert = !$this->alert->fetch_by_mp($this->data['email'], $current_mp->person_id())) {
                     $this->data['current_mp'] = $current_mp;
+                    $own_mp_criteria = sprintf('speaker:%s', $current_mp->person_id());
                 }
             }
             $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
+            foreach ($this->data['alerts'] as $alert) {
+                if (array_key_exists('words', $alert)) {
+                    $this->data['all_keywords'][] = implode(' ', $alert['words']);
+                    $this->data['keyword_alerts'][] = $alert;
+                } elseif (array_key_exists('spokenby', $alert) and sizeof($alert['spokenby']) == 1 and $alert['spokenby'][0] == $own_mp_criteria) {
+                    $this->data['own_member_alerts'][] = $alert;
+                } else {
+                    $this->data['spoken_alerts'][] = $alert;
+                }
+            }
         }
     }
 }
