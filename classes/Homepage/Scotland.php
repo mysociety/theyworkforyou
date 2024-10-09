@@ -2,7 +2,7 @@
 
 namespace MySociety\TheyWorkForYou\Homepage;
 
-class Scotland extends UK {
+class Scotland extends Base {
     protected $mp_house = 4;
     protected $cons_type = 'SPC';
     protected $mp_url = 'yourmsp';
@@ -45,20 +45,6 @@ class Scotland extends UK {
         }
         return $item;
     }
-
-    protected function getURLs() {
-        $urls = [];
-
-        $regional = new \MySociety\TheyWorkForYou\Url('msp');
-        $urls['regional'] = $regional->generate();
-
-        return $urls;
-    }
-
-    protected function getCalendarData() {
-        return null;
-    }
-
 
     protected function getRegionalList() {
         global $THEUSER;
