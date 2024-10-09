@@ -12,6 +12,8 @@
                 </a>
             </h3>
             <p class="meta">
+                <?php if ($debate['major'] == 1) { ?>Commons, <?php } ?>
+                <?php if ($debate['major'] == 101) { ?>Lords, <?php } ?>
                 <?= format_date($debate['date'], LONGERDATEFORMAT) ?>
             </p>
       </li>
