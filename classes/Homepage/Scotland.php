@@ -1,11 +1,10 @@
 <?php
 
-namespace MySociety\TheyWorkForYou;
+namespace MySociety\TheyWorkForYou\Homepage;
 
-class SPHomepage extends Homepage {
+class Scotland extends Base {
     protected $mp_house = 4;
     protected $cons_type = 'SPC';
-    protected $mp_url = 'yourmsp';
     protected $page = 'spoverview';
     protected $houses = [7];
 
@@ -14,8 +13,8 @@ class SPHomepage extends Homepage {
         'SPWRANSLIST' => ['recent_wrans', 'spwransfront', 'Written answers'],
     ];
 
-    protected function getSearchBox(array $data): Search\SearchBox {
-        $search_box = new Search\SearchBox();
+    protected function getSearchBox(array $data): \MySociety\TheyWorkForYou\Search\SearchBox {
+        $search_box = new \MySociety\TheyWorkForYou\Search\SearchBox();
         $search_box->homepage_panel_class = "panel--homepage--scotland";
         $search_box->homepage_subhead = "Scottish Parliament";
         $search_box->homepage_desc = "";
@@ -32,43 +31,25 @@ class SPHomepage extends Homepage {
         return $search_box;
     }
 
-    protected function getEditorialContent() {
+    protected function getEditorialContent(&$data) {
         $debatelist = new \SPLIST();
         $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
-
-        $item = $item['data'][0];
-        $more_url = new Url('spdebatesfront');
-        $item['more_url'] = $more_url->generate();
-        $item['desc'] = 'Scottish Parliament debate';
-        $item['related'] = [];
-        $item['featured'] = false;
-
+        if (count($item['data'])) {
+            $item = $item['data'][0];
+            $more_url = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
+            $item['more_url'] = $more_url->generate();
+            $item['desc'] = 'Scottish Parliament debate';
+            $item['related'] = [];
+            $item['featured'] = false;
+        }
         return $item;
     }
 
-    protected function getURLs() {
-        $urls = [];
-
-        $regional = new Url('msp');
-        $urls['regional'] = $regional->generate();
-
-        return $urls;
-    }
-
-    protected function getCalendarData() {
-        return null;
-    }
-
-
     protected function getRegionalList() {
         global $THEUSER;
-
-        $mreg = [];
-
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            return Member::getRegionalList($THEUSER->postcode, 4, 'SPE');
+            return \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 4, 'SPE');
         }
-
-        return $mreg;
+        return [];
     }
 }

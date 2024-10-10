@@ -2,7 +2,9 @@
                             <li class="parliamentary-excerpt">
                             <h3 class="excerpt__title"><a href="<?= $recent['list_url'] ?>"><?= $recent['parent']['body'] ? $recent['parent']['body'] . ' : ' : '' ?><?= $recent['body'] ?></a></h3>
                                 <p class="meta"><?=format_date($recent['hdate'], LONGERDATEFORMAT); ?></p>
+<?php if ($recent['desc']) { ?>
                                 <p class="meta excerpt__category"><a href="<?= $recent['more_url'] ?>"><?= $recent['desc'] ?></a></p>
+<?php } ?>
                                 <p class="excerpt__statement">
                                 <?php if (isset($recent['child']['speaker']) && count($recent['child']['speaker'])) { ?>
                                 <a href="<?= $recent['child']['speaker']['url'] ?>"><?= $recent['child']['speaker']['name'] ?></a>
