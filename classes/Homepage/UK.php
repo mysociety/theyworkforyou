@@ -55,7 +55,7 @@ class UK extends Base {
             $item = $this->getFeaturedDebate($gid, $title, $context, $related);
         } else {
             $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
-            if (isset($item['data']) && count($item['data'])) {
+            if (count($item['data'])) {
                 $item = $item['data'][0];
                 $more_url = new \MySociety\TheyWorkForYou\Url('debates');
                 $item['more_url'] = $more_url->generate();

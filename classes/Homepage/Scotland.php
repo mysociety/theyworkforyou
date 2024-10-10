@@ -34,7 +34,7 @@ class Scotland extends Base {
     protected function getEditorialContent(&$data) {
         $debatelist = new \SPLIST();
         $item = $debatelist->display('recent_debates', ['days' => 7, 'num' => 1], 'none');
-        if (isset($item['data']) && count($item['data'])) {
+        if (count($item['data'])) {
             $item = $item['data'][0];
             $more_url = new \MySociety\TheyWorkForYou\Url('spdebatesfront');
             $item['more_url'] = $more_url->generate();
