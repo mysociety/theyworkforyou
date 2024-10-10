@@ -1,19 +1,19 @@
 (function() {
 
-function plan_cost() {
-  var plan = document.querySelector('input[name=plan]:checked'),
+function price_cost() {
+  var price = document.querySelector('input[name=price]:checked'),
       ctick = document.getElementById('id_charitable_tick'),
       charitable = document.querySelector('input[name=charitable]:checked');
-  plan = plan ? plan.value : '';
+  price = price ? price.value : '';
   ctick = ctick ? ctick.checked : '';
   charitable = charitable ? charitable.value : '';
 
   var num = 20;
-  if (plan === 'twfy-5k') {
+  if (price === 'twfy-5k') {
     num = 50;
-  } else if (plan === 'twfy-10k') {
+  } else if (price === 'twfy-10k') {
     num = 100;
-  } else if (plan === 'twfy-0k') {
+  } else if (price === 'twfy-0k') {
     num = 300;
   }
   if (ctick) {
@@ -29,7 +29,7 @@ function plan_cost() {
 }
 
 function need_stripe() {
-  var num = plan_cost();
+  var num = price_cost();
   if (num === 0 || document.getElementById('js-payment').getAttribute('data-has-payment-data')) {
     return false;
   }
@@ -46,11 +46,11 @@ function toggle_stripe() {
   }
 }
 
-if (document.getElementById('id_plan_0')) {
-  document.getElementById('id_plan_0').addEventListener('change', toggle_stripe);
-  document.getElementById('id_plan_1').addEventListener('change', toggle_stripe);
-  document.getElementById('id_plan_2').addEventListener('change', toggle_stripe);
-  document.getElementById('id_plan_3').addEventListener('change', toggle_stripe);
+if (document.getElementById('id_price_0')) {
+  document.getElementById('id_price_0').addEventListener('change', toggle_stripe);
+  document.getElementById('id_price_1').addEventListener('change', toggle_stripe);
+  document.getElementById('id_price_2').addEventListener('change', toggle_stripe);
+  document.getElementById('id_price_3').addEventListener('change', toggle_stripe);
   document.getElementById('id_charitable_tick').addEventListener('click', function(e) {
     if (this.checked) {
         document.getElementById('charitable-qns').style.display = 'block';
@@ -185,8 +185,8 @@ form && form.addEventListener('submit', function(e) {
   e.preventDefault();
 
   var errors = 0;
-  var plan = document.querySelector('input[name=plan]:checked');
-  errors += err_highlight(document.querySelector('label[for=id_plan_0]'), !plan);
+  var price = document.querySelector('input[name=price]:checked');
+  errors += err_highlight(document.querySelector('label[for=id_price_0]'), !price);
   var ctick = document.getElementById('id_charitable_tick').checked;
   var c = document.querySelector('input[name=charitable]:checked');
   errors += err_highlight(document.querySelector('label[for=id_charitable_0]'), ctick && !c);

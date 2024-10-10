@@ -49,14 +49,14 @@ If you update your plan below, it will be reactivated.
 
 
 <div class="row">
-    <label for="id_plan_0">Please choose a plan (all prices include VAT):</label>
-    <ul id="id_plan">
+    <label for="id_price_0">Please choose a plan (all prices include VAT):</label>
+    <ul id="id_price">
         <?php
-        $plan = $stripe ? $stripe->plan->id : get_http_var('plan');
-rdio('plan', 'twfy-1k', '£20/mth – 1,000 calls per month', 'id_plan_0', 1, $plan);
-rdio('plan', 'twfy-5k', '£50/mth – 5,000 calls per month', 'id_plan_1', 1, $plan);
-rdio('plan', 'twfy-10k', '£100/mth – 10,000 calls per month', 'id_plan_2', 1, $plan);
-rdio('plan', 'twfy-0k', '£300/mth – Unlimited calls', 'id_plan_3', 1, $plan);
+        $price = $stripe ? $stripe->price->id : get_http_var('price');
+rdio('price', 'twfy-1k', '£20/mth – 1,000 calls per month', 'id_price_0', 1, $price);
+rdio('price', 'twfy-5k', '£50/mth – 5,000 calls per month', 'id_price_1', 1, $price);
+rdio('price', 'twfy-10k', '£100/mth – 10,000 calls per month', 'id_price_2', 1, $price);
+rdio('price', 'twfy-0k', '£300/mth – Unlimited calls', 'id_price_3', 1, $price);
 ?>
     </ul>
 </div>

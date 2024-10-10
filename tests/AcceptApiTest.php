@@ -144,7 +144,7 @@ class AcceptApiTest extends FetchPageTestCase {
         $page = $this->post_page('key');
         $this->assertStringContainsString('Subscribe to a plan', $page);
         $page = $this->post_page('update-plan', [
-            'plan' => 'twfy-1k',
+            'price' => 'twfy-1k',
             'charitable_tick' => 'on',
             'charitable' => 'c',
             'charity_number' => '123456',

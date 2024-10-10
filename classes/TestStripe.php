@@ -11,12 +11,14 @@ class TestStripe extends Stripe {
                     'coupon' => ['percent_off' => 100],
                     'end' => null,
                 ],
-                'plan' => [
-                    'amount' => '2000',
-                    'id' => 'twfy-1k',
-                    'nickname' => 'Some calls per month',
-                    'interval' => 'month',
-                ],
+                'items' => [ 'data' => [ [
+                    'price' => [
+                        'unit_amount' => '2000',
+                        'id' => 'twfy-1k',
+                        'nickname' => 'Some calls per month',
+                        'interval' => 'month',
+                    ],
+                ] ] ],
                 'cancel_at_period_end' => false,
                 'created' => time(),
                 'current_period_end' => time(),
