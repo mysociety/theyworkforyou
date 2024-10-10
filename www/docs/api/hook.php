@@ -30,7 +30,7 @@ if ($event->type == 'customer.subscription.deleted') {
 } elseif ($event->type == 'customer.subscription.updated') {
     $sub = new \MySociety\TheyWorkForYou\Subscription($obj->id);
     if ($sub->stripe) {
-        $sub->redis_update_max($obj->items->data[0]->price->id);
+        $sub->redis_update_max($obj->items->data[0]->price);
     }
 } elseif ($event->type == 'invoice.payment_failed' && $obj->billing_reason == 'subscription_cycle' && stripe_twfy_sub($obj)) {
     $customer = \Stripe\Customer::retrieve($obj->customer);
@@ -51,7 +51,7 @@ if ($event->type == 'customer.subscription.deleted') {
         $sub = new \MySociety\TheyWorkForYou\Subscription($obj->subscription);
     }
     if ($sub->stripe) {
-        $sub->redis_update_max($sub->stripe->items->data[0]->price->id);
+        $sub->redis_update_max($sub->stripe->items->data[0]->price);
     }
     try {
         # Update the invoice's PaymentIntent and Charge to say it came from TWFY (for CSV export)
@@ -82,8 +82,8 @@ function stripe_twfy_sub($invoice) {
     if (!$invoice->subscription) {
         return false;
     }
-    $stripe_sub = \Stripe\Subscription::retrieve($invoice->subscription);
-    return substr($stripe_sub->items->data[0]->price->id, 0, 4) == 'twfy';
+    $stripe_sub = \Stripe\Subscription::retrieve($invoice->subscription, expand=['items.data.price.product']);
+    return substr($stripe_sub->items->data[0]->price->product->name, 0, 14) == 'TheyWorkForYou';
 }
 
 function stripe_reset_quota($subscription) {

@@ -53,11 +53,17 @@ If you update your plan below, it will be reactivated.
     <ul id="id_price">
         <?php
         $price = $stripe ? $stripe->price->id : get_http_var('price');
-rdio('price', 'twfy-1k', '£20/mth – 1,000 calls per month', 'id_price_0', 1, $price);
-rdio('price', 'twfy-5k', '£50/mth – 5,000 calls per month', 'id_price_1', 1, $price);
-rdio('price', 'twfy-10k', '£100/mth – 10,000 calls per month', 'id_price_2', 1, $price);
-rdio('price', 'twfy-0k', '£300/mth – Unlimited calls', 'id_price_3', 1, $price);
+rdio('price', PRICING_TIER_1_ID, '£' . PRICING_TIER_1_AMOUNT . '/mth – 1,000 calls per month', 'id_price_0', 1, $price);
+rdio('price', PRICING_TIER_2_ID, '£' . PRICING_TIER_2_AMOUNT . '/mth – 5,000 calls per month', 'id_price_1', 1, $price);
+rdio('price', PRICING_TIER_3_ID, '£' . PRICING_TIER_3_AMOUNT . '/mth – 10,000 calls per month', 'id_price_2', 1, $price);
+rdio('price', PRICING_TIER_4_ID, '£' . PRICING_TIER_4_AMOUNT . '/mth – Unlimited calls', 'id_price_3', 1, $price);
 ?>
+<span id="js-price-information"
+    data-<?= PRICING_TIER_1_ID ?>="<?= PRICING_TIER_1_AMOUNT ?>"
+    data-<?= PRICING_TIER_2_ID ?>="<?= PRICING_TIER_2_AMOUNT ?>"
+    data-<?= PRICING_TIER_3_ID ?>="<?= PRICING_TIER_3_AMOUNT ?>"
+    data-<?= PRICING_TIER_4_ID ?>="<?= PRICING_TIER_4_AMOUNT ?>"
+></span>
     </ul>
 </div>
 

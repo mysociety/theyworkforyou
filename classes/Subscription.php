@@ -11,8 +11,8 @@ class Subscription {
     public $upcoming;
     public $has_payment_data = false;
 
-    private static $prices = ['twfy-1k', 'twfy-5k', 'twfy-10k', 'twfy-0k'];
-    private static $amounts = [2000, 5000, 10000, 30000];
+    private static $prices = [PRICING_TIER_1_ID, PRICING_TIER_2_ID, PRICING_TIER_3_ID, PRICING_TIER_4_ID];
+    private static $amounts = [PRICING_TIER_1_AMOUNT, PRICING_TIER_2_AMOUNT, PRICING_TIER_3_AMOUNT, PRICING_TIER_4_AMOUNT];
 
     public function __construct($arg) {
         # User ID
@@ -104,7 +104,7 @@ class Subscription {
 
         foreach ($this::$prices as $i => $price) {
             if ($price == $form_data['price']) {
-                $new_price = $this::$amounts[$i];
+                $new_price = $this::$amounts[$i] * 100;
                 if ($form_data['coupon'] == 'charitable100') {
                     $new_price = 0;
                 } elseif ($form_data['coupon'] == 'charitable50') {
@@ -112,7 +112,7 @@ class Subscription {
                 }
             }
             if ($price == $this->stripe->price->id) {
-                $old_price = $this::$amounts[$i];
+                $old_price = $this::$amounts[$i] * 100;
                 if ($this->stripe->discount && ($coupon = $this->stripe->discount->coupon)) {
                     if ($coupon->percent_off == 100) {
                         $old_price = 0;
@@ -326,8 +326,7 @@ class Subscription {
     }
 
     public function redis_update_max($price) {
-        preg_match('#^twfy-(\d+)k#', $price, $m);
-        $max = $m[1] * 1000;
+        $max = $price->metadata['calls'];
         $this->redis->set("$this->redis_prefix:max", $max);
         $this->redis->del("$this->redis_prefix:blocked");
     }

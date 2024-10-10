@@ -2,20 +2,14 @@
 
 function price_cost() {
   var price = document.querySelector('input[name=price]:checked'),
+      pricing = document.getElementById('js-price-information'),
       ctick = document.getElementById('id_charitable_tick'),
       charitable = document.querySelector('input[name=charitable]:checked');
   price = price ? price.value : '';
   ctick = ctick ? ctick.checked : '';
   charitable = charitable ? charitable.value : '';
 
-  var num = 20;
-  if (price === 'twfy-5k') {
-    num = 50;
-  } else if (price === 'twfy-10k') {
-    num = 100;
-  } else if (price === 'twfy-0k') {
-    num = 300;
-  }
+  var num = pricing.dataset[price] || 20;
   if (ctick) {
     if (charitable === 'c' || charitable === 'i') {
       if (num === 20) {

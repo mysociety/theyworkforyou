@@ -14,7 +14,7 @@ class TestStripe extends Stripe {
                 'items' => [ 'data' => [ [
                     'price' => [
                         'unit_amount' => '2000',
-                        'id' => 'twfy-1k',
+                        'id' => 'price_12',
                         'nickname' => 'Some calls per month',
                         'interval' => 'month',
                     ],
