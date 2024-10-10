@@ -61,6 +61,7 @@ class Alert {
                 'raw' => $row['criteria'],
                 'keywords' => [],
                 'exclusions' => [],
+                'sections' => [],
             ];
 
             $alert = array_merge($alert, $parts);

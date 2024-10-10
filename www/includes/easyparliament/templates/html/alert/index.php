@@ -342,7 +342,9 @@
                         </dl>
                     </div>
 
+                    <?php if ($alert["keywords"] or $alert["exclusions"] or $alert["sections"] or array_key_exists('spokenby', $alert)) { ?>
                     <hr>
+                    <?php } ?>
 
                     <?php if ($alert["keywords"]) { ?>
                     <div class="keyword-list alert-page-subsection">
@@ -376,6 +378,7 @@
                     </div>
                     <?php } ?>
 
+                    <?php if ($alert['sections']) { ?>
                     <div class="keyword-list alert-page-subsection">
                       <h3 class="display-none"><label for="sections">Which section should this alert apply to?</label></h3>
                       <select name="sections" id="sections" class="display-none">
@@ -385,10 +388,13 @@
                       </select>
                       <h3 class="heading-with-bold-word">Which <span class="bold">section</span> should this alert apply to:</h3>
                       <ul>
-                        <li class="label label--red">All sections
+                        <?php foreach ($alert["sections_verbose"] as $section) { ?>
+                        <li class="label label--red"><?= _htmlspecialchars($section) ?>
                           <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                        <?php } ?>
                       </ul>
                     </div>
+                    <?php } ?>
 
                     <!-- Only to be displayed if there is a person in this query -->
 
