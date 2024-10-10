@@ -47,13 +47,9 @@ class Scotland extends Base {
 
     protected function getRegionalList() {
         global $THEUSER;
-
-        $mreg = [];
-
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            return Member::getRegionalList($THEUSER->postcode, 4, 'SPE');
+            return \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 4, 'SPE');
         }
-
-        return $mreg;
+        return [];
     }
 }
