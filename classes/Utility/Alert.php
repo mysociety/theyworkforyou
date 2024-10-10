@@ -9,6 +9,16 @@ namespace MySociety\TheyWorkForYou\Utility;
  */
 
 class Alert {
+    #XXX don't calculate this every time
+    private static function sectionToTitle($section) {
+        global $hansardmajors;
+        $section_map = [];
+        foreach ($hansardmajors as $major => $details) {
+            $section_map[$details["page_all"]] = $details["title"];
+        }
+
+        return $section_map[$section];
+    }
     public static function detailsToCriteria($details) {
         $criteria = [];
 
@@ -67,10 +77,15 @@ class Alert {
             $criteria = explode(' ', $alert_criteria);
             $parts = [];
             $words = [];
+            $sections = [];
+            $sections_verbose = [];
             $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
 
             foreach ($criteria as $c) {
-                if (!preg_match('#^speaker:(\d+)#', $c, $m)) {
+                if (preg_match('#^section:(\w+)#', $c, $m)) {
+                    $sections[] = $m[1];
+                    $sections_verbose[] = self::sectionToTitle($m[1]);
+                } elseif (!preg_match('#^speaker:(\d+)#', $c, $m)) {
                     $words[] = $c;
                 }
             }
@@ -84,6 +99,12 @@ class Alert {
             } elseif ($spokenby) {
                 $text = implode(' or ', $spokenby) . " speaks";
                 $parts['spokenby'] = $spokenby;
+            }
+
+            if ($sections) {
+                $text = $text . " in " . implode(' or ', $sections_verbose);
+                $parts['sections'] = $sections;
+                $parts['sections_verbose'] = $sections_verbose;
             }
         }
         if ($as_parts) {
