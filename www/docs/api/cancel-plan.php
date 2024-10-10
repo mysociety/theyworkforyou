@@ -19,6 +19,9 @@ if (get_http_var('cancel')) {
         exit;
     }
 
+    if ($subscription->stripe->schedule) {
+        \Stripe\SubscriptionSchedule::release($subscription->stripe->schedule);
+    }
     \Stripe\Subscription::update($subscription->stripe->id, ['cancel_at_period_end' => true]);
     redirect('/api/key?cancelled=1');
 }
