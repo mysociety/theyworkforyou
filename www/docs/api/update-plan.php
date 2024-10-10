@@ -11,7 +11,7 @@ $subscription = new MySociety\TheyWorkForYou\Subscription($THEUSER);
 $errors = [];
 
 MySociety\TheyWorkForYou\Utility\Session::start();
-if (get_http_var('plan')) {
+if (get_http_var('price')) {
     if (!Volnix\CSRF\CSRF::validate($_POST)) {
         print 'CSRF validation failure!';
         exit;
