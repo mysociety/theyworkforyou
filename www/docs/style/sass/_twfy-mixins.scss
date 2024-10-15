@@ -274,19 +274,12 @@ button {
     }
 }
 
-.button--negative {
-  background-color: $colour_pale_red;
-  &:hover {
-      background-color: darken($colour_pale_red, 10%);
-  }
-}
-x
-.button--red {
-    background-color: red;
+.button--red, .button--negative {
+    background-color: $color_red;
     &:hover {
-        background-color: darken($colour_pale_red, 10%);
+        background-color: darken($color_red, 10%);
     }
-  }
+}
 
 .button--disabled,
 .button--disabled:hover {
