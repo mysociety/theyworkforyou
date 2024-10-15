@@ -282,7 +282,7 @@
             </div>
 
             <div class="alert-section__primary">
-
+            <?php include 'alert-mockup.php'; ?>
               <?php if ($pid) { ?>
                 <h3>
                     <?php
