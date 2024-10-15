@@ -15,12 +15,12 @@ $stripe = $subscription->stripe;
         Sorry, your card has been declined. Perhaps you can try another?
     </div>
 
-    <?php if ($subscription->stripe->plan) { ?>
-        <p>You are subscribing to <strong><?= $subscription->stripe->plan->nickname ?></strong>,
+    <?php if ($subscription->stripe->price) { ?>
+        <p>You are subscribing to <strong><?= $subscription->stripe->price->nickname ?></strong>,
 
-        costing £<?= $subscription->actual_paid ?>/<?= $subscription->stripe->plan->interval ?>.
+        costing £<?= $subscription->actual_paid ?>/<?= $subscription->stripe->price->interval ?>.
         <?php if ($subscription->stripe->discount) { ?>
-            (£<?= $subscription->stripe->plan->amount ?>/<?= $subscription->stripe->plan->interval ?> with
+            (£<?= $subscription->stripe->price->unit_amount ?>/<?= $subscription->stripe->price->interval ?> with
             <?= $subscription->stripe->discount->coupon->percent_off ?>% discount applied.)
         <?php } ?>
         </p>

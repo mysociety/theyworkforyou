@@ -17,7 +17,7 @@ if ($subscription->upcoming) {
         <?php if ($quota_status['blocked']) { ?>
           <?php if ($quota_status['quota'] > 0 && $quota_status['count'] > $quota_status['quota']) { ?>
             <p class="attention-box warning">
-                You have used up your quota for the <?= $subscription->stripe->plan->interval ?>.
+                You have used up your quota for the <?= $subscription->stripe->price->interval ?>.
                 Please <a href="/api/update-plan">upgrade</a>
                 or <a href="/contact/">contact us</a>.
             </p>
@@ -29,19 +29,19 @@ if ($subscription->upcoming) {
           <?php } ?>
         <?php } ?>
 
-        <?php if ($subscription->stripe->plan) { ?>
+        <?php if ($subscription->stripe->price) { ?>
 
-            <p>Your current plan is <strong><?= $subscription->stripe->plan->nickname ?></strong>.</p>
+            <p>Your current plan is <strong><?= $subscription->stripe->price->nickname ?></strong>.</p>
 
-            <p>It costs you £<?= $subscription->actual_paid ?>/<?= $subscription->stripe->plan->interval ?>.
+            <p>It costs you £<?= $subscription->actual_paid ?>/<?= $subscription->stripe->price->interval ?>.
             <?php if ($subscription->stripe->discount) { ?>
-                (£<?= $subscription->stripe->plan->amount ?>/<?= $subscription->stripe->plan->interval ?> with
+                (£<?= $subscription->stripe->price->unit_amount ?>/<?= $subscription->stripe->price->interval ?> with
                 <?= $subscription->stripe->discount->coupon->percent_off ?>% discount applied.)
             <?php } ?>
             </p>
 
-            <?php if ($subscription->stripe->schedule->phases[1] && $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname != $subscription->stripe->plan->nickname) { ?>
-                 <p>You are switching to <strong><?php $subscription->stripe->schedule->phases[1]->items[0]->plan->nickname ?></strong> at the end of your current period.</p>
+            <?php if ($subscription->stripe->schedule->phases[1] && $subscription->stripe->schedule->phases[1]->items[0]->price->nickname != $subscription->stripe->price->nickname) { ?>
+                 <p>You are switching to <strong><?php $subscription->stripe->schedule->phases[1]->items[0]->price->nickname ?></strong> at the end of your current period.</p>
             <?php } ?>
 
             <?php if ($subscription->stripe->discount && $subscription->stripe->discount->end) { ?>
@@ -79,7 +79,7 @@ if ($subscription->upcoming) {
             <h3>Your usage</h3>
 
             <p>
-                This <?= $subscription->stripe->plan->interval ?>:
+                This <?= $subscription->stripe->price->interval ?>:
                 <?= number_format($quota_status['count']) ?>
               <?php if ($quota_status['quota'] > 0) { ?>
                 out of <?= number_format($quota_status['quota']) ?>

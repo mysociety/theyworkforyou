@@ -197,6 +197,16 @@ define('STRIPE_SECRET_KEY', '');
 define('STRIPE_ENDPOINT_SECRET', '');
 define('STRIPE_API_VERSION', '');
 define('STRIPE_TAX_RATE', '');
+
+define('PRICING_TIER_1_ID', 'price_12');
+define('PRICING_TIER_2_ID', 'price_34');
+define('PRICING_TIER_3_ID', 'price_56');
+define('PRICING_TIER_4_ID', 'price_78');
+define('PRICING_TIER_1_AMOUNT', '20');
+define('PRICING_TIER_2_AMOUNT', '50');
+define('PRICING_TIER_3_AMOUNT', '100');
+define('PRICING_TIER_4_AMOUNT', '300');
+
 define('REDIS_DB_HOST', 'localhost');
 define('REDIS_DB_PORT', '6379');
 define('REDIS_DB_NUMBER', '0');
