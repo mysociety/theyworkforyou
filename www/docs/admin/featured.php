@@ -114,7 +114,7 @@ function preview_featured() {
 
     print "<h2>Preview Content</h2>";
     if ($gid !== null) {
-        $h = new MySociety\TheyWorkForYou\Homepage();
+        $h = new MySociety\TheyWorkForYou\Homepage\UK();
         $featured = $h->getFeaturedDebate($gid, $title, $context, [ $related_gid1, $related_gid2, $related_gid3 ]);
 
         include INCLUDESPATH . 'easyparliament/templates/html/homepage/featured.php';

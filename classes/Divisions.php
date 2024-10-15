@@ -171,6 +171,7 @@ class Divisions {
                 'url' => $url->generate() . $anchor,
                 'title' => "$debate[section_body] : $debate[subsection_body]",
                 'date' => $debate['hdate'],
+                'major' => $debate['major'],
             ];
         }
 
