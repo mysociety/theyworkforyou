@@ -221,6 +221,16 @@ $page =  [
         'title'			=> 'Email Alerts',
         'url'			=> 'alert/',
     ],
+    'alertnew' =>  [
+        'menu'			=>  [
+            'text'			=> 'Email Alerts',
+            'title'			=> "Set up alerts for updates on an MP or Peer by email",
+            'sidebar'		=> 'alert',
+
+        ],
+        'title'			=> 'TheyWorkForYou Email Alerts',
+        'url'			=> 'alert/new/',
+    ],
 
     // End of ALERTS additions
 
