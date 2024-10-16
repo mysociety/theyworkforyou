@@ -552,8 +552,6 @@
                 </h3>
               <?php } elseif ($alertsearch) { ?>
                 <h3><?= gettext('Not quite right? Search again to refine your email alert.') ?></h3>
-              <?php } else { ?>
-                <h3><?= gettext('Request a new TheyWorkForYou email alert') ?></h3>
               <?php } ?>
 
               <a name="new_alert"></a>

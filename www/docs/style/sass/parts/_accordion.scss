@@ -183,15 +183,6 @@ button {
     }
 }
 
-// FORM
-.alert-step {
-    display: none;
-}
-
-.alert-step.active {
-    display: block;
-}
-
 #create-alert-form {
     label {
         color: $body-font-color;
