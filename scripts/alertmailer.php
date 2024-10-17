@@ -141,9 +141,9 @@ $sects_plural = [
     9 => gettext('London Mayoral questions'),
     10 => gettext('Senedd debates'),
     11 => gettext('Senedd debates'),
-    101 => gettext('Lords debate'),
-    'F' => gettext('event'),
-    'V' => gettext('vote'),
+    101 => gettext('Lords debates'),
+    'F' => gettext('events'),
+    'V' => gettext('votes'),
 ];
 $sects_gid = [
     1 => 'debate',
