@@ -57,7 +57,7 @@ Start a new codespace on Github by selecting the Code dropdown (top right), and 
 
 You can also use the badge above to use a prebuild with a basic amount of data.
 
-This will setup the Docker container and environment. Once finished, the link to the site should be avaliable in the ports tab of the terminal panel. 
+This will setup the Docker container and environment. Once finished, the link to the site should be available in the ports tab of the terminal panel. 
 
 To populate with a minimal amount of data, run `scripts/quick-populate` (about 1 hour).
 
