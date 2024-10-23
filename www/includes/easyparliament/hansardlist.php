@@ -2006,13 +2006,29 @@ class HANSARDLIST {
             $LISTURL = new \MySociety\TheyWorkForYou\Url('wrans');
         }
 
+        # From search results we are called as a bare HANSARDLIST
+        # so do not have $this->url available to us.
+        if ($id_data['major'] == 6) {
+            global $DATA;
+            $minor = $id_data['minor'];
+            if (isset($this->bill_lookup[$minor])) {
+                [$title, $session] = $this->bill_lookup[$minor];
+            } else {
+                $qq = $this->db->query('select title, session from bills where id=' . $minor)->first();
+                $title = $qq['title'];
+                $session = $qq['session'];
+                $this->bill_lookup[$minor] = [$title, $session];
+            }
+            $title = str_replace(' ', '_', $title);
+            $pbc_url = 'pbc/' . urlencode($session) . '/' . urlencode($title);
+        }
+
         $fragment = '';
 
         if ($id_data['htype'] == '11' || $id_data['htype'] == '10') {
-            if ($this->major == 6) {
+            if ($id_data['major'] == 6) {
                 $id = preg_replace('#^.*?_.*?_#', '', $id_data['gid']);
-                global $DATA;
-                $DATA->set_page_metadata('pbc_clause', 'url', 'pbc/' . $this->url . $id);
+                $DATA->set_page_metadata('pbc_clause', 'url', "$pbc_url/$id");
                 $LISTURL->remove(['id']);
             } else {
                 $LISTURL->insert([ 'id' => $id_data['gid'] ]);
@@ -2023,7 +2039,6 @@ class HANSARDLIST {
             // We use this with the gid of the item itself as an #anchor.
 
             $parent_epobject_id = $id_data['subsection_id'];
-            $minor = $id_data['minor'];
 
             // Find the gid of this item's (sub)section.
             $parent_gid = '';
@@ -2056,18 +2071,8 @@ class HANSARDLIST {
             if ($parent_gid != '') {
                 // We have a gid so add to the URL.
                 if ($id_data['major'] == 6) {
-                    if (isset($this->bill_lookup[$minor])) {
-                        [$title, $session] = $this->bill_lookup[$minor];
-                    } else {
-                        $qq = $this->db->query('select title, session from bills where id=' . $minor)->first();
-                        $title = $qq['title'];
-                        $session = $qq['session'];
-                        $this->bill_lookup[$minor] = [$title, $session];
-                    }
-                    $url = "$session/" . urlencode(str_replace(' ', '_', $title));
                     $parent_gid = preg_replace('#^.*?_.*?_#', '', $parent_gid);
-                    global $DATA;
-                    $DATA->set_page_metadata('pbc_clause', 'url', "pbc/$url/$parent_gid");
+                    $DATA->set_page_metadata('pbc_clause', 'url', "$pbc_url/$parent_gid");
                     $LISTURL->remove(['id']);
                 } else {
                     $LISTURL->insert([ 'id' => $parent_gid ]);
