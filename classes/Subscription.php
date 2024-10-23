@@ -11,8 +11,8 @@ class Subscription {
     public $upcoming;
     public $has_payment_data = false;
 
-    private static $plans = ['twfy-1k', 'twfy-5k', 'twfy-10k', 'twfy-0k'];
-    private static $prices = [2000, 5000, 10000, 30000];
+    private static $prices = [PRICING_TIER_1_ID, PRICING_TIER_2_ID, PRICING_TIER_3_ID, PRICING_TIER_4_ID];
+    private static $amounts = [PRICING_TIER_1_AMOUNT, PRICING_TIER_2_AMOUNT, PRICING_TIER_3_AMOUNT, PRICING_TIER_4_AMOUNT];
 
     public function __construct($arg) {
         # User ID
@@ -63,9 +63,10 @@ class Subscription {
                     'customer.default_source',
                     'customer.invoice_settings.default_payment_method',
                     'latest_invoice.payment_intent',
-                    'schedule.phases.items.plan',
+                    'schedule.phases.items.price',
                 ],
             ]);
+            $this->stripe->price = $this->stripe->items->data[0]->price;
         } catch (\Stripe\Exception\InvalidRequestException $e) {
             $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
             $this->delete_from_redis();
@@ -82,12 +83,12 @@ class Subscription {
         $data = $this->stripe;
         if ($data->discount && $data->discount->coupon && $data->discount->coupon->percent_off) {
             $this->actual_paid = add_vat(floor(
-                $data->plan->amount * (100 - $data->discount->coupon->percent_off) / 100
+                $data->price->unit_amount * (100 - $data->discount->coupon->percent_off) / 100
             ));
-            $data->plan->amount = add_vat($data->plan->amount);
+            $data->price->unit_amount = add_vat($data->price->unit_amount);
         } else {
-            $data->plan->amount = add_vat($data->plan->amount);
-            $this->actual_paid = $data->plan->amount;
+            $data->price->unit_amount = add_vat($data->price->unit_amount);
+            $this->actual_paid = $data->price->unit_amount;
         }
 
         try {
@@ -101,17 +102,17 @@ class Subscription {
             $this->update_payment_method($form_data['payment_method']);
         }
 
-        foreach ($this::$plans as $i => $plan) {
-            if ($plan == $form_data['plan']) {
-                $new_price = $this::$prices[$i];
+        foreach ($this::$prices as $i => $price) {
+            if ($price == $form_data['price']) {
+                $new_price = $this::$amounts[$i] * 100;
                 if ($form_data['coupon'] == 'charitable100') {
                     $new_price = 0;
                 } elseif ($form_data['coupon'] == 'charitable50') {
                     $new_price /= 2;
                 }
             }
-            if ($plan == $this->stripe->plan->id) {
-                $old_price = $this::$prices[$i];
+            if ($price == $this->stripe->price->id) {
+                $old_price = $this::$amounts[$i] * 100;
                 if ($this->stripe->discount && ($coupon = $this->stripe->discount->coupon)) {
                     if ($coupon->percent_off == 100) {
                         $old_price = 0;
@@ -136,7 +137,7 @@ class Subscription {
                     'default_tax_rates' => [STRIPE_TAX_RATE],
                 ],
                 [
-                    'items' => [['price' => $form_data['plan']]],
+                    'items' => [['price' => $form_data['price']]],
                     'iterations' => 1,
                     'metadata' => $form_data['metadata'],
                     'proration_behavior' => 'none',
@@ -155,7 +156,7 @@ class Subscription {
         if ($old_price < $new_price) {
             $args = [
                 'payment_behavior' => 'allow_incomplete',
-                'plan' => $form_data['plan'],
+                'items' => [['price' => $form_data['price']]],
                 'metadata' => $form_data['metadata'],
                 'cancel_at_period_end' => false, # Needed in Stripe 2018-02-28
                 'proration_behavior' => 'always_invoice',
@@ -212,7 +213,7 @@ class Subscription {
 
         $customer = $obj->id;
 
-        if (!$form_data['stripeToken'] && !($form_data['plan'] == $this::$plans[0] && $form_data['coupon'] == 'charitable100')) {
+        if (!$form_data['stripeToken'] && !($form_data['price'] == $this::$prices[0] && $form_data['coupon'] == 'charitable100')) {
             exit(1); # Should never reach here!
         }
 
@@ -221,7 +222,7 @@ class Subscription {
             'expand' => ['latest_invoice.payment_intent'],
             'default_tax_rates' => [STRIPE_TAX_RATE],
             'customer' => $customer,
-            'plan' => $form_data['plan'],
+            'items' => [['price' => $form_data['price']]],
             'coupon' => $form_data['coupon'],
             'metadata' => $form_data['metadata'],
         ]);
@@ -243,21 +244,21 @@ class Subscription {
     }
 
     private function getFields() {
-        $fields = ['plan', 'charitable_tick', 'charitable', 'charity_number', 'description', 'tandcs_tick', 'stripeToken', 'payment_method'];
+        $fields = ['price', 'charitable_tick', 'charitable', 'charity_number', 'description', 'tandcs_tick', 'stripeToken', 'payment_method'];
         $this->form_data = [];
         foreach ($fields as $field) {
             $this->form_data[$field] = get_http_var($field);
         }
     }
 
-    private function checkValidPlan() {
-        return ($this->form_data['plan'] && in_array($this->form_data['plan'], $this::$plans));
+    private function checkValidPrice() {
+        return ($this->form_data['price'] && in_array($this->form_data['price'], $this::$prices));
     }
 
     private function checkPaymentGivenIfNeeded() {
         $payment_data = $this->form_data['stripeToken'] || $this->form_data['payment_method'];
         return ($this->has_payment_data || $payment_data || (
-            $this->form_data['plan'] == $this::$plans[0]
+            $this->form_data['price'] == $this::$prices[0]
                 && in_array($this->form_data['charitable'], ['c', 'i'])
         ));
     }
@@ -271,7 +272,7 @@ class Subscription {
             $form_data['charitable'] = '';
         }
 
-        if (!$this->checkValidPlan()) {
+        if (!$this->checkValidPrice()) {
             $errors[] = 'Please pick a plan';
         }
 
@@ -306,7 +307,7 @@ class Subscription {
         $form_data['coupon'] = null;
         if (in_array($form_data['charitable'], ['c', 'i'])) {
             $form_data['coupon'] = 'charitable50';
-            if ($form_data['plan'] == $this::$plans[0]) {
+            if ($form_data['price'] == $this::$prices[0]) {
                 $form_data['coupon'] = 'charitable100';
             }
         }
@@ -324,9 +325,8 @@ class Subscription {
         }
     }
 
-    public function redis_update_max($plan) {
-        preg_match('#^twfy-(\d+)k#', $plan, $m);
-        $max = $m[1] * 1000;
+    public function redis_update_max($price) {
+        $max = $price->metadata['calls'];
         $this->redis->set("$this->redis_prefix:max", $max);
         $this->redis->del("$this->redis_prefix:blocked");
     }

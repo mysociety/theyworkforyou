@@ -358,7 +358,7 @@ $data['has_email_alerts'] = ($MEMBER->current_member_anywhere() && !($MEMBER->cu
 $data['has_expenses'] = $data['leave_date'] > '2004-01-01';
 
 $data['pre_2010_expenses'] = false;
-$data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05' ? $MEMBER->extra_info['datadotparl_id'] : '';
+$data['post_2010_expenses'] = $data['leave_date'] > '2010-05-05' ? ($MEMBER->extra_info['datadotparl_id'] ?? '') : '';
 
 if ($data['entry_date'] < '2010-05-05') {
     $data['pre_2010_expenses'] = true;
