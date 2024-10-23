@@ -27,6 +27,7 @@
                                 include dirname(__FILE__) . '/../homepage/recent-debates.php';
                             }
 ?></ul>
+                        <?php include dirname(__FILE__) . '/../homepage/recent-votes.php'; ?>
                     </div>
                     <div class="homepage-upcoming homepage-content-section">
                         <h2><?= gettext('What is the Senedd?') ?></h2>
