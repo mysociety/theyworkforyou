@@ -1143,6 +1143,7 @@ class HANSARDLIST {
                 $itemdata['extract']        = $body;
                 $itemdata['listurl']        = '/calendar/?d=' . $itemdata['event_date'] . '#cal' . $itemdata['id'];
                 $itemdata['major']          = 'F';
+                $itemdata['hdate']          = $itemdata['event_date'];
 
             } else {
 
