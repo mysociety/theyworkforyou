@@ -1508,6 +1508,7 @@ sub add_standing_day {
         'bill' => sub {
             $bill = strip_string($_->att('title'));
             $bill_id = add_bill($bill, $_);
+            $bill = HTML::Entities::encode_entities($bill); # attributes aren't encoded automatically
             $majorheadingstate = 1; # Got a <bill>
         },
         'committee' => sub {
