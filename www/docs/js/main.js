@@ -464,35 +464,6 @@ document.addEventListener('DOMContentLoaded', function() {
   createAccordion('.accordion-button', '.accordion-content');
 });
 
-// Create alert form
-$(document).ready(function() {
-  let currentStep = 0;
-  let steps = $(".alert-step");
-
-  // Show the first step
-  $(steps[currentStep]).show();
-
-  // Focus management: Set focus to the first input on each step change
-  function focusFirstInput(stepIndex) {
-    $(steps[stepIndex]).find('input, button').first().focus();
-  }
-
-  // Next button click
-  $(".next").click(function() {
-    $(steps[currentStep]).hide();
-    currentStep++;
-    $(steps[currentStep]).show();
-    focusFirstInput(currentStep); // Set focus to the first input of the new step
-  });
-
-  // Previous button click
-  $(".prev").click(function() {
-    $(steps[currentStep]).hide();
-    currentStep--;
-    $(steps[currentStep]).show();
-    focusFirstInput(currentStep); // Set focus to the first input of the new step
-  });
-});
 
 $(function() {
 

@@ -76,6 +76,10 @@
 
     .alert-controller-wrapper {
         margin-bottom: 2rem;
+        form {
+            display: inline;
+        }
+
         button {
             margin-bottom: 0;
             span {
@@ -111,6 +115,12 @@
 
     select {
         max-width: 350px;
+    }
+}
+
+.alert-page-alert-controls {
+    form {
+        display: inline;
     }
 }
 
@@ -174,6 +184,11 @@ button {
 
 }
 
+.alert-page-option-label {
+    display: inline;
+    margin-left: 0.5em;
+}
+
 .button.red {
     background-color: $color-red;
     color: #fff;
@@ -181,15 +196,6 @@ button {
     &:hover {
         background-color: darken($color-red, 15%);
     }
-}
-
-// FORM
-.alert-step {
-    display: none;
-}
-
-.alert-step.active {
-    display: block;
 }
 
 #create-alert-form {

@@ -10,12 +10,23 @@ namespace MySociety\TheyWorkForYou\Utility;
 
 class Alert {
     #XXX don't calculate this every time
-    private static function sectionToTitle($section) {
-        global $hansardmajors;
-        $section_map = [];
-        foreach ($hansardmajors as $major => $details) {
-            $section_map[$details["page_all"]] = $details["title"];
-        }
+    public static function sectionToTitle($section) {
+        $section_map = [
+            "uk" => gettext('All UK'),
+            "debates" => gettext('House of Commons debates'),
+            "whalls" => gettext('Westminster Hall debates'),
+            "lords" => gettext('House of Lords debates'),
+            "wrans" => gettext('Written answers'),
+            "wms" => gettext('Written ministerial statements'),
+            "standing" => gettext('Bill Committees'),
+            "future" => gettext('Future Business'),
+            "ni" => gettext('Northern Ireland Assembly Debates'),
+            "scotland" => gettext('All Scotland'),
+            "sp" => gettext('Scottish Parliament Debates'),
+            "spwrans" => gettext('Scottish Parliament Written answers'),
+            "wales" => gettext('Welsh parliament record'),
+            "lmqs" => gettext('Questions to the Mayor of London'),
+        ];
 
         return $section_map[$section];
     }
@@ -28,6 +39,10 @@ class Alert {
 
         if (!empty($details['pid'])) {
             $criteria[] = 'speaker:' . $details['pid'];
+        }
+
+        if (!empty($details['search_section'])) {
+            $criteria[] = 'section:' . $details['search_section'];
         }
 
         $criteria = join(' ', $criteria);
@@ -74,10 +89,23 @@ class Alert {
 
     public static function prettifyCriteria($alert_criteria, $as_parts = false) {
         $text = '';
+        $parts = ['words' => [], 'sections' => [], 'exclusions' => []];
         if ($alert_criteria) {
-            $criteria = explode(' ', $alert_criteria);
-            $parts = [];
+            # check for phrases
+            if (strpos($alert_criteria, '"') !== false) {
+                # match phrases
+                preg_match_all('/"([^"]*)"/', $alert_criteria, $phrases);
+                # and then remove them from the criteria
+                $alert_criteria = trim(preg_replace('/ +/', ' ', str_replace($phrases[0], "", $alert_criteria)));
+
+                # and then create an array with the words and phrases
+                $criteria = explode(' ', $alert_criteria);
+                $criteria = array_merge($criteria, $phrases[1]);
+            } else {
+                $criteria = explode(' ', $alert_criteria);
+            }
             $words = [];
+            $exclusions = [];
             $sections = [];
             $sections_verbose = [];
             $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
@@ -86,6 +114,8 @@ class Alert {
                 if (preg_match('#^section:(\w+)#', $c, $m)) {
                     $sections[] = $m[1];
                     $sections_verbose[] = self::sectionToTitle($m[1]);
+                } elseif (strpos($c, '-') === 0) {
+                    $exclusions[] = str_replace('-', '', $c);
                 } elseif (!preg_match('#^speaker:(\d+)#', $c, $m)) {
                     $words[] = $c;
                 }
@@ -107,6 +137,8 @@ class Alert {
                 $parts['sections'] = $sections;
                 $parts['sections_verbose'] = $sections_verbose;
             }
+
+            $parts['exclusions'] = $exclusions;
         }
         if ($as_parts) {
             return $parts;
