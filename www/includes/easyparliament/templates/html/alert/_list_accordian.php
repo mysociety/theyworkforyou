@@ -38,6 +38,7 @@
                           </form>
                           <form action="<?= $actionurl ?>" method="POST">
                             <input type="hidden" name="step" value="define">
+                            <input type="hidden" name="shown_related" value="1">
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                             <button type="submit" class="button small" value="Edit">
                               <span><?= gettext('Edit alert') ?></span>
@@ -199,6 +200,7 @@
                             </form>
                             <form action="<?= $actionurl ?>" method="POST">
                               <input type="hidden" name="step" value="define">
+                              <input type="hidden" name="shown_related" value="1">
                               <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                               <button type="submit" class="button small" value="Edit">
                                 <span><?= gettext('Edit alert') ?></span>

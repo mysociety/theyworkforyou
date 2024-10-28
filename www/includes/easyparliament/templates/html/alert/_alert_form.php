@@ -105,9 +105,12 @@
                     </div>
                   <?php } elseif ($step == "add_vector_related") { ?>
 
-                    <?php foreach ($keywords as $word) { ?>
-                    <input type="hidden" name="words[]" value="<?= $word ?>">
-                    <?php } ?>
+                    <input type="hidden" name="shown_related" value="1">
+                    <?php foreach ($keywords as $word) {
+                        if (!in_array($word, $skip_keyword_terms)) { ?>
+                      <input type="hidden" name="words[]" value="<?= _htmlspecialchars($word) ?>">
+                    <?php }
+                        } ?>
                     <input type="hidden" name="this_step" value="add_vector_related">
                     <input type="hidden" name="keyword" value="<?= _htmlspecialchars($keyword) ?>">
                     <input type="hidden" name="exclusions" value="<?= _htmlspecialchars($exclusions) ?>">
@@ -115,35 +118,47 @@
                     <input type="hidden" name="search_section" value="<?= _htmlspecialchars($search_section) ?>">
                     <input type="hidden" name="email" id="email" value="<?= _htmlentities($email) ?>">
                     <div class="alert-step" id="step2" role="region" aria-labelledby="step2-header">
-                      <h2 id="step2-header">Adding some extras</h2>
+                    <h2 id="step2-header"><?= gettext('Adding some extras') ?></h2>
                       <div class="keyword-list alert-page-subsection">
-                        <h3 class="heading-with-bold-word">Current keywords in this alert:</h3>
+                      <h3 class="heading-with-bold-word"><?= gettext('Current keywords in this alert:') ?></h3>
                         <ul>
-                          <?php foreach ($keywords as $word) { ?>
-                          <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
-                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
-                          <?php } ?>
+                          <?php foreach ($keywords as $word) {
+                              if (!in_array($word, $skip_keyword_terms)) { ?>
+                              <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
+                              <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                          <?php }
+                              } ?>
                         </ul>
-                        <div class="add-remove-tool">
-                          <input type="text" placeholder="e.g.'freedom of information'">
-                          <button type="submit" class="prefix"><?= gettext('Add') ?></button>
-                        </div>
                       </div>
+
+                      <p><?= gettext('We have also found the following related terms. Pick the ones you’d like to include alert?') ?></p>
+
+                      <fieldset>
+                        <legend><?= gettext('Related Terms') ?></legend>
+                        <div>
+                        <?php foreach ($suggestions as $suggestion) { ?>
+                          <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
+                          <label><input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>"<?= in_array($suggestion, $selected_related_terms) ? ' checked' : '' ?>><?= _htmlspecialchars($suggestion) ?></label><br>
+                        <?php } ?>
+                          <label><input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>><?= gettext('Add all related terms') ?></label>
+                        </div>
+                      </fieldset>
 
                       <dl class="alert-meta-info">
                         <?php if ($search_result_count > 0) { ?>
                           <div class="content-header-item">
-                            <dt>This week</dt>
-                            <dd><?= $search_result_count ?> mentions</dd>
+                            <dt><?= gettext('This week') ?></dt>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
                           </div>
                         <?php } ?>
 
-                        <div class="content-header-item">
-                          <dt>Date of last mention</dt>
-                          <dd>30 May 2024</dd>
-                        </div>
+                        <?php if (isset($lastmention)) { ?>
+                          <div class="content-header-item">
+                          <dt><?= gettext('Date of last mention') ?></dt>
+                            <dd>30 May 2024</dd>
+                          </div>
+                        <?php } ?>
 
-                        <!-- Takes you to the result page of this query -->
                         <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" class="button small"><?= gettext('See results for this alert') ?></a>
                       </dl>
 
@@ -152,9 +167,15 @@
                     </div>
                   <?php } elseif ($step == "review") { ?>
 
-                    <?php foreach ($keywords as $word) { ?>
+                    <?php foreach ($keywords as $word) {
+                        if (!in_array($word, $skip_keyword_terms)) { ?>
                       <input type="hidden" name="words[]" value="<?= _htmlspecialchars($word) ?>">
+                    <?php }
+                        } ?>
+                    <?php foreach ($selected_related_terms as $word) { ?>
+                      <input type="hidden" name="selected_related_terms[]" value="<?= _htmlspecialchars($word) ?>">
                     <?php } ?>
+                    <input type="hidden" name="add_all_related" value="<?= $add_all_related ?>">
                     <input type="hidden" name="this_step" value="review">
                     <input type="hidden" name="keyword" value="<?= _htmlspecialchars($keyword) ?>">
                     <input type="hidden" name="exclusions" value="<?= _htmlspecialchars($exclusions) ?>">

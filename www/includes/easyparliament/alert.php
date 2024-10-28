@@ -104,6 +104,22 @@ class ALERT {
         return $data;
     }
 
+    public function get_related_terms($term) {
+        $q = $this->db->query("SELECT
+            search_suggestion
+            FROM vector_search_suggestions
+            WHERE search_term = :term", [
+            ':term' => $term,
+        ]);
+
+        $data = $q->fetchAll();
+        $related = [];
+        foreach ($data as $d) {
+            $related[] = $d['search_suggestion'];
+        }
+        return $related;
+    }
+
     public function update($id, $details) {
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
 
