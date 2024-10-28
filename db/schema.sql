@@ -214,6 +214,12 @@ CREATE TABLE `postcode_lookup` (
   PRIMARY KEY  (`postcode`)
 );
 
+CREATE TABLE `vector_search_suggestions` (
+  `search_term` varchar(100) NOT NULL default '',
+  `search_suggestion` varchar(100) NOT NULL default '',
+  KEY `search_term` (`search_term`)
+);
+
 -- each time we index, we increment the batch number;
 -- can use this to speed up search
 CREATE TABLE `indexbatch` (
