@@ -46,6 +46,11 @@
                       </div>
 
                       <div class="alert-page-subsection">
+                        <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
+                        <input type="checkbox" id="match_all" name="match_all"<?= $match_all ? ' checked' : ''?>>
+                      </div>
+
+                      <div class="alert-page-subsection">
                         <label for="exclusions"><?= gettext('Is there anything you would not like to recieve alerts about? (optional)') ?></label>
                         <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. 'Freedom of Information', 'FOI'">
                       </div>
@@ -117,6 +122,7 @@
                     <input type="hidden" name="representative" value="<?= _htmlspecialchars($representative) ?>">
                     <input type="hidden" name="search_section" value="<?= _htmlspecialchars($search_section) ?>">
                     <input type="hidden" name="email" id="email" value="<?= _htmlentities($email) ?>">
+                    <input type="hidden" name="match_all" value="<?= $match_all ? 'on' : ''?>">
                     <div class="alert-step" id="step2" role="region" aria-labelledby="step2-header">
                     <h2 id="step2-header"><?= gettext('Adding some extras') ?></h2>
                       <div class="keyword-list alert-page-subsection">
@@ -182,12 +188,17 @@
                     <input type="hidden" name="representative" value="<?= _htmlspecialchars($representative) ?>">
                     <input type="hidden" name="search_section" value="<?= _htmlspecialchars($search_section) ?>">
                     <input type="hidden" name="email" id="email" value="<?= _htmlentities($email) ?>">
+                    <input type="hidden" name="match_all" value="<?= $match_all ? 'on' : ''?>">
                     <!-- Step 4 (Review) -->
                     <div class="alert-step" id="step3" role="region" aria-labelledby="step3-header">
                       <h2 id="step3-header"><?= gettext('Review Your Alert') ?></h2>
 
                       <div class="keyword-list alert-page-subsection">
-                        <h3 class="heading-with-bold-word"><?= gettext('You will get an alert if any of these words are in a speech') ?>:</h3>
+                        <?php if ($match_all) { ?>
+                          <h3 class="heading-with-bold-word"><?= gettext('You will get an alert if all of these words are in a speech') ?>:</h3>
+                        <?php } else { ?>
+                          <h3 class="heading-with-bold-word"><?= gettext('You will get an alert if any of these words are in a speech') ?>:</h3>
+                        <?php } ?>
                         <ul>
                           <?php foreach ($keywords as $word) { ?>
                           <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>

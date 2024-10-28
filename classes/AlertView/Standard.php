@@ -136,6 +136,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['addword'] = trim(get_http_var("addword"));
         $this->data['this_step'] = trim(get_http_var("this_step"));
         $this->data['shown_related'] = get_http_var('shown_related');
+        $this->data['match_all'] = get_http_var('match_all') == 'on';
 
         if ($this->data['addword'] || $this->data['step']) {
             $alert = $this->alert->check_token($this->data['token']);
@@ -157,6 +158,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $existing_section = '';
             if (count($this->data['alert_parts']['sections'])) {
                 $existing_section = $this->data['alert_parts']['sections'][0];
+            }
+
+            if ($this->data['alert_parts']['match_all']) {
+                $this->data['match_all'] = true;
             }
 
             $words = get_http_var('words', $this->data['alert_parts']['words'], true);
@@ -197,9 +202,13 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
             $this->data['search_section'] = trim(get_http_var("search_section", $existing_section));
 
-            $this->data['keyword'] = implode(' OR ', $this->data['words']);
+            $separator = ' OR ';
+            if ($this->data['match_all']) {
+                $separator = ' ';
+            }
+            $this->data['keyword'] = implode($separator, $this->data['words']);
             if ($this->data['exclusions']) {
-                $this->data['keyword'] .= " -" . $this->data["exclusions"];
+                $this->data['keyword'] = '(' . $this->data['keyword'] . ') -' . $this->data["exclusions"];
             }
 
             $this->data['results'] = '';
@@ -483,6 +492,14 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     protected function setUserData() {
         if (!isset($this->data['criteria'])) {
             $criteria = $this->data['keyword'];
+            if (!$this->data['match_all']) {
+                $has_or = strpos($criteria, ' OR ') !== false;
+                $missing_braces = strpos($criteria, '(') === false;
+
+                if ($has_or && $missing_braces) {
+                    $criteria = "($criteria)";
+                }
+            }
             if ($this->data['search_section']) {
                 $criteria .= " section:" . $this->data['search_section'];
             }

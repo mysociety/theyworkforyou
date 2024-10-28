@@ -89,10 +89,14 @@ class Alert {
 
     public static function prettifyCriteria($alert_criteria, $as_parts = false) {
         $text = '';
-        $parts = ['words' => [], 'sections' => [], 'exclusions' => []];
+        $parts = ['words' => [], 'sections' => [], 'exclusions' => [], 'match_all' => true];
         if ($alert_criteria) {
             # check for phrases
+            if (strpos($alert_criteria, ' OR ') !== false) {
+                $parts['match_all'] = false;
+            }
             $alert_criteria = str_replace(' OR ', ' ', $alert_criteria);
+            $alert_criteria = str_replace(['(', ')'], '', $alert_criteria);
             if (strpos($alert_criteria, '"') !== false) {
                 # match phrases
                 preg_match_all('/"([^"]*)"/', $alert_criteria, $phrases);
