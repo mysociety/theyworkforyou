@@ -170,10 +170,10 @@
                           </li>
                       </ul>
                     <?php } else { ?>
-                      <?php foreach ($own_member_alerts as $alert) { ?>
                         <div class="alert-page-subsection">
-                          <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?> ﹒ XXX</h3>
+                          <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?> ﹒ <?= $own_member_alerts[0]['spokenby'][0] ?></h3>
 
+                          <?php foreach ($own_member_alerts as $alert) { ?>
                           <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?></p>
                           <div class="alert-page-alert-controls">
                             <form action="<?= $actionurl ?>" method="POST">
@@ -208,8 +208,10 @@
                               </button>
                             </form>
                               <?php } ?>
+                          </div>
+                          <?php } ?>
 
-                          <?php if (!in_array(implode('', $alert['spokenby']), $all_keywords)) { ?>
+                          <?php if (!in_array(implode('', $own_member_alerts[0]['spokenby']), $all_keywords)) { ?>
                           <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
                           <form action="<?= $actionurl ?>" method="post">
                             <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
@@ -219,15 +221,14 @@
                             </button>
                           </form>
                           <?php } ?>
-                        </div>
                       </div>
-                      <?php } ?>
                     <?php } ?>
 
-                    <?php foreach ($spoken_alerts as $alert) { ?>
+                    <?php foreach ($spoken_alerts as $person_alerts) { ?>
                       <div class="alert-page-subsection">
-                        <h3 class="alert-page-subsection--heading"><?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?></h3>
+                        <h3 class="alert-page-subsection--heading"><?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?></h3>
 
+                          <?php foreach ($person_alerts as $alert) { ?>
                           <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?>
                           <div class="alert-page-alert-controls">
                             <form action="<?= $actionurl ?>" method="POST">
@@ -261,18 +262,18 @@
                               </button>
                               <?php } ?>
                             </form>
-
-                          <?php if (!in_array(implode('', $alert['spokenby']), $all_keywords)) { ?>
-                          <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
-                          <form action="<?= $actionurl ?>" method="post">
-                            <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
-                            <button type="submit" class="button small" name="action" value="Subscribe">
-                              <?= gettext('Create new alert') ?>
-                              <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                            </button>
-                          </form>
+                          </div>
                           <?php } ?>
-                        </div>
+                        <?php if (!in_array(implode('', $person_alerts[0]['spokenby']), $all_keywords)) { ?>
+                        <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
+                        <form action="<?= $actionurl ?>" method="post">
+                          <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
+                          <button type="submit" class="button small" name="action" value="Subscribe">
+                            <?= gettext('Create new alert') ?>
+                            <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                          </button>
+                        </form>
+                        <?php } ?>
                       </div>
                     <?php } ?>
                 </div>

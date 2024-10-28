@@ -539,13 +539,17 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $this->data['current_mp'] = $current_mp;
                     $own_mp_criteria = sprintf('speaker:%s', $current_mp->person_id());
                 }
+                $own_mp_criteria = $current_mp->full_name();
             }
             $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
             foreach ($this->data['alerts'] as $alert) {
                 if (array_key_exists('spokenby', $alert) and sizeof($alert['spokenby']) == 1 and $alert['spokenby'][0] == $own_mp_criteria) {
                     $this->data['own_member_alerts'][] = $alert;
                 } elseif (array_key_exists('spokenby', $alert)) {
-                    $this->data['spoken_alerts'][] = $alert;
+                    if (!array_key_exists($alert['spokenby'][0], $this->data['spoken_alerts'])) {
+                        $this->data['spoken_alerts'][$alert['spokenby'][0]] = [];
+                    }
+                    $this->data['spoken_alerts'][$alert['spokenby'][0]][] = $alert;
                 } else {
                     $this->data['all_keywords'][] = implode(' ', $alert['words']);
                     $this->data['keyword_alerts'][] = $alert;
