@@ -197,7 +197,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
             $this->data['search_section'] = trim(get_http_var("search_section", $existing_section));
 
-            $this->data['keyword'] = implode(' ', $this->data['words']);
+            $this->data['keyword'] = implode(' OR ', $this->data['words']);
             if ($this->data['exclusions']) {
                 $this->data['keyword'] .= " -" . $this->data["exclusions"];
             }

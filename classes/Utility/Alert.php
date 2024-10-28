@@ -92,6 +92,7 @@ class Alert {
         $parts = ['words' => [], 'sections' => [], 'exclusions' => []];
         if ($alert_criteria) {
             # check for phrases
+            $alert_criteria = str_replace(' OR ', ' ', $alert_criteria);
             if (strpos($alert_criteria, '"') !== false) {
                 # match phrases
                 preg_match_all('/"([^"]*)"/', $alert_criteria, $phrases);
