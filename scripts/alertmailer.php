@@ -13,6 +13,20 @@ include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
+$announcement_manager = new \MySociety\TheyWorkForYou\Model\AnnouncementManagement();
+$banner = $announcement_manager->get_random_valid_item('alerts');
+
+$text_banner = '';
+$html_banner = '';
+if ($banner) {
+    $text_banner = $banner->title . "\n\n" . $banner->content . "\n\n" . $banner->url . "\n\n";
+    $link_text = "Read more";
+    if (property_exists($banner, 'button_text')) {
+        $link_text = $banner->button_text;
+    }
+    $html_banner = '<strong>' . $banner->title . "</strong><p>" . $banner->content . '</p><p><a href="' . $banner->url . '">' . $link_text . '</a></p>';
+}
+
 $global_start = getmicrotime();
 $db = new ParlDB();
 
@@ -211,6 +225,12 @@ foreach ($alertdata as $alertitem) {
 
     if ($email != $current['email']) {
         if ($email_text) {
+
+            if ($banner) {
+                $email_text = $text_banner . $email_text;
+                $html_text = $html_banner . $html_text;
+            }
+
             write_and_send_email($current, $email_text, $html_text, $template);
         }
         $current['email'] = $email;
@@ -391,6 +411,10 @@ foreach ($alertdata as $alertitem) {
     }
 }
 if ($email_text) {
+    if ($banner) {
+        $email_text = $text_banner . $email_text;
+        $html_text = $html_banner . $html_text;
+    }
     write_and_send_email($current, $email_text, $html_text, $template);
 }
 
