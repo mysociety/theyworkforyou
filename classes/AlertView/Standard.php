@@ -105,6 +105,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($success) {
                     $this->data['results'] = 'alert-confirmed';
                     $this->data['step'] = '';
+                    $this->data['pid'] = '';
+                    $this->data['alertsearch'] = '';
+                    $this->data['pc'] = '';
+                    $this->data['members'] = false;
+                    $this->data['constituencies'] = [];
                 } else {
                     $this->data['results'] = 'alert-fail';
                     $this->data['step'] = 'review';
