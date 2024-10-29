@@ -298,6 +298,28 @@ class Search {
     }
 
     /**
+     * get list of members of speaker IDs from search string
+     *
+     * @param string      $searchstring       The search string with the speaker:NNN text
+     *
+     * @return array Array with the speaker id string as key and speaker name as value
+     */
+
+    public static function membersForIDs($searchstring) {
+        $criteria = explode(' ', $searchstring);
+        $speakers = [];
+
+        foreach ($criteria as $c) {
+            if (preg_match('#^speaker:(\d+)#', $c, $m)) {
+                $MEMBER = new \MEMBER(['person_id' => $m[1]]);
+                $speakers[$m[1]] = $MEMBER;
+            }
+        }
+
+        return $speakers;
+    }
+
+    /**
      * replace speaker:NNNN with speaker:Name in search string
      *
      * @param string      $searchstring       The search string with the speaker:NNN text

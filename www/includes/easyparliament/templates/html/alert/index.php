@@ -120,7 +120,7 @@
         </div>
       <?php } ?>
 
-      <?php if ($step == 'mp_alert') { ?>
+      <?php if ($mp_step) { ?>
         <div class="alert-section">
             <div class="alert-section__primary">
               <h1><?= gettext("Create an MP Alert") ?></h1>
@@ -131,9 +131,11 @@
         <?php include '_alert_form.php';
       } elseif ($this_step == '') {
           if(
-              $members ||
-              (isset($constituencies) && count($constituencies) > 0) ||
-              ($alertsearch)
+              !$results && (
+                $members ||
+                (isset($constituencies) && count($constituencies) > 0) ||
+                ($alertsearch)
+              )
           ) {
               /* We need to disambiguate the user's instructions */
               $member_options = false;
@@ -143,7 +145,7 @@
 
               <?php if ($members) {
                   $member_options = true; ?>
-                <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($alertsearch)) ?></h3>
+                <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
                 <ul>
                   <?php
                     foreach ($members as $row) {
@@ -169,7 +171,7 @@
 
               <?php if (isset($constituencies) && count($constituencies) > 0) {
                   $member_options = true; ?>
-                <h3><?= sprintf(gettext('Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($alertsearch)) ?></h3>
+                <h3><?= sprintf(gettext('Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
                 <ul>
                 <?php foreach ($constituencies as $constituency => $member) { ?>
                     <li>
@@ -292,7 +294,7 @@
               <div class="alert-page-header">
                 <h3>Create an alert when an MP speaks</h3>
                 <form action="<?= $actionurl ?>" method="post">
-                  <input type="hidden" name="step" value="mp_alert">
+                  <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
                     <?= gettext('Create new MP alert') ?>
                     <i aria-hidden="true" role="img" class="fi-megaphone"></i>

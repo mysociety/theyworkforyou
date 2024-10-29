@@ -27,7 +27,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         if ($this->data['step'] || $this->data['addword']) {
             $this->processStep();
-        } elseif (!$this->data['results'] == 'changes-abandoned' && !sizeof($this->data['errors']) && ($this->data['keyword'] || $this->data['pid'])) {
+        } elseif (!$this->data['results'] == 'changes-abandoned' && !sizeof($this->data['errors']) && $this->data['submitted'] && ($this->data['keyword'] || $this->data['pid'])) {
             $this->addAlert();
         }
 
@@ -39,6 +39,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         return $this->data;
     }
 
+    # This only happens if we have an alert and want to do something to it.
     private function processAction() {
         $token = get_http_var('t');
         $alert = $this->alert->check_token($token);
@@ -84,7 +85,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['alert'] = $alert;
     }
 
+    # Process a screen in the alert creation wizard
     private function processStep() {
+        # fetch a list of suggested terms. Need this for the define screen so we can filter out the suggested terms
+        # and not show them if the user goes back
         if (($this->data['step'] == 'review' || $this->data['step'] == 'define') && !$this->data['shown_related']) {
             $suggestions = [];
             foreach ($this->data['keywords'] as $word) {
@@ -98,11 +102,14 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['step'] = 'add_vector_related';
                 $this->data['suggestions'] = $suggestions;
             }
+        # confirm the alert. Handles both creating and editing alerts
         } elseif ($this->data['step'] == 'confirm') {
             $success = true;
+            # if there's already an alert assume we are editing it and user must be logged in
             if ($this->data['alert']) {
                 $success = $this->updateAlert($this->data['alert']['id'], $this->data);
                 if ($success) {
+                    # reset all the data to stop anything getting confused
                     $this->data['results'] = 'alert-confirmed';
                     $this->data['step'] = '';
                     $this->data['pid'] = '';
@@ -138,10 +145,18 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         $this->data['token'] = get_http_var('t');
         $this->data['step'] = trim(get_http_var("step"));
+        $this->data['mp_step'] = trim(get_http_var("mp_step"));
         $this->data['addword'] = trim(get_http_var("addword"));
         $this->data['this_step'] = trim(get_http_var("this_step"));
         $this->data['shown_related'] = get_http_var('shown_related');
         $this->data['match_all'] = get_http_var('match_all') == 'on';
+        $this->data['keyword'] = trim(get_http_var("keyword"));
+        $this->data['search_section'] = '';
+        $this->data['alertsearch'] = trim(get_http_var("alertsearch"));
+        $this->data['mp_search'] = trim(get_http_var("mp_search"));
+        $this->data['pid'] = trim(get_http_var("pid"));
+        $this->data['pc'] = get_http_var('pc');
+        $this->data['submitted'] = get_http_var('submitted') || $this->data['pid'] || $this->data['keyword'] || $this->data['step'];
 
         if ($this->data['addword'] || $this->data['step']) {
             $alert = $this->alert->check_token($this->data['token']);
@@ -219,15 +234,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['results'] = '';
 
             $this->getSearchSections();
-        } else {
-            $this->data['keyword'] = trim(get_http_var("keyword"));
-            $this->data['search_section'] = '';
-        }
+        } # XXX probably should do something here if $alertsearch is set
 
-        $this->data['pid'] = trim(get_http_var("pid"));
-        $this->data['alertsearch'] = trim(get_http_var("alertsearch"));
-        $this->data['pc'] = get_http_var('pc');
-        $this->data['submitted'] = get_http_var('submitted') || $this->data['pid'] || $this->data['keyword'] || $this->data['step'];
         $this->data['sign'] = get_http_var('sign');
         $this->data['site'] = get_http_var('site');
         $this->data['message'] = '';
@@ -235,6 +243,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $ACTIONURL = new \MySociety\TheyWorkForYou\Url($this_page);
         $ACTIONURL->reset();
         $this->data['actionurl'] = $ACTIONURL->generate();
+
     }
 
     private function wrap_phrase_in_quotes($phrase) {
@@ -271,7 +280,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         $errors = [];
 
-        if ($this->data['step'] == 'define' || $this->data['step'] == 'mp_alert') {
+        # these are the initial screens and so cannot have any errors as we've not submitted
+        if (!$this->data['submitted'] || $this->data['step'] == 'define' || $this->data['mp_step'] == 'mp_alert') {
             $this->data['errors'] = $errors;
             return;
         }
@@ -294,6 +304,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         $text = $this->data['alertsearch'];
+        if ($this->data['mp_search']) {
+            $text = $this->data['mp_search'];
+        }
         if (!$text) {
             $text = $this->data['keyword'];
         }
@@ -323,16 +336,32 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['members'] = false;
             return;
         }
+
+        $text = $this->data['alertsearch'];
+        if ($this->data['mp_search']) {
+            $text = $this->data['mp_search'];
+        }
         $errors = [];
-        if ($this->data['alertsearch'] != '') {
-            $this->data['members'] = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($this->data['alertsearch'], true);
-            [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($this->data['alertsearch']);
+        if ($text != '') {
+            //$members_from_pids = array_values(\MySociety\TheyWorkForYou\Utility\Search::membersForIDs($this->data['alertsearch']));
+            $members_from_names = [];
+            $names_from_pids = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($text));
+            foreach ($names_from_pids as $name) {
+                $members_from_names = array_merge($members_from_names,\MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($name));
+            }
+            $members_from_words = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($text, true);
+            $this->data['members'] = array_merge($members_from_words, $members_from_names);
+            [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text);
         } elseif ($this->data['pid']) {
             $MEMBER = new \MEMBER(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
                 "person_id" => $MEMBER->person_id,
                 "given_name" => $MEMBER->given_name,
                 "family_name" => $MEMBER->family_name,
+                "house" => $MEMBER->house_disp,
+                "title" => $MEMBER->title,
+                "lordofname" => $MEMBER->lordofname,
+                "constituency" => $MEMBER->constituency,
             ]];
         } elseif (isset($this->data['representative']) && $this->data['representative'] != '') {
             $this->data['members'] = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($this->data['representative'], true);
@@ -354,9 +383,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         if (isset($this->data['constituencies']) && count($this->data['constituencies']) == 1 && $this->data['valid_postcode']) {
             $MEMBER = new \MEMBER(['constituency' => $this->data['constituencies'][0], 'house' => 1]);
             $this->data['pid'] = $MEMBER->person_id();
-            $this->data['pc'] = $this->data['alertsearch'];
+            $this->data['pc'] = $text;
             unset($this->data['constituencies']);
-            $this->data['alertsearch'] = '';
         }
 
         if (isset($this->data['constituencies'])) {
@@ -370,6 +398,19 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
             }
             $this->data['constituencies'] = $cons;
+            if (count($cons) == 1) {
+                $cons = array_values($cons);
+                $this->data['pid'] = $cons[0]->person_id();
+            }
+        }
+
+        if ($this->data['alertsearch'] && !$this->data['mp_step'] && ($this->data['pid'] || $this->data['members'] || $this->data['constituencies'])) {
+            if (count($this->data['members']) == 1) {
+                $this->data['pid'] = $this->data['members'][0]['person_id'];
+            }
+            $this->data['mp_step'] = 'mp_alert';
+            $this->data['mp_search'] = $this->data['alertsearch'];
+            $this->data['alertsearch'] = '';
         }
 
         if (count($this->data["errors"]) > 0) {
@@ -394,8 +435,12 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $success = $this->alert->add($this->data, $confirm);
 
         if ($success > 0 && !$confirm) {
+            $this->data['step'] = '';
+            $this->data['mp_step'] = '';
             $result = 'alert-added';
         } elseif ($success > 0) {
+            $this->data['step'] = '';
+            $this->data['mp_step'] = '';
             $result = 'alert-confirmation';
         } elseif ($success == -2) {
             // we need to make sure we know that the person attempting to sign up
@@ -527,6 +572,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['keywords'] = [$this->data['alertsearch']];
             $this->data['exclusions'] = '';
             $this->data['representative'] = '';
+        } elseif ($this->data['alertsearch'] && ($this->data['members'] || $this->data['pid'])) {
+            $this->data['mp_step'] = 'mp_alert';
+            $this->data['mp_search'] = [$this->data['alertsearch']];
+        } elseif ($this->data['members'] && $this->data['mp_step'] == 'mp_search') {
+            $this->data['mp_step'] = '';
         }
 
         $this->data['current_mp'] = false;
@@ -537,6 +587,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['own_member_alerts'] = [];
         $this->data['all_keywords'] = [];
         $own_mp_criteria = '';
+
         if ($this->data['email_verified']) {
             if ($this->user->postcode()) {
                 $current_mp = new \MEMBER(['postcode' => $this->user->postcode()]);
@@ -560,11 +611,20 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }
+        } else {
+            if ($this->data['alertsearch'] && $this->data['pc']) {
+                $this->data['mp_step'] = 'mp_alert';
+            }
         }
         if ($this->data['addword'] != '' || ($this->data['step'] && count($this->data['errors']) > 0)) {
             $this->data["step"] = get_http_var('this_step');
         } else {
             $this->data['this_step'] = '';
+        }
+
+        $this->data["search_term"] = $this->data['alertsearch'];
+        if ($this->data['mp_search']) {
+            $this->data["search_term"] = $this->data['mp_search'];
         }
     }
 }

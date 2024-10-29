@@ -152,7 +152,7 @@
                         <h2>Representative alerts</h2>
                       </div>
                       <form action="<?= $actionurl ?>" method="post">
-                        <input type="hidden" name="step" value="mp_alert">
+                        <input type="hidden" name="mp_step" value="mp_alert">
                         <button type="submit" class="button small">
                           <?= gettext('Create new MP alert') ?>
                           <i aria-hidden="true" role="img" class="fi-megaphone"></i>
