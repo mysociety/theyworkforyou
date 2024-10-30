@@ -90,6 +90,7 @@ class ALERT {
                         criteria,
                         registrationtoken,
                         lang,
+                        ignore_speaker_votes,
                         deleted,
                         confirmed
                         FROM alerts
