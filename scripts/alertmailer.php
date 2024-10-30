@@ -195,6 +195,7 @@ foreach ($alertdata as $alertitem) {
         continue;
     }
     $criteria_raw = $alertitem['criteria'];
+    $include_votes = $alertitem['ignore_speaker_votes'] == 0;
     if (preg_match('#\bOR\b#', $criteria_raw)) {
         $criteria_raw = "($criteria_raw)";
     }
@@ -249,7 +250,7 @@ foreach ($alertdata as $alertitem) {
     mlog(", hits " . $total_results . ", time " . (getmicrotime() - $start) . "\n");
 
     # Divisions
-    if (preg_match('#^speaker:(\d+)$#', $criteria_raw, $m)) {
+    if ($include_votes && preg_match('#^speaker:(\d+)$#', $criteria_raw, $m)) {
         $pid = $m[1];
         $q = $db->query('SELECT * FROM persondivisionvotes pdv JOIN divisions USING(division_id)
             WHERE person_id=:person_id AND pdv.lastupdate >= :time', [
