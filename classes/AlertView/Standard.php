@@ -85,7 +85,20 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     }
 
     private function processStep() {
-        if ($this->data['step'] == 'confirm') {
+        if (($this->data['step'] == 'review' || $this->data['step'] == 'define') && !$this->data['shown_related']) {
+            $suggestions = [];
+            foreach ($this->data['keywords'] as $word) {
+                $terms = $this->alert->get_related_terms($word);
+                if ($terms && count($terms)) {
+                    $suggestions = array_merge($suggestions, $terms);
+                }
+            }
+
+            if (count($suggestions) > 0) {
+                $this->data['step'] = 'add_vector_related';
+                $this->data['suggestions'] = $suggestions;
+            }
+        } elseif ($this->data['step'] == 'confirm') {
             $success = true;
             if ($this->data['alert']) {
                 $success = $this->updateAlert($this->data['alert']['id'], $this->data);
@@ -122,6 +135,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['step'] = trim(get_http_var("step"));
         $this->data['addword'] = trim(get_http_var("addword"));
         $this->data['this_step'] = trim(get_http_var("this_step"));
+        $this->data['shown_related'] = get_http_var('shown_related');
 
         if ($this->data['addword'] || $this->data['step']) {
             $alert = $this->alert->check_token($this->data['token']);
@@ -153,6 +167,29 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if (trim($word) != '') {
                     $this->data['keywords'][] = $word;
                     $this->data['words'][] = $this->wrap_phrase_in_quotes($word);
+                }
+            }
+
+            $add_all_related = get_http_var('add_all_related');
+            $this->data['add_all_related'] = $add_all_related;
+            $this->data['skip_keyword_terms'] = [];
+
+            $selected_related_terms = get_http_var('selected_related_terms', [], true);
+            $this->data['selected_related_terms'] = $selected_related_terms;
+
+            if ($add_all_related) {
+                $this->data['selected_related_terms'] = [];
+                $related_terms = get_http_var('related_terms', [], true);
+                foreach ($related_terms as $term) {
+                    $this->data['skip_keyword_terms'][] = $term;
+                    $this->data['keywords'][] = $term;
+                    $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
+                }
+            } elseif ($this->data['step'] !== 'define') {
+                $this->data['skip_keyword_terms'] = $selected_related_terms;
+                foreach ($selected_related_terms as $term) {
+                    $this->data['keywords'][] = $term;
+                    $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
                 }
             }
             $this->data['exclusions'] = trim(get_http_var("exclusions", implode('', $this->data['alert_parts']['exclusions'])));
