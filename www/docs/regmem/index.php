@@ -234,7 +234,7 @@ function _load_file($f) {
     preg_match('#encoding="([^"]*)"#', $file, $m);
     $encoding = $m[1];
     if ($encoding == 'ISO-8859-1') {
-        $file = @iconv('iso-8859-1', 'utf-8', $out);
+        $file = @iconv('iso-8859-1', 'utf-8', $file);
     }
     return $file;
 }
