@@ -224,15 +224,43 @@ def export_division_data(verbose: bool = False):
     # Create an export of the divisions data
     # Join with hansard table to get the gid of the debate as well
     # This is broadly the same as the old public whip dump
+    # Need to do this union to capture a set of old votes
+    # associated with policies - without a corresponding GID
     divisions_query = """
-    SELECT
+    ( SELECT
+            division_id,
+            house as chamber,
+            CASE
+                WHEN division_id like '%-cy%' THEN 'cy' ELSE 'en'
+            END as language,
+            divisions.gid as source_gid,
+            hansard_debate.gid as debate_gid,
+            division_title,
+            yes_text,
+            no_text,
+            division_date,
+            division_number,
+            yes_total,
+            no_total,
+            absent_total,
+            both_total,
+            majority_vote,
+            lastupdate,
+            title_priority
+        FROM divisions
+        JOIN hansard
+            USING (gid)
+        JOIN hansard as hansard_debate
+            on hansard_debate.epobject_id = hansard.subsection_id)
+    UNION
+    (SELECT
         division_id,
         house as chamber,
         CASE
             WHEN division_id like '%-cy%' THEN 'cy' ELSE 'en'
         END as language,
         divisions.gid as source_gid,
-        hansard_debate.gid as debate_gid,
+        NULL as debate_gid, -- No matching records, so debate_gid is NULL
         division_title,
         yes_text,
         no_text,
@@ -245,11 +273,10 @@ def export_division_data(verbose: bool = False):
         majority_vote,
         lastupdate,
         title_priority
-    FROM divisions
-    JOIN hansard
-        USING (gid)
-    JOIN hansard as hansard_debate
-        on hansard_debate.epobject_id = hansard.subsection_id
+    FROM
+        divisions
+    WHERE
+        divisions.gid = '');
     """
 
     # Export of all voting information
