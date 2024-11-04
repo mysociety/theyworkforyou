@@ -40,7 +40,7 @@ class Homepage {
         $data["commons_dissolved"] = isset($dissolution[1]);
 
         $data['regional'] = $this->getRegionalList();
-        $data['popular_searches'] = $common->getPopularSearches();
+        $data['popular_searches'] = []; # $common->getPopularSearches();
         $data['urls'] = $this->getURLs();
         $data['calendar'] = $this->getCalendarData();
         $data['featured'] = $this->getEditorialContent();
