@@ -46,8 +46,8 @@
                       </div>
 
                       <div class="alert-page-subsection">
-                        <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
                         <input type="checkbox" id="match_all" name="match_all"<?= $match_all ? ' checked' : ''?>>
+                        <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
                       </div>
 
                       <div class="alert-page-subsection">
@@ -131,7 +131,6 @@
                           <?php foreach ($keywords as $word) {
                               if (!in_array($word, $skip_keyword_terms)) { ?>
                               <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
-                              <i aria-hidden="true" role="img" class="fi-x"></i></li>
                           <?php }
                               } ?>
                         </ul>
@@ -202,7 +201,6 @@
                         <ul>
                           <?php foreach ($keywords as $word) { ?>
                           <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
-                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
                           <?php } ?>
                         </ul>
                       </div>
@@ -213,7 +211,6 @@
                         <ul>
                           <?php foreach (explode(" ", $exclusions) as $word) { ?>
                           <li class="label label--red"><?= _htmlspecialchars($word) ?>
-                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
                           <?php } ?>
                         </ul>
                       </div>
@@ -224,8 +221,7 @@
                         <h3 class="heading-with-bold-word"><?= gettext('And only if the speech is in') ?>:</h3>
                           <ul>
                           <?php foreach ($sections as $word) { ?>
-                            <li class="label label--red"><?= _htmlspecialchars($word) ?>
-                              <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                            <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
                           <?php } ?>
                           </ul>
                       <?php } else { ?>
@@ -239,30 +235,37 @@
                         <ul>
                           <?php foreach ($members as $member) { ?>
                           <li class="label label--primary-light"><?= $member['given_name'] ?> <?= $member['family_name'] ?>
-                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
                           <?php } ?>
                         </ul>
                       </div>
                       <?php } ?>
 
-                      <dl class="alert-meta-info">
-                        <?php if ($search_result_count > 0) { ?>
-                          <div class="content-header-item">
-                            <dt><?= gettext('This week') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                      <?php if ($search_result_count > 0 || isset($lastmention)) { ?>
+                        <hr>
+                        <dl class="alert-meta-info">
+                          <h3>See mentions for this alert</h3>
+
+                          <div class="alert-meta-info-results">
+                            <?php if ($search_result_count > 0) { ?>
+                              <div class="content-header-item">
+                                <dt><?= gettext('This week') ?></dt>
+                                <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                              </div>
+                            <?php } ?>
+  
+                            <?php // if (isset($lastmention)) { ?>
+                              <div class="content-header-item">
+                                <dt><?= gettext('Date of last mention') ?></dt>
+                                <dd>30 May 2024</dd>
+                              </div>
+                            <?php // } ?>
                           </div>
-                        <?php } ?>
 
-                        <?php if (isset($lastmention)) { ?>
-                          <div class="content-header-item">
-                          <dt><?= gettext('Date of last mention') ?></dt>
-                            <dd>30 May 2024</dd>
-                          </div>
-                        <?php } ?>
+                          <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" aria-label="See results for this alert - Opens in a new tab"><?= gettext('See results for this alert 	&rarr;') ?></a>
+                        </dl>
+                      <?php } ?>
 
-                        <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" class="button small"><?= gettext('See results for this alert') ?></a>
-                      </dl>
-
+                      <hr>
                       <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Go Back</button>
                       <button class="button" type="submit" name="step" value="confirm">
                       <span><?= gettext('Save alert') ?></span>
