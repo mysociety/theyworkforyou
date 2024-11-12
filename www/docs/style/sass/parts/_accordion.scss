@@ -21,10 +21,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: end;
+    align-items: center;
+    margin-bottom: 0.5rem;
 
-    h2 {
-        margin-bottom: 0.5rem;
+    button, h2 {
+        margin-bottom: 0;
     }
 }
 

@@ -77,10 +77,6 @@
                         <li class="label label--primary-light"><?= _htmlspecialchars($keyword) ?>
                         <?php } ?>
                       </ul>
-                      <div class="add-remove-tool display-none">
-                        <input type="text" placeholder="e.g.'freedom of information'">
-                        <button type="submit" class="prefix">add</button>
-                      </div>
                     </div>
                     <?php } ?>
 
@@ -92,21 +88,11 @@
                         <li class="label label--red"><?= _htmlspecialchars($exclusion) ?>
                         <?php } ?>
                       </ul>
-                      <div class="add-remove-tool display-none">
-                        <input type="text" placeholder="e.g.'freedom of information'">
-                        <button type="submit" class="prefix">add</button>
-                      </div>
                     </div>
                     <?php } ?>
 
                     <?php if ($alert['sections']) { ?>
                     <div class="keyword-list alert-page-subsection">
-                      <h3 class="display-none"><label for="sections">Which section should this alert apply to?</label></h3>
-                      <select name="sections" id="sections" class="display-none">
-                        <option value="uk-parliament">All sections</option>
-                        <option value="uk-parliament">UK Parliament</option>
-                        <option value="scottish-parliament">Scottish Parliament</option>
-                      </select>
                       <h3 class="heading-with-bold-word">Which <span class="bold">section</span> should this alert apply to:</h3>
                       <ul>
                         <?php foreach ($alert["sections_verbose"] as $section) { ?>
