@@ -15,7 +15,6 @@
                       <div class="alert-controller-wrapper">
                         <form action="<?= $actionurl ?>" method="POST">
                           <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
-                          <button class="button small display-none">Discard changes</button>
                           <?php if ($alert['status'] == 'unconfirmed') { ?>
                             <button type="submit" class="button small" name="action" value="Confirm">
                               <span><?= gettext('Confirm alert') ?></span>
