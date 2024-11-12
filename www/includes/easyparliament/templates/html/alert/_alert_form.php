@@ -276,7 +276,7 @@
                         <i aria-hidden="true" class="fi-trash"></i>
                       </button>
                       <?php if ($token) { ?>
-                      <button type="submit" class="button red" name="action" value="Delete">
+                      <button type="submit" class="button button--red" name="action" value="Delete">
                         <span><?= gettext('Delete alert') ?></span>
                         <i aria-hidden="true" class="fi-trash"></i>
                       </button>

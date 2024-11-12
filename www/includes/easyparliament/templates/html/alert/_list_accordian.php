@@ -26,11 +26,11 @@
                               <i aria-hidden="true" class="fi-play"></i>
                             </button>
                           <?php } else { ?>
-                            <button type="submit" class="button small" name="action" value="Suspend">
+                            <button type="submit" class="button button--outline small" name="action" value="Suspend">
                               <span><?= gettext('Suspend alert') ?></span>
                               <i aria-hidden="true" class="fi-pause"></i>
                             </button>
-                            <button type="submit" class="button small red" name="action" value="Delete">
+                            <button type="submit" class="button small button--red" name="action" value="Delete">
                               <span><?= gettext('Delete alert') ?></span>
                               <i aria-hidden="true" class="fi-trash"></i>
                             </button>
@@ -187,16 +187,16 @@
                                   <i aria-hidden="true" class="fi-save"></i>
                                 </button>
                               <?php } elseif ($alert['status'] == 'suspended') { ?>
-                              <button type="submit" class="button small" name="action" value="Resume">
+                              <button type="submit" class="button button-outline small" name="action" value="Resume">
                                 <span><?= gettext('Resume alert') ?></span>
                                 <i aria-hidden="true" class="fi-play"></i>
                               </button>
                               <?php } else { ?>
-                              <button type="submit" class="button small" name="action" value="Suspend">
+                              <button type="submit" class="button button--outline small" name="action" value="Suspend">
                                 <span><?= gettext('Suspend alert') ?></span>
                                 <i aria-hidden="true" class="fi-pause"></i>
                               </button>
-                              <button type="submit" class="button small red" name="action" value="Delete">
+                              <button type="submit" class="button small button--red" name="action" value="Delete">
                                 <span><?= gettext('Delete alert') ?></span>
                                 <i aria-hidden="true" class="fi-trash"></i>
                               </button>

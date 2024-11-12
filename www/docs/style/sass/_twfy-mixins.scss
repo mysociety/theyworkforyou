@@ -246,20 +246,27 @@ $weight_bold: 700;
 .button {
     background-color: $colour_primary;
     font-weight: $weight_semibold;
-    border: 0;
+    border: 1px solid $colour_primary;
     @include border-radius(3px);
     &:hover {
         background-color: $primary-color-700;
     }
 
-    &:focus {
+    &:focus-visible {
         background-color: $color-yellow;
         color: $body-font-color;
     }
 }
 
+
 button {
     @extend .button;
+}
+
+.button--outline {
+    border: 1px solid $colour_primary;
+    background-color: $white-text;
+    color: $colour_primary;
 }
 
 .secondary-button,
@@ -276,6 +283,7 @@ button {
 
 .button--red, .button--negative {
     background-color: $color_red;
+    border: 1px solid $color_red;
     &:hover {
         background-color: darken($color_red, 10%);
     }
