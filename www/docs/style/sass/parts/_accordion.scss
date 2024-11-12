@@ -45,8 +45,9 @@
     background-color: $primary-color-200;
 
     &[aria-expanded="true"] {
-        background-color: $primary-color;
-        color: $white-text;
+        background-color: $white-text;
+        color: $primary-color;
+        border: 1px solid $primary-color;
         & + .accordion-content{
             max-height: 1000px;
             transition: max-height 0.3s ease;

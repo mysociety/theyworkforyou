@@ -61,7 +61,7 @@
                           </div>
                           <?php } ?>
 
-                          <a href="/search/?q=<?= $alert['raw'] ?>" class="button small"><?= gettext('See results for this alert') ?></a>
+                          <a href="/search/?q=<?= $alert['raw'] ?>"><?= gettext('See results for this alert &rarr;') ?></a>
                         </dl>
                     </div>
 
@@ -75,7 +75,6 @@
                       <ul>
                         <?php foreach ($alert["keywords"] as $keyword) { ?>
                         <li class="label label--primary-light"><?= _htmlspecialchars($keyword) ?>
-                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
                         <?php } ?>
                       </ul>
                       <div class="add-remove-tool display-none">
@@ -91,7 +90,6 @@
                       <ul>
                         <?php foreach ($alert["exclusions"] as $exclusion) { ?>
                         <li class="label label--red"><?= _htmlspecialchars($exclusion) ?>
-                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
                         <?php } ?>
                       </ul>
                       <div class="add-remove-tool display-none">
@@ -112,8 +110,7 @@
                       <h3 class="heading-with-bold-word">Which <span class="bold">section</span> should this alert apply to:</h3>
                       <ul>
                         <?php foreach ($alert["sections_verbose"] as $section) { ?>
-                        <li class="label label--red"><?= _htmlspecialchars($section) ?>
-                          <i aria-hidden="true" role="img" class="fi-x"></i></li>
+                        <li class="label label--primary-light"><?= _htmlspecialchars($section) ?>
                         <?php } ?>
                       </ul>
                     </div>
@@ -127,19 +124,11 @@
                         <ul>
                         <?php foreach ($alert['spokenby'] as $speaker) { ?>
                         <li class="label label--primary-light"><?= $speaker ?>
-                            <i aria-hidden="true" role="img" class="fi-x"></i></li>
+
                         <?php } ?>
                         </ul>
-                        <div class="add-remove-tool display-none">
-                          <input type="text" placeholder="e.g.'freedom of information'">
-                          <button type="submit" class="prefix">add</button>
-                        </div>
                       </div>
                     <?php } ?>
-
-                    <button class="display-none" style="margin: -1rem 0rem 3rem;">Save changes</button>
-                    <button class="display-none" style="margin: -1rem 0rem 3rem;">Discard changes</button>
-
                   </div>
                 </div>
                 <?php } ?>
