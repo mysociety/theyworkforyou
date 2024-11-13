@@ -116,6 +116,22 @@ def update_vector_search_suggestions(url: str, file: str, verbose: bool = False)
         url_to_db(url, verbose=verbose)
 
 
+@cli.command()
+def count_suggestions():
+    """
+    for diagnostics to check import has worked
+    """
+    db_connection = get_twfy_db_connection()
+    with db_connection.cursor() as cursor:
+        cursor.execute(
+            "select count(*) as num_suggestions from vector_search_suggestions"
+        )
+        count = cursor.fetchone()[0]
+        print(f"There are {count} suggestions in the db")
+
+    db_connection.close()
+
+
 def main():
     cli()
 
