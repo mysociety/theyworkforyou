@@ -28,7 +28,7 @@
                       <?php } ?>
 
                       <div class="alert-page-subsection">
-                      <label for="words[]"><?= gettext('What word or phrase would you like to recieve alerts about?') ?></label>
+                      <label for="words[]"><?= gettext('What word or phrase would you like to receive alerts about?') ?></label>
                         <?php if (isset($errors['alertsearch']) && $submitted) { ?>
                           <span class="alert-page-error"><?= $errors['alertsearch'] ?></span>
                         <?php } ?>
@@ -51,7 +51,7 @@
                       </div>
 
                       <div class="alert-page-subsection">
-                        <label for="exclusions"><?= gettext('Is there anything you would not like to recieve alerts about? (optional)') ?></label>
+                        <label for="exclusions"><?= gettext('Is there anything you would not like to receive alerts about? (optional)') ?></label>
                         <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. 'Freedom of Information', 'FOI'">
                       </div>
 
