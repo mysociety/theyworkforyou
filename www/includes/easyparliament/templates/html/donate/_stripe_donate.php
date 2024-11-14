@@ -36,7 +36,7 @@ $initial_payment_type = get_http_var('how-often', $default_type);
 $how_much = get_http_var('how-much', $default_amounts[$initial_payment_type]);
 
 # if how-much is not in the allowed values for the current payment type, set to 'other', and set $other_how_much to the value of how-much
-if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type])) {
+if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type] ?? [])) {
     $how_much = 'other';
     $other_how_much = get_http_var('how-much');
 } else {
