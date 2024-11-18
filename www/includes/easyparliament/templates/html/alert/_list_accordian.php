@@ -137,7 +137,7 @@
                       <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?></h3>
                       <ul class="alerts-manage__list">
                           <li>
-                              <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), $current_mp->full_name()) ?>.
+                              <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), '<strong>' . htmlspecialchars($current_mp->full_name()) . '</strong>') ?>.
                               <form action="<?= $actionurl ?>" method="post">
                                   <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
                                   <input type="submit" class="button" value="<?= gettext('Subscribe') ?>">
@@ -145,6 +145,7 @@
                           </li>
                       </ul>
                       <?php if (count($own_member_alerts) > 0) { ?>
+                        <hr>
                           <p>
                             <?= gettext('You are subscribed to the following alerts about your MP.') ?>
                           </p>
@@ -159,6 +160,7 @@
                     <?php } ?>
 
                     <?php foreach ($spoken_alerts as $person_alerts) { ?>
+                      <hr>
                       <div class="alert-page-subsection">
                         <h3 class="alert-page-subsection--heading"><?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?></h3>
 

@@ -1,4 +1,4 @@
-<form action="<?= $actionurl ?>" method="post" class="">
+<form action="<?= $actionurl ?>" method="post" class="" id="create-alert-form">
   <?php if (!$email_verified) { ?>
     <p>
       <?php if (isset($errors["email"]) && $submitted) { ?>
@@ -15,7 +15,8 @@
       <?php } elseif ($keyword) { ?>
         <input type="text" class="form-control" name="mp_search" id="mp_search" disabled="disabled" value="<?= _htmlspecialchars($display_keyword) ?>">
       <?php } else { ?>
-        <input type="text" class="form-control" placeholder="<?= gettext('Search postcode, or MP name') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_text) ?>">
+        <label for="mp-postcode">Search postcode, or MP name</label>
+        <input id="mp-postcode" type="text" class="form-control" placeholder="<?= gettext('e.g. ‘B2 4QA’ or ‘John Doe’') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_text) ?>" style="min-width:300px;">
       <?php } ?>
     </p>
 
@@ -23,12 +24,12 @@
         <?php if ($pid || $keyword) { ?>
         <button type="submit" class="button" name="mp_step" value="mp_confirm">
           <span><?= gettext('Subscribe') ?></span>
-          <i aria-hidden="true" class="fi-trash"></i>
+          <i aria-hidden="true" class="fi-megaphone"></i>
         </button>
         <?php } else { ?>
         <button type="submit" class="button" name="mp_step" value="mp_search">
           <span><?= gettext('Search') ?></span>
-          <i aria-hidden="true" class="fi-trash"></i>
+          <i aria-hidden="true" class="fi-magnifying-glass"></i>
         </button>
         <?php } ?>
         <button type="submit" class="button red" name="action" value="Abandon">
