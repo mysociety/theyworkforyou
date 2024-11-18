@@ -140,12 +140,12 @@
 
                       <fieldset>
                         <legend><?= gettext('Related Terms') ?></legend>
-                        <div>
-                        <?php foreach ($suggestions as $suggestion) { ?>
-                          <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
-                          <label><input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>"<?= in_array($suggestion, $selected_related_terms) ? ' checked' : '' ?>><?= _htmlspecialchars($suggestion) ?></label><br>
-                        <?php } ?>
+                        <div class="checkbox-group">
                           <label><input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>><?= gettext('Add all related terms') ?></label>
+                          <?php foreach ($suggestions as $suggestion) { ?>
+                            <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
+                            <label><input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>"<?= in_array($suggestion, $selected_related_terms) ? ' checked' : '' ?>><?= _htmlspecialchars($suggestion) ?></label>
+                          <?php } ?>
                         </div>
                       </fieldset>
 
@@ -164,7 +164,7 @@
                           </div>
                         <?php } ?>
 
-                        <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" class="button small"><?= gettext('See results for this alert') ?></a>
+                        <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" aria-label="See results for this alert - Opens in a new tab"><?= gettext('See results for this alert 	&rarr;') ?></a>
                       </dl>
 
                       <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Previous</button>
