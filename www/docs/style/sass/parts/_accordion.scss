@@ -38,8 +38,9 @@
     display: flex;
     justify-content: space-between;
     text-align: left;
-    padding: 10px;
+    padding: 0.5rem;
     font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     border: none;
     color: $body-font-color;
@@ -226,6 +227,7 @@ button {
     label {
         color: $body-font-color;
         font-size: 1.1rem;
+        line-height: 1.2;
         margin-bottom: 0.75rem;
     }
 
@@ -248,6 +250,15 @@ button {
         max-width: 400px;
         height: 40px;
         border-color: $body-font-color;
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        flex-direction: row;
+        
+        input[type="checkbox"], input[type="radio"] {
+            flex-shrink: 0;
+        }
     }
 
     .checkbox-group  {

@@ -46,8 +46,10 @@
                       </div>
 
                       <div class="alert-page-subsection">
-                        <input type="checkbox" id="match_all" name="match_all"<?= $match_all ? ' checked' : ''?>>
-                        <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
+                        <div class="checkbox-wrapper">
+                          <input type="checkbox" id="match_all" name="match_all"<?= $match_all ? ' checked' : ''?>>
+                          <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
+                        </div>
                       </div>
 
                       <div class="alert-page-subsection">
