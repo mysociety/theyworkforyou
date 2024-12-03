@@ -150,7 +150,14 @@
                           <label><input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>><?= gettext('Add all related terms') ?></label>
                           <?php foreach ($suggestions as $suggestion) { ?>
                             <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
-                            <label><input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>"<?= in_array($suggestion, $selected_related_terms) ? ' checked' : '' ?>><?= _htmlspecialchars($suggestion) ?></label>
+                            <label>
+                              <?php if ($add_all_related == 'on') { ?>
+                              <input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>" checked disabled>
+                              <?php } else { ?>
+                              <input type="checkbox" name="selected_related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>"<?= in_array($suggestion, $selected_related_terms) ? ' checked' : '' ?>>
+                              <?php } ?>
+                              <?= _htmlspecialchars($suggestion) ?>
+                            </label>
                           <?php } ?>
                         </div>
                       </fieldset>

@@ -343,6 +343,28 @@ $(function(){
   if (!$('#options').data('advanced')) {
     $("#options").find(":input").attr("disabled", "disabled");
   }
+
+  $('#add-all').on('click', function(e) {
+    var $add_all = e.currentTarget;
+    var $selected_related = document.querySelectorAll('input[name="selected_related_terms[]"]');
+    if ($add_all.checked) {
+      $selected_related.forEach(function(input) {
+        if (input.checked) {
+          input.setAttribute('data:was_checked', true);
+        }
+        input.checked = true;
+        input.setAttribute('disabled', true);
+      });
+    } else {
+      $selected_related.forEach(function(input) {
+        if (!input.getAttribute('data:was_checked')) {
+          input.checked = false;
+        }
+        input.removeAttribute('data:was_checked');
+        input.removeAttribute('disabled');
+      });
+    }
+  });
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
