@@ -17,8 +17,8 @@
                           <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                           <?php if ($alert['status'] == 'unconfirmed') { ?>
                             <button type="submit" class="button small" name="action" value="Confirm">
-                              <span><?= gettext('Confirm alert') ?></span>
                               <i aria-hidden="true" class="fi-save"></i>
+                              <span><?= gettext('Confirm alert') ?></span>
                             </button>
                           <?php } elseif ($alert['status'] == 'suspended') { ?>
                             <button type="submit" class="button small" name="action" value="Resume">
@@ -171,8 +171,8 @@
                               <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                               <?php if ($alert['status'] == 'unconfirmed') { ?>
                                 <button type="submit" class="button small" name="action" value="Confirm">
-                                  <span><?= gettext('Confirm alert') ?></span>
                                   <i aria-hidden="true" class="fi-save"></i>
+                                  <span><?= gettext('Confirm alert') ?></span>
                                 </button>
                               <?php } elseif ($alert['status'] == 'suspended') { ?>
                               <button type="submit" class="button button-outline small" name="action" value="Resume">

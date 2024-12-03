@@ -541,8 +541,8 @@
 
       <button type="button" class="prev" aria-label="Go back to Step 3">Go Back</button>
       <button class="button">
-        <span>Save alert</span>
         <i aria-hidden="true" class="fi-save"></i>
+        <span>Save alert</span>
       </button>
       <button class="button red">
         <i aria-hidden="true" class="fi-trash"></i>

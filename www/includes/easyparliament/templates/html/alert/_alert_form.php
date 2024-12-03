@@ -40,8 +40,8 @@
                         <input type="text" id="words<?= count($words) ?>" name="words[]" value="" placeholder="Eg. 'Freedom of Information', 'FOI'">
                         <?php } ?>
                         <button class="button" type="submit" name="addword" value="add">
-                        <span><?= gettext('Add word') ?></span>
                           <i aria-hidden="true" class="fi-save"></i>
+                          <span><?= gettext('Add word') ?></span>
                         </button>
                       </div>
 
@@ -274,8 +274,8 @@
                       <hr>
                       <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Go Back</button>
                       <button class="button" type="submit" name="step" value="confirm">
-                      <span><?= gettext('Save alert') ?></span>
                         <i aria-hidden="true" class="fi-save"></i>
+                        <span><?= gettext('Save alert') ?></span>
                       </button>
                       <button type="submit" class="button button--red" name="action" value="Abandon">
                         <i aria-hidden="true" class="fi-trash"></i>
