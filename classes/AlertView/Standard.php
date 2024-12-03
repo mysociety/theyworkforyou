@@ -93,6 +93,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $suggestions = [];
             foreach ($this->data['keywords'] as $word) {
                 $terms = $this->alert->get_related_terms($word);
+                $terms = array_diff($terms, $this->data['keywords']);
                 if ($terms && count($terms)) {
                     $suggestions = array_merge($suggestions, $terms);
                 }
@@ -202,19 +203,21 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $selected_related_terms = get_http_var('selected_related_terms', [], true);
             $this->data['selected_related_terms'] = $selected_related_terms;
 
-            if ($add_all_related) {
-                $this->data['selected_related_terms'] = [];
-                $related_terms = get_http_var('related_terms', [], true);
-                foreach ($related_terms as $term) {
-                    $this->data['skip_keyword_terms'][] = $term;
-                    $this->data['keywords'][] = $term;
-                    $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
-                }
-            } elseif ($this->data['step'] !== 'define') {
-                $this->data['skip_keyword_terms'] = $selected_related_terms;
-                foreach ($selected_related_terms as $term) {
-                    $this->data['keywords'][] = $term;
-                    $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
+            if ($this->data['step'] !== 'define') {
+                if ($add_all_related) {
+                    $this->data['selected_related_terms'] = [];
+                    $related_terms = get_http_var('related_terms', [], true);
+                    foreach ($related_terms as $term) {
+                        $this->data['skip_keyword_terms'][] = $term;
+                        $this->data['keywords'][] = $term;
+                        $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
+                    }
+                } else {
+                    $this->data['skip_keyword_terms'] = $selected_related_terms;
+                    foreach ($selected_related_terms as $term) {
+                        $this->data['keywords'][] = $term;
+                        $this->data['words'][] = $this->wrap_phrase_in_quotes($term);
+                    }
                 }
             }
             $this->data['exclusions'] = trim(get_http_var("exclusions", implode('', $this->data['alert_parts']['exclusions'])));
