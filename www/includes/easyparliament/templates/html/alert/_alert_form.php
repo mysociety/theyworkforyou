@@ -109,6 +109,10 @@
 
 
                       <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 2">Next</button>
+                      <button type="submit" class="button button--red" name="action" value="Abandon">
+                        <span><?= gettext('Abandon changes') ?></span>
+                        <i aria-hidden="true" class="fi-trash"></i>
+                      </button>
                     </div>
                   <?php } elseif ($step == "add_vector_related") { ?>
 
