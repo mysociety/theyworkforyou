@@ -273,7 +273,7 @@
                       <span><?= gettext('Save alert') ?></span>
                         <i aria-hidden="true" class="fi-save"></i>
                       </button>
-                      <button type="submit" class="button red" name="action" value="Abandon">
+                      <button type="submit" class="button button--red" name="action" value="Abandon">
                         <span><?= gettext('Abandon changes') ?></span>
                         <i aria-hidden="true" class="fi-trash"></i>
                       </button>
