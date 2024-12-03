@@ -182,6 +182,10 @@
 
                       <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Previous</button>
                       <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 3">Next</button>
+                      <button type="submit" class="button button--red" name="action" value="Abandon">
+                        <i aria-hidden="true" class="fi-trash"></i>
+                        <span><?= gettext('Abandon changes') ?></span>
+                      </button>
                     </div>
                   <?php } elseif ($step == "review") { ?>
 
