@@ -110,8 +110,8 @@
 
                       <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 2">Next</button>
                       <button type="submit" class="button button--red" name="action" value="Abandon">
-                        <span><?= gettext('Abandon changes') ?></span>
                         <i aria-hidden="true" class="fi-trash"></i>
+                        <span><?= gettext('Abandon changes') ?></span>
                       </button>
                     </div>
                   <?php } elseif ($step == "add_vector_related") { ?>
@@ -278,13 +278,13 @@
                         <i aria-hidden="true" class="fi-save"></i>
                       </button>
                       <button type="submit" class="button button--red" name="action" value="Abandon">
-                        <span><?= gettext('Abandon changes') ?></span>
                         <i aria-hidden="true" class="fi-trash"></i>
+                        <span><?= gettext('Abandon changes') ?></span>
                       </button>
                       <?php if ($token) { ?>
                       <button type="submit" class="button button--red" name="action" value="Delete">
-                        <span><?= gettext('Delete alert') ?></span>
                         <i aria-hidden="true" class="fi-trash"></i>
+                        <span><?= gettext('Delete alert') ?></span>
                       </button>
                       <?php } ?>
                     </div>

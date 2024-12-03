@@ -31,17 +31,17 @@
       <div class="accordion-content-header">
         <div class="alert-controller-wrapper">
           <button class="button small alert-edit-button">
-            <span>Edit alert</span>
             <i aria-hidden="true" class="fi-page-edit"></i>
+            <span>Edit alert</span>
           </button>
           <button class="button small display-none">Discard changes</button>
           <button class="button small">
-            <span>Suspend alert</span>
             <i aria-hidden="true" class="fi-pause"></i>
+            <span>Suspend alert</span>
           </button>
           <button class="button small red">
-            <span>Delete alert</span>
             <i aria-hidden="true" class="fi-trash"></i>
+            <span>Delete alert</span>
           </button>
         </div>
         <dl class="alert-meta-info">
@@ -232,12 +232,12 @@
     <p class="alert-page-subsection--subtitle">Alert when Keir Starmer <strong>speaks</strong></p>
     <div>
       <button class="button small">
-        <span>Suspend alert</span>
         <i aria-hidden="true" class="fi-pause"></i>
+        <span>Suspend alert</span>
       </button>
       <button class="button small red">
-        <span>Delete alert</span>
         <i aria-hidden="true" class="fi-trash"></i>
+        <span>Delete alert</span>
       </button>
     </div>
 
@@ -282,12 +282,12 @@
     <p class="alert-page-subsection--subtitle">Alert when Janne Doe <strong>speaks</strong></p>
     <div>
       <button class="button small">
-        <span>Suspend alert</span>
         <i aria-hidden="true" class="fi-pause"></i>
+        <span>Suspend alert</span>
       </button>
       <button class="button small red">
-        <span>Delete alert</span>
         <i aria-hidden="true" class="fi-trash"></i>
+        <span>Delete alert</span>
       </button>
     </div>
 
@@ -304,12 +304,12 @@
     <p class="alert-page-subsection--subtitle">Alert when Keir Starmer <strong>speaks</strong></p>
     <div>
       <button class="button small">
-        <span>Suspend alert</span>
         <i aria-hidden="true" class="fi-pause"></i>
+        <span>Suspend alert</span>
       </button>
       <button class="button small red">
-        <span>Delete alert</span>
         <i aria-hidden="true" class="fi-trash"></i>
+        <span>Delete alert</span>
       </button>
     </div>
 
@@ -545,8 +545,8 @@
         <i aria-hidden="true" class="fi-save"></i>
       </button>
       <button class="button red">
-        <span>Delete alert</span>
         <i aria-hidden="true" class="fi-trash"></i>
+        <span>Delete alert</span>
       </button>
     </div>
   </form>

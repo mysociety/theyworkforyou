@@ -33,8 +33,8 @@
         </button>
         <?php } ?>
         <button type="submit" class="button button--red" name="action" value="Abandon">
-          <span><?= gettext('Abandon changes') ?></span>
           <i aria-hidden="true" class="fi-trash"></i>
+          <span><?= gettext('Abandon changes') ?></span>
         </button>
     </p>
 
