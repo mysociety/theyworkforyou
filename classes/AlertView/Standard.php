@@ -589,6 +589,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['spoken_alerts'] = [];
         $this->data['own_member_alerts'] = [];
         $this->data['all_keywords'] = [];
+        $this->data['own_mp_criteria'] = '';
         $own_mp_criteria = '';
 
         if ($this->data['email_verified']) {
@@ -599,6 +600,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $own_mp_criteria = sprintf('speaker:%s', $current_mp->person_id());
                 }
                 $own_mp_criteria = $current_mp->full_name();
+                $this->data['own_mp_criteria'] = $own_mp_criteria;
             }
             $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
             foreach ($this->data['alerts'] as $alert) {

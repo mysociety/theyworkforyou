@@ -137,7 +137,7 @@
                       <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?></h3>
                       <ul class="alerts-manage__list">
                           <li>
-                              <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), '<strong>' . htmlspecialchars($current_mp->full_name()) . '</strong>') ?>.
+                              <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), '<strong>' . htmlspecialchars($current_mp->full_name()) . '</strong>') ?>, speaks.
                               <form action="<?= $actionurl ?>" method="post">
                                   <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
                                   <input type="submit" class="button" value="<?= gettext('Subscribe') ?>">
@@ -150,6 +150,17 @@
                             <?= gettext('You are subscribed to the following alerts about your MP.') ?>
                           </p>
                           <?php include '_own_mp_alerts.php' ?>
+                      <?php } else { ?>
+                        <?php if (!in_array($own_mp_criteria, $all_keywords)) { ?>
+                        <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
+                        <form action="<?= $actionurl ?>" method="post">
+                          <input type="hidden" name="keyword" value="<?= _htmlentities($own_mp_criteria) ?>">
+                          <button type="submit" class="button small" name="action" value="Subscribe">
+                            <?= gettext('Create new alert') ?>
+                            <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                          </button>
+                        </form>
+                        <?php } ?>
                       <?php } ?>
                     <?php } elseif (count($own_member_alerts) > 0) { ?>
                         <div class="alert-page-subsection">
