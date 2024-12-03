@@ -6,3 +6,6 @@ if [ ! -f tools/php-cs-fixer/vendor/bin/php-cs-fixer ]; then
 fi
 
 tools/php-cs-fixer/vendor/bin/php-cs-fixer fix
+
+poetry run ruff check . --fix
+poetry run ruff format .
