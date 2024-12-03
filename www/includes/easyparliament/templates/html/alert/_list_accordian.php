@@ -212,9 +212,9 @@
                           </div>
                           <?php } ?>
                         <?php if (!in_array(implode('', $person_alerts[0]['spokenby']), $all_keywords)) { ?>
-                        <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $alert['spokenby'])) ?> is <strong>mentioned</strong></p>
+                        <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
                         <form action="<?= $actionurl ?>" method="post">
-                          <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $alert['spokenby'])) ?>">
+                          <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $person_alerts[0]['spokenby'])) ?>">
                           <button type="submit" class="button small" name="action" value="Subscribe">
                             <?= gettext('Create new alert') ?>
                             <i aria-hidden="true" role="img" class="fi-megaphone"></i>

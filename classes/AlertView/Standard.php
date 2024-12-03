@@ -611,8 +611,24 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                         $this->data['spoken_alerts'][$alert['spokenby'][0]] = [];
                     }
                     $this->data['spoken_alerts'][$alert['spokenby'][0]][] = $alert;
-                } else {
-                    $this->data['all_keywords'][] = implode(' ', $alert['words']);
+                }
+            }
+            foreach ($this->data['alerts'] as $alert) {
+                $term = implode(' ', $alert['words']);
+                $add = true;
+                if (array_key_exists('spokenby', $alert)) {
+                    $add = false;
+                } elseif (array_key_exists($term, $this->data['spoken_alerts'])) {
+                    $add = false;
+                    $this->data['all_keywords'][] = $term;
+                    $this->data['spoken_alerts'][$term][] = $alert;
+                } elseif ($term == $own_mp_criteria) {
+                    $add = false;
+                    $this->data['all_keywords'][] = $term;
+                    $this->data['own_member_alerts'][] = $alert;
+                }
+                if ($add) {
+                    $this->data['all_keywords'][] = $term;
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }

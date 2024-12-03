@@ -37,10 +37,10 @@
 </div>
 <?php } ?>
 
-<?php if (!in_array(implode('', $own_member_alerts[0]['spokenby']), $all_keywords)) { ?>
-<p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode('', $own_member_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
+<?php if (!in_array($own_mp_criteria, $all_keywords)) { ?>
+<p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
 <form action="<?= $actionurl ?>" method="post">
-  <input type="hidden" name="keyword" value="<?= _htmlentities(implode('', $own_member_alerts[0]['spokenby'])) ?>">
+  <input type="hidden" name="keyword" value="<?= _htmlentities($own_mp_criteria) ?>">
   <button type="submit" class="button small" name="action" value="Subscribe">
     <?= gettext('Create new alert') ?>
     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
