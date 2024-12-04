@@ -30,7 +30,7 @@
                               <i aria-hidden="true" class="fi-pause"></i>
                               <span><?= gettext('Suspend alert') ?></span>
                             </button>
-                            <button type="submit" class="button small button--red" name="action" value="Delete">
+                            <button type="submit" class="button small button--outline-red" name="action" value="Delete">
                               <i aria-hidden="true" class="fi-trash"></i>
                               <span><?= gettext('Delete alert') ?></span>
                             </button>
@@ -39,7 +39,7 @@
                             <input type="hidden" name="step" value="define">
                             <input type="hidden" name="shown_related" value="1">
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
-                            <button type="submit" class="button small" value="Edit">
+                            <button type="submit" class="button button--outline small" value="Edit">
                               <i aria-hidden="true" class="fi-page-edit"></i>
                               <span><?= gettext('Edit alert') ?></span>
                             </button>
@@ -195,7 +195,7 @@
                                 <i aria-hidden="true" class="fi-pause"></i>
                                 <span><?= gettext('Suspend alert') ?></span>
                               </button>
-                              <button type="submit" class="button small button--red" name="action" value="Delete">
+                              <button type="submit" class="button small button--outline-red" name="action" value="Delete">
                                 <i aria-hidden="true" class="fi-trash"></i>
                                 <span><?= gettext('Delete alert') ?></span>
                               </button>
@@ -203,7 +203,7 @@
                             <form action="<?= $actionurl ?>" method="POST">
                               <input type="hidden" name="step" value="define">
                               <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
-                              <button type="submit" class="button small" value="Edit">
+                              <button type="submit" class="button button--outline small" value="Edit">
                                 <i aria-hidden="true" class="fi-page-edit"></i>
                                 <span><?= gettext('Edit alert') ?></span>
                               </button>

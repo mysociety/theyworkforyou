@@ -289,6 +289,17 @@ button {
     }
 }
 
+.button--outline-red {
+    color: $color_red;
+    border: 1px solid $color_red;
+    background-color: $white-text;
+
+    &:hover {
+        color: $white-text;
+        background-color: $color_red;
+    }
+}
+
 .button--disabled,
 .button--disabled:hover {
     background-color: lighten($colour_off_white, 3%);
