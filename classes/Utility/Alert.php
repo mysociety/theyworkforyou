@@ -104,7 +104,10 @@ class Alert {
                 $alert_criteria = trim(preg_replace('/ +/', ' ', str_replace($phrases[0], "", $alert_criteria)));
 
                 # and then create an array with the words and phrases
-                $criteria = explode(' ', $alert_criteria);
+                $criteria = [];
+                if ( $alert_criteria != "") {
+                    $criteria = explode(' ', $alert_criteria);
+                }
                 $criteria = array_merge($criteria, $phrases[1]);
             } else {
                 $criteria = explode(' ', $alert_criteria);
