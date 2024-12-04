@@ -633,6 +633,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $add = false;
                     # need to add this to make it consistent so the front end know where to get the name
                     $alert['spokenby'] = [$term];
+                    $this->data['all_keywords'][] = $term;
                     $this->data['spoken_alerts'][$term][] = $alert;
                 }
                 if ($add) {
