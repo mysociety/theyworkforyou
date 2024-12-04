@@ -626,7 +626,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $add = false;
                     $this->data['all_keywords'][] = $term;
                     $this->data['own_member_alerts'][] = $alert;
-                } elseif (\MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($term)) {
+                } elseif (\MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($term, true)) {
                     if (!array_key_exists($term, $this->data['spoken_alerts'])) {
                         $this->data['spoken_alerts'][$term] = [];
                     }
