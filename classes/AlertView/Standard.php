@@ -626,6 +626,14 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $add = false;
                     $this->data['all_keywords'][] = $term;
                     $this->data['own_member_alerts'][] = $alert;
+                } elseif (\MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($term)) {
+                    if (!array_key_exists($term, $this->data['spoken_alerts'])) {
+                        $this->data['spoken_alerts'][$term] = [];
+                    }
+                    $add = false;
+                    # need to add this to make it consistent so the front end know where to get the name
+                    $alert['spokenby'] = [$term];
+                    $this->data['spoken_alerts'][$term][] = $alert;
                 }
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
