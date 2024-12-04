@@ -302,28 +302,28 @@
                 </form>
               </div>
               <?php } else { ?>
-              <div class="clearfix">
+
+              <div class="alert-page-header">
+                <div>
+                  <h2><?= gettext('Keywords alerts') ?></h2>
+                  <!-- Go to Create alert page -->
+                  <?php if (!$alerts) { ?>
+                    <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
+                  <?php } ?>
+                </div>
+                <div class="alert-page-header__button-group">
                   <form action="<?= $actionurl ?>" method="POST" class="pull-right">
                       <input type="hidden" name="t" value="< ?= _htmlspecialchars($alert['token']) ?>">
                       <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
                   </form>
-              </div>
-
-              <div class="alert-page-header">
-                <div>
-                <h2><?= gettext('Keywords alerts') ?></h2>
-                <!-- Go to Create alert page -->
-                <?php if (!$alerts) { ?>
-                  <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
-                <?php } ?>
+                  <form action="<?= $actionurl ?>" method="post">
+                      <input type="hidden" name="step" value="define">
+                      <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
+                        <span><?= gettext('Create new keyword alert') ?></span>
+                        <i aria-hidden="true" class="fi-megaphone"></i>
+                      </button>
+                  </form>
                 </div>
-                <form action="<?= $actionurl ?>" method="post">
-                    <input type="hidden" name="step" value="define">
-                    <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                      <span><?= gettext('Create new keyword alert') ?></span>
-                      <i aria-hidden="true" class="fi-megaphone"></i>
-                    </button>
-                </form>
               </div>
 
                 <!-- The groups alerts should be sorted by default from most recent mention to oldest one -->

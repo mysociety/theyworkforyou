@@ -26,6 +26,16 @@
 
     button, h2 {
         margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .alert-page-header__button-group {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        input {
+            margin-bottom: 0;
+        }
     }
 }
 
