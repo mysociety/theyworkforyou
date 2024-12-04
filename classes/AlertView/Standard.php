@@ -646,6 +646,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['mp_step'] = 'mp_alert';
             }
         }
+        if (!isset($this->data['alert']) || !$this->data['alert']) {
+            if ($this->data['alerts']) {
+                $this->data['alert'] = $this->data['alerts'][0];
+            }
+        }
         if ($this->data['addword'] != '' || ($this->data['step'] && count($this->data['errors']) > 0)) {
             $this->data["step"] = get_http_var('this_step');
         } else {

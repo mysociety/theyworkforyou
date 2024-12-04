@@ -312,10 +312,12 @@
                   <?php } ?>
                 </div>
                 <div class="alert-page-header__button-group">
+                <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
                   <form action="<?= $actionurl ?>" method="POST" class="pull-right">
-                      <input type="hidden" name="t" value="< ?= _htmlspecialchars($alert['token']) ?>">
+                      <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                       <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
                   </form>
+                <?php } ?>
                   <form action="<?= $actionurl ?>" method="post">
                       <input type="hidden" name="step" value="define">
                       <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
