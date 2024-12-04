@@ -136,7 +136,7 @@
                     <?php if ($current_mp) { ?>
                       <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?></h3>
                       <ul class="alerts-manage__list">
-                          <li>
+                          <li class="alert-section--message">
                               <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), '<strong>' . htmlspecialchars($current_mp->full_name()) . '</strong>') ?>, speaks.
                               <form action="<?= $actionurl ?>" method="post">
                                   <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
