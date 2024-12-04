@@ -249,12 +249,19 @@ class Search {
      *               saying whether it was a postcode used.
      */
 
-    public static function searchConstituenciesByQuery($searchterm) {
+    public static function searchConstituenciesByQuery($searchterm, $mp_only=true) {
         if (validate_postcode($searchterm)) {
             // Looks like a postcode - can we find the constituency?
-            $constituency = Postcode::postcodeToConstituency($searchterm);
-            if ($constituency) {
-                return [ [$constituency], true ];
+            if ($mp_only) {
+                $constituency = Postcode::postcodeToConstituency($searchterm);
+                if ($constituency) {
+                    return [ [$constituency], true ];
+                }
+            } else {
+                $constituencies = Postcode::postcodeToConstituencies($searchterm);
+                if ($constituencies) {
+                    return [ $constituencies, true ];
+                }
             }
         }
 

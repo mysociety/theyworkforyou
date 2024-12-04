@@ -354,7 +354,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
             $members_from_words = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($text, true);
             $this->data['members'] = array_merge($members_from_words, $members_from_names);
-            [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text);
+            [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text, false);
         } elseif ($this->data['pid']) {
             $MEMBER = new \MEMBER(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
@@ -384,7 +384,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         # If the above search returned one result for constituency
         # search by postcode, use it immediately
         if (isset($this->data['constituencies']) && count($this->data['constituencies']) == 1 && $this->data['valid_postcode']) {
-            $MEMBER = new \MEMBER(['constituency' => $this->data['constituencies'][0], 'house' => 1]);
+            $MEMBER = new \MEMBER(['constituency' => array_values($this->data['constituencies'])[0], 'house' => 1]);
             $this->data['pid'] = $MEMBER->person_id();
             $this->data['pc'] = $text;
             unset($this->data['constituencies']);
@@ -394,7 +394,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $cons = [];
             foreach ($this->data['constituencies'] as $constituency) {
                 try {
-                    $MEMBER = new \MEMBER(['constituency' => $constituency, 'house' => 1]);
+                    $MEMBER = new \MEMBER(['constituency' => $constituency]);
                     $cons[$constituency] = $MEMBER;
                 } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
