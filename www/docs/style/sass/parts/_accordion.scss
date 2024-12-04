@@ -57,8 +57,8 @@
     background-color: $primary-color-200;
 
     &[aria-expanded="true"] {
-        background-color: $white-text;
-        color: $primary-color;
+        background-color: lighten($primary-color-100, 6%);
+        color: $body-font-color;
         border: 1px solid $primary-color;
         & + .accordion-content{
             max-height: 1000px;
