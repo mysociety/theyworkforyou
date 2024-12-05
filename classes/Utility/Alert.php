@@ -57,8 +57,8 @@ class Alert {
 
         $alerts = [];
         foreach ($q as $row) {
-            $criteria = self::prettifyCriteria($row['criteria']);
-            $parts = self::prettifyCriteria($row['criteria'], true);
+            $criteria = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes']);
+            $parts = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes'], true);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
 
             $status = 'confirmed';
@@ -86,7 +86,7 @@ class Alert {
         return $alerts;
     }
 
-    public static function prettifyCriteria($alert_criteria, $as_parts = false) {
+    public static function prettifyCriteria($alert_criteria, $ignore_speaker_votes = false, $as_parts = false) {
         $text = '';
         $parts = ['words' => [], 'sections' => [], 'exclusions' => [], 'match_all' => true];
         if ($alert_criteria) {
@@ -136,6 +136,9 @@ class Alert {
                 $parts['words'] = $words;
             } elseif ($spokenby) {
                 $text = implode(' or ', $spokenby) . " speaks";
+                if ($ignore_speaker_votes) {
+                    $text .= " excluding votes";
+                }
                 $parts['spokenby'] = $spokenby;
             }
 
