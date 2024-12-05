@@ -37,6 +37,13 @@
         <?php } ?>
       </p>
 
+      <div class="alert-page-subsection">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="ignore_speaker_votes" name="ignore_speaker_votes"<?= $ignore_speaker_votes ? ' checked' : ''?>>
+          <label for="ignore_speaker_votes"><?= gettext('Do not include votes') ?></label>
+        </div>
+      </div>
+
       <p>
           <?php if ($pid || $keyword) { ?>
           <button type="submit" class="button" name="mp_step" value="mp_confirm">
