@@ -58,8 +58,8 @@ class Alert {
 
         $alerts = [];
         foreach ($q as $row) {
-            $criteria = self::prettifyCriteria($row['criteria']);
-            $parts = self::prettifyCriteria($row['criteria'], true);
+            $criteria = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes']);
+            $parts = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes'], true);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
 
             $status = 'confirmed';
@@ -87,11 +87,16 @@ class Alert {
         return $alerts;
     }
 
-    public static function prettifyCriteria($alert_criteria, $as_parts = false) {
+    public static function prettifyCriteria($alert_criteria, $ignore_speaker_votes = false, $as_parts = false) {
         $text = '';
-        $parts = ['words' => [], 'sections' => [], 'exclusions' => []];
+        $parts = ['words' => [], 'sections' => [], 'exclusions' => [], 'match_all' => true];
         if ($alert_criteria) {
             # check for phrases
+            if (strpos($alert_criteria, ' OR ') !== false) {
+                $parts['match_all'] = false;
+            }
+            $alert_criteria = str_replace(' OR ', ' ', $alert_criteria);
+            $alert_criteria = str_replace(['(', ')'], '', $alert_criteria);
             if (strpos($alert_criteria, '"') !== false) {
                 # match phrases
                 preg_match_all('/"([^"]*)"/', $alert_criteria, $phrases);
@@ -99,7 +104,10 @@ class Alert {
                 $alert_criteria = trim(preg_replace('/ +/', ' ', str_replace($phrases[0], "", $alert_criteria)));
 
                 # and then create an array with the words and phrases
-                $criteria = explode(' ', $alert_criteria);
+                $criteria = [];
+                if ( $alert_criteria != "") {
+                    $criteria = explode(' ', $alert_criteria);
+                }
                 $criteria = array_merge($criteria, $phrases[1]);
             } else {
                 $criteria = explode(' ', $alert_criteria);
@@ -129,6 +137,9 @@ class Alert {
                 $parts['words'] = $words;
             } elseif ($spokenby) {
                 $text = implode(' or ', $spokenby) . " speaks";
+                if ($ignore_speaker_votes) {
+                    $text .= " excluding votes";
+                }
                 $parts['spokenby'] = $spokenby;
             }
 

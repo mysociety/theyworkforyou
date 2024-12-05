@@ -120,7 +120,7 @@
         </div>
       <?php } ?>
 
-      <?php if ($step == 'mp_alert') { ?>
+      <?php if ($mp_step) { ?>
         <div class="alert-section">
             <div class="alert-section__primary">
               <h1><?= gettext("Create an MP Alert") ?></h1>
@@ -131,9 +131,11 @@
         <?php include '_alert_form.php';
       } elseif ($this_step == '') {
           if(
-              $members ||
-              (isset($constituencies) && count($constituencies) > 0) ||
-              ($alertsearch)
+              !$results && (
+                $members ||
+                (isset($constituencies) && count($constituencies) > 0) ||
+                ($alertsearch)
+              )
           ) {
               /* We need to disambiguate the user's instructions */
               $member_options = false;
@@ -143,7 +145,7 @@
 
               <?php if ($members) {
                   $member_options = true; ?>
-                <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($alertsearch)) ?></h3>
+                <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
                 <ul>
                   <?php
                     foreach ($members as $row) {
@@ -169,7 +171,7 @@
 
               <?php if (isset($constituencies) && count($constituencies) > 0) {
                   $member_options = true; ?>
-                <h3><?= sprintf(gettext('Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($alertsearch)) ?></h3>
+                <h3><?= sprintf(gettext('Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
                 <ul>
                 <?php foreach ($constituencies as $constituency => $member) { ?>
                     <li>
@@ -292,7 +294,7 @@
               <div class="alert-page-header">
                 <h3>Create an alert when an MP speaks</h3>
                 <form action="<?= $actionurl ?>" method="post">
-                  <input type="hidden" name="step" value="mp_alert">
+                  <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
                     <?= gettext('Create new MP alert') ?>
                     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
@@ -300,28 +302,30 @@
                 </form>
               </div>
               <?php } else { ?>
-              <div class="clearfix">
-                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
-                      <input type="hidden" name="t" value="< ?= _htmlspecialchars($alert['token']) ?>">
-                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
-                  </form>
-              </div>
 
               <div class="alert-page-header">
                 <div>
-                <h2><?= gettext('Keywords alerts') ?></h2>
-                <!-- Go to Create alert page -->
-                <?php if (!$alerts) { ?>
-                  <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
-                <?php } ?>
+                  <h2><?= gettext('Keywords alerts') ?></h2>
+                  <!-- Go to Create alert page -->
+                  <?php if (!$alerts) { ?>
+                    <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
+                  <?php } ?>
                 </div>
-                <form action="<?= $actionurl ?>" method="post">
-                    <input type="hidden" name="step" value="define">
-                    <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                      <span><?= gettext('Create new keyword alert') ?></span>
-                      <i aria-hidden="true" class="fi-megaphone"></i>
-                    </button>
-                </form>
+                <div class="alert-page-header__button-group">
+                <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
+                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
+                      <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
+                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
+                  </form>
+                <?php } ?>
+                  <form action="<?= $actionurl ?>" method="post">
+                      <input type="hidden" name="step" value="define">
+                      <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
+                        <span><?= gettext('Create new keyword alert') ?></span>
+                        <i aria-hidden="true" class="fi-megaphone"></i>
+                      </button>
+                  </form>
+                </div>
               </div>
 
                 <!-- The groups alerts should be sorted by default from most recent mention to oldest one -->
@@ -330,35 +334,6 @@
                 <?php include '_list_accordian.php'; ?>
               <?php } ?>
 
-
-              <?php if (!$pid && !$keyword) { ?>
-                <div class="alert-page-search-tips">
-                    <h3><?= gettext('Search tips') ?></h3>
-                    <p>
-                        <?= gettext('To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes. Also use quotes around a word to avoid stemming (where ‘horse’ would also match ‘horses’).') ?>
-                    </p>
-                    <p>
-                        <?= gettext('You should only enter <strong>one term per alert</strong> – if you wish to receive alerts on more than one thing, or for more than one person, simply fill in this form as many times as you need, or use boolean OR.') ?>
-                    </p>
-                    <p>
-                        <?= gettext('For example, if you wish to receive alerts whenever the words <i>horse</i> or <i>pony</i> are mentioned in Parliament, please fill in this form once with the word <i>horse</i> and then again with the word <i>pony</i> (or you can put <i>horse OR pony</i> with the OR in capitals). Do not put <i>horse, pony</i> as that will only sign you up for alerts where <strong>both</strong> horse and pony are mentioned.') ?>
-                    </p>
-                </div>
-
-                <div class="alert-page-search-tips">
-
-                    <h3><?= gettext('Step by step guides') ?></h3>
-                    <p>
-                        <?= gettext('The mySociety blog has a number of posts on signing up for and managing alerts:') ?>
-                    </p>
-
-                    <ul>
-                        <li><a href="https://www.mysociety.org/2014/07/23/want-to-know-what-your-mp-is-saying-subscribe-to-a-theyworkforyou-alert/"><?= gettext('How to sign up for alerts on what your MP is saying') ?></a>.</li>
-                        <li><a href="https://www.mysociety.org/2014/09/01/well-send-you-an-email-every-time-your-chosen-word-is-mentioned-in-parliament/"><?= gettext('How to sign up for alerts when your chosen word is mentioned') ?></a>.</li>
-                        <li><?= sprintf(gettext('<a href="%s">Managing email alerts</a>, including how to stop or suspend them.'), 'https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/') ?></li>
-                    <ul>
-                </div>
-              <?php } ?>
           </div>
         </div>
         <?php } ?>
