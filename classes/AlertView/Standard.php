@@ -52,7 +52,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($success) {
                     $this->data['results'] = 'alert-confirmed';
                     $this->data['criteria'] = $this->alert->criteria;
-                    $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
+                    $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
                 }
             } elseif ($action == 'Suspend') {
                 $success = $this->suspendAlert($token);
@@ -169,7 +169,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
             $this->data['alert'] = $alert;
 
-            $this->data['alert_parts'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($criteria, true);
+            $this->data['alert_parts'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($criteria, $alert['ignore_speaker_votes'], true);
 
             $existing_rep = '';
             if (isset($this->data['alert_parts']['spokenby'])) {
@@ -470,7 +470,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         $this->data['results'] = $result;
         $this->data['criteria'] = $this->alert->criteria;
-        $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
+        $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
     }
 
 
