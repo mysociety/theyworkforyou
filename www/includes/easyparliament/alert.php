@@ -167,7 +167,7 @@ class ALERT {
             ':criteria' => $criteria,
         ])->first();
         if ($q) {
-            if ($q['deleted']) {
+            if ($q['deleted'] || $q['ignore_speaker_votes'] != $ignore_speaker_votes) {
                 $this->db->query("UPDATE alerts SET deleted=0, ignore_speaker_votes=:ignore_speaker_votes
                     WHERE email = :email
                     AND criteria = :criteria
