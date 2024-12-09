@@ -41,6 +41,7 @@ class ALERT {
     private $alert_id = "";
     public $email = "";
     public $criteria = "";		// Sets the terms that are used to produce the search results.
+    public $ignore_speaker_votes = 0;
 
     private $db;
 
@@ -90,6 +91,7 @@ class ALERT {
                         criteria,
                         registrationtoken,
                         lang,
+                        ignore_speaker_votes,
                         deleted,
                         confirmed
                         FROM alerts
@@ -122,15 +124,17 @@ class ALERT {
 
     public function update($id, $details) {
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
+        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE alert_id = :id", [
             ':id' => $id,
         ])->first();
         if ($q) {
-            $q = $this->db->query("UPDATE alerts SET deleted = 0, criteria = :criteria, confirmed = 1
+            $q = $this->db->query("UPDATE alerts SET deleted = 0, criteria = :criteria, ignore_speaker_votes = :ignore_speaker_votes, confirmed = 1
                 WHERE alert_id = :id", [
                 ":criteria" => $criteria,
+                ":ignore_speaker_votes" => $ignore_speaker_votes,
                 ":id" => $id,
             ]);
 
@@ -153,6 +157,7 @@ class ALERT {
         // )
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
+        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE email = :email
@@ -162,13 +167,14 @@ class ALERT {
             ':criteria' => $criteria,
         ])->first();
         if ($q) {
-            if ($q['deleted']) {
-                $this->db->query("UPDATE alerts SET deleted=0
+            if ($q['deleted'] || $q['ignore_speaker_votes'] != $ignore_speaker_votes) {
+                $this->db->query("UPDATE alerts SET deleted=0, ignore_speaker_votes=:ignore_speaker_votes
                     WHERE email = :email
                     AND criteria = :criteria
                     AND confirmed=1", [
                     ':email' => $details['email'],
                     ':criteria' => $criteria,
+                    ':ignore_speaker_votes' => $ignore_speaker_votes,
                 ]);
                 return 1;
             } else {
@@ -177,17 +183,19 @@ class ALERT {
         }
 
         $q = $this->db->query("INSERT INTO alerts (
-                email, criteria, postcode, lang, deleted, confirmed, created
+                email, criteria, postcode, lang, ignore_speaker_votes, deleted, confirmed, created
             ) VALUES (
                 :email,
                 :criteria,
                 :pc,
                 :lang,
+                :ignore_speaker_votes,
                 '0', '0', NOW()
             )
         ", [
             ':email' => $details['email'],
             ':criteria' => $criteria,
+            ':ignore_speaker_votes' => $ignore_speaker_votes,
             ':pc' => $details['pc'],
             ':lang' => LANGUAGE,
         ]);
@@ -198,6 +206,7 @@ class ALERT {
 
             $this->alert_id = $q->insert_id();
             $this->criteria = $criteria;
+            $this->ignore_speaker_votes = $ignore_speaker_votes;
 
             // We have to set the alert's registration token.
             // This will be sent to them via email, so we can confirm they exist.
@@ -380,7 +389,7 @@ class ALERT {
             return false;
         }
 
-        $q = $this->db->query("SELECT alert_id, email, criteria
+        $q = $this->db->query("SELECT alert_id, email, criteria, ignore_speaker_votes
                         FROM alerts
                         WHERE alert_id = :alert_id
                         AND registrationtoken = :registration_token
@@ -395,6 +404,7 @@ class ALERT {
                 'id' => $q['alert_id'],
                 'email' => $q['email'],
                 'criteria' => $q['criteria'],
+                'ignore_speaker_votes' => $q['ignore_speaker_votes'],
             ];
         }
 
