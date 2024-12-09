@@ -155,6 +155,7 @@
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
                             <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
+                            <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
                             <?php
                                   $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                         if ($row['constituency']) {
