@@ -26,7 +26,7 @@ class AlertsPageTest extends FetchPageTestCase {
 
     public function testKeywordOnly() {
         $page = $this->fetch_page([ 'alertsearch' => 'elephant']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value="elephant"', $page);
     }
 
@@ -68,7 +68,7 @@ class AlertsPageTest extends FetchPageTestCase {
      */
     public function testBasicKeyWordAlertsCreation() {
         $page = $this->fetch_page([ 'step' => 'define']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value=""', $page);
 
         $page = $this->fetch_page([ 'step' => 'review', 'email' => 'test@example.org', 'words[]' => 'fish']);
@@ -85,7 +85,7 @@ class AlertsPageTest extends FetchPageTestCase {
      */
     public function testMultipleKeyWordAlertsCreation() {
         $page = $this->fetch_page([ 'step' => 'define']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value=""', $page);
 
         $page = $this->fetch_page([ 'step' => 'review', 'email' => 'test@example.org', 'words[]' => ['fish', 'salmon']]);
@@ -102,7 +102,7 @@ class AlertsPageTest extends FetchPageTestCase {
      */
     public function testMultipleKeyWordAlertsCreationLoggedIn() {
         $page = $this->get_page(['step' => 'define']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value=""', $page);
 
         $page = $this->get_page([ 'step' => 'review', 'words[]' => ['fish', 'salmon']]);
@@ -119,7 +119,7 @@ class AlertsPageTest extends FetchPageTestCase {
      */
     public function testKeyWordAndSectionAlertsCreationLoggedIn() {
         $page = $this->get_page(['step' => 'define']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value=""', $page);
 
         $page = $this->get_page(['step' => 'review', 'words[]' => 'fish', 'search_section' => 'debates']);
@@ -135,7 +135,7 @@ class AlertsPageTest extends FetchPageTestCase {
      */
     public function testKeyWordAndSpeakerAlertsCreationLoggedIn() {
         $page = $this->get_page(['step' => 'define']);
-        $this->assertStringContainsString('What word or phrase would you like to recieve alerts about', $page);
+        $this->assertStringContainsString('What word or phrase would you like to receive alerts about', $page);
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value=""', $page);
 
         $page = $this->get_page(['step' => 'review', 'words[]' => 'fish', 'representative' => 'Mrs Test Current-MP']);
