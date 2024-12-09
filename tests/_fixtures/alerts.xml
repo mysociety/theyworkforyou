@@ -6,6 +6,7 @@
 			<field name="alert_id">1</field>
 			<field name="deleted">0</field>
 			<field name="confirmed">0</field>
+			<field name="ignore_speaker_votes">0</field>
 			<field name="registrationtoken">token1</field>
 			<field name="email">test@theyworkforyou.com</field>
 			<field name="criteria">test1</field>
@@ -15,6 +16,7 @@
 			<field name="alert_id">3</field>
 			<field name="deleted">0</field>
 			<field name="confirmed">1</field>
+			<field name="ignore_speaker_votes">0</field>
 			<field name="registrationtoken">token3</field>
 			<field name="email">test3@theyworkforyou.com</field>
 			<field name="criteria">test3</field>
@@ -24,6 +26,7 @@
 			<field name="alert_id">5</field>
 			<field name="deleted">0</field>
 			<field name="confirmed">1</field>
+			<field name="ignore_speaker_votes">0</field>
 			<field name="registrationtoken">token5</field>
 			<field name="email">test5@theyworkforyou.com</field>
 			<field name="criteria">speaker:1234</field>
@@ -33,6 +36,7 @@
 			<field name="alert_id">6</field>
 			<field name="deleted">2</field>
 			<field name="confirmed">1</field>
+			<field name="ignore_speaker_votes">0</field>
 			<field name="registrationtoken">token6</field>
 			<field name="email">test6@theyworkforyou.com</field>
 			<field name="criteria">test6</field>
