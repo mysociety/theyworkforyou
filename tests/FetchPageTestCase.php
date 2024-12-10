@@ -6,7 +6,15 @@
 abstract class FetchPageTestCase extends TWFY_Database_TestCase {
     protected function base_fetch_page($vars, $dir, $page = 'index.php', $req_uri = '') {
         foreach ($vars as $k => $v) {
-            $vars[$k] = $k . '=' . urlencode($v);
+            if (strpos($k, '[') !== false) {
+                if (is_array($vars[$k])) {
+                    $vars[$k] = $k . '=' . join("&$k=", $vars[$k]);
+                } else {
+                    $vars[$k] = $k . '=' . urlencode($v);
+                }
+            } else {
+                $vars[$k] = $k . '=' . urlencode($v);
+            }
         }
 
         if (!$req_uri) {
@@ -22,7 +30,15 @@ abstract class FetchPageTestCase extends TWFY_Database_TestCase {
 
     protected function base_fetch_page_user($vars, $cookie, $dir, $page = 'index.php', $req_uri = '') {
         foreach ($vars as $k => $v) {
-            $vars[$k] = $k . '=' . urlencode($v);
+            if (strpos($k, '[') !== false) {
+                if (is_array($vars[$k])) {
+                    $vars[$k] = $k . '=' . join("&$k=", $vars[$k]);
+                } else {
+                    $vars[$k] = $k . '=' . urlencode($v);
+                }
+            } else {
+                $vars[$k] = $k . '=' . urlencode($v);
+            }
         }
 
         if (!$req_uri) {
