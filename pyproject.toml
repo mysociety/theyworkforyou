@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "twfy-tools"
+version = "0.1.0"
+description = ""
+authors = ["Alex Parsons <alex.parsons@mysociety.org>"]
+readme = "README.md"
+packages = [{include = "twfy_tools", from = "src"}]
+
+[tool.poetry.scripts]
+twfy-tools = "twfy_tools.__main__:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+rich-click = "1.7.4"
+pandas = "2.2.1"
+pyarrow = "15.0.2"
+mysqlclient = "2.2.4"
+pyyaml = "6.0.1"
+commonlib = {path = "commonlib"}
+pydantic = "^2.8.2"
+sqlalchemy = "^2.0.32"
+trogon = "^0.5.0"
+typer = "^0.12.4"
+django = ">=4.2,<5.0"
+pytest = "^8.3.2"
+mailchimp-marketing = {git = "https://github.com/mailchimp/mailchimp-marketing-python.git"}
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.1"
+django-types = "^0.19.1"
+ipykernel = "^6.29.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+extend-exclude = ["migrations", "commonlib", "scripts"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    # flake8
+    "F",
+    # isort
+    "I",
+]
+ignore = [
+    # line too long, sorted with formatter where it can be
+    "E501", 
+]
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["hub"]
+section-order = [
+  "future",
+  "standard-library",
+  "django",
+  "third-party",
+  "first-party",
+  "local-folder"
+]
+
+[tool.ruff.lint.isort.sections]
+django = ["django"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-glob *.notxt"
+
