@@ -244,17 +244,25 @@ class Search {
      * Given a search term, find constituencies by name or postcode.
      *
      * @param string $searchterm The term to search for.
+     * @param bool $mp_only if true (default) only return westminster constituency if using a postcode, otherwise return all.
      *
      * @return array A list of the array of constituencies, then a boolean
      *               saying whether it was a postcode used.
      */
 
-    public static function searchConstituenciesByQuery($searchterm) {
+    public static function searchConstituenciesByQuery($searchterm, $mp_only = true) {
         if (validate_postcode($searchterm)) {
             // Looks like a postcode - can we find the constituency?
-            $constituency = Postcode::postcodeToConstituency($searchterm);
-            if ($constituency) {
-                return [ [$constituency], true ];
+            if ($mp_only) {
+                $constituency = Postcode::postcodeToConstituency($searchterm);
+                if ($constituency) {
+                    return [ [$constituency], true ];
+                }
+            } else {
+                $constituencies = Postcode::postcodeToConstituencies($searchterm);
+                if ($constituencies) {
+                    return [ $constituencies, true ];
+                }
             }
         }
 
@@ -291,6 +299,28 @@ class Search {
             if (preg_match('#^speaker:(\d+)#', $c, $m)) {
                 $MEMBER = new \MEMBER(['person_id' => $m[1]]);
                 $speakers[$m[1]] = $MEMBER->full_name();
+            }
+        }
+
+        return $speakers;
+    }
+
+    /**
+     * get list of members of speaker IDs from search string
+     *
+     * @param string      $searchstring       The search string with the speaker:NNN text
+     *
+     * @return array Array with the speaker id string as key and speaker name as value
+     */
+
+    public static function membersForIDs($searchstring) {
+        $criteria = explode(' ', $searchstring);
+        $speakers = [];
+
+        foreach ($criteria as $c) {
+            if (preg_match('#^speaker:(\d+)#', $c, $m)) {
+                $MEMBER = new \MEMBER(['person_id' => $m[1]]);
+                $speakers[$m[1]] = $MEMBER;
             }
         }
 
