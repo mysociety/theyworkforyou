@@ -14,7 +14,7 @@
                 <h3 style="margin-bottom: 1em;" class="search-result__title"><a href="https://www.theyworkforyou.com/debates/?id=2024-09-10a.712.0">⭐️ Read the debate on the winter fuel regulations</a></h3>
               <?php
               }
-              if (preg_match('#budget#i', $searchstring)) { ?>
+          if (preg_match('#budget#i', $searchstring)) { ?>
                 <h3 class="search-result__title"><a href="https://www.theyworkforyou.com/debates/?id=2024-10-30a.811.0#g811.2">Read the Budget speech</a></h3>
               <?php } ?>
 

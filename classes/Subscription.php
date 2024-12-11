@@ -122,7 +122,7 @@ class Subscription {
             }
         }
 
-       if ($old_price >= $new_price) {
+        if ($old_price >= $new_price) {
             if ($this->stripe->schedule) {
                 \Stripe\SubscriptionSchedule::release($this->stripe->schedule);
             }
