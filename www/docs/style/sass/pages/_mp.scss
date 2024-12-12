@@ -481,7 +481,6 @@
 
     .register {
         .regmemcategory {
-            border-top: 1px solid $borders;
             font-weight: $weight_semibold;
             margin-top: em-calc(16);
             margin-bottom: em-calc(8);
@@ -790,4 +789,26 @@ a[href^="https://www.publicwhip.org"] {
 .postcode-mp-image-wrapper {
     display: block;
     margin-top: 5px;
+}
+
+.interest-summary {
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.interest-child-items > div.interest-item > p.interest-summary {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.interest-details-list {
+    font-size: 0.8em;
+}
+
+.child-item-header {
+    text-decoration: underline;
+}
+.regmemitem > .interest-item {
+    border-top: 1px solid $borders;
 }
