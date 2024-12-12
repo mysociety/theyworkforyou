@@ -487,6 +487,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// Confirm Alert deletion
+function confirm_delete_handler(event) {
+  event.preventDefault();
+  if (confirm('Are you sure you want to delete all alerts?')) {
+    event.target.closest('form').submit();
+  }
+}
+
+function setup_confirm_delete() {
+  document.querySelectorAll('.js-confirm-delete').forEach(function(button) {
+    button.addEventListener('click', confirm_delete_handler);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', setup_confirm_delete);
+
+
 $(function() {
 
   $('#how-often-annually').click(function() {
