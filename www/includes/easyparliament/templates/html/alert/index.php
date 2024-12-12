@@ -155,6 +155,7 @@
                             <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
                             <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
                             <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
+                            <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
                             <?php
                                   $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
                         if ($row['constituency']) {
@@ -315,7 +316,7 @@
                 <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
                   <form action="<?= $actionurl ?>" method="POST" class="pull-right">
                       <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
-                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
+                      <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete all alerts') ?>">
                   </form>
                 <?php } ?>
                   <form action="<?= $actionurl ?>" method="post">
