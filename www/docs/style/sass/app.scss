@@ -218,6 +218,13 @@ a:focus {
     }
 }
 
+button {
+    // For buttons with an icon on the right side
+    i {
+        margin-right: 0.15rem;
+    }
+}
+
 /* forms */
 .errorlist {
     @include unstyled-list();
@@ -246,6 +253,7 @@ form {
 @import "parts/panels";
 @import "parts/promo-banner";
 @import "parts/accordion";
+@import "parts/tags";
 
 @import "pages/mp";
 @import "pages/topics";

@@ -6,10 +6,7 @@
 
 <a href="/alert/" class="button radius">Check here to see your alerts</a>
 
-
-<div class="clearfix">
-    <form action="<?= $actionurl ?>" method="POST" class="pull-right">
-        <!-- No need to reference $alert['token'] here, as you're deleting all alerts -->
-        <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
-    </form>
-</div>
+<form action="<?= $actionurl ?>" method="POST">
+    <!-- No need to reference $alert['token'] here, as you're deleting all alerts -->
+    <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete all alerts') ?>" aria-label="Delete all keywords and representatives alerts">
+</form>

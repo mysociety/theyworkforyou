@@ -87,48 +87,35 @@
   }
 }
 
-.alerts-form {
-  max-width: 14em;
-  margin: 0 auto;
+// Alert form
+.alert-form__section {
+  margin-bottom: 2.5rem;
 
-  label {
-    width: 100%;
-    text-align: left;
-    color: inherit;
-    font-size: 0.8em;
-    margin-bottom: 0.4em;
+  :last-child {
+      margin-bottom: 0;
+  }
+}
+
+.alert-form__subtitle {
+  margin-bottom: 0.5rem;
+}
+
+.alert-form__label {
+  display: inline;
+  margin-left: 0.5em;
+}
+
+.alert__controls {
+  margin-bottom: 1rem;
+  form {
+      display: inline;
   }
 
-  .button {
-    margin: 0;
-  }
-
-  input[type="text"] {
-    border-color: #999;
-    margin: 0;
-    height: auto; // allow input to be sized by content's default height
-    font-size: 1.4em;
-    line-height: 1em;
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-  }
-
-  @media (min-width: $medium-screen) {
-    max-width: none; // let the form fill the whole width of the parent
-
-    p {
-      display: inline-block;
-      vertical-align: bottom; // line up the bottom of the three inputs
-      margin: 0;
-    }
-
-    p + p {
-      margin-left: 1em;
-    }
-
-    .button {
-      vertical-align: bottom; // line up with bottom of parent
-    }
+  button {
+      margin-bottom: 0;
+      span {
+          margin-right: 0.2rem;
+      }
   }
 }
 
@@ -187,6 +174,56 @@
   padding: 2em 0;
 }
 
+.alerts-form {
+
+  h3 {
+    font-weight: 400;
+  }
+
+  label {
+      color: $body-font-color;
+      font-size: 1.1rem;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+  }
+
+  input[type="checkbox"], input[type="radio"] {
+      display: inline-block;
+      height: 1.5rem;
+      width: 1.5rem;
+      margin: 0 0.25rem 0 0;
+      vertical-align: middle;
+
+       + label {
+           display: inline-block;
+           margin-bottom: 0;
+           line-height: 1.5rem;
+           vertical-align: middle;
+       }
+  }
+
+  input[type="text"], select {
+      max-width: 400px;
+      height: 40px;
+      border-color: $body-font-color;
+  }
+
+  .checkbox-wrapper {
+      display: flex;
+      flex-direction: row;
+      
+      input[type="checkbox"], input[type="radio"] {
+          flex-shrink: 0;
+      }
+  }
+
+  .checkbox-group  {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+  }
+}
+
 // If browser supports background-size,
 // and we have space, give the message an icon
 @media (min-width: $medium-screen) {
@@ -222,6 +259,25 @@
     margin-bottom: 2em;
     border-radius: 3px;
     background-color: white;
+}
+
+.alert-section__header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  button, h2 {
+      margin-bottom: 0;
+      margin-top: 0;
+  }
+}
+
+.alert-section__message {
+  background-color: #FFFCD9; // very light yellow
+  padding: 1rem;
 }
 
 .alert-section__primary {
@@ -283,11 +339,6 @@
     }
 }
 
-.alert-section--message {
-  background-color: #FFFCD9; // very light yellow
-  padding: 1rem;
-}
-
 .alert-section--disambiguation {
     li {
         margin: 1em 0;
@@ -305,54 +356,6 @@
     }
 }
 
-.alert-page-main-inputs {
-    font-size: 1.2em;
-    @include clearfix();
-    margin: 0.5em 0;
-
-    input[type="text"],
-    input[type="email"] {
-        width: 100%;
-        height: 2.49em;
-        padding-left: 0.8em;
-        padding-right: 0.8em;
-    }
-
-    input[type="text"] {
-        float: left;
-        width: 60%;
-        @include border-radius(3px 0 0 3px);
-    }
-
-    .button {
-        float: left;
-        height: 2.8em;
-        width: 40%;
-        @include border-radius(0 3px 3px 0);
-        margin-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    @media (min-width: 24em) {
-        input[type="text"] {
-            width: 70%;
-        }
-        .button {
-            width: 30%;
-        }
-    }
-
-    @media (min-width: 36em) {
-        input[type="text"] {
-            width: 80%;
-        }
-        .button {
-            width: 20%;
-        }
-    }
-}
-
 .alert-page-error {
     display: block;
     color: $colour_pale_red;
@@ -366,9 +369,7 @@
 .alert-page-search-tips {
     color: $light-text;
     font-size: 0.9em;
-    border-top: 1px solid $colour_off_white;;
-    margin-top: 3em;
-    padding-top: 2em;
+    padding-top: 5.5rem;
 
     h3 {
         color: inherit;
@@ -405,4 +406,101 @@
     .button + .button {
         margin-left: 0.5em;
     }
+}
+
+.alert-meta {
+  .alert-meta__results {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 1rem;
+      row-gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .alert-meta__item {
+        border-radius: 0.5rem;
+        background-color: $primary-color-200;
+        padding: 0.75rem;
+        width: fit-content;
+
+        dt { 
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+    
+        dd {
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
+    }
+
+
+}
+
+// Accordion Keyword
+.keyword-alert-accordion {
+  margin-top: 2rem;
+  h3 {
+    font-weight: 400;
+    font-size: 1rem;
+  }
+}
+
+.keyword-alert-accordion__button {
+  @extend .accordion__button;
+}
+
+.keyword-alert-accordion__content {
+  @extend .accordion__content;
+}
+
+.keyword-alert-accordion__button-content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: start;
+  gap: 0.25rem;
+  
+  .keyword-alert-accordion__subtitle {
+      font-size: 0.75rem;
+      font-weight: bold;
+  }
+}
+
+.keyword-alert-accordion__keyword-list {
+  margin-bottom: 1.5rem;
+}
+
+.keyword-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-left: 0;
+
+    li {
+        font-weight: bold;
+        i {
+            margin-left: 0.25rem;
+        }
+    }
+}
+
+.keyword-alert-accordion__tag,
+.keyword-list__tag {
+  @extend .tag;
+}
+
+.keyword-alert-accordion__tag--included,
+.keyword-list__tag--included  {
+  @extend .tag--primary-light;
+}
+
+.keyword-alert-accordion__tag--excluded,
+.keyword-list__tag--excluded  {
+  @extend .tag--red;
 }
