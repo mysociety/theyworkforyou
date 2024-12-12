@@ -278,13 +278,13 @@
                 <p>
                     <?= gettext('Plus, you won’t need to confirm your email address for every alert you set.') ?>
                 </p>
-              <div class="alert-page-header">
+              <div class="alert-section__header">
                 <h3>Create an alert for a phrase or keyword</h3>
                 <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="step" value="define">
                     <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                      <span><?= gettext('Create new keyword alert') ?></span>
                       <i aria-hidden="true" class="fi-megaphone"></i>
+                      <span><?= gettext('Create new keyword alert') ?></span>
                     </button>
                 </form>
 
@@ -292,47 +292,47 @@
 
               <h3>or</h3>
 
-              <div class="alert-page-header">
+              <div class="alert-section__header">
                 <h3>Create an alert when an MP speaks</h3>
                 <form action="<?= $actionurl ?>" method="post">
                   <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
-                    <?= gettext('Create new MP alert') ?>
                     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                    <?= gettext('Create new MP alert') ?>
                   </button>
                 </form>
               </div>
               <?php } else { ?>
+              <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
+                <div class="clearfix">
+                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
+                      <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
+                      <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete all alerts') ?>" aria-label="Delete all keywords and representatives alerts">
+                  </form>
+                </div>
+              <?php } ?>
 
-              <div class="alert-page-header">
+              <div class="alert-section__header">
                 <div>
                   <h2><?= gettext('Keywords alerts') ?></h2>
                   <!-- Go to Create alert page -->
                   <?php if (!$alerts) { ?>
-                    <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
+                    <p><?= gettext("You haven't created any keyword alerts.") ?></p>
                   <?php } ?>
                 </div>
-                <div class="alert-page-header__button-group">
-                <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
-                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
-                      <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
-                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
-                  </form>
-                <?php } ?>
-                  <form action="<?= $actionurl ?>" method="post">
-                      <input type="hidden" name="step" value="define">
-                      <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                        <span><?= gettext('Create new keyword alert') ?></span>
-                        <i aria-hidden="true" class="fi-megaphone"></i>
-                      </button>
-                  </form>
-                </div>
+                <form action="<?= $actionurl ?>" method="post">
+                    <input type="hidden" name="step" value="define">
+                    <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
+                      <i aria-hidden="true" class="fi-megaphone"></i>
+                      <span><?= gettext('Create new keyword alert') ?></span>
+                    </button>
+                </form>
               </div>
 
                 <!-- The groups alerts should be sorted by default from most recent mention to oldest one -->
                 <!-- Future functionality: The groups alerts can be sorted alphabetically-->
 
-                <?php include '_list_accordian.php'; ?>
+                <?php include '_keyword_alert_list.php'; ?>
               <?php } ?>
 
           </div>

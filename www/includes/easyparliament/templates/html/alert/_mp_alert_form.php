@@ -16,7 +16,7 @@
     <?php } ?>
   </ul>
 <?php } else { ?>
-  <form action="<?= $actionurl ?>" method="post" class="" id="create-alert-form">
+  <form action="<?= $actionurl ?>" method="post" class="alerts-form">
     <?php if (!$email_verified) { ?>
       <p>
         <?php if (isset($errors["email"]) && $submitted) { ?>
@@ -42,7 +42,7 @@
         <?php } ?>
       </p>
 
-      <div class="alert-page-subsection">
+      <div class="alert-form__section">
         <div class="checkbox-wrapper">
           <input type="checkbox" id="ignore_speaker_votes" name="ignore_speaker_votes"<?= $ignore_speaker_votes ? ' checked' : ''?>>
           <label for="ignore_speaker_votes"><?= gettext('Do not include votes') ?></label>
@@ -52,8 +52,8 @@
       <p>
           <?php if ($pid || $keyword) { ?>
           <button type="submit" class="button" name="mp_step" value="mp_confirm">
-            <span><?= gettext('Subscribe') ?></span>
             <i aria-hidden="true" class="fi-megaphone"></i>
+            <span><?= gettext('Subscribe') ?></span>
           </button>
           <?php } else { ?>
           <button type="submit" class="button" name="mp_step" value="mp_search">
