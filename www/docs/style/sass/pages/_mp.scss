@@ -791,15 +791,18 @@ a[href^="https://www.publicwhip.org"] {
     margin-top: 5px;
 }
 
-.interest-summary {
+h4.interest-summary {
     font-weight: bold;
+    font-size: 1.3em;
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.interest-child-items > div.interest-item > p.interest-summary {
-    font-weight: normal;
-    text-decoration: none;
+h6.interest-summary {
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .interest-details-list {
@@ -807,7 +810,10 @@ a[href^="https://www.publicwhip.org"] {
 }
 
 .child-item-header {
-    text-decoration: underline;
+    font-weight: bold;
+    font-size: 1.2em;   
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 .regmemitem > .interest-item {
     border-top: 1px solid $borders;
