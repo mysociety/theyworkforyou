@@ -316,7 +316,7 @@
                 <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
                   <form action="<?= $actionurl ?>" method="POST" class="pull-right">
                       <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
-                      <input type="submit" class="button button--negative small" name="action" value="<?= gettext('Delete All') ?>">
+                      <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete All') ?>">
                   </form>
                 <?php } ?>
                   <form action="<?= $actionurl ?>" method="post">
