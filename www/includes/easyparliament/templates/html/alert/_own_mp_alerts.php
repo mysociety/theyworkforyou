@@ -1,7 +1,7 @@
 
 <?php foreach ($own_member_alerts as $alert) { ?>
 <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?></p>
-<div class="alert-page-alert-controls">
+<div class="alert-page-subsection__controls">
   <form action="<?= $actionurl ?>" method="POST">
     <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
     <input type="hidden" name="pid" value="<?= _htmlspecialchars($alert['pid']) ?>">
