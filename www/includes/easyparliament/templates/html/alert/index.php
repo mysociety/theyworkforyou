@@ -303,6 +303,14 @@
                 </form>
               </div>
               <?php } else { ?>
+              <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
+                <div class="clearfix">
+                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
+                      <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
+                      <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete all alerts') ?>" aria-label="Delete all keywords and representatives alerts">
+                  </form>
+                </div>
+              <?php } ?>
 
               <div class="alert-page-header">
                 <div>
@@ -313,12 +321,6 @@
                   <?php } ?>
                 </div>
                 <div class="alert-page-header__button-group">
-                <?php if ($keyword_alerts || $spoken_alerts || $own_member_alerts) { ?>
-                  <form action="<?= $actionurl ?>" method="POST" class="pull-right">
-                      <input type="hidden" name="t" value="<?= _htmlspecialchars($delete_token) ?>">
-                      <input type="submit" class="button button--negative small js-confirm-delete" name="action" value="<?= gettext('Delete all alerts') ?>" aria-label="Delete all keywords and representatives alerts">
-                  </form>
-                <?php } ?>
                   <form action="<?= $actionurl ?>" method="post">
                       <input type="hidden" name="step" value="define">
                       <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
