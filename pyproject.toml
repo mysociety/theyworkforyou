@@ -24,10 +24,12 @@ typer = "^0.15.1"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
 
+[tool.poetry.scripts]
+contact-io = "twfy_tools.utils.contact_io:app"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
 
 [tool.ruff]
 extend-exclude = ["migrations", "commonlib", "scripts/historic"]
