@@ -16,6 +16,9 @@ pyyaml = "6.0.1"
 commonlib = {path = "commonlib"}
 pydantic = "^2.8.2"
 sqlalchemy = "^2.0.32"
+django = ">=4.2,<5.0"
+mailchimp-marketing = {git = "https://github.com/mailchimp/mailchimp-marketing-python.git"}
+typer = "^0.15.1"
 
 
 [tool.poetry.group.dev.dependencies]
