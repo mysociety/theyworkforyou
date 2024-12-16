@@ -483,7 +483,7 @@ function createAccordion(triggerSelector, contentSelector) {
 
 // Initialize accordion when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  createAccordion('.accordion-button', '.accordion-content');
+  createAccordion('.js-accordion-button', '.js-accordion-content');
 });
 
 // Comfirm deletion of alerts
