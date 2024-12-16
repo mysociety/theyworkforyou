@@ -127,6 +127,8 @@ define ("RECESSFILE","https://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 
 define("TWFY_VOTES_URL", "");
 
+define("MAILCHIMP_API_KEY", "");
+
 define('ENTRIES_AFTER_LEFT', '{
     "10170,2014-09-08": "2014-09-07",
     "11068,2008-09": "2008-08-13",

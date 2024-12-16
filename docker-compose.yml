@@ -24,6 +24,7 @@ services:
       TWFY_TEST_DB_USER: twfy
       TWFY_TEST_DB_PASS: password
       TWFY_VOTES_URL: ${TWFY_VOTES_URL}
+      MAILCHIMP_API_KEY: ${MAILCHIMP_API_KEY:-}
       MAPIT_URL: ${MAPIT_URL:-https://mapit.mysociety.org/}
       MAPIT_API_KEY: ${MAPIT_API_KEY:-}
       DEMOCRACYCLUB_TOKEN: ${DEMOCRACYCLUB_TOKEN:-}
