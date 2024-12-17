@@ -317,7 +317,7 @@
                   <h2><?= gettext('Keywords alerts') ?></h2>
                   <!-- Go to Create alert page -->
                   <?php if (!$alerts) { ?>
-                    <p><?= gettext('You haven´t created any keyword alerts.') ?></p>
+                    <p><?= gettext("You haven't created any keyword alerts.") ?></p>
                   <?php } ?>
                 </div>
                 <form action="<?= $actionurl ?>" method="post">
