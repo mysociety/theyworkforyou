@@ -121,7 +121,7 @@ class SearchTest extends FetchPageTestCase {
     public function testSearchPageMP() {
         $page = $this->fetch_page([ 'q' => 'Mary Smith' ]);
         $this->assertStringContainsString('Mary Smith', $page);
-        $this->assertStringContainsString('MP, Amber Valley', $page);
+        $this->assertMatchesRegularExpression('/MP *for Amber Valley/', $page);
     }
 
     /**
@@ -169,9 +169,9 @@ class SearchTest extends FetchPageTestCase {
         $page = $this->fetch_page([ 'q' => 'Liverpool' ]);
         $this->assertStringContainsString('MPs in constituencies matching <em class="current-search-term">Liverpool</em>', $page);
         $this->assertStringContainsString('Susan Brown', $page);
-        $this->assertStringContainsString('MP, Liverpool, Riverside', $page);
+        $this->assertMatchesRegularExpression('/MP *for Liverpool, Riverside/', $page);
         $this->assertStringContainsString('Andrew Jones', $page);
-        $this->assertStringContainsString('MP, Liverpool, Walton', $page);
+        $this->assertMatchesRegularExpression('/MP *for Liverpool, Walton/', $page);
     }
 
     /**
