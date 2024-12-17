@@ -15,6 +15,7 @@ sed -r \
     -e 's!^(.*"OPTION_TWFY_DB_NAME", *)"[^"]*"!'"\\1'twfy'!" \
     -e 's!^(.*"OPTION_TWFY_MEMCACHED_HOST", *)"[^"]*"!'"\\1'memcache'!" \
     -e 's!^(.*"TWFY_VOTES_URL", *)"[^"]*"!'"\\1'$TWFY_VOTES_URL'!" \
+    -e 's!^(.*"MAILCHIMP_API_KEY", *)"[^"]*"!'"\\1'$MAILCHIMP_API_KEY'!" \
     -e 's!^(.*"OPTION_MAPIT_URL", *)"[^"]*"!'"\\1'$MAPIT_URL'!" \
     -e 's!^(.*"OPTION_MAPIT_API_KEY", *)"[^"]*"!'"\\1'$MAPIT_API_KEY'!" \
     -e 's!^(.*"OPTION_DEMOCRACYCLUB_TOKEN", *)"[^"]*"!'"\\1'$DEMOCRACYCLUB_TOKEN'!" \

@@ -16,15 +16,20 @@ pyyaml = "6.0.1"
 commonlib = {path = "commonlib"}
 pydantic = "^2.8.2"
 sqlalchemy = "^2.0.32"
+django = ">=4.2,<5.0"
+mailchimp-marketing = {git = "https://github.com/mailchimp/mailchimp-marketing-python.git"}
+typer = "^0.15.1"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.1"
 
+[tool.poetry.scripts]
+contact-io = "twfy_tools.utils.contact_io:app"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
 
 [tool.ruff]
 extend-exclude = ["migrations", "commonlib", "scripts/historic"]

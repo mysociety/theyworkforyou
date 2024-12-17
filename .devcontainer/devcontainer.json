@@ -4,6 +4,9 @@
 		"TWFY_VOTES_URL": {
 			"description": "URL to the TWFY Votes page"
 		},
+		"MAILCHIMP_API_KEY": {
+			"description": "Mailchimp API key"
+		},
 		"MAPIT_URL": {
 			"description": "URL to the MapIt API - defaults to mapit.mysociety.org"
 		},
