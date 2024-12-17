@@ -406,3 +406,96 @@
         margin-left: 0.5em;
     }
 }
+
+.alert-section__page-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  button, h2 {
+      margin-bottom: 0;
+      margin-top: 0;
+  }
+}
+
+.alert-meta {
+  .alert-meta__results {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 1rem;
+      row-gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .alert-meta__item {
+          border-radius: 0.5rem;
+          background-color: $primary-color-200;
+          padding: 1rem;
+
+          dt { 
+              font-size: 0.7rem;
+              text-transform: uppercase;
+              margin-bottom: 0;
+          }
+      
+          dd {
+              margin-bottom: 0;
+              font-size: 1.1rem;
+          }
+      }
+  }
+}
+
+// Accordion Keyword
+.keyword-alert-accordion {
+  margin-top: 2rem;
+}
+
+.keyword-alert-accordion__button {
+  @extend .accordion__button;
+}
+
+.keyword-alert-accordion__content {
+  @extend .accordion__content;
+}
+
+.keyword-alert-accordion__button-content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: start;
+  gap: 0.25rem;
+  
+  .keyword-alert-accordion__subtitle {
+      font-size: 0.75rem;
+      font-weight: bold;
+  }
+}
+
+.keyword-alert-accordion__keyword-list,
+.alert-creation-steps {
+  margin-bottom: 2.5rem;
+  ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-left: 0;
+
+      li {
+          font-weight: bold;
+          i {
+              margin-left: 0.25rem;
+          }
+      }
+  }
+
+  h3 {
+    font-weight: 400;
+  }
+}

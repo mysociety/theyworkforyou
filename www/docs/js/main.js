@@ -483,9 +483,23 @@ function createAccordion(triggerSelector, contentSelector) {
 
 // Initialize accordion when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  createAccordion('.accordion-button', '.accordion-content');
+  createAccordion('.js-accordion-button', '.js-accordion-content');
 });
 
+// Comfirm deletion of alerts
+function confirmDelete() {
+  var triggers = document.querySelectorAll('.js-confirm-delete');
+
+  triggers.forEach(function(trigger) {
+    trigger.addEventListener('click', function(event) {
+      var message = "Are you sure you want to delete all alerts?";
+      if (!confirm(message)) {
+        event.preventDefault();
+      }
+    });
+  });
+}
+confirmDelete();
 
 $(function() {
 
