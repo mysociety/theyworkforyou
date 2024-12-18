@@ -13,6 +13,25 @@ include_once '../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
+$announcement_manager = new \MySociety\TheyWorkForYou\Model\AnnouncementManagement();
+$banner = $announcement_manager->get_random_valid_item('alerts');
+
+$text_banner = '';
+$html_banner = '';
+if ($banner) {
+    $text_banner = $banner->title . "\n\n" . $banner->content . "\n\n";
+    $html_banner = '<p><strong>' . $banner->title . "</strong></p><p>" . $banner->content . '</p>';
+
+    if (property_exists($banner, 'url') && $banner->url) {
+        $link_text = "Read more";
+        if (property_exists($banner, 'button_text')) {
+            $link_text = $banner->button_text;
+        }
+        $text_banner .= $banner->url . "\n\n";
+        $html_banner .= '<p><a href="' . $banner->url . '">' . $link_text . '</a></p>';
+    }
+}
+
 $global_start = getmicrotime();
 $db = new ParlDB();
 
@@ -211,7 +230,12 @@ foreach ($alertdata as $alertitem) {
 
     if ($email != $current['email']) {
         if ($email_text) {
-            write_and_send_email($current, $email_text, $html_text, $template);
+
+            if ($banner) {
+                $email_text = $text_banner . $email_text;
+            }
+
+            write_and_send_email($current, $email_text, $html_text, $template, $html_banner);
         }
         $current['email'] = $email;
         $current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
@@ -391,7 +415,10 @@ foreach ($alertdata as $alertitem) {
     }
 }
 if ($email_text) {
-    write_and_send_email($current, $email_text, $html_text, $template);
+    if ($banner) {
+        $email_text = $text_banner . $email_text;
+    }
+    write_and_send_email($current, $email_text, $html_text, $template, $html_banner);
 }
 
 mlog("\n");
@@ -460,7 +487,7 @@ function sort_by_stuff($a, $b) {
     return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
-function write_and_send_email($current, $text, $html, $template) {
+function write_and_send_email($current, $text, $html, $template, $html_banner) {
     global $globalsuccess, $sentemails, $nomail, $start_time, $domain;
 
     $text .= '====================';
@@ -470,8 +497,12 @@ function write_and_send_email($current, $text, $html, $template) {
     $m = [
         'DATA' => $text,
         '_HTML_' => $html,
+        '_BANNER_' => '',
         'MANAGE' => "https://$domain/D/" . $current['token'],
     ];
+    if ($html_banner) {
+        $m['_BANNER_'] = $html_banner;
+    }
     if (!$nomail) {
         $success = send_template_email($d, $m, true, true, $current['lang']); # true = "Precedence: bulk", want bounces
         mlog("sent ... ");
