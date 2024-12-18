@@ -233,10 +233,9 @@ foreach ($alertdata as $alertitem) {
 
             if ($banner) {
                 $email_text = $text_banner . $email_text;
-                $html_text = $html_banner . $html_text;
             }
 
-            write_and_send_email($current, $email_text, $html_text, $template);
+            write_and_send_email($current, $email_text, $html_text, $template, $html_banner);
         }
         $current['email'] = $email;
         $current['token'] = $alertitem['alert_id'] . '-' . $alertitem['registrationtoken'];
@@ -418,9 +417,8 @@ foreach ($alertdata as $alertitem) {
 if ($email_text) {
     if ($banner) {
         $email_text = $text_banner . $email_text;
-        $html_text = $html_banner . $html_text;
     }
-    write_and_send_email($current, $email_text, $html_text, $template);
+    write_and_send_email($current, $email_text, $html_text, $template, $html_banner);
 }
 
 mlog("\n");
@@ -489,7 +487,7 @@ function sort_by_stuff($a, $b) {
     return ($a['hpos'] > $b['hpos']) ? 1 : -1;
 }
 
-function write_and_send_email($current, $text, $html, $template) {
+function write_and_send_email($current, $text, $html, $template, $html_banner) {
     global $globalsuccess, $sentemails, $nomail, $start_time, $domain;
 
     $text .= '====================';
@@ -499,8 +497,12 @@ function write_and_send_email($current, $text, $html, $template) {
     $m = [
         'DATA' => $text,
         '_HTML_' => $html,
+        '_BANNER_' => '',
         'MANAGE' => "https://$domain/D/" . $current['token'],
     ];
+    if ($html_banner) {
+        $m['_BANNER_'] = $html_banner;
+    }
     if (!$nomail) {
         $success = send_template_email($d, $m, true, true, $current['lang']); # true = "Precedence: bulk", want bounces
         mlog("sent ... ");
