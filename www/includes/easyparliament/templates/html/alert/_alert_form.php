@@ -139,7 +139,7 @@
                       <ul>
                         <?php foreach ($keywords as $word) {
                             if (!in_array($word, $skip_keyword_terms)) { ?>
-                            <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
+                            <li class="keyword-list__tag keyword-list__tag--included"><?= _htmlspecialchars($word) ?>
                         <?php }
                             } ?>
                       </ul>
@@ -220,7 +220,7 @@
                       <?php } ?>
                       <ul>
                         <?php foreach ($keywords as $word) { ?>
-                        <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
+                        <li class="keyword-list__tag keyword-list__tag--included"><?= _htmlspecialchars($word) ?>
                         <?php } ?>
                       </ul>
                     </div>
@@ -230,7 +230,7 @@
                     <h3><?= gettext('Unless the speech also includes these words') ?>:</h3>
                       <ul>
                         <?php foreach (explode(" ", $exclusions) as $word) { ?>
-                        <li class="label label--red"><?= _htmlspecialchars($word) ?>
+                        <li class="keyword-list__tag keyword-list__tag--excluded"><?= _htmlspecialchars($word) ?>
                         <?php } ?>
                       </ul>
                     </div>
@@ -241,7 +241,7 @@
                       <h3><?= gettext('And only if the speech is in') ?>:</h3>
                         <ul>
                         <?php foreach ($sections as $word) { ?>
-                          <li class="label label--primary-light"><?= _htmlspecialchars($word) ?>
+                          <li class="keyword-list__tag keyword-list__tag--included"><?= _htmlspecialchars($word) ?>
                         <?php } ?>
                         </ul>
                     <?php } else { ?>
@@ -254,7 +254,7 @@
                     <h3><?= gettext('And only when spoken by') ?></h3>
                       <ul>
                         <?php foreach ($members as $member) { ?>
-                        <li class="label label--primary-light"><?= $member['given_name'] ?> <?= $member['family_name'] ?>
+                        <li class="keyword-list__tag keyword-list__tag--included"><?= $member['given_name'] ?> <?= $member['family_name'] ?>
                         <?php } ?>
                       </ul>
                     </div>

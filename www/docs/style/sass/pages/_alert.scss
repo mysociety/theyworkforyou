@@ -499,3 +499,18 @@
     font-weight: 400;
   }
 }
+
+.keyword-alert-accordion__tag,
+.keyword-list__tag {
+  @extend .tag;
+}
+
+.keyword-alert-accordion__tag--included,
+.keyword-list__tag--included  {
+  @extend .tag--primary-light;
+}
+
+.keyword-alert-accordion__tag--excluded,
+.keyword-list__tag--excluded  {
+  @extend .tag--red;
+}

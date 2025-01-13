@@ -74,7 +74,7 @@
                             <h3 class="heading-with-bold-word">Keywords <strong>included</strong> in this alert:</h3>
                             <ul>
                               <?php foreach ($alert["keywords"] as $keyword) { ?>
-                                <li class="label label--primary-light"><?= _htmlspecialchars($keyword) ?>
+                                <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= _htmlspecialchars($keyword) ?>
                               <?php } ?>
                             </ul>
                           </div>
@@ -85,7 +85,7 @@
                             <h3 class="heading-with-bold-word">Keywords <strong>excluded</strong> in this alert:</h3>
                             <ul>
                               <?php foreach ($alert["exclusions"] as $exclusion) { ?>
-                                <li class="label label--red"><?= _htmlspecialchars($exclusion) ?>
+                                <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--excluded"><?= _htmlspecialchars($exclusion) ?>
                               <?php } ?>
                             </ul>
                           </div>
@@ -96,7 +96,7 @@
                             <h3 class="heading-with-bold-word">Which <strong class="bold">section</strong> should this alert apply to:</h3>
                             <ul>
                               <?php foreach ($alert["sections_verbose"] as $section) { ?>
-                                <li class="label label--primary-light"><?= _htmlspecialchars($section) ?>
+                                <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= _htmlspecialchars($section) ?>
                               <?php } ?>
                             </ul>
                           </div>
@@ -107,7 +107,7 @@
                             <h3 class="heading-with-bold-word"><?= gettext('This alert applies to the following <strong class="bold">representative</span>') ?></h3>
                             <ul>
                               <?php foreach ($alert['spokenby'] as $speaker) { ?>
-                                <li class="label label--primary-light"><?= $speaker ?>
+                                <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= $speaker ?>
                               <?php } ?>
                             </ul>
                           </div>
