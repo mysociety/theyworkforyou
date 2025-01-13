@@ -72,15 +72,6 @@
     margin-left: 0.5em;
 }
 
-.button.red {
-    background-color: $color-red;
-    color: #fff;
-
-    &:hover {
-        background-color: darken($color-red, 15%);
-    }
-}
-
 #create-alert-form {
     label {
         color: $body-font-color;
