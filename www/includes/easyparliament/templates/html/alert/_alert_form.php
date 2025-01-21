@@ -314,7 +314,6 @@
             </div>
 
             <div class="alert-section__secondary">
-              <?php if (!$pid && !$keyword) { ?>
                 <div class="alert-page-search-tips">
                     <h3><?= gettext('Search tips') ?></h3>
                     <p>
@@ -341,6 +340,5 @@
                         <li><?= sprintf(gettext('<a href="%s">Managing email alerts</a>, including how to stop or suspend them.'), 'https://www.mysociety.org/2014/09/04/how-to-manage-your-theyworkforyou-alerts/') ?></li>
                     <ul>
                 </div>
-              <?php } ?>
             </div>
           </div>
