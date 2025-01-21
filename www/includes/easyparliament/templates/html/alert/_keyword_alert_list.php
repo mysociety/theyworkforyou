@@ -12,7 +12,7 @@
                       </button>
                       <div id="accordion-content-<?= $index ?>" class="keyword-alert-accordion__content js-accordion-content" aria-hidden="true" role="img">
                         <div class="keyword-alert-accordion__content-header">
-                          <div class="alert-page-subsection__controls">
+                          <div class="alert__controls">
                             <form action="<?= $actionurl ?>" method="POST">
                               <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                               <?php if ($alert['status'] == 'unconfirmed') { ?>
@@ -71,7 +71,7 @@
 
                         <?php if ($alert["keywords"]) { ?>
                           <div class="keyword-alert-accordion__keyword-list">
-                            <h3 class="heading-with-bold-word">Keywords <strong>included</strong> in this alert:</h3>
+                            <h3>Keywords <strong>included</strong> in this alert:</h3>
                             <ul>
                               <?php foreach ($alert["keywords"] as $keyword) { ?>
                                 <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= _htmlspecialchars($keyword) ?>
@@ -82,8 +82,8 @@
 
                         <?php if ($alert["exclusions"]) { ?>
                           <div class="keyword-alert-accordion__keyword-list excluded-keywords">
-                            <h3 class="heading-with-bold-word">Keywords <strong>excluded</strong> in this alert:</h3>
-                            <ul>
+                            <h3>Keywords <strong>excluded</strong> in this alert:</h3>
+                            <ul class="keyword-list">
                               <?php foreach ($alert["exclusions"] as $exclusion) { ?>
                                 <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--excluded"><?= _htmlspecialchars($exclusion) ?>
                               <?php } ?>
@@ -93,8 +93,8 @@
 
                         <?php if ($alert['sections']) { ?>
                           <div class="keyword-alert-accordion__keyword-list">
-                            <h3 class="heading-with-bold-word">Which <strong class="bold">section</strong> should this alert apply to:</h3>
-                            <ul>
+                            <h3>Which <strong>section</strong> should this alert apply to:</h3>
+                            <ul class="keyword-list">
                               <?php foreach ($alert["sections_verbose"] as $section) { ?>
                                 <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= _htmlspecialchars($section) ?>
                               <?php } ?>
@@ -104,7 +104,7 @@
 
                         <?php if (array_key_exists('spokenby', $alert)) { ?>
                           <div class="keyword-alert-accordion__keyword-list">
-                            <h3 class="heading-with-bold-word"><?= gettext('This alert applies to the following <strong class="bold">representative</span>') ?></h3>
+                            <h3><?= gettext('This alert applies to the following <strong class="bold">representative</span>') ?></h3>
                             <ul>
                               <?php foreach ($alert['spokenby'] as $speaker) { ?>
                                 <li class="keyword-alert-accordion__tag keyword-alert-accordion__tag--included"><?= $speaker ?>
@@ -119,7 +119,7 @@
 
                 <hr>
 
-                <div class="alert-section__page-header">
+                <div class="alert-section__header">
                   <div>
                     <h2>Representative alerts</h2>
                   </div>
@@ -135,7 +135,7 @@
                 <?php if ($current_mp) { ?>
                   <h3><?= gettext('Your MP') ?></h3>
                   <ul class="alerts-manage__list">
-                    <li class="alert-section--message">
+                    <li class="alert-section__message">
                       <?= sprintf(gettext('You are not subscribed to an alert for your current MP, %s'), '<strong>' . htmlspecialchars($current_mp->full_name()) . '</strong>') ?>, speaks.
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="pid" value="<?= $current_mp->person_id() ?>">
@@ -151,7 +151,7 @@
                     <?php include '_own_mp_alerts.php' ?>
                   <?php } else { ?>
                     <?php if (!in_array($own_mp_criteria, $all_keywords)) { ?>
-                      <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
+                      <p class="alert-form__subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="keyword" value="<?= _htmlentities($own_mp_criteria) ?>">
                         <button type="submit" class="button small" name="action" value="Subscribe">
@@ -162,19 +162,19 @@
                     <?php } ?>
                   <?php } ?>
                 <?php } elseif (count($own_member_alerts) > 0) { ?>
-                  <div class="alert-page-subsection">
-                    <h3 class="alert-page-subsection--heading"><?= gettext('Your MP') ?> ﹒ <?= $own_member_alerts[0]['spokenby'][0] ?></h3>
+                  <div class="alert-form__section">
+                    <h3><?= gettext('Your MP') ?> ﹒ <?= $own_member_alerts[0]['spokenby'][0] ?></h3>
                     <?php include '_own_mp_alerts.php' ?>
                   </div>
                 <?php } ?>
 
                 <?php foreach ($spoken_alerts as $person_alerts) { ?>
                   <hr>
-                  <div class="alert-page-subsection">
-                    <h3 class="alert-page-subsection--heading"><?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?></h3>
+                  <div class="alert-form__section">
+                    <h3><?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?></h3>
                     <?php foreach ($person_alerts as $alert) { ?>
-                      <p class="alert-page-subsection--subtitle"><?= _htmlspecialchars($alert['criteria']) ?></p>
-                      <div class="alert-page-subsection__controls">
+                      <p class="alert-form__subtitle"><?= _htmlspecialchars($alert['criteria']) ?></p>
+                      <div class="alert__controls">
                         <form action="<?= $actionurl ?>" method="POST">
                           <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
                           <?php if ($alert['status'] == 'unconfirmed') { ?>
@@ -227,7 +227,7 @@
                       </div>
                     <?php } ?>
                     <?php if (!in_array(implode('', $person_alerts[0]['spokenby']), $all_keywords)) { ?>
-                      <p class="alert-page-subsection--subtitle">Alert when <?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
+                      <p class="alert-form__subtitle">Alert when <?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="words[]" value="<?= _htmlentities(implode('', $person_alerts[0]['spokenby'])) ?>">
                         <button type="submit" class="button small" name="action" value="Subscribe">

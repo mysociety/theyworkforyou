@@ -278,7 +278,7 @@
                 <p>
                     <?= gettext('Plus, you won’t need to confirm your email address for every alert you set.') ?>
                 </p>
-              <div class="alert-section__page-header">
+              <div class="alert-section__header">
                 <h3>Create an alert for a phrase or keyword</h3>
                 <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="step" value="define">
@@ -292,7 +292,7 @@
 
               <h3>or</h3>
 
-              <div class="alert-section__page-header">
+              <div class="alert-section__header">
                 <h3>Create an alert when an MP speaks</h3>
                 <form action="<?= $actionurl ?>" method="post">
                   <input type="hidden" name="mp_step" value="mp_alert">
@@ -312,7 +312,7 @@
                 </div>
               <?php } ?>
 
-              <div class="alert-section__page-header">
+              <div class="alert-section__header">
                 <div>
                   <h2><?= gettext('Keywords alerts') ?></h2>
                   <!-- Go to Create alert page -->
