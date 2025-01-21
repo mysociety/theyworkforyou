@@ -283,8 +283,8 @@
                 <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="step" value="define">
                     <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                      <span><?= gettext('Create new keyword alert') ?></span>
                       <i aria-hidden="true" class="fi-megaphone"></i>
+                      <span><?= gettext('Create new keyword alert') ?></span>
                     </button>
                 </form>
 
@@ -297,8 +297,8 @@
                 <form action="<?= $actionurl ?>" method="post">
                   <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
-                    <?= gettext('Create new MP alert') ?>
                     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                    <?= gettext('Create new MP alert') ?>
                   </button>
                 </form>
               </div>
@@ -323,8 +323,8 @@
                 <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="step" value="define">
                     <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">
-                      <span><?= gettext('Create new keyword alert') ?></span>
                       <i aria-hidden="true" class="fi-megaphone"></i>
+                      <span><?= gettext('Create new keyword alert') ?></span>
                     </button>
                 </form>
               </div>

@@ -62,8 +62,8 @@
   <input type="hidden" name="step" value="confirm">
   <input type="hidden" name="words[]" value="<?= _htmlentities($own_mp_criteria) ?>">
   <button type="submit" class="button button--outline small" name="action" value="Subscribe">
-    <?= gettext('Create new alert') ?>
     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+    <?= gettext('Create new alert') ?>
   </button>
 </form>
 <?php } ?>

@@ -126,8 +126,8 @@
                   <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="mp_step" value="mp_alert">
                     <button type="submit" class="button small">
-                      <?= gettext('Create new MP alert') ?>
                       <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                      <?= gettext('Create new MP alert') ?>
                     </button>
                   </form>
                 </div>
@@ -155,8 +155,8 @@
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="keyword" value="<?= _htmlentities($own_mp_criteria) ?>">
                         <button type="submit" class="button small" name="action" value="Subscribe">
-                          <?= gettext('Create new alert') ?>
                           <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                          <?= gettext('Create new alert') ?>
                         </button>
                       </form>
                     <?php } ?>
@@ -231,8 +231,8 @@
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="words[]" value="<?= _htmlentities(implode('', $person_alerts[0]['spokenby'])) ?>">
                         <button type="submit" class="button small" name="action" value="Subscribe">
-                          <?= gettext('Create new alert') ?>
                           <i aria-hidden="true" role="img" class="fi-megaphone"></i>
+                          <?= gettext('Create new alert') ?>
                         </button>
                       </form>
                     <?php } ?>

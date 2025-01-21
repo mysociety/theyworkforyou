@@ -52,8 +52,8 @@
       <p>
           <?php if ($pid || $keyword) { ?>
           <button type="submit" class="button" name="mp_step" value="mp_confirm">
-            <span><?= gettext('Subscribe') ?></span>
             <i aria-hidden="true" class="fi-megaphone"></i>
+            <span><?= gettext('Subscribe') ?></span>
           </button>
           <?php } else { ?>
           <button type="submit" class="button" name="mp_step" value="mp_search">
