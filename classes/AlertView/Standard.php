@@ -226,7 +226,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     }
                 }
             }
-            $this->data['exclusions'] = trim(get_http_var("exclusions", implode('', $this->data['alert_parts']['exclusions'])));
+            $this->data['exclusions'] = trim(get_http_var("exclusions", implode(' ', $this->data['alert_parts']['exclusions'])));
             $this->data['representative'] = trim(get_http_var("representative", $existing_rep));
 
             $this->data['search_section'] = trim(get_http_var("search_section", $existing_section));
@@ -237,7 +237,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
             $this->data['keyword'] = implode($separator, $this->data['words']);
             if ($this->data['exclusions']) {
-                $this->data['keyword'] = '(' . $this->data['keyword'] . ') -' . $this->data["exclusions"];
+                $this->data['keyword'] = '(' . $this->data['keyword'] . ') -' . implode(' -', explode(' ', $this->data["exclusions"]));
             }
 
             $this->data['results'] = '';
@@ -259,7 +259,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             } else {
                 $this->data['ignore_speaker_votes'] = get_http_var('ignore_speaker_votes');
             }
-        } # XXX probably should do something here if $alertsearch is set
+        }
 
         $this->data['sign'] = get_http_var('sign');
         $this->data['site'] = get_http_var('site');
