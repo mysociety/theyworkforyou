@@ -57,8 +57,8 @@ class Alert {
 
         $alerts = [];
         foreach ($q as $row) {
-            $criteria = self::prettifyCriteria($row['criteria']);
-            $parts = self::prettifyCriteria($row['criteria'], true);
+            $criteria = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes']);
+            $parts = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes'], true);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
 
             $status = 'confirmed';
@@ -73,6 +73,7 @@ class Alert {
                 'status' => $status,
                 'criteria' => $criteria,
                 'raw' => $row['criteria'],
+                'ignore_speaker_votes' => $row['ignore_speaker_votes'],
                 'keywords' => [],
                 'exclusions' => [],
                 'sections' => [],
@@ -86,9 +87,9 @@ class Alert {
         return $alerts;
     }
 
-    public static function prettifyCriteria($alert_criteria, $as_parts = false) {
+    public static function prettifyCriteria($alert_criteria, $ignore_speaker_votes = false, $as_parts = false) {
         $text = '';
-        $parts = ['words' => [], 'sections' => [], 'exclusions' => [], 'match_all' => true];
+        $parts = ['words' => [], 'sections' => [], 'exclusions' => [], 'match_all' => true, 'pid' => false];
         if ($alert_criteria) {
             # check for phrases
             if (strpos($alert_criteria, ' OR ') !== false) {
@@ -115,7 +116,13 @@ class Alert {
             $exclusions = [];
             $sections = [];
             $sections_verbose = [];
-            $spokenby = array_values(\MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria));
+            $speaker_parts = \MySociety\TheyWorkForYou\Utility\Search::speakerNamesForIDs($alert_criteria);
+            $pids = array_keys($speaker_parts);
+            $spokenby = array_values($speaker_parts);
+
+            if (count($pids) == 1) {
+                $parts['pid'] = $pids[0];
+            }
 
             foreach ($criteria as $c) {
                 if (preg_match('#^section:(\w+)#', $c, $m)) {
@@ -136,6 +143,9 @@ class Alert {
                 $parts['words'] = $words;
             } elseif ($spokenby) {
                 $text = implode(' or ', $spokenby) . " speaks";
+                if ($ignore_speaker_votes) {
+                    $text .= " excluding votes";
+                }
                 $parts['spokenby'] = $spokenby;
             }
 

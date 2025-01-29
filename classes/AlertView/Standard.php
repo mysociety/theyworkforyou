@@ -52,7 +52,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($success) {
                     $this->data['results'] = 'alert-confirmed';
                     $this->data['criteria'] = $this->alert->criteria;
-                    $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
+                    $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
                 }
             } elseif ($action == 'Suspend') {
                 $success = $this->suspendAlert($token);
@@ -158,18 +158,24 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['pid'] = trim(get_http_var("pid"));
         $this->data['pc'] = get_http_var('pc');
         $this->data['submitted'] = get_http_var('submitted') || $this->data['pid'] || $this->data['keyword'] || $this->data['step'];
+        $this->data['ignore_speaker_votes'] = get_http_var('ignore_speaker_votes');
 
         if ($this->data['addword'] || $this->data['step']) {
             $alert = $this->alert->check_token($this->data['token']);
 
             $criteria = '';
+            $alert_ignore_speaker_votes = 0;
             if ($alert) {
                 $criteria = $alert['criteria'];
+                $alert_ignore_speaker_votes = $alert['ignore_speaker_votes'];
             }
+
+            $ignore_speaker_votes = get_http_var('ignore_speaker_votes', $alert_ignore_speaker_votes);
+            $this->data['ignore_speaker_votes'] = ($ignore_speaker_votes == 'on' || $ignore_speaker_votes == 1);
 
             $this->data['alert'] = $alert;
 
-            $this->data['alert_parts'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($criteria, true);
+            $this->data['alert_parts'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($criteria, $alert_ignore_speaker_votes, true);
 
             $existing_rep = '';
             if (isset($this->data['alert_parts']['spokenby'])) {
@@ -220,7 +226,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     }
                 }
             }
-            $this->data['exclusions'] = trim(get_http_var("exclusions", implode('', $this->data['alert_parts']['exclusions'])));
+            $this->data['exclusions'] = trim(get_http_var("exclusions", implode(' ', $this->data['alert_parts']['exclusions'])));
             $this->data['representative'] = trim(get_http_var("representative", $existing_rep));
 
             $this->data['search_section'] = trim(get_http_var("search_section", $existing_section));
@@ -231,13 +237,29 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
             $this->data['keyword'] = implode($separator, $this->data['words']);
             if ($this->data['exclusions']) {
-                $this->data['keyword'] = '(' . $this->data['keyword'] . ') -' . $this->data["exclusions"];
+                $this->data['keyword'] = '(' . $this->data['keyword'] . ') -' . implode(' -', explode(' ', $this->data["exclusions"]));
             }
 
             $this->data['results'] = '';
 
             $this->getSearchSections();
-        } # XXX probably should do something here if $alertsearch is set
+        } else if ($this->data['mp_step'] == 'mp_alert') {
+            $alert = $this->alert->check_token($this->data['token']);
+            if ($alert) {
+                $ignore_speaker_votes = get_http_var('ignore_speaker_votes', $alert['ignore_speaker_votes']);
+                $this->data['ignore_speaker_votes'] = ($ignore_speaker_votes == 'on' || $ignore_speaker_votes == 1);
+
+                $existing_rep = '';
+                if (isset($alert['criteria'])) {
+                    $alert_parts = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($alert['criteria'], $alert['ignore_speaker_votes'], true);
+                    $existing_rep = $alert_parts['spokenby'][0];
+                    $this->data['pid'] = $alert_parts['pid'];
+                }
+                $this->data['keyword'] = get_http_var('mp_search', $existing_rep);
+            } else {
+                $this->data['ignore_speaker_votes'] = get_http_var('ignore_speaker_votes');
+            }
+        }
 
         $this->data['sign'] = get_http_var('sign');
         $this->data['site'] = get_http_var('site');
@@ -470,7 +492,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         $this->data['results'] = $result;
         $this->data['criteria'] = $this->alert->criteria;
-        $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria);
+        $this->data['display_criteria'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
     }
 
 
