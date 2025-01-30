@@ -24,7 +24,7 @@ jobs:
 
     - name: check ruff formatter
       run: ruff format --check .
-    
+
     - name: Restore php-cs-fixer
       id: cache-php-cs-fixer
       uses: actions/cache/restore@v4
@@ -43,9 +43,9 @@ jobs:
       run: |
         php composer.phar install --working-dir=tools/php-cs-fixer
 
-    - name: Install PHP-CS-Fixer
+    - name: Run PHP-CS-Fixer
       run: |
-        tools/php-cs-fixer/vendor/bin/php-cs-fixer check
+        tools/php-cs-fixer/vendor/bin/php-cs-fixer --diff check
 
     - name: Save php-cs-fixer
       id: save-php-cs-fixer
