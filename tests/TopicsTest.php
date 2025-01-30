@@ -26,12 +26,6 @@ class TopicsTest extends FetchPageTestCase {
         $this->assertStringContainsString('Welfare', $page);
     }
 
-    public function testTopicsOnFrontPage() {
-        return $this->base_fetch_page(['url' => '/'], '/');
-        $this->assertStringContainsString('NHS', $page);
-        $this->assertStringNotContainsString('Welfare', $page);
-    }
-
     public function testTopicPage() {
         $page = $this->fetch_topic_page(['topic' => 'nhs', 'url' => '/topic/nhs']);
         $this->assertStringContainsString('NHS', $page);

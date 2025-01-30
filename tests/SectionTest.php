@@ -16,7 +16,8 @@ class SectionTest extends FetchPageTestCase {
 
     public function testDebatesFront() {
         foreach ($this->types as $type) {
-            $this->fetch_page([ 'type' => $type ]);
+            $page = $this->fetch_page([ 'type' => $type ]);
+            $this->assertStringContainsString($type, $page);
         }
     }
 

@@ -121,8 +121,8 @@ class DivisionsTest extends FetchPageTestCase {
     }
 
     public function testNotEnoughInfoStatement() {
-        return $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
-        $this->assertStringContainsString('we don&rsquo;t have enough information to calculate Test Current-MP&rsquo;s position', $page);
+        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
+        $this->assertStringContainsString('We don&rsquo;t have enough information to calculate Mrs Test Current-MP&rsquo;s position', $page);
     }
 
     public function testRecentDivisionsForMP() {

@@ -11,6 +11,7 @@ class TestStripe extends Stripe {
                     'coupon' => ['percent_off' => 100],
                     'end' => null,
                 ],
+                'schedule' => null,
                 'plan' => [
                     'amount' => '2000',
                     'id' => 'twfy-1k',
