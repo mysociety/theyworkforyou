@@ -38,4 +38,20 @@ class Stripe {
     public function getInvoices($args) {
         return \Stripe\Invoice::all($args);
     }
+
+    public function createSchedule($id) {
+        return \Stripe\SubscriptionSchedule::create(['from_subscription' => $id]);
+    }
+
+    public function updateSchedule($id, $phases) {
+        return \Stripe\SubscriptionSchedule::update($id, ['phases' => $phases]);
+    }
+
+    public function releaseSchedule($id) {
+        \Stripe\SubscriptionSchedule::release($id);
+    }
+
+    public function updateSubscription($id, $args) {
+        \Stripe\Subscription::update($id, $args);
+    }
 }

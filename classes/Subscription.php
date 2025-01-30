@@ -124,9 +124,9 @@ class Subscription {
 
         if ($old_price >= $new_price) {
             if ($this->stripe->schedule) {
-                \Stripe\SubscriptionSchedule::release($this->stripe->schedule);
+                $this->api->releaseSchedule($this->stripe->schedule->id);
             }
-            $schedule = \Stripe\SubscriptionSchedule::create(['from_subscription' => $this->stripe->id]);
+            $schedule = $this->api->createSchedule($this->stripe->id);
             $phases = [
                 [
                     'items' => [['price' => $schedule->phases[0]->items[0]->price]],
@@ -149,7 +149,7 @@ class Subscription {
             if ($form_data['coupon']) {
                 $phases[1]['coupon'] = $form_data['coupon'];
             }
-            \Stripe\SubscriptionSchedule::update($schedule->id, ['phases' => $phases]);
+            $this->api->updateSchedule($schedule->id, $phases);
         }
 
         if ($old_price < $new_price) {
@@ -166,9 +166,9 @@ class Subscription {
                 $args['coupon'] = '';
             }
             if ($this->stripe->schedule) {
-                \Stripe\SubscriptionSchedule::release($this->stripe->schedule);
+                $this->api->releaseSchedule($this->stripe->schedule->id);
             }
-            \Stripe\Subscription::update($this->stripe->id, $args);
+            $this->api->updateSubscription($this->stripe->id, $args);
         }
     }
 
@@ -231,6 +231,13 @@ class Subscription {
             ':user_id' => $this->user->user_id(),
             ':stripe_id' => $stripe_id,
         ]);
+    }
+
+    public function cancel_subscription() {
+        if ($this->stripe->schedule) {
+            $this->api->releaseSchedule($this->stripe->schedule->id);
+        }
+        $this->api->updateSubscription($this->stripe->id, ['cancel_at_period_end' => true]);
     }
 
     public function invoices() {

@@ -31,6 +31,34 @@ class TestStripe extends Stripe {
                     ],
                 ],
             ], null);
+        } elseif ($args['id'] == 'sub_456') {
+            return \Stripe\Util\Util::convertToStripeObject([
+                'id' => 'sub_456',
+                'discount' => null,
+                'schedule' => [
+                    'id' => 'sub_sched',
+                    'phases' => [
+                    ],
+                ],
+                'plan' => [
+                    'amount' => '4167',
+                    'id' => 'twfy-5k',
+                    'nickname' => 'Many calls per month',
+                    'interval' => 'month',
+                ],
+                'cancel_at_period_end' => false,
+                'created' => time(),
+                'current_period_end' => time(),
+                'latest_invoice' => [],
+                'customer' => [
+                    'id' => 'cus_456',
+                    'balance' => 0,
+                    'default_source' => [],
+                    'invoice_settings' => [
+                        'default_payment_method' => [],
+                    ],
+                ],
+            ], null);
         }
         return \Stripe\Util\Util::convertToStripeObject([], null);
     }
@@ -51,8 +79,37 @@ class TestStripe extends Stripe {
     }
 
     public function createSubscription($args) {
+        if ($args['plan'] == 'twfy-5k') {
+            $id = 'sub_456';
+        } else {
+            $id = 'sub_123';
+        }
         return \Stripe\Util\Util::convertToStripeObject([
-            'id' => 'sub_123',
+            'id' => $id,
         ], null);
     }
+
+    public function createSchedule($id) {
+        return \Stripe\Util\Util::convertToStripeObject([
+            'id' => 'schedule_1',
+            'phases' => [
+                [
+                    'start_date' => time(),
+                    'end_date' => time(),
+                    'discounts' => null,
+                    'items' => [
+                        [
+                            'price' => '5000',
+                        ],
+                    ],
+                ],
+            ],
+        ], null);
+    }
+
+    public function updateSchedule($id, $phases) {}
+
+    public function releaseSchedule($id) {}
+
+    public function updateSubscription($id, $args) {}
 }
