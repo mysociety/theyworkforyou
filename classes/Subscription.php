@@ -57,8 +57,7 @@ class Subscription {
         }
 
         try {
-            $this->stripe = $this->api->getSubscription([
-                'id' => $id,
+            $this->stripe = $this->api->getSubscription($id, [
                 'expand' => [
                     'customer.default_source',
                     'customer.invoice_settings.default_payment_method',
@@ -181,7 +180,7 @@ class Subscription {
     }
 
     public function update_payment_method($payment_method) {
-        $payment_method = \Stripe\PaymentMethod::retrieve($payment_method);
+        $payment_method = $this->api->client->paymentMethods->retrieve($payment_method);
         $payment_method->attach(['customer' => $this->stripe->customer->id]);
         $this->update_customer([
             'invoice_settings' => [
