@@ -42,7 +42,7 @@ if ($THEUSER->loggedin()) {
                 $invoice = $sub->latest_invoice;
                 $invoice->pay([ 'expand' => [ 'payment_intent' ] ]);
             } catch (\Stripe\Exception\CardException $e) {
-                $invoice = \Stripe\Invoice::retrieve($sub->latest_invoice, ['expand' => [ 'payment_intent'] ]);
+                $invoice = $subscription->api->client->invoices->retrieve($sub->latest_invoice, ['expand' => [ 'payment_intent'] ]);
             }
         } else {
             $invoice = $sub->latest_invoice;

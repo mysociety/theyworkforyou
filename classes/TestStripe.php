@@ -3,8 +3,8 @@
 namespace MySociety\TheyWorkForYou;
 
 class TestStripe extends Stripe {
-    public function getSubscription($args) {
-        if ($args['id'] == 'sub_123') {
+    public function getSubscription($id, $args = []) {
+        if ($id == 'sub_123') {
             return \Stripe\Util\Util::convertToStripeObject([
                 'id' => 'sub_123',
                 'discount' => [
@@ -31,7 +31,7 @@ class TestStripe extends Stripe {
                     ],
                 ],
             ], null);
-        } elseif ($args['id'] == 'sub_456') {
+        } elseif ($id == 'sub_456') {
             return \Stripe\Util\Util::convertToStripeObject([
                 'id' => 'sub_456',
                 'discount' => null,
@@ -59,6 +59,30 @@ class TestStripe extends Stripe {
                     ],
                 ],
             ], null);
+        } elseif ($id == 'sub_upgrade') {
+            return \Stripe\Util\Util::convertToStripeObject([
+                'id' => 'sub_upgrade',
+                'discount' => null,
+                'schedule' => null,
+                'plan' => [
+                    'amount' => '4167',
+                    'id' => 'twfy-5k',
+                    'nickname' => 'Many calls per month',
+                    'interval' => 'month',
+                ],
+                'cancel_at_period_end' => false,
+                'created' => time(),
+                'current_period_end' => time(),
+                'latest_invoice' => [],
+                'customer' => [
+                    'id' => 'cus_123',
+                    'balance' => 0,
+                    'default_source' => [],
+                    'invoice_settings' => [
+                        'default_payment_method' => [],
+                    ],
+                ],
+            ], null);
         }
         return \Stripe\Util\Util::convertToStripeObject([], null);
     }
@@ -79,7 +103,9 @@ class TestStripe extends Stripe {
     }
 
     public function createSubscription($args) {
-        if ($args['plan'] == 'twfy-5k') {
+        if ($args['metadata']['charity_number'] == 'up-test') {
+            $id = 'sub_upgrade';
+        } elseif ($args['plan'] == 'twfy-5k') {
             $id = 'sub_456';
         } else {
             $id = 'sub_123';

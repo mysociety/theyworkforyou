@@ -180,4 +180,25 @@ class AcceptApiTest extends FetchPageTestCase {
         ]);
         $page = $this->get_page('key', ['updated' => 1]);
     }
+
+    public function testApiKeyUpgrade() {
+        $page = $this->post_page('update-plan', [
+            'stripeToken' => 'TOKEN',
+            'plan' => 'twfy-1k',
+            'charitable_tick' => 'on',
+            'charitable' => 'c',
+            'charity_number' => 'up-test',
+            'tandcs_tick' => 'on',
+        ]);
+        $this->assertEquals('Location: /api/key?updated=1', $page);
+        $page = $this->get_page('key', ['updated' => 1]);
+        $page = $this->post_page('update-plan', [
+            'stripeToken' => 'TOKEN',
+            'plan' => 'twfy-5k',
+            'tandcs_tick' => 'on',
+        ]);
+        $page = $this->get_page('key', ['updated' => 1]);
+        $this->assertStringContainsString('Your current plan is <strong>Many calls per month</strong>.', $page);
+        $this->assertStringContainsString('It costs you £50/month.', $page);
+    }
 }

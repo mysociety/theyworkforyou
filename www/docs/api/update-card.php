@@ -12,7 +12,7 @@ if (!$subscription->stripe) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $setup_intent = \Stripe\SetupIntent::create([
+    $setup_intent = $subscription->api->client->setupIntents->create([
         'automatic_payment_methods' => ["enabled" => true, "allow_redirects" => "never"],
     ]);
     header('Content-Type: application/json');
