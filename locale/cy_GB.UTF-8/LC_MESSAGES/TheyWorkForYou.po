@@ -525,7 +525,17 @@ msgstr "Cwestiynau Maer Llundain"
 msgid "Senedd debates"
 msgstr "Dadleuon y Senedd"
 
-#: scripts/alertmailer.php:278
+#: scripts/alertmailer.php:163
+msgid "Lords debates"
+msgstr "dadl Tŷ’r Arglwyddi"
+
+#: scripts/alertmailer.php:164
+msgid "events"
+msgstr "digwyddiadau"
+
+#: scripts/alertmailer.php:165
+msgid "votes"
+msgstr "pleidleisiau"
 msgid "as a teller"
 msgstr "fel rhifwr"
 
