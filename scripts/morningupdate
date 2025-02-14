@@ -57,7 +57,7 @@ system "../.venv/bin/python division_io.py update-from-commons-votes" . ($verbos
 
 # Export divisions to parquet
 print "Exporting divisions to parquet\n" if $verbose;
-system "../.venv/bin/python division_io.py export-division-data" . ($verbose ? " --verbose" : "");
+system "../.venv/bin/python division_io.py export-division-data --notify-votes" . ($verbose ? " --verbose" : "");
 
 $cronquiet = substr($cronquiet, 2) if $cronquiet;
 

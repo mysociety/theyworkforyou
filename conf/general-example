@@ -126,6 +126,8 @@ define ("RECESSFILE","https://www.theyworkforyou.com/pwdata/parl-recesses.txt");
 //define ("RECESSFILE", RAWDATA . "/parl-recesses.txt");
 
 define("TWFY_VOTES_URL", "");
+define("TWFY_VOTES_REFRESH_TOKEN", "");
+
 
 define("MAILCHIMP_API_KEY", "");
 
