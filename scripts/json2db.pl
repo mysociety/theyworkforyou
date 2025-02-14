@@ -71,7 +71,7 @@ sub get_url {
     # simplify retrying urls if they fail
     my ($url, $retries) = @_;
     my $ua = LWP::UserAgent->new;
-    $ua->timeout(10);  # 10 second timeout
+    $ua->timeout(30);  # 30 second timeout
     my $response = $ua->get($url);
     if ($response->is_success) {
         return $response->decoded_content;
@@ -126,12 +126,12 @@ sub fetch_policies {
 
     my @ids;
     my $out = {};
-    foreach my $policy (@{$policies->{policies}}) {
+    foreach my $policy (@$policies) {
         say "Processing policy $policy->{id} $policy->{name}" if $verbose;
         push @ids, $policy->{id};
         foreach (@{$policy->{groups}}) {
             push @{$out->{sets}{$_->{slug}}}, $policy->{id};
-            $out->{set_descs}{$_->{slug}} = $_->{name};
+            $out->{set_descs}{$_->{slug}} = $_->{description};
         }
         $out->{policies}{$policy->{id}} = $policy->{context_description};
     }
@@ -141,17 +141,23 @@ sub fetch_policies {
     # so can be just be simply stored for reference in policy page.
     my $out_agreements = {};
 
-    foreach my $policy (@{$policies->{policies}}) {
+    foreach my $policy (@$policies) {
         my $policy_id = $policy->{"id"};
         foreach my $agreement (@{$policy->{"agreement_links"}}) {
             my $decision = $agreement->{"decision"};
-            my $chamber = $decision->{"chamber"};
+            my $decision_date = $decision->{"date"};
+            # adjust decision_ref - split by . and remove the last part and put it back together
+            # this is because the decision ref is to a specific line, rather than a linkable section.
+            my @parts = split(/\./, $decision->{"decision_ref"});
+            pop @parts if @parts > 1;
+            my $decision_url_ref = join(".", @parts);
+            my $twfy_url = "https://www.theyworkforyou.com/debate/?id=" . $decision_date . $decision_url_ref;
             my $data = {
-                "house" => $chamber->{"slug"},
-                "date" => $decision->{"date"},
-                "gid" => $decision->{"date"} . $decision->{"decision_ref"},
-                "url" => $decision->{"twfy_link"} =~ s/https:\/\/www.theyworkforyou.com//r,
-                "division_name" => $decision->{"division_name"},
+                "house" => $decision->{"chamber_slug"},
+                "date" => $decision_date,
+                "gid" => $decision_date . $decision->{"decision_ref"},
+                "url" => $twfy_url,
+                "division_name" => $decision->{"decision_name"},
                 "strength" => $agreement->{"strength"},
                 "alignment" => $agreement->{"alignment"},
             };
