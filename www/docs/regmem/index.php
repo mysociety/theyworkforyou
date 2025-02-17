@@ -2,7 +2,22 @@
 
 include_once '../../includes/easyparliament/init.php';
 
+$chamber = get_http_var('chamber');
+
 $dir = RAWDATA . 'scrapedxml/regmem';
+
+// Set the directory based on the chamber
+if ($chamber == "northern-ireland-assembly") {
+    $dir = RAWDATA . 'scrapedxml/regmem-ni';
+} elseif ($chamber == "scottish-parliament") {
+    $dir = RAWDATA . 'scrapedxml/regmem-scotparl';
+} elseif ($chamber == "senedd") {
+    if (LANGUAGE == "en") {
+        $dir = RAWDATA . 'scrapedxml/regmem-senedd-en';
+    } elseif (LANGUAGE == "cy") {
+        $dir = RAWDATA . 'scrapedxml/regmem-senedd-cy';
+    }
+}
 $dh = opendir($dir);
 $files = [];
 while ($file = readdir($dh)) {
