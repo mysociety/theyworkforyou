@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2b6639efe71fb1ca2d5e18c76db5f3b",
+    "content-hash": "e6c2434168db8fa0dd4b0ffd9d27bb67",
     "packages": [
         {
             "name": "erusev/parsedown",
@@ -432,6 +432,54 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
             "time": "2021-05-03T11:20:27+00:00"
+        },
+        {
+            "name": "rutek/dataclass",
+            "version": "v0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rutek/dataclass.git",
+                "reference": "ab4e3a31eddded1c3edf6df90ceec10c14f580bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rutek/dataclass/zipball/ab4e3a31eddded1c3edf6df90ceec10c14f580bc",
+                "reference": "ab4e3a31eddded1c3edf6df90ceec10c14f580bc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Rutek\\Dataclass\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Łukasz Rutkowski",
+                    "email": "lukasz.rutkowski@tauceti.email"
+                }
+            ],
+            "description": "Library for validation of type-hinted classes",
+            "support": {
+                "issues": "https://github.com/rutek/dataclass/issues",
+                "source": "https://github.com/rutek/dataclass/tree/v0.1.2"
+            },
+            "time": "2023-06-16T06:24:27+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -2277,11 +2325,11 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3"
+        "php": ">=7.4"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.3"
+        "php": "7.4"
     },
     "plugin-api-version": "2.6.0"
 }
