@@ -29,7 +29,8 @@ foreach (@ARGV) {
     if ($_ eq 'publicwhip') {
         $action{'pw'} = 1;
     } elsif ($_ eq 'regmem') {
-        $action{'regmem'} = 1;
+        print "regmem loader is now handled through scripts/personinfo\n";
+        exit(0);
     } elsif ($_ eq 'links') {
         $action{'links'} = 1;
     } elsif ($_ eq 'compile') {
@@ -43,9 +44,10 @@ foreach (@ARGV) {
         exit(0);
     }
 }
+# regmem is disabled unless explicitly loaded
 if (scalar(@ARGV) == 0) {
     $action{'pw'} = 1;
-    $action{'regmem'} = 1;
+    $action{'regmem'} = 0;
     $action{'links'} = 1;
     $action{'compile'} = 1;
     $action{'eu_ref_position'} = 1;
