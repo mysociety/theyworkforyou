@@ -996,17 +996,25 @@ function person_pbc_membership($member) {
 }
 
 function person_register_interests($member, $extra_info) {
-    if (!isset($extra_info['register_member_interests_html'])) {
+
+    $valid_chambers = ['commons', 'scottish-parliament', 'northern-ireland-assembly', 'senedd'];
+
+    $lang = LANGUAGE;
+
+    $reg = [ 'date' => '', 'chamber_registers' => [] ];
+
+    foreach ($valid_chambers as $chamber) {
+        $key = 'person_regmem_' . $chamber . '_' . $lang;
+        if (!isset($extra_info[$key])) {
+            continue;
+        }
+        $reg['chamber_registers'][$chamber] = MySociety\TheyWorkForYou\DataClass\Regmem\Person::fromJson($extra_info[$key]);
+    }
+    // if chamber_registers is empty, we don't have any data
+    if (empty($reg['chamber_registers'])) {
         return;
     }
 
-    $reg = [ 'date' => '', 'data' => '<p>Nil</p>' ];
-    if (isset($extra_info['register_member_interests_date'])) {
-        $reg['date'] = format_date($extra_info['register_member_interests_date'], SHORTDATEFORMAT);
-    }
-    if ($extra_info['register_member_interests_html'] != '') {
-        $reg['data'] = $extra_info['register_member_interests_html'];
-    }
     return $reg;
 }
 

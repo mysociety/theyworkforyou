@@ -90,3 +90,25 @@ class User(UnmanagedDataclassModel, db_table="users"):
         Remove an optin value from the user.
         """
         self.optin &= ~optin_value
+
+
+class PersonInfo(
+    UnmanagedDataclassModel,
+    db_table="personinfo",
+    unique_together=(("person_id", "data_key"),),
+):
+    person_id: int = field(models.IntegerField, primary_key=True)
+    data_key: str = field(models.CharField, max_length=100, primary_key=True)
+    data_value: str = field(models.TextField, default="")
+    lastupdate: datetime.datetime = field(models.DateTimeField, auto_now=True)
+
+    def __str__(self):
+        return f"{self.person_id}: {self.data_key}"
+
+    def str_data_value(self):
+        if isinstance(self.data_value, str):
+            return self.data_value
+        elif isinstance(self.data_value, (int, float)):
+            return str(self.data_value)
+        else:
+            raise ValueError(f"type: {type(self.data_value)} not supported")
