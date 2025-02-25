@@ -21,8 +21,8 @@ def is_valid_language(lang: str) -> TypeGuard[Literal["en", "cy"]]:
     return lang in {"en", "cy"}
 
 
-def prepare_person_regmem(
-    chamber: str = "commons",
+def prepare_chamber_regmem(
+    chamber: str = "house-of-commons",
     *,
     language: Literal["en", "cy"] = "en",
     quiet: bool = False,
@@ -34,7 +34,7 @@ def prepare_person_regmem(
     if not quiet:
         rich.print(f"Processing {chamber} register of members' interests")
 
-    source_path = config.RAWDATA / "scrapedjson" / "common_regmem" / chamber
+    source_path = config.RAWDATA / "scrapedjson" / "universal_format_regmem" / chamber
 
     if chamber == "senedd":
         source_path = source_path / language
@@ -73,12 +73,12 @@ def upload_all_regmem(quiet: bool = False):
     """
 
     # english chambers
-    chambers = ["commons", "scottish-parliament", "northern-ireland-assembly", "senedd"]
+    chambers = ["house-of-commons", "scottish-parliament", "northern-ireland-assembly", "senedd"]
     for chamber in chambers:
-        prepare_person_regmem(chamber, quiet=quiet, language="en")
+        prepare_chamber_regmem(chamber, quiet=quiet, language="en")
 
     # welsh chambers
-    prepare_person_regmem("senedd", quiet=quiet, language="cy")
+    prepare_chamber_regmem("senedd", quiet=quiet, language="cy")
 
 
 @app.command()
@@ -98,7 +98,36 @@ def upload_regmem(
         if chamber is None:
             raise ValueError("You must specify a chamber if not uploading all")
         if is_valid_language(language):
-            prepare_person_regmem(chamber, quiet=quiet, language=language)
+            prepare_chamber_regmem(chamber, quiet=quiet, language=language)
+
+
+@app.command()
+def upload_enhanced_2024_regmem(quiet: bool = False):
+    """
+    Upload the results of the whofundsthem data.
+    """
+    source_path = (
+        config.RAWDATA
+        / "scrapedjson"
+        / "universal_format_regmem"
+        / "misc"
+        / "enriched_register.json"
+    )
+
+    id_to_person: dict[int, RegmemPerson] = {}
+
+    register = RegmemRegister.from_path(source_path)
+    for person in register.persons:
+        int_id = int(person.person_id.split("/")[-1])
+        id_to_person[int_id] = person
+
+    upload_person_info(
+        "person_regmem_enriched2024_en",
+        id_to_person,
+        remove_absent=True,
+        quiet=quiet,
+        batch_size=100,
+    )
 
 
 @app.callback()

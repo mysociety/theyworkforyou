@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MySociety\TheyWorkForYou\DataClass\Regmem;
 
 use MySociety\TheyWorkForYou\DataClass\BaseModel;
+use MySociety\TheyWorkForYou\DataClass\DataFrame;
 
 class Detail extends BaseModel {
     public string $source;
@@ -26,6 +27,22 @@ class Detail extends BaseModel {
         }
 
         return $this->value !== null;
+    }
+
+
+    public function as_df(): DataFrame {
+
+        $rows = [];
+
+        foreach ($this->value as $details_array) {
+            $row = [];
+            foreach ($details_array as $detail) {
+                $row[$detail["display_as"]] = $detail["value"];
+            }
+            $rows[] = $row;
+        }
+
+        return new DataFrame($rows);
     }
 
     /**

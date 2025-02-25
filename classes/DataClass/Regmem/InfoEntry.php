@@ -22,4 +22,13 @@ class InfoEntry extends BaseModel {
     public DetailGroup $details;
     public EntryList $sub_entries;
 
+    public function get_detail(string $slug): ?Detail {
+        foreach ($this->details as $detail) {
+            if ($detail->slug === $slug) {
+                return $detail;
+            }
+        }
+        return null;
+    }
+
 }

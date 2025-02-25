@@ -11,5 +11,8 @@
             <?php if ($register_interests): ?>
                 <li <?php if ($pagetype == "register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/register"><?= gettext('Register of Interests') ?></a></li>
             <?php endif; ?>
+            <?php if ($register_2024_enriched): ?>
+                <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/election_register"><?= gettext('2024 Election Donations') ?></a></li>
+            <?php endif; ?>
           </ul>
 </div>

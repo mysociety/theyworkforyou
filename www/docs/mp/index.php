@@ -40,7 +40,7 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
-$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register'];
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register'];
 
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
@@ -348,6 +348,7 @@ $data['topics_of_interest'] = person_topics($MEMBER);
 $data['current_offices'] = $MEMBER->offices('current');
 $data['previous_offices'] = $MEMBER->offices('previous');
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
+$data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['eu_stance'] = $MEMBER->getEUStance();
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
 
@@ -473,6 +474,11 @@ switch ($pagetype) {
 
         break;
 
+    case 'election_register':
+        // Send the output for rendering
+        MySociety\TheyWorkForYou\Renderer::output('mp/election_register', $data);
+
+        // no break
     case 'register':
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
@@ -995,9 +1001,18 @@ function person_pbc_membership($member) {
     return $out;
 }
 
+function person_register_interests_from_key($key, $extra_info): ?MySociety\TheyWorkForYou\DataClass\Regmem\Person {
+    $lang = LANGUAGE;
+    $reg = null;
+    if (isset($extra_info[$key])) {
+        $reg = MySociety\TheyWorkForYou\DataClass\Regmem\Person::fromJson($extra_info[$key]);
+    }
+    return $reg;
+}
+
 function person_register_interests($member, $extra_info) {
 
-    $valid_chambers = ['commons', 'scottish-parliament', 'northern-ireland-assembly', 'senedd'];
+    $valid_chambers = ['house-of-commons', 'scottish-parliament', 'northern-ireland-assembly', 'senedd'];
 
     $lang = LANGUAGE;
 
