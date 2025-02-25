@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <title><?= strip_tags($page_title) ?></title>
     <meta name="viewport" content="initial-scale=1">
-    <?php if (isset($meta_description)): ?>
+    <?php if (isset($meta_description)) { ?>
     <meta name="description" content="<?= _htmlentities($meta_description) ?>">
-    <?php endif; ?>
+    <?php } ?>
     <meta name="keywords" content="<?= _htmlentities($meta_keywords); ?>">
     <?php
         if (!empty($robots)) {
@@ -43,15 +43,15 @@
 
     <script>document.documentElement.className = 'js';</script>
 
-    <?php foreach ($header_links as $link): ?>
+    <?php foreach ($header_links as $link) { ?>
     <link rel="<?= $link['rel'] ?>" title="<?= $link['title'] ?>" href="<?= $link['href'] ?>">
-    <?php endforeach; ?>
+    <?php } ?>
 
     <link rel="stylesheet" href="<?= cache_version("style/stylesheets/app.css") ?>" type="text/css">
 
-    <?php if (isset($page_rss_url)): ?>
+    <?php if (isset($page_rss_url)) { ?>
     <link rel="alternate" type="application/rss+xml" title="TheyWorkForYou RSS" href="<?= $page_rss_url ?>">
-    <?php endif; ?>
+    <?php } ?>
 
     <link rel="apple-touch-icon" href="/images/apple-touch-60.png" />
     <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-touch-76.png" />
@@ -60,7 +60,7 @@
 
     <script async src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
 
-  <?php if (!DEVSITE): ?>
+  <?php if (!DEVSITE) { ?>
 
     <!-- Google tag (gtag.js) -->
     <script defer>Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);return t.trim().length>0&&(t+="; "),t+="_ga=GA1.1."+Math.floor(1e9*Math.random())+"."+Math.floor(1e9*Math.random())},set:function(t){t.trim().startsWith("_ga")||Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
@@ -84,7 +84,7 @@
         ga('set', 'anonymizeIp', true);
         ga('send', 'pageview');
     </script>
-  <?php endif; ?>
+  <?php } ?>
 
 </head>
 

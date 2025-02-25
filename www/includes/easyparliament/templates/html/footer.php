@@ -27,14 +27,14 @@
         <div class="medium-4 columns">
             <nav class="mysoc-footer__links">
                 <ul>
-                  <?php foreach ($footer_links['about'] as $footer_link): ?>
+                  <?php foreach ($footer_links['about'] as $footer_link) { ?>
                     <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                  <?php endforeach; ?>
+                  <?php } ?>
                 </ul>
                 <ul>
-                  <?php foreach ($footer_links['tech'] as $footer_link): ?>
+                  <?php foreach ($footer_links['tech'] as $footer_link) { ?>
                     <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                  <?php endforeach; ?>
+                  <?php } ?>
                 </ul>
             </nav>
         </div>

@@ -6,9 +6,9 @@
 
             <ul>
 
-                <?php foreach ($mps as $mp): ?>
+                <?php foreach ($mps as $mp) { ?>
                 <li><a href="<?= $mp['url'] ?>"><?= $mp['name'] ?></a></li>
-                <?php endforeach; ?>
+                <?php } ?>
 
             </ul>
 

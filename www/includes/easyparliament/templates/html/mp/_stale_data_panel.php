@@ -1,4 +1,4 @@
-<?php if (in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+<?php if (in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
 <a name="stale-data-warning"></a>
 <div class="panel panel--highlight">
 
@@ -8,4 +8,4 @@
     </p>
 
 </div>
-<?php endif; ?>
+<?php } ?>

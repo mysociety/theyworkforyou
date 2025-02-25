@@ -1,4 +1,4 @@
-<?php if (in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+<?php if (in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
 <a name="covid-19"></a>
 <div class="panel panel--highlight panel--covid19">
     <h2>As a result of COVID-19, some MPs were less able to vote in Parliament in certain periods, and this will be reflected by absences in their voting record.</h2>
@@ -21,4 +21,4 @@
     </dl>
     <p> <a href="https://www.mysociety.org/2020/07/06/parliamentary-votes-during-covid-19/">See more detail on votes during the COVID-19 period here.</a></p>
 </div>
-<?php endif; ?>
+<?php } ?>

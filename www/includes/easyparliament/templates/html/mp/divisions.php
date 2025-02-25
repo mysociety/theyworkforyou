@@ -75,11 +75,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
             <div class="primary-content__unit">
 
-                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php $displayed_votes = false; ?>
 
@@ -236,11 +236,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php } ?>
 
-              <?php if ($profile_message): ?>
+              <?php if ($profile_message) { ?>
                 <div class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-              <?php endif; ?>
+              <?php } ?>
 
                 <?php if (!$displayed_votes) { ?>
 

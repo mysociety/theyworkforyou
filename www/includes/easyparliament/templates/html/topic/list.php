@@ -9,7 +9,7 @@
         </p>
 
         <ul class="topic-list">
-          <?php foreach ($topics as $topic): ?>
+          <?php foreach ($topics as $topic) { ?>
             <li>
                 <a href="<?= $topic->url(); ?>">
                     <img src="<?= $topic->image_url(); ?>">
@@ -17,7 +17,7 @@
                 </a>
                 <p><?= _htmlspecialchars($topic->description()); ?></p>
             </li>
-          <?php endforeach; ?>
+          <?php } ?>
         </ul>
 
     </div>
