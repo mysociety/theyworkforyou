@@ -18,9 +18,9 @@ $display_wtt_stats_banner = '2015';
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
                         <li><a href="#profile"><?= gettext('Profile') ?></a></li>
-                        <?php if (count($recent_appearances['appearances'])): ?>
+                        <?php if (count($recent_appearances['appearances'])) { ?>
                           <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
-                        <?php endif; ?>
+                        <?php } ?>
                       </ul>
                       <?php include '_featured_content.php'; ?>
                       <?php include '_donation.php'; ?>
@@ -29,17 +29,17 @@ $display_wtt_stats_banner = '2015';
 
             <div class="primary-content__unit">
 
-              <?php if ($profile_message): ?>
+              <?php if ($profile_message) { ?>
                 <div id="profile-message" class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-              <?php endif; ?>
+              <?php } ?>
 
-              <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+              <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-              <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
+              <?php } elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0) { ?>
                 <div class="panel panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP &ndash; elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
@@ -49,7 +49,7 @@ $display_wtt_stats_banner = '2015';
                     <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
                   <?php } ?>
                 </div>
-              <?php endif; ?>
+              <?php } ?>
 
                 <?php include "_chamber_info_panel.php"; ?>
 
@@ -59,21 +59,21 @@ $display_wtt_stats_banner = '2015';
 
                     <p><?= $member_summary ?></p>
 
-                    <?php if (count($enter_leave) > 0): ?>
-                        <?php foreach ($enter_leave as $string): ?>
+                    <?php if (count($enter_leave) > 0) { ?>
+                        <?php foreach ($enter_leave as $string) { ?>
                             <p><?= $string ?></p>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>
 
-                    <?php if ($other_parties): ?>
+                    <?php if ($other_parties) { ?>
                     <p><?= $other_parties ?></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if ($other_constituencies): ?>
+                    <?php if ($other_constituencies) { ?>
                     <p><?= $other_constituencies ?></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($useful_links) > 0): ?>
+                    <?php if (count($useful_links) > 0) { ?>
 
                     <ul class="comma-list">
 
@@ -86,36 +86,36 @@ $display_wtt_stats_banner = '2015';
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($social_links) > 0): ?>
+                    <?php if (count($social_links) > 0) { ?>
                     <h3><?=gettext('Social Media') ?></h3>
                     <ul>
-                        <?php foreach ($social_links as $link): ?>
+                        <?php foreach ($social_links as $link) { ?>
                         <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'social_link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </ul>
-                    <?php endif; ?>
+                    <?php } ?>
 
 
-                    <?php if ($has_expenses): ?>
+                    <?php if ($has_expenses) { ?>
                     <h3>Expenses</h3>
 
                     <ul>
-                        <?php if ($pre_2010_expenses): ?>
+                        <?php if ($pre_2010_expenses) { ?>
                         <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
-                        <?php endif; ?>
-                        <?php if ($post_2010_expenses): ?>
+                        <?php } ?>
+                        <?php if ($post_2010_expenses) { ?>
                         <li><a href="https://www.theipsa.org.uk/mp-staffing-business-costs/your-mp/<?=slugify($full_name)?>/<?=$post_2010_expenses?>">Expenses from 2010 onwards</a></li>
-                        <?php endif; ?>
+                        <?php } ?>
                     </ul>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($topics_of_interest) > 0 || $eu_stance): ?>
+                    <?php if (count($topics_of_interest) > 0 || $eu_stance) { ?>
 
                     <h3><?= gettext('Topics of interest') ?></h3>
 
-                    <?php if ($eu_stance): ?>
+                    <?php if ($eu_stance) { ?>
                         <p>
                             <?php if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
                                 <strong><?= $full_name ?></strong> campaigned to <?= $eu_stance == 'Leave' ? 'leave' : 'remain in' ?> the European Union
@@ -124,129 +124,129 @@ $display_wtt_stats_banner = '2015';
                             <?php } ?>
                             <small>Source: <a href="https://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
                         </p>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <ul class="comma-list">
 
-                        <?php foreach ($topics_of_interest as $topic): ?>
+                        <?php foreach ($topics_of_interest as $topic) { ?>
                         <li><?= $topic ?></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($current_offices) > 0): ?>
+                    <?php if (count($current_offices) > 0) { ?>
 
                     <h3><?=gettext('Currently held offices') ?></h3>
 
                     <ul class='list-dates'>
 
-                        <?php foreach ($current_offices as $office): ?>
+                        <?php foreach ($current_offices as $office) { ?>
                         <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($previous_offices) > 0): ?>
+                    <?php if (count($previous_offices) > 0) { ?>
 
                     <h3><?=gettext('Other offices held in the past') ?></h3>
 
                     <ul class='list-dates'>
 
-                        <?php foreach ($previous_offices as $office): ?>
+                        <?php foreach ($previous_offices as $office) { ?>
                         <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($constituency_previous_mps) > 0): ?>
+                    <?php if (count($constituency_previous_mps) > 0) { ?>
 
                     <h3>Previous MPs in this constituency</h3>
 
                     <ul class="comma-list">
 
-                        <?php foreach ($constituency_previous_mps as $constituency_previous_mp): ?>
+                        <?php foreach ($constituency_previous_mps as $constituency_previous_mp) { ?>
                         <li><a href="<?= $constituency_previous_mp['href'] ?>"><?= $constituency_previous_mp['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($constituency_future_mps) > 0): ?>
+                    <?php if (count($constituency_future_mps) > 0) { ?>
 
                     <h3>Future MPs in this constituency</h3>
 
                     <ul class="comma-list">
 
-                        <?php foreach ($constituency_future_mps as $constituency_future_mp): ?>
+                        <?php foreach ($constituency_future_mps as $constituency_future_mp) { ?>
                         <li><a href="<?= $constituency_future_mp['href'] ?>"><?= $constituency_future_mp['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($public_bill_committees['data']) > 0): ?>
+                    <?php if (count($public_bill_committees['data']) > 0) { ?>
 
                     <h3>Public bill committees <small>(Sittings attended)</small></h3>
 
-                    <?php if ($public_bill_committees['info']): ?>
+                    <?php if ($public_bill_committees['info']) { ?>
                         <p><em><?= $public_bill_committees['info'] ?></em></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <ul>
 
-                        <?php foreach ($public_bill_committees['data'] as $committee): ?>
+                        <?php foreach ($public_bill_committees['data'] as $committee) { ?>
                         <li><a href="<?= $committee['href'] ?>"><?= $committee['text'] ?></a> (<?= $committee['attending'] ?>)</li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
                 </div>
 
 
-                <?php if (count($recent_appearances['appearances'])): ?>
+                <?php if (count($recent_appearances['appearances'])) { ?>
                 <div class="panel">
                     <a name="appearances"></a>
                     <h2><?=gettext('Recent appearances') ?></h2>
 
-                    <?php if (count($recent_appearances['appearances']) > 0): ?>
+                    <?php if (count($recent_appearances['appearances']) > 0) { ?>
 
                         <ul class="appearances">
 
-                        <?php foreach ($recent_appearances['appearances'] as $recent_appearance): ?>
+                        <?php foreach ($recent_appearances['appearances'] as $recent_appearance) { ?>
 
                             <li>
                                 <h4><a href="<?= $recent_appearance['listurl'] ?>"><?= $recent_appearance['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($recent_appearance['hdate'])) ?></span></h4>
                                 <blockquote><?= $recent_appearance['extract'] ?></blockquote>
                             </li>
 
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                         </ul>
 
                         <p><a href="<?= $recent_appearances['more_href'] ?>"><?= $recent_appearances['more_text'] ?></a></p>
 
-                        <?php if (isset($recent_appearances['additional_links'])): ?>
+                        <?php if (isset($recent_appearances['additional_links'])) { ?>
                         <?= $recent_appearances['additional_links'] ?>
-                        <?php endif; ?>
+                        <?php } ?>
 
-                    <?php else: ?>
+                    <?php } else { ?>
 
                         <p><?=gettext('No recent appearances to display.') ?></p>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php include('_profile_footer.php'); ?>
 

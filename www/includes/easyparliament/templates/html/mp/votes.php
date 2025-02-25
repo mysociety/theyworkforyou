@@ -16,13 +16,13 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                        <?php if ($has_voting_record): ?>
-                        <?php foreach ($key_votes_segments as $segment): ?>
-                        <?php if (count($segment['votes']->positions) > 0): ?>
+                        <?php if ($has_voting_record) { ?>
+                        <?php foreach ($key_votes_segments as $segment) { ?>
+                        <?php if (count($segment['votes']->positions) > 0) { ?>
                         <li><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                        <?php } ?>
+                        <?php } ?>
+                        <?php } ?>
                     </ul>
                     <?php include '_featured_content.php'; ?>
                     <?php include '_donation.php'; ?>
@@ -30,11 +30,11 @@ $covid_policy_list = $policies_obj->getCovidAffected();
             </div>
             <div class="primary-content__unit">
 
-                <?php if ($profile_message): ?>
+                <?php if ($profile_message) { ?>
                 <div class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
 
                 <div class="panel">
@@ -67,21 +67,21 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
                 </div>
 
-                <?php if ($party_switcher == true): ?>
+                <?php if ($party_switcher == true) { ?>
                     <?php include('_cross_party_mp_panel.php'); ?>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php elseif (isset($is_new_mp) && $is_new_mp && !$has_voting_record): ?>
+                <?php } elseif (isset($is_new_mp) && $is_new_mp && !$has_voting_record) { ?>
                 <div class="panel panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP - elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
                     <p>When <?= $full_name ?> starts to vote on bills, that information will appear on this page.</p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php if ($party_member_count > 1) { ?>
                 <div class="panel">
@@ -152,16 +152,16 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                 </div>
                 <?php } ?>
 
-                <?php if ($has_voting_record): ?>
+                <?php if ($has_voting_record) { ?>
                     
                     <?php $policies_obj = new MySociety\TheyWorkForYou\Policies(); ?>
                     <?php $covid_policy_list = $policies_obj->getCovidAffected(); ?>
 
                     <?php $displayed_votes = false; ?>
 
-                    <?php foreach ($key_votes_segments as $segment): ?>
+                    <?php foreach ($key_votes_segments as $segment) { ?>
 
-                        <?php if (count($segment['votes']->positions) > 0): ?>
+                        <?php if (count($segment['votes']->positions) > 0) { ?>
                         <?php $most_recent = ''; ?>
 
                         <div class="panel">
@@ -244,29 +244,29 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                             <?php $displayed_votes = true; ?>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
-                    <?php if ($displayed_votes): ?>
+                    <?php if ($displayed_votes) { ?>
 
-                        <?php if ($segment['votes']->moreLinksString): ?>
+                        <?php if ($segment['votes']->moreLinksString) { ?>
 
                             <div class="panel">
                                 <p><?= $segment['votes']->moreLinksString ?></p>
                             </div>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
-                    <?php else: ?>
+                    <?php } else { ?>
 
                         <div class="panel">
                             <p>This person has not voted on any of the key issues which we keep track of.</p>
                         </div>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                <?php endif; ?>
+                <?php } ?>
                 <?php include('_covid19_panel.php'); ?>
 
                 <?php include('_profile_footer.php'); ?>

@@ -23,7 +23,7 @@
     <div class="full-page__row">
 
         <div class="small-12 large-3 large-push-9 columns">
-          <?php if ($display_postcode_form): ?>
+          <?php if ($display_postcode_form) { ?>
             <div class="topic-sidebar topic-postcode-search">
                 <h3>How did your MP vote?</h3>
                 <form action="#yourrep" method="get">
@@ -32,7 +32,7 @@
                     <input type="submit" value="GO" class="button prefix">
                 </form>
             </div>
-          <?php endif; ?>
+          <?php } ?>
 
           <?php if ($topic->search_string()) { ?>
             <div class="topic-sidebar">
@@ -47,18 +47,18 @@
 
         <div class="topic-content small-12 large-9 large-pull-3 columns">
 
-          <?php if (isset($positions)): ?>
+          <?php if (isset($positions)) { ?>
             <div class="topic-block policies">
                 <h2 id="yourrep">How <?= $member_name ?> voted on <?= $topic->sctitle() ?></h2>
 
-              <?php if ($total_votes == 0): ?>
+              <?php if ($total_votes == 0) { ?>
                 <p>
                     <a href="<?= $member_url ?>"><?= $member_name ?></a> hasn't
                     voted on any of the key issues on <?= _htmlspecialchars($topic->sctitle()) ?>. You may want
                     to <a href="<?= $member_url ?>/votes">see all their votes</a>.
                 </p>
 
-              <?php else: ?>
+              <?php } else { ?>
                 <ul class="vote-descriptions">
                   <?php
                   $policy_ids = [];
@@ -80,11 +80,11 @@
                   } ?>
                 </ul>
 
-              <?php endif; ?>
+              <?php } ?>
             </div>
-          <?php endif; ?>
+          <?php } ?>
 
-          <?php if (isset($recent_divisions)): ?>
+          <?php if (isset($recent_divisions)) { ?>
             <div class="topic-block policies">
                 <h2>Recent votes on <?= _htmlspecialchars($topic->sctitle()) ?></h2>
                 <ul class="vote-descriptions">
@@ -107,20 +107,20 @@
                   <?php } ?>
                 </ul>
             </div>
-          <?php endif; ?>
+          <?php } ?>
 
-          <?php if ($business = $topic->getFullContent()): ?>
+          <?php if ($business = $topic->getFullContent()) { ?>
             <div class="topic-block policies">
                 <h2>Parliamentary business about <?= _htmlspecialchars($topic->sctitle()) ?></h2>
                 <ul class="business-list">
-                  <?php foreach ($business as $item): ?>
+                  <?php foreach ($business as $item) { ?>
                     <li>
                         <?php include(dirname(__DIR__) . '/section/_business_list_item.php'); ?>
                     </li>
-                  <?php endforeach; ?>
+                  <?php } ?>
                 </ul>
             </div>
-          <?php endif; ?>
+          <?php } ?>
 
         </div>
     </div>

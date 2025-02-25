@@ -23,7 +23,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
             <div class="primary-content__unit">
 
-                <?php if ($register_interests): ?>
+                <?php if ($register_interests) { ?>
                 <div class="panel register">
                     <a name="register"></a>
                     <h2>Register of Members&rsquo; Interests</h2>
@@ -32,9 +32,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <p>
                         <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>">View the history of this MP&rsquo;s entries in the Register</a>
                     </p>
-                    <?php if ($register_interests['date']): ?>
+                    <?php if ($register_interests['date']) { ?>
                         <p>Last updated: <?= $register_interests['date'] ?>.</p>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <?= $register_interests['data'] ?>
 
@@ -43,7 +43,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                          <a class="moreinfo-link" href="https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/">More about the register</a>
                     </p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php include('_profile_footer.php'); ?>
 
