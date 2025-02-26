@@ -1,0 +1,51 @@
+.df-table {
+  border-collapse: collapse;
+}
+
+.df-header, .df-data {
+  max-width: 200px;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: normal;
+}
+
+.df-data--number {
+  text-align: right;
+}
+
+.highlighted-data-cell {
+  padding-top: 10px;
+  vertical-align: top;
+}
+
+.highlighted-summary{
+  font-weight: bold;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 6px 10px;
+  display: inline-block;
+  border-radius: 4px;
+  transition: background 0.2s ease-in-out;
+  background: #f0f0f0;
+
+}
+
+details summary:hover {
+  background: #d8d8d8; 
+}
+
+details summary::after {
+  content: "⏷"; 
+  font-size: 0.8em;
+  margin-left: 6px;
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+}
+
+details[open] summary::after {
+  content: "⏶"; 
+}
