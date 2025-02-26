@@ -21,6 +21,27 @@ class Person extends BaseModel {
     public string $published_date;
     public CategoryList $categories;
 
+
+    public function intId(): int {
+        // extract the last part of the person_id, which is the integer id
+        $parts = explode('/', $this->person_id);
+        return (int) end($parts);
+    }
+
+    public function allEntryIds(): array {
+        $entryIds = [];
+        foreach ($this->categories as $category) {
+            foreach ($category->entries as $entry) {
+                $entryIds[] = $entry->id;
+                foreach ($entry->sub_entries as $subEntry) {
+                    $entryIds[] = $subEntry->id;
+                }
+            }
+        }
+        return $entryIds;
+    }
+
+
     public function displayChamber(): string {
         switch ($this->chamber) {
             case 'house-of-commons':
