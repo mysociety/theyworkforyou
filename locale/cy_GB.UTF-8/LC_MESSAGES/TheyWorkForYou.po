@@ -1767,6 +1767,10 @@ msgstr "Record bleidleisio"
 msgid "Register of Interests"
 msgstr "Cofrestr Buddiannau"
 
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:15
+msgid "2024 Election Donations"
+msgstr "2024 Election Donations"
+
 #: www/includes/easyparliament/templates/html/mp/_profile_footer.php:2
 msgid "Note for journalists and researchers: The data on this page may be used freely, on condition that TheyWorkForYou.com is cited as the source."
 msgstr "Nodyn ar gyfer newyddiadurwyr ac ymchwilwyr:  gellir defnyddio'r data ar y dudalen hon yn rhydd, ar yr amod bod TheyWorkForYou.com yn cael ei ddyfynnu fel y ffynhonnell."
