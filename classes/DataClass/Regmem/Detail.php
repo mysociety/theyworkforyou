@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MySociety\TheyWorkForYou\DataClass\Regmem;
 
 use MySociety\TheyWorkForYou\DataClass\BaseModel;
+use MySociety\TheyWorkForYou\DataClass\DataFrame;
 
 class Detail extends BaseModel {
     public string $source;
@@ -28,10 +29,31 @@ class Detail extends BaseModel {
         return $this->value !== null;
     }
 
+
+    public function as_df(): DataFrame {
+        // convert group of sub-details to a DataFrame
+        if ($this->type !== 'container') {
+            throw new \Exception("Cannot convert non-container detail to DataFrame");
+        }
+
+        $rows = [];
+
+        foreach ($this->value as $details_array) {
+            $row = [];
+            foreach ($details_array as $detail) {
+                $row[$detail["display_as"]] = $detail["value"];
+            }
+            $rows[] = $row;
+        }
+
+        return new DataFrame($rows);
+    }
+
     /**
      * @return \Iterator<Detail>|
      */
     public function sub_details(): \Iterator {
+        // iterate through all subdetails under a detail
         $items = new \ArrayIterator();
 
         if (!$this->type === 'container') {

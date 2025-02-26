@@ -15,6 +15,11 @@ trait BaseInterface {
         }
     }
 
+    public static function fromFile(string $file): self {
+        $content = file_get_contents($file);
+        return static::fromJson($content);
+    }
+
     public static function fromArray(array $data): self {
         try {
             return transform(static::class, $data);
