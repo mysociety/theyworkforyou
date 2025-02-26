@@ -17,7 +17,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <li><a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Read more about the data</a></li>
                     </ul>
 
-                    <?php foreach ($register_interests['chamber_registers'] as $register): ?>
+                    <?php if ($register_interests) {
+                        foreach ($register_interests['chamber_registers'] as $register) { ?>
                     <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register */ ?>
 
                     <h3 class="browse-content"><?= $register->displayChamber() ?></h3>
@@ -29,7 +30,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <li><a href="#category-<?= $register->chamber . $category->category_id ?>"><?= $category->category_name ?></a></li>
                             <?php endforeach; ?>
                     </ul>
-                    <?php endforeach; ?>
+                    <?php }
+                        } ?>
 
                     <?php include '_featured_content.php'; ?>
                     <?php include '_donation.php'; ?>
