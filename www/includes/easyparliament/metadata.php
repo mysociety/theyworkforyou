@@ -83,6 +83,10 @@ $page =  [
         'title'			=> gettext('About us'),
         'url'			=> 'about/',
     ],
+    'highlighted_2024' =>  [
+        'title'			=> 'Highlighted Interests 2024',
+        'url'			=> 'highlighted-interests/2024/',
+    ],
     'parliaments' =>  [
         'title' 	=> 'Parliaments and assemblies',
         'url'       => 'parliaments/',
