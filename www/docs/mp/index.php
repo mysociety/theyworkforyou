@@ -1006,7 +1006,9 @@ function person_register_interests_from_key($key, $extra_info): ?MySociety\TheyW
 
 function person_register_interests($member, $extra_info) {
 
-    $valid_chambers = ['house-of-commons', 'scottish-parliament', 'northern-ireland-assembly', 'senedd'];
+    # $valid_chambers = ['house-of-commons', 'scottish-parliament', 'northern-ireland-assembly', 'senedd'];
+    # Commented out until ready for launch
+    $valid_chambers = ['house-of-commons'];
 
     $lang = LANGUAGE;
 
