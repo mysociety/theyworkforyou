@@ -23,34 +23,35 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php } ?>
                 <h3 class="browse-content"><?= gettext('Browse content') ?></h3>          
                 <?php
-                    # because the loop below goes through all votes, we need to run through it first to
-                    # see if there are any votes to display for the menu before the loop starts
-                    if (isset($policydivisions) && $policydivisions && $has_voting_record) {
 
-                        $has_strong_votes = false;
-                        $has_weak_votes = false;
-                        $has_strong_agreements = false;
-                        $has_weak_agreements = false;
-                        foreach ($policydivisions as $policy) {
-                            $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
+                    $has_strong_votes = false;
+$has_weak_votes = false;
+$has_strong_agreements = false;
+$has_weak_agreements = false;
 
-                            foreach ($policy['divisions'] as $division) {
-                                if ($division['strong']) {
-                                    $has_strong_votes = true;
-                                } else {
-                                    $has_weak_votes = true;
-                                }
-                            }
+# because the loop below goes through all votes, we need to run through it first to
+# see if there are any votes to display for the menu before the loop starts
+if (isset($policydivisions) && $policydivisions && $has_voting_record) {
+    foreach ($policydivisions as $policy) {
+        $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
 
-                            foreach ($current_policy_agreements as $agreement) {
-                                if ($agreement['strength'] == 'strong') {
-                                    $has_strong_agreements = true;
-                                } else {
-                                    $has_weak_agreements = true;
-                                }
-                            }
-                        }
-                    }?>
+        foreach ($policy['divisions'] as $division) {
+            if ($division['strong']) {
+                $has_strong_votes = true;
+            } else {
+                $has_weak_votes = true;
+            }
+        }
+
+        foreach ($current_policy_agreements as $agreement) {
+            if ($agreement['strength'] == 'strong') {
+                $has_strong_agreements = true;
+            } else {
+                $has_weak_agreements = true;
+            }
+        }
+    }
+}?>
 
                     
                     <ul>
@@ -84,41 +85,41 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 <?php $displayed_votes = false; ?>
 
                 <?php
-                    # $policydivisions contains all the relevant divisions for this MP
-                    # $has_voting_record is true if the MP has voted on any policy
-                    if (isset($policydivisions) && $policydivisions && $has_voting_record) {
-                        # for some historical reason, the divisions page actually
-                        # does all divisions, but generally this is an array of one
-                        # (the current policy)
-                        foreach ($policydivisions as $policy) { ?>
+# $policydivisions contains all the relevant divisions for this MP
+# $has_voting_record is true if the MP has voted on any policy
+if (isset($policydivisions) && $policydivisions && $has_voting_record) {
+    # for some historical reason, the divisions page actually
+    # does all divisions, but generally this is an array of one
+    # (the current policy)
+    foreach ($policydivisions as $policy) { ?>
                         
                             <?php
-                                $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
-                            $divisions_scoring = [];
-                            $divisions_informative = [];
-                            $agreements_scoring = [];
-                            $agreements_informative = [];
-                            foreach ($policy['divisions'] as $division) {
-                                if ($division['strong']) {
-                                    $divisions_scoring[] = $division;
-                                } else {
-                                    $divisions_informative[] = $division;
-                                }
-                            }
+            $current_policy_agreements = $policyagreements[$policy['policy_id']] ?? [];
+        $divisions_scoring = [];
+        $divisions_informative = [];
+        $agreements_scoring = [];
+        $agreements_informative = [];
+        foreach ($policy['divisions'] as $division) {
+            if ($division['strong']) {
+                $divisions_scoring[] = $division;
+            } else {
+                $divisions_informative[] = $division;
+            }
+        }
 
-                            foreach ($current_policy_agreements as $agreement) {
-                                if ($agreement['strength'] == 'strong') {
-                                    $agreements_scoring[] = $agreement;
-                                } else {
-                                    $agreements_informative[] = $agreement;
-                                }
-                            }
+        foreach ($current_policy_agreements as $agreement) {
+            if ($agreement['strength'] == 'strong') {
+                $agreements_scoring[] = $agreement;
+            } else {
+                $agreements_informative[] = $agreement;
+            }
+        }
 
-                            ?>
+        ?>
 
                             <?php
-                                # a header dict is used to give human information about the specific policy
-                                if (isset($policy['header'])) { ?>
+            # a header dict is used to give human information about the specific policy
+            if (isset($policy['header'])) { ?>
                                 <div class="panel policy-votes-hero" style="background-image: url('<?php echo $policy['header']['image']; ?>');">
                                     <h2><?php echo $policy['header']['title']; ?></h2>
                                     <p><?php echo $policy['header']['description']; ?>.</p>
@@ -137,8 +138,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <?php } ?>
 
                             <?php
-                                # display the calculated position for the policy on this page
-                                if (isset($policy['position'])) { ?>
+            # display the calculated position for the policy on this page
+            if (isset($policy['position'])) { ?>
                                 <div class="panel">
                                     <?php if ($policy['position']['has_strong']) { ?>
                                         <h3 class="policy-vote-overall-stance">
