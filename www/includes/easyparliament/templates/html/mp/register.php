@@ -16,7 +16,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <li><a href="https://pages.mysociety.org/parl_register_interests/datasets/parliament_2024/latest">Download a spreadsheet</a></li>
                         <li><a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Read more about the data</a></li>
                     </ul>
-
+                    <?php if ($register_interests) { ?>
                     <?php foreach ($register_interests['chamber_registers'] as $register): ?>
                     <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register */ ?>
 
@@ -30,6 +30,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <?php endforeach; ?>
                     </ul>
                     <?php endforeach; ?>
+                    <?php } ?>
 
                     <?php include '_featured_content.php'; ?>
                     <?php include '_donation.php'; ?>
