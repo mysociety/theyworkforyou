@@ -106,6 +106,35 @@ def upload_regmem(
             prepare_chamber_regmem(chamber, quiet=quiet, language=language)
 
 
+@app.command()
+def upload_enhanced_2024_regmem(quiet: bool = False):
+    """
+    Upload the results of the whofundsthem data.
+    """
+    source_path = (
+        config.RAWDATA
+        / "scrapedjson"
+        / "universal_format_regmem"
+        / "misc"
+        / "enriched_register.json"
+    )
+
+    id_to_person: dict[int, RegmemPerson] = {}
+
+    register = RegmemRegister.from_path(source_path)
+    for person in register.persons:
+        int_id = int(person.person_id.split("/")[-1])
+        id_to_person[int_id] = person
+
+    upload_person_info(
+        "person_regmem_enriched2024_en",
+        id_to_person,
+        remove_absent=True,
+        quiet=quiet,
+        batch_size=100,
+    )
+
+
 @app.callback()
 def callback():
     pass
