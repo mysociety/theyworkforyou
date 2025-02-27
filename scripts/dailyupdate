@@ -29,7 +29,7 @@ chdir $FindBin::Bin;
 system './mpinfoin.pl';
 
 # Update register of interests
-system "scripts/personinfo upload-all-regmem >> $cron_log";
+system "./personinfo upload-all-regmem >> $cron_log";
 
 # update individual division votes
 system "./json2db.pl >> $cron_log";
