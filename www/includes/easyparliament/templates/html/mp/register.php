@@ -13,8 +13,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                        <li><a href="https://pages.mysociety.org/parl_register_interests/datasets/parliament_2024/latest">Download a spreadsheet</a></li>
-                        <li><a href="https://www.mysociety.org/2024/01/17/improving-the-register-of-mps-interests/">Read more about the data</a></li>
+                        <li><a href="/interests/">Read more about the register</a></li>
+                        <li><a href="/interests/#spreadsheets">Get this data in a spreadsheet</a></li>
+
                     </ul>
 
                     <?php foreach ($register_interests['chamber_registers'] as $register): ?>

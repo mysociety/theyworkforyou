@@ -14,13 +14,13 @@
     ?>
 
         <?php if ($entry->date_registered): ?>
-            <li class="registration-date">Registration Date: <?= htmlspecialchars($entry->date_registered) ?></li>
+            <li class="registration-date interest-detail">Registration Date: <?= htmlspecialchars($entry->date_registered) ?></li>
         <?php endif; ?>
         <?php if ($entry->date_published): ?>
-            <li class="published-date">Published Date: <?= htmlspecialchars($entry->date_published) ?></li>
+            <li class="published-date interest-detail">Published Date: <?= htmlspecialchars($entry->date_published) ?></li>
         <?php endif; ?>
         <?php if ($entry->date_updated): ?>
-            <li class="last-updated-date">Last Updated Date: <?= htmlspecialchars($entry->date_updated) ?></li>
+            <li class="last-updated-date interest-detail">Last Updated Date: <?= htmlspecialchars($entry->date_updated) ?></li>
         <?php endif; ?>
     </ul>
 

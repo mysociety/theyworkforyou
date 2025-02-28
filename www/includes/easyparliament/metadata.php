@@ -83,9 +83,19 @@ $page =  [
         'title'			=> gettext('About us'),
         'url'			=> 'about/',
     ],
+    'interests_home' =>  [
+        'title'			=> 'Register of Interests',
+        'url'			=> 'interests/',
+        'parent'		=> 'hansard',
+        'menu'			=>  [
+            'text'			=> 'Register of Interests',
+            'title'			=> 'Register of Interests',
+        ],
+    ],
     'highlighted_2024' =>  [
         'title'			=> 'Highlighted Interests 2024',
-        'url'			=> 'highlighted-interests/2024/',
+        'url'			=> 'interests/highlighted_2024',
+        'parent'		=> 'interests_home',
     ],
     'parliaments' =>  [
         'title' 	=> 'Parliaments and assemblies',
