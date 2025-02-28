@@ -15,7 +15,7 @@
         <div class="toc-page__col">
 
             <div class="panel">
-                <h1>Highlighted interests</h1>
+                <h1>🔍Highlighted interests</h1>
 
                 <a name="intro"></a>
                 <p>As part of our 2024/25 WhoFundsThem project, we are highlighting declared interests based on known negative public attitudes towards certain industries.</p>
