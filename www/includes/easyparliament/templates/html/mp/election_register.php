@@ -69,7 +69,7 @@ function humInt(int $num): string {
                     <?php foreach ($election_registers as $register) { ?>                        
                     <div class="panel register">
                     <a name="register"></a>
-                    <h2>Enriched Election Register</h2>
+                    <h2>🏛️ Enriched Election Register</h2>
                     
                         <p>This is an enriched version of the post-election September 2024 register of members' interests for any donations/support or gifts declared.</p>
                         We have worked with a group of volunteers to add additional context to the register, including:
@@ -105,7 +105,7 @@ function humInt(int $num): string {
 
                         <?php foreach ($register->categories as $category) { ?>
                             <div class="panel register">    
-                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->category_name ?></h2>
+                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?><?= $category->category_name ?></h2>
 
 
                             <?php $summary = $category->summary_details("enriched_info"); ?>

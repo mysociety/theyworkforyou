@@ -48,7 +48,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         
                     <div class="panel register">
                     <a name="register"></a>
-                    <h2>Register of Members&rsquo; Interests - <?= $register->displayChamber() ?></h2>
+                    <h2>📖 Register of Members&rsquo; Interests - <?= $register->displayChamber() ?></h2>
 
                     <p>
                         <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>&chamber=<?= $chamber ?>">View the history of this person’s entries in the Register</a>
@@ -60,7 +60,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             <?php if ($category->only_null_entries()) {
                                 continue;
                             }; ?>
-                            <h3 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->category_name ?></h3>
+                            <hr>
+                            <h3 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?><?= $category->category_name ?></h3>
                         
                             <?php foreach ($category->entries as $entry) {
                                 if ($entry->null_entry == false) {

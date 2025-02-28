@@ -15,6 +15,23 @@ class Category extends BaseModel {
     public EntryList $summaries;
     public EntryList $entries;
 
+    public function emoji() {
+        $emoji_lookup = [
+            "Donations and other support (including loans) for activities as an MP" => "💳",
+            "Gifts, benefits and hospitality from UK sources" => "🎁",
+            "Employment and earnings - Ad hoc payments" => "💼",
+            "Employment and earnings - Ongoing paid employment" => "💼",
+            "Miscellaneous" => "🏷️",
+            "Employment and earnings" => "💼",
+            "Shareholdings" => "📈",
+            "Land and property (within or outside the UK)" => "🏠",
+            "Visits outside the UK" => "🌍",
+            "Family members engaged in third-party lobbying" => "👪",
+            "Gifts and benefits from sources outside the UK" => "🌐",
+        ];
+        return $emoji_lookup[$this->category_name] ?? "";
+    }
+
     /**
      * @return array<string, string>
      */
