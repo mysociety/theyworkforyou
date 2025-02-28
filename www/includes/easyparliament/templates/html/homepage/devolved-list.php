@@ -1,6 +1,6 @@
 <?php
 $nav_items =  [
-    ['hansard', 'alldebatesfront', 'mps', 'peers', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'],
+    ['hansard', 'alldebatesfront', 'mps', 'peers', 'interests_home', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'],
     ['sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront', 'divisions_recent_sp'],
     ['wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage', 'divisions_recent_wales'],
     ['ni_home', 'ni_home', 'nioverview', 'mlas'],

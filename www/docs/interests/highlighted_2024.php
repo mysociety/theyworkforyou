@@ -16,4 +16,4 @@ $category_ids = $array = [
     '8'   => 'Miscellaneous',
 ];
 
-MySociety\TheyWorkForYou\Renderer::output('misc/highlighted_2024', ["register" => $register, "category_ids" => $category_ids]);
+MySociety\TheyWorkForYou\Renderer::output('interests/highlighted_2024', ["register" => $register, "category_ids" => $category_ids]);

@@ -81,10 +81,10 @@ function humInt(int $num): string {
                         <p>This is an experiment in new ways of summarising, enhancing and displaying the register. <a href="<?= $member_url ?>/register">View the standard version of the register</a>.</p>
                         <p>Read our <a href="http://research.mysociety.org/html/beyond-transparency/">Beyond Transparency report</a> for more information about the register and our recommendations for improving it.</p>
                             <hr>
-                            <p>As part of this project we have also <a href="/highlighted-interests/2024">highlighted a set of interests</a> related to industries with low public support (gambling and oil/gas), or the governments of not free countries.
+                            <p>As part of this project we have also <a href="/interests/highlighted_2024">highlighted a set of interests</a> related to industries with low public support (gambling and oil/gas), or the governments of not free countries.
                             <?php if ($mp_has_highlighted_interests) { ?>
 
-                            <p>This MP has <a href="/highlighted-interests/2024"> highlighted interests on that page</a>.</p>
+                            <p>This MP has <a href="/interests/highlighted_2024"> highlighted interests on that page</a>.</p>
                             <?php } else { ?>
                             <p>This MP does not have any highlighted interests on that page.</p>
                             </p>

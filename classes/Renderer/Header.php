@@ -309,7 +309,7 @@ class Header {
         // we're within that section.
         $nav_items =  [
             ['home'],
-            ['hansard', 'mps', 'peers', 'alldebatesfront', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'],
+            ['hansard', 'mps', 'peers', 'alldebatesfront', 'interests_home', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'],
             ['sp_home', 'spoverview', 'msps', 'spdebatesfront', 'divisions_recent_sp'], #'spwransfront'
             ['ni_home', 'nioverview', 'mlas'],
             ['wales_home', 'seneddoverview', 'mss', 'wales_debates', 'divisions_recent_wales'],

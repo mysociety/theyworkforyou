@@ -18,7 +18,7 @@
                 <h1>Highlighted interests</h1>
 
                 <a name="intro"></a>
-                <p>As part of our 2024/25 WhoFundsThem project, we are highlighting declared interests that we feel merit being more visible, based on known public attitudes towards certain industries.</p>
+                <p>As part of our 2024/25 WhoFundsThem project, we are highlighting declared interests based on known negative public attitudes towards certain industries.</p>
                 <p>You can read more about our research and choices in the accompanying <a href="http://research.mysociety.org/html/beyond-transparency/">Beyond Transparency report</a> </p>
 
                 <p style="font-weight:bold">Nothing in this section was against the rules for MPs to accept and they have been correctly declared.</p>
@@ -32,7 +32,9 @@
                     <li>Gambling industry</li>
                 </ul>
                 <p>This is not an exhaustive list of industries, and we have excluded rather than included borderline cases. </p>
-                
+                <hr>
+                <p>If this was useful to you, you've noticed a problem, or have other suggestions, please fill out <a href="https://survey.alchemer.com/s3/8216436/WhoFundsThem-feedback">our feedback survey</a>.<p>
+
                 <hr>
                 <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\Register $register */ ?>
 
