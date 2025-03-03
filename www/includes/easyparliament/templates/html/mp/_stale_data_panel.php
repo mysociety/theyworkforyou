@@ -3,8 +3,7 @@
 <div class="panel panel--highlight">
 
     <p>
-        Votes in the topics listed below are up-to-date as of the start of 2024.
-        We are working on a larger set of updates to these voting summaries that will be complete in early 2024.
+        This data will be updated with votes up to the end of 2024 on the week of 10 March 2025.
     </p>
 
 </div>
