@@ -8,7 +8,7 @@
         <?php if ($entry->info_type == "subentry") { ?>
             <h6 class="interest-summary"><?= htmlspecialchars($entry->content) ?></h6>
         <?php } else { ?>
-            <h4 class="interest-summary"><?= htmlspecialchars($entry->content) ?></h4>
+            <h4 class="interest-summary"><?= str_replace(' - ', ' – ', htmlspecialchars($entry->content)) ?></h4>
         <?php }; ?>
     <?php }; ?>
         <ul class="interest-details-list">

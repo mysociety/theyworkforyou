@@ -105,7 +105,7 @@ function humInt(int $num): string {
 
                         <?php foreach ($register->categories as $category) { ?>
                             <div class="panel register">    
-                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?><?= $category->category_name ?></h2>
+                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?> <?= $category->category_name ?></h2>
 
 
                             <?php $summary = $category->summary_details("enriched_info"); ?>
