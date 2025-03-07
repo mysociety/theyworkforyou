@@ -104,6 +104,43 @@ class ALERT {
         return $data;
     }
 
+    public function get_related_terms($term) {
+        $q = $this->db->query("SELECT
+            search_suggestion
+            FROM vector_search_suggestions
+            WHERE search_term = :term", [
+            ':term' => $term,
+        ]);
+
+        $data = $q->fetchAll();
+        $related = [];
+        foreach ($data as $d) {
+            $related[] = $d['search_suggestion'];
+        }
+        return $related;
+    }
+
+    public function update($id, $details) {
+        $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
+
+        $q = $this->db->query("SELECT * FROM alerts
+            WHERE alert_id = :id", [
+            ':id' => $id,
+        ])->first();
+        if ($q) {
+            $q = $this->db->query("UPDATE alerts SET deleted = 0, criteria = :criteria, confirmed = 1
+                WHERE alert_id = :id", [
+                ":criteria" => $criteria,
+                ":id" => $id,
+            ]);
+
+            if ($q->success()) {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
     public function add($details, $confirmation_email = false, $instantly_confirm = true) {
 
         // Adds a new alert's info into the database.
