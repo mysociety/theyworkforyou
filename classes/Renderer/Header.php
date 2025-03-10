@@ -310,9 +310,9 @@ class Header {
         $nav_items =  [
             ['home'],
             ['hansard', 'mps', 'peers', 'alldebatesfront', 'interests_home', 'wranswmsfront', 'pbc_front', 'divisions_recent_commons', 'divisions_recent_lords',  'calendar_summary'],
-            ['sp_home', 'spoverview', 'msps', 'spdebatesfront', 'divisions_recent_sp'], #'spwransfront'
-            ['ni_home', 'nioverview', 'mlas'],
-            ['wales_home', 'seneddoverview', 'mss', 'wales_debates', 'divisions_recent_wales'],
+            ['sp_home', 'spoverview', 'msps', 'interest_category_sp', 'spdebatesfront', 'divisions_recent_sp'], #'spwransfront'
+            ['ni_home', 'nioverview', 'mlas', 'interest_category_ni'],
+            ['wales_home', 'seneddoverview', 'mss', 'interest_category_wp', 'wales_debates', 'divisions_recent_wales'],
             ['london_home', 'lmqsfront', 'london-assembly-members'],
         ];
 

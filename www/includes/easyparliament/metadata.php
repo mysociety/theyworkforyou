@@ -97,6 +97,38 @@ $page =  [
         'url'			=> 'interests/highlighted_2024',
         'parent'		=> 'interests_home',
     ],
+    'interest_category' =>  [
+        'title'			=> 'Interests by category',
+        'url'			=> 'interests/category',
+        'parent'		=> 'interests_home',
+    ],
+    'interest_category_sp' =>  [
+        'title'			=> 'Interests by category',
+        'url'			=> 'interests/category?chamber=scottish-parliament',
+        'parent'		=> 'sp_home',
+        'menu'			=>  [
+            'text'			=> 'Register of Interests',
+            'title'			=> 'Register of Interests',
+        ],
+    ],
+    'interest_category_wp' =>  [
+        'title'			=> 'Interests by category',
+        'url'			=> 'interests/category?chamber=senedd',
+        'parent'		=> 'wales_home',
+        'menu'			=>  [
+            'text'			=> gettext('Register of Interests'),
+            'title'			=> gettext('Register of Interests'),
+        ],
+    ],
+    'interest_category_ni' =>  [
+        'title'			=> 'Interests by category',
+        'url'			=> 'interests/category?chamber=northern-ireland-assembly',
+        'parent'		=> 'ni_home',
+        'menu'			=>  [
+            'text'			=> 'Register of Interests',
+            'title'			=> 'Register of Interests',
+        ],
+    ],
     'parliaments' =>  [
         'title' 	=> 'Parliaments and assemblies',
         'url'       => 'parliaments/',
