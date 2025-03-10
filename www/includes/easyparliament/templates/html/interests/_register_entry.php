@@ -34,7 +34,7 @@
 <?php endif; ?>
 
     </ul>
-    <?php if (!$entry->sub_entries->isEmpty()): ?>
+    <?php if ($entry->hasEntries()): ?>
         <h5 class="child-item-header">Specific work or payments</h5>
         <div class="interest-child-items" id="parent-<?= $entry->comparable_id ?>">
             <?php foreach ($entry->sub_entries as $subentry): ?>
