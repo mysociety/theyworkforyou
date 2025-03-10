@@ -54,7 +54,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>&chamber=<?= $chamber ?>">View the history of this person’s entries in the Register</a>
                     </p>
 
-                        <p>This register last updated on: <?= $register->published_date ?></p>
+                        <p><?= gettext('This register last updated on:') ?> <?= $register->published_date ?></p>
+
+                        
+                        <?php if (LANGUAGE == 'cy') { ?>
+                            <p><?= gettext('For more information, see the official Senedd page') ?></a>.
+                        <?php } else { ?>
+                            <p>For more information on the different categories, see the <a href="<?= $register->officialUrl() ?>">the official <?= $register->displayChamber() ?> page</a>.
+                        <?php } ?>
+
+                        </p>
 
                         <?php foreach ($register->categories as $category) { ?>
                             <?php if ($category->only_null_entries()) {
