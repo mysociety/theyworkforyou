@@ -13,8 +13,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                        <li><a href="/interests/">Read more about the register</a></li>
-                        <li><a href="/interests/#spreadsheets">Get this data in a spreadsheet</a></li>
+                        <li><a href="/interests/"><?= gettext('Read more about the register') ?></a></li>
+                        <li><a href="/interests/#spreadsheets"><?= gettext('Get this data in a spreadsheet') ?></a></li>
 
                     </ul>
 
@@ -48,10 +48,10 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         
                     <div class="panel register">
                     <a name="register"></a>
-                    <h2>📖 Register of Members&rsquo; Interests &ndash; <?= $register->displayChamber() ?></h2>
+                    <h2>📖 <?= gettext('Register of Interests') ?> &ndash; <?= $register->displayChamber() ?></h2>
 
                     <p>
-                        <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>&chamber=<?= $chamber ?>">View the history of this person’s entries in the Register</a>
+                        <a href="<?= WEBPATH ?>regmem/?p=<?= $person_id ?>&chamber=<?= $chamber ?>"><?= gettext('View the history of this person’s entries in the Register') ?></a>
                     </p>
 
                         <p><?= gettext('This register last updated on:') ?> <?= $register->published_date ?></p>
@@ -83,11 +83,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         </div>
                     <?php }; ?>
 
-                <div class="panel">
-                    <p>
-                         <a class="moreinfo-link" href="https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/">More about the register</a>
-                    </p>
-                </div>
                 <?php }; ?>
 
                 <?php include('_profile_footer.php'); ?>
