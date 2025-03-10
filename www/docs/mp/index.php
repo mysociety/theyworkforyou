@@ -1046,6 +1046,11 @@ function person_register_interests($member, $extra_info) {
         return;
     }
 
+    // sort chamber registers by published_date
+    uasort($reg['chamber_registers'], function ($a, $b) {
+        return $a->published_date <=> $b->published_date;
+    });
+
     return $reg;
 }
 
