@@ -22,6 +22,17 @@ class InfoEntry extends BaseModel {
     public ?DetailGroup $details = null;
     public ?EntryList $sub_entries = null;
 
+    public function hasEntries(): bool {
+        return $this->sub_entries !== null && ($this->sub_entries->isEmpty() === false);
+    }
+
+    public function hasDetails(): bool {
+        return $this->details !== null && ($this->details->isEmpty() === false);
+    }
+
+    public function hasEntryOrDetail(): bool {
+        return $this->hasEntries() || $this->hasDetails();
+    }
 
     public function get_detail(string $slug): ?Detail {
         // given a slug, return the detail object
