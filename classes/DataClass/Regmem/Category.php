@@ -9,11 +9,11 @@ use MySociety\TheyWorkForYou\DataClass\BaseModel;
 class Category extends BaseModel {
     public string $category_id;
     public string $category_name;
-    public ?string $category_description;
-    public ?string $legislation_or_rule_name;
-    public ?string $legislation_or_rule_url;
-    public EntryList $summaries;
-    public EntryList $entries;
+    public ?string $category_description = null;
+    public ?string $legislation_or_rule_name = null;
+    public ?string $legislation_or_rule_url = null;
+    public ?EntryList $summaries = null;
+    public ?EntryList $entries = null;
 
     public function emoji() {
         $emoji_lookup = [
