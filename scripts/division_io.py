@@ -14,6 +14,7 @@ from warnings import filterwarnings
 
 import MySQLdb
 import pandas as pd
+import requests
 import rich_click as click
 from pylib.mysociety import config
 from rich import print
@@ -29,6 +30,31 @@ filterwarnings(
     category=UserWarning,
     message=".*pandas only supports SQLAlchemy connectable.*",
 )
+
+
+def notify_twfy_votes(verbose: bool = False):
+    """
+    Notify the TWFY votes service that new votes are available.
+    """
+    votes_url = config.get("TWFY_VOTES_URL")
+    refresh_token = config.get("TWFY_VOTES_REFRESH_TOKEN")
+
+    if not refresh_token:
+        if verbose:
+            print("[yellow]No refresh token available, skipping notification[/yellow]")
+        return
+
+    response = requests.post(
+        f"{votes_url}/webhooks/refresh",
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {refresh_token}",
+        },
+        json={"shortcut": "refresh_daily"},
+    )
+
+    if response.status_code != 200:
+        raise Exception(f"Failed to refresh votes: {response.text}")
 
 
 class TitlePriority(str, Enum):
@@ -210,8 +236,9 @@ def twfy_votes_url_to_pw_id(url: str) -> str:
 
 
 @cli.command()
+@click.option("--notify-votes", is_flag=True, help="Show verbose output")
 @click.option("--verbose", is_flag=True, help="Show verbose output")
-def export_division_data(verbose: bool = False):
+def export_division_data(notify_votes: bool = False, verbose: bool = False):
     """
     Export division data to publically accessible parquet files
     """
@@ -322,6 +349,9 @@ def export_division_data(verbose: bool = False):
         print(f"[green]Votes written to {dest_path / 'votes.parquet'}[/green]")
 
     db_connection.close()
+
+    if notify_votes:
+        notify_twfy_votes(verbose=verbose)
 
 
 @cli.command()

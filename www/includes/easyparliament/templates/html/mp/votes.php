@@ -67,8 +67,6 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
                 </div>
 
-                <?php include('_stale_data_panel.php'); ?>
-
                 <?php if ($party_switcher == true): ?>
                     <?php include('_cross_party_mp_panel.php'); ?>
                 <?php endif; ?>
