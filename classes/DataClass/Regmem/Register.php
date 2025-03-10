@@ -9,11 +9,12 @@ use MySociety\TheyWorkForYou\DataClass\BaseModel;
 class Register extends BaseModel {
     use HasChamber;
     public string $chamber;
-    public string $language;
+    public string $language = "en";
     public string $published_date;
-    public AnnotationList $annotations;
-    public EntryList $summaries;
+    public ?AnnotationList $annotations = null;
+    public ?EntryList $summaries = null;
     public PersonList $persons;
+
 
     public function getPersonFromId(string $personId): ?Person {
         foreach ($this->persons as $person) {

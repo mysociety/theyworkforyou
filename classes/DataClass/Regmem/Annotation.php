@@ -8,8 +8,8 @@ use MySociety\TheyWorkForYou\DataClass\BaseModel;
 
 class Annotation extends BaseModel {
     public string $author;
-    public string $type;
+    public string $type = "note";
     public string $content;
     public string $date_added;
-    public string $content_format;
+    public string $content_format = "string";
 }

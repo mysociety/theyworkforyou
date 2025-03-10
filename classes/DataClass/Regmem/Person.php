@@ -17,7 +17,7 @@ class Person extends BaseModel {
     use HasChamber;
 
     public string $chamber;
-    public string $language;
+    public string $language = "en";
     public string $person_id;
     public string $person_name;
     public string $published_date;
