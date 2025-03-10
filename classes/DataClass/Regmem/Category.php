@@ -15,8 +15,33 @@ class Category extends BaseModel {
     public ?EntryList $summaries = null;
     public ?EntryList $entries = null;
 
-    public function emoji() {
+    public static function emojiLookup(string $value): string {
         $emoji_lookup = [
+            "Remuneration or other material benefit" => "💼",
+            "Membership/Chairmanship of bodies in receipt of Senedd funds" => "👥",
+            "Record of the employment of family members" => "👪",
+            "Directorships" => "👔",
+            "Gifts, hospitality, material benefit or advantage" => "🎁",
+            "Remunerated employment, office, profession etc" => "💼",
+            "Financial sponsorship" => "💳",
+            "Overseas visits" => "🌍",
+            "Land and property" => "🏠",
+            "Record of membership of societies" => "🤝",
+            "Donations and other support" => "💳",
+            "Gifts, benefits and hospitality" => "🎁",
+            "Visits" => "🌍",
+            "Shareholdings" => "📈",
+            "Land and Property" => "🏠",
+            "Miscellaneous" => "🏷️",
+            "Unremunerated interests" => "🤝",
+            "Family members who benefit from Office Cost Expenditure" => "👪",
+            "Voluntary" => "🤝",
+            "Controlled transactions" => "📊",
+            "Gifts" => "🎁",
+            "Heritable property" => "🏠",
+            "Interest in shares" => "📈",
+            "Overseas visits" => "🌍",
+            "Remuneration and related undertaking" => "💼",
             "Donations and other support (including loans) for activities as an MP" => "💳",
             "Gifts, benefits and hospitality from UK sources" => "🎁",
             "Employment and earnings - Ad hoc payments" => "💼",
@@ -29,7 +54,11 @@ class Category extends BaseModel {
             "Family members engaged in third-party lobbying" => "👪",
             "Gifts and benefits from sources outside the UK" => "🌐",
         ];
-        return $emoji_lookup[$this->category_name] ?? "";
+        return $emoji_lookup[$value] ?? "";
+    }
+
+    public function emoji() {
+        return $this->emojiLookup($this->category_name);
     }
 
     /**
