@@ -7,6 +7,7 @@ namespace MySociety\TheyWorkForYou\DataClass\Regmem;
 use MySociety\TheyWorkForYou\DataClass\BaseModel;
 
 class Register extends BaseModel {
+    use HasChamber;
     public string $chamber;
     public string $language;
     public string $published_date;

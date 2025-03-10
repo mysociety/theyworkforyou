@@ -14,6 +14,8 @@ use MySociety\TheyWorkForYou\DataClass\BaseModel;
 use InvalidArgumentException;
 
 class Person extends BaseModel {
+    use HasChamber;
+
     public string $chamber;
     public string $language;
     public string $person_id;
@@ -39,22 +41,6 @@ class Person extends BaseModel {
             }
         }
         return $entryIds;
-    }
-
-
-    public function displayChamber(): string {
-        switch ($this->chamber) {
-            case 'house-of-commons':
-                return 'House of Commons';
-            case 'welsh-parliament':
-                return 'Senedd';
-            case 'scottish-parliament':
-                return 'Scottish Parliament';
-            case 'northern-ireland-assembly':
-                return 'Northern Ireland Assembly';
-            default:
-                return 'Unknown Chamber';
-        }
     }
 
     public function getCategoryFromId(string $categoryId): Category {
