@@ -1,9 +1,9 @@
 <?php
 $nav_items =  [
     ['hansard', 'alldebatesfront', 'mps', 'peers', 'interests_home', 'wranswmsfront', 'divisions_recent_commons', 'divisions_recent_lords'],
-    ['sp_home', 'sp_home', 'spdebatesfront', 'msps',  'spwransfront', 'divisions_recent_sp'],
-    ['wales_home', 'wales_home', 'wales_debates', 'mss', 'welshlanguage', 'divisions_recent_wales'],
-    ['ni_home', 'ni_home', 'nioverview', 'mlas'],
+    ['sp_home', 'sp_home', 'spdebatesfront', 'msps', 'interest_category_sp', 'spwransfront', 'divisions_recent_sp'],
+    ['wales_home', 'wales_home', 'wales_debates', 'mss','interest_category_wp', 'welshlanguage', 'divisions_recent_wales'],
+    ['ni_home', 'ni_home', 'nioverview', 'mlas','interest_category_ni'],
 ];
 
 ?>  
