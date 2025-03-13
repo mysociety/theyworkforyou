@@ -26,6 +26,7 @@ def prepare_chamber_regmem(
     *,
     language: Literal["en", "cy"] = "en",
     quiet: bool = False,
+    suppress_progress: bool = False,
 ):
     """
     Extract the most recent register of interest for a person in this chamber and send for upload
@@ -41,8 +42,12 @@ def prepare_chamber_regmem(
 
     id_to_person: dict[int, RegmemPerson] = {}
 
+    disable_progress = quiet or suppress_progress
+
     for file in tqdm(
-        list(source_path.glob("*.json")), disable=quiet, desc="Processing sources"
+        list(source_path.glob("*.json")),
+        disable=disable_progress,
+        desc="Processing sources",
     ):
         register = RegmemRegister.from_path(file)
         for person in register.persons:
@@ -67,7 +72,7 @@ def prepare_chamber_regmem(
 
 
 @app.command()
-def upload_all_regmem(quiet: bool = False):
+def upload_all_regmem(quiet: bool = False, suppress_progress: bool = False):
     """
     Upload regmems for all known chambers
     """
@@ -80,15 +85,20 @@ def upload_all_regmem(quiet: bool = False):
         "senedd",
     ]
     for chamber in chambers:
-        prepare_chamber_regmem(chamber, quiet=quiet, language="en")
+        prepare_chamber_regmem(
+            chamber, quiet=quiet, language="en", suppress_progress=suppress_progress
+        )
 
     # welsh chambers
-    prepare_chamber_regmem("senedd", quiet=quiet, language="cy")
+    prepare_chamber_regmem(
+        "senedd", quiet=quiet, language="cy", suppress_progress=suppress_progress
+    )
 
 
 @app.command()
 def upload_regmem(
     quiet: bool = False,
+    suppress_progress: bool = False,
     all: bool = False,
     chamber: Optional[str] = None,
     language: str = "en",
@@ -98,12 +108,17 @@ def upload_regmem(
     """
 
     if all:
-        upload_all_regmem(quiet=quiet)
+        upload_all_regmem(quiet=quiet, suppress_progress=suppress_progress)
     else:
         if chamber is None:
             raise ValueError("You must specify a chamber if not uploading all")
         if is_valid_language(language):
-            prepare_chamber_regmem(chamber, quiet=quiet, language=language)
+            prepare_chamber_regmem(
+                chamber,
+                quiet=quiet,
+                language=language,
+                suppress_progress=suppress_progress,
+            )
 
 
 @app.command()
