@@ -96,6 +96,10 @@ class Policies {
         return array_keys($this->policies);
     }
 
+    public function getSets() {
+        return $this->sets;
+    }
+
     public function getSetDescriptions() {
         return $this->set_descs;
     }
