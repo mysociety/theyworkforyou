@@ -25,14 +25,12 @@ scripts/personinfo upload-all-regmem
 scripts/personinfo upload-enhanced-2024-regmem
 
 echo 'Load policies and votes from twfy-votes'
-scripts/json2db.pl --verbose --dev-populate
+scripts/votes2db load-policies 
+scripts/votes2db load-voting-alignment 
+scripts/votes2db load-dev-votes
 
 echo 'Load Jan 2022 debates and divisions'
 scripts/xml2db.pl --debates --wales --scotland --all
-
-# this only imports public whip, run with different arguments to pull in members expenses
-echo 'Importing MP extra info for voting comparison'
-scripts/mpinfoin.pl publicwhip
 
 echo 'Generate search index'
 search/index.pl all
