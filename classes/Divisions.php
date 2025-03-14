@@ -39,7 +39,7 @@ class Divisions {
         $db = new \ParlDB();
         $q = $db->query(
             "SELECT policy_id, max(division_date) as recent
-            FROM policydivisions
+            FROM policydivisionlink
                 JOIN divisions USING(division_id)
             GROUP BY policy_id"
         );
@@ -188,7 +188,7 @@ class Divisions {
 
         $q = $this->db->query(
             "SELECT divisions.*
-            FROM policydivisions
+            FROM policydivisionlink
                 JOIN divisions USING(division_id)
             WHERE policy_id in ($policies_str)
             GROUP BY division_id
@@ -226,8 +226,8 @@ class Divisions {
             $args[':policy_id'] = $policyID;
         }
         $q = $this->db->query(
-            "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, direction
-            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, strength, alignment
+            FROM policydivisionlink JOIN persondivisionvotes USING(division_id)
                 JOIN divisions USING(division_id)
             WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
             ORDER by policy_id, division_date DESC",
@@ -632,8 +632,8 @@ class Divisions {
 
         # fetch related policies from database
         $q = $this->db->query(
-            "SELECT policy_id, direction
-            FROM policydivisions
+            "SELECT policy_id, direction, strength
+            FROM policydivisionlink
             WHERE division_id = :division_id",
             [':division_id' => $row['division_id']]
         );
@@ -645,16 +645,8 @@ class Divisions {
                 'policy_id' => $policy['policy_id'],
                 'policy_title' => preg_replace('#</?a[^>]*>#', '', $policy_lookup[$policy['policy_id']]),
                 'direction' => $policy['direction'],
+                'strong' => strtolower($policy["strength"]) === "strong",
             ];
-        }
-
-        if (array_key_exists('direction', $row)) {
-            $division['direction'] = $row['direction'];
-            if (strpos($row['direction'], 'strong') !== false) {
-                $division['strong'] = true;
-            } else {
-                $division['strong'] = false;
-            }
         }
 
         return $division;
