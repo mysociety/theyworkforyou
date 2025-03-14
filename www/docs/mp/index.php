@@ -458,6 +458,7 @@ switch ($pagetype) {
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
 
+        // no break
     case '':
     default:
         // if extra detail needed for overview page in future
