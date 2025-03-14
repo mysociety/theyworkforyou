@@ -2,8 +2,14 @@
 include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
 # fetch covid_policy_list
-$policies_obj = new MySociety\TheyWorkForYou\Policies();
-$covid_policy_list = $policies_obj->getCovidAffected();
+
+/** @var MySociety\TheyWorkForYou\PolicyDistributionCollection[] $key_votes_segments */
+/** @var MySociety\TheyWorkForYou\PolicyDistributionCollection $sig_diff_policy */
+/** @var \MySociety\TheyWorkForYou\PolicyComparisonPeriod[] $available_periods */
+/** @var \MySociety\TheyWorkForYou\PolicyComparisonPeriod $comparison_period */
+
+
+
 ?>
 
 <div class="full-page">
@@ -14,16 +20,28 @@ $covid_policy_list = $policies_obj->getCovidAffected();
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
-                    <ul>
+
+                <h3 class="browse-content">Comparison periods</h3>
+                    <ul> 
+                    <?php foreach($available_periods as $period) { ?>
+                        <li class="active"><a href="?comparison_period=<?= $period->lslug() ?>"><?= $period->description ?></a></li>
+                    <?php } ?>
+                    </ul>
+
+
+                    <h3 class="browse-content">Policy groups</h3>
+                    <ul> 
                         <?php if ($has_voting_record): ?>
                         <?php foreach ($key_votes_segments as $segment): ?>
-                        <?php if (count($segment['votes']->positions) > 0): ?>
-                        <li><a href="#<?= $segment['key'] ?>"><?= $segment['title'] ?></a></li>
+                        <?php if (count($segment->policy_pairs) > 0): ?>
+                        <li><a href="#<?= $segment->group_slug ?>"><?= $segment->group_name ?></a></li>
                         <?php endif; ?>
                         <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
+
+
+                    
                     <?php include '_featured_content.php'; ?>
                     <?php include '_donation.php'; ?>
                 </div>
@@ -39,6 +57,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                 <div class="panel">
                     <h2>Voting summaries</h2>
+                    <h3>For period: <?= $comparison_period->description ?></h3>
                     <p>
                         MPs have many roles, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
                         One of the ways MPs make decisions is by voting.
@@ -99,7 +118,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <?php } ?>
 
                     
-                    <?php if (count($sorted_diffs_only) > 0) { ?>
+                    <?php if (count($sig_diff_policy->policy_pairs) > 0) { ?>
                     <?php if ($party_switcher == true) { ?>
                         <p>
                         However, <?= $full_name ?> sometimes <b>differs</b> from <?= $unslugified_comparison_party ?> MPs, such as:
@@ -111,37 +130,10 @@ $covid_policy_list = $policies_obj->getCovidAffected();
                     <?php } ?>
 
                     <ul class="vote-descriptions">
-                      <?php foreach ($sorted_diffs_only as $policy_id => $diff) {
-
-                          $key_vote = $diff;
-                          $covid_affected = in_array($policy_id, $covid_policy_list);
-                          $policy_desc = strip_tags($key_vote['policy_text']);
-                          $policy_direction = $key_vote["person_position"];
-                          $policy_group = "highlighted";
-                          $party_score_difference = $key_vote["score_difference"];
-                          $party_position = $key_vote['party_position'] ;
-                          $comparison_party = $data["comparison_party"];
-                          $current_party_comparison = $data["current_party_comparison"];
-                          $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
-
-                          if (strlen($unslugified_comparison_party) == 3) {
-                              $unslugified_comparison_party = strtoupper($comparison_party);
-                          }
-                          $description = sprintf(
-                              '%s <b>%s</b> %s; comparable %s MPs <b>%s</b>.',
-                              $full_name,
-                              $diff['person_position'],
-                              strip_tags($diff['policy_text']),
-                              $unslugified_comparison_party,
-                              $diff['party_position']
-                          );
-                          $link = $member_url . '/divisions?policy=' . $policy_id;
-                          $link_text = 'Show votes';
-
-                          include '_vote_description.php';
-
-                      } ?>
-                    </ul>
+                              <?php foreach ($sig_diff_policy->policy_pairs as $policy_pair) {
+                                  include '_vote_description.php';
+                              } ?>
+                            </ul>
 
                     <?php } ?>
 
@@ -154,89 +146,33 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                 <?php if ($has_voting_record): ?>
                     
-                    <?php $policies_obj = new MySociety\TheyWorkForYou\Policies(); ?>
-                    <?php $covid_policy_list = $policies_obj->getCovidAffected(); ?>
-
                     <?php $displayed_votes = false; ?>
 
                     <?php foreach ($key_votes_segments as $segment): ?>
-
-                        <?php if (count($segment['votes']->positions) > 0): ?>
+                        
+                        <?php if (count($segment->policy_pairs) > 0): ?>
                         <?php $most_recent = ''; ?>
 
                         <div class="panel">
 
-                            <h2 id="<?= $segment['key'] ?>">
-                                How <?= $full_name ?> voted on <?= $segment['title'] ?>
-                                <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment['key'] ?>">#</a></small>
+                            <h2 id="<?= $segment->group_slug ?>">
+                                How <?= $full_name ?> voted on <?= $segment->group_name ?>
+                                <small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment->group_slug ?>">#</a></small>
                             </h2>
 
                             <p>For votes held while they were in office:</p>
 
                             <ul class="vote-descriptions">
-                              <?php foreach ($segment['votes']->positions as $key_vote) {
-                                  $policy_id = $key_vote['policy_id'];
-                                  $covid_affected = in_array($policy_id, $covid_policy_list);
-                                  $policy_desc = strip_tags($key_vote['policy']);
-                                  $policy_direction = $key_vote["position"];
-                                  $policy_group = $segment['key'];
-
-                                  if (isset($policy_last_update[$policy_id]) && $policy_last_update[$policy_id] > $most_recent) {
-                                      $most_recent = $policy_last_update[$policy_id];
-                                  }
-
-                                  if ($key_vote['has_strong'] || $key_vote['position'] == 'has never voted on') {
-                                      $description = ucfirst($key_vote['desc']);
-                                  } else {
-                                      $description = sprintf(
-                                          'We don&rsquo;t have enough information to calculate %s&rsquo;s position on %s.',
-                                          $full_name,
-                                          $key_vote['policy']
-                                      );
-                                  }
-                                  $link = sprintf(
-                                      '%s/divisions?policy=%s',
-                                      $member_url,
-                                      $policy_id
-                                  );
-                                  $link_text = $key_vote['position'] != 'has never voted on' ? 'Show votes' : 'Details';
-                                  $comparison_party = $data["comparison_party"];
-
-                                  # Unslugify for display
-                                  $unslugified_comparison_party = ucwords(str_replace('-', ' ', $comparison_party));
-
-                                  if (strlen($unslugified_comparison_party) == 3) {
-                                      $unslugified_comparison_party = strtoupper($comparison_party);
-                                  }
-                                  $min_diff_score = 0; // setting this to 0 means that all comparisons are displayed.
-                                  if (isset($sorted_diffs[$policy_id])) {
-                                      $diff = $sorted_diffs[$policy_id];
-                                      $party_position = $diff['party_position'];
-                                      $party_score_difference = $diff["score_difference"];
-                                      if ($sorted_diffs[$policy_id]['score_difference'] > $min_diff_score && $party_member_count > 1) {
-                                          $party_voting_line = sprintf('Comparable %s MPs %s.', $unslugified_comparison_party, $diff['party_position']);
-                                      }
-                                  } else {
-                                      $party_voting_line = null;
-                                      $party_position = null;
-                                      $party_score_difference = null;
-                                  }
+                              <?php foreach ($segment->policy_pairs as $policy_pair) {
 
                                   include '_vote_description.php';
 
                               } ?>
                             </ul>
 
-                            <div class="share-vote-descriptions">
-                                <p>Share a <a href="<?= $abs_member_url ?>/policy_set_png?policy_set=<?= $segment['key'] ?>">screenshot</a> of these votes:</p>
-
-                                <a href="#" class="facebook-share-button js-facebook-share" data-text="<?= $single_policy_page ? '' : $segment['title'] . ' ' ?><?= $page_title ?>" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Share</a>
-
-                                <a class="twitter-share-button" href="https://twitter.com/share" data-size="small" data-url="<?= $abs_member_url ?>/votes?policy=<?= $segment['key'] ?>">Tweet</a>
-                            </div>
-
                             <p class="voting-information-provenance">
-                                Last updated: <?= format_date($most_recent, LONGDATEFORMAT) ?>.
+
+                                Last updated: <?= format_date($segment->latestUpdate($policy_last_update), LONGDATEFORMAT) ?>.
                                 <a href="/voting-information">Learn more about our voting records and what they mean.</a>
                             </p>
 
@@ -248,17 +184,7 @@ $covid_policy_list = $policies_obj->getCovidAffected();
 
                     <?php endforeach; ?>
 
-                    <?php if ($displayed_votes): ?>
-
-                        <?php if ($segment['votes']->moreLinksString): ?>
-
-                            <div class="panel">
-                                <p><?= $segment['votes']->moreLinksString ?></p>
-                            </div>
-
-                        <?php endif; ?>
-
-                    <?php else: ?>
+                    <?php if (!$displayed_votes): ?>
 
                         <div class="panel">
                             <p>This person has not voted on any of the key issues which we keep track of.</p>
