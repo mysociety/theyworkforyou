@@ -159,7 +159,7 @@ CREATE TABLE `policydivisionlink` (
   `strength` enum('weak', 'strong') NOT NULL default 'weak',
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   UNIQUE KEY `policy_division` (`policy_id`, `division_id`),
-  KEY `division_id` (`division_id`)
+  KEY `id` (`id`)
 );
 
 CREATE TABLE `persondivisionvotes` (
