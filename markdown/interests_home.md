@@ -4,11 +4,23 @@ The Register of Members Interests contains a list of disclosures MPs are require
 
 With TheyWorkForYou, we work to to build on and rework the register to make it easy to access and understand.
 
-On each MPs page you will find two tabs:
-- 📖 [Register of Interests](/mp/25353/keir_starmer/holborn_and_st_pancras/register) - a reprinting of the official register, with additional analysis of how it has changed over time.
-- 🏛️ [2024 Election Donations](/mp/25353/keir_starmer/holborn_and_st_pancras/election_register) - an enhanced version of the September 2024 register, with extra analysis and information on corporate donors and gifts.
-
 We also work to encourage better data and stronger rules in line with public expectations - [read more about our WhoFundsThem work](https://www.mysociety.org/democracy/who-funds-them/).
+
+## 👤By person
+
+On each MP/MSP/MS/MLA page you will find a 📖 [Register of Interests](/mp/25353/keir_starmer/holborn_and_st_pancras/register) tab a reprinting of the official register, with additional analysis of how it has changed over time.
+
+MPs additionally have a 🏛️ [2024 Election Donations](/mp/25353/keir_starmer/holborn_and_st_pancras/election_register) - an enhanced version of the September 2024 register, with extra analysis and information on corporate donors and gifts.
+
+## 📒Interests by category
+
+For the UK Parliaments and Assemblies you can view the latest version of the register by category:
+
+- [UK House of Commons](/interests/category?chamber=house-of-commons)
+- [Scottish Parliament](/interests/category?chamber=scottish-parliament)
+- [Senedd / Welsh Parliament](/interests/category?chamber=senedd)
+- [Northern Ireland Assembly](/interests/category?chamber=northern-ireland-assembly)
+
 
 ## 🔍Highlighted interests
 
@@ -59,10 +71,10 @@ For instance, the following links go to specific queries (we’re using an in-br
 
 Our raw data is avaliable for download. The json files can be explored at:
 
-https://www.theyworkforyou.com/pwdata/scrapedjson/universal_format_regmem/house-of-commons/
+https://www.theyworkforyou.com/pwdata/scrapedjson/universal_format_regmem/
 
 Or downloaded with rsync:
 
 ```
-rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedjson/universal_format_regmem/house-of-commons/ .
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedjson/universal_format_regmem/ .
 ```
