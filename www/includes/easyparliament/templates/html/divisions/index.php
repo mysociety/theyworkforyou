@@ -67,7 +67,6 @@
                     </ul>
 
                     <p class="voting-information-provenance">
-                        <?= gettext('Some vote information from <a href="https://www.publicwhip.org.uk/">PublicWhip</a>.') ?>
                         <?= gettext('Last updated:') ?> <?= $last_updated ?>.
                         <a href="/voting-information"><?= gettext('Learn more about our voting records and what they mean.') ?></a>
                     </p>
