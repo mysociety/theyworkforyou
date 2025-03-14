@@ -63,12 +63,6 @@
 					Additionally, we publish records of how MPs have voted.  
                 </p>
 
-                <p>
-                    Voting content is imported from <a href="https://www.publicwhip.org.uk/">Public Whip</a>, a separate project 
-					(<a href="https://www.bairwell.com/">run by Bairwell Ltd PHP and Node.JS development</a>) which also works with scraped parliamentary data.
-
-                </p>
-
                 <h3 class="js-toc-item" id="archives">
                     Do you keep archives of debates?
                 </h3>
