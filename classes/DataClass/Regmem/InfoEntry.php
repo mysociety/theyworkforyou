@@ -22,6 +22,29 @@ class InfoEntry extends BaseModel {
     public ?DetailGroup $details = null;
     public ?EntryList $sub_entries = null;
 
+    public function isNew(string $register_date): ?bool {
+        // This is for flagging new entries in a given register
+        // if we can't know, return None
+
+        // if there are sub_entries, check them first and return a true if we find one
+        if ($this->sub_entries !== null) {
+            foreach ($this->sub_entries as $sub_entry) {
+                if ($sub_entry->isNew($register_date)) {
+                    return true;
+                }
+            }
+        }
+
+        $latest_date = $this->date_published ?? $this->date_updated;
+        if ($latest_date === null) {
+            return null;
+        }
+        $latest_date = new \DateTime($latest_date);
+        $register_date = new \DateTime($register_date);
+        $diff = $register_date->diff($latest_date);
+        return $diff->days <= 14;
+    }
+
     public function hasEntries(): bool {
         return $this->sub_entries !== null && ($this->sub_entries->isEmpty() === false);
     }

@@ -15,6 +15,15 @@ class Category extends BaseModel {
     public ?EntryList $summaries = null;
     public ?EntryList $entries = null;
 
+    public function only_old_entries(string $register_date): bool {
+        foreach ($this->entries as $entry) {
+            if ($entry->isNew($register_date)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static function emojiLookup(string $value): string {
         $emoji_lookup = [
             "Remuneration or other material benefit" => "💼",
