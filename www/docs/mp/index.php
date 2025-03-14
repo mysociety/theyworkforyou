@@ -29,6 +29,10 @@
  */
 
 // Disable the old PAGE class.
+
+use MySociety\TheyWorkForYou\PolicyDistributionCollection;
+use MySociety\TheyWorkForYou\PolicyComparisonPeriod;
+
 $new_style_template = true;
 
 // Include all the things this page needs.
@@ -391,10 +395,6 @@ switch ($pagetype) {
 
         $policiesList = new MySociety\TheyWorkForYou\Policies();
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-        $policySummaries = $divisions->getMemberDivisionDetails(true);
-
-        $policyOptions = [ 'summaries' => $policySummaries];
-
         // Generate voting segments
         $set_descriptions = $policiesList->getSetDescriptions();
         if ($policy_set && array_key_exists($policy_set, $set_descriptions)) {
@@ -414,26 +414,17 @@ switch ($pagetype) {
             });
             shuffle($sets);
         }
-
-        $data['key_votes_segments'] = [];
-        foreach ($sets as $key) {
-            $data['key_votes_segments'][] = [
-                'key'   => $key,
-                'title' => $set_descriptions[$key],
-                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                    $policiesList->limitToSet($key),
-                    $MEMBER,
-                    $policyOptions
-                ),
-            ];
-        }
-
-        person_party_policy_diffs($MEMBER, $policiesList);
-
-        $data['sorted_diffs_only'] = array_filter(
-            $data['sorted_diffs'],
-            function ($k) { return $k['score_difference'] >= 2; }
-        );
+        $house = HOUSE_TYPE_COMMONS;
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $voting_comparison_period_slug = get_http_var('comparison_period') ?: 'all_time';
+        $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
+        $data["comparison_period"] = $voting_comparison_period;
+        $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
+        $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $MEMBER->cohortParty(), $voting_comparison_period->slug, HOUSE_TYPE_COMMONS);
+        // shuffle the key_votes_segments for a random order
+        shuffle($data['key_votes_segments']);
+        $data["sig_diff_policy"] = PolicyDistributionCollection::getSignificantDistributions($data['key_votes_segments']);
+        $data['party_member_count'] = $party->getCurrentMemberCount($house);
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
@@ -1226,25 +1217,4 @@ function policy_image($data, $MEMBER, $format) {
 
     $im->clear();
     $im->destroy();
-}
-
-// generate party policy diffs
-function person_party_policy_diffs($MEMBER, $policiesList) {
-    global $data;
-
-    $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-    $policySummaries = $divisions->getMemberDivisionDetails(true);
-
-    $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-    $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->person_id(), $MEMBER->cohortParty());
-    $data['party_positions'] = $partyCohort->getAllPolicyPositions($policiesList);
-    # house hard coded as this is only used for the party position
-    # comparison which is Commons only
-    $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
-
-    $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER, [
-        'summaries' => $policySummaries,
-    ]);
-    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions);
-    $data['sorted_diffs'] = $policy_diffs;
 }
