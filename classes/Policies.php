@@ -35,7 +35,7 @@ class Policies {
     /**
      * @var array $sets - key-value pair of a set slug to an array of policy IDs
      * in that set.
-     * e.g. "foreignpolicy": ["975", "984"[]
+     * e.g. "foreignpolicy": ["975", "984"]
      */
     private array $sets;
 
