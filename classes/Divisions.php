@@ -39,7 +39,7 @@ class Divisions {
         $db = new \ParlDB();
         $q = $db->query(
             "SELECT policy_id, max(division_date) as recent
-            FROM policydivisions
+            FROM policydivisionlink
                 JOIN divisions USING(division_id)
             GROUP BY policy_id"
         );
@@ -188,7 +188,7 @@ class Divisions {
 
         $q = $this->db->query(
             "SELECT divisions.*
-            FROM policydivisions
+            FROM policydivisionlink
                 JOIN divisions USING(division_id)
             WHERE policy_id in ($policies_str)
             GROUP BY division_id
@@ -226,8 +226,8 @@ class Divisions {
             $args[':policy_id'] = $policyID;
         }
         $q = $this->db->query(
-            "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, direction
-            FROM policydivisions JOIN persondivisionvotes USING(division_id)
+            "SELECT policy_id, division_id, division_title, yes_text, no_text, division_date, division_number, vote, gid, strength, alignment
+            FROM policydivisionlink JOIN persondivisionvotes USING(division_id)
                 JOIN divisions USING(division_id)
             WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
             ORDER by policy_id, division_date DESC",
