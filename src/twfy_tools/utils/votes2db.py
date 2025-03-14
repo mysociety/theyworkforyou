@@ -402,7 +402,7 @@ def load_voting_alignment_to_db():
     for _, row in df.iterrows():
         items[row["person_id"]] = {
             "total_votes": int(row["total_votes"]),
-            "avg_diff_from_party": float(row["in_last_x_year"]),
+            "avg_diff_from_party": float(row["avg_diff_from_party"]),
         }
 
     upload_person_info(
