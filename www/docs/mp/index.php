@@ -762,24 +762,25 @@ function person_rebellion_rate($member) {
     // Rebellion string may be empty.
     $rebellion_string = '';
 
-    if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
-        $rebels_term = 'rebelled';
+    if (isset($member->extra_info['party_vote_alignment_last_year'])) {
 
-        $rebellion_string = 'has <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        // unserialise the data from json
+        $data = json_decode($member->extra_info['party_vote_alignment_last_year'], true);
+        $total_votes = $data['total_votes'];
+        $avg_diff_from_party = $data['avg_diff_from_party'];
 
-        if (isset($member->extra_info['public_whip_rebelrank'])) {
-            if ($member->extra_info['public_whip_data_date'] == 'complete') {
-                $rebellion_string .= ' in their last parliament.';
-            } else {
-                $rebellion_string .= ' in the current parliament.';
-            }
+        // as int %
+        $avg_diff_str = number_format((1 - $avg_diff_from_party) * 100, 0) . '%';
+
+        if ($total_votes == 0) {
+            return '';
         }
+        $votes_help_url = TWFY_VOTES_URL . "/help/about#voting-breakdowns-and-party-alignment";
 
-        $rebellion_string .= ' <small><a title="What do the rebellion figures mean exactly?" href="https://www.publicwhip.org.uk/faq.php#clarify">Find out more</a>.</small>';
+        $rebellion_string .= 'In the last year, ' . $member->full_name() . ' has an alignment score of ' . $avg_diff_str . ' with their party (over ' . $total_votes . ' votes).';
+        $rebellion_string .= ' <small><a title="More about party alignment" href="' . $votes_help_url . '">Find out more</a>.</small>';
     }
-
     return $rebellion_string;
-
 }
 
 function person_recent_appearances($member) {
