@@ -419,6 +419,8 @@ switch ($pagetype) {
         $data["comparison_period"] = $voting_comparison_period;
         $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
         $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $MEMBER->cohortParty(), $voting_comparison_period->slug, HOUSE_TYPE_COMMONS);
+        // shuffle the key_votes_segments for a random order
+        shuffle($data['key_votes_segments']);
         $data["sig_diff_policy"] = PolicyDistributionCollection::getSignificantDistributions($data['key_votes_segments']);
         $data['party_member_count'] = $party->getCurrentMemberCount($house);
 
