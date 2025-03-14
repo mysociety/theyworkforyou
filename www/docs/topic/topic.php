@@ -104,16 +104,7 @@ if ($topic = $topics->getTopic($topicname)) {
         $member->load_extra_info();
 
         $divisions = new Divisions($member);
-        $policySummaries = $divisions->getMemberDivisionDetails();
         $policies = new Policies();
-        $positions = new \MySociety\TheyWorkForYou\PolicyPositions(
-            $policies->limitToArray($topic_policies),
-            $member,
-            ['summaries' => $policySummaries]
-        );
-
-        $data['positions'] = $positions->positions;
-        $data['total_votes'] = count($positions->positions);
     }
 
     // Send for rendering!

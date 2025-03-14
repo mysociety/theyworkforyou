@@ -438,37 +438,6 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/recent', $data);
         break;
 
-    case 'divisions':
-        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Divisions', $data['current_assembly']);
-        $policyID = get_http_var('policy');
-        if (!ctype_digit($policyID)) {
-            member_redirect($MEMBER);
-        }
-        if ($policyID) {
-            $policiesList = new MySociety\TheyWorkForYou\Policies($policyID);
-        } else {
-            $policiesList = new MySociety\TheyWorkForYou\Policies();
-        }
-        $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER);
-        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions);
-
-        if ($policyID) {
-            $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
-            $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS, $policiesList);
-            $data['policyagreements'] = [$policyID => $rel_agreements];
-        } else {
-            $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
-            $data['policyagreements'] = $policiesList->all_policy_agreements;
-        }
-
-
-
-
-        // Send the output for rendering
-        MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
-
-        break;
-
     case 'election_register':
         // Send the output for rendering
 
@@ -1173,48 +1142,4 @@ function regional_list($pc, $area_type, $rep_type) {
     // Send the output for rendering
     MySociety\TheyWorkForYou\Renderer::output('mp/regional_list', $data);
 
-}
-
-function policy_image($data, $MEMBER, $format) {
-    $policiesList = new MySociety\TheyWorkForYou\Policies();
-    $set_descriptions = $policiesList->getSetDescriptions();
-    $policy_set = get_http_var('policy_set');
-
-    if (!array_key_exists($policy_set, $set_descriptions)) {
-        header('HTTP/1.0 404 Not Found');
-        exit();
-    }
-
-    // Generate voting segments
-    $data['segment'] = [
-        'key'   => $policy_set,
-        'title' => $policiesList->getSetDescriptions()[$policy_set],
-        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-            $policiesList->limitToSet($policy_set),
-            $MEMBER
-        ),
-    ];
-
-    if ($format === 'png') {
-        ob_start();
-    }
-    MySociety\TheyWorkForYou\Renderer::output('mp/votes_svg', $data, true);
-    if ($format === 'svg') {
-        return;
-    }
-
-    $svg = ob_get_clean();
-
-    $im = new Imagick();
-    $im->setOption('-antialias', true);
-    $im->readImageBlob($svg);
-    $im->setImageFormat("png24");
-
-    $filename = strtolower(str_replace(' ', '_', $MEMBER->full_name() . "_" . $policiesList->getSetDescriptions()[$policy_set] . ".png"));
-    header("Content-type: image/png");
-    header('Content-Disposition: filename="' . $filename . '"');
-    print $im->getImageBlob();
-
-    $im->clear();
-    $im->destroy();
 }
