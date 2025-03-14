@@ -138,7 +138,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php } ?>
 
                 <?php if ($rebellion_rate) { ?>
-                    <p><?= $full_name ?> <?= $rebellion_rate ?></p>
+                    <p><?= $rebellion_rate ?></p>
                 <?php } ?>
 
                 </div>
