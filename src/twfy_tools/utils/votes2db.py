@@ -218,7 +218,7 @@ def process_policy_json():
     """
 
     rich_print(f"Loading policies json from {policies_url}")
-    data = httpx.get(policies_url).json()
+    data = httpx.get(policies_url, timeout=60).json()
 
     groups: dict[str, str] = {}
 
