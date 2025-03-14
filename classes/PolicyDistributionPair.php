@@ -80,6 +80,22 @@ class PolicyDistributionPair {
         return $this->member_distribution->distance_score - $this->comparison_distribution->distance_score;
     }
 
+
+    /**
+     * Calculates the significance score difference.
+     *
+     * This function determines whether there is a significant difference
+     * in scores between two policy distributions.
+     * This is used to see if it should be highlighted separately as a difference with the party.
+     * A different is significant is a members and the comparison score are
+     * strongly directional in different directions.
+     * e.g. as distance is between 0 and 1
+     * if the member score is less than 0.4 and the comparison score is greater than 0.6
+     * or
+     * if the member score is greater than 0.6 and the comparison score is less than 0.4
+     * Significant differences
+     * @return bool Returns true if a significant difference exists, otherwise false.
+     */
     public function sigScoreDifference(): bool {
 
         if (!$this->comparison_distribution) {
