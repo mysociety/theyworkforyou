@@ -28,9 +28,9 @@ class Divisions {
      * @param Member   $member   The member to get positions for.
      */
 
-    public function __construct(Member $member = null, PolicyPositions $positions = null) {
+    public function __construct(?Member $member = null) {
         $this->member = $member;
-        $this->positions = $positions;
+        $this->positions = null;
         $this->policies = new Policies();
         $this->db = new \ParlDB();
     }
@@ -236,88 +236,6 @@ class Divisions {
         # possibly add another query here to get related policies that use the same votes
         return $this->divisionsByPolicy($q);
     }
-
-    public function getMemberDivisionDetails($strong_only = false) {
-        $args = [':person_id' => $this->member->person_id];
-
-        $policy_divisions = [];
-        if ($strong_only) {
-            $where_extra = "AND (policy_vote = 'no3' OR policy_vote = 'aye3')";
-        } else {
-            $where_extra = '';
-        }
-        $q = $this->db->query(
-            "SELECT policy_id, policy_vote, vote, count(division_id) as total,
-            max(year(division_date)) as latest, min(year(division_date)) as earliest
-            FROM policydivisions JOIN persondivisionvotes USING(division_id)
-                JOIN divisions USING(division_id)
-            WHERE person_id = :person_id AND direction <> 'abstention' $where_extra
-            GROUP BY policy_id, policy_vote, vote",
-            $args
-        );
-
-        foreach ($q as $row) {
-            $policy_id = $row['policy_id'];
-
-            if (!array_key_exists($policy_id, $policy_divisions)) {
-                $summary = [
-                    'max' => $row['latest'],
-                    'min' => $row['earliest'],
-                    'total' => $row['total'],
-                    'for' => 0, 'against' => 0, 'absent' => 0, 'both' => 0, 'tell' => 0,
-                ];
-
-                $policy_divisions[$policy_id] = $summary;
-            }
-
-            $summary = $policy_divisions[$policy_id];
-
-            $summary['total'] += $row['total'];
-            if ($summary['max'] < $row['latest']) {
-                $summary['max'] = $row['latest'];
-            }
-            if ($summary['min'] > $row['latest']) {
-                $summary['min'] = $row['latest'];
-            }
-
-            $vote = $row['vote'];
-            $policy_vote = str_replace('3', '', $row['policy_vote']);
-            if ($vote == 'absent') {
-                $summary['absent'] += $row['total'];
-            } elseif ($vote == 'both') {
-                $summary['both'] += $row['total'];
-            } elseif (strpos($vote, 'tell') !== false) {
-                $summary['tell'] += $row['total'];
-            } elseif ($policy_vote == $vote) {
-                $summary['for'] += $row['total'];
-            } elseif ($policy_vote != $vote) {
-                $summary['against'] += $row['total'];
-            }
-
-            $policy_divisions[$policy_id] = $summary;
-        }
-
-        // for each key in $policy_divisions, we want to add agreement information
-
-        $policies_list = new \MySociety\TheyWorkForYou\Policies();
-        foreach ($policy_divisions as $policy_id => &$summary) {
-            $agreement_details = $this->member->member_agreements($policy_id, HOUSE_TYPE_COMMONS, $policies_list);
-            $summary["agreements_for"] = 0;
-            $summary["agreements_against"] = 0;
-            foreach ($agreement_details as $agreement) {
-                if ($strong_only == true & $agreement["strength"] != "strong") {
-                    continue;
-                }
-                if ($agreement["alignment"] == "agree") {
-                    $summary["agreements_for"] += 1;
-                } else {
-                    $summary["agreements_against"] += 1;
-                }
-            }
-        }
-        return $policy_divisions;
-    }
-
     public function getDivisionByGid($gid) {
         $args = [
             ':gid' => $gid,
