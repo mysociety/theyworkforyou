@@ -31,8 +31,11 @@ system './mpinfoin.pl';
 # Update register of interests
 system "TQDM_DISABLE=1 ./personinfo upload-all-regmem >> $cron_log";
 
-# update individual division votes
-system "./json2db.pl >> $cron_log";
+# update policies information
+system "./votes2db load-policies >> $cron_log";
+
+# upload party alignment (rebellions)
+system "./votes2db load-voting-alignment >> $cron_log";
 
 # Add yesterdays optins to mailchimp
 system "poetry run contact-io upload-yesterday >> $cron_log";
