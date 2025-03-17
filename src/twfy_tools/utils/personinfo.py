@@ -1,15 +1,15 @@
 #!.venv/bin/python
 
+import os
 from typing import Literal, Optional
 
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
 from tqdm import tqdm
-from typer import Typer
-from typing_extensions import TypeGuard
-
 from twfy_tools.common.config import config
 from twfy_tools.db.utils import upload_person_info
+from typer import Typer
+from typing_extensions import TypeGuard
 
 app = Typer(pretty_exceptions_enable=False)
 
@@ -41,8 +41,15 @@ def prepare_chamber_regmem(
 
     id_to_person: dict[int, RegmemPerson] = {}
 
+    tqdm_disable = quiet
+    # override if the standard environment variable is set
+    if os.environ.get("TQDM_DISABLE"):
+        tqdm_disable = True
+
     for file in tqdm(
-        list(source_path.glob("*.json")), disable=quiet, desc="Processing sources"
+        list(source_path.glob("*.json")),
+        disable=tqdm_disable,
+        desc="Processing sources",
     ):
         register = RegmemRegister.from_path(file)
         for person in register.persons:
