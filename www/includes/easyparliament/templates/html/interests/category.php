@@ -38,17 +38,14 @@
                             <li><a href="?chamber=<?= $chamber_slug ?>&category_id=<?= $category_id ?>"><?= $category_name ?></a></li>
                         <?php }; ?>
                     </ul>
-                <?php }; ?>
+                <?php } else { ?>
 
-
-                <?php foreach ($categories as $category_id => $category_name) { ?>
-                    <?php if ($selected_category_id != $category_id) {
-                        continue;
-                    }; ?>
-                    <h2 id="category-<?= $category_id ?>"><?= $category_emojis[$selected_category_id] ?><?= $category_name ?></h2>
+                    <h2 id="category-<?= $category_id ?>"><?= $category_emojis[$selected_category_id] ?><?= $selected_category_name ?></h2>
                     <div style="display: flex; gap: 1rem;">
                     <button id="detailsToggleButton" onclick="toggleDetails()" style="display:none">Expand All</button>
                     <button id="newToggleButton" onclick="toggleNewDetails()"; style="display:none">Just New</button>
+                <?php } ; ?>
+
                 </div>
                     <?php foreach ($register->persons as $person) { ?>
                         <?php foreach ($person->categories as $person_category) { ?>
@@ -77,7 +74,6 @@
                         </div>
                         <?php }; ?>
                     <?php }; ?>
-                <?php }; ?>
 
             </div>
         </div>  
