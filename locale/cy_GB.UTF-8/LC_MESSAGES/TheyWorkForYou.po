@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 20:19+0000\n"
+"POT-Creation-Date: 2025-03-21 12:03+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -228,7 +228,7 @@ msgstr "Mae'n ddrwg gennym, ni allwn ddod o hyd i AS ar gyfer y côd post hwnnw.
 msgid "MS"
 msgstr "AS"
 
-#: classes/Utility/House.php:44 www/includes/easyparliament/metadata.php:1079
+#: classes/Utility/House.php:44 www/includes/easyparliament/metadata.php:1125
 msgid "MSs"
 msgstr "ASau"
 
@@ -523,8 +523,8 @@ msgid "London Mayoral questions"
 msgstr "Cwestiynau Maer Llundain"
 
 #: scripts/alertmailer.php:161 scripts/alertmailer.php:162
-#: www/includes/easyparliament/metadata.php:1138
-#: www/includes/easyparliament/metadata.php:1141
+#: www/includes/easyparliament/metadata.php:1184
+#: www/includes/easyparliament/metadata.php:1187
 msgid "Senedd debates"
 msgstr "Dadleuon y Senedd"
 
@@ -590,105 +590,105 @@ msgstr "Sori, ond nid ydym yn gwybod pa gynrychiolwr i arddangos."
 msgid "You haven’t provided a way of identifying which representative you want"
 msgstr "Dydych chi ddim wedi darparu ffordd o nodi pa gynrychiolydd rydych chi ei eisiau"
 
-#: www/docs/mp/index.php:536
+#: www/docs/mp/index.php:558
 #, php-format
 msgid "Sorry, %s isn’t a valid postcode"
 msgstr "Sori, nid yw %s yn gôd post dilys"
 
-#: www/docs/mp/index.php:541
+#: www/docs/mp/index.php:563
 msgid "Sorry, we couldn’t check your postcode right now, as our postcode lookup server is under quite a lot of load."
 msgstr "Sori, ni allem wirio'ch côd post ar hyn o bryd, gan fod ein gweinydd sy'n chwilio amdanynt dan dipyn o lwyth gwaith."
 
-#: www/docs/mp/index.php:544
+#: www/docs/mp/index.php:566
 #, php-format
 msgid "Sorry, %s isn’t a known postcode"
 msgstr "Sori, nid ydym yn adnabod y côd post %s"
 
-#: www/docs/mp/index.php:721
+#: www/docs/mp/index.php:743
 msgid "<abbr title=\"Member of Parliament\">MP</abbr>"
 msgstr "<abbr title=\"Aelod Seneddol\">MP</abbr>"
 
-#: www/docs/mp/index.php:723
+#: www/docs/mp/index.php:745
 msgid "<abbr title=\"Member of the Legislative Assembly\">MLA</abbr>"
 msgstr "<abbr title=\"Aelod o'r Cynulliad Deddfwriaethol\">MLA</abbr>"
 
-#: www/docs/mp/index.php:725
+#: www/docs/mp/index.php:747
 msgid "<abbr title=\"Member of the Scottish Parliament\">MSP</abbr>"
 msgstr "<abbr title=\"Aelod Senedd yr Alban\">MSP</abbr>"
 
-#: www/docs/mp/index.php:727
+#: www/docs/mp/index.php:749
 msgid "<abbr title=\"Member of the Senedd\">MS</abbr>"
 msgstr "<abbr title=\"Aelod o'r Senedd\">MS</abbr>"
 
-#: www/docs/mp/index.php:729
+#: www/docs/mp/index.php:751
 msgid "Member of the London Assembly"
 msgstr "Aelod Cynulliad Llundain"
 
-#: www/docs/mp/index.php:741
+#: www/docs/mp/index.php:763
 #, php-format
 msgid "%s, and %s %s for %s"
 msgstr "%s, a %s %s ar gyfer %s"
 
-#: www/docs/mp/index.php:743
+#: www/docs/mp/index.php:765
 #, php-format
 msgid "Former %s, and %s %s for %s"
 msgstr "Cyn %s, a %s %s am  %s"
 
-#: www/docs/mp/index.php:746
+#: www/docs/mp/index.php:768
 #, php-format
 msgid "%s %s %s for %s"
 msgstr "%s %s  %s ar gyfer %s"
 
-#: www/docs/mp/index.php:748
+#: www/docs/mp/index.php:770
 #, php-format
 msgid "Former %s %s %s for %s"
 msgstr "Cyn %s  %s %s am %  s"
 
-#: www/docs/mp/index.php:752
+#: www/docs/mp/index.php:774
 #, php-format
 msgid "%s Peer"
 msgstr "%s Arglwydd"
 
-#: www/docs/mp/index.php:754
+#: www/docs/mp/index.php:776
 #, php-format
 msgid "Former %s Peer"
 msgstr "Cyn Arglwydd %s"
 
-#: www/docs/mp/index.php:760
+#: www/docs/mp/index.php:782
 #, php-format
 msgid "Former %s"
 msgstr "Cyn %s"
 
-#: www/docs/mp/index.php:846
+#: www/docs/mp/index.php:868
 #, php-format
 msgid "More of %s’s recent appearances"
 msgstr "Mwy o ymddangosiadau diweddar %s"
 
-#: www/docs/mp/index.php:1084
+#: www/docs/mp/index.php:1128
 msgid "You have one constituency MS (Member of the Senedd) and multiple region MSs."
 msgstr "Gennych un AS (Aelod o'r Senedd) ar gyfer eich etholaeth a nifer o ASau rhanbarthol."
 
-#: www/docs/mp/index.php:1085
+#: www/docs/mp/index.php:1129
 #, php-format
 msgid "Your <strong>constituency MS</strong> is <a href=\"%s\">%s</a>, MS for %s."
 msgstr "<strong>AS eich etholaeth</strong> yw <a href=\"%s\">%s</a>, AS ar gyfer %s."
 
-#: www/docs/mp/index.php:1086
+#: www/docs/mp/index.php:1130
 #: www/includes/easyparliament/templates/html/postcode/index.php:94
 #, php-format
 msgid "Your <strong>%s region MSs</strong> are:"
 msgstr "Eich ASau <strong>%s</strong> yw:"
 
-#: www/docs/mp/index.php:1088
+#: www/docs/mp/index.php:1132
 msgid "You had one constituency MS (Member of the Senedd) and multiple region MSs."
 msgstr "Roedd gennych un AS (Aelod o'r Senedd) ar gyfer eich etholaeth a nifer o ASau rhanbarthol."
 
-#: www/docs/mp/index.php:1089
+#: www/docs/mp/index.php:1133
 #, php-format
 msgid "Your <strong>constituency MS</strong> was <a href=\"%s\">%s</a>, MS for %s."
 msgstr "<strong>AS eich etholaeth</strong> (Aelod o'r Senedd) oedd <a href=\"%s\">%s</a>, %s"
 
-#: www/docs/mp/index.php:1090
+#: www/docs/mp/index.php:1134
 #: www/includes/easyparliament/templates/html/postcode/index.php:102
 #, php-format
 msgid "Your <strong>%s region MSs</strong> were:"
@@ -698,6 +698,27 @@ msgstr "Eich ASau <strong>%s</strong> oedd:"
 #, php-format
 msgid "Browse all %s"
 msgstr "Pori pob %s"
+
+#: www/docs/regmem/index.php:93
+#, php-format
+msgid "This page shows how %s's entry in the Register of Members' Interests has changed over time, starting at the most recent and working back to the earliest we have managed to parse."
+msgstr "Mae'r dudalen hon yn dangos sut mae cofnod %s yn y Gofrestr o Fuddiannau Aelodau wedi newid dros amser. Mae’n dechrau ar yr un mwyaf diweddar ac yn gweithio'n ôl i'r un cynharaf rydyn ni wedi llwyddo i'w ddosrannu."
+
+#: www/docs/regmem/index.php:94
+msgid "Please be aware that changes in typography/styling at the source might mean something is marked as changed (ie. removed and added) when it hasn't; sorry about that, but we do our best with the source material."
+msgstr "Cofiwch y gallai newidiadau mewn teipograffi/steilio yn y deunydd gwreiddiol olygu bod rhywbeth wedi cael ei farcio fel ‘cofnod a newidiwyd’ (h.y. wedi'i dynnu a'i ychwanegu) pan nad yw. Mae'n ddrwg gennym am hynny, ond rydyn ni’n gwneud ein gorau gyda'r deunydd gwreiddiol."
+
+#: www/docs/regmem/index.php:97
+msgid "Removed"
+msgstr "Wedi dod i ben"
+
+#: www/docs/regmem/index.php:97
+msgid "Added"
+msgstr "Ychwanegwyd"
+
+#: www/docs/regmem/index.php:147
+msgid "first entry we have"
+msgstr "Y cofnod cyntaf sydd gennym yw"
 
 #: www/docs/user/login/index.php:39
 msgid "Please enter your password"
@@ -869,140 +890,148 @@ msgstr "Apwyntiwyd, amnewid rhanbarthol"
 msgid "About us"
 msgstr "Amdanom ni"
 
-#: www/includes/easyparliament/metadata.php:332
-#: www/includes/easyparliament/metadata.php:335
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
+#: www/includes/easyparliament/metadata.php:119
+#: www/includes/easyparliament/metadata.php:120
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:12
+#: www/includes/easyparliament/templates/html/mp/register.php:51
+msgid "Register of Interests"
+msgstr "Cofrestr Buddiannau"
+
+#: www/includes/easyparliament/metadata.php:378
+#: www/includes/easyparliament/metadata.php:381
 msgid "Contact"
 msgstr "Cysylltwch"
 
-#: www/includes/easyparliament/metadata.php:339
+#: www/includes/easyparliament/metadata.php:385
 msgid "News"
 msgstr "Newyddion"
 
-#: www/includes/easyparliament/metadata.php:410
-#: www/includes/easyparliament/metadata.php:411
-#: www/includes/easyparliament/metadata.php:414
+#: www/includes/easyparliament/metadata.php:456
+#: www/includes/easyparliament/metadata.php:457
+#: www/includes/easyparliament/metadata.php:460
 #: www/includes/easyparliament/templates/html/divisions/index.php:5
 #: www/includes/easyparliament/templates/html/homepage/recent-votes.php:3
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:8
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:9
 msgid "Recent Votes"
 msgstr "Pleidleisiau diweddar"
 
-#: www/includes/easyparliament/metadata.php:434
-#: www/includes/easyparliament/metadata.php:437
+#: www/includes/easyparliament/metadata.php:480
+#: www/includes/easyparliament/metadata.php:483
 msgid "Donate"
 msgstr "Cyfrannu nawr"
 
-#: www/includes/easyparliament/metadata.php:474
+#: www/includes/easyparliament/metadata.php:520
 msgid "Help - Frequently Asked Questions"
 msgstr "Cymorth -   Cwestiynau Cyffredin"
 
-#: www/includes/easyparliament/metadata.php:498
+#: www/includes/easyparliament/metadata.php:544
 msgid "Link to us"
 msgstr "Creu dolen gyda ni"
 
-#: www/includes/easyparliament/metadata.php:499
+#: www/includes/easyparliament/metadata.php:545
 msgid "How to link to us"
 msgstr "Sut i greu dolen â ni"
 
-#: www/includes/easyparliament/metadata.php:503
+#: www/includes/easyparliament/metadata.php:549
 msgid "API"
 msgstr " API"
 
-#: www/includes/easyparliament/metadata.php:504
+#: www/includes/easyparliament/metadata.php:550
 msgid "API - Query the TheyWorkForYou database"
 msgstr "API – Ymholi cronfa ddata TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:508
+#: www/includes/easyparliament/metadata.php:554
 msgid "Raw Data"
 msgstr "Data Crai"
 
-#: www/includes/easyparliament/metadata.php:509
+#: www/includes/easyparliament/metadata.php:555
 msgid "Raw data (XML) - the data behind TheyWorkForYou and Public Whip"
 msgstr "Data crai (XML) - y data y tu ôl i TheyWorkForYou a Public Whip"
 
-#: www/includes/easyparliament/metadata.php:513
+#: www/includes/easyparliament/metadata.php:559
 msgid "Developer mailing list"
 msgstr "Rhestr e-bost datblygwr"
 
-#: www/includes/easyparliament/metadata.php:517
+#: www/includes/easyparliament/metadata.php:563
 msgid "Source code"
 msgstr "Côd ffynhonnell"
 
-#: www/includes/easyparliament/metadata.php:518
+#: www/includes/easyparliament/metadata.php:564
 msgid "TheyWorkForYou Source code"
 msgstr " Côd ffynhonnell TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:753
+#: www/includes/easyparliament/metadata.php:799
 msgid "Privacy Policy"
 msgstr "Polisi Preifatrwydd"
 
-#: www/includes/easyparliament/metadata.php:1018
+#: www/includes/easyparliament/metadata.php:1064
 msgid "Join"
 msgstr "Ymuno"
 
-#: www/includes/easyparliament/metadata.php:1019
+#: www/includes/easyparliament/metadata.php:1065
 msgid "Joining is free and allows you to manage your email alerts"
 msgstr "Mae ymuno yn rhad ac am ddim ac yn caniatáu ichi reoli eich hysbysiadau e-bost"
 
-#: www/includes/easyparliament/metadata.php:1023
+#: www/includes/easyparliament/metadata.php:1069
 #: www/includes/easyparliament/templates/html/user/join.php:9
 #: www/includes/easyparliament/templates/html/user/join.php:129
 msgid "Join TheyWorkForYou"
 msgstr "Ymunwch â TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:1028
-#: www/includes/easyparliament/metadata.php:1032
+#: www/includes/easyparliament/metadata.php:1074
+#: www/includes/easyparliament/metadata.php:1078
 #: www/includes/easyparliament/page.php:753
 msgid "Sign in"
 msgstr "Mewngofnodi"
 
-#: www/includes/easyparliament/metadata.php:1029
+#: www/includes/easyparliament/metadata.php:1075
 msgid "If you've already joined, sign in to your account"
 msgstr "Pe baech chi eisoes wedi ymuno, mewngofnodwch  i'ch  cyfrif"
 
-#: www/includes/easyparliament/metadata.php:1080
+#: www/includes/easyparliament/metadata.php:1126
 msgid "List of Members of the Senedd (MSs)"
 msgstr "Rhestr Aelodau o'r Senedd (ASau)"
 
-#: www/includes/easyparliament/metadata.php:1088
+#: www/includes/easyparliament/metadata.php:1134
 #: www/includes/easyparliament/templates/html/search/form_options.php:66
 #: www/includes/easyparliament/templates/html/search/form_options.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:74
 msgid "Debates"
 msgstr "Dadleuon"
 
-#: www/includes/easyparliament/metadata.php:1089
+#: www/includes/easyparliament/metadata.php:1135
 msgid "Debates in the Senedd"
 msgstr "Ddadleuon y Senedd"
 
-#: www/includes/easyparliament/metadata.php:1096
+#: www/includes/easyparliament/metadata.php:1142
 msgid "Find your MS"
 msgstr "Dewch o hyd i'ch Aelod o’r Senedd"
 
-#: www/includes/easyparliament/metadata.php:1101
-#: www/includes/easyparliament/metadata.php:1106
+#: www/includes/easyparliament/metadata.php:1147
+#: www/includes/easyparliament/metadata.php:1152
 msgid "Your MSs"
 msgstr "Eich ASau"
 
-#: www/includes/easyparliament/metadata.php:1102
+#: www/includes/easyparliament/metadata.php:1148
 msgid "Find out about your Members of the Senedd"
 msgstr "Dysgwch am eich Aelodau Senedd Cymru"
 
-#: www/includes/easyparliament/metadata.php:1113
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:3
+#: www/includes/easyparliament/metadata.php:1159
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:4
 msgid "Overview"
 msgstr "Trosolwg"
 
-#: www/includes/easyparliament/metadata.php:1114
+#: www/includes/easyparliament/metadata.php:1160
 msgid "Overview of the Senedd debates"
 msgstr "Trosolwg o ddadleuon y Senedd"
 
-#: www/includes/easyparliament/metadata.php:1254
-#: www/includes/easyparliament/metadata.php:1258
+#: www/includes/easyparliament/metadata.php:1300
+#: www/includes/easyparliament/metadata.php:1304
 msgid "Your MP"
 msgstr "Eich AS"
 
-#: www/includes/easyparliament/metadata.php:1255
+#: www/includes/easyparliament/metadata.php:1301
 msgid "Find out about your Member of Parliament"
 msgstr "Dysgwch am eich Aelod Seneddol"
 
@@ -1683,14 +1712,46 @@ msgstr "Digwyddiadau allweddol"
 msgid "Show all recent votes"
 msgstr "Dangos yr holl  bleidleisiau diweddar"
 
+#: www/includes/easyparliament/templates/html/interests/category.php:9
+msgid "Back to categories list"
+msgstr "Yn ôl i’r rhestr o gategorïau"
+
+#: www/includes/easyparliament/templates/html/interests/category.php:22
+msgid "Register of interests"
+msgstr "Cofrestr Buddiannau"
+
+#: www/includes/easyparliament/templates/html/interests/category.php:24
+msgid "This page shows the latest version of the register of interests by category."
+msgstr "Mae'r dudalen hon yn dangos y fersiwn ddiweddaraf o'r gofrestr o fuddiannau yn ôl categori."
+
+#: www/includes/easyparliament/templates/html/interests/category.php:26
+#: www/includes/easyparliament/templates/html/mp/register.php:61
+msgid "For more information, see the official Senedd page"
+msgstr "Am ragor o wybodaeth, gweler tudalen swyddogol y Senedd."
+
+#: www/includes/easyparliament/templates/html/interests/category.php:30
+msgid "Read more about our registers data"
+msgstr "Darllenwch ragor am ein data ynglŷn â chofrestrau o fuddiannau."
+
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Register $register
+#: www/includes/easyparliament/templates/html/interests/category.php:35
+msgid "Categories"
+msgstr "Categorïau"
+
+#: www/includes/easyparliament/templates/html/interests/category.php:63
+msgid "New entry or subentry"
+msgstr "Mynediad newydd"
+
 #: www/includes/easyparliament/templates/html/mp/divisions.php:24
+#: www/includes/easyparliament/templates/html/mp/election_register.php:46
 #: www/includes/easyparliament/templates/html/mp/profile.php:18
 #: www/includes/easyparliament/templates/html/mp/recent.php:57
-#: www/includes/easyparliament/templates/html/mp/register.php:13
+#: www/includes/easyparliament/templates/html/mp/register.php:14
 #: www/includes/easyparliament/templates/html/mp/votes.php:17
 msgid "Browse content"
 msgstr "Pori cynnwys"
 
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
 #: www/includes/easyparliament/templates/html/mp/error.php:5
 msgid "Whoops..."
 msgstr "Wps..."
@@ -1759,13 +1820,9 @@ msgstr " Nid yw'r enw hwnnw'n unigryw.  Dewiswch o'r canlynol:"
 msgid "Browse all MPs"
 msgstr "Pori pob AS"
 
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:5
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:6
 msgid "Voting Summary"
 msgstr "Record bleidleisio"
-
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:10
-msgid "Register of Interests"
-msgstr "Cofrestr Buddiannau"
 
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:15
 msgid "2024 Election Donations"
@@ -1824,6 +1881,22 @@ msgstr "Dim ymddangosiadau diweddar i'w harddangos."
 #: www/includes/easyparliament/templates/html/mp/recent.php:48
 msgid "This person has not voted recently."
 msgstr "Nid yw'r person yma wedi pleidleisio'n ddiweddar."
+
+#: www/includes/easyparliament/templates/html/mp/register.php:16
+msgid "Read more about the register"
+msgstr "Darllenwch ragor am y gofrestr o fuddiannau"
+
+#: www/includes/easyparliament/templates/html/mp/register.php:17
+msgid "Get this data in a spreadsheet"
+msgstr "Gallwch gael y data hwn mewn taenlen"
+
+#: www/includes/easyparliament/templates/html/mp/register.php:54
+msgid "View the history of this person’s entries in the Register"
+msgstr "Eisiau gweld hanes cofnodion y person hwn yn y Gofrestr"
+
+#: www/includes/easyparliament/templates/html/mp/register.php:57
+msgid "This register last updated on:"
+msgstr "Diweddarwyd y gofrestr hon ddiwethaf ar:"
 
 #: www/includes/easyparliament/templates/html/people/index.php:28
 #, php-format
