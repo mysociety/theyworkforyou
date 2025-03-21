@@ -68,6 +68,7 @@ $context = [
     "register" => $register,
     "categories" => $categories,
     "selected_category_id" => $selected_category_id,
+    "selected_category_name" => $selected_category_id ? $categories[$selected_category_id] : null,
     "chamber_slug" => $chamber,
     "category_emojis" => $category_emojis,
 ];
