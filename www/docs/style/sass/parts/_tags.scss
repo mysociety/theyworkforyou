@@ -1,0 +1,17 @@
+.tag {
+    background-color: #fff;
+    color: $primary-color;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+
+    &--primary-light {
+        background-color: $primary-color-200;
+        color: $body-font-color;
+    }
+
+    &--red {
+        background-color: lighten($color-red, 40%);
+        color: $body-font-color;
+    }
+}

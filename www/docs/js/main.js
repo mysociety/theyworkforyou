@@ -343,6 +343,28 @@ $(function(){
   if (!$('#options').data('advanced')) {
     $("#options").find(":input").attr("disabled", "disabled");
   }
+
+  $('#add-all').on('click', function(e) {
+    var $add_all = e.currentTarget;
+    var $selected_related = document.querySelectorAll('input[name="selected_related_terms[]"]');
+    if ($add_all.checked) {
+      $selected_related.forEach(function(input) {
+        if (input.checked) {
+          input.setAttribute('data:was_checked', true);
+        }
+        input.checked = true;
+        input.setAttribute('disabled', true);
+      });
+    } else {
+      $selected_related.forEach(function(input) {
+        if (!input.getAttribute('data:was_checked')) {
+          input.checked = false;
+        }
+        input.removeAttribute('data:was_checked');
+        input.removeAttribute('disabled');
+      });
+    }
+  });
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
@@ -422,6 +444,62 @@ function amounts_oneoff(){
 function wrap_error($message){
   return '<div class="donate-form__error-wrapper"><p class="donate-form__error">' + $message + '</p></div>';
 }
+
+function createAccordion(triggerSelector, contentSelector) {
+  var triggers = document.querySelectorAll(triggerSelector);
+  
+  triggers.forEach(function(trigger) {
+    var content = document.querySelector(trigger.getAttribute('href'));
+
+    var openAccordion = function() {
+      content.style.maxHeight = content.scrollHeight + "px"; // Dynamically calculate height
+      content.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    var closeAccordion = function() {
+      content.style.maxHeight = null; // Collapse
+      content.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (content.style.maxHeight) {
+        closeAccordion();
+      } else {
+        openAccordion();
+      }
+    });
+    
+    // Accessibility
+    trigger.setAttribute('aria-controls', content.getAttribute('id'));
+    trigger.setAttribute('aria-expanded', 'false');
+    content.setAttribute('aria-hidden', 'true');
+    content.style.maxHeight = null;
+  });
+}
+
+// Initialize accordion when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  createAccordion('.js-accordion-button', '.js-accordion-content');
+});
+
+// Comfirm deletion of alerts
+function confirmDelete() {
+  var triggers = document.querySelectorAll('.js-confirm-delete');
+
+  triggers.forEach(function(trigger) {
+    trigger.addEventListener('click', function(event) {
+      var message = "Are you sure you want to delete all alerts?";
+      if (!confirm(message)) {
+        event.preventDefault();
+      }
+    });
+  });
+}
+confirmDelete();
 
 $(function() {
 
