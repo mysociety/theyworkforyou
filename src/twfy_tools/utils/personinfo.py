@@ -6,10 +6,11 @@ from typing import Literal, Optional
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
 from tqdm import tqdm
-from twfy_tools.common.config import config
-from twfy_tools.db.utils import upload_person_info
 from typer import Typer
 from typing_extensions import TypeGuard
+
+from twfy_tools.common.config import config
+from twfy_tools.db.utils import upload_person_info
 
 app = Typer(pretty_exceptions_enable=False)
 
