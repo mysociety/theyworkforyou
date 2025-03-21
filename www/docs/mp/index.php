@@ -29,6 +29,10 @@
  */
 
 // Disable the old PAGE class.
+
+use MySociety\TheyWorkForYou\PolicyDistributionCollection;
+use MySociety\TheyWorkForYou\PolicyComparisonPeriod;
+
 $new_style_template = true;
 
 // Include all the things this page needs.
@@ -391,10 +395,6 @@ switch ($pagetype) {
 
         $policiesList = new MySociety\TheyWorkForYou\Policies();
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-        $policySummaries = $divisions->getMemberDivisionDetails(true);
-
-        $policyOptions = [ 'summaries' => $policySummaries];
-
         // Generate voting segments
         $set_descriptions = $policiesList->getSetDescriptions();
         if ($policy_set && array_key_exists($policy_set, $set_descriptions)) {
@@ -412,26 +412,17 @@ switch ($pagetype) {
             ];
             shuffle($sets);
         }
-
-        $data['key_votes_segments'] = [];
-        foreach ($sets as $key) {
-            $data['key_votes_segments'][] = [
-                'key'   => $key,
-                'title' => $set_descriptions[$key],
-                'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-                    $policiesList->limitToSet($key),
-                    $MEMBER,
-                    $policyOptions
-                ),
-            ];
-        }
-
-        person_party_policy_diffs($MEMBER, $policiesList);
-
-        $data['sorted_diffs_only'] = array_filter(
-            $data['sorted_diffs'],
-            function ($k) { return $k['score_difference'] >= 2; }
-        );
+        $house = HOUSE_TYPE_COMMONS;
+        $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
+        $voting_comparison_period_slug = get_http_var('comparison_period') ?: 'all_time';
+        $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
+        $data["comparison_period"] = $voting_comparison_period;
+        $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
+        $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $MEMBER->cohortParty(), $voting_comparison_period->slug, HOUSE_TYPE_COMMONS);
+        // shuffle the key_votes_segments for a random order
+        shuffle($data['key_votes_segments']);
+        $data["sig_diff_policy"] = PolicyDistributionCollection::getSignificantDistributions($data['key_votes_segments']);
+        $data['party_member_count'] = $party->getCurrentMemberCount($house);
 
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/votes', $data);
@@ -442,36 +433,6 @@ switch ($pagetype) {
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
         $data['divisions'] = $divisions->getRecentMemberDivisions();
         MySociety\TheyWorkForYou\Renderer::output('mp/recent', $data);
-        break;
-
-    case 'divisions':
-        $policyID = get_http_var('policy');
-        if (!ctype_digit($policyID)) {
-            member_redirect($MEMBER);
-        }
-        if ($policyID) {
-            $policiesList = new MySociety\TheyWorkForYou\Policies($policyID);
-        } else {
-            $policiesList = new MySociety\TheyWorkForYou\Policies();
-        }
-        $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER);
-        $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER, $positions);
-
-        if ($policyID) {
-            $data['policydivisions'] = $divisions->getMemberDivisionsForPolicy($policyID);
-            $rel_agreements = $MEMBER->member_agreements($policyID, HOUSE_TYPE_COMMONS, $policiesList);
-            $data['policyagreements'] = [$policyID => $rel_agreements];
-        } else {
-            $data['policydivisions'] = $divisions->getAllMemberDivisionsByPolicy();
-            $data['policyagreements'] = $policiesList->all_policy_agreements;
-        }
-
-
-
-
-        // Send the output for rendering
-        MySociety\TheyWorkForYou\Renderer::output('mp/divisions', $data);
-
         break;
 
     case 'election_register':
@@ -500,14 +461,6 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
 
         // no break
-    case 'policy_set_svg':
-        policy_image($data, $MEMBER, 'svg');
-        break;
-
-    case 'policy_set_png':
-        policy_image($data, $MEMBER, 'png');
-        break;
-
     case '':
     default:
         // if extra detail needed for overview page in future
@@ -803,24 +756,25 @@ function person_rebellion_rate($member) {
     // Rebellion string may be empty.
     $rebellion_string = '';
 
-    if (isset($member->extra_info['public_whip_rebellions']) && $member->extra_info['public_whip_rebellions'] != 'n/a') {
-        $rebels_term = 'rebelled';
+    if (isset($member->extra_info['party_vote_alignment_last_year'])) {
 
-        $rebellion_string = 'has <a href="https://www.publicwhip.org.uk/mp.php?id=uk.org.publicwhip/member/' . $member->member_id() . '#divisions" title="See more details at Public Whip"><strong>' . _htmlentities($member->extra_info['public_whip_rebel_description']) . ' ' . $rebels_term . '</strong></a> against their party';
+        // unserialise the data from json
+        $data = json_decode($member->extra_info['party_vote_alignment_last_year'], true);
+        $total_votes = $data['total_votes'];
+        $avg_diff_from_party = $data['avg_diff_from_party'];
 
-        if (isset($member->extra_info['public_whip_rebelrank'])) {
-            if ($member->extra_info['public_whip_data_date'] == 'complete') {
-                $rebellion_string .= ' in their last parliament.';
-            } else {
-                $rebellion_string .= ' in the current parliament.';
-            }
+        // as int %
+        $avg_diff_str = number_format((1 - $avg_diff_from_party) * 100, 0) . '%';
+
+        if ($total_votes == 0) {
+            return '';
         }
+        $votes_help_url = TWFY_VOTES_URL . "/help/about#voting-breakdowns-and-party-alignment";
 
-        $rebellion_string .= ' <small><a title="What do the rebellion figures mean exactly?" href="https://www.publicwhip.org.uk/faq.php#clarify">Find out more</a>.</small>';
+        $rebellion_string .= 'In the last year, ' . $member->full_name() . ' has an alignment score of ' . $avg_diff_str . ' with their party (over ' . $total_votes . ' votes).';
+        $rebellion_string .= ' <small><a title="More about party alignment" href="' . $votes_help_url . '">Find out more</a>.</small>';
+        return $rebellion_string;
     }
-
-    return $rebellion_string;
-
 }
 
 function person_recent_appearances($member) {
@@ -1149,69 +1103,4 @@ function regional_list($pc, $area_type, $rep_type) {
     // Send the output for rendering
     MySociety\TheyWorkForYou\Renderer::output('mp/regional_list', $data);
 
-}
-
-function policy_image($data, $MEMBER, $format) {
-    $policiesList = new MySociety\TheyWorkForYou\Policies();
-    $set_descriptions = $policiesList->getSetDescriptions();
-    $policy_set = get_http_var('policy_set');
-
-    if (!array_key_exists($policy_set, $set_descriptions)) {
-        header('HTTP/1.0 404 Not Found');
-        exit();
-    }
-
-    // Generate voting segments
-    $data['segment'] = [
-        'key'   => $policy_set,
-        'title' => $policiesList->getSetDescriptions()[$policy_set],
-        'votes' => new MySociety\TheyWorkForYou\PolicyPositions(
-            $policiesList->limitToSet($policy_set),
-            $MEMBER
-        ),
-    ];
-
-    if ($format === 'png') {
-        ob_start();
-    }
-    MySociety\TheyWorkForYou\Renderer::output('mp/votes_svg', $data, true);
-    if ($format === 'svg') {
-        return;
-    }
-
-    $svg = ob_get_clean();
-
-    $im = new Imagick();
-    $im->setOption('-antialias', true);
-    $im->readImageBlob($svg);
-    $im->setImageFormat("png24");
-
-    $filename = strtolower(str_replace(' ', '_', $MEMBER->full_name() . "_" . $policiesList->getSetDescriptions()[$policy_set] . ".png"));
-    header("Content-type: image/png");
-    header('Content-Disposition: filename="' . $filename . '"');
-    print $im->getImageBlob();
-
-    $im->clear();
-    $im->destroy();
-}
-
-// generate party policy diffs
-function person_party_policy_diffs($MEMBER, $policiesList) {
-    global $data;
-
-    $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
-    $policySummaries = $divisions->getMemberDivisionDetails(true);
-
-    $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-    $partyCohort = new MySociety\TheyWorkForYou\PartyCohort($MEMBER->person_id(), $MEMBER->cohortParty());
-    $data['party_positions'] = $partyCohort->getAllPolicyPositions($policiesList);
-    # house hard coded as this is only used for the party position
-    # comparison which is Commons only
-    $data['party_member_count'] = $party->getCurrentMemberCount(HOUSE_TYPE_COMMONS);
-
-    $positions = new MySociety\TheyWorkForYou\PolicyPositions($policiesList, $MEMBER, [
-        'summaries' => $policySummaries,
-    ]);
-    $policy_diffs = $MEMBER->getPartyPolicyDiffs($partyCohort, $policiesList, $positions);
-    $data['sorted_diffs'] = $policy_diffs;
 }

@@ -21,7 +21,9 @@ echo 'Load people into database'
 scripts/load-people
 
 echo 'Load policies and votes from twfy-votes'
-scripts/json2db.pl --verbose --dev-populate
+scripts/votes2db load-policies 
+scripts/votes2db load-voting-alignment 
+scripts/votes2db load-dev-votes
 
 echo 'Load Jan 2022 debates and divisions'
 scripts/xml2db.pl --debates --wales --scotland --all

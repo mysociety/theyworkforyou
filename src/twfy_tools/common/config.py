@@ -24,6 +24,7 @@ class ConfigModel(BaseModel):
     RAWDATA: Path
     PWMEMBERS: Path
     MAILCHIMP_API_KEY: str
+    TWFY_VOTES_URL: str
 
     @classmethod
     def from_php_config(cls, php_config_get: BaseConfigGet):
