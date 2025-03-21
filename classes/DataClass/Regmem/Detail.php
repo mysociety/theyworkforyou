@@ -8,14 +8,14 @@ use MySociety\TheyWorkForYou\DataClass\BaseModel;
 use MySociety\TheyWorkForYou\DataClass\DataFrame;
 
 class Detail extends BaseModel {
-    public string $source;
+    public string $source = "official";
     public ?string $slug = null;
     public ?string $display_as = null;
     public ?string $common_key = null;
     public ?string $description = null;
     public ?string $type = null;
     public $value = null;
-    public AnnotationList $annotations;
+    public ?AnnotationList $annotations = null;
 
 
     public function has_value(): bool {

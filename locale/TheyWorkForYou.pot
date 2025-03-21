@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-06 16:34+0000\n"
+"POT-Creation-Date: 2025-03-21 12:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,127 +50,132 @@ msgid ""
 "smaller alerts."
 msgstr ""
 
-#: classes/Divisions.php:529
+#: classes/Divisions.php:566
 #, php-format
 msgid "voted %s"
 msgstr ""
 
-#: classes/Divisions.php:531
+#: classes/Divisions.php:568
 #, php-format
 msgid "voted %s on <em>%s</em>"
 msgstr ""
 
-#: classes/Member.php:390 classes/Member.php:402
-#: www/includes/easyparliament/member.php:31
-#: www/includes/easyparliament/templates/html/divisions/index.php:52
+#: classes/Homepage.php:65 classes/SectionView/NiView.php:118
+#: classes/SectionView/SeneddView.php:124 classes/SPHomepage.php:29
+msgid "Subscribe to our newsletter"
+msgstr ""
+
+#: classes/Member.php:389 classes/Member.php:401
+#: www/includes/easyparliament/member.php:33
+#: www/includes/easyparliament/templates/html/divisions/index.php:63
 msgid "House of Lords"
 msgstr ""
 
-#: classes/Member.php:394
+#: classes/Member.php:393
 #, php-format
 msgid "Previously MP for %s until %s"
 msgstr ""
 
-#: classes/Member.php:410 classes/Member.php:414
-#: www/includes/easyparliament/member.php:30
-#: www/includes/easyparliament/templates/html/divisions/index.php:51
+#: classes/Member.php:409 classes/Member.php:413
+#: www/includes/easyparliament/member.php:32
+#: www/includes/easyparliament/templates/html/divisions/index.php:62
 msgid "House of Commons"
 msgstr ""
 
-#: classes/Member.php:417 classes/Member.php:418
+#: classes/Member.php:416 classes/Member.php:417
 msgid "Assembly"
 msgstr ""
 
-#: classes/Member.php:419 classes/Member.php:420
-#: www/includes/easyparliament/hansardlist.php:1225
-#: www/includes/easyparliament/member.php:33
-#: www/includes/easyparliament/templates/html/divisions/index.php:54
+#: classes/Member.php:418 classes/Member.php:419
+#: www/includes/easyparliament/hansardlist.php:1227
+#: www/includes/easyparliament/member.php:35
+#: www/includes/easyparliament/templates/html/divisions/index.php:65
 #: www/includes/easyparliament/templates/html/search/form_options.php:68
 msgid "Scottish Parliament"
 msgstr ""
 
-#: classes/Member.php:421 classes/Member.php:422
-#: www/includes/easyparliament/member.php:34
-#: www/includes/easyparliament/templates/html/divisions/index.php:55
+#: classes/Member.php:420 classes/Member.php:421
+#: www/includes/easyparliament/member.php:36
+#: www/includes/easyparliament/templates/html/divisions/index.php:66
 msgid "Senedd"
 msgstr ""
 
-#: classes/Member.php:423 classes/Member.php:424
-#: www/includes/easyparliament/member.php:35
+#: classes/Member.php:422 classes/Member.php:423
+#: www/includes/easyparliament/member.php:37
 #: www/includes/easyparliament/templates/html/search/form_options.php:76
 msgid "London Assembly"
 msgstr ""
 
-#: classes/Member.php:434
+#: classes/Member.php:433
 #, php-format
 msgid "Entered the %s in %s"
 msgstr ""
 
-#: classes/Member.php:436
+#: classes/Member.php:435
 #, php-format
 msgid "Entered the %s on %s"
 msgstr ""
 
-#: classes/Member.php:450
+#: classes/Member.php:449
 #, php-format
 msgid "Left the %s in %s"
 msgstr ""
 
-#: classes/Member.php:452
+#: classes/Member.php:451
 #, php-format
 msgid "Left the %s on %s"
 msgstr ""
 
-#: classes/People.php:94
+#: classes/People.php:93
 #, php-format
 msgid "%s, as on %s"
 msgstr ""
 
-#: classes/People.php:96
+#: classes/People.php:95
 #, php-format
 msgid "All %s, including former ones"
 msgstr ""
 
-#: classes/People.php:98
+#: classes/People.php:97
 #: www/includes/easyparliament/templates/html/people/index.php:138
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: classes/People.php:103
+#: classes/People.php:102
 msgid "Person ID"
 msgstr ""
 
-#: classes/People.php:103
+#: classes/People.php:102
 #: www/includes/easyparliament/templates/html/people/index.php:157
 #: www/includes/easyparliament/templates/html/user/index.php:34
 #: www/includes/easyparliament/templates/html/user/view_user.php:5
 msgid "Name"
 msgstr ""
 
-#: classes/People.php:103
+#: classes/People.php:102
 #: www/includes/easyparliament/templates/html/people/index.php:144
 #: www/includes/easyparliament/templates/html/people/index.php:150
 #: www/includes/easyparliament/templates/html/people/index.php:160
 msgid "Party"
 msgstr ""
 
-#: classes/People.php:103
+#: classes/People.php:102
 msgid "Constituency"
 msgstr ""
 
-#: classes/People.php:103
+#: classes/People.php:102
 msgid "URI"
 msgstr ""
 
-#: classes/Renderer/Header.php:119
+#: classes/Renderer/Header.php:117
 msgid ""
 "Making it easy to keep an eye on the UK’s parliaments. Discover who "
 "represents you, how they’ve voted and what they’ve said in debates."
 msgstr ""
 
-#: classes/Renderer/Header.php:254 classes/Renderer/Header.php:271
-#: classes/Renderer/Header.php:293
+#: classes/Renderer/Header.php:252 classes/Renderer/Header.php:268
+#: classes/Renderer/Header.php:289
 msgid "Wales"
 msgstr ""
 
@@ -186,6 +191,28 @@ msgstr ""
 
 #: classes/Search.php:79
 msgid "Maximum term length is 255 characters."
+msgstr ""
+
+#: classes/SectionView/SeneddView.php:110
+#: www/includes/easyparliament/templates/html/search/form_options.php:73
+msgid "Senedd / Welsh Parliament"
+msgstr ""
+
+#: classes/SectionView/SeneddView.php:121
+#, php-format
+msgid "Find out more about your MSs for %s and %s"
+msgstr ""
+
+#: classes/SectionView/SeneddView.php:123
+msgid "Create and manage email alerts"
+msgstr ""
+
+#: classes/SectionView/SeneddView.php:125
+msgid "Donate to support our work"
+msgstr ""
+
+#: classes/SectionView/SeneddView.php:126
+msgid "Learn more about TheyWorkForYou"
 msgstr ""
 
 #: classes/User.php:196
@@ -212,590 +239,512 @@ msgstr ""
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr ""
 
-#: classes/Utility/House.php:44
+#: classes/Utility/House.php:43
 msgid "MS"
 msgstr ""
 
-#: classes/Utility/House.php:45 www/includes/easyparliament/metadata.php:1039
+#: classes/Utility/House.php:44 www/includes/easyparliament/metadata.php:1125
 msgid "MSs"
 msgstr ""
 
-#: locale/welsh-constituencies.php:2
+#: locale/welsh-constituencies.php:3
 msgid "Aberavon"
 msgstr ""
 
-#: locale/welsh-constituencies.php:3
+#: locale/welsh-constituencies.php:4
 msgid "Aberconwy"
 msgstr ""
 
-#: locale/welsh-constituencies.php:4
+#: locale/welsh-constituencies.php:5
 msgid "Alyn and Deeside"
 msgstr ""
 
-#: locale/welsh-constituencies.php:5
+#: locale/welsh-constituencies.php:6
 msgid "Arfon"
 msgstr ""
 
-#: locale/welsh-constituencies.php:6
+#: locale/welsh-constituencies.php:7
 msgid "Blaenau Gwent"
 msgstr ""
 
-#: locale/welsh-constituencies.php:7
+#: locale/welsh-constituencies.php:8
 msgid "Brecon and Radnorshire"
 msgstr ""
 
-#: locale/welsh-constituencies.php:8
+#: locale/welsh-constituencies.php:9
 msgid "Bridgend"
 msgstr ""
 
-#: locale/welsh-constituencies.php:9
+#: locale/welsh-constituencies.php:10
 msgid "Caerphilly"
 msgstr ""
 
-#: locale/welsh-constituencies.php:10
+#: locale/welsh-constituencies.php:11
 msgid "Cardiff Central"
 msgstr ""
 
-#: locale/welsh-constituencies.php:11
+#: locale/welsh-constituencies.php:12
 msgid "Cardiff North"
 msgstr ""
 
-#: locale/welsh-constituencies.php:12
+#: locale/welsh-constituencies.php:13
 msgid "Cardiff South and Penarth"
 msgstr ""
 
-#: locale/welsh-constituencies.php:13
+#: locale/welsh-constituencies.php:14
 msgid "Cardiff West"
 msgstr ""
 
-#: locale/welsh-constituencies.php:14
+#: locale/welsh-constituencies.php:15
 msgid "Carmarthen East and Dinefwr"
 msgstr ""
 
-#: locale/welsh-constituencies.php:15
+#: locale/welsh-constituencies.php:16
 msgid "Carmarthen West and South Pembrokeshire"
 msgstr ""
 
-#: locale/welsh-constituencies.php:16
+#: locale/welsh-constituencies.php:17
 msgid "Ceredigion"
 msgstr ""
 
-#: locale/welsh-constituencies.php:17
+#: locale/welsh-constituencies.php:18
 msgid "Clwyd South"
 msgstr ""
 
-#: locale/welsh-constituencies.php:18
+#: locale/welsh-constituencies.php:19
 msgid "Clwyd West"
 msgstr ""
 
-#: locale/welsh-constituencies.php:19
+#: locale/welsh-constituencies.php:20
 msgid "Cynon Valley"
 msgstr ""
 
-#: locale/welsh-constituencies.php:20
+#: locale/welsh-constituencies.php:21
 msgid "Delyn"
 msgstr ""
 
-#: locale/welsh-constituencies.php:21
+#: locale/welsh-constituencies.php:22
 msgid "Dwyfor Meirionnydd"
 msgstr ""
 
-#: locale/welsh-constituencies.php:22
+#: locale/welsh-constituencies.php:23
 msgid "Gower"
 msgstr ""
 
-#: locale/welsh-constituencies.php:23
+#: locale/welsh-constituencies.php:24
 msgid "Islwyn"
 msgstr ""
 
-#: locale/welsh-constituencies.php:24
+#: locale/welsh-constituencies.php:25
 msgid "Llanelli"
 msgstr ""
 
-#: locale/welsh-constituencies.php:25
+#: locale/welsh-constituencies.php:26
 msgid "Merthyr Tydfil and Rhymney"
 msgstr ""
 
-#: locale/welsh-constituencies.php:26
+#: locale/welsh-constituencies.php:27
 msgid "Monmouth"
 msgstr ""
 
-#: locale/welsh-constituencies.php:27
+#: locale/welsh-constituencies.php:28
 msgid "Montgomeryshire"
 msgstr ""
 
-#: locale/welsh-constituencies.php:28
+#: locale/welsh-constituencies.php:29
 msgid "Neath"
 msgstr ""
 
-#: locale/welsh-constituencies.php:29
+#: locale/welsh-constituencies.php:30
 msgid "Newport East"
 msgstr ""
 
-#: locale/welsh-constituencies.php:30
+#: locale/welsh-constituencies.php:31
 msgid "Newport West"
 msgstr ""
 
-#: locale/welsh-constituencies.php:31
+#: locale/welsh-constituencies.php:32
 msgid "Ogmore"
 msgstr ""
 
-#: locale/welsh-constituencies.php:32
+#: locale/welsh-constituencies.php:33
 msgid "Pontypridd"
 msgstr ""
 
-#: locale/welsh-constituencies.php:33
+#: locale/welsh-constituencies.php:34
 msgid "Preseli Pembrokeshire"
 msgstr ""
 
-#: locale/welsh-constituencies.php:34
+#: locale/welsh-constituencies.php:35
 msgid "Rhondda"
 msgstr ""
 
-#: locale/welsh-constituencies.php:35
+#: locale/welsh-constituencies.php:36
 msgid "Swansea East"
 msgstr ""
 
-#: locale/welsh-constituencies.php:36
+#: locale/welsh-constituencies.php:37
 msgid "Swansea West"
 msgstr ""
 
-#: locale/welsh-constituencies.php:37
+#: locale/welsh-constituencies.php:38
 msgid "Torfaen"
 msgstr ""
 
-#: locale/welsh-constituencies.php:38
+#: locale/welsh-constituencies.php:39
 msgid "Vale of Clwyd"
 msgstr ""
 
-#: locale/welsh-constituencies.php:39
+#: locale/welsh-constituencies.php:40
 msgid "Vale of Glamorgan"
 msgstr ""
 
-#: locale/welsh-constituencies.php:40
+#: locale/welsh-constituencies.php:41
 msgid "Wrexham"
 msgstr ""
 
-#: locale/welsh-constituencies.php:41
+#: locale/welsh-constituencies.php:42
 msgid "Ynys Môn"
 msgstr ""
 
-#: locale/welsh-constituencies.php:42
+#: locale/welsh-constituencies.php:43
 msgid "Mid and West Wales"
 msgstr ""
 
-#: locale/welsh-constituencies.php:43
+#: locale/welsh-constituencies.php:44
 msgid "North Wales"
 msgstr ""
 
-#: locale/welsh-constituencies.php:44
+#: locale/welsh-constituencies.php:45
 msgid "South Wales Central"
 msgstr ""
 
-#: locale/welsh-constituencies.php:45
+#: locale/welsh-constituencies.php:46
 msgid "South Wales East"
 msgstr ""
 
-#: locale/welsh-constituencies.php:46
+#: locale/welsh-constituencies.php:47
 msgid "South Wales West"
 msgstr ""
 
-#: locale/welsh-parties.php:2
+#: locale/welsh-parties.php:3
 msgid "Conservative"
 msgstr ""
 
-#: locale/welsh-parties.php:3
+#: locale/welsh-parties.php:4
 msgid "Independent"
 msgstr ""
 
-#: locale/welsh-parties.php:4
+#: locale/welsh-parties.php:5
 msgid "Labour"
 msgstr ""
 
-#: locale/welsh-parties.php:5
+#: locale/welsh-parties.php:6
 msgid "Liberal Democrat"
 msgstr ""
 
-#: locale/welsh-parties.php:6
+#: locale/welsh-parties.php:7
 msgid "Plaid Cymru"
 msgstr ""
 
-#: scripts/alertmailer.php:116
+#: scripts/alertmailer.php:136
 msgid "Commons debate"
 msgstr ""
 
-#: scripts/alertmailer.php:117
+#: scripts/alertmailer.php:137
 msgid "Westminster Hall debate"
 msgstr ""
 
-#: scripts/alertmailer.php:118
+#: scripts/alertmailer.php:138
 msgid "Written Answer"
 msgstr ""
 
-#: scripts/alertmailer.php:119
+#: scripts/alertmailer.php:139
 msgid "Written Ministerial Statement"
 msgstr ""
 
-#: scripts/alertmailer.php:120
+#: scripts/alertmailer.php:140
 msgid "Northern Ireland Assembly debate"
 msgstr ""
 
-#: scripts/alertmailer.php:121
+#: scripts/alertmailer.php:141
 msgid "Public Bill committee"
 msgstr ""
 
-#: scripts/alertmailer.php:122
+#: scripts/alertmailer.php:142
 msgid "Scottish Parliament debate"
 msgstr ""
 
-#: scripts/alertmailer.php:123
+#: scripts/alertmailer.php:143
 msgid "Scottish Parliament written answer"
 msgstr ""
 
-#: scripts/alertmailer.php:124
+#: scripts/alertmailer.php:144
 msgid "London Mayoral question"
 msgstr ""
 
-#: scripts/alertmailer.php:125 scripts/alertmailer.php:126
+#: scripts/alertmailer.php:145 scripts/alertmailer.php:146
 msgid "Senedd debate"
 msgstr ""
 
-#: scripts/alertmailer.php:127 scripts/alertmailer.php:143
+#: scripts/alertmailer.php:147
 msgid "Lords debate"
 msgstr ""
 
-#: scripts/alertmailer.php:128 scripts/alertmailer.php:144
+#: scripts/alertmailer.php:148
 msgid "event"
 msgstr ""
 
-#: scripts/alertmailer.php:129 scripts/alertmailer.php:145
+#: scripts/alertmailer.php:149
 msgid "vote"
 msgstr ""
 
-#: scripts/alertmailer.php:132
+#: scripts/alertmailer.php:152
 msgid "Commons debates"
 msgstr ""
 
-#: scripts/alertmailer.php:133
+#: scripts/alertmailer.php:153
 #: www/includes/easyparliament/templates/html/search/form_options.php:58
 msgid "Westminster Hall debates"
 msgstr ""
 
-#: scripts/alertmailer.php:134
+#: scripts/alertmailer.php:154
 msgid "Written Answers"
 msgstr ""
 
-#: scripts/alertmailer.php:135
+#: scripts/alertmailer.php:155
 msgid "Written Ministerial Statements"
 msgstr ""
 
-#: scripts/alertmailer.php:136
+#: scripts/alertmailer.php:156
 msgid "Northern Ireland Assembly debates"
 msgstr ""
 
-#: scripts/alertmailer.php:137
-#: www/includes/easyparliament/templates/html/divisions/index.php:53
+#: scripts/alertmailer.php:157
+#: www/includes/easyparliament/templates/html/divisions/index.php:64
 msgid "Public Bill committees"
 msgstr ""
 
-#: scripts/alertmailer.php:138
+#: scripts/alertmailer.php:158
 msgid "Scottish Parliament debates"
 msgstr ""
 
-#: scripts/alertmailer.php:139
+#: scripts/alertmailer.php:159
 msgid "Scottish Parliament written answers"
 msgstr ""
 
-#: scripts/alertmailer.php:140
+#: scripts/alertmailer.php:160
 msgid "London Mayoral questions"
 msgstr ""
 
-#: scripts/alertmailer.php:141 scripts/alertmailer.php:142
-#: www/includes/easyparliament/metadata.php:1098
-#: www/includes/easyparliament/metadata.php:1101
+#: scripts/alertmailer.php:161 scripts/alertmailer.php:162
+#: www/includes/easyparliament/metadata.php:1184
+#: www/includes/easyparliament/metadata.php:1187
 msgid "Senedd debates"
 msgstr ""
 
-#: scripts/alertmailer.php:278
+#: scripts/alertmailer.php:163
+msgid "Lords debates"
+msgstr ""
+
+#: scripts/alertmailer.php:164
+msgid "events"
+msgstr ""
+
+#: scripts/alertmailer.php:165
+msgid "votes"
+msgstr ""
+
+#: scripts/alertmailer.php:303
 msgid "as a teller"
 msgstr ""
 
-#: scripts/alertmailer.php:289
+#: scripts/alertmailer.php:314
 msgid "Voted aye"
 msgstr ""
 
-#: scripts/alertmailer.php:291
+#: scripts/alertmailer.php:316
 msgid "Voted no"
 msgstr ""
 
-#: scripts/alertmailer.php:293
+#: scripts/alertmailer.php:318
 msgid "Voted abstain"
 msgstr ""
 
-#: scripts/alertmailer.php:295
+#: scripts/alertmailer.php:320
 #, php-format
 msgid "Voted %s"
 msgstr ""
 
-#: scripts/alertmailer.php:297
+#: scripts/alertmailer.php:322
 #, php-format
 msgid "(division #%s; result was <b>%s</b> aye, <b>%s</b> no)"
 msgstr ""
 
-#: scripts/alertmailer.php:373 scripts/alertmailer.php:380
+#: scripts/alertmailer.php:402 scripts/alertmailer.php:409
 msgid "There are more results than we have shown here."
 msgstr ""
 
-#: scripts/alertmailer.php:373 scripts/alertmailer.php:380
+#: scripts/alertmailer.php:402 scripts/alertmailer.php:409
 msgid "See more"
 msgstr ""
 
-#: www/docs/freeourbills/sharethis.php:61
+#: www/docs/freeourbills/sharethis.php:67
 msgid "E-mail this, post to del.icio.us, etc."
 msgstr ""
 
-#: www/docs/freeourbills/sharethis.php:62
+#: www/docs/freeourbills/sharethis.php:68
 msgid "Share this"
 msgstr ""
 
-#: www/docs/mp/index.php:193
+#: www/docs/mp/index.php:198
 msgid "Sorry, but we can’t tell which representative to display."
 msgstr ""
 
-#: www/docs/mp/index.php:196
+#: www/docs/mp/index.php:201
 msgid "You haven’t provided a way of identifying which representative you want"
 msgstr ""
 
-#: www/docs/mp/index.php:519
+#: www/docs/mp/index.php:558
 #, php-format
 msgid "Sorry, %s isn’t a valid postcode"
 msgstr ""
 
-#: www/docs/mp/index.php:524
+#: www/docs/mp/index.php:563
 msgid ""
 "Sorry, we couldn’t check your postcode right now, as our postcode lookup "
 "server is under quite a lot of load."
 msgstr ""
 
-#: www/docs/mp/index.php:527
+#: www/docs/mp/index.php:566
 #, php-format
 msgid "Sorry, %s isn’t a known postcode"
 msgstr ""
 
-#: www/docs/mp/index.php:706
+#: www/docs/mp/index.php:743
 msgid "<abbr title=\"Member of Parliament\">MP</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:708
+#: www/docs/mp/index.php:745
 msgid "<abbr title=\"Member of the Legislative Assembly\">MLA</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:710
+#: www/docs/mp/index.php:747
 msgid "<abbr title=\"Member of the Scottish Parliament\">MSP</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:712
+#: www/docs/mp/index.php:749
 msgid "<abbr title=\"Member of the Senedd\">MS</abbr>"
 msgstr ""
 
-#: www/docs/mp/index.php:714
+#: www/docs/mp/index.php:751
 msgid "Member of the London Assembly"
 msgstr ""
 
-#: www/docs/mp/index.php:726
+#: www/docs/mp/index.php:763
 #, php-format
 msgid "%s, and %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:728
+#: www/docs/mp/index.php:765
 #, php-format
 msgid "Former %s, and %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:731
+#: www/docs/mp/index.php:768
 #, php-format
 msgid "%s %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:733
+#: www/docs/mp/index.php:770
 #, php-format
 msgid "Former %s %s %s for %s"
 msgstr ""
 
-#: www/docs/mp/index.php:737
+#: www/docs/mp/index.php:774
 #, php-format
 msgid "%s Peer"
 msgstr ""
 
-#: www/docs/mp/index.php:739
+#: www/docs/mp/index.php:776
 #, php-format
 msgid "Former %s Peer"
 msgstr ""
 
-#: www/docs/mp/index.php:745
+#: www/docs/mp/index.php:782
 #, php-format
 msgid "Former %s"
 msgstr ""
 
-#: www/docs/mp/index.php:831
+#: www/docs/mp/index.php:868
 #, php-format
 msgid "More of %s’s recent appearances"
 msgstr ""
 
-#: www/docs/mp/index.php:1080
+#: www/docs/mp/index.php:1128
 msgid ""
 "You have one constituency MS (Member of the Senedd) and multiple region MSs."
 msgstr ""
 
-#: www/docs/mp/index.php:1081
+#: www/docs/mp/index.php:1129
 #, php-format
 msgid ""
 "Your <strong>constituency MS</strong> is <a href=\"%s\">%s</a>, MS for %s."
 msgstr ""
 
-#: www/docs/mp/index.php:1082 www/docs/postcode/index.php:193
+#: www/docs/mp/index.php:1130
+#: www/includes/easyparliament/templates/html/postcode/index.php:94
 #, php-format
 msgid "Your <strong>%s region MSs</strong> are:"
 msgstr ""
 
-#: www/docs/mp/index.php:1084
+#: www/docs/mp/index.php:1132
 msgid ""
 "You had one constituency MS (Member of the Senedd) and multiple region MSs."
 msgstr ""
 
-#: www/docs/mp/index.php:1085
+#: www/docs/mp/index.php:1133
 #, php-format
 msgid ""
 "Your <strong>constituency MS</strong> was <a href=\"%s\">%s</a>, MS for %s."
 msgstr ""
 
-#: www/docs/mp/index.php:1086 www/docs/postcode/index.php:201
+#: www/docs/mp/index.php:1134
+#: www/includes/easyparliament/templates/html/postcode/index.php:102
 #, php-format
 msgid "Your <strong>%s region MSs</strong> were:"
 msgstr ""
 
-#: www/docs/postcode/index.php:156
-msgid "Your representatives"
-msgstr ""
-
-#: www/docs/postcode/index.php:160
-#, php-format
-msgid ""
-"Your former <strong>MP</strong> (Member of Parliament) is <a href=\"%s\">%s</"
-"a>, %s"
-msgstr ""
-
-#: www/docs/postcode/index.php:162
-#, php-format
-msgid ""
-"Your <strong>MP</strong> (Member of Parliament) is <a href=\"%s\">%s</a>, %s"
-msgstr ""
-
-#: www/docs/postcode/index.php:172
-#, php-format
-msgid ""
-"Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) "
-"is <a href=\"%s\">%s</a>, %s"
-msgstr ""
-
-#: www/docs/postcode/index.php:174
-#, php-format
-msgid ""
-"Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) "
-"was <a href=\"%s\">%s</a>, %s"
-msgstr ""
-
-#. First %s is URL, second %s is name, third %s is constituency
-#: www/docs/postcode/index.php:181
-#, php-format
-msgid ""
-"Your <strong>constituency MS</strong> (Member of the Senedd) is <a href=\"%s"
-"\">%s</a>, %s"
-msgstr ""
-
-#. First %s is URL, second %s is name, third %s is constituency
-#: www/docs/postcode/index.php:184
-#, php-format
-msgid ""
-"Your <strong>constituency MS</strong> (Member of the Senedd) was <a href=\"%s"
-"\">%s</a>, %s"
-msgstr ""
-
-#: www/docs/postcode/index.php:191
-#, php-format
-msgid ""
-"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:"
-msgstr ""
-
-#: www/docs/postcode/index.php:195
-#, php-format
-msgid "Your <strong>%s %s</strong> are:"
-msgstr ""
-
-#: www/docs/postcode/index.php:199
-#, php-format
-msgid ""
-"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:"
-msgstr ""
-
-#: www/docs/postcode/index.php:203
-#, php-format
-msgid "Your <strong>%s %s</strong> were:"
-msgstr ""
-
-#: www/docs/postcode/index.php:216
+#: www/docs/postcode/index.php:168
 #, php-format
 msgid "Browse all %s"
 msgstr ""
 
-#: www/docs/postcode/index.php:219
-msgid "Browse people"
-msgstr ""
-
-#: www/docs/postcode/index.php:220
-#: www/includes/easyparliament/templates/html/mp/list.php:15
-msgid "Browse all MPs"
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:1
-msgid "More information"
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:5
-msgid ""
-"Your MSPs represents you in the Scottish Parliament. The Scottish Parliament "
-"is responsible for a wide range of devolved matters in which it sets policy "
-"independently of the London Parliament. Devolved matters include education, "
-"health, agriculture, justice and prisons. It also has some tax-raising "
-"powers."
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:9
-msgid ""
-"Your MLAs represent you on the Northern Ireland Assembly. The Northern "
-"Ireland Assembly has full authority over “transferred matters”, which "
-"include agriculture, education, employment, the environment and health."
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:13
-msgid ""
-"Your MSs represents you in the Senedd. The Senedd has a wide range of powers "
-"over areas including economic development, transport, finance, local "
-"government, health, housing and the Welsh Language."
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:17
-msgid ""
-"Your MP represents you in the House of Commons. The House of Commons is "
-"responsible for making laws in the UK and for overall scrutiny of all "
-"aspects of government."
-msgstr ""
-
-#: www/docs/postcode/repexplain.php:23
+#: www/docs/regmem/index.php:93
 #, php-format
 msgid ""
-"You can write to any representative, or your local councillors through <a "
-"href=\"%s\">WriteToThem.com</a>."
+"This page shows how %s's entry in the Register of Members' Interests has "
+"changed over time, starting at the most recent and working back to the "
+"earliest we have managed to parse."
+msgstr ""
+
+#: www/docs/regmem/index.php:94
+msgid ""
+"Please be aware that changes in typography/styling at the source might mean "
+"something is marked as changed (ie. removed and added) when it hasn't; sorry "
+"about that, but we do our best with the source material."
+msgstr ""
+
+#: www/docs/regmem/index.php:97
+msgid "Removed"
+msgstr ""
+
+#: www/docs/regmem/index.php:97
+msgid "Added"
+msgstr ""
+
+#: www/docs/regmem/index.php:147
+msgid "first entry we have"
 msgstr ""
 
 #: www/docs/user/login/index.php:39
@@ -818,452 +767,472 @@ msgstr ""
 msgid "Or sign in by email:"
 msgstr ""
 
-#: www/includes/dbtypes.php:136 www/includes/dbtypes.php:148
+#: www/includes/dbtypes.php:137 www/includes/dbtypes.php:149
 msgid "debate"
 msgstr ""
 
-#: www/includes/dbtypes.php:137 www/includes/dbtypes.php:149
+#: www/includes/dbtypes.php:138 www/includes/dbtypes.php:150
 msgid "debates"
 msgstr ""
 
-#: www/includes/easyparliament/alert.php:466
+#: www/includes/easyparliament/alert.php:471
 #, php-format
 msgid "Mentions of [%s]"
 msgstr ""
 
-#: www/includes/easyparliament/alert.php:469
+#: www/includes/easyparliament/alert.php:474
 #, php-format
 msgid "Things by %s"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:435
+#: www/includes/easyparliament/hansardlist.php:436
 #, php-format
 msgid "Previous %s"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:448
+#: www/includes/easyparliament/hansardlist.php:449
 msgid "Previous speaker"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:479
+#: www/includes/easyparliament/hansardlist.php:480
 #, php-format
 msgid "Next %s"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:492
+#: www/includes/easyparliament/hansardlist.php:493
 msgid "Next speaker"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:515
+#: www/includes/easyparliament/hansardlist.php:516
 #, php-format
 msgid "All %s on %s"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:569
+#: www/includes/easyparliament/hansardlist.php:570
 msgid "Next day"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:571
+#: www/includes/easyparliament/hansardlist.php:572
 msgid "Previous day"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:591
+#: www/includes/easyparliament/hansardlist.php:592
 #, php-format
 msgid "All of %s’s %s"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:877
+#: www/includes/easyparliament/hansardlist.php:878
 msgid "Recent dates"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:1221
-#: www/includes/easyparliament/member.php:32
+#: www/includes/easyparliament/hansardlist.php:1223
+#: www/includes/easyparliament/member.php:34
 #: www/includes/easyparliament/templates/html/search/form_options.php:65
 msgid "Northern Ireland Assembly"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:1223
+#: www/includes/easyparliament/hansardlist.php:1225
 msgid "Public Bill Committee"
 msgstr ""
 
-#: www/includes/easyparliament/hansardlist.php:2441
+#: www/includes/easyparliament/hansardlist.php:2449
 msgid "See the whole debate"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:29
+#: www/includes/easyparliament/member.php:31
 msgid "Royal Family"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:42
+#: www/includes/easyparliament/member.php:44
 msgid "Became peer"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:43
+#: www/includes/easyparliament/member.php:45
 msgid "Byelection"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:44
+#: www/includes/easyparliament/member.php:46
 msgid "Changed party"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:45
+#: www/includes/easyparliament/member.php:47
 msgid "Changed name"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:46
+#: www/includes/easyparliament/member.php:48
 msgid "Declared void"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:47
+#: www/includes/easyparliament/member.php:49
 msgid "Died"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:48
+#: www/includes/easyparliament/member.php:50
 msgid "Disqualified"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:49
+#: www/includes/easyparliament/member.php:51
 msgid "General election"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:50
+#: www/includes/easyparliament/member.php:52
 msgid "General election (standing again)"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:50
+#: www/includes/easyparliament/member.php:52
 msgid "General election (stood again)"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:51
+#: www/includes/easyparliament/member.php:53
 msgid "did not stand for re-election"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:52
+#: www/includes/easyparliament/member.php:54
 msgid "Reinstated"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:53
+#: www/includes/easyparliament/member.php:55
 msgid "Resigned"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:54
+#: www/includes/easyparliament/member.php:56
 msgid "Removed from office by a recall petition"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:55
+#: www/includes/easyparliament/member.php:57
 msgid "Still in office"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:56
+#: www/includes/easyparliament/member.php:58
 msgid "Dissolved for election"
 msgstr ""
 
-#: www/includes/easyparliament/member.php:57
+#: www/includes/easyparliament/member.php:59
 msgid "Election"
 msgstr ""
 
 #. Scottish Parliament
-#: www/includes/easyparliament/member.php:58
+#: www/includes/easyparliament/member.php:60
 msgid "Appointed, regional replacement"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:82
+#: www/includes/easyparliament/metadata.php:83
 msgid "About us"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:331
-#: www/includes/easyparliament/metadata.php:334
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
+#: www/includes/easyparliament/metadata.php:119
+#: www/includes/easyparliament/metadata.php:120
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:12
+#: www/includes/easyparliament/templates/html/mp/register.php:51
+msgid "Register of Interests"
+msgstr ""
+
+#: www/includes/easyparliament/metadata.php:378
+#: www/includes/easyparliament/metadata.php:381
 msgid "Contact"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:338
+#: www/includes/easyparliament/metadata.php:385
 msgid "News"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:429
+#: www/includes/easyparliament/metadata.php:456
+#: www/includes/easyparliament/metadata.php:457
+#: www/includes/easyparliament/metadata.php:460
+#: www/includes/easyparliament/templates/html/divisions/index.php:5
+#: www/includes/easyparliament/templates/html/homepage/recent-votes.php:3
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:9
+msgid "Recent Votes"
+msgstr ""
+
+#: www/includes/easyparliament/metadata.php:480
+#: www/includes/easyparliament/metadata.php:483
+msgid "Donate"
+msgstr ""
+
+#: www/includes/easyparliament/metadata.php:520
 msgid "Help - Frequently Asked Questions"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:453
+#: www/includes/easyparliament/metadata.php:544
 msgid "Link to us"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:454
+#: www/includes/easyparliament/metadata.php:545
 msgid "How to link to us"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:458
+#: www/includes/easyparliament/metadata.php:549
 msgid "API"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:459
+#: www/includes/easyparliament/metadata.php:550
 msgid "API - Query the TheyWorkForYou database"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:463
+#: www/includes/easyparliament/metadata.php:554
 msgid "Raw Data"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:464
+#: www/includes/easyparliament/metadata.php:555
 msgid "Raw data (XML) - the data behind TheyWorkForYou and Public Whip"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:468
+#: www/includes/easyparliament/metadata.php:559
 msgid "Developer mailing list"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:472
+#: www/includes/easyparliament/metadata.php:563
 msgid "Source code"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:473
+#: www/includes/easyparliament/metadata.php:564
 msgid "TheyWorkForYou Source code"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:713
+#: www/includes/easyparliament/metadata.php:799
 msgid "Privacy Policy"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:978
+#: www/includes/easyparliament/metadata.php:1064
 msgid "Join"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:979
+#: www/includes/easyparliament/metadata.php:1065
 msgid "Joining is free and allows you to manage your email alerts"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:983
+#: www/includes/easyparliament/metadata.php:1069
 #: www/includes/easyparliament/templates/html/user/join.php:9
 #: www/includes/easyparliament/templates/html/user/join.php:129
 msgid "Join TheyWorkForYou"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:988
-#: www/includes/easyparliament/metadata.php:992
-#: www/includes/easyparliament/page.php:752
+#: www/includes/easyparliament/metadata.php:1074
+#: www/includes/easyparliament/metadata.php:1078
+#: www/includes/easyparliament/page.php:753
 msgid "Sign in"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:989
+#: www/includes/easyparliament/metadata.php:1075
 msgid "If you've already joined, sign in to your account"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1040
+#: www/includes/easyparliament/metadata.php:1126
 msgid "List of Members of the Senedd (MSs)"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1048
+#: www/includes/easyparliament/metadata.php:1134
 #: www/includes/easyparliament/templates/html/search/form_options.php:66
 #: www/includes/easyparliament/templates/html/search/form_options.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:74
 msgid "Debates"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1049
+#: www/includes/easyparliament/metadata.php:1135
 msgid "Debates in the Senedd"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1056
+#: www/includes/easyparliament/metadata.php:1142
 msgid "Find your MS"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1061
-#: www/includes/easyparliament/metadata.php:1066
+#: www/includes/easyparliament/metadata.php:1147
+#: www/includes/easyparliament/metadata.php:1152
 msgid "Your MSs"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1062
+#: www/includes/easyparliament/metadata.php:1148
 msgid "Find out about your Members of the Senedd"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1073
-#: www/includes/easyparliament/templates/html/mp/profile.php:20
-#: www/includes/easyparliament/templates/html/mp/recent.php:10
+#: www/includes/easyparliament/metadata.php:1159
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:4
 msgid "Overview"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1074
+#: www/includes/easyparliament/metadata.php:1160
 msgid "Overview of the Senedd debates"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1214
-#: www/includes/easyparliament/metadata.php:1218
+#: www/includes/easyparliament/metadata.php:1300
+#: www/includes/easyparliament/metadata.php:1304
 msgid "Your MP"
 msgstr ""
 
-#: www/includes/easyparliament/metadata.php:1215
+#: www/includes/easyparliament/metadata.php:1301
 msgid "Find out about your Member of Parliament"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:57
+#: www/includes/easyparliament/page.php:56
 msgid "You’d better sign in!"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:367
+#: www/includes/easyparliament/page.php:366
 msgid "Your current postcode:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:367
+#: www/includes/easyparliament/page.php:366
 msgid "The cookie storing your postcode will be erased"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:367
+#: www/includes/easyparliament/page.php:366
 msgid "Forget this postcode"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:371
+#: www/includes/easyparliament/page.php:370
 msgid "Enter your UK postcode:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:373
-#: www/includes/easyparliament/page.php:803
+#: www/includes/easyparliament/page.php:372
+#: www/includes/easyparliament/page.php:805
 msgid "GO"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:373
+#: www/includes/easyparliament/page.php:372
 msgid "(e.g. BS3 1QP)"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:574
+#: www/includes/easyparliament/page.php:573
 msgid "Remove highlighting"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:642
+#: www/includes/easyparliament/page.php:641
 msgid "Modify search"
 msgstr ""
 
 #. skip heading count for WTT lords list
 #. no $pid
 #. end of isset($speakers)
-#: www/includes/easyparliament/page.php:642
+#: www/includes/easyparliament/page.php:641
 #: www/includes/easyparliament/templates/html/alert/index.php:324
-#: www/includes/easyparliament/templates/html/header.php:157
-#: www/includes/easyparliament/templates/html/mp/header.php:58
+#: www/includes/easyparliament/templates/html/header.php:162
+#: www/includes/easyparliament/templates/html/mp/header.php:72
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
 #: www/includes/easyparliament/templates/html/section/_search.php:10
-#: www/includes/easyparliament/templates/html/senedd/index.php:52
 msgid "Search"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:645
+#: www/includes/easyparliament/page.php:644
 msgid "More&nbsp;options"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:667
-#: www/includes/easyparliament/templates/html/search/results.php:76
+#: www/includes/easyparliament/page.php:666
+#: www/includes/easyparliament/templates/html/search/results.php:86
 msgid "Sorted by relevance"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:669
+#: www/includes/easyparliament/page.php:668
 #, php-format
 msgid "<a href='%s'>Sort by relevance</a>"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:674
-#: www/includes/easyparliament/page.php:676
+#: www/includes/easyparliament/page.php:673
+#: www/includes/easyparliament/page.php:675
 msgid "Sorted by date:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:674
-#: www/includes/easyparliament/page.php:676
-#: www/includes/easyparliament/page.php:680
-#: www/includes/easyparliament/templates/html/search/results.php:77
-#: www/includes/easyparliament/templates/html/search/results.php:80
-#: www/includes/easyparliament/templates/html/search/results.php:83
+#: www/includes/easyparliament/page.php:673
+#: www/includes/easyparliament/page.php:675
+#: www/includes/easyparliament/page.php:679
+#: www/includes/easyparliament/templates/html/search/results.php:87
+#: www/includes/easyparliament/templates/html/search/results.php:90
+#: www/includes/easyparliament/templates/html/search/results.php:93
 msgid "newest"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:674
-#: www/includes/easyparliament/page.php:676
-#: www/includes/easyparliament/page.php:683
-#: www/includes/easyparliament/templates/html/search/results.php:77
-#: www/includes/easyparliament/templates/html/search/results.php:80
-#: www/includes/easyparliament/templates/html/search/results.php:83
+#: www/includes/easyparliament/page.php:673
+#: www/includes/easyparliament/page.php:675
+#: www/includes/easyparliament/page.php:682
+#: www/includes/easyparliament/templates/html/search/results.php:87
+#: www/includes/easyparliament/templates/html/search/results.php:90
+#: www/includes/easyparliament/templates/html/search/results.php:93
 msgid "oldest"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:678
+#: www/includes/easyparliament/page.php:677
 msgid "Sort by date:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:689
+#: www/includes/easyparliament/page.php:688
 msgid "Use by person"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:692
+#: www/includes/easyparliament/page.php:691
 msgid "Show use by person"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:699
+#: www/includes/easyparliament/page.php:698
 #, php-format
 msgid "Search only %s"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:700
+#: www/includes/easyparliament/page.php:699
 #: www/includes/easyparliament/templates/html/search/form_main.php:15
 msgid "Search all speeches"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:724
+#: www/includes/easyparliament/page.php:725
 #: www/includes/easyparliament/templates/html/user/form.php:73
 #: www/includes/easyparliament/templates/html/user/join.php:44
 msgid "Email address:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:737
+#: www/includes/easyparliament/page.php:738
 #: www/includes/easyparliament/templates/html/user/form.php:87
 #: www/includes/easyparliament/templates/html/user/join.php:55
 msgid "Password:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:748
+#: www/includes/easyparliament/page.php:749
 msgid "Keep me signed in on this device"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:775
+#: www/includes/easyparliament/page.php:776
 msgid "Forgotten your password?"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:780
+#: www/includes/easyparliament/page.php:781
 msgid "Set a new one!"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:784
+#: www/includes/easyparliament/page.php:785
 msgid "Not yet a member?"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:785
+#: www/includes/easyparliament/page.php:787
 msgid "Join now!"
 msgstr ""
 
 #. Display everything.
-#: www/includes/easyparliament/page.php:1007
+#: www/includes/easyparliament/page.php:1009
 msgid "Result page:"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:1014
+#: www/includes/easyparliament/page.php:1016
 msgid "Previous"
 msgstr ""
 
-#: www/includes/easyparliament/page.php:1025
+#: www/includes/easyparliament/page.php:1027
 msgid "Next"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:279
+#: www/includes/easyparliament/searchengine.php:309
 #, php-format
 msgid "in the '%s'"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:281
+#: www/includes/easyparliament/searchengine.php:311
 msgid "in Future Business"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:324
+#: www/includes/easyparliament/searchengine.php:356
 msgid "grouped by debate"
 msgstr ""
 
-#: www/includes/easyparliament/searchengine.php:326
+#: www/includes/easyparliament/searchengine.php:358
 msgid "showing all speeches"
 msgstr ""
 
@@ -1606,16 +1575,9 @@ msgstr ""
 msgid "Delete All"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:5
-#: www/includes/easyparliament/templates/html/homepage/recent-votes.php:3
-#: www/includes/easyparliament/templates/html/mp/profile.php:22
-#: www/includes/easyparliament/templates/html/mp/recent.php:12
-msgid "Recent Votes"
-msgstr ""
-
 #: www/includes/easyparliament/templates/html/divisions/index.php:25
 #: www/includes/easyparliament/templates/html/divisions/vote.php:24
-#: www/includes/easyparliament/templates/html/section/_section_content.php:180
+#: www/includes/easyparliament/templates/html/section/_section_content.php:183
 #: www/includes/easyparliament/templates/html/section/_section_toc.php:34
 #, php-format
 msgid "Division number %s"
@@ -1653,21 +1615,21 @@ msgid ""
 "Bill Committees, Senedd, and the Scottish Parliament."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:49
+#: www/includes/easyparliament/templates/html/divisions/index.php:60
 msgid "Only show votes from:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:59
+#: www/includes/easyparliament/templates/html/divisions/index.php:70
 msgid ""
 "Some vote information from <a href=\"https://www.publicwhip.org.uk/"
 "\">PublicWhip</a>."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:60
+#: www/includes/easyparliament/templates/html/divisions/index.php:71
 msgid "Last updated:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/index.php:61
+#: www/includes/easyparliament/templates/html/divisions/index.php:72
 msgid "Learn more about our voting records and what they mean."
 msgstr ""
 
@@ -1685,19 +1647,19 @@ msgstr ""
 msgid "Tellers"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/vote.php:49
+#: www/includes/easyparliament/templates/html/divisions/vote.php:51
 msgid "Want to understand more about this vote?"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/vote.php:50
+#: www/includes/easyparliament/templates/html/divisions/vote.php:52
 msgid "Read the debate that it was part of"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/vote.php:65
+#: www/includes/easyparliament/templates/html/divisions/vote.php:67
 msgid "Show full debate"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/divisions/vote.php:70
+#: www/includes/easyparliament/templates/html/divisions/vote.php:72
 #, php-format
 msgid "%s’s full voting record"
 msgstr ""
@@ -1754,7 +1716,9 @@ msgid "Your data"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/footer.php:44
-msgid "Your donations keep this site and others like it running"
+msgid ""
+"This site is not publicly funded. Support our mission of making UK politics "
+"more transparent and accessible."
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/footer.php:45
@@ -1778,7 +1742,7 @@ msgstr ""
 #: www/includes/easyparliament/templates/html/hansard_person.php:31
 #: www/includes/easyparliament/templates/html/section/_business_list_item.php:12
 #: www/includes/easyparliament/templates/html/section/day.php:47
-#: www/includes/easyparliament/templates/html/section/_section_content.php:348
+#: www/includes/easyparliament/templates/html/section/_section_content.php:351
 #, php-format
 msgid "%s speech"
 msgid_plural "%s speeches"
@@ -1790,15 +1754,15 @@ msgstr[1] ""
 msgid "No data to display."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/header.php:125
+#: www/includes/easyparliament/templates/html/header.php:130
 msgid "Menu"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/header.php:151
+#: www/includes/easyparliament/templates/html/header.php:156
 msgid "Search TheyWorkForYou"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/header.php:154
+#: www/includes/easyparliament/templates/html/header.php:159
 msgid "e.g. a postcode, person, or topic"
 msgstr ""
 
@@ -1818,13 +1782,47 @@ msgstr ""
 msgid "Show all recent votes"
 msgstr ""
 
+#: www/includes/easyparliament/templates/html/interests/category.php:9
+msgid "Back to categories list"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:22
+msgid "Register of interests"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:24
+msgid ""
+"This page shows the latest version of the register of interests by category."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:26
+#: www/includes/easyparliament/templates/html/mp/register.php:61
+msgid "For more information, see the official Senedd page"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:30
+msgid "Read more about our registers data"
+msgstr ""
+
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Register $register
+#: www/includes/easyparliament/templates/html/interests/category.php:35
+msgid "Categories"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:63
+msgid "New entry or subentry"
+msgstr ""
+
 #: www/includes/easyparliament/templates/html/mp/divisions.php:24
-#: www/includes/easyparliament/templates/html/mp/profile.php:30
-#: www/includes/easyparliament/templates/html/mp/recent.php:65
-#: www/includes/easyparliament/templates/html/mp/votes.php:19
+#: www/includes/easyparliament/templates/html/mp/election_register.php:46
+#: www/includes/easyparliament/templates/html/mp/profile.php:18
+#: www/includes/easyparliament/templates/html/mp/recent.php:57
+#: www/includes/easyparliament/templates/html/mp/register.php:14
+#: www/includes/easyparliament/templates/html/mp/votes.php:17
 msgid "Browse content"
 msgstr ""
 
+#. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
 #: www/includes/easyparliament/templates/html/mp/error.php:5
 msgid "Whoops..."
 msgstr ""
@@ -1852,41 +1850,40 @@ msgstr ""
 msgid "Why not <a href=\"%s\">browse all %s</a>?"
 msgstr ""
 
-#.  First %s is party, second is type of rep (e.g. MS), third is constituency name
-#: www/includes/easyparliament/templates/html/mp/header.php:26
+#: www/includes/easyparliament/templates/html/mp/header.php:27
 #, php-format
 msgid ""
 "<span class=\"person-header__about__position__role\">%s %s</span> for <span "
 "class=\"person-header__about__position__constituency\">%s</span>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:29
+#: www/includes/easyparliament/templates/html/mp/header.php:34
 #, php-format
 msgid "<span class=\"person-header__about__position__role\">%s %s</span>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:34
+#: www/includes/easyparliament/templates/html/mp/header.php:42
 #, php-format
 msgid ""
 "<span class=\"person-header__about__position__role\">Former %s %s</span> for "
 "<span class=\"person-header__about__position__constituency\">%s</span>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:37
+#: www/includes/easyparliament/templates/html/mp/header.php:49
 #, php-format
 msgid ""
 "<span class=\"person-header__about__position__role\">Former %s %s</span>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:55
+#: www/includes/easyparliament/templates/html/mp/header.php:69
 msgid "Search this person’s speeches"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:73
+#: www/includes/easyparliament/templates/html/mp/header.php:87
 msgid "Send a message"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/header.php:76
+#: www/includes/easyparliament/templates/html/mp/header.php:90
 msgid "Get email updates"
 msgstr ""
 
@@ -1894,83 +1891,91 @@ msgstr ""
 msgid "That name is not unique. Please select from the following:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:21
-#: www/includes/easyparliament/templates/html/mp/recent.php:11
-msgid "Voting Record"
+#: www/includes/easyparliament/templates/html/mp/list.php:15
+#: www/includes/easyparliament/templates/html/postcode/index.php:134
+msgid "Browse all MPs"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:33
-msgid "Votes"
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:6
+msgid "Voting Summary"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:36
-msgid "Appearances"
+#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:15
+msgid "2024 Election Donations"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:38
-#: www/includes/easyparliament/templates/html/mp/profile.php:240
-msgid "Profile"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:40
-msgid "Register of Interests"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:206
-msgid "Recent appearances"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:231
-msgid "No recent appearances to display."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:274
-msgid "Social Media"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:298
-msgid "Topics of interest"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:323
-msgid "Currently held offices"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:337
-msgid "Other offices held in the past"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:419
-#: www/includes/easyparliament/templates/html/mp/_vote_footer.php:2
+#: www/includes/easyparliament/templates/html/mp/_profile_footer.php:2
 msgid ""
 "Note for journalists and researchers: The data on this page may be used "
 "freely, on condition that TheyWorkForYou.com is cited as the source."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:421
+#: www/includes/easyparliament/templates/html/mp/_profile_footer.php:4
 msgid "This data was produced by TheyWorkForYou from a variety of sources."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/profile.php:422
-#, php-format
-msgid "Voting information from <a href=\"%s\">Public Whip</a>."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/profile.php:428
-#: www/includes/easyparliament/templates/html/mp/profile.php:431
-#: www/includes/easyparliament/templates/html/mp/_vote_footer.php:9
-#: www/includes/easyparliament/templates/html/mp/_vote_footer.php:12
-msgid "Profile photo:"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/recent.php:56
-msgid "This person has not voted recently."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/_vote_footer.php:4
+#: www/includes/easyparliament/templates/html/mp/_profile_footer.php:6
 msgid ""
 "For an explanation of the vote descriptions please see our page about <a "
 "href=\"/voting-information\">voting information on TheyWorkForYou</a>."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/_profile_footer.php:11
+#: www/includes/easyparliament/templates/html/mp/_profile_footer.php:14
+msgid "Profile photo:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:20
+#: www/includes/easyparliament/templates/html/mp/profile.php:58
+msgid "Profile"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:22
+msgid "Appearances"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:92
+msgid "Social Media"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:116
+msgid "Topics of interest"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:141
+msgid "Currently held offices"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:155
+msgid "Other offices held in the past"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:219
+msgid "Recent appearances"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/profile.php:244
+msgid "No recent appearances to display."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/recent.php:48
+msgid "This person has not voted recently."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/register.php:16
+msgid "Read more about the register"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/register.php:17
+msgid "Get this data in a spreadsheet"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/register.php:54
+msgid "View the history of this person’s entries in the Register"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/mp/register.php:57
+msgid "This register last updated on:"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/people/index.php:28
@@ -2090,6 +2095,120 @@ msgstr ""
 #: www/includes/easyparliament/templates/html/people/index.php:295
 #, php-format
 msgid "Historical list of all %s"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:43
+msgid "Your representatives"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:48
+#, php-format
+msgid ""
+"Your former <strong>MP</strong> (Member of Parliament) is <a href=\"%s\">%s</"
+"a>, %s"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:50
+#, php-format
+msgid ""
+"Your <strong>MP</strong> (Member of Parliament) is <a href=\"%s\">%s</a>, %s"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:70
+#, php-format
+msgid ""
+"Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) "
+"is <a href=\"%s\">%s</a>, %s"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:72
+#, php-format
+msgid ""
+"Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) "
+"was <a href=\"%s\">%s</a>, %s"
+msgstr ""
+
+#. First %s is URL, second %s is name, third %s is constituency
+#: www/includes/easyparliament/templates/html/postcode/index.php:79
+#, php-format
+msgid ""
+"Your <strong>constituency MS</strong> (Member of the Senedd) is <a href=\"%s"
+"\">%s</a>, %s"
+msgstr ""
+
+#. First %s is URL, second %s is name, third %s is constituency
+#: www/includes/easyparliament/templates/html/postcode/index.php:82
+#, php-format
+msgid ""
+"Your <strong>constituency MS</strong> (Member of the Senedd) was <a href=\"%s"
+"\">%s</a>, %s"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:92
+#, php-format
+msgid ""
+"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:96
+#, php-format
+msgid "Your <strong>%s %s</strong> are:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:100
+#, php-format
+msgid ""
+"Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:104
+#, php-format
+msgid "Your <strong>%s %s</strong> were:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/index.php:132
+msgid "Browse people"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:1
+msgid "More information"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:5
+msgid ""
+"Your MSPs represents you in the Scottish Parliament. The Scottish Parliament "
+"is responsible for a wide range of devolved matters in which it sets policy "
+"independently of the London Parliament. Devolved matters include education, "
+"health, agriculture, justice and prisons. It also has some tax-raising "
+"powers."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:9
+msgid ""
+"Your MLAs represent you on the Northern Ireland Assembly. The Northern "
+"Ireland Assembly has full authority over “transferred matters”, which "
+"include agriculture, education, employment, the environment and health."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:13
+msgid ""
+"Your MSs represents you in the Senedd. The Senedd has a wide range of powers "
+"over areas including economic development, transport, finance, local "
+"government, health, housing and the Welsh Language."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:17
+msgid ""
+"Your MP represents you in the House of Commons. The House of Commons is "
+"responsible for making laws in the UK and for overall scrutiny of all "
+"aspects of government."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/postcode/repexplain.php:23
+#, php-format
+msgid ""
+"You can write to any representative, or your local councillors through <a "
+"href=\"%s\">WriteToThem.com</a>."
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/search/by-person.php:10
@@ -2266,10 +2385,6 @@ msgstr ""
 msgid "All Scotland"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/form_options.php:73
-msgid "Senedd / Welsh Parliament"
-msgstr ""
-
 #: www/includes/easyparliament/templates/html/search/form_options.php:77
 msgid "Questions to the Mayor"
 msgstr ""
@@ -2302,104 +2417,104 @@ msgstr ""
 msgid "current"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:14
+#: www/includes/easyparliament/templates/html/search/results.php:24
 msgid "MPs and former MPs"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:16
+#: www/includes/easyparliament/templates/html/search/results.php:26
 msgid "MPs"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:18
+#: www/includes/easyparliament/templates/html/search/results.php:28
 msgid "Former MPs"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:21
+#: www/includes/easyparliament/templates/html/search/results.php:31
 #, php-format
 msgid "%s in constituencies matching <em class=\"current-search-term\">%s</em>"
 msgstr ""
 
 #. count($cons) <= 1
-#: www/includes/easyparliament/templates/html/search/results.php:23
+#: www/includes/easyparliament/templates/html/search/results.php:33
 #, php-format
 msgid "Former MP for <em class=\"current-search-term\">%s</em>"
 msgstr ""
 
 #. count($cons) <= 1
-#: www/includes/easyparliament/templates/html/search/results.php:25
+#: www/includes/easyparliament/templates/html/search/results.php:35
 #, php-format
 msgid "MP for <em class=\"current-search-term\">%s</em>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:33
+#: www/includes/easyparliament/templates/html/search/results.php:43
 #, php-format
 msgid "People matching <em class=\"current-search-term\">%s</em>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:59
+#: www/includes/easyparliament/templates/html/search/results.php:69
 #, php-format
 msgid "Results %s–%s of %s for %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:61
+#: www/includes/easyparliament/templates/html/search/results.php:71
 #, php-format
 msgid "The only result for %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:63
+#: www/includes/easyparliament/templates/html/search/results.php:73
 #, php-format
 msgid "There were no results for %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:65
+#: www/includes/easyparliament/templates/html/search/results.php:75
 #, php-format
 msgid "All %s results for %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:70
+#: www/includes/easyparliament/templates/html/search/results.php:80
 #, php-format
 msgid "Did you mean %s?"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:77
+#: www/includes/easyparliament/templates/html/search/results.php:87
 msgid "Sort by date"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:79
-#: www/includes/easyparliament/templates/html/search/results.php:82
+#: www/includes/easyparliament/templates/html/search/results.php:89
+#: www/includes/easyparliament/templates/html/search/results.php:92
 #, php-format
 msgid "Sort by <a href=\"%s\">relevance</a>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:80
-#: www/includes/easyparliament/templates/html/search/results.php:83
+#: www/includes/easyparliament/templates/html/search/results.php:90
+#: www/includes/easyparliament/templates/html/search/results.php:93
 msgid "Sorted by date"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:85
+#: www/includes/easyparliament/templates/html/search/results.php:95
 msgid "Group by person"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:101
+#: www/includes/easyparliament/templates/html/search/results.php:111
 msgid "First page"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:102
+#: www/includes/easyparliament/templates/html/search/results.php:112
 msgid "Previous page"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:108
+#: www/includes/easyparliament/templates/html/search/results.php:118
 msgid "Next page"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/search/results.php:109
+#: www/includes/easyparliament/templates/html/search/results.php:119
 msgid "Final page"
 msgstr ""
 
 #. end of !isset($error)
 #: www/includes/easyparliament/templates/html/search/sidebar.php:3
-#: www/includes/easyparliament/templates/html/senedd/index.php:77
-#: www/includes/easyparliament/templates/html/senedd/index.php:80
+#: www/includes/easyparliament/templates/html/senedd/index.php:14
+#: www/includes/easyparliament/templates/html/senedd/index.php:17
 msgid "Create an alert"
 msgstr ""
 
@@ -2476,88 +2591,86 @@ msgid "Search %s"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/section/_search.php:7
-#: www/includes/easyparliament/templates/html/senedd/index.php:49
 msgid "Enter a keyword, phrase, or person"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/section/_search.php:30
-#: www/includes/easyparliament/templates/html/senedd/index.php:59
 msgid "Popular searches today"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:94
+#: www/includes/easyparliament/templates/html/section/_section_content.php:97
 msgid "Official Report source"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:96
+#: www/includes/easyparliament/templates/html/section/_section_content.php:99
 msgid "Record source"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:98
+#: www/includes/easyparliament/templates/html/section/_section_content.php:101
 msgid "Hansard source"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:208
+#: www/includes/easyparliament/templates/html/section/_section_content.php:211
 msgid "(Translated)"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:210
+#: www/includes/easyparliament/templates/html/section/_section_content.php:213
 msgid "(Not translated)"
 msgstr ""
 
 #. End of voting HTML
-#: www/includes/easyparliament/templates/html/section/_section_content.php:244
+#: www/includes/easyparliament/templates/html/section/_section_content.php:247
 #, php-format
 msgid "Submitted by %s"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:246
+#: www/includes/easyparliament/templates/html/section/_section_content.php:249
 msgid "See any annotations posted about this"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:258
+#: www/includes/easyparliament/templates/html/section/_section_content.php:261
 msgid "See this speech in context"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:259
+#: www/includes/easyparliament/templates/html/section/_section_content.php:262
 msgid "Link to this speech"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:261
+#: www/includes/easyparliament/templates/html/section/_section_content.php:264
 msgid "See this vote in context"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:262
+#: www/includes/easyparliament/templates/html/section/_section_content.php:265
 msgid "Link to this vote"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:264
 #: www/includes/easyparliament/templates/html/section/_section_content.php:267
+#: www/includes/easyparliament/templates/html/section/_section_content.php:270
 msgid "See this item in context"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:265
 #: www/includes/easyparliament/templates/html/section/_section_content.php:268
+#: www/includes/easyparliament/templates/html/section/_section_content.php:271
 msgid "Link to this item"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:280
+#: www/includes/easyparliament/templates/html/section/_section_content.php:283
 msgid "In context"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:281
+#: www/includes/easyparliament/templates/html/section/_section_content.php:284
 msgid "Individually"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:299
+#: www/includes/easyparliament/templates/html/section/_section_content.php:302
 msgid "Tweet"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:300
+#: www/includes/easyparliament/templates/html/section/_section_content.php:303
 msgid "Share"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:351
+#: www/includes/easyparliament/templates/html/section/_section_content.php:354
 #, php-format
 msgid "%s annotation"
 msgid_plural "%s annotations"
@@ -2605,66 +2718,26 @@ msgstr ""
 msgid "We don’t seem to have any %s for this year."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:5
-msgid "Find out more about your MSs"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:9
-msgid "Your MSs:"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:14
-msgid "Change postcode"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:17
-msgid "Your Welsh postcode"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:22
-msgid "Find out"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:31
-msgid "Democracy: it’s for everyone"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:32
-msgid ""
-"You shouldn’t have to be an expert to understand what goes on in the Senedd."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:33
-msgid ""
-"TheyWorkForYou takes open data from the Senedd, and presents it in a way "
-"that’s easy to follow – for everyone."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:34
-#: www/includes/easyparliament/templates/html/static/about.php:5
-msgid "About TheyWorkForYou"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:46
-msgid "Search debates"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/senedd/index.php:78
+#: www/includes/easyparliament/templates/html/senedd/index.php:15
 msgid "Stay informed!"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:79
+#: www/includes/easyparliament/templates/html/senedd/index.php:16
 msgid ""
 "Get an email every time an issue you care about is mentioned in the Senedd "
 "(and more)"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:87
+#: www/includes/easyparliament/templates/html/senedd/index.php:24
 msgid "Recently in the Senedd"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:95
+#: www/includes/easyparliament/templates/html/senedd/index.php:32
 msgid "What is the Senedd?"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/static/about.php:5
+msgid "About TheyWorkForYou"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/static/about.php:7
@@ -2745,14 +2818,18 @@ msgid "About mySociety"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/static/about.php:34
-msgid ""
-"TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</"
-"a>, a UK charity that puts <a href=\"https://www.mysociety.org/2021/11/24/"
-"the-need-to-repower-democracy/\">power in more people's hands</a> through "
-"the use of digital tools and data."
+msgid "Sign up for updates on our democracy and Parliaments work"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:35
+#: www/includes/easyparliament/templates/html/static/about.php:58
+msgid ""
+"TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</"
+"a>, a UK charity that helps people access information and participate in "
+"democracy. We enable people across the UK to become changemakers by "
+"providing technology, research and data, openly and for free."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/static/about.php:59
 msgid ""
 "Through <strong>TheyWorkForYou</strong> and <strong>WriteToThem</strong> we "
 "have made elected representatives more transparent and contactable. Every "
@@ -2761,32 +2838,28 @@ msgid ""
 "through <strong>WhatDoTheyKnow</strong>."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:37
+#: www/includes/easyparliament/templates/html/static/about.php:61
 msgid "Find out more about how mySociety is funded."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:39
-msgid "Sign up for updates from mySociety"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/static/about.php:61
+#: www/includes/easyparliament/templates/html/static/about.php:71
 msgid "Credits"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:63
+#: www/includes/easyparliament/templates/html/static/about.php:73
 msgid ""
 "Many thanks to mySociety team members and volunteers alike, past and "
 "present, for their work on TheyWorkForYou. Including:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:90
+#: www/includes/easyparliament/templates/html/static/about.php:100
 msgid "Image credits:"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/static/about.php:101
+#: www/includes/easyparliament/templates/html/static/about.php:114
 msgid ""
-"The copyright of Hansard remains under <a href=\"http://www.opsi.gov.uk/"
-"advice/parliamentary-copyright/\">Parliamentary Copyright</a>, used under "
+"The copyright of Hansard remains under <a href=\"https://www.parliament.uk/"
+"site-information/copyright/\">Parliamentary Copyright</a>, used under "
 "licence. "
 msgstr ""
 
@@ -2952,10 +3025,10 @@ msgstr ""
 msgid "User details"
 msgstr ""
 
-#: www/includes/utility.php:174
+#: www/includes/utility.php:178
 msgid "Sorry, an error has occurred"
 msgstr ""
 
-#: www/includes/utility.php:175
+#: www/includes/utility.php:179
 msgid "We've been notified by email and will try to fix the problem soon!"
 msgstr ""
