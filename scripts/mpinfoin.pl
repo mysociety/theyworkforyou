@@ -109,6 +109,8 @@ if ($action{'links'}) {
     $twig->parsefile($pwmembers . 'social-media-commons.xml', ErrorContext => 2);
     $twig->parsefile($pwmembers . 'social-media-sp.xml', ErrorContext => 2);
     $twig->parsefile($pwmembers . 'social-media-ni.xml', ErrorContext => 2);
+    print "  Official Parliamentary profiles\n" if $verbose;
+    $twig->parsefile($pwmembers . 'official-profiles.xml', ErrorContext => 2);
     chdir $FindBin::Bin;
     print "  Lords biographies\n" if $verbose;
     $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
