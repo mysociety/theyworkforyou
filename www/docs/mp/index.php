@@ -937,6 +937,15 @@ function person_social_links($member) {
 
     $out = [];
 
+
+    if (isset($links['bluesky_handle'])) {
+        $out[] = [
+            'href' => 'https://bsky.app/profile/' . _htmlentities($links['bluesky_handle']),
+            'text' => '@' . _htmlentities($links['bluesky_handle']),
+            'type' => 'bluesky',
+        ];
+    }
+
     if (isset($links['twitter_username'])) {
         $out[] = [
             'href' => 'https://twitter.com/' . _htmlentities($links['twitter_username']),
@@ -948,9 +957,31 @@ function person_social_links($member) {
     if (isset($links['facebook_page'])) {
         $out[] = [
             'href' => _htmlentities($links['facebook_page']),
-            'text' => _htmlentities($links['facebook_page']),
+            'text' => _htmlentities("Facebook"),
             'type' => 'facebook',
         ];
+    }
+
+    $official_keys = [
+        'profile_url_uk_parl' => 'UK Parliament Profile',
+        'profile_url_scot_parl' => 'Scottish Parliament Profile',
+        'profile_url_ni_assembly' => 'Northern Ireland Assembly Profile',
+    ];
+
+    if (LANGUAGE == 'cy') {
+        $official_keys['profile_url_senedd_cy'] = 'Proffil Senedd';
+    } else {
+        $official_keys['profile_url_senedd_en'] = 'Senedd Profile';
+    }
+
+    foreach ($official_keys as $key => $text) {
+        if (isset($links[$key])) {
+            $out[] = [
+                'href' => $links[$key],
+                'text' => $text,
+                'type' => 'official',
+            ];
+        }
     }
 
     return $out;
