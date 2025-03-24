@@ -55,6 +55,7 @@ We publish several spreadsheet versions of the register of interests for differe
     - Spreadsheet download of the Senedd's register. Does not cover data not published before March 2025.
 - 📝 [Northern Ireland Assembly Register of Interests](https://pages.mysociety.org/parl_register_interests/datasets/northern_ireland_assembly_register_of_interests/latest)
     - Spreadsheet download of the Northern Ireland Assembly's register.
+- 📝 [Ministers' Gifts and Hospitality](https://pages.mysociety.org/ministers-gifts/datasets/ministers_gifts_and_hospitality/latest) - Joined up version of monthly disclosures on gov.uk
 
 Historical spreadsheets:
 
