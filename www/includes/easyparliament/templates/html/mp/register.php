@@ -60,7 +60,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <?php if (LANGUAGE == 'cy') { ?>
                             <p><?= gettext('For more information, see the official Senedd page') ?></a>.
                         <?php } else { ?>
-                            <p>For more information on the different categories, see the <a href="<?= $register->officialUrl() ?>">the official <?= $register->displayChamber() ?> page</a>.
+                            <p>For more information on the different categories, see <a href="<?= $register->officialUrl() ?>">the official <?= $register->displayChamber() ?> page</a>.
                         <?php } ?>
 
                         </p>

@@ -11,7 +11,7 @@ trait HasChamber {
                 return "https://www.parliament.scot/msps/register-of-interests";
             case 'northern-ireland-assembly':
                 return "https://www.niassembly.gov.uk/your-mlas/register-of-interests/";
-            case 'senedd':
+            case 'welsh-parliament':
                 return "https://senedd.wales/senedd-business/register-of-members-interests/";
             default:
                 return '';
