@@ -363,48 +363,6 @@
           <field name="majority_vote">aye</field>
       </row>
 	</table_data>
-	<table_data name="policydivisions">
-      <row>
-          <field name="division_id">pw-2013-01-01-1-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority (strong)</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-2-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-3-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Minority</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-4-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Minority (strong)</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-5-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority (strong)</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-6-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-7-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority</field>
-      </row>
-      <row>
-          <field name="division_id">pw-2013-01-01-8-commons</field>
-          <field name="policy_id">363</field>
-          <field name="direction">Majority</field>
-      </row>
-	</table_data>
 	<table_data name="postcode_lookup">
     <row>
       <field name="postcode">SW1 1AA</field>
