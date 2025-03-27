@@ -25,6 +25,159 @@
 		<table_data name="glossary" />
 		<table_data name="hansard" />
 		<table_data name="indexbatch" />
+		<table_data name="policyorganization">
+			<row>
+				<field name="id">1</field>
+				<field name="slug">labour</field>
+				<field name="name">Labour</field>
+				<field name="classification">party</field>
+			</row>
+			<row>
+				<field name="id">2</field>
+				<field name="slug">g-party</field>
+				<field name="name">G Party</field>
+				<field name="classification">party</field>
+			</row>
+			<row>
+				<field name="id">3</field>
+				<field name="slug">b-party</field>
+				<field name="name">B Party</field>
+				<field name="classification">party</field>
+			</row>
+		</table_data>
+		<table_data name="policyvotedistribution">
+		<row>
+			<field name="id">1</field>
+			<field name="policy_id">996</field>
+			<field name="person_id">6</field>
+			<field name="period_id">1</field>
+			<field name="chamber_id">1</field>
+			<field name="party_id">1</field>
+			<field name="is_target">1</field>
+			<field name="num_votes_same">0</field>
+			<field name="num_strong_votes_same">0</field>
+			<field name="num_votes_different">0</field>
+			<field name="num_strong_votes_different">2</field>
+			<field name="num_votes_absent">0</field>
+			<field name="num_strong_votes_absent">0</field>
+			<field name="num_votes_abstain">0</field>
+			<field name="num_strong_votes_abstain">0</field>
+			<field name="num_agreements_same">0</field>
+			<field name="num_strong_agreements_same">0</field>
+			<field name="num_agreements_different">0</field>
+			<field name="num_strong_agreements_different">0</field>
+			<field name="start_year">2013</field>
+			<field name="end_year">2013</field>
+			<field name="distance_score">1</field>
+		</row>
+		<row>
+			<field name="id">2</field>
+			<field name="policy_id">996</field>
+			<field name="person_id">6</field>
+			<field name="period_id">1</field>
+			<field name="chamber_id">1</field>
+			<field name="party_id">1</field>
+			<field name="is_target">0</field>
+			<field name="num_votes_same">0</field>
+			<field name="num_strong_votes_same">2</field>
+			<field name="num_votes_different">0</field>
+			<field name="num_strong_votes_different">0</field>
+			<field name="num_votes_absent">0</field>
+			<field name="num_strong_votes_absent">0</field>
+			<field name="num_votes_abstain">0</field>
+			<field name="num_strong_votes_abstain">0</field>
+			<field name="num_agreements_same">0</field>
+			<field name="num_strong_agreements_same">0</field>
+			<field name="num_agreements_different">0</field>
+			<field name="num_strong_agreements_different">0</field>
+			<field name="start_year">2013</field>
+			<field name="end_year">2013</field>
+			<field name="distance_score">0</field>
+		</row>
+		<row>
+			<field name="id">3</field>
+			<field name="policy_id">996</field>
+			<field name="person_id">15</field>
+			<field name="period_id">1</field>
+			<field name="chamber_id">1</field>
+			<field name="party_id">2</field>
+			<field name="is_target">1</field>
+			<field name="num_votes_same">0</field>
+			<field name="num_strong_votes_same">0</field>
+			<field name="num_votes_different">0</field>
+			<field name="num_strong_votes_different">2</field>
+			<field name="num_votes_absent">0</field>
+			<field name="num_strong_votes_absent">0</field>
+			<field name="num_votes_abstain">0</field>
+			<field name="num_strong_votes_abstain">0</field>
+			<field name="num_agreements_same">0</field>
+			<field name="num_strong_agreements_same">0</field>
+			<field name="num_agreements_different">0</field>
+			<field name="num_strong_agreements_different">0</field>
+			<field name="start_year">2013</field>
+			<field name="end_year">2013</field>
+			<field name="distance_score">1</field>
+		</row>
+		<row>
+			<field name="id">4</field>
+			<field name="policy_id">996</field>
+			<field name="person_id">15</field>
+			<field name="period_id">1</field>
+			<field name="chamber_id">1</field>
+			<field name="party_id">2</field>
+			<field name="is_target">0</field>
+			<field name="num_votes_same">0</field>
+			<field name="num_strong_votes_same">2</field>
+			<field name="num_votes_different">0</field>
+			<field name="num_strong_votes_different">0</field>
+			<field name="num_votes_absent">0</field>
+			<field name="num_strong_votes_absent">0</field>
+			<field name="num_votes_abstain">0</field>
+			<field name="num_strong_votes_abstain">0</field>
+			<field name="num_agreements_same">0</field>
+			<field name="num_strong_agreements_same">0</field>
+			<field name="num_agreements_different">0</field>
+			<field name="num_strong_agreements_different">0</field>
+			<field name="start_year">2013</field>
+			<field name="end_year">2013</field>
+			<field name="distance_score">0</field>
+		</row>
+		<row>
+			<field name="id">5</field>
+			<field name="policy_id">996</field>
+			<field name="person_id">4</field>
+			<field name="period_id">1</field>
+			<field name="chamber_id">1</field>
+			<field name="party_id">3</field>
+			<field name="is_target">1</field>
+			<field name="num_votes_same">0</field>
+			<field name="num_strong_votes_same">2</field>
+			<field name="num_votes_different">0</field>
+			<field name="num_strong_votes_different">0</field>
+			<field name="num_votes_absent">0</field>
+			<field name="num_strong_votes_absent">0</field>
+			<field name="num_votes_abstain">0</field>
+			<field name="num_strong_votes_abstain">0</field>
+			<field name="num_agreements_same">0</field>
+			<field name="num_strong_agreements_same">0</field>
+			<field name="num_agreements_different">0</field>
+			<field name="num_strong_agreements_different">0</field>
+			<field name="start_year">2013</field>
+			<field name="end_year">2013</field>
+			<field name="distance_score">0</field>
+		</row>
+		</table_data>
+
+		<table_data name="policycomparisonperiod">
+			<row>
+				<field name="id">1</field>
+				<field name="slug">ALL_TIME</field>
+				<field name="description">All time</field>
+				<field name="start_date">2000-01-01</field>
+				<field name="end_date">9999-12-31</field>
+				<field name="chamber_id">1</field>
+			</row>
+		</table_data>
 		<table_data name="member">
 			<row>
 				<field name="member_id">1</field>
@@ -868,294 +1021,7 @@
 				<field name="division_date">2006-05-01</field>
 			</row>
 		</table_data>
-		<table_data name="policydivisions">
-			<row>
-				<field name="division_id">1</field>
-				<field name="policy_id">1113</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="policy_id">810</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">2</field>
-				<field name="policy_id">996</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">absent</field>
-			</row>
-			<row>
-				<field name="division_id">3</field>
-				<field name="policy_id">1120</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">4</field>
-				<field name="policy_id">1120</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">5</field>
-				<field name="policy_id">1120</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">6</field>
-				<field name="policy_id">1124</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">7</field>
-				<field name="policy_id">363</field>
-				<field name="direction">Majority</field>
-				<field name="policy_vote">aye</field>
-			</row>
-		</table_data>
-		<table_data name="persondivisionvotes">
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">2</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">3</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">6</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">7</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">2</field>
-				<field name="person_id">7</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">6</field>
-				<field name="person_id">10</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">6</field>
-				<field name="person_id">11</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">6</field>
-				<field name="person_id">12</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">6</field>
-				<field name="person_id">13</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">15</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">16</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">17</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">18</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">19</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">20</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">21</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">22</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">1</field>
-				<field name="person_id">23</field>
-				<field name="vote">no</field>
-			</row>
-			<row>
-				<field name="division_id">3</field>
-				<field name="person_id">2</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">4</field>
-				<field name="person_id">2</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">5</field>
-				<field name="person_id">2</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">3</field>
-				<field name="person_id">8</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">2</field>
-				<field name="person_id">6</field>
-				<field name="vote">absent</field>
-			</row>
-			<row>
-				<field name="division_id">2</field>
-				<field name="person_id">5</field>
-				<field name="vote">absent</field>
-			</row>
-			<row>
-				<field name="division_id">7</field>
-				<field name="person_id">3</field>
-				<field name="vote">absent</field>
-			</row>
-			<row>
-				<field name="division_id">7</field>
-				<field name="person_id">2</field>
-				<field name="vote">aye</field>
-			</row>
-			<row>
-				<field name="division_id">7</field>
-				<field name="person_id">1</field>
-				<field name="vote">aye</field>
-			</row>
-		</table_data>
-        <table_data name="partypolicy">
-            <row>
-                <field name="house">1</field>
-                <field name="party">1-a-party</field>
-                <field name="policy_id">1120</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2002-00-00</field>
-                <field name="date_max">2006-00-00</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">3-a-party</field>
-                <field name="policy_id">1120</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2002-00-00</field>
-                <field name="date_max">2002-00-00</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">8-a-party</field>
-                <field name="policy_id">1120</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">1998-00-00</field>
-                <field name="date_max">2006-00-00</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">10-d-party</field>
-                <field name="policy_id">1124</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">12-e-party</field>
-                <field name="policy_id">1124</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">13-e-party</field>
-                <field name="policy_id">1124</field>
-                <field name="score">0.5</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">1-a-party</field>
-                <field name="policy_id">1113</field>
-                <field name="score">0.5</field>
-                <field name="divisions">1</field>
-                <field name="date_min">2021-00-00</field>
-                <field name="date_max">2021-00-00</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">1-a-party</field>
-                <field name="policy_id">810</field>
-                <field name="score">0.5</field>
-                <field name="divisions">1</field>
-                <field name="date_min">2021-00-00</field>
-                <field name="date_max">2021-00-00</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">6-labour</field>
-                <field name="policy_id">996</field>
-                <field name="score">-1</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">2-a-party</field>
-                <field name="policy_id">363</field>
-                <field name="score">0</field>
-                <field name="divisions">10</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-            <row>
-                <field name="house">1</field>
-                <field name="party">15-g-party</field>
-                <field name="policy_id">1113</field>
-                <field name="score">0.87</field>
-                <field name="divisions">1</field>
-                <field name="date_min">2022-01-01</field>
-                <field name="date_max">2023-01-01</field>
-            </row>
-        </table_data>
+		
 		<table_data name="postcode_lookup" />
 		<table_data name="search_query_log" />
 		<table_data name="survey" />
