@@ -40,7 +40,7 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
-$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register'];
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'recent_appearances'];
 
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
@@ -508,6 +508,11 @@ switch ($pagetype) {
         policy_image($data, $MEMBER, 'png');
         break;
 
+    case 'recent_appearances':
+        $data['recent_appearances'] = person_recent_appearances($MEMBER);
+        MySociety\TheyWorkForYou\Renderer::output('mp/recent_appearances', $data);
+        break;
+
     case '':
     default:
         // if extra detail needed for overview page in future
@@ -688,7 +693,7 @@ function person_error_page($message) {
             break;
         default:
             $people = new MySociety\TheyWorkForYou\People\MPs();
-            $SEARCHURL = new \MySociety\TheyWorkForYou\Url('mp');
+            $SEARCHURL = new MySociety\TheyWorkForYou\Url('mp');
             $SEARCHURL = $SEARCHURL->generate();
             $MPSURL = new \MySociety\TheyWorkForYou\Url('mps');
     }

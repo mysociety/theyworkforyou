@@ -14,5 +14,6 @@
           <?php if ($register_2024_enriched): ?>
                 <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/election_register">🏛️ <?= gettext('2024 Election Donations') ?></a></li>
           <?php endif; ?>
+          <li <?php if ($pagetype == "recent_appearances"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/recent_appearances">🎤 <?= gettext('Recent Appearances') ?></a></li>
     </ul>
 </div>
