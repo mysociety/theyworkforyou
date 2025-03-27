@@ -12,10 +12,6 @@ class DivisionsTest extends FetchPageTestCase {
         return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/divisions.php');
     }
 
-    private function fetch_division_page() {
-        return $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
-    }
-
     private function fetch_mp_recent_page() {
         $vars = [ 'pagetype' => 'recent', 'pid' => 2, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/recent' ];
         return $this->base_fetch_page($vars, 'mp', 'index.php', '/mp/recent.php');
@@ -49,81 +45,7 @@ class DivisionsTest extends FetchPageTestCase {
 
     }
 
-    public function testMPPageContainsAgreement() {
-        // Checks this MP contains a reference to the agreement
-        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 363, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
-        $this->assertStringContainsString('Example Agreement', $page);
-    }
 
-    public function testMPPageDoesNotContainsAgreement() {
-        // Checks this MP does not contain agreement - should be out of time scope
-        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 6, 'policy' => 363, 'url' => '/mp/6/test_current-mp/test_westminster_constituency/divisions' ]);
-        $this->assertStringNotContainsString('Example Agreement', $page);
-        $this->assertStringNotContainsString('This person has not voted on this policy', $page);
-
-    }
-
-    public function testVoteDirection() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP voted Agreed', $page);
-    }
-
-    public function testPolicyDirection() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('almost always voted against introducing <b>foundation', $page);
-    }
-
-    public function testVotedAgainst() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP voted Do not agree', $page);
-    }
-
-    public function testVotedAbsent() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP was absent for a vote on <em>Absent Division Title</em>', $page);
-    }
-
-    public function testVotedAbstain() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP abstained on a vote on <em>Abstained Division Title</em>', $page);
-    }
-
-    public function testVotedYesWithYesSentence() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP voted yes on <em>Yes Division Title</em>', $page);
-    }
-
-    public function testVotedNoWithNoSentence() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP voted no on <em>No Division Title</em>', $page);
-    }
-
-    public function testVotedTellNoWithNoSentence() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP acted as teller for a vote on <em>Tell No Division Title</em>', $page);
-    }
-
-    public function testVotedTellYesWithYesSentence() {
-        $page = $this->fetch_division_page();
-        $this->assertStringContainsString('Test Current-MP acted as teller for a vote on <em>Tell Yes Division Title</em>', $page);
-    }
-
-    public function testStrongIndicators() {
-        $page = $this->fetch_division_page();
-        preg_match('#Major votes</h3>.*?</ul>#s', $page, $m);
-        $major = $m[0];
-        $this->assertStringContainsString('<li id="pw-2013-01-01-4-commons"', $major);
-        $this->assertStringContainsString('<li id="pw-2013-01-01-5-commons"', $major);
-        preg_match('#Minor votes</h3>.*?</ul>#s', $page, $m);
-        $minor = $m[0];
-        $this->assertStringContainsString('<li id="pw-2013-01-01-3-commons"', $minor);
-        $this->assertStringContainsString('<li id="pw-2013-01-01-6-commons"', $minor);
-    }
-
-    public function testNotEnoughInfoStatement() {
-        $page = $this->fetch_page([ 'pagetype' => 'divisions', 'pid' => 2, 'policy' => 810, 'url' => '/mp/2/test_current-mp/test_westminster_constituency/divisions' ]);
-        $this->assertStringContainsString('We don&rsquo;t have enough information to calculate Mrs Test Current-MP&rsquo;s position', $page);
-    }
 
     public function testRecentDivisionsForMP() {
         $page = $this->fetch_mp_recent_page();

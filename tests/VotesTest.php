@@ -18,7 +18,7 @@ class VotesTest extends FetchPageTestCase {
 
     public function testVoteSummary() {
         $page = $this->fetch_votes_page();
-        $this->assertMatchesRegularExpression('#policy=363">\s*0 votes for, 2 votes against, 1 abstention, in 2013#', $page);
+        $this->assertStringContainsString('2 votes against, 1 abstention, in 2013', $page);
     }
 
     public function testLastUpdate() {

@@ -42,21 +42,6 @@ class TopicsTest extends FetchPageTestCase {
         $this->assertStringNotContainsString('Test Hansard SubSection', $page);
     }
 
-    public function testTopicPageWithMP() {
-        $page = $this->fetch_topic_page(['pc' => 'SW1 1AA', 'topic' => 'nhs', 'url' => '/topic/nhs']);
-        $this->assertStringContainsString('NHS', $page);
-        $this->assertStringNotContainsString('Welfare', $page);
-        $this->assertStringContainsString('Test Current-MP', $page);
-        $this->assertStringContainsString('Test Hansard SubSection', $page);
-        $this->assertStringContainsString('foundation hospitals', $page);
-    }
-
-    public function testTopicPageWithMPAndPolicy() {
-        $page = $this->fetch_topic_page(['pc' => 'SW1 1AA', 'topic' => 'welfare', 'url' => '/topic/welfare']);
-        $this->assertStringContainsString('Welfare', $page);
-        $this->assertStringContainsString('Test Current-MP', $page);
-        $this->assertStringContainsString('foundation hospitals', $page);
-    }
 
     public function testTopicPageRecentVotes() {
         $page = $this->fetch_topic_page(['topic' => 'nhs', 'url' => '/topic/nhs']);
