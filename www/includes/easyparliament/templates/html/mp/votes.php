@@ -102,7 +102,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
-                <?php if ($party_member_count > 1) { ?>
+                <?php if ($party_member_count > 1 && $party != "Independent") { ?>
                 <div class="panel">
                     <a name="votes"></a>
                     <h2><?= $full_name ?>&rsquo;s voting in Parliament</h2>
