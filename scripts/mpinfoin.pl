@@ -26,8 +26,6 @@ use File::Slurp;
 my %action;
 my $verbose;
 foreach (@ARGV) {
-    if ($_ eq 'publicwhip') {
-        $action{'pw'} = 1;
     } elsif ($_ eq 'regmem') {
         $action{'regmem'} = 1;
     } elsif ($_ eq 'links') {
@@ -44,7 +42,6 @@ foreach (@ARGV) {
     }
 }
 if (scalar(@ARGV) == 0) {
-    $action{'pw'} = 1;
     $action{'regmem'} = 1;
     $action{'links'} = 1;
     $action{'compile'} = 1;
@@ -116,12 +113,6 @@ if ($action{'links'}) {
     $twig->parsefile($pwmembers . 'lordbiogs.xml', ErrorContext => 2);
 }
 
-if ($action{'pw'}) {
-    my $ua = LWP::UserAgent->new( agent => 'mySociety/1.0 (TheyWorkForYou)' );
-    print "Parsing Public Whip attendance\n" if $verbose;
-    $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml", $ua);
-    $twig->parseurl("https://www.publicwhip.org.uk/feeds/mp-info.xml?house=lords", $ua);
-}
 
 if ($action{'eu_ref_position'}) {
     my $positions = decode_json(scalar read_file($pwmembers . 'eu_ref_positions.json'));
