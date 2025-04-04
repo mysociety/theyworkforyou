@@ -1,14 +1,24 @@
-<li class="vote-description" data-policy-id="<?= $policy_id ?? '' ?>" data-policy-desc="<?= $policy_desc ?? '' ?>" data-policy-group="<?= $policy_group ?? '' ?>" data-policy-direction="<?= $policy_direction ?? '' ?>" data-policy-party-name="<?= $comparison_party ?? '' ?>" data-policy-party-direction="<?= $party_position ?? '' ?>" data-policy-party-score-distance="<?= $party_score_difference ?? '' ?>">
+<?php
+/** @var MySociety\TheyWorkForYou\PolicyPairCollection $segment */
+/** @var MySociety\TheyWorkForYou\PolicyDistributionPair $policy_pair */
 
-    <?= $description ?>
-    <a class="vote-description__source" href="<?= $link ?>"><?= $link_text ?? 'Show votes' ?></a>
-    <?php if (isset($key_vote) || isset($party_voting_line)) { ?>
-    <a class="vote-description__evidence" href="<?= $link ?>">
-        <?= isset($key_vote) ? "$key_vote[summary]." : '' ?>
-        <?= $party_voting_line ?? '' ?>
+$pp = $policy_pair;
+$md = $policy_pair->member_distribution;
+$cd = $policy_pair->comparison_distribution;
+?>
+
+
+<li class="vote-description" data-policy-id="<?= $pp->policy_id ?>" data-policy-group="<?= $segment->group_slug ?>" data-policy-direction="<?= $md->distance_score ?>" data-policy-party-name="<?= $md->party_slug ?>" <?php if ($cd) { ?>data-policy-party-direction="<?= $cd->distance_score ?>"<?php } ?> data-policy-party-score-distance="<?= $pp->scoreDifference() ?> ?>">
+
+    <?= $md->getVerboseScore() ?> <?= $pp->policy_desc ?>
+    <a class="vote-description__source" href="<?= $pp->getMoreDetailsLink() ?>"><?= $md->totalVotes() > 0 ? 'Show votes' : "Details" ?></a>
+    <a class="vote-description__evidence" href="<?= $pp->getMoreDetailsLink() ?>">
+        <?= $md->getVerboseDescription() ?>
+        <?php if ($policy_pair->comparison_distribution) { ?>
+            Comparable <?= $cd->party_name ?> MPs <?= $cd->getVerboseScoreLower() ?>.
+        <?php } ?>
     </a>
-    <?php if (isset($covid_affected) && $covid_affected) { ?>
+    <?php if ($pp->covid_affected) { ?>
     <span style="font-size:60%">Absences for this policy may be affected <a href="<?= $member_url ?>/votes#covid-19">COVID-19 restrictions</a>.</span>
-    <?php } ?>
     <?php } ?>
 </li>
