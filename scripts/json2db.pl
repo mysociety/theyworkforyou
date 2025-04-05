@@ -125,7 +125,12 @@ sub fetch_policies {
     my $policies = $json->decode($policies_json);
 
     my @ids;
-    my $out = {};
+    my $out = {
+        sets => {},
+        set_descs => {},
+        policies => {},
+        agreements => {},
+    };
     foreach my $policy (@$policies) {
         say "Processing policy $policy->{id} $policy->{name}" if $verbose;
         push @ids, $policy->{id};
