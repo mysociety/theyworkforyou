@@ -70,16 +70,16 @@ class Policies {
         } else {
             $policy_data = json_decode(file_get_contents(RAWDATA . '/scrapedjson/policies.json'), true);
         }
-        $this->policies = $policy_data['policies'];
-        $this->set_descs = $policy_data['set_descs'];
-        $this->sets = $policy_data['sets'];
+        $this->policies = $policy_data['policies'] ?? [];
+        $this->set_descs = $policy_data['set_descs'] ?? [];
+        $this->sets = $policy_data['sets'] ?? [];
 
         $this->all_policy_agreements = $policy_data['agreements'] ?? [];
 
         if ($policy_id) {
             $this->policy_id = $policy_id;
             $this->policies = [
-                $policy_id => $this->policies[$policy_id],
+                $policy_id => $this->policies[$policy_id] ?? '',
             ];
         }
     }

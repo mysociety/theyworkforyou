@@ -410,6 +410,9 @@ switch ($pagetype) {
                 'health', 'education', 'reform', 'home', 'environment',
                 'transport', 'housing', 'misc',
             ];
+            $sets = array_filter($sets, function ($v) use ($set_descriptions) {
+                return array_key_exists($v, $set_descriptions);
+            });
             shuffle($sets);
         }
 
