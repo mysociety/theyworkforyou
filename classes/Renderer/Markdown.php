@@ -9,15 +9,9 @@ namespace MySociety\TheyWorkForYou\Renderer;
  */
 
 
-function render_php($template_file) {
-    $path = INCLUDESPATH . 'easyparliament/templates/html/' . $template_file . '.php';
-    ob_start();
-    include($path);
-    return ob_get_clean();
-}
 
 class Markdown {
-    public function markdown_document($this_page, $show_menu = true) {
+    public function markdown_document(string $this_page, bool $show_menu = true, array $extra_vars = []) {
         // This function takes a markdown file and converts it to HTML
 
         $markdown_file = '../../../markdown/' . $this_page . '.md';
@@ -46,17 +40,31 @@ class Markdown {
         // Create new panel when horizontal line used
         $html = preg_replace('/<hr \/>/i', '</div><div class="panel">', $html);
 
-        // render donate box
-        if (strpos($html, '{{ donate_box }}') !== false) {
-            $html = str_replace('{{ donate_box }}', render_php('donate/_stripe_donate'), $html);
-        }
+        foreach ($extra_vars as $key => $value) {
+            $html = str_replace('{{ ' . $key . ' }}', $value, $html);
+        };
 
-        \MySociety\TheyWorkForYou\Renderer::output('static/markdown_template', [
+        $context = [
             'html' => $html,
             'this_page' => $this_page,
             'page_title' => $title,
             'show_menu' => $show_menu,
-        ]);
+        ];
 
+        // Add extra variables to the context
+        foreach ($extra_vars as $key => $value) {
+            $context[$key] = $value;
+        }
+
+        \MySociety\TheyWorkForYou\Renderer::output('static/markdown_template', $context);
+
+    }
+
+    public static function render_php($template_file, array $context = []) {
+        $path = INCLUDESPATH . 'easyparliament/templates/html/' . $template_file . '.php';
+        extract($context, EXTR_SKIP);
+        ob_start();
+        include($path);
+        return ob_get_clean();
     }
 }
