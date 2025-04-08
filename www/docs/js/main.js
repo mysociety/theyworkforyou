@@ -419,6 +419,63 @@ function amounts_oneoff(){
   $('.donate-one-off-amount').show();
 }
 
+function restrict_to_default($howmuch, $howoften){
+  $('.donate-form').show();
+  $('html, body').animate({
+    scrollTop: $('.donate-form').offset().top
+  }, 500);
+
+  // if howoften monthly hide annually and one-off
+  if ($howoften == 'monthly') {
+    $('#how-often-one-off').parent().hide();
+    $('#how-often-annually').parent().hide();
+    $('#how-often-monthly').prop('checked', true);
+    amounts_monthly()
+    $('.donate-monthly-amount').hide();
+    $('#how-much-other').parent().hide();
+    $('#how-much-monthly-' + $howmuch).parent().show();
+    $('#how-much-monthly-' + $howmuch).prop('checked', true);
+  }
+  if ($howoften == 'annually') {
+    $('#how-often-one-off').parent().hide();
+    $('#how-often-monthly').parent().hide();
+    $('#how-often-annually').prop('checked', true);
+    amounts_annually()
+    $('.donate-annually-amount').hide();
+    $('#how-much-other').parent().hide();
+    $('#how-much-annually-' + $howmuch).parent().show();
+    $('#how-much-annually-' + $howmuch).prop('checked', true);
+  }
+  if ($howoften == 'one-off') {
+    $('#how-often-monthly').parent().hide();
+    $('#how-often-annually').parent().hide();
+    $('#how-often-one-off').prop('checked', true);
+    amounts_oneoff()
+    $('.donate-one-off-amount').hide();
+    $('#how-much-other').parent().hide();
+    $('#how-much-one-off-' + $howmuch).parent().show();
+    $('#how-much-one-off-' + $howmuch).prop('checked', true);
+  }
+
+}
+
+function show_all_options(){
+  $('#how-often-one-off').parent().show();
+  $('#how-often-annually').parent().show();
+  $('#how-often-monthly').parent().show();
+  if ($('#how-often-one-off').is(':checked')) {
+    amounts_oneoff();
+  } else if ($('#how-often-monthly').is(':checked')) {
+    amounts_monthly();
+  }
+  else if ($('#how-often-annually').is(':checked')) {
+    amounts_annually();
+  }
+  $('#how-much-other').parent().show();
+
+  
+}
+
 function wrap_error($message){
   return '<div class="donate-form__error-wrapper"><p class="donate-form__error">' + $message + '</p></div>';
 }
