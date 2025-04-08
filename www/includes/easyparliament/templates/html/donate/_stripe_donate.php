@@ -1,53 +1,20 @@
 <?php
 
-# define array of payment amounts and current/one-off options
-# note - new annual and monthly payments need to be defined as new prices in stripe
-# e.g. 'donate_monthly_10'.
-$payment_amounts = [
-    'monthly' => [
-        '2' => '£2',
-        '5' => '£5',
-        '10' => '£10',
-    ],
-    'annually' => [
-        '10' => '£10',
-        '50' => '£50',
-        '100' => '£100',
-    ],
-    'one-off' => [
-        '5' => '£5',
-        '10' => '£10',
-        '20' => '£20',
-    ],
-];
 
-$default_amounts = [
-    'monthly' => '5',
-    'annually' => '10',
-    'one-off' => '10',
-];
-
-$default_type = 'one-off';
-
-# use the how-often parameter if set, if not default to option at end of line (options are 'monthly', 'annually', or 'one-off')
-$initial_payment_type = get_http_var('how-often', $default_type);
-
-# use the how-much parameter if set, if not default to default amount for initial payment type
-$how_much = get_http_var('how-much', $default_amounts[$initial_payment_type]);
-
-# if how-much is not in the allowed values for the current payment type, set to 'other', and set $other_how_much to the value of how-much
-if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type] ?? [])) {
-    $how_much = 'other';
-    $other_how_much = get_http_var('how-much');
-} else {
-    $other_how_much = '';
-}
 
 ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <a name="donate-form"></a>
-<form class="donate-form" method="post" name="donation_form">
+
+<button type="button" class="default-donate-button button button-primary button--large" style="margin-right: 10px" onclick="restrict_to_default('<?= $how_much ?>', '<?= $payment_type ?>')">
+        Donate <?= $verbose_amount ?>
+</button>
+
+<input type="button" value="Donate another amount" class="open-form-button button button-primary button--large" >
+    
+
+<form class="donate-form" method="post" name="donation_form" style="display: None";>
 
     <div class="donate-form__error-wrapper">
         <noscript>
@@ -61,9 +28,9 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type] ?? []))
     <h2>Donate to TheyWorkForYou and mySociety</h3>
 
     <div class="fat-radio-buttons">
-        <label for="how-often-one-off" class="inline-radio-label"><input type="radio" id="how-often-one-off" name="how-often" value="one-off" data-default-amount="<?= $default_amounts["one-off"] ?>" required <?php get_checked($initial_payment_type, 'one-off') ?>>One-off donation</label>
-        <label for="how-often-annually" class="inline-radio-label"><input type="radio" id="how-often-annually" name="how-often" value="annually" data-default-amount="<?= $default_amounts["annually"] ?>" required <?php get_checked($initial_payment_type, 'annually') ?>>Annual donation</label>
-        <label for="how-often-monthly" class="inline-radio-label"><input type="radio" id="how-often-monthly" name="how-often" value="monthly" data-default-amount="<?= $default_amounts["monthly"] ?>" required <?php get_checked($initial_payment_type, 'monthly') ?>>Monthly donation</label>
+        <label for="how-often-one-off" class="inline-radio-label"><input type="radio" id="how-often-one-off" name="how-often" value="one-off" data-default-amount="<?= $default_amounts["one-off"] ?>" required <?php get_checked($payment_type, 'one-off') ?>>One-off donation</label>
+        <label for="how-often-annually" class="inline-radio-label"><input type="radio" id="how-often-annually" name="how-often" value="annually" data-default-amount="<?= $default_amounts["annually"] ?>" required <?php get_checked($payment_type, 'annually') ?>>Annual donation</label>
+        <label for="how-often-monthly" class="inline-radio-label"><input type="radio" id="how-often-monthly" name="how-often" value="monthly" data-default-amount="<?= $default_amounts["monthly"] ?>" required <?php get_checked($payment_type, 'monthly') ?>>Monthly donation</label>
     </div>
 
     <h3>How much would you like to give?</h3>
@@ -74,13 +41,13 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type] ?? []))
         <label
           for="how-much-<?=$payment_type?>-<?=$amount?>"
           class="donate-<?=$payment_type?>-amount inline-radio-label"
-          <?php if ($payment_type != $initial_payment_type) { ?>style="display:none"<?php } ?> />
+          <?php if ($payment_type != $payment_type) { ?>style="display:none"<?php } ?> />
             <input
               type="radio"
               id="how-much-<?=$payment_type?>-<?=$amount?>"
               name="how-much"
               value="<?=$amount?>"
-              required <?= (($how_much == $amount) and ($payment_type == $initial_payment_type)) ? ' checked' : '' ?> />
+              required <?= (($how_much == $amount) and ($payment_type == $payment_type)) ? ' checked' : '' ?> />
             <span class="radio-label-large"><?=$label?></span>
         </label>
       <?php } ?>
@@ -132,7 +99,7 @@ if (!array_key_exists($how_much, $payment_amounts[$initial_payment_type] ?? []))
 
     <div class="donate-submit">
       <div id='recaptcha' class="g-recaptcha" data-sitekey="<?=OPTION_RECAPTCHA_SITE_KEY ?>" data-callback="onDonatePass" data-size="invisible"></div>
-      <input type="submit" id="donate_button" value="Donate" class="button button-primary button--large">
+      <input type="submit" id="donate_button" value="Donate now" class="button button-primary button--large">
       <div id="spinner" class="mysoc-spinner mysoc-spinner--small" role="status">
           <span class="sr-only">Processing…</span>
       </div>
