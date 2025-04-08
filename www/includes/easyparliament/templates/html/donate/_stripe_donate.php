@@ -7,14 +7,14 @@
 
 <a name="donate-form"></a>
 
-<button type="button" class="default-donate-button button button-primary button--large" style="margin-right: 10px" onclick="restrict_to_default('<?= $how_much ?>', '<?= $payment_type ?>')">
+<button type="button" id="default_donate_button" class="button button-primary button--large" style="margin-right: 10px" onclick="restrict_to_default('<?= $how_much ?>', '<?= $payment_type ?>')">
         Donate <?= $verbose_amount ?>
 </button>
 
 <input type="button" value="Donate another amount" class="open-form-button button button-primary button--large" >
     
 
-<form class="donate-form" method="post" name="donation_form" style="display: None";>
+<form class="donate-form" method="post" name="donation_form">
 
     <div class="donate-form__error-wrapper">
         <noscript>
@@ -110,10 +110,14 @@
     <input type="hidden" name="utm_content" value="<?=htmlspecialchars(get_http_var('utm_content')) ?>">
     <input type="hidden" name="utm_medium" value="<?=htmlspecialchars(get_http_var('utm_medium')) ?>">
     <input type="hidden" name="utm_campaign" value="<?=htmlspecialchars(get_http_var('utm_campaign', 'twfy_donate_page')) ?>">
-
+    
 </form>
 
 <script src="https://js.stripe.com/v3"></script>
 <script>
 var stripe = Stripe('<?=STRIPE_DONATE_PUBLIC_KEY ?>', { apiVersion: '<?= STRIPE_API_VERSION ?>' });
+</script>
+<script>
+    // hide .donate-form by default
+    document.querySelector('.donate-form').style.display = 'none';
 </script>
