@@ -1,26 +1,31 @@
-# Support TheyWorkForYou and mySociety
+# Support TheyWorkForYou for {{ verbose_amount }}
 
-[Skip to donate form.](#donate-form)
+**Or less, or more.**
+ 
 
-We want MPs to meet the standards and expectations of the people who elected them - **you**!
+<button type="button" class="default-donate-button button button-primary button-mobile button--large" style="margin-right: 10px" onclick="restrict_to_default('{{ how_much }}', '{{ payment_type }}')">
+        Donate {{ verbose_amount }}
+</button>
 
-TheyWorkForYou started twenty years ago as a volunteer project, when a bunch of people got together to make Parliament more transparent. We don’t have to wait for a better politics to be given to us – **we can work together to make it happen now**.
+<input type="button" value="Donate another amount" class="open-form-button button button-primary button-mobile  button--large">
 
-These sites need attention every day to:
+For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable. We need your support to: 
 
-* Keep the data flowing and ensuring that the comprehensive data about politicians is up to date.
-* Make improvements such as [recent changes to voting records](https://www.mysociety.org/2024/04/23/improving-the-focus-of-theyworkforyous-voting-summaries/).
-* Provide support on how to use the sites and the data we provide - we’re here for you.
+* **Hold Power to Account** — With your help, we highlight what our representatives are doing – so they know the public is watching. By making votes more visible, the register of interests easier to explore, and sending email alerts on issues you care about, we make politicians more accountable. 
+* **Keep It Free and Accessible** — TheyWorkForYou has no paywalls because everyone deserves unbiased and high quality information about decisions made on their behalf. Your support keeps it free for all the organisations and community groups who can’t afford costly political monitoring. Together, we strengthen countless good causes.
+* **Innovate and go further** — We’re always looking for new ways we can do more to improve on official data, or work with our volunteers to create new information and analysis. With you behind us, we’ll keep pioneering new ways of improving our democracy.
 
-And that's not enough: we want to experiment with new approaches like our new campaign ([WhoFundsThem.com](https://www.mysociety.org/democracy/who-funds-them/)) to uncover the influence of money in politics.
+We're not funded by the government and we run this for the public, not MPs. We're not going to wait for a better political system to be given to us – **we want to work together to make it happen now**.
 
-This is an example of one of mySociety’s innovative projects. To support this and other similar work donate below.
+By becoming a TheyWorkForYou Supporter, you ensure that this crucial service not only stays up and running, but gives us the freedom to innovate and be bolder.
+
+We can't offer much beyond what we give to everyone for free - but for **{{ verbose_amount }}** (or whatever you like) you can be part of something that makes a real difference. 
 
 {{ donate_box }}
 
 ***
 
-## I want to be a mySociety supporter
+## I want to support in non-financial ways
 
 There are three key ways you can support mySociety, and our work on projects like TheyWorkForYou. 
 
