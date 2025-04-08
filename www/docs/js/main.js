@@ -454,6 +454,14 @@ $(function() {
   });
   othervalue_toggle($('#how-much-other').is(':checked'));
   
+  $('.open-form-button').click(function(e) {
+    $('.donate-form').slideDown(100);
+    show_all_options();
+    $('html, body').animate({
+      scrollTop: $('.donate-form').offset().top
+    }, 500);
+  });
+
   $('#donate_button').click(function(e) {
     e.preventDefault();
     var giftaid = $('input[name=gift-aid]:checked').val();
