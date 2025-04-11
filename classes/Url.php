@@ -190,4 +190,27 @@ class Url {
         }
     }
 
+    /**
+     * Generate a URL for the social image with the given header and subheader.
+     *
+     * @param string $header The header text for the social image.
+     * @param string $subheader The subheader text for the social image.
+     * @return string The URL to the generated social image.
+     */
+    public static function generateSocialImageUrl(string $header, string $subheader = ""): string {
+        $protocol = 'https://';
+        if (defined('DEVSITE') && DEVSITE) {
+            $protocol = 'http://';
+        }
+        // Update the path for the social image URL
+        $base_url = $protocol . DOMAIN . '/opengraph/image.php';
+
+        // Generate a hash for validation
+        $hash = substr(hash_hmac('sha256', $header . $subheader, OPENGRAPH_IMAGE_SALT), 0, 10);
+
+        // Append the truncated hash to the query parameters
+        $query = http_build_query(['heading' => $header, 'subheading' => $subheader, 'hash' => $hash]);
+        return $base_url . '?' . $query;
+    }
+
 }
