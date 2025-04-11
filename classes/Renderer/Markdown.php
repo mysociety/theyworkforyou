@@ -49,6 +49,7 @@ class Markdown {
             'this_page' => $this_page,
             'page_title' => $title,
             'show_menu' => $show_menu,
+            'og_image' => \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($title),
         ];
 
         // Add extra variables to the context
