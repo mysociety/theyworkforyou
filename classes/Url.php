@@ -200,9 +200,14 @@ class Url {
      */
     public static function generateSocialImageUrl(string $header, string $subheader = "", string $parliament = "uk"): string {
 
-
         function chamber_to_parliament($chamber) {
             switch ($chamber) {
+                case 'uk-commons':
+                    return 'uk';
+                case 'uk-lords':
+                    return 'uk';
+                case 'wales':
+                    return 'senedd';
                 case 'house-of-commons':
                     return 'uk';
                 case 'scottish-parliament':
@@ -217,7 +222,6 @@ class Url {
         }
 
         $parliament = chamber_to_parliament($parliament);
-
 
         $protocol = 'https://';
         if (defined('DEVSITE') && DEVSITE) {
