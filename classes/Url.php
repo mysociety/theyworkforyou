@@ -190,4 +190,52 @@ class Url {
         }
     }
 
+    /**
+     * Generate a URL for the social image with the given header and subheader.
+     *
+     * @param string $header The header text for the social image.
+     * @param string $subheader The subheader text for the social image.
+     * @param string $parliament The parliament to use (default is "uk").
+     * @return string The URL to the generated social image.
+     */
+    public static function generateSocialImageUrl(string $header, string $subheader = "", string $parliament = "uk"): string {
+
+
+        function chamber_to_parliament($chamber) {
+            switch ($chamber) {
+                case 'house-of-commons':
+                    return 'uk';
+                case 'scottish-parliament':
+                    return 'scotland';
+                case 'senedd':
+                    return 'senedd';
+                case 'northern-ireland-assembly':
+                    return 'ni';
+                default:
+                    return $chamber;
+            }
+        }
+
+        $parliament = chamber_to_parliament($parliament);
+
+
+        $protocol = 'https://';
+        if (defined('DEVSITE') && DEVSITE) {
+            $protocol = 'http://';
+        }
+        // Update the path for the social image URL
+        $base_url = $protocol . DOMAIN . '/opengraph/image.php';
+
+        // Generate a hash for validation
+        $hash = substr(hash_hmac('sha256', $header . $subheader, OPENGRAPH_IMAGE_SALT), 0, 10);
+
+        // Append the truncated hash to the query parameters
+        $query = http_build_query(['heading' => $header,
+            'subheading' => $subheader,
+            'parl' => $parliament,
+            'hash' => $hash]);
+
+        return $base_url . '?' . $query;
+    }
+
 }
