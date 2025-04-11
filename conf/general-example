@@ -211,3 +211,4 @@ define('REDIS_SENTINELS', '127.0.0.1'); # Can be comma separated list
 define('REDIS_SENTINEL_PORT', '26379');
 define('REDIS_SERVICE_NAME', 'mymaster');
 
+define('OPENGRAPH_IMAGE_SALT', 'your_secret_key_here');
