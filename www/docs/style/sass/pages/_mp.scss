@@ -281,17 +281,33 @@
 
 .person-navigation {
     color: $light-text;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+    
     ul {
         @include unstyled-list;
         @include inline-list;
-        font-size: em-calc(16);
+        font-size: em-calc(14); 
         margin-left: 0px;
+        white-space: nowrap;
+        padding-bottom: 5px; 
+        
+        @media (min-width: $medium-screen) {
+            font-size: em-calc(16); 
+            white-space: normal;
+        }
+        
         li {
             top: 1px;
             position: relative;
-            line-height: 42px;
+            line-height: 38px;
             margin-left: 0px;
-            margin-right: 20px;
+            margin-right: 12px;
+            
+            @media (min-width: $medium-screen) {
+                line-height: 42px;
+                margin-right: 20px;
+            }
             a {
                 color: #6c6b68;
             }
