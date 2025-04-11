@@ -8,6 +8,7 @@ if (!file_exists($merriweatherFontPath)) {
     // raise an error if the font file does not exist
     http_response_code(404);
     echo 'Font file not found';
+    exit;
 }
 
 
@@ -34,14 +35,6 @@ if (!file_exists($baseImagePath)) {
     exit;
 }
 
-// check if the font file exists, throw error
-if (!file_exists($merriweatherFontPath)) {
-    http_response_code(404);
-    echo 'Font file not found';
-    exit;
-}
-
-
 // We're using a hash to avoid arbitrary image generation
 $hash = $_GET['hash'] ?? '';
 // Truncate the hash to the first 10 characters for validation
@@ -52,9 +45,9 @@ if (!hash_equals($expectedHash, $hash)) {
     exit;
 }
 
-// Wrap the title text to a new line if it exceeds 16 characters
-if (strlen($heading) > 16) {
-    $heading = wordwrap($heading, 16, "\n", true);
+// Wrap the title text to a new line if it exceeds 25 characters
+if (strlen($heading) > 25) {
+    $heading = wordwrap($heading, 25, "\n", true);
     $subheading = ""; // Clear the subheading to avoid overlap
 }
 
@@ -68,7 +61,7 @@ $image = new Imagick($baseImagePath);
 
 $drawHeading = new ImagickDraw();
 $drawHeading->setFont($merriweatherFontPath);
-$drawHeading->setFontSize(100);
+$drawHeading->setFontSize(75);
 $drawHeading->setFillColor(new ImagickPixel('black'));
 $drawHeading->setGravity(Imagick::GRAVITY_CENTER);
 
