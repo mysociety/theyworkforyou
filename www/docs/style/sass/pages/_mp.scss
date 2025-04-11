@@ -284,14 +284,14 @@
     ul {
         @include unstyled-list;
         @include inline-list;
-        font-size: em-calc(18);
+        font-size: em-calc(16);
         margin-left: 0px;
         li {
             top: 1px;
             position: relative;
-            line-height: 48px;
+            line-height: 42px;
             margin-left: 0px;
-            margin-right: 30px;
+            margin-right: 20px;
             a {
                 color: #6c6b68;
             }
