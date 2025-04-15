@@ -14,7 +14,7 @@
 <input type="button" value="Donate another amount" class="open-form-button button button-primary button--large" >
     
 
-<form class="donate-form" method="post" name="donation_form" style="display: None";>
+<form class="donate-form" method="post" name="donation_form">
 
     <div class="donate-form__error-wrapper">
         <noscript>
@@ -116,4 +116,8 @@
 <script src="https://js.stripe.com/v3"></script>
 <script>
 var stripe = Stripe('<?=STRIPE_DONATE_PUBLIC_KEY ?>', { apiVersion: '<?= STRIPE_API_VERSION ?>' });
+</script>
+<script>
+    // hide .donate-form by default
+    document.querySelector('.donate-form').style.display = 'none';
 </script>
