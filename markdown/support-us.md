@@ -4,13 +4,13 @@
         Donate {{ verbose_amount }}
 </button>
 
-<input type="button"value="Donate another amount" class="open-form-button button button-primary button-mobile  button--large" >
+<input type="button" value="Donate another amount" class="open-form-button button button-primary button-mobile  button--large">
 
 For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicans more accountable. We need your support to: 
 
-* **Hold Power to Account** - With your help, we highlight what our representatives are doing – so they know the public is watching. By making votes more visible, the register of interests easier to explore, and sending email alerts on issues you care about, we create accountability that changes. 
-* **Keep It Free and Accessible** - TheyWorkForYou has no paywalls because everyone deserves unbiased and high quality information. Your support keeps it free for all the organisations and community groups who can’t afford costly political monitoring. Together, we strengthen countless good causes.
-* **Innovate and go further** - We’re always looking for new ways we can do more to improve on official data, or work with our volunteers to create new information and analysis. With you behind us, we’ll keep pioneering new ways of improving our democracy.
+* **Hold Power to Account** — With your help, we highlight what our representatives are doing – so they know the public is watching. By making votes more visible, the register of interests easier to explore, and sending email alerts on issues you care about, we create accountability that changes. 
+* **Keep It Free and Accessible** — TheyWorkForYou has no paywalls because everyone deserves unbiased and high quality information. Your support keeps it free for all the organisations and community groups who can’t afford costly political monitoring. Together, we strengthen countless good causes.
+* **Innovate and go further** — We’re always looking for new ways we can do more to improve on official data, or work with our volunteers to create new information and analysis. With you behind us, we’ll keep pioneering new ways of improving our democracy.
 
 We're not funded by the government and we run this for the public, not MPs. We're not going to wait for a better political system to be given to us – **we can work together to make it happen now**.
 
