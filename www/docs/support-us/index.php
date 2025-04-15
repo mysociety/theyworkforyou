@@ -28,7 +28,7 @@ $payment_amounts = [
     'one-off' => [
         '5' => '£5',
         '10' => '£10',
-        '50' => '$50',
+        '50' => '£50',
     ],
 ];
 
@@ -45,9 +45,19 @@ $default_type = 'annually';
 # use the how-often parameter if set, if not default to option at end of line (options are 'monthly', 'annually', or 'one-off')
 $payment_type = get_http_var('how-often', $default_type);
 
+// check $payment_type is a valid option
+if (!array_key_exists($payment_type, $payment_amounts)) {
+    $payment_type = $default_type;
+}
+
 # use the how-much parameter if set, if not default to default amount for initial payment type
 $how_much = get_http_var('how-much', $default_amounts[$payment_type]);
 
+# check this is a str of an int
+
+if (!is_numeric($how_much)) {
+    $how_much = $default_amounts[$payment_type];
+}
 
 $verbose_amount = "£" . number_format($how_much, 0);
 if ($payment_type == 'monthly') {
