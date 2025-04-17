@@ -16,6 +16,12 @@ class Register extends BaseModel {
     public PersonList $persons;
 
 
+    private function checkChamberSlug($chamber) {
+        if ($chamber && preg_match('[^a-z0-9\-\.]', $chamber)) {
+            throw new \Exception("No register found for $chamber");
+        }
+    }
+
     public function getPersonFromId(string $personId): ?Person {
         foreach ($this->persons as $person) {
             if ($person->person_id === $personId) {
@@ -26,6 +32,8 @@ class Register extends BaseModel {
     }
 
     public static function getDate(string $chamber, string $date): Register {
+        self::checkChamberSlug($chamber);
+
         $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
         $file_end = $date . ".json";
         // see if there's a file that matches this - but might have a bit in the middle
@@ -40,6 +48,8 @@ class Register extends BaseModel {
     }
 
     public static function latestAsOfDate(string $chamber, string $date): Register {
+        self::checkChamberSlug($chamber);
+
         $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
         $files = glob($file_dir . "*.json");
         if (count($files) === 0) {
@@ -57,6 +67,8 @@ class Register extends BaseModel {
     }
 
     public static function getLatest(string $chamber): Register {
+        self::checkChamberSlug($chamber);
+
         $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
         if ($chamber == "senedd") {
             $file_dir .= LANGUAGE . "/";
@@ -71,6 +83,8 @@ class Register extends BaseModel {
     }
 
     public static function getMisc(string $file): Register {
+        self::checkChamberSlug($chamber);
+
         $file_path = RAWDATA . "scrapedjson/universal_format_regmem/misc/" . $file;
         return self::fromFile($file_path);
     }
