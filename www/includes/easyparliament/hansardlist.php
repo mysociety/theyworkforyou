@@ -2920,7 +2920,7 @@ class DEBATELIST extends HANSARDLIST {
         // $args['days'] is the number of days back to look for biggest debates (1 by default).
         // $args['num'] is the number of links to return (1 by default).
 
-        $data = [];
+        $data = ['info' => [], 'data' => []];
 
         $params = [];
 
@@ -3016,7 +3016,7 @@ class DEBATELIST extends HANSARDLIST {
             $childbody = $r['body'];
             $speaker = $this->_get_speaker($r['person_id'], $r['hdate'], $r['htime'], $this->major);
 
-            $data[] = [
+            $data['data'][] = [
                 'contentcount'  => $contentcount,
                 'body'          => $body,
                 'hdate'         => $hdate,
@@ -3034,13 +3034,7 @@ class DEBATELIST extends HANSARDLIST {
 
         }
 
-        $data =  [
-            'info' => [],
-            'data' => $data,
-        ];
-
         return $data;
-
     }
 
     public function _get_data_by_biggest_debates($args = []) {
