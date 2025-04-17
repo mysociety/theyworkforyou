@@ -37,6 +37,12 @@ RUN /usr/sbin/a2enmod expires rewrite && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/access.log && \
       ln -sfT /proc/self/fd/1 /var/log/apache2/other_vhosts_access.log
 
+# install the font
+RUN mkdir -p /usr/local/share/fonts/truetype/merriweather \
+      && curl -L https://github.com/google/fonts/raw/refs/heads/main/ofl/merriweather/Merriweather%5Bopsz,wdth,wght%5D.ttf \
+      -o /usr/local/share/fonts/truetype/merriweather/Merriweather.ttf \
+      && fc-cache -f -v
+
 RUN echo "cy_GB.UTF-8 UTF-8" >> /etc/locale.gen
 RUN /usr/sbin/locale-gen
 
