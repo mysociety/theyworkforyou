@@ -14,6 +14,8 @@ if ($date && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
     $date = null;
 }
 
+$unknown_register = false;
+
 if ($chamber == 'house-of-commons') {
     $this_page = "interest_category";
 } elseif ($chamber == 'scottish-parliament') {
@@ -23,14 +25,30 @@ if ($chamber == 'house-of-commons') {
 } elseif ($chamber == 'northern-ireland-assembly') {
     $this_page = "interest_category_ni";
 } else {
+    $unknown_register = true;
     $this_page = "interest_category";
 }
 
 // load a register
-if ($date) {
-    $register = MySociety\TheyWorkForYou\DataClass\Regmem\Register::latestAsOfDate($chamber, $date);
-} else {
-    $register = MySociety\TheyWorkForYou\DataClass\Regmem\Register::getLatest($chamber);
+try {
+    if ($date) {
+        $register = MySociety\TheyWorkForYou\DataClass\Regmem\Register::latestAsOfDate($chamber, $date);
+    } else {
+        $register = MySociety\TheyWorkForYou\DataClass\Regmem\Register::getLatest($chamber);
+    }
+} catch (MySociety\TheyWorkForYou\DataClass\Regmem\RegisterNotFoundException $e) {
+    if ($unknown_register) {
+        http_response_code(404);
+        $context = [
+            'error' => 'No such register found',
+        ];
+        MySociety\TheyWorkForYou\Renderer::output('interests/category', $context);
+        exit();
+    }
+
+    // if we can't find a register that should be there we want to throw an error that
+    // will send us an email and not a 404 because it means something has gone wrong
+    throw $e;
 }
 
 

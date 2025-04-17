@@ -1,3 +1,14 @@
+<?php if (isset($error)) { ?>
+    <div class="full-page static-page toc-page">
+        <div class="full-page__row">
+            <div class="toc-page__col">
+                <div class="panel">
+                <?= $error ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } else { ?>
 
 <div class="full-page static-page toc-page">
     <div class="full-page__row">
@@ -131,3 +142,5 @@ function toggleDetails() {
   }
 }
 </script>
+
+<?php } ?>

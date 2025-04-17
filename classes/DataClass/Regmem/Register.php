@@ -6,6 +6,8 @@ namespace MySociety\TheyWorkForYou\DataClass\Regmem;
 
 use MySociety\TheyWorkForYou\DataClass\BaseModel;
 
+class RegisterNotFoundException extends \Exception {}
+
 class Register extends BaseModel {
     use HasChamber;
     public string $chamber;
@@ -18,7 +20,7 @@ class Register extends BaseModel {
 
     private function checkChamberSlug($chamber) {
         if ($chamber && preg_match('[^a-z0-9\-\.]', $chamber)) {
-            throw new \Exception("No register found for $chamber");
+            throw new RegisterNotFoundException("No register found for $chamber");
         }
     }
 
@@ -39,7 +41,7 @@ class Register extends BaseModel {
         // see if there's a file that matches this - but might have a bit in the middle
         $files = glob($file_dir . "*" . $file_end);
         if (count($files) === 0) {
-            throw new \Exception("No register found for $chamber on $date");
+            throw new RegisterNotFoundException("No register found for $chamber on $date");
         }
         if (count($files) > 1) {
             throw new \Exception("Multiple registers found for $chamber on $date");
@@ -53,7 +55,7 @@ class Register extends BaseModel {
         $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
         $files = glob($file_dir . "*.json");
         if (count($files) === 0) {
-            throw new \Exception("No register found for $chamber");
+            throw new RegisterNotFoundException("No register found for $chamber");
         }
         # sort most recent to least, find the first one before the date
         rsort($files);
@@ -63,7 +65,7 @@ class Register extends BaseModel {
                 return self::fromFile($file);
             }
         }
-        throw new \Exception("No register found for $chamber on or before $date");
+        throw new Exception("No register found for $chamber on or before $date");
     }
 
     public static function getLatest(string $chamber): Register {
@@ -75,7 +77,7 @@ class Register extends BaseModel {
         }
         $files = glob($file_dir . "*.json");
         if (count($files) === 0) {
-            throw new \Exception("No register found for $chamber");
+            throw new RegisterNotFoundException("No register found for $chamber");
         }
         $latest = max($files);
         // raise exception with name of $latest
