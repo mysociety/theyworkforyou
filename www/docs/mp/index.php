@@ -383,10 +383,10 @@ $data['unslugified_comparison_party'] = ucwords(str_replace('-', ' ', $data['com
 // is the party we're comparing this MP to different from the party they're currently in?
 $data['party_switcher'] = (slugify($data['current_party_comparison']) != slugify($data["comparison_party"]));
 
-// Do any necessary extra work based on the page type, and send for rendering.
+// Update the social image URL generation logic
 switch ($pagetype) {
-
     case 'votes':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Voting Summaries', $data['current_assembly']);
         $policy_set = get_http_var('policy');
 
         $policiesList = new MySociety\TheyWorkForYou\Policies();
@@ -442,12 +442,14 @@ switch ($pagetype) {
         break;
 
     case 'recent':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Recent Votes', $data['current_assembly']);
         $divisions = new MySociety\TheyWorkForYou\Divisions($MEMBER);
         $data['divisions'] = $divisions->getRecentMemberDivisions();
         MySociety\TheyWorkForYou\Renderer::output('mp/recent', $data);
         break;
 
     case 'divisions':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Divisions', $data['current_assembly']);
         $policyID = get_http_var('policy');
         if (!ctype_digit($policyID)) {
             member_redirect($MEMBER);
@@ -492,6 +494,7 @@ switch ($pagetype) {
             $memcache->set($mem_key, $highlighted_for_this_mp, 60 * 60 * 24);
         }
 
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Election Register', $data['current_assembly']);
         $data['mp_has_highlighted_interests'] = (bool) $highlighted_for_this_mp;
         $overlapping_interests = [];
 
@@ -499,20 +502,14 @@ switch ($pagetype) {
 
         // no break
     case 'register':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Register of Interests', $data['current_assembly']);
         // Send the output for rendering
         MySociety\TheyWorkForYou\Renderer::output('mp/register', $data);
 
         // no break
-    case 'policy_set_svg':
-        policy_image($data, $MEMBER, 'svg');
-        break;
-
-    case 'policy_set_png':
-        policy_image($data, $MEMBER, 'png');
-        break;
-
     case '':
     default:
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Profile', $data['current_assembly']);
         // if extra detail needed for overview page in future
 
         // Send the output for rendering
