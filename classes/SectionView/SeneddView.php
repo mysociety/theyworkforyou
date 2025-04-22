@@ -99,6 +99,7 @@ class SeneddView extends SectionView {
 
         $data['regional'] = $this->getMSList();
         $data['search_box'] = $this->getSearchBox($data);
+        $data['current_assembly'] = 'senedd';
         $data['template'] = 'senedd/index';
 
         return $data;
