@@ -202,6 +202,12 @@ class Url {
 
         function chamber_to_parliament($chamber) {
             switch ($chamber) {
+                case 'uk-commons':
+                    return 'uk';
+                case 'uk-lords':
+                    return 'uk';
+                case 'wales':
+                    return 'senedd';
                 case 'house-of-commons':
                     return 'uk';
                 case 'scottish-parliament':
