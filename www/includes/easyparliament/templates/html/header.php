@@ -32,8 +32,8 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
   <?php } else { ?>
-    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/social_<?= $current_assembly ?? 'uk' ?>.jpg">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/social_<?= $current_assembly ?? 'uk' ?>.png">
+    <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
   <?php } ?>
