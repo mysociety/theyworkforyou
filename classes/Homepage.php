@@ -47,6 +47,7 @@ class Homepage {
         $data['topics'] = $this->getFrontPageTopics();
         $data['divisions'] = $this->getRecentDivisions();
         $data['search_box'] = $this->getSearchBox($data);
+        $data['current_assembly'] = "scotland";
 
         return $data;
     }
