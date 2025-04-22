@@ -14,6 +14,10 @@ class SPHomepage extends Homepage {
         'SPWRANSLIST' => ['recent_wrans', 'spwransfront', 'Written answers'],
     ];
 
+    protected function getCurrentAssembly(): string {
+        return "scotland";
+    }
+
     protected function getSearchBox(array $data): Search\SearchBox {
         $search_box = new Search\SearchBox();
         $search_box->homepage_panel_class = "panel--homepage--scotland";
