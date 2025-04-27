@@ -74,6 +74,7 @@ class AlertsTest extends TWFY_Database_TestCase {
             'email' => 'test@theyworkforyou.com',
             'keyword' => 'test',
             'pc' => 'SW1A 1AA',
+            'ignore_speaker_votes' => 0,
         ];
 
         $response = $ALERT->add($details, false, true);
@@ -96,6 +97,7 @@ class AlertsTest extends TWFY_Database_TestCase {
             'email' => 'test3@theyworkforyou.com',
             'keyword' => 'test3',
             'pc' => 'SW1A 1AA',
+            'ignore_speaker_votes' => 0,
         ];
 
         $response = $ALERT->add($details, false, true);
@@ -117,6 +119,7 @@ class AlertsTest extends TWFY_Database_TestCase {
             'email' => 'test6@theyworkforyou.com',
             'keyword' => 'test6',
             'pc' => 'SW1A 1AA',
+            'ignore_speaker_votes' => 0,
         ];
 
         $response = $ALERT->add($details, false, true);
@@ -162,6 +165,7 @@ class AlertsTest extends TWFY_Database_TestCase {
             'id' => 1,
             'email' => 'test@theyworkforyou.com',
             'criteria' => 'test1',
+            'ignore_speaker_votes' => '0',
         ], $response);
     }
 
