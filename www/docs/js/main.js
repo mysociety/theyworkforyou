@@ -494,7 +494,7 @@ $(function() {
     amounts_monthly();
     othervalue_hide();
   });
-  $('#how-often-once').click(function() {
+  $('#how-often-one-off').click(function() {
     var defaultValue = $(this).data('default-amount');
     $('#how-much-one-off-' + defaultValue).prop('checked', true);
     amounts_oneoff();
