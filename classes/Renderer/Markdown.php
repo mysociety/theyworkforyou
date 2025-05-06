@@ -23,7 +23,7 @@ class Markdown {
         # title is the first h1
         preg_match('/<h1>([^<]+)<\/h1>/i', $html, $matches);
 
-        $title = $matches[1];
+        $title = $extra_vars['_page_title'] ?? $matches[1];
 
         $html = preg_replace_callback('/<h([1-3])>([^<]+)<\/h[1-3]>/i', function ($matches) {
             $level = $matches[1];
