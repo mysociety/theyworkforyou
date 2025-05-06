@@ -25,6 +25,12 @@ class Markdown {
 
         $title = $extra_vars['_page_title'] ?? $matches[1];
 
+        # generate social image
+        $og_image_title = $extra_vars['_social_image_title'] ?? $title;
+        $og_image_subtitle = $extra_vars['_social_image_subtitle'] ?? '';
+        $og_image_parl = $extra_vars['_social_image_parliament'] ?? 'uk';
+        $og_image_url = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($og_image_title, $og_image_subtitle, $og_image_parl);
+
         $html = preg_replace_callback('/<h([1-3])>([^<]+)<\/h[1-3]>/i', function ($matches) {
             $level = $matches[1];
             $htitle = $matches[2];
@@ -49,7 +55,7 @@ class Markdown {
             'this_page' => $this_page,
             'page_title' => $title,
             'show_menu' => $show_menu,
-            'og_image' => \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($title),
+            'og_image' => $og_image_url,
         ];
 
         // Add extra variables to the context
