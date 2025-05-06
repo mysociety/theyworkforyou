@@ -91,4 +91,5 @@ $markdown->markdown_document('support-us', true, [
     'payment_type' => $payment_type,
     'how_much' => $how_much,
     'verbose_amount' => $verbose_amount,
+    '_page_title' => 'Support Us - TheyWorkForYou',
 ]);
