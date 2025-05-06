@@ -89,6 +89,7 @@ class NiView extends SectionView {
 
         $data['regional'] = $this->getMLAList();
         $data['search_box'] = $this->getSearchBox($data);
+        $data['current_assembly'] = 'ni';
         $data['template'] = 'ni/index';
 
         return $data;

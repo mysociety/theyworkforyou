@@ -92,4 +92,4 @@ $markdown->markdown_document('support-us', true, [
     'how_much' => $how_much,
     'verbose_amount' => $verbose_amount,
     '_page_title' => 'Support Us - TheyWorkForYou',
-]);
+    '_social_image_title' => 'Support Our Work']);

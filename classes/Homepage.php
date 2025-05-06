@@ -47,8 +47,17 @@ class Homepage {
         $data['topics'] = $this->getFrontPageTopics();
         $data['divisions'] = $this->getRecentDivisions();
         $data['search_box'] = $this->getSearchBox($data);
+        $data['current_assembly'] = $this->getCurrentAssembly();
 
         return $data;
+    }
+
+    /**
+     * Gets the current assembly.
+     * Subclass this function to define the parliament for social cards.
+     */
+    protected function getCurrentAssembly(): string {
+        return "uk";
     }
 
     protected function getSearchBox(array $data): Search\SearchBox {
