@@ -40,7 +40,7 @@ $default_amounts = [
 ];
 
 
-$default_type = 'annually';
+$default_type = 'monthly';
 
 # use the how-often parameter if set, if not default to option at end of line (options are 'monthly', 'annually', or 'one-off')
 $payment_type = get_http_var('how-often', $default_type);
