@@ -574,6 +574,10 @@ msgstr "Gweld mwy"
 msgid "See more"
 msgstr "Gweld mwy"
 
+#: www/docs/alert/index.php:11
+msgid "Email Alerts"
+msgstr "Hysbysiadau e-bos"
+
 #: www/docs/freeourbills/sharethis.php:67
 msgid "E-mail this, post to del.icio.us, etc."
 msgstr "E-bostiwch hyn, post i del.icio.us, ayyb."
