@@ -188,7 +188,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
 
             if ($this->data['alert_parts']['match_all']) {
-                $this->data['match_all'] = true;
+                $this->data['match_all'] = false;
             }
 
             $words = get_http_var('words', $this->data['alert_parts']['words'], true);
