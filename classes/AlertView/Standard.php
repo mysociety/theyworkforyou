@@ -284,11 +284,12 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $today = date_create();
         $one_week_ago = date_create('7 days ago');
         $restriction = date_format($one_week_ago, 'd/m/Y') . '..' . date_format($today, 'd/m/Y');
-
+        $last_week_count = 0;
         $se = new \SEARCHENGINE($text . ' ' . $restriction);
-        $this->data['search_result_count'] = $se->run_count(0, 10);
+        $last_week_count = $se->run_count(0, 10);
         $se = new \SEARCHENGINE($text);
         $count = $se->run_count(0, 10, 'date');
+        $last_mention = null;
         if ($count > 0) {
             $se->run_search(0, 1, 'date');
             $gid = $se->get_gids()[0];
@@ -303,9 +304,14 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             FROM hansard
             WHERE hansard.gid = :gid", [':gid' => $gid])->first();
 
-            $last_mention = date_create($q['hdate']);
-            $this->data['lastmention'] = date_format($last_mention, 'd M Y'); //$se->get_gids()[0];
+            $last_mention_date = date_create($q['hdate']);
+            $last_mention = date_format($last_mention_date, 'd M Y'); //$se->get_gids()[0];
         }
+        return [
+            "last_mention" => $last_mention,
+            "last_week_count" => $last_week_count,
+            "all_time_count" => $count,
+        ];
     }
 
     private function getSearchSections() {
@@ -604,7 +610,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($this->data['pid']) {
                     $criteria .= " speaker:" . $this->data['pid'];
                 }
-                $this->getRecentResults($criteria);
+                $this->data['search_results']  = $this->getRecentResults($criteria);
             }
 
             $this->data['criteria'] = $criteria;
@@ -684,6 +690,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
+                    $alert['search_results']  = $this->getRecentResults($alert["criteria"]);
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }

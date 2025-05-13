@@ -3,9 +3,9 @@
                     <div class="keyword-alert-accordion__item">
                       <button class="keyword-alert-accordion__button js-accordion-button" href="#accordion-content-<?= $index ?>" aria-expanded="false">
                         <div class="keyword-alert-accordion__button-content">
-                          <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['criteria']) ?></span>
-                          <?php if (array_key_exists("mentions", $alert)) { ?>
-                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['mentions']) ?></span>
+                          <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['simple_criteria']) ?></span>
+                          <?php if (array_key_exists("search_results", $alert)) { ?>
+                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['search_results']['last_week_count']) ?></span>
                           <?php } ?>
                         </div>
                         <i aria-hidden="true" role="img" class="fi-plus"></i>
@@ -47,17 +47,18 @@
                             </form>
                           </div>
                           <dl class="alert-meta-info">
-                            <?php if (array_key_exists("mentions", $alert)) { ?>
+                            <?php if (array_key_exists("search_results", $alert)) { ?>
+                              <div class="content-header-item">
+                                <dt><?= gettext('All time') ?></dt>
+                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['all_time_count']) ?></dd>
+                              </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('This week') ?></dt>
-                                <dd><?= sprintf(gettext('%d mentions'), $alert['mentions']) ?></dd>
+                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['last_week_count']) ?></dd>
                               </div>
-                            <?php } ?>
-
-                            <?php if (array_key_exists("last_mention", $alert)) { ?>
                               <div class="content-header-item">
                                 <dt><?= gettext('Date of last mention') ?></dt>
-                                <dd><?= $alert['last_mention'] ?></dd>
+                                <dd><?= $alert['search_results']['last_mention'] ?></dd>
                               </div>
                             <?php } ?>
 

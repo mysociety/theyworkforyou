@@ -144,21 +144,25 @@
                     </ul>
                   </div>
 
-                  <?php if ($search_result_count > 0 || isset($lastmention)) { ?>
+                  <?php if ($search_results["all_time_count"] > 0 || isset($search_results["last_mention"])) { ?>
                     <hr>
                     <dl class="alert-meta">
                       <div class="alert-meta__results">
-                        <?php if ($search_result_count > 0) { ?>
+                        <?php if ($search_results["all_time_count"] > 0) { ?>
+                          <div class="alert-meta__item">
+                            <dt><?= gettext('All time') ?></dt>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
+                          </div>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["last_week_count"]) ?></dd>
                           </div>
                         <?php } ?>
 
-                        <?php if (isset($lastmention)) { ?>
+                        <?php if (isset($search_results["last_mention"])) { ?>
                           <div class="alert-meta__item">
                           <dt><?= gettext('Date of last mention') ?></dt>
-                            <dd><?= $lastmention ?></dd>
+                            <dd><?= $search_results["last_mention"] ?></dd>
                           </div>
                         <?php } ?>
                       </div>
@@ -267,25 +271,21 @@
                   </div>
                   <?php } ?>
 
-                  <?php if ($search_result_count > 0 || isset($lastmention)) { ?>
+                  <?php if ($search_results["all_time_count"] > 0 || isset($last_mention)) { ?>
                     <hr>
                     <dl class="alert-meta">
-                      <h3>See mentions for this alert</h3>
+                      <h3><?= gettext("Alert statistics") ?></h3>
 
                       <div class="alert-meta__results">
-                        <?php if ($search_result_count > 0) { ?>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
                           </div>
-                        <?php } ?>
 
-                        <?php if (isset($lastmention)) { ?>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Date of last mention') ?></dt>
-                            <dd><?= $lastmention ?></dd>
+                            <dd><?= $search_results["last_mention"] ?></dd>
                           </div>
-                        <?php } ?>
                       </div>
 
                       <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" aria-label="See results for this alert - Opens in a new tab"><?= gettext('See results for this alert 	&rarr;') ?></a>
