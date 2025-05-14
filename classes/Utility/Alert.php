@@ -153,7 +153,7 @@ class Alert {
             } elseif ($spokenby) {
                 $text = implode(' or ', $spokenby) . " speaks";
                 if ($ignore_speaker_votes) {
-                    $text .= " excluding votes";
+                    $text .= " (excluding votes)";
                 }
                 $parts['spokenby'] = $spokenby;
             }
