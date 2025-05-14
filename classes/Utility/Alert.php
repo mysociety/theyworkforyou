@@ -60,6 +60,14 @@ class Alert {
             $criteria = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes']);
             $parts = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes'], true);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
+            // simple_criteria is "First term (3 keywords)" or "First term"
+            if (count($parts['words']) > 1) {
+                $simple_criteria = $parts['words'][0] . ' (' . count($parts['words']) . ' keywords)';
+            } elseif (count($parts['words']) == 1) {
+                $simple_criteria = $parts['words'][0];
+            } else {
+                $simple_criteria = $criteria;
+            }
 
             $status = 'confirmed';
             if (!$row['confirmed']) {
@@ -72,6 +80,7 @@ class Alert {
                 'token' => $token,
                 'status' => $status,
                 'criteria' => $criteria,
+                'simple_criteria' => $simple_criteria,
                 'raw' => $row['criteria'],
                 'ignore_speaker_votes' => $row['ignore_speaker_votes'],
                 'keywords' => [],
