@@ -61,8 +61,7 @@
                                 <dd><?= $alert['search_results']['last_mention'] ?></dd>
                               </div>
                             <?php } ?>
-
-                            <a href="/search/?q=<?= $alert['raw'] ?>"><?= gettext('See results for this alert &rarr;') ?></a>
+                            <a href="/search/?q=<?= _htmlspecialchars($alert['raw']) ?>"><?= gettext('See results for this alert &rarr;') ?></a>
                           </dl>
                         </div>
 
