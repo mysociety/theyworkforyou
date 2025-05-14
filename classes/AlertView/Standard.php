@@ -431,14 +431,6 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['members'] = [];
         }
 
-        # If the above search returned one result for constituency
-        # search by postcode, use it immediately
-        if (isset($this->data['constituencies']) && count($this->data['constituencies']) == 1 && $this->data['valid_postcode']) {
-            $MEMBER = new \MEMBER(['constituency' => array_values($this->data['constituencies'])[0], 'house' => 1]);
-            $this->data['pid'] = $MEMBER->person_id();
-            $this->data['pc'] = $text;
-            unset($this->data['constituencies']);
-        }
 
         if (isset($this->data['constituencies'])) {
             $cons = [];
@@ -451,16 +443,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
             }
             $this->data['constituencies'] = $cons;
-            if (count($cons) == 1) {
-                $cons = array_values($cons);
-                $this->data['pid'] = $cons[0]->person_id();
-            }
         }
 
         if ($this->data['alertsearch'] && !$this->data['mp_step'] && ($this->data['pid'] || $this->data['members'] || $this->data['constituencies'])) {
-            if (count($this->data['members']) == 1) {
-                $this->data['pid'] = $this->data['members'][0]['person_id'];
-            }
             $this->data['mp_step'] = 'mp_alert';
             $this->data['mp_search'] = $this->data['alertsearch'];
             $this->data['alertsearch'] = '';
