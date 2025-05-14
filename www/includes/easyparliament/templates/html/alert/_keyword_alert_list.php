@@ -127,7 +127,7 @@
                     <input type="hidden" name="mp_step" value="mp_alert">
                     <button type="submit" class="button small">
                       <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                      <?= gettext('Create new MP alert') ?>
+                      <?= gettext('Create new Representative alert') ?>
                     </button>
                   </form>
                 </div>

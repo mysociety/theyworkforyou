@@ -123,7 +123,7 @@
       <?php if ($mp_step) { ?>
         <div class="alert-section">
             <div class="alert-section__primary">
-              <h1><?= gettext("Create an MP Alert") ?></h1>
+              <h1><?= gettext("Create an Representative Alert") ?></h1>
               <?php include '_mp_alert_form.php' ?>
               </div>
           </div>
@@ -299,7 +299,7 @@
                   <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
                     <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                    <?= gettext('Create new MP alert') ?>
+                    <?= gettext('Create new Representative alert') ?>
                   </button>
                 </form>
               </div>
