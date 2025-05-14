@@ -226,15 +226,5 @@
                         </form>
                       </div>
                     <?php } ?>
-                    <?php if (!in_array(implode('', $person_alerts[0]['spokenby']), $all_keywords)) { ?>
-                      <p class="alert-form__subtitle">Alert when <?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
-                      <form action="<?= $actionurl ?>" method="post">
-                        <input type="hidden" name="words[]" value="<?= _htmlentities(implode('', $person_alerts[0]['spokenby'])) ?>">
-                        <button type="submit" class="button small" name="action" value="Subscribe">
-                          <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                          <?= gettext('Create new alert') ?>
-                        </button>
-                      </form>
-                    <?php } ?>
                   </div>
                 <?php } ?>
