@@ -174,7 +174,6 @@
                   <fieldset>
                     <legend><?= gettext('Related Terms') ?></legend>
                     <div class="checkbox-group">
-                      <label><input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>><?= gettext('Add all related terms') ?></label>
                       <?php foreach ($suggestions as $suggestion) { ?>
                         <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
                         <label>
@@ -188,11 +187,16 @@
                         </label>
                       <?php } ?>
                     </div>
+                                <hr style="width:100%;margin:1em 0;">
+                                  <label>
+                                  <input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>>
+                                  <?= gettext('Add all related terms') ?>
+                                  </label>
+ </div>
+
+
                   </fieldset>
 
-
-                  <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Previous</button>
-                  <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 3">Next</button>
                   <button type="submit" class="button button--red" name="action" value="Abandon">
                     <i aria-hidden="true" class="fi-trash"></i>
                     <span><?= gettext('Abandon changes') ?></span>
