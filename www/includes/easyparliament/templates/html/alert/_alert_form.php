@@ -103,10 +103,7 @@
                       <p><?= gettext("Or edit the name") ?></p>
                     <?php } ?>
                       <input type="text" id="representative" name="representative" value="<?= _htmlspecialchars($representative) ?>" aria-required="true">
-                      <div class="checkbox-wrapper">
-                        <input type="checkbox" id="ignore_speaker_votes" name="ignore_speaker_votes"<?= $ignore_speaker_votes ? ' checked' : ''?>>
-                        <label for="ignore_speaker_votes"><?= gettext('Do not include votes') ?></label>
-                      </div>
+
                   </div>
 
 
