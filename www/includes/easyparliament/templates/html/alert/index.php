@@ -168,6 +168,7 @@
                     </li>
                   <?php } ?>
                 </ul>
+                <hr />
               <?php } ?>
 
               <?php if (isset($constituencies) && count($constituencies) > 0) {
