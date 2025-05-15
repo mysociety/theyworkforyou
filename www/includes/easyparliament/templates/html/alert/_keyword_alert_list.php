@@ -1,7 +1,7 @@
                 <div class="keyword-alert-accordion">
                   <?php foreach ($keyword_alerts as $index => $alert) { ?>
                     <div class="keyword-alert-accordion__item">
-                      <button class="keyword-alert-accordion__button js-accordion-button" href="#accordion-content-<?= $index ?>" aria-expanded="false">
+                      <button class="keyword-alert-accordion__button js-accordion-button <?= ($alert['status'] == 'suspended') ? 'keyword-alert-accordion__button--suspended' : '' ?>" href="#accordion-content-<?= $index ?>" aria-expanded="false">
                         <div class="keyword-alert-accordion__button-content">
                           <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['simple_criteria']) ?></span>
                           <?php if (array_key_exists("search_results", $alert)) { ?>

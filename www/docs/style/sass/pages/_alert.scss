@@ -453,6 +453,28 @@
   @extend .accordion__button;
 }
 
+.keyword-alert-accordion__button--suspended {
+  background-color: #cccccc !important; // Gray color for suspended alerts
+  color: $body-font-color !important; // Keep text black for suspended alerts
+  
+  &[aria-expanded="true"] {
+    background-color: #dddddd !important;
+    border: 1px solid #999999 !important;
+    color: $body-font-color !important;
+  }
+  
+  &:focus, &:active, &:hover {
+    background-color: #cccccc !important;
+    color: $body-font-color !important;
+  }
+  
+  &:focus[aria-expanded="false"], &:active[aria-expanded="false"], &:hover[aria-expanded="false"] {
+    background-color: #cccccc !important;
+    border: none !important;
+    color: $body-font-color !important;
+  }
+}
+
 .keyword-alert-accordion__content {
   @extend .accordion__content;
 }
