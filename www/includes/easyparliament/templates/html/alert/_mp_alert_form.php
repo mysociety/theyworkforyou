@@ -45,7 +45,7 @@
       <div class="alert-form__section">
         <div class="checkbox-wrapper">
           <input type="checkbox" id="ignore_speaker_votes" name="ignore_speaker_votes"<?= $ignore_speaker_votes ? ' checked' : ''?>>
-          <label for="ignore_speaker_votes"><?= gettext('Do not include votes') ?></label>
+          <label for="ignore_speaker_votes"><?= gettext('Do not include votes in the alert') ?></label>
         </div>
       </div>
 

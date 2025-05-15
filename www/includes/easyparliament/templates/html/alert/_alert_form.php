@@ -13,7 +13,7 @@
 
                 <input type="hidden" name="this_step" value="define">
                 <div class="alert-step" id="step1" role="region" aria-labelledby="step1-header">
-                <h2 id="step1-header"><?= gettext('Define alert') ?></h2>
+                <h2 id="step1-header"><?= gettext('Keyword alert') ?></h2>
 
                   <?php if (!$email_verified) { ?>
                   <div class="alert-form__section">
@@ -26,7 +26,7 @@
                   <?php } ?>
 
                   <div class="alert-form__section">
-                  <label for="words[]"><?= gettext('What word or phrase would you like to receive alerts about?') ?></label>
+                  <label for="words[]"><?= gettext('What word or phrase would you like to receive alerts about? (add as many as you like)') ?></label>
                     <?php if (isset($errors['alertsearch']) && $submitted) { ?>
                       <span class="alert-page-error"><?= $errors['alertsearch'] ?></span>
                     <?php } ?>
@@ -39,26 +39,26 @@
                     <?php } ?>
                     <button class="button" type="submit" name="addword" value="add">
                       <i aria-hidden="true" class="fi-save"></i>
-                      <span><?= gettext('Add word') ?></span>
+                      <span><?= gettext('Add another phrase') ?></span>
                     </button>
                   </div>
 
                   <div class="alert-form__section">
                     <div class="checkbox-wrapper">
                       <input type="checkbox" id="match_all" name="match_all"<?= $match_all ? ' checked' : ''?>>
-                      <label for="match_all"><?= gettext('Only alert if all words present, default is if any word is present') ?></label>
+                      <label for="match_all"><?= gettext('Require all phrases to be present (AND rather than OR)') ?></label>
                     </div>
                   </div>
-
+                  <hr />
                   <div class="alert-form__section">
-                    <label for="exclusions"><?= gettext('Is there anything you would not like to receive alerts about? (optional)') ?></label>
-                    <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. 'Freedom of Information', 'FOI'">
+                    <label for="exclusions"><?= gettext('Are there any phrases you would not like to receive alerts about? (optional)') ?></label>
+                    <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. 'Information Rights'">
                   </div>
 
                   <div class="alert-form__section">
-                  <label for="select-section"><?= gettext('Would you like to limit which Parliaments and Assemblies we alert about?') ?></label>
+                  <label for="select-section"><?= gettext('Would you like to limit which debates/questions we alert about?') ?></label>
                     <select name="search_section" id="select-section">
-                    <option value=""><?= gettext('Send alerts for everywhere.') ?></option>
+                    <option value=""><?= gettext('Include all') ?></option>
                       <optgroup label="<?= gettext('UK Parliament') ?>">
                           <option value="uk"<?= $search_section == 'uk' ? ' selected' : '' ?>><?= gettext('All UK') ?></option>
                           <option value="debates"<?= $search_section == 'debates' ? ' selected' : '' ?>><?= gettext('House of Commons debates') ?></option>
@@ -103,18 +103,17 @@
                       <p><?= gettext("Or edit the name") ?></p>
                     <?php } ?>
                       <input type="text" id="representative" name="representative" value="<?= _htmlspecialchars($representative) ?>" aria-required="true">
-                      <div class="checkbox-wrapper">
-                        <input type="checkbox" id="ignore_speaker_votes" name="ignore_speaker_votes"<?= $ignore_speaker_votes ? ' checked' : ''?>>
-                        <label for="ignore_speaker_votes"><?= gettext('Do not include votes') ?></label>
-                      </div>
+
                   </div>
 
-
-                  <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 2">Next</button>
                   <button type="submit" class="button button--red" name="action" value="Abandon">
                     <i aria-hidden="true" class="fi-trash"></i>
                     <span><?= gettext('Abandon changes') ?></span>
                   </button>
+                  <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 2">
+                    <span><?= gettext('Next →') ?></span>
+                  </button>
+
                 </div>
               <?php } elseif ($step == "add_vector_related") { ?>
 
@@ -144,21 +143,25 @@
                     </ul>
                   </div>
 
-                  <?php if ($search_result_count > 0 || isset($lastmention)) { ?>
+                  <?php if ($search_results["all_time_count"] > 0 || isset($search_results["last_mention"])) { ?>
                     <hr>
                     <dl class="alert-meta">
                       <div class="alert-meta__results">
-                        <?php if ($search_result_count > 0) { ?>
+                        <?php if ($search_results["all_time_count"] > 0) { ?>
+                          <div class="alert-meta__item">
+                            <dt><?= gettext('All time') ?></dt>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
+                          </div>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["last_week_count"]) ?></dd>
                           </div>
                         <?php } ?>
 
-                        <?php if (isset($lastmention)) { ?>
+                        <?php if (isset($search_results["last_mention"])) { ?>
                           <div class="alert-meta__item">
                           <dt><?= gettext('Date of last mention') ?></dt>
-                            <dd><?= $lastmention ?></dd>
+                            <dd><?= $search_results["last_mention"] ?></dd>
                           </div>
                         <?php } ?>
                       </div>
@@ -168,12 +171,11 @@
 
                   <hr>
 
-                  <h3><?= gettext('We have also found the following related terms. Pick the ones you’d like to include alert?') ?></h3>
+                  <h3><?= gettext('We have also found the following related terms.') ?></h3>
 
                   <fieldset>
                     <legend><?= gettext('Related Terms') ?></legend>
                     <div class="checkbox-group">
-                      <label><input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>><?= gettext('Add all related terms') ?></label>
                       <?php foreach ($suggestions as $suggestion) { ?>
                         <input type="hidden" name="related_terms[]" value="<?= _htmlspecialchars($suggestion) ?>">
                         <label>
@@ -186,16 +188,24 @@
 
                         </label>
                       <?php } ?>
-                    </div>
+                                </div>
+                                <hr style="width:100%;margin:1em 0;">
+                                  <label>
+                                  <input type="checkbox" name="add_all_related" id="add-all"<?= $add_all_related == 'on' ? ' checked' : '' ?>>
+                                  <?= gettext('Add all related terms') ?>
+                                  </label>
+ </div>
+
+
                   </fieldset>
 
-
-                  <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Previous</button>
-                  <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 3">Next</button>
                   <button type="submit" class="button button--red" name="action" value="Abandon">
                     <i aria-hidden="true" class="fi-trash"></i>
                     <span><?= gettext('Abandon changes') ?></span>
                   </button>
+                  <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2"><?= gettext('← Previous') ?></button>
+                  <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 3"><?= gettext('Next →') ?></button>
+
                 </div>
               <?php } elseif ($step == "review") { ?>
 
@@ -221,7 +231,7 @@
 
                   <div class="alert-form__section">
                     <?php if ($match_all) { ?>
-                      <h3><?= gettext('You will get an alert if all of these words are in a speech') ?>:</h3>
+                      <h3><?= gettext('If you click \'save alert\', you will get an alert if all of these words are in a speech') ?>:</h3>
                     <?php } else { ?>
                       <h3><?= gettext('You will get an alert if any of these words are in a speech') ?>:</h3>
                     <?php } ?>
@@ -267,25 +277,21 @@
                   </div>
                   <?php } ?>
 
-                  <?php if ($search_result_count > 0 || isset($lastmention)) { ?>
+                  <?php if ($search_results["all_time_count"] > 0 || isset($last_mention)) { ?>
                     <hr>
                     <dl class="alert-meta">
-                      <h3>See mentions for this alert</h3>
+                      <h3><?= gettext("Alert statistics") ?></h3>
 
                       <div class="alert-meta__results">
-                        <?php if ($search_result_count > 0) { ?>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_result_count) ?></dd>
+                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
                           </div>
-                        <?php } ?>
 
-                        <?php if (isset($lastmention)) { ?>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Date of last mention') ?></dt>
-                            <dd><?= $lastmention ?></dd>
+                            <dd><?= $search_results["last_mention"] ?></dd>
                           </div>
-                        <?php } ?>
                       </div>
 
                       <a href="/search/?q=<?= _htmlspecialchars($criteria) ?>" target="_blank" aria-label="See results for this alert - Opens in a new tab"><?= gettext('See results for this alert 	&rarr;') ?></a>
@@ -293,15 +299,16 @@
                   <?php } ?>
 
                   <hr>
+                  <button type="submit" class="button button--red" name="action" value="Abandon">
+                    <i aria-hidden="true" class="fi-trash"></i>
+                    <span><?= gettext('Abandon changes') ?></span>
+                  </button>
                   <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Go Back</button>
                   <button class="button" type="submit" name="step" value="confirm">
                     <i aria-hidden="true" class="fi-save"></i>
                     <span><?= gettext('Save alert') ?></span>
                   </button>
-                  <button type="submit" class="button button--red" name="action" value="Abandon">
-                    <i aria-hidden="true" class="fi-trash"></i>
-                    <span><?= gettext('Abandon changes') ?></span>
-                  </button>
+
                   <?php if ($token) { ?>
                   <button type="submit" class="button button--red" name="action" value="Delete">
                     <i aria-hidden="true" class="fi-trash"></i>
