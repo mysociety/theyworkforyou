@@ -418,9 +418,18 @@ switch ($pagetype) {
         $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
         $voting_comparison_period_slug = get_http_var('comparison_period') ?: 'all_time';
         $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
+        $cohort_party = $MEMBER->cohortParty();
+
+        // this comes up if the votes page is being accessed for an old MP/Lord without party information.
+        // by definition, not covered by our voting comparisons so just return an empty array.
+        if ($cohort_party == null) {
+            $data['key_votes_segments'] = [];
+        } else {
+            $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $cohort_party, $voting_comparison_period->slug, $house);
+        }
+
         $data["comparison_period"] = $voting_comparison_period;
         $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
-        $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $MEMBER->cohortParty(), $voting_comparison_period->slug, HOUSE_TYPE_COMMONS);
         // shuffle the key_votes_segments for a random order
         shuffle($data['key_votes_segments']);
         $data["sig_diff_policy"] = PolicyDistributionCollection::getSignificantDistributions($data['key_votes_segments']);
