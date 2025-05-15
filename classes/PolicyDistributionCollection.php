@@ -88,7 +88,9 @@ class PolicyDistributionCollection {
             $group_slug = $set_slug;
             $comparison_period_slug = $period_slug;
             $policy_pairs = array_filter($pairs, function ($pair) use ($policy_ids) {
-                return in_array($pair->getPolicyID(), $policy_ids) && !$pair->member_distribution->noDataAvailable();
+                $is_policy_valid = in_array($pair->getPolicyID(), $policy_ids);
+                $has_own_distribution = $pair->member_distribution !== null && !$pair->member_distribution->noDataAvailable();
+                return $is_policy_valid && $has_own_distribution;
             });
             $collection = new PolicyDistributionCollection($group_slug, $group_name, $comparison_period_slug, $person_id, $party_slug, $policy_pairs);
 
