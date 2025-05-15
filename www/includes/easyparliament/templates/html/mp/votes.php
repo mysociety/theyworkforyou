@@ -4,7 +4,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 # fetch covid_policy_list
 
 /** @var MySociety\TheyWorkForYou\PolicyDistributionCollection[] $key_votes_segments */
-/** @var MySociety\TheyWorkForYou\PolicyDistributionCollection $sig_diff_policy */
+/** @var MySociety\TheyWorkForYou\PolicyDistributionCollection|null $sig_diff_policy */
 /** @var \MySociety\TheyWorkForYou\PolicyComparisonPeriod[] $available_periods */
 /** @var \MySociety\TheyWorkForYou\PolicyComparisonPeriod $comparison_period */
 
@@ -114,7 +114,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php } ?>
 
                     
-                    <?php if (count($sig_diff_policy->policy_pairs) > 0) { ?>
+                    <?php if ($sig_diff_policy !== null && count($sig_diff_policy->policy_pairs) > 0) { ?>
                     <?php if ($party_switcher == true) { ?>
                         <p>
                         However, <?= $full_name ?> sometimes <b>differs</b> from <?= $unslugified_comparison_party ?> MPs, such as:
