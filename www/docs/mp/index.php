@@ -777,7 +777,7 @@ function person_rebellion_rate($member) {
         }
         $votes_help_url = TWFY_VOTES_URL . "/help/about#voting-breakdowns-and-party-alignment";
 
-        $rebellion_string .= 'In the last year, ' . $member->full_name() . ' has an alignment score of ' . $avg_diff_str . ' with their party (over ' . $total_votes . ' votes).';
+        $rebellion_string .= 'In the last year, ' . $member->full_name() . ' has an alignment score of ' . $avg_diff_str . ' with other MPs of their party (over ' . $total_votes . ' votes).';
         $rebellion_string .= ' <small><a title="More about party alignment" href="' . $votes_help_url . '">Find out more</a>.</small>';
     }
     return $rebellion_string;
