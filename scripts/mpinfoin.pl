@@ -26,7 +26,7 @@ use File::Slurp;
 my %action;
 my $verbose;
 foreach (@ARGV) {
-    } elsif ($_ eq 'regmem') {
+    if ($_ eq 'regmem') {
         $action{'regmem'} = 1;
     } elsif ($_ eq 'links') {
         $action{'links'} = 1;
