@@ -25,15 +25,20 @@ use File::Slurp;
 
 my %action;
 my $verbose;
+my $action_count = 0;
 foreach (@ARGV) {
     if ($_ eq 'regmem') {
         $action{'regmem'} = 1;
+        $action_count++;
     } elsif ($_ eq 'links') {
         $action{'links'} = 1;
+        $action_count++;
     } elsif ($_ eq 'compile') {
         $action{'compile'} = 1;
+        $action_count++;
     } elsif ($_ eq 'eu_ref_position') {
         $action{'eu_ref_position'} = 1;
+        $action_count++;
     } elsif ($_ eq 'verbose') {
         $verbose = 1;
     } else {
@@ -41,7 +46,7 @@ foreach (@ARGV) {
         exit(0);
     }
 }
-if (scalar(@ARGV) == 0) {
+if ($action_count == 0) {
     $action{'regmem'} = 1;
     $action{'links'} = 1;
     $action{'compile'} = 1;
