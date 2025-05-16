@@ -27,10 +27,7 @@ my %action;
 my $verbose;
 my $action_count = 0;
 foreach (@ARGV) {
-    if ($_ eq 'regmem') {
-        $action{'regmem'} = 1;
-        $action_count++;
-    } elsif ($_ eq 'links') {
+    if ($_ eq 'links') {
         $action{'links'} = 1;
         $action_count++;
     } elsif ($_ eq 'compile') {
@@ -47,7 +44,6 @@ foreach (@ARGV) {
     }
 }
 if ($action_count == 0) {
-    $action{'regmem'} = 1;
     $action{'links'} = 1;
     $action{'compile'} = 1;
     $action{'eu_ref_position'} = 1;
@@ -58,26 +54,15 @@ my $memberinfohash;
 my $personinfohash;
 my $consinfohash;
 
-# Find latest register of members interests file
-chdir mySociety::Config::get('RAWDATA');
-my @regmemfiles = ();
-find sub { push(@regmemfiles, $_) if /^regmem.*\.xml$/ }, 'scrapedxml/regmem/';
-
 # Read in all the files
 my $twig = XML::Twig->new(
     twig_handlers => {
         'memberinfo' => \&loadmemberinfo,
         'personinfo' => \&loadpersoninfo,
         'consinfo' => \&loadconsinfo,
-        'regmem' => \&loadregmeminfo
     }, output_filter => 'safe' );
 
-if ($action{'regmem'}) {
-    foreach my $regmemfile (sort @regmemfiles) {
-        print "Parsing register of members' interests from $regmemfile\n" if $verbose;
-        $twig->parsefile(mySociety::Config::get('RAWDATA') . "scrapedxml/regmem/$regmemfile", ErrorContext => 2);
-    }
-}
+
 
 if ($action{'links'}) {
     print "Parsing links\n" if $verbose;
@@ -240,35 +225,7 @@ sub loadconsinfo
 }
 
 
-# Handler for loading register of members interests
-sub loadregmeminfo
-{
-    my ($twig, $regmem) = @_;
-    my $id = $regmem->att('personid');
 
-    my $htmlcontent = "";
-
-    for (my $category = $regmem->first_child('category'); $category;
-        $category = $category->next_sibling('category'))
-    {
-        $htmlcontent .= '<div class="regmemcategory">';
-        $htmlcontent .= $category->att("type") . ". " . $category->att("name");
-        $htmlcontent .= "</div>\n";
-        foreach my $item ($category->descendants('item'))
-        {
-            $htmlcontent .= '<div class="regmemitem">';
-            if ($item->att("subcategory"))
-            {
-                $htmlcontent .= "(" . $item->att("subcategory") . ") ";
-            }
-            $htmlcontent .= $item->sprint(1);
-            $htmlcontent .= "</div>\n";
-        }
-    }
-
-    $personinfohash->{$id}->{"register_member_interests_html"} = $htmlcontent;
-    $personinfohash->{$id}->{"register_member_interests_date"} = $regmem->att('date');
-}
 
 sub commons_dissolved {
     return unless mySociety::Config::get('DISSOLUTION_DATE');
