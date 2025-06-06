@@ -121,7 +121,10 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         </p>
                     <?php } else { ?>
                         <p>
-                        However, <?= $full_name ?> sometimes <b>differs</b> from their party colleagues, such as:
+                        Where MPs <b>differ</b> is either because they have made a decision not to follow the party whip (rebelling), or where they have differed from the majority of their colleagues in a free vote.
+                        </p>
+                        <p>
+                        <?= $full_name ?> sometimes differs from their party colleagues, such as:
                         </p>
                     <?php } ?>
 
