@@ -119,7 +119,7 @@ class PartyTest extends FetchPageTestCase {
         $page = $this->fetch_page(['pagetype' => 'votes', 'pid' => 15, 'url' => '/mp/15/test_mp_g_party_1/test_westminster_constituency/votes']);
         $this->assertStringContainsString('is a G Party MP', $page);
         $this->assertStringContainsString('Test MP G Party 1', $page);
-        $this->assertStringContainsString('sometimes <b>differs</b> from their party', $page);
+        $this->assertStringContainsString('sometimes differs from their party', $page);
     }
 
     public function testSingleMemberPartyPolicyText() {
@@ -151,7 +151,7 @@ class PartyTest extends FetchPageTestCase {
         $page = $this->fetch_page(['pagetype' => 'votes', 'pid' => 16,  'url' => '/mp/16/test_mp_g_party_2/test_westminster_constituency/votes']);
         $this->assertStringContainsString('Test MP G Party 2', $page);
 
-        $this->assertStringNotContainsString('sometimes <b>differs</b> from their party colleagues', $page);
+        $this->assertStringNotContainsString('sometimes differs from their party colleagues', $page);
     }
 
 
