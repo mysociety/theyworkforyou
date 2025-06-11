@@ -959,10 +959,9 @@ sub load_debate_division {
 
     my $text =
 "<p class=\"divisionheading\">Division number $divnumber</p>
-<p class=\"divisionbody\"><a href=\"https://www.publicwhip.org.uk/division.php?date=$divdate&amp;number=$divnumber";
-    $text .= '&amp;house=lords' if $major == 101;
-    $text .= "&amp;showall=yes#voters\">See full
-list of votes</a> (From <a href=\"https://www.publicwhip.org.uk\">The Public Whip</a>)</p>";
+<p class=\"divisionbody\"><a href=\"https://votes.theyworkforyou.com/decisions/division/$house/$divdate/$divnumber";
+    $text .= "\">See full
+list of votes</a></p>";
 
     my $totals = {
         aye => 0,
@@ -1611,7 +1610,7 @@ sub load_standing_division {
     my %out = ( aye => '', no => '' );
     foreach (@names) {
         my $person_id = person_id($_, 'memberid');
-        my $name = $_->att('membername');
+        my $name = $_->sprint(1);
         my $v = $_->att('vote');
         $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
         $voteupdate->execute($person_id, $division_id, $v, undef);
