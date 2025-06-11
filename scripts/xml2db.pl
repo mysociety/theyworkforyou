@@ -1610,7 +1610,7 @@ sub load_standing_division {
     my %out = ( aye => '', no => '' );
     foreach (@names) {
         my $person_id = person_id($_, 'memberid');
-        my $name = $_->att('membername');
+        my $name = $_->sprint(1);
         my $v = $_->att('vote');
         $out{$v} .= '<a href="/mp/?p=' . $person_id . '">' . $name . '</a>, ';
         $voteupdate->execute($person_id, $division_id, $v, undef);
