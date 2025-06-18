@@ -90,25 +90,49 @@ class PolicyDistribution {
     }
 
     public function getVerboseScore(): string {
+
+        // Special case for when there's exactly one vote
+        // e.g. weird to say 'consistently' for an event that's happened once
+        if ($this->totalVotes() == 1) {
+            if ($this->distance_score == 0) {
+                return "Voted for";
+            } elseif ($this->distance_score == 1) {
+                return "Voted against";
+            }
+        }
+
+        // Regular cases for multiple votes or scores between 0 and 1
+        $desc = "";
+
         if ($this->distance_score >= 0 && $this->distance_score <= 0.05) {
-            return "Consistently voted for";
+            $desc = "Consistently voted for";
         } elseif ($this->distance_score > 0.05 && $this->distance_score <= 0.15) {
-            return "Almost always voted for";
-        } elseif ($this->distance_score > 0.15 && $this->distance_score <= 0.4) {
-            return "Generally voted for";
+            $desc = "Almost always voted for";
+        } elseif ($this->distance_score > 0.15 && $this->distance_score <= 0.3) {
+            $desc = "Generally voted for";
+        } elseif ($this->distance_score > 0.3 && $this->distance_score <= 0.4) {
+            $desc = "Tended to vote for";
         } elseif ($this->distance_score > 0.4 && $this->distance_score <= 0.6) {
-            return "Voted a mixture of for and against";
-        } elseif ($this->distance_score > 0.6 && $this->distance_score <= 0.85) {
-            return "Generally voted against";
+            $desc = "Voted a mixture of for and against";
+        } elseif ($this->distance_score > 0.6 && $this->distance_score <= 0.7) {
+            $desc = "Tended to vote against";
+        } elseif ($this->distance_score > 0.7 && $this->distance_score <= 0.85) {
+            $desc = "Generally voted against";
         } elseif ($this->distance_score > 0.85 && $this->distance_score <= 0.95) {
-            return "Almost always voted against";
+            $desc = "Almost always voted against";
         } elseif ($this->distance_score > 0.95 && $this->distance_score <= 1) {
-            return "Consistently voted against";
+            $desc = "Consistently voted against";
         } elseif ($this->distance_score == -1) {
-            return "No data available";
+            $desc = "No data available";
         } else {
             throw new \InvalidArgumentException("Score must be between 0 and 1");
         }
+        // for alignments in the middle - we'll include a bit more information to indicate the scale of the split.
+        if ($this->distance_score > 0.3 && $this->distance_score < 0.7) {
+            $alignment_score = round((1 - $this->distance_score) * 100, 0);
+            $desc .= " (alignment score: $alignment_score%)";
+        }
+        return $desc;
     }
 
     /**
