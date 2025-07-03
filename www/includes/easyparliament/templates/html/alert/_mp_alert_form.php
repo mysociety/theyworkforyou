@@ -15,6 +15,32 @@
           </li>
     <?php } ?>
   </ul>
+<?php } elseif ($members) {
+    $member_options = true; ?>
+  <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
+  <ul>
+    <?php
+      foreach ($members as $row) {
+          ?>
+      <li>
+          <form action="<?= $actionurl ?>" method="post">
+              <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
+              <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+              <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
+              <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
+              <?php
+                    $name = member_full_name($row['house'], $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']);
+          if ($row['constituency']) {
+              $name .= ' (' . gettext($row['constituency']) . ')';
+          }
+          printf(gettext('When %s speaks.'), $name);
+          ?>
+              <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
+          </form>
+      </li>
+    <?php } ?>
+  </ul>
+  <hr />
 <?php } else { ?>
   <form action="<?= $actionurl ?>" method="post" class="alerts-form">
     <?php if (!$email_verified) { ?>
