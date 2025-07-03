@@ -187,8 +187,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $existing_section = $this->data['alert_parts']['sections'][0];
             }
 
-            if ($this->data['alert_parts']['match_all']) {
-                $this->data['match_all'] = false;
+            # only want to load this the first time, otherwise we want to default to the form
+            # value
+            if (!$this->data['this_step'] && $this->data['alert_parts']['match_all']) {
+                $this->data['match_all'] = true;
             }
 
             $words = get_http_var('words', $this->data['alert_parts']['words'], true);
