@@ -306,8 +306,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             FROM hansard
             WHERE hansard.gid = :gid", [':gid' => $gid])->first();
 
-            $last_mention_date = date_create($q['hdate']);
-            $last_mention = date_format($last_mention_date, 'd M Y'); //$se->get_gids()[0];
+            if ($q) {
+                $last_mention_date = date_create($q['hdate']);
+                $last_mention = date_format($last_mention_date, 'd M Y'); //$se->get_gids()[0];
+            }
         }
         return [
             "last_mention" => $last_mention,
