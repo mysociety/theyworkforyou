@@ -187,7 +187,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $existing_section = $this->data['alert_parts']['sections'][0];
             }
 
-            if ($this->data['alert_parts']['match_all']) {
+            # only want to load this the first time, otherwise we want to default to the form
+            # value
+            if (!$this->data['this_step'] && $this->data['alert_parts']['match_all']) {
                 $this->data['match_all'] = true;
             }
 
@@ -284,11 +286,12 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $today = date_create();
         $one_week_ago = date_create('7 days ago');
         $restriction = date_format($one_week_ago, 'd/m/Y') . '..' . date_format($today, 'd/m/Y');
-
+        $last_week_count = 0;
         $se = new \SEARCHENGINE($text . ' ' . $restriction);
-        $this->data['search_result_count'] = $se->run_count(0, 10);
+        $last_week_count = $se->run_count(0, 10);
         $se = new \SEARCHENGINE($text);
         $count = $se->run_count(0, 10, 'date');
+        $last_mention = null;
         if ($count > 0) {
             $se->run_search(0, 1, 'date');
             $gid = $se->get_gids()[0];
@@ -303,9 +306,16 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             FROM hansard
             WHERE hansard.gid = :gid", [':gid' => $gid])->first();
 
-            $last_mention = date_create($q['hdate']);
-            $this->data['lastmention'] = date_format($last_mention, 'd M Y'); //$se->get_gids()[0];
+            if ($q) {
+                $last_mention_date = date_create($q['hdate']);
+                $last_mention = date_format($last_mention_date, 'd M Y'); //$se->get_gids()[0];
+            }
         }
+        return [
+            "last_mention" => $last_mention,
+            "last_week_count" => $last_week_count,
+            "all_time_count" => $count,
+        ];
     }
 
     private function getSearchSections() {
@@ -425,14 +435,6 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['members'] = [];
         }
 
-        # If the above search returned one result for constituency
-        # search by postcode, use it immediately
-        if (isset($this->data['constituencies']) && count($this->data['constituencies']) == 1 && $this->data['valid_postcode']) {
-            $MEMBER = new \MEMBER(['constituency' => array_values($this->data['constituencies'])[0], 'house' => 1]);
-            $this->data['pid'] = $MEMBER->person_id();
-            $this->data['pc'] = $text;
-            unset($this->data['constituencies']);
-        }
 
         if (isset($this->data['constituencies'])) {
             $cons = [];
@@ -445,16 +447,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
             }
             $this->data['constituencies'] = $cons;
-            if (count($cons) == 1) {
-                $cons = array_values($cons);
-                $this->data['pid'] = $cons[0]->person_id();
-            }
         }
 
         if ($this->data['alertsearch'] && !$this->data['mp_step'] && ($this->data['pid'] || $this->data['members'] || $this->data['constituencies'])) {
-            if (count($this->data['members']) == 1) {
-                $this->data['pid'] = $this->data['members'][0]['person_id'];
-            }
             $this->data['mp_step'] = 'mp_alert';
             $this->data['mp_search'] = $this->data['alertsearch'];
             $this->data['alertsearch'] = '';
@@ -604,7 +599,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($this->data['pid']) {
                     $criteria .= " speaker:" . $this->data['pid'];
                 }
-                $this->getRecentResults($criteria);
+                $this->data['search_results']  = $this->getRecentResults($criteria);
             }
 
             $this->data['criteria'] = $criteria;
@@ -684,6 +679,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
+                    $alert['search_results']  = $this->getRecentResults($alert["criteria"]);
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }

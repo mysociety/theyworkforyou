@@ -1,11 +1,11 @@
                 <div class="keyword-alert-accordion">
                   <?php foreach ($keyword_alerts as $index => $alert) { ?>
                     <div class="keyword-alert-accordion__item">
-                      <button class="keyword-alert-accordion__button js-accordion-button" href="#accordion-content-<?= $index ?>" aria-expanded="false">
+                      <button class="keyword-alert-accordion__button js-accordion-button <?= ($alert['status'] == 'suspended') ? 'keyword-alert-accordion__button--suspended' : '' ?>" href="#accordion-content-<?= $index ?>" aria-expanded="false">
                         <div class="keyword-alert-accordion__button-content">
-                          <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['criteria']) ?></span>
-                          <?php if (array_key_exists("mentions", $alert)) { ?>
-                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['mentions']) ?></span>
+                          <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['simple_criteria']) ?></span>
+                          <?php if (array_key_exists("search_results", $alert)) { ?>
+                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['search_results']['last_week_count']) ?></span>
                           <?php } ?>
                         </div>
                         <i aria-hidden="true" role="img" class="fi-plus"></i>
@@ -47,21 +47,21 @@
                             </form>
                           </div>
                           <dl class="alert-meta-info">
-                            <?php if (array_key_exists("mentions", $alert)) { ?>
+                            <?php if (array_key_exists("search_results", $alert)) { ?>
+                              <div class="content-header-item">
+                                <dt><?= gettext('All time') ?></dt>
+                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['all_time_count']) ?></dd>
+                              </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('This week') ?></dt>
-                                <dd><?= sprintf(gettext('%d mentions'), $alert['mentions']) ?></dd>
+                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['last_week_count']) ?></dd>
                               </div>
-                            <?php } ?>
-
-                            <?php if (array_key_exists("last_mention", $alert)) { ?>
                               <div class="content-header-item">
                                 <dt><?= gettext('Date of last mention') ?></dt>
-                                <dd><?= $alert['last_mention'] ?></dd>
+                                <dd><?= $alert['search_results']['last_mention'] ?></dd>
                               </div>
                             <?php } ?>
-
-                            <a href="/search/?q=<?= $alert['raw'] ?>"><?= gettext('See results for this alert &rarr;') ?></a>
+                            <a href="/search/?q=<?= _htmlspecialchars($alert['raw']) ?>"><?= gettext('See results for this alert &rarr;') ?></a>
                           </dl>
                         </div>
 
@@ -127,7 +127,7 @@
                     <input type="hidden" name="mp_step" value="mp_alert">
                     <button type="submit" class="button small">
                       <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                      <?= gettext('Create new MP alert') ?>
+                      <?= gettext('Create new Representative alert') ?>
                     </button>
                   </form>
                 </div>
@@ -225,16 +225,6 @@
                           <?php } ?>
                         </form>
                       </div>
-                    <?php } ?>
-                    <?php if (!in_array(implode('', $person_alerts[0]['spokenby']), $all_keywords)) { ?>
-                      <p class="alert-form__subtitle">Alert when <?= _htmlspecialchars(implode(', ', $person_alerts[0]['spokenby'])) ?> is <strong>mentioned</strong></p>
-                      <form action="<?= $actionurl ?>" method="post">
-                        <input type="hidden" name="words[]" value="<?= _htmlentities(implode('', $person_alerts[0]['spokenby'])) ?>">
-                        <button type="submit" class="button small" name="action" value="Subscribe">
-                          <i aria-hidden="true" role="img" class="fi-megaphone"></i>
-                          <?= gettext('Create new alert') ?>
-                        </button>
-                      </form>
                     <?php } ?>
                   </div>
                 <?php } ?>
