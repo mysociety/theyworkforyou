@@ -177,6 +177,22 @@ def load_vote_distribution():
 
     df = pd.read_parquet(distribution_url)
 
+    starting_distribution_count = len(df)
+
+    active_policies = [
+        int(x) for x in Policy.objects.all().values_list("policy_id", flat=True)
+    ]
+
+    # filter to only active policies
+    df = df[df["policy_id"].isin(active_policies)]
+
+    reduced_distribution_count = len(df)
+
+    # reduce
+    rich_print(
+        f"Reduced vote distribution from [blue]{starting_distribution_count}[/blue] to [blue]{reduced_distribution_count}[/blue] rows"
+    )
+
     to_create: list[PolicyVoteDistribution] = []
 
     for _, row in df.iterrows():
@@ -227,6 +243,9 @@ def process_policy_json():
     policy_description: dict[str, str] = {}
     division_links: list[PolicyDivisionLink] = []
     agreement_links: dict[str, list[BasicAgreement]] = {}
+
+    # limit to just active policies
+    data = [x for x in data if x["status"] == "active"]
 
     # iterate through policies
 
@@ -292,11 +311,20 @@ def process_policy_json():
     to_update = [
         policy for policy in policies if policy.policy_id in existing_policy_ids
     ]
+    # remove any policies that are in the database but not in the json
+    # these are likely to be retired policies
+    to_delete_ids = [
+        policy.policy_id
+        for policy in Policy.objects.all()
+        if policy.policy_id not in [pol.policy_id for pol in policies]
+    ]
 
     rich_print(f"About to load [blue]{len(to_create)}[/blue] policies")
     Policy.objects.bulk_create(to_create)
     rich_print(f"About to update [blue]{len(to_update)}[/blue] policies")
     Policy.objects.bulk_update(to_update, fields=["title", "description"])
+    rich_print(f"About to delete [blue]{len(to_delete_ids)}[/blue] policies")
+    Policy.objects.filter(policy_id__in=to_delete_ids).delete()
 
     # not a lot of division links, so delete all and recreate
     rich_print(f"About to load [blue]{len(division_links)}[/blue] division links")
