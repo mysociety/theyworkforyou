@@ -23,7 +23,7 @@ jobs:
     - name: Push branch to git.mysociety.org
       id: push_to_mirror
       if: ${{ github.event.inputs.force_push == 'false' || !github.event.inputs.force_push }}
-      uses: mysociety/action-git-pusher@v1.2.0
+      uses: mysociety/action-git-pusher@v1.3.0
       with:
         git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
         ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
@@ -34,7 +34,7 @@ jobs:
     - name: Push branch to git.mysociety.org (force)
       id: push_to_mirror_force
       if: ${{ github.event.inputs.force_push == 'true' }}
-      uses: mysociety/action-git-pusher@v1.2.0
+      uses: mysociety/action-git-pusher@v1.3.0
       with:
         git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
         ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
