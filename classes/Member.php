@@ -277,11 +277,12 @@ class Member extends \MEMBER {
     *
     * @param string $include_only  Restrict the list to include only "previous" or "current" offices.
     * @param bool   $ignore_committees Ignore offices that appear to be committee memberships.
+    * @param bool   $committees_only Only return committee memberships.
     *
     * @return array An array of Office objects.
     */
 
-    public function offices($include_only = null, $ignore_committees = false) {
+    public function offices($include_only = null, $ignore_committees = false, $committees_only = false) {
 
         $out = [];
 
@@ -290,7 +291,7 @@ class Member extends \MEMBER {
             $office = $office['office'];
 
             foreach ($office as $row) {
-                if ($officeObject = $this->getOfficeObject($include_only, $ignore_committees, $row)) {
+                if ($officeObject = $this->getOfficeObject($include_only, $ignore_committees, $committees_only, $row)) {
                     $out[] = $officeObject;
                 }
             }
@@ -300,11 +301,15 @@ class Member extends \MEMBER {
 
     }
 
-    private function getOfficeObject($include_only, $ignore_committees, $row) {
+    private function getOfficeObject($include_only, $ignore_committees, $committees_only, $row) {
         if (!$this->includeOffice($include_only, $row['to_date'])) {
             return null;
         }
         if ($ignore_committees && strpos($row['moffice_id'], 'Committee')) {
+            return null;
+        }
+
+        if ($committees_only && !strpos($row['moffice_id'], 'Committee')) {
             return null;
         }
 
