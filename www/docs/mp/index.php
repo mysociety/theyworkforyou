@@ -349,12 +349,13 @@ $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
 $data['social_links'] = person_social_links($MEMBER);
 $data['topics_of_interest'] = person_topics($MEMBER);
-$data['current_offices'] = $MEMBER->offices('current');
-$data['previous_offices'] = $MEMBER->offices('previous');
+$data['current_offices'] = $MEMBER->offices('current', true);
+$data['previous_offices'] = $MEMBER->offices('previous', true);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['eu_stance'] = $MEMBER->getEUStance();
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
+$data['member_interests'] = member_interests($MEMBER);
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
 $data['has_voting_record'] = (($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS));
@@ -974,6 +975,27 @@ function person_topics($member) {
     if (isset($extra_info['wrans_subjects'])) {
         $subjects = explode(',', $extra_info['wrans_subjects']);
         $out = array_merge($out, $subjects);
+    }
+
+    return $out;
+}
+
+function member_interests($member) {
+    $out = [];
+
+    $topics = person_topics($member);
+    if ($topics) {
+        $out['topics'] = $topics;
+    }
+
+    $posts = $member->offices('current', false, true);
+    if ($posts) {
+        $out['posts'] = $posts;
+    }
+
+    $posts = $member->offices('previous', false, true);
+    if ($posts) {
+        $out['previous_posts'] = $posts;
     }
 
     return $out;

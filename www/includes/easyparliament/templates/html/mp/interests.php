@@ -34,6 +34,36 @@ $display_wtt_stats_banner = '2015';
                     <h2><?=gettext('Interests') ?></h2>
 
 
+                    <?php if (array_key_exists('posts', $member_interests)): ?>
+
+                    <h3><?=gettext('Current committee memberships') ?></h3>
+
+                    <ul class='list-dates'>
+
+                        <?php foreach ($member_interests['posts'] as $office): ?>
+                        <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
+                        <?php endforeach; ?>
+
+                    </ul>
+
+                    <?php endif; ?>
+
+                    <?php if (array_key_exists('previous_posts', $member_interests)): ?>
+
+                    <h3><?=gettext('Committee memberships held in the past') ?></h3>
+
+                    <ul class='list-dates'>
+
+                        <?php foreach ($member_interests['previous_posts'] as $office): ?>
+                        <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
+                        <?php endforeach; ?>
+
+                    </ul>
+
+                    <?php endif; ?>
+
+                </div>
+
                 <?php include('_profile_footer.php'); ?>
 
             </div>
