@@ -1,8 +1,10 @@
 #!.venv/bin/python
 
 import os
+from collections import defaultdict
 from typing import Literal, Optional
 
+import pandas as pd
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
 from tqdm import tqdm
@@ -11,6 +13,9 @@ from typing_extensions import TypeGuard
 
 from twfy_tools.common.config import config
 from twfy_tools.db.utils import upload_person_info
+
+appg_names_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_and_memberships/latest/register.parquet"
+appg_membership_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_and_memberships/latest/members.parquet"
 
 app = Typer(pretty_exceptions_enable=False)
 
@@ -140,6 +145,29 @@ def upload_enhanced_2024_regmem(quiet: bool = False):
         remove_absent=True,
         quiet=quiet,
         batch_size=100,
+    )
+
+
+@app.command()
+def load_appg_membership(quiet: bool = False):
+    df = pd.read_parquet(appg_names_url)
+    appg_lookup = {}
+    for _, row in df.iterrows():
+        appg_lookup[row["slug"]] = row["title"]
+
+    id_to_person = defaultdict(list)
+    df = pd.read_parquet(appg_membership_url)
+    for _, row in df.iterrows():
+        if pd.isna(row["twfy_id"]):
+            continue
+        int_id = int(row["twfy_id"].split("/")[-1])
+        id_to_person[int_id].append(appg_lookup[row["appg"]])
+
+    upload_person_info(
+        "appg_membership",
+        id_to_person,
+        remove_absent=True,
+        quiet=quiet,
     )
 
 
