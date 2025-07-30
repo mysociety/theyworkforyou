@@ -111,31 +111,6 @@ $display_wtt_stats_banner = '2015';
                     </ul>
                     <?php endif; ?>
 
-                    <?php if (count($topics_of_interest) > 0 || $eu_stance): ?>
-
-                    <h3><?= gettext('Topics of interest') ?></h3>
-
-                    <?php if ($eu_stance): ?>
-                        <p>
-                            <?php if ($eu_stance == 'Leave' || $eu_stance == 'Remain') { ?>
-                                <strong><?= $full_name ?></strong> campaigned to <?= $eu_stance == 'Leave' ? 'leave' : 'remain in' ?> the European Union
-                            <?php } else { ?>
-                                We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
-                            <?php } ?>
-                            <small>Source: <a href="https://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
-                        </p>
-                    <?php endif; ?>
-
-                    <ul class="comma-list">
-
-                        <?php foreach ($topics_of_interest as $topic): ?>
-                        <li><?= $topic ?></li>
-                        <?php endforeach; ?>
-
-                    </ul>
-
-                    <?php endif; ?>
-
                     <?php if (count($current_offices) > 0): ?>
 
                     <h3><?=gettext('Currently held offices') ?></h3>

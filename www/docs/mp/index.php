@@ -348,12 +348,10 @@ $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
 $data['social_links'] = person_social_links($MEMBER);
-$data['topics_of_interest'] = person_topics($MEMBER);
 $data['current_offices'] = $MEMBER->offices('current', true);
 $data['previous_offices'] = $MEMBER->offices('previous', true);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
-$data['eu_stance'] = $MEMBER->getEUStance();
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
 $data['member_interests'] = member_interests($MEMBER);
 
@@ -996,6 +994,16 @@ function member_interests($member) {
     $posts = $member->offices('previous', false, true);
     if ($posts) {
         $out['previous_posts'] = $posts;
+    }
+
+    $eu_stance = $member->getEUStance();
+    if ($eu_stance) {
+        $out['eu_stance'] = $eu_stance;
+    }
+
+    $topics_of_interest = person_topics($member);
+    if ($topics_of_interest) {
+        $out['topics_of_interest'] = $topics_of_interest;
     }
 
     return $out;

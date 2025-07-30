@@ -62,6 +62,32 @@ $display_wtt_stats_banner = '2015';
 
                     <?php endif; ?>
 
+                    <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
+
+                        <h3><?= gettext('Topics of interest') ?></h3>
+
+                        <?php if (array_key_exists('eu_stance', $member_interests)): ?>
+                            <p>
+                                <?php if ($member_interests['eu_stance'] == 'Leave' || $member_interests['eu_stance'] == 'Remain') { ?>
+                                    <strong><?= $full_name ?></strong> campaigned to <?= $member_interests['eu_stance'] == 'Leave' ? 'leave' : 'remain in' ?> the European Union
+                                <?php } else { ?>
+                                    We don't know whether <strong><?= $full_name ?></strong> campaigned to leave, or stay in the European Union
+                                <?php } ?>
+                                <small>Source: <a href="https://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
+                            </p>
+                        <?php endif; ?>
+
+                        <?php if (array_key_exists('topics_of_interest', $member_interests)): ?>
+                            <ul class="comma-list">
+
+                                <?php foreach ($member_interests['topics_of_interest'] as $topic): ?>
+                                <li><?= $topic ?></li>
+                                <?php endforeach; ?>
+
+                            </ul>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
                 </div>
 
                 <?php include('_profile_footer.php'); ?>
