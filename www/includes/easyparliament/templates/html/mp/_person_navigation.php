@@ -14,5 +14,8 @@
           <?php if ($register_2024_enriched): ?>
                 <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/election_register">🏛️ <?= gettext('2024 Election Donations') ?></a></li>
           <?php endif; ?>
+          <?php if ($member_interests): ?>
+            <li <?php if ($pagetype == "member_interests"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/member_interests">👥 <?= gettext('Committees / APPGs / Signatures') ?></a></li>
+          <?php endif; ?>
     </ul>
 </div>
