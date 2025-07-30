@@ -978,6 +978,17 @@ function person_topics($member) {
     return $out;
 }
 
+function person_appg_memberships($member) {
+    $out = [];
+
+    $extra_info = $member->extra_info();
+    if (isset($extra_info['appg_membership'])) {
+        $out = $extra_info['appg_membership'];
+    }
+
+    return $out;
+}
+
 function member_interests($member) {
     $out = [];
 
@@ -1004,6 +1015,11 @@ function member_interests($member) {
     $topics_of_interest = person_topics($member);
     if ($topics_of_interest) {
         $out['topics_of_interest'] = $topics_of_interest;
+    }
+
+    $appg_membership = person_appg_memberships($member);
+    if ($appg_membership) {
+        $out['appg_membership'] = json_decode($appg_membership);
     }
 
     return $out;

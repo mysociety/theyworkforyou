@@ -68,6 +68,19 @@ $display_wtt_stats_banner = '2015';
 
                     <?php endif; ?>
 
+                    <?php if (array_key_exists('appg_membership', $member_interests)): ?>
+                    <h3><?=gettext('APPG Memberships') ?></h3>
+
+                    <ul class='list-dates'>
+
+                        <?php foreach ($member_interests['appg_membership'] as $appg): ?>
+                            <li><?= $appg ?></li>
+                        <?php endforeach; ?>
+
+                    </ul>
+
+                    <?php endif; ?>
+
                     <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
 
                         <h3 id="topics"><?= gettext('Topics of interest') ?></h3>
