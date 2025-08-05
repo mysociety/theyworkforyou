@@ -157,11 +157,19 @@ def load_appg_membership(quiet: bool = False):
 
     id_to_person = defaultdict(list)
     df = pd.read_parquet(appg_membership_url)
+    df = df.sort_values("appg")
     for _, row in df.iterrows():
         if pd.isna(row["twfy_id"]):
             continue
         int_id = int(row["twfy_id"].split("/")[-1])
-        id_to_person[int_id].append(appg_lookup[row["appg"]])
+        details = {
+            "name": appg_lookup[row["appg"]],
+            "officer": "",
+        }
+        if row["is_officer"] == 1:
+            details["officer"] = row["officer_role"]
+
+        id_to_person[int_id].append(details)
 
     upload_person_info(
         "appg_membership",
