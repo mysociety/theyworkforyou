@@ -983,7 +983,7 @@ function person_appg_memberships($member) {
 
     $extra_info = $member->extra_info();
     if (isset($extra_info['appg_membership'])) {
-        $out = $extra_info['appg_membership'];
+        $out = MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembershipAssignment::fromJson($extra_info['appg_membership']);
     }
 
     return $out;
@@ -1019,7 +1019,7 @@ function member_interests($member) {
 
     $appg_membership = person_appg_memberships($member);
     if ($appg_membership) {
-        $out['appg_membership'] = json_decode($appg_membership);
+        $out['appg_membership'] = $appg_membership;
     }
 
     return $out;

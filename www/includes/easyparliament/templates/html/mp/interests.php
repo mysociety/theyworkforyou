@@ -69,16 +69,23 @@ $display_wtt_stats_banner = '2015';
                     <?php endif; ?>
 
                     <?php if (array_key_exists('appg_membership', $member_interests)): ?>
-                    <h3><?=gettext('APPG Memberships') ?></h3>
+                        <?php if ($member_interests['appg_membership']->is_an_officer()): ?>
+                            <h3 id="appg_officer"><?=gettext('APPG Offices held') ?></h3>
+                            <ul class='list-dates'>
+                                <?php foreach ($member_interests['appg_membership']->is_officer_of as $membership): ?>
+                                    <li><?= $membership->appg->title ?> <?= $membership->role ? '(' . $membership->role . ')' : '' ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
 
-                    <ul class='list-dates'>
-
-                        <?php foreach ($member_interests['appg_membership'] as $appg): ?>
-                            <li><?= $appg ?></li>
-                        <?php endforeach; ?>
-
-                    </ul>
-
+                        <?php if ($member_interests['appg_membership']->is_a_member()): ?>
+                            <h3 id="appg_memberships"><?=gettext('APPG memberships') ?></h3>
+                            <ul class='list-dates'>
+                                    <?php foreach ($member_interests['appg_membership']->is_ordinary_member_of as $membership): ?>
+                                        <li><?= $membership->appg->title ?></li>
+                                    <?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>

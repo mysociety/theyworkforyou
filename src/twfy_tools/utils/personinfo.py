@@ -3,7 +3,8 @@
 import os
 from collections import defaultdict
 from typing import Literal, Optional
-
+from pydantic import BaseModel
+from typing import Optional
 import pandas as pd
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
@@ -18,6 +19,25 @@ appg_names_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_a
 appg_membership_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_and_memberships/latest/members.parquet"
 
 app = Typer(pretty_exceptions_enable=False)
+
+
+class AppgDetails(BaseModel):
+    slug: str
+    title: str
+    purpose: str
+    website: Optional[str]
+    source_url: str
+    categories: Optional[list[str]]
+
+
+class AppgMembership(BaseModel):
+    appg: AppgDetails
+    role: str
+
+
+class APPGMembershipAssignment(BaseModel):
+    is_officer_of: list[AppgMembership] = []
+    is_ordinary_member_of: list[AppgMembership] = []
 
 
 def is_valid_language(lang: str) -> TypeGuard[Literal["en", "cy"]]:
@@ -150,26 +170,40 @@ def upload_enhanced_2024_regmem(quiet: bool = False):
 
 @app.command()
 def load_appg_membership(quiet: bool = False):
-    df = pd.read_parquet(appg_names_url)
-    appg_lookup = {}
-    for _, row in df.iterrows():
-        appg_lookup[row["slug"]] = row["title"]
+    """
+    Upload APPG membership information
+    """
+    appg_lookup = pd.read_parquet(appg_names_url)
+    appg_lookup = appg_lookup.set_index("slug")
 
-    id_to_person = defaultdict(list)
+    id_to_person: defaultdict[int, APPGMembershipAssignment] = defaultdict(
+        APPGMembershipAssignment
+    )
     df = pd.read_parquet(appg_membership_url)
     df = df.sort_values("appg")
     for _, row in df.iterrows():
         if pd.isna(row["twfy_id"]):
             continue
-        int_id = int(row["twfy_id"].split("/")[-1])
-        details = {
-            "name": appg_lookup[row["appg"]],
-            "officer": "",
-        }
-        if row["is_officer"] == 1:
-            details["officer"] = row["officer_role"]
 
-        id_to_person[int_id].append(details)
+        int_id = int(row["twfy_id"].split("/")[-1])
+        appg_details = appg_lookup.loc[row["appg"]]
+        appg = AppgDetails(
+            slug=row["appg"],
+            title=appg_details["title"],
+            purpose=appg_details["purpose"],
+            website=appg_details["website"],
+            source_url=appg_details["source_url"],
+            categories=[],
+        )
+        if row["is_officer"] == 1:
+            role = row["officer_role"]
+            if pd.isna(role):
+                role = ""
+            membership = AppgMembership(appg=appg, role=role)
+            id_to_person[int_id].is_officer_of.append(membership)
+        else:
+            membership = AppgMembership(appg=appg, role="")
+            id_to_person[int_id].is_ordinary_member_of.append(membership)
 
     upload_person_info(
         "appg_membership",
