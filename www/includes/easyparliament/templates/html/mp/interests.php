@@ -23,6 +23,14 @@ $display_wtt_stats_banner = '2015';
                         <?php if (array_key_exists('previous_posts', $member_interests)): ?>
                           <li><a href="#previous_posts"><?= gettext('Previous Memberships') ?></a></li>
                         <?php endif; ?>
+                        <?php if (array_key_exists('appg_membership', $member_interests)): ?>
+                            <?php if ($member_interests['appg_membership']->is_an_officer()): ?>
+                              <li><a href="#appg_officer"><?= gettext('APPG Offices held') ?></a></li>
+                            <?php endif; ?>
+                            <?php if ($member_interests['appg_membership']->is_a_member()): ?>
+                              <li><a href="#appg_memberships"><?= gettext('APPG memberships') ?></a></li>
+                            <?php endif; ?>
+                        <?php endif; ?>
                         <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
                           <li><a href="#topics"><?= gettext('Topics of interest') ?></a></li>
                         <?php endif; ?>
