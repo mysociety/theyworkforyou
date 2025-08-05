@@ -17,9 +17,14 @@ $display_wtt_stats_banner = '2015';
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
                     <ul>
-                        <li><a href="#profile"><?= gettext('Profile') ?></a></li>
-                        <?php if (count($recent_appearances['appearances'])): ?>
-                          <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
+                        <?php if (array_key_exists('posts', $member_interests)): ?>
+                          <li><a href="#posts"><?= gettext('Memberships') ?></a></li>
+                        <?php endif; ?>
+                        <?php if (array_key_exists('previous_posts', $member_interests)): ?>
+                          <li><a href="#previous_posts"><?= gettext('Previous Memberships') ?></a></li>
+                        <?php endif; ?>
+                        <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
+                          <li><a href="#topics"><?= gettext('Topics of interest') ?></a></li>
                         <?php endif; ?>
                       </ul>
                       <?php include '_featured_content.php'; ?>
@@ -30,13 +35,13 @@ $display_wtt_stats_banner = '2015';
             <div class="primary-content__unit">
 
                 <div class="panel">
-                    <a name="profile"></a>
+                    <a name="interests"></a>
                     <h2><?=gettext('Interests') ?></h2>
 
 
                     <?php if (array_key_exists('posts', $member_interests)): ?>
 
-                    <h3><?=gettext('Current committee memberships') ?></h3>
+                    <h3 id="posts"><?=gettext('Current committee memberships') ?></h3>
 
                     <ul class='list-dates'>
 
@@ -50,7 +55,8 @@ $display_wtt_stats_banner = '2015';
 
                     <?php if (array_key_exists('previous_posts', $member_interests)): ?>
 
-                    <h3><?=gettext('Committee memberships held in the past') ?></h3>
+                    <a ></a>
+                    <h3 id="previous_posts"><?=gettext('Committee memberships held in the past') ?></h3>
 
                     <ul class='list-dates'>
 
@@ -64,7 +70,7 @@ $display_wtt_stats_banner = '2015';
 
                     <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
 
-                        <h3><?= gettext('Topics of interest') ?></h3>
+                        <h3 id="topics"><?= gettext('Topics of interest') ?></h3>
 
                         <?php if (array_key_exists('eu_stance', $member_interests)): ?>
                             <p>
