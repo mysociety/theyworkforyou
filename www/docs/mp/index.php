@@ -989,6 +989,23 @@ function person_appg_memberships($member) {
     return $out;
 }
 
+function person_statements($member) {
+    $out = [
+        "edms" => null,
+        "letter" => null,
+    ];
+
+    $extra_info = $member->extra_info();
+    if (isset($extra_info['edms_signed'])) {
+        $out["edms"] = MySociety\TheyWorkForYou\DataClass\Statements\SignatureList::fromJson($extra_info['edms_signed']);
+    }
+    if (isset($extra_info['letters_signed'])) {
+        $out["letters"] = MySociety\TheyWorkForYou\DataClass\Statements\SignatureList::fromJson($extra_info['letters_signed']);
+    }
+
+    return $out;
+}
+
 function member_interests($member) {
     $out = [];
 
@@ -1020,6 +1037,16 @@ function member_interests($member) {
     $appg_membership = person_appg_memberships($member);
     if ($appg_membership) {
         $out['appg_membership'] = $appg_membership;
+    }
+
+    $statments_signed = person_statements($member);
+    if ($statments_signed) {
+        if ($statments_signed["edms"] && $statments_signed["edms"]->count() > 0) {
+            $out['edms_signed'] = $statments_signed["edms"];
+        }
+        if ($statments_signed["letters"] && $statments_signed["letters"]->count() > 0) {
+            $out['letters_signed'] = $statments_signed["letters"];
+        }
     }
 
     return $out;

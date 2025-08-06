@@ -31,6 +31,12 @@ $display_wtt_stats_banner = '2015';
                               <li><a href="#appg_memberships"><?= gettext('APPG memberships') ?></a></li>
                             <?php endif; ?>
                         <?php endif; ?>
+                        <?php if (array_key_exists('letters_signed', $member_interests)): ?>
+                          <li><a href="#letters_signed"><?= gettext('Recent open letters') ?></a></li>
+                        <?php endif; ?>
+                        <?php if (array_key_exists('edms_signed', $member_interests)): ?>
+                          <li><a href="#edms_signed"><?= gettext('Recent EDMs') ?></a></li>
+                        <?php endif; ?>
                         <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
                           <li><a href="#topics"><?= gettext('Topics of interest') ?></a></li>
                         <?php endif; ?>
@@ -94,6 +100,32 @@ $display_wtt_stats_banner = '2015';
                                     <?php endforeach; ?>
                             </ul>
                         <?php endif; ?>
+                    <?php endif; ?>
+
+                    <?php if (array_key_exists('letters_signed', $member_interests)): ?>
+                        <h3 id="letters_signed"><?=gettext('Recent open letters signed') ?></h3>
+
+                        <ul class='list-dates'>
+                            <?php foreach ($member_interests['letters_signed'] as $signature): ?>
+                            <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures ?> others)</li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+
+                    <?php if (array_key_exists('edms_signed', $member_interests)): ?>
+                        <h3 id="edms_signed"><?=gettext('Recent Early Day Motions signed') ?></h3>
+
+                        <ul class='list-dates'>
+                            <?php foreach ($member_interests['edms_signed'] as $signature): ?>
+                            <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures ?> others)</li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+
+                    <?php if (array_key_exists('edms_signed', $member_interests) || array_key_exists('letters_signed', $member_interests)): ?>
+                        <p>
+                        <a href="https://votes.theyworkforyou.com/person/<?= $person_id ?>/statements"><?= gettext('All open letters and EDMs signed') ?></a>.
+                        </p>
                     <?php endif; ?>
 
                     <?php if (array_key_exists('topics_of_interest', $member_interests) || array_key_exists('eu_stance', $member_interests)): ?>
