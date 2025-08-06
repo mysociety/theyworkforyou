@@ -1,9 +1,10 @@
 #!.venv/bin/python
 
+import datetime
 import os
 from collections import defaultdict
 from typing import Literal, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel, field_serializer
 from typing import Optional
 import pandas as pd
 import rich
@@ -17,6 +18,8 @@ from twfy_tools.db.utils import upload_person_info
 
 appg_names_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_and_memberships/latest/register.parquet"
 appg_membership_url = "https://pages.mysociety.org/appg-membership/data/appg_groups_and_memberships/latest/members.parquet"
+signatures_url = "https://votes.theyworkforyou.com/static/data/signatures.parquet"
+statements_url = "https://votes.theyworkforyou.com/static/data/statements.parquet"
 
 app = Typer(pretty_exceptions_enable=False)
 
@@ -38,6 +41,37 @@ class AppgMembership(BaseModel):
 class APPGMembershipAssignment(BaseModel):
     is_officer_of: list[AppgMembership] = []
     is_ordinary_member_of: list[AppgMembership] = []
+
+
+class Statement(BaseModel):
+    title: str
+    info_source: Optional[str]
+    type: str
+    id: int
+    chamber_slug: str
+    slug: str
+    date: datetime.date
+
+    @field_serializer("date")
+    def serialize_date(self, dt: datetime.date, _info):
+        return dt.isoformat()
+
+
+class Signature(BaseModel):
+    statement: Statement
+    date: datetime.date
+
+    @field_serializer("date")
+    def serialize_date(self, dt: datetime.date, _info):
+        return dt.isoformat()
+
+
+class SignatureList(RootModel[list[Signature]]):
+    def append(self, value):
+        self.root.append(value)
+
+    def truncate(self, value):
+        self.root = self.root[value:]
 
 
 def is_valid_language(lang: str) -> TypeGuard[Literal["en", "cy"]]:
@@ -211,6 +245,96 @@ def load_appg_membership(quiet: bool = False, include_ai_sources: bool = False):
     upload_person_info(
         "appg_membership",
         id_to_person,
+        remove_absent=True,
+        quiet=quiet,
+    )
+
+
+def make_signature_object(row, signature_counts):
+    statement = Statement(
+        title=row["title"],
+        info_source=row["info_source"],
+        type=row["type"],
+        id=row["id"],
+        chamber_slug=row["chamber_slug"],
+        slug=row["slug"],
+        date=row["statement_date"],
+    )
+    signature = Signature(
+        statement=statement,
+        date=row["date"],
+    )
+    return signature
+
+
+@app.command()
+def load_statement_signatures(quiet: bool = False):
+    """
+    Upload signatures of EDMs and open letters
+    """
+    min_edm_date = datetime.date.today() - pd.offsets.DateOffset(months=3)
+    min_edm_date = min_edm_date.date()
+
+    min_letter_date = datetime.date.today() - pd.offsets.DateOffset(year=1)
+    min_letter_date = min_letter_date.date()
+
+    statements = pd.read_parquet(statements_url)
+    statements = statements.set_index("id")
+    statements = statements.rename(columns={"date": "statement_date"})
+
+    edms = statements[
+        (statements["type"] == "proposed_motion")
+        & (statements["statement_date"] >= min_edm_date)
+    ]
+    letters = statements[
+        (statements["type"] == "letter")
+        & (statements["statement_date"] >= min_letter_date)
+    ]
+
+    df = pd.read_parquet(signatures_url)
+
+    edms = edms.merge(df, left_on="id", right_on="statement_id")
+    letters = letters.merge(df, left_on="id", right_on="statement_id")
+
+    edm_id_to_person = {}
+    letter_id_to_person = {}
+
+    for _, row in edms.iterrows():
+        details = make_signature_object(row)
+        if edm_id_to_person.get(row["person_id"]) is None:
+            edm_id_to_person[row["person_id"]] = SignatureList(
+                [
+                    details,
+                ]
+            )
+        else:
+            edm_id_to_person[row["person_id"]].append(details)
+
+    for _, row in letters.iterrows():
+        details = make_signature_object(row)
+        if letter_id_to_person.get(row["person_id"]) is None:
+            letter_id_to_person[row["person_id"]] = SignatureList(
+                [
+                    details,
+                ]
+            )
+        else:
+            letter_id_to_person[row["person_id"]].append(details)
+
+    # restrict to the last 10 because some people sign a lot of things
+    for person_id in edm_id_to_person.keys():
+        edm_id_to_person[person_id].truncate(-10)
+
+    upload_person_info(
+        "edms_signed",
+        edm_id_to_person,
+        remove_absent=True,
+        quiet=quiet,
+    )
+
+    upload_person_info(
+        "letters_signed",
+        letter_id_to_person,
         remove_absent=True,
         quiet=quiet,
     )
