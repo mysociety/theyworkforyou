@@ -410,7 +410,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['members'] = array_merge($members_from_words, $members_from_names);
             [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text, false);
         } elseif ($this->data['pid']) {
-            $MEMBER = new \MEMBER(['person_id' => $this->data['pid']]);
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
                 "person_id" => $MEMBER->person_id,
                 "given_name" => $MEMBER->given_name,
@@ -440,9 +440,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $cons = [];
             foreach ($this->data['constituencies'] as $constituency) {
                 try {
-                    $MEMBER = new \MEMBER(['constituency' => $constituency]);
+                    $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency]);
                     $cons[$constituency] = $MEMBER;
-                } catch (\MySociety\TheyWorkForYou\MemberException $e) {
+                } catch (\MySociety\TheyWorkForYou\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
                 }
             }
@@ -545,7 +545,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             try {
                 $postcode = $this->data['postcode'];
 
-                $MEMBER = new \MEMBER(['postcode' => $postcode]);
+                $MEMBER = new \MySociety\TheyWorkForYou\Member(['postcode' => $postcode]);
                 // move the postcode to the front just to be tidy
                 $tidy_alertsearch = $postcode . " " . trim(str_replace("$postcode", "", $this->data['alertsearch']));
                 $alertsearch_display = str_replace("$postcode ", "", $tidy_alertsearch);
@@ -557,11 +557,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if (isset($this->data['mistakes']['postcode_and'])) {
                     $constituencies = \MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($postcode);
                     if (isset($constituencies['SPC'])) {
-                        $MEMBER = new \MEMBER(['constituency' => $constituencies['SPC'], 'house' => HOUSE_TYPE_SCOTLAND]);
+                        $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituencies['SPC'], 'house' => HOUSE_TYPE_SCOTLAND]);
                         $this->data['scottish_alertsearch'] = str_replace("$postcode", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
                         $this->data['scottish_member'] = $MEMBER;
                     } elseif (isset($constituencies['WAC'])) {
-                        $MEMBER = new \MEMBER(['constituency' => $constituencies['WAC'], 'house' => HOUSE_TYPE_WALES]);
+                        $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituencies['WAC'], 'house' => HOUSE_TYPE_WALES]);
                         $this->data['welsh_alertsearch'] = str_replace("$postcode", "speaker:" . $MEMBER->person_id, $tidy_alertsearch);
                         $this->data['welsh_member'] = $MEMBER;
                     }
@@ -572,7 +572,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         if ($this->data['pid']) {
-            $MEMBER = new \MEMBER(['person_id' => $this->data['pid']]);
+            $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
             $this->data['pid_member'] = $MEMBER;
         }
 
@@ -635,7 +635,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         if ($this->data['email_verified']) {
             if ($this->user->postcode()) {
-                $current_mp = new \MEMBER(['postcode' => $this->user->postcode()]);
+                $current_mp = new \MySociety\TheyWorkForYou\Member(['postcode' => $this->user->postcode()]);
                 if ($current_mp_alert = !$this->alert->fetch_by_mp($this->data['email'], $current_mp->person_id())) {
                     $this->data['current_mp'] = $current_mp;
                     $own_mp_criteria = sprintf('speaker:%s', $current_mp->person_id());
