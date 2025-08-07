@@ -118,7 +118,7 @@ class VectorSearchSuggestions(
     UnmanagedDataclassModel, db_table="vector_search_suggestions"
 ):
     search_term: str = field(models.CharField, max_length=100, primary_key=True)
-    search_suggestion: str = field(models.CharField, max_length=10)
+    search_suggestion: str = field(models.CharField, max_length=100)
 
     def __str__(self):
         return f"{self.search_term}: {self.search_suggestion}"
