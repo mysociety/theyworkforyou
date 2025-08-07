@@ -123,7 +123,7 @@
       <?php if ($mp_step) { ?>
         <div class="alert-section">
             <div class="alert-section__primary">
-              <h1><?= gettext("Create an Representative Alert") ?></h1>
+              <h1><?= gettext("Create a Representative Alert") ?></h1>
               <?php include '_mp_alert_form.php' ?>
               </div>
           </div>
