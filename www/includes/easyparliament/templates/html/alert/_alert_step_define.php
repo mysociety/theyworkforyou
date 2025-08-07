@@ -93,10 +93,7 @@
 
                   </div>
 
-                  <button type="submit" class="button button--red" name="action" value="Abandon">
-                    <i aria-hidden="true" class="fi-trash"></i>
-                    <span><?= gettext('Abandon changes') ?></span>
-                  </button>
+                  <?php include('_alert_form_abandon_button.php') ?>
                   <button type="submit" name="step" value="review" class="next" aria-label="Go to Step 2">
                     <span><?= gettext('Next →') ?></span>
                   </button>
