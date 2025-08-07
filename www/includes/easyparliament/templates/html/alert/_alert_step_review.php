@@ -88,10 +88,7 @@
                   <?php } ?>
 
                   <hr>
-                  <button type="submit" class="button button--red" name="action" value="Abandon">
-                    <i aria-hidden="true" class="fi-trash"></i>
-                    <span><?= gettext('Abandon changes') ?></span>
-                  </button>
+                  <?php include('_alert_form_abandon_button.php') ?>
                   <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Go Back</button>
                   <button class="button" type="submit" name="step" value="confirm">
                     <i aria-hidden="true" class="fi-save"></i>
