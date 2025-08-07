@@ -9,8 +9,8 @@
               <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
               <input type="hidden" name="pid" value="<?= $member->person_id() ?>">
               <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
-              <?= $member->full_name() ?>
-              (<?= _htmlspecialchars($constituency) ?>) in <?= _htmlspecialchars($member->house_text($member->house_disp)) ?>
+              <?= $member->full_name() ?> <?= _htmlspecialchars($member->getMostRecentMembership()['rep_name']) ?>
+              (<?= _htmlspecialchars($constituency) ?>)
               <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
           </li>
     <?php } ?>
