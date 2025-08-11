@@ -171,24 +171,6 @@
                 <hr />
               <?php } ?>
 
-              <?php if (isset($constituencies) && count($constituencies) > 0) {
-                  $member_options = true; ?>
-                <h3><?= sprintf(gettext('Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
-                <ul>
-                <?php foreach ($constituencies as $constituency => $member) { ?>
-                    <li>
-                        <form action="<?= $actionurl ?>" method="post">
-                            <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
-                            <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
-                            <input type="hidden" name="pid" value="<?= $member->person_id() ?>">
-                            <?= $member->full_name() ?>
-                            (<?= _htmlspecialchars($constituency) ?>)
-                            <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
-                        </li>
-                <?php } ?>
-                </ul>
-              <?php } ?>
-
               <?php if ($alertsearch) {
                   if (!$member_options) { ?>
                 <h3><?= gettext('That doesn’t match a person, postcode or constituency. Search again to refine your email alert.') ?></h3>
