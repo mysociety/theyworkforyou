@@ -19,6 +19,7 @@ class Statement extends BaseModel {
     public int $id;
     public string $slug;
     public string $date;
+    public int $total_signatures;
 
     public function link() {
         return "https://votes.theyworkforyou.com/statement/" . $this->chamber_slug . '/' . $this->date . '/' . $this->slug;
