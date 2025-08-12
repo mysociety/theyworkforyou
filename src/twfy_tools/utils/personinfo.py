@@ -51,6 +51,7 @@ class Statement(BaseModel):
     chamber_slug: str
     slug: str
     date: datetime.date
+    total_signatures: int = 0
 
     @field_serializer("date")
     def serialize_date(self, dt: datetime.date, _info):
@@ -255,10 +256,11 @@ def make_signature_object(row, signature_counts):
         title=row["title"],
         info_source=row["info_source"],
         type=row["type"],
-        id=row["id"],
+        id=row["statement_id"],
         chamber_slug=row["chamber_slug"],
         slug=row["slug"],
         date=row["statement_date"],
+        total_signatures=signature_counts.loc[row["statement_id"]]["num_signatures"],
     )
     signature = Signature(
         statement=statement,
@@ -293,6 +295,11 @@ def load_statement_signatures(quiet: bool = False):
 
     df = pd.read_parquet(signatures_url)
 
+    signature_counts = pd.pivot_table(
+        df, values="person_id", index="statement_id", aggfunc="count"
+    )
+    signature_counts = signature_counts.rename(columns={"person_id": "num_signatures"})
+
     edms = edms.merge(df, left_on="id", right_on="statement_id")
     letters = letters.merge(df, left_on="id", right_on="statement_id")
 
@@ -300,7 +307,7 @@ def load_statement_signatures(quiet: bool = False):
     letter_id_to_person = {}
 
     for _, row in edms.iterrows():
-        details = make_signature_object(row)
+        details = make_signature_object(row, signature_counts)
         if edm_id_to_person.get(row["person_id"]) is None:
             edm_id_to_person[row["person_id"]] = SignatureList(
                 [
@@ -311,7 +318,7 @@ def load_statement_signatures(quiet: bool = False):
             edm_id_to_person[row["person_id"]].append(details)
 
     for _, row in letters.iterrows():
-        details = make_signature_object(row)
+        details = make_signature_object(row, signature_counts)
         if letter_id_to_person.get(row["person_id"]) is None:
             letter_id_to_person[row["person_id"]] = SignatureList(
                 [
