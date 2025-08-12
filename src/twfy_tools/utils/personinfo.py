@@ -4,11 +4,11 @@ import datetime
 import os
 from collections import defaultdict
 from typing import Literal, Optional
-from pydantic import BaseModel, RootModel, field_serializer
-from typing import Optional
+
 import pandas as pd
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
+from pydantic import BaseModel, RootModel, field_serializer
 from tqdm import tqdm
 from typer import Typer
 from typing_extensions import TypeGuard
