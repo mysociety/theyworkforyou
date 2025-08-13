@@ -447,7 +447,7 @@ switch ($pagetype) {
         break;
 
     case 'memberships':
-        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Interests', $data['current_assembly']);
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Committees, Memberships and Signatures', $data['current_assembly']);
         MySociety\TheyWorkForYou\Renderer::output('mp/memberships', $data);
         break;
 
