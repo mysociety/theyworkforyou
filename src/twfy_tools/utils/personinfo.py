@@ -169,7 +169,7 @@ def upload_enhanced_2024_regmem(quiet: bool = False):
 
 
 @app.command()
-def load_appg_membership(quiet: bool = False):
+def load_appg_membership(quiet: bool = False, include_ai_sources: bool = False):
     """
     Upload APPG membership information
     """
@@ -180,6 +180,9 @@ def load_appg_membership(quiet: bool = False):
         APPGMembershipAssignment
     )
     df = pd.read_parquet(appg_membership_url)
+    # skip this by default while we validate the results
+    if not include_ai_sources:
+        df = df[df["source"] != "ai_search"]
     df = df.sort_values("appg")
     for _, row in df.iterrows():
         if pd.isna(row["twfy_id"]):
