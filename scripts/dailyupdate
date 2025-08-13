@@ -31,6 +31,12 @@ system './mpinfoin.pl';
 # Update register of interests
 system "TQDM_DISABLE=1 ./personinfo upload-all-regmem >> $cron_log";
 
+# Update APPG memberships
+system "TQDM_DISABLE=1 ./personinfo upload-all-regmem >> $cron_log";
+
+# Update EDM and open letter signatures
+system "TQDM_DISABLE=1 ./personinfo load-statement-signatures >> $cron_log";
+
 # update policies information
 system "./votes2db load-policies >> $cron_log";
 

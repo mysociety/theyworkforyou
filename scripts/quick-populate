@@ -24,6 +24,10 @@ echo 'Load regmem into database'
 scripts/personinfo upload-all-regmem
 scripts/personinfo upload-enhanced-2024-regmem
 
+echo 'Load memberships and signatures'
+scripts/personinfo load-appg-membership
+scripts/personinfo load-statement-signatures
+
 echo 'Load policies and votes from twfy-votes'
 scripts/votes2db load-policies 
 scripts/votes2db load-voting-alignment 
