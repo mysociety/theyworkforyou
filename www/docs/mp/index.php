@@ -44,7 +44,7 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
-$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'member_interests'];
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'memberships'];
 
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
@@ -353,7 +353,7 @@ $data['previous_offices'] = $MEMBER->offices('previous', true);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
-$data['member_interests'] = member_interests($MEMBER);
+$data['memberships'] = memberships($MEMBER);
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
 $data['has_voting_record'] = (($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS));
@@ -446,9 +446,9 @@ switch ($pagetype) {
         MySociety\TheyWorkForYou\Renderer::output('mp/recent', $data);
         break;
 
-    case 'member_interests':
+    case 'memberships':
         $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Interests', $data['current_assembly']);
-        MySociety\TheyWorkForYou\Renderer::output('mp/interests', $data);
+        MySociety\TheyWorkForYou\Renderer::output('mp/memberships', $data);
         break;
 
     case 'election_register':
@@ -1006,7 +1006,7 @@ function person_statements($member) {
     return $out;
 }
 
-function member_interests($member) {
+function memberships($member) {
     $out = [];
 
     $topics = person_topics($member);
