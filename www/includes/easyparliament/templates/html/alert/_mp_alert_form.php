@@ -1,4 +1,4 @@
-<?php if (isset($constituencies) && count($constituencies) > 0) {
+<?php if ((!isset($errors) || count($errors) == 0) && isset($constituencies) && count($constituencies) > 0) {
     $member_options = true; ?>
   <h3><?= sprintf(gettext('Sign up for alerts when Representatives for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
   <ul>
@@ -15,7 +15,7 @@
           </li>
     <?php } ?>
   </ul>
-<?php } elseif ($members) {
+<?php } elseif ((!isset($errors) || count($errors) == 0) && $members) {
     $member_options = true; ?>
   <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
   <ul>
@@ -64,7 +64,7 @@
           <input type="text" class="form-control" name="mp_search" id="mp_search" value="<?= _htmlspecialchars($keyword) ?>">
         <?php } else { ?>
           <label for="mp-postcode">Search postcode, or MP name</label>
-          <input id="mp-postcode" type="text" class="form-control" placeholder="<?= gettext('e.g. ‘B2 4QA’ or ‘John Doe’') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_text) ?>" style="min-width:300px;">
+          <input id="mp-postcode" type="text" class="form-control" placeholder="<?= gettext('e.g. ‘B2 4QA’ or ‘John Doe’') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_term) ?>" style="min-width:300px;">
         <?php } ?>
       </p>
 
