@@ -619,7 +619,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         } elseif ($this->data['alertsearch'] && ($this->data['members'] || $this->data['pid'])) {
             $this->data['mp_step'] = 'mp_alert';
             $this->data['mp_search'] = [$this->data['alertsearch']];
-        } elseif ($this->data['members'] && $this->data['mp_step'] == 'mp_search') {
+        } elseif ($this->data['members'] && $this->data['mp_step'] == 'mp_search' && count($this->data['errors']) == 0) {
             $this->data['mp_step'] = '';
         }
 
@@ -693,6 +693,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
         if ($this->data['addword'] != '' || ($this->data['step'] && count($this->data['errors']) > 0)) {
             $this->data["step"] = get_http_var('this_step');
+        } elseif ($this->data['mp_step'] && count($this->data['errors']) > 0) {
+            $this->data["mp_step"] = 'mp_alert';
         } else {
             $this->data['this_step'] = '';
         }
