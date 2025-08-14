@@ -578,7 +578,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                         $this->data['welsh_member'] = $MEMBER;
                     }
                 }
-            } catch (\MySociety\TheyWorkForYou\MySociety\TheyWorkForYou\MemberException $e) {
+            } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                 $this->data['member_error'] = 1;
             }
         }
