@@ -32,16 +32,17 @@
       <span><?= gettext('Edit alert') ?></span>
     </button>
     <?php } else { ?>
-    <input type="hidden" name="mp_step" value="mp_confirm">
     <input type="hidden" name="pid" value="<?= $alert['pid'] ?>">
       <?php if ($alert['ignore_speaker_votes'] == 1) { ?>
         <input type="hidden" name="ignore_speaker_votes" value="0">
+        <input type="hidden" name="action" value="include-votes">
         <button type="submit" class="button button--outline small" value="Edit">
           <i aria-hidden="true" class="fi-page-edit"></i>
           <span><?= gettext('Include votes') ?></span>
         </button>
       <?php } else { ?>
         <input type="hidden" name="ignore_speaker_votes" value="1">
+        <input type="hidden" name="action" value="ignore-votes">
         <button type="submit" class="button button--outline small" value="Edit">
           <i aria-hidden="true" class="fi-page-edit"></i>
           <span><?= gettext('Ignore votes') ?></span>

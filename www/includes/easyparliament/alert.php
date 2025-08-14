@@ -497,6 +497,30 @@ class ALERT {
         return $r->success();
     }
 
+    public function ignoreVotes($token) {
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
+        $r = $this->db->query("UPDATE alerts SET ignore_speaker_votes = 1 WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
+
+        $this->criteria = $alert['criteria'];
+        return $r->success();
+    }
+
+    public function includeVotes($token) {
+        if (!($alert = $this->check_token($token))) {
+            return false;
+        }
+        $r = $this->db->query("UPDATE alerts SET ignore_speaker_votes = 0 WHERE alert_id = :alert_id", [
+            ':alert_id' => $alert['id'],
+        ]);
+
+        $this->criteria = $alert['criteria'];
+        return $r->success();
+    }
+
     // Getters
     public function email() {
         return $this->email;

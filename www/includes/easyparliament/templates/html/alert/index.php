@@ -85,6 +85,16 @@
                 <p>
                     <?= sprintf(gettext('You will now receive email alerts on any day when %s in parliament.'), _htmlspecialchars($display_criteria)) ?>
                 </p>
+              <?php } elseif ($results == 'alert-include-votes') { ?>
+                <h3><?= gettext('Your alert has been updated') ?></h3>
+                <p>
+                    <?= sprintf(gettext('You will now receive email alerts when %s in parliament.'), _htmlspecialchars($display_criteria)) ?>
+                </p>
+              <?php } elseif ($results == 'alert-ignore-votes') { ?>
+                <h3><?= gettext('Your alert has been updated') ?></h3>
+                <p>
+                    <?= sprintf(gettext('You will no longer receive email alerts when %s in parliament.'), _htmlspecialchars($display_criteria)) ?>
+                </p>
 
               <?php } elseif ($results == 'alert-confirmation') { ?>
                 <h3><?= gettext('We’re nearly done…') ?></h3>

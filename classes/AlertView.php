@@ -28,6 +28,14 @@ class AlertView {
         return $this->alert->resume($token);
     }
 
+    protected function ignoreVotesAlert($token) {
+        return $this->alert->ignoreVotes($token);
+    }
+
+    protected function includeVotesAlert($token) {
+        return $this->alert->includeVotes($token);
+    }
+
     protected function deleteAlert($token) {
         return $this->alert->delete($token);
     }
