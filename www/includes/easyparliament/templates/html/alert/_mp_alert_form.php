@@ -15,7 +15,7 @@
           </li>
     <?php } ?>
   </ul>
-<?php } elseif ((!isset($errors) || count($errors) == 0)&& $members) {
+<?php } elseif ((!isset($errors) || count($errors) == 0) && $members) {
     $member_options = true; ?>
   <h3><?= sprintf(gettext('Sign up for alerts when people matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
   <ul>
