@@ -178,4 +178,25 @@ class Postcode {
         return $pc;
     }
 
+    /**
+     * Take mapit constituency type and return a house id
+     */
+
+    public static function mapitTypeToHouse($type) {
+        $map = [
+            'WMC' => HOUSE_TYPE_COMMONS,
+            'SPC' => HOUSE_TYPE_SCOTLAND,
+            'SPE' => HOUSE_TYPE_SCOTLAND,
+            'WAC' => HOUSE_TYPE_WALES,
+            'WAE' => HOUSE_TYPE_WALES,
+            'NIE' => HOUSE_TYPE_NI,
+        ];
+
+        if (isset($map[$type])) {
+            return $map[$type];
+        }
+
+        return HOUSE_TYPE_COMMONS;
+    }
+
 }
