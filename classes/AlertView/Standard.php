@@ -118,6 +118,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $this->data['pc'] = '';
                     $this->data['members'] = false;
                     $this->data['constituencies'] = [];
+                    $this->data['member_constituencies'] = [];
                 } else {
                     $this->data['results'] = 'alert-fail';
                     $this->data['step'] = 'review';
@@ -409,6 +410,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $members_from_words = \MySociety\TheyWorkForYou\Utility\Search::searchMemberDbLookupWithNames($text, true);
             $this->data['members'] = array_merge($members_from_words, $members_from_names);
             [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text, false);
+            if (!$this->data['valid_postcode']) {
+                $this->data['member_constituencies'] = \MySociety\TheyWorkForYou\Utility\Search::searchMembersByConstituency($text);
+            }
         } elseif ($this->data['pid']) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
@@ -454,7 +458,20 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                         $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => $house]);
                         $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
                     }
-                } catch (\MySociety\TheyWorkForYou\MySociety\TheyWorkForYou\MemberException $e) {
+                } catch (\MySociety\TheyWorkForYou\MemberException $e) {
+                    // do nothing
+                }
+            }
+            $this->data['constituencies'] = $cons;
+        }
+
+        if (isset($this->data['member_constituencies'])) {
+            $cons = [];
+            foreach ($this->data['member_constituencies'] as $pid) {
+                try {
+                    $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
+                    $cons[] = [ 'member' => $MEMBER, 'constituency' => $MEMBER->constituency ];
+                } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
                 }
             }

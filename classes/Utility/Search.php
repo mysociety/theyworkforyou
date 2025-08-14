@@ -283,6 +283,21 @@ class Search {
         return [ $constituencies, false ];
     }
 
+    public static function searchMembersByConstituency($searchterm) {
+        $try = strtolower($searchterm);
+        $query = "select distinct person_id from member where left_reason = 'still_in_office' and constituency like :try";
+        $args = [':try' => '%' . $try . '%'];
+
+        $db = new \ParlDB();
+        $q = $db->query($query, $args);
+
+        $members = [];
+        foreach ($q as $row) {
+            $members[] = $row['person_id'];
+        }
+        return $members;
+    }
+
     /**
      * get list of names of speaker IDs from search string
      *
