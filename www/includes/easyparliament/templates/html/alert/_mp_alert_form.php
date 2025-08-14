@@ -2,15 +2,15 @@
     $member_options = true; ?>
   <h3><?= sprintf(gettext('Sign up for alerts when Representatives for constituencies matching <i>%s</i> speaks'), _htmlspecialchars($search_term)) ?></h3>
   <ul>
-    <?php foreach ($constituencies as $constituency => $member) { ?>
+    <?php foreach ($constituencies as $constituency) { ?>
       <li>
           <form action="<?= $actionurl ?>" method="post">
               <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
               <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
-              <input type="hidden" name="pid" value="<?= $member->person_id() ?>">
+              <input type="hidden" name="pid" value="<?= $constituency['member']->person_id() ?>">
               <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
-              <?= $member->full_name() ?> <?= _htmlspecialchars($member->getMostRecentMembership()['rep_name']) ?>
-              (<?= _htmlspecialchars($constituency) ?>)
+              <?= $constituency['member']->full_name() ?> <?= _htmlspecialchars($constituency['member']->getMostRecentMembership()['rep_name']) ?>
+              (<?= _htmlspecialchars($constituency['constituency']) ?>)
               <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
           </li>
     <?php } ?>

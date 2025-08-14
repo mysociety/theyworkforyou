@@ -438,10 +438,22 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
         if (isset($this->data['constituencies'])) {
             $cons = [];
-            foreach ($this->data['constituencies'] as $constituency) {
+            foreach ($this->data['constituencies'] as $type => $constituency) {
                 try {
-                    $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency]);
-                    $cons[$constituency] = $MEMBER;
+                    $house = \MySociety\TheyWorkForYou\Utility\Postcode::mapitTypeToHouse($type);
+                    // regional list reps for wales and scotland
+                    if ($type == 'SPE' || $type == 'WAE') {
+                        $db = new \ParlDB();
+                        $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
+                        foreach ($q as $row) {
+                            $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $row['person_id'], 'house' => $house]);
+                            $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
+                        }
+
+                    } else {
+                        $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => $house]);
+                        $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
+                    }
                 } catch (\MySociety\TheyWorkForYou\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
                 }
