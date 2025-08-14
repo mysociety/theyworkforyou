@@ -1,7 +1,7 @@
                 <?php foreach ($keywords as $word) {
                     if (!in_array($word, $skip_keyword_terms)) { ?>
-                  <input type="hidden" name="words[]" value="<?= _htmlspecialchars($word) ?>">
-                <?php }
+                      <input type="hidden" name="words[]" value="<?= _htmlspecialchars($word) ?>">
+                    <?php }
                     } ?>
                 <?php foreach ($selected_related_terms as $word) { ?>
                   <input type="hidden" name="selected_related_terms[]" value="<?= _htmlspecialchars($word) ?>">
