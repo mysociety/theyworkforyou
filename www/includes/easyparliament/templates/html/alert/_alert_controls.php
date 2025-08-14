@@ -32,7 +32,6 @@
       <span><?= gettext('Edit alert') ?></span>
     </button>
     <?php } else { ?>
-    <input type="hidden" name="mp_step" value="mp_confirm">
     <input type="hidden" name="pid" value="<?= $alert['pid'] ?>">
       <?php if ($alert['ignore_speaker_votes'] == 1) { ?>
         <input type="hidden" name="ignore_speaker_votes" value="0">

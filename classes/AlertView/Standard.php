@@ -74,6 +74,22 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($success) {
                     $this->data['results'] = 'all-alerts-deleted';
                 }
+            } elseif ($action == 'ignore-votes') {
+                $success = $this->ignoreVotesAlert($token);
+                if ($success) {
+                    $this->data['criteria'] = $this->alert->criteria;
+                    $display = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
+                    $this->data['display_criteria'] = str_replace('speaks', 'votes', $display);
+                    $this->data['results'] = 'alert-ignore-votes';
+                }
+            } elseif ($action == 'include-votes') {
+                $success = $this->includeVotesAlert($token);
+                if ($success) {
+                    $this->data['criteria'] = $this->alert->criteria;
+                    $display = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->alert->criteria, $this->alert->ignore_speaker_votes);
+                    $this->data['display_criteria'] = str_replace('speaks', 'votes', $display);
+                    $this->data['results'] = 'alert-include-votes';
+                }
             } elseif ($action == 'Abandon') {
                 $this->data['results'] = 'changes-abandoned';
             }
