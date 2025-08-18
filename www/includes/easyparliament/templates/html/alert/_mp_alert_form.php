@@ -64,7 +64,7 @@
           <input type="text" class="form-control" name="mp_search" id="mp_search" value="<?= _htmlspecialchars($keyword) ?>">
         <?php } else { ?>
           <label for="mp-postcode">Search postcode, or MP name</label>
-          <input id="mp-postcode" type="text" class="form-control" placeholder="<?= gettext('e.g. ‘B2 4QA’ or ‘John Doe’') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_term) ?>" style="min-width:300px;">
+          <input id="mp-postcode" type="text" class="form-control" placeholder="<?= gettext('e.g. B2 4QA or John Doe') ?>" name="mp_search" id="mp_search" value="<?= _htmlentities($search_term) ?>" style="min-width:300px;">
         <?php } ?>
       </p>
 

@@ -17,12 +17,12 @@
                     <?php if (isset($errors['alertsearch']) && $submitted) { ?>
                       <span class="alert-page-error"><?= $errors['alertsearch'] ?></span>
                     <?php } ?>
-                    <input type="text" id="words0" name="words[]" aria-required="true" value="<?= count($keywords) > 0 ? _htmlspecialchars($keywords[0]) : '' ?>" placeholder="Eg. 'Freedom of Information', 'FOI'">
+                    <input type="text" id="words0" name="words[]" aria-required="true" value="<?= count($keywords) > 0 ? _htmlspecialchars($keywords[0]) : '' ?>" placeholder="Eg. Freedom of Information, FOI">
                     <?php foreach (array_slice($keywords, 1) as $index => $word) { ?>
-                      <input type="text" id="words<?= $index + 1 ?>" name="words[]" value="<?= _htmlspecialchars($word) ?>" placeholder="Eg. 'Freedom of Information', 'FOI'">
+                      <input type="text" id="words<?= $index + 1 ?>" name="words[]" value="<?= _htmlspecialchars($word) ?>" placeholder="Eg. Freedom of Information, FOI">
                     <?php } ?>
                     <?php if ($addword) { ?>
-                    <input type="text" id="words<?= count($words) ?>" name="words[]" value="" placeholder="Eg. 'Freedom of Information', 'FOI'">
+                    <input type="text" id="words<?= count($words) ?>" name="words[]" value="" placeholder="Eg. Freedom of Information, FOI">
                     <?php } ?>
                     <button class="button" type="submit" name="addword" value="add">
                       <i aria-hidden="true" class="fi-save"></i>
@@ -39,7 +39,7 @@
                   <hr />
                   <div class="alert-form__section">
                     <label for="exclusions"><?= gettext('Are there any phrases you would not like to receive alerts about? (optional)') ?></label>
-                    <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. 'Information Rights'">
+                    <input type="text" id="exclusions" name="exclusions" aria-required="true" value="<?= _htmlspecialchars($exclusions) ?>" placeholder="Eg. Information Rights">
                   </div>
 
                   <div class="alert-form__section">
