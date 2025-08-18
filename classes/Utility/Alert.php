@@ -60,11 +60,13 @@ class Alert {
             $criteria = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes']);
             $parts = self::prettifyCriteria($row['criteria'], $row['ignore_speaker_votes'], true);
             $token = $row['alert_id'] . '-' . $row['registrationtoken'];
-            // simple_criteria is "First term (3 keywords)" or "First term"
-            if (count($parts['words']) > 1) {
-                $simple_criteria = $parts['words'][0] . ' (' . count($parts['words']) . ' keywords)';
-            } elseif (count($parts['words']) == 1) {
-                $simple_criteria = $parts['words'][0];
+            // simple_criteria is "First term, second, third (5 keywords)" or "First term"
+            $num_terms = count($parts['words']);
+            if ($num_terms > 3) {
+                $extras = $num_terms - 3;
+                $simple_criteria = implode(', ', array_slice($parts['words'], 0, 3)) . ' (' . sprintf(ngettext('+ %d more keyword', '+ %d more keywords', $extras), $extras) . ')';
+            } elseif ($num_terms > 0 && $num_terms <= 3) {
+                $simple_criteria = implode(', ', array_slice($parts['words'], 0, 3));
             } else {
                 $simple_criteria = $criteria;
             }
