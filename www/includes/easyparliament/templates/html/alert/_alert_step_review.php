@@ -1,3 +1,4 @@
+                <input type="hidden" name="this_step" value="review">
                 <?php foreach ($keywords as $word) {
                     if (!in_array($word, $skip_keyword_terms)) { ?>
                       <input type="hidden" name="words[]" value="<?= _htmlspecialchars($word) ?>">
@@ -7,7 +8,6 @@
                   <input type="hidden" name="selected_related_terms[]" value="<?= _htmlspecialchars($word) ?>">
                 <?php } ?>
                 <input type="hidden" name="add_all_related" value="<?= $add_all_related ?>">
-                <input type="hidden" name="this_step" value="review">
                 <input type="hidden" name="keyword" value="<?= _htmlspecialchars($keyword) ?>">
                 <input type="hidden" name="exclusions" value="<?= _htmlspecialchars($exclusions) ?>">
                 <input type="hidden" name="representative" value="<?= _htmlspecialchars($representative) ?>">
