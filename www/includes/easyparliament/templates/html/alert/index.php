@@ -272,7 +272,7 @@
                     <?= gettext('Plus, you won’t need to confirm your email address for every alert you set.') ?>
                 </p>
               <div class="alert-section__header">
-                <h3>Create an alert for a phrase or keyword</h3>
+                <h3><?= gettext('Create an alert for a phrase or keyword') ?></h3>
                 <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="step" value="define">
                     <button type="submit" class="button small" value="<?= gettext('Create new keyword alert') ?>">

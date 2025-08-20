@@ -5,7 +5,7 @@
 <?php } ?>
 
 <?php if (!in_array($own_mp_criteria, $all_keywords)) { ?>
-<p class="alert-form__subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
+<p class="alert-form__subtitle"><?= sprintf(gettext('Alert when %s is <strong>mentioned</strong>'), _htmlspecialchars($own_mp_criteria)) ?></p>
 <form action="<?= $actionurl ?>" method="post">
   <input type="hidden" name="step" value="confirm">
   <input type="hidden" name="words[]" value="<?= _htmlentities($own_mp_criteria) ?>">

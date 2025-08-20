@@ -88,7 +88,7 @@
 
                 <div class="alert-section__header">
                   <div>
-                    <h2>Representative alerts</h2>
+                    <h2><?= gettext('Representative alerts') ?></h2>
                   </div>
                   <form action="<?= $actionurl ?>" method="post">
                     <input type="hidden" name="mp_step" value="mp_alert">
@@ -118,7 +118,7 @@
                     <?php include '_own_mp_alerts.php' ?>
                   <?php } else { ?>
                     <?php if (!in_array($own_mp_criteria, $all_keywords)) { ?>
-                      <p class="alert-form__subtitle">Alert when <?= _htmlspecialchars($own_mp_criteria) ?> is <strong>mentioned</strong></p>
+                      <p class="alert-form__subtitle"><?= sprintf(gettext('Alert when %s is <strong>mentioned</strong>'), _htmlspecialchars($own_mp_criteria)) ?></p>
                       <form action="<?= $actionurl ?>" method="post">
                         <input type="hidden" name="keyword" value="<?= _htmlentities($own_mp_criteria) ?>">
                         <button type="submit" class="button small" name="action" value="Subscribe">

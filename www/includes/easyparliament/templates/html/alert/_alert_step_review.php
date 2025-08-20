@@ -89,7 +89,7 @@
 
                   <hr>
                   <?php include('_alert_form_abandon_button.php') ?>
-                  <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2">Go Back</button>
+                  <button type="submit" name="step" value="define" class="prev" aria-label="Go back to Step 2"><?= gettext('Go Back') ?></button>
                   <button class="button" type="submit" name="step" value="confirm">
                     <i aria-hidden="true" class="fi-save"></i>
                     <span><?= gettext('Save alert') ?></span>
