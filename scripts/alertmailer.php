@@ -431,6 +431,20 @@ if ($globalsuccess) {
 }
 $sss .= (getmicrotime() - $global_start) . "\n\n";
 mlog($sss);
+
+// Send Google Analytics event with the number of alerts sent
+if ($sentemails > 0 && !$nomail && !$onlyemail) {
+    $ga_success = send_ga_event('alerts_sent', [
+        'email_counts' => $sentemails,
+    ]);
+
+    if ($ga_success) {
+        mlog("Google Analytics event sent: $sentemails alerts\n");
+    } else {
+        mlog("Failed to send Google Analytics event\n");
+    }
+}
+
 if (!$nomail && !$onlyemail) {
     $fp = fopen(RAWDATA . '/alerts-lastsent', 'w');
     fwrite($fp, time() . "\n");

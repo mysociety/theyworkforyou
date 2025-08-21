@@ -1191,3 +1191,85 @@ function cache_version($file) {
     }
     return WEBPATH . $file;
 }
+
+/**
+ * Send event to Google Analytics using Measurement Protocol
+ * Used for capturing server side events
+ * @param string $event_name The name of the event
+ * @param array $parameters Additional event parameters
+ * @return bool
+ */
+function send_ga_event($event_name, $parameters = []) {
+    // Skip if measurement protocol secret not configured
+    if (!defined('MEASUREMENT_PROTOCOL_SECRET') || !MEASUREMENT_PROTOCOL_SECRET) {
+        return false;
+    }
+
+    // Skip on dev sites unless explicitly enabled
+    if (defined('DEVSITE') && DEVSITE) {
+        return false;
+    }
+
+    $measurement_id = 'G-W8M9N1MJFT'; // TheyWorkForYou GA4 tracking ID
+    $api_secret = MEASUREMENT_PROTOCOL_SECRET;
+
+    // Generate client_id as two 32-bit integers separated by a dot
+    $client_id = sprintf('%d.%d', random_int(0, 0xFFFFFFFF), random_int(0, 0xFFFFFFFF));
+
+    // Add debug mode if on dev site
+    if (defined('DEVSITE') && DEVSITE) {
+        $parameters['debug_mode'] = '1';
+    }
+
+    // Construct the event data
+    $event_data = [
+        'name' => $event_name,
+        'params' => $parameters,
+    ];
+
+    // Construct the payload
+    $payload = [
+        'client_id' => $client_id,
+        'events' => [$event_data],
+    ];
+
+    // Send to Google Analytics Measurement Protocol
+    $url = "https://www.google-analytics.com/mp/collect";
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+    ]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+    // Add query parameters
+    $query_params = http_build_query([
+        'measurement_id' => $measurement_id,
+        'api_secret' => $api_secret,
+    ]);
+    curl_setopt($ch, CURLOPT_URL, $url . '?' . $query_params);
+
+    $result = curl_exec($ch);
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if (curl_errno($ch)) {
+        $error_msg = "Google Analytics Measurement Protocol API failed: " . curl_error($ch);
+        trigger_error($error_msg, E_USER_WARNING);
+        curl_close($ch);
+        return false;
+    }
+
+    curl_close($ch);
+
+    // GA Measurement Protocol returns 200 or 204 on success
+    if (!in_array($http_code, [200, 204])) {
+        trigger_error("Google Analytics Measurement Protocol API returned status code {$http_code}", E_USER_WARNING);
+        return false;
+    }
+
+    return true;
+}

@@ -212,3 +212,7 @@ define('REDIS_SENTINEL_PORT', '26379');
 define('REDIS_SERVICE_NAME', 'mymaster');
 
 define('OPENGRAPH_IMAGE_SALT', 'your_secret_key_here');
+
+// Google Analytics 4 measurement protocol secret
+define('MEASUREMENT_PROTOCOL_SECRET', '');
+
