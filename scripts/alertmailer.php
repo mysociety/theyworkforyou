@@ -431,12 +431,29 @@ if ($globalsuccess) {
 }
 $sss .= (getmicrotime() - $global_start) . "\n\n";
 mlog($sss);
+
+
+
 if (!$nomail && !$onlyemail) {
     $fp = fopen(RAWDATA . '/alerts-lastsent', 'w');
     fwrite($fp, time() . "\n");
     fwrite($fp, $max_batch_id);
     fclose($fp);
     mail(ALERT_STATS_EMAILS, 'Email alert statistics', $sss, 'From: Email Alerts <fawkes@dracos.co.uk>');
+
+    // Send Google Analytics event with the number of alerts sent
+    if ($sentemails > 0) {
+        $ga_success = send_ga_event('alerts_sent', [
+            'email_counts' => $sentemails,
+        ]);
+
+        if ($ga_success) {
+            mlog("Google Analytics event sent: $sentemails alerts\n");
+        } else {
+            mlog("Failed to send Google Analytics event\n");
+        }
+    }
+
 }
 mlog(date('r') . "\n");
 
