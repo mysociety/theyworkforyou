@@ -7,7 +7,7 @@
 <div class="panel">
     <h2>About your Member of Parliament</h2>
     <p>
-    Your MP (<?= ucfirst($full_name) ?>) represents you, and all of the people who live in <?= $latest_membership['constituency'] ?>,
+    <?= ucfirst($full_name) ?> represents the people who live in <?= $latest_membership['constituency'] ?>,
         at the UK Parliament in Westminster.
     </p>
     <p>
@@ -30,10 +30,31 @@
     What you can do
     </h2>
     <ul class="rep-actions">
-        <li>Find out <a href="#profile">more about your MP</a>, including <a href="<?= $member_url ?>/votes">their voting summary</a><?php if ($register_interests) { ?>, <a href="<?= $member_url ?>/register">register of interests</a><?php } ?> and <a href="#appearances">recent speeches</a>.</li>
-    <?php if ($current_member[1]) { ?>
-        <li><a href="https://www.writetothem.com/">Write to your MP</a>, or find out about your other local representatives <a href="https://www.writetothem.com">on WriteToThem.com</a>.</li>
-    <?php } ?>
+        <li>Find out <a href="#profile">more about this MP</a>, including:
+            <ul class="rep-actions">
+                <?php if ($memberships) { ?>
+                    <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
+                        <a href="<?= $member_url ?>/memberships"><?= gettext('Committees and groups') ?></a> they are part of.
+                    </li>
+                <?php } ?>
+                <li><a href="<?= $member_url ?>/votes">Voting record summary</a> or a list of <a href="<?= $member_url ?>/recent">recent votes</a>.</li>
+                <?php if ($register_interests) { ?>
+                    <li><a href="<?= $member_url ?>/register">Declared financial interests</a>.</li>
+                <?php } ?>
+                <li><a href="#appearances">Recent speeches</a></li>
+                <?php if ($memberships) { ?>
+                    <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
+                        <a href="<?= $member_url ?>/memberships#letters-and-edms"><?= gettext('Signatures') ?></a> (open letters and EDMs)
+                    </li>
+                <?php } ?>
+            </ul>
+        </li>
+        <?php if ($current_member[1]) { ?>
+            <li>
+                <a href="https://www.writetothem.com/">Write to your MP</a>, or find out about your other local representatives 
+                <a href="https://www.writetothem.com">on WriteToThem.com</a>.
+            </li>
+        <?php } ?>
     <?php if ($latest_membership['end_date'] == '2024-05-30') { ?>
         <li>Find out more about <a href="https://www.localintelligencehub.com/area/WMC/<?= $latest_membership['constituency'] ?>"><?= $latest_membership['constituency'] ?></a> on the <a href="https://www.localintelligencehub.com/">Local Intelligence Hub</a>.</li>
     <?php } elseif ($current_member[1]) { ?>
@@ -41,5 +62,7 @@
     <?php } ?>
     </ul>
 </div>
+
+
 
 <?php } ?>
