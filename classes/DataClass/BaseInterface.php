@@ -29,6 +29,20 @@ trait BaseInterface {
     /**
      * @return static
      */
+    public static function fromCachedFile(string $file) {
+        $memcache = new \MySociety\TheyWorkForYou\Memcache();
+        $data = $memcache->get($file);
+        if (!$data) {
+            $content = file_get_contents($file);
+            $memcache->set($file, $content, 60 * 60 * 1); // Cache for 1 hour
+            $data = static::fromJson($content);
+        }
+        return static::fromJson($data);
+    }
+
+    /**
+     * @return static
+     */
     public static function fromArray(array $data) {
         try {
             return transform(static::class, $data);
