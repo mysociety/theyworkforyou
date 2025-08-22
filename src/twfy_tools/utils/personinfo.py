@@ -8,7 +8,7 @@ from typing import Literal, Optional
 import pandas as pd
 import rich
 from mysoc_validator.models.interests import RegmemPerson, RegmemRegister
-from pydantic import BaseModel, RootModel, field_serializer
+from pydantic import BaseModel, RootModel, field_serializer, field_validator
 from tqdm import tqdm
 from typer import Typer
 from typing_extensions import TypeGuard
@@ -32,10 +32,22 @@ class AppgDetails(BaseModel):
     source_url: str
     categories: Optional[list[str]]
 
+    @field_validator("website", mode="before")
+    def validate_website(cls, value):
+        """
+        If 'None' or empty string, return None
+        """
+        if not value:
+            return None
+        if value == "None":
+            return None
+        return value
+
 
 class AppgMembership(BaseModel):
     appg: AppgDetails
     role: str
+    membership_source_url: str
 
 
 class APPGMembershipAssignment(BaseModel):
@@ -204,7 +216,7 @@ def upload_enhanced_2024_regmem(quiet: bool = False):
 
 
 @app.command()
-def load_appg_membership(quiet: bool = False, include_ai_sources: bool = False):
+def load_appg_membership(quiet: bool = False, include_ai_sources: bool = True):
     """
     Upload APPG membership information
     """
@@ -237,10 +249,14 @@ def load_appg_membership(quiet: bool = False, include_ai_sources: bool = False):
             role = row["officer_role"]
             if pd.isna(role):
                 role = ""
-            membership = AppgMembership(appg=appg, role=role)
+            membership = AppgMembership(
+                appg=appg, role=role, membership_source_url=row["url_source"]
+            )
             id_to_person[int_id].is_officer_of.append(membership)
         else:
-            membership = AppgMembership(appg=appg, role="")
+            membership = AppgMembership(
+                appg=appg, role="", membership_source_url=row["url_source"]
+            )
             id_to_person[int_id].is_ordinary_member_of.append(membership)
 
     upload_person_info(

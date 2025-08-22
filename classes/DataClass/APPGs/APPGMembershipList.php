@@ -7,7 +7,7 @@ namespace MySociety\TheyWorkForYou\DataClass\APPGs;
 use MySociety\TheyWorkForYou\DataClass\BaseCollection;
 
 /**
- * @extends BaseCollection<Category>
+ * @extends BaseCollection<APPGMembership>
  */
 class APPGMembershipList extends BaseCollection {
     public function __construct(APPGMembership ...$memberships) {

@@ -315,6 +315,8 @@ class Member extends \MEMBER {
 
         $officeObject = new Office();
         $officeObject->title = prettify_office($row['position'], $row['dept']);
+        $officeObject->position = $row['position'];
+        $officeObject->dept = $row['dept'];
         $officeObject->from_date = $row['from_date'];
         $officeObject->to_date = $row['to_date'];
         $officeObject->source = $row['source'];

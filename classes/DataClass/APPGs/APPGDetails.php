@@ -15,7 +15,7 @@ class APPGDetails extends BaseModel {
     public string $slug;
     public string $title;
     public string $purpose;
-    public string $website;
+    public ?string $website;
     public string $source_url;
     // public Array $categories;
 }
