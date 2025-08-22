@@ -16,6 +16,12 @@ class Office {
     public $from_date;
     public $to_date;
     public $source;
+    public $position = "";
+    public $dept = "";
+    public $slug = "";
+    public $desc = "";
+    public $external_url = "";
+
 
     /**
      * To String
@@ -31,6 +37,29 @@ class Office {
         } else {
             return 'Unnamed Office';
         }
+    }
+
+
+    /**
+     * Converts the description text into HTML paragraphs.
+     *
+     * This method takes the description text stored in the `$desc` property,
+     * splits it into paragraphs based on newline characters, and wraps each
+     * non-empty paragraph in `<p>` tags.
+     * @return string The HTML representation of the description text.
+     */
+    public function htmlDesc() {
+        $paragraphs = explode("\n", $this->desc);
+        $html = '';
+
+        foreach ($paragraphs as $paragraph) {
+            $trimmed = trim($paragraph);
+            if (!empty($trimmed)) {
+                $html .= '<p>' . htmlspecialchars($trimmed, ENT_QUOTES, 'UTF-8') . '</p>';
+            }
+        }
+
+        return $html;
     }
 
     /**
