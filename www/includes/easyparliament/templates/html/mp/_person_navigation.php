@@ -2,6 +2,9 @@
 
     <ul>
         <li <?php if ($pagetype == ""): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
+          <?php if ($memberships): ?>
+            <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/memberships"><?= gettext('Committees / APPGs / Signatures') ?></a></li>
+          <?php endif; ?>
           <?php if ($this_page == "mp"): ?>
             <li <?php if ($pagetype == "votes"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/votes"><?= gettext('Voting Summary') ?></a></li>
           <?php endif; ?>
@@ -13,9 +16,6 @@
           <?php endif; ?>
           <?php if ($register_2024_enriched): ?>
                 <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/election_register"><?= gettext('2024 Election Donations') ?></a></li>
-          <?php endif; ?>
-          <?php if ($memberships): ?>
-            <li <?php if ($pagetype == "member_interests"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/memberships"><?= gettext('Committees / APPGs / Signatures') ?></a></li>
           <?php endif; ?>
     </ul>
 </div>
