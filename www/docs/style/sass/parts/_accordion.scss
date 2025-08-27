@@ -1,0 +1,32 @@
+.js-accordion {
+    h3 {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        padding-right: 30px;
+
+        &::after {
+            content: '+';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            font-weight: normal;
+        }
+    }
+
+    &.is-open {
+        h3::after {
+            content: '×';
+        }
+
+        li {
+            display: list-item !important;
+        }
+    }
+
+    li {
+        display: none !important;
+    }
+}
