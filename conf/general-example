@@ -213,6 +213,8 @@ define('REDIS_SERVICE_NAME', 'mymaster');
 
 define('OPENGRAPH_IMAGE_SALT', 'your_secret_key_here');
 
+// Tracking analytics
+define('GOOGLE_ANALYTICS_ID', 'G-W8M9N1MJFT');
+
 // Google Analytics 4 measurement protocol secret
 define('MEASUREMENT_PROTOCOL_SECRET', '');
-

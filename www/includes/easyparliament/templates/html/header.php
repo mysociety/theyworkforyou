@@ -64,14 +64,14 @@
 
     <!-- Google tag (gtag.js) -->
     <script defer>Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);return t.trim().length>0&&(t+="; "),t+="_ga=GA1.1."+Math.floor(1e9*Math.random())+"."+Math.floor(1e9*Math.random())},set:function(t){t.trim().startsWith("_ga")||Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-W8M9N1MJFT"></script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=<?= GOOGLE_ANALYTICS_ID ?>"></script>
   
     <script>
         var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config','G-W8M9N1MJFT', {'client_id': client_id, 'cookie_expires': 1 });
+        gtag('config','<?= GOOGLE_ANALYTICS_ID ?>', {'client_id': client_id, 'cookie_expires': 1 });
     </script>
 
     <script>

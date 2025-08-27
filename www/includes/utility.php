@@ -1210,7 +1210,7 @@ function send_ga_event($event_name, $parameters = []) {
         return false;
     }
 
-    $measurement_id = 'G-W8M9N1MJFT'; // TheyWorkForYou GA4 tracking ID
+    $measurement_id = GOOGLE_ANALYTICS_ID; // TheyWorkForYou GA4 tracking ID
     $api_secret = MEASUREMENT_PROTOCOL_SECRET;
 
     // Generate client_id as two 32-bit integers separated by a dot
