@@ -21,7 +21,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             <div class="sidebar__unit in-page-nav">
                 <div>
 
-                <h3 class="browse-content">Comparison periods</h3>
+                    <h3 class="browse-content">Comparison periods</h3>
                     <ul> 
                     <?php foreach($available_periods as $period) { ?>
                         <li><a href="?comparison_period=<?= $period->lslug() ?>" class="<?= $period->lslug() === $comparison_period->lslug() ? 'active-comparison-period' : '' ?>"><?= $period->description ?></a></li>

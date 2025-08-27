@@ -44,6 +44,7 @@ function humInt(int $num): string {
                 <div>
 
                 <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
+                <?php include '_person_navigation.php'; ?>
                 <ul>
                         <li><a href="https://www.whofundsthem.com">About WhoFundsThem</a></li>              
                     <?php $election_registers = [$register_2024_enriched]; ?>

@@ -9,19 +9,34 @@ $display_wtt_stats_banner = '2015';
 
 <div class="full-page">
     <div class="full-page__row">
-        <div class="full-page__unit">
-            <?php include '_person_navigation.php'; ?>
-        </div>
+
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
                     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
-                    <ul>
-                        <li><a href="#profile"><?= gettext('Profile') ?></a></li>
-                        <?php if (count($recent_appearances['appearances'])): ?>
-                          <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
-                        <?php endif; ?>
-                      </ul>
+                    <div class="person-navigation">
+
+                        <?php include '_person_navigation.php'; ?>
+                        <ul>
+                            <li <?php if ($pagetype == ""): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>"><?= gettext('Overview') ?></a></li>
+                            <?php if ($this_page == "mp"): ?>
+                                <li <?php if ($pagetype == "votes"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/votes"><?= gettext('Voting Summary') ?></a></li>
+                            <?php endif; ?>
+                            <?php if (in_array($this_page, ["mp", "msp", "ms"])): ?>
+                                <li <?php if ($pagetype == "recent"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/recent"><?= gettext('Recent Votes') ?></a></li>
+                            <?php endif; ?>
+                            <?php if ($register_interests): ?>
+                                <li <?php if ($pagetype == "register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/register"><?= gettext('Register of Interests') ?></a></li>
+                            <?php endif; ?>
+                            <?php if ($register_2024_enriched): ?>
+                                    <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/election_register"><?= gettext('2024 Election Donations') ?></a></li>
+                            <?php endif; ?>
+                            <?php if ($memberships): ?>
+                                <li <?php if ($pagetype == "member_interests"): ?>class="active"<?php endif; ?>><a href="<?= $member_url ?>/memberships"><?= gettext('Committees / APPGs / Signatures') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+
                       <?php include '_featured_content.php'; ?>
                       <?php include '_donation.php'; ?>
                 </div>
