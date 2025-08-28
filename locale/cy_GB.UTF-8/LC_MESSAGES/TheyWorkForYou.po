@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-02 19:40+0000\n"
+"POT-Creation-Date: 2025-10-14 10:21+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -11,33 +11,41 @@ msgstr ""
 " Project-Id-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: classes/AlertView/Standard.php:123 www/docs/user/login/index.php:34
+#: classes/AlertView/Standard.php:413 www/docs/user/login/index.php:34
 #: www/docs/user/password/index.php:33
 msgid "Please enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
 #. validate_email() is in includes/utilities.php
-#: classes/AlertView/Standard.php:126 www/docs/user/login/index.php:36
+#: classes/AlertView/Standard.php:416 www/docs/user/login/index.php:36
 #: www/docs/user/password/index.php:35
 msgid "Please enter a valid email address"
 msgstr "Mewnbynnwch gyfeiriad e-bost dilys"
 
-#: classes/AlertView/Standard.php:139
+#: classes/AlertView/Standard.php:432
 msgid "Please enter what you want to be alerted about"
 msgstr "Nodwch yr hyn rydych chi am gael hysbysiadau"
 
-#: classes/AlertView/Standard.php:143
+#: classes/AlertView/Standard.php:436
 msgid "You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!"
 msgstr "Mae'n debyg na fyddwch chi eisiau cynnwys ystod o ddyddiadau fel rhan o'ch meini prawf, gan na fyddwch yn cael eich hysbysu o unrhyw beth newydd!"
 
-#: classes/AlertView/Standard.php:148
+#: classes/AlertView/Standard.php:441
 #, php-format
 msgid "That search appears to be invalid - %s - please check and try again."
 msgstr "Mae'n ymddangos bod y chwiliad hwnnw'n annilys -  %s - gwiriwch a cheisiwch eto."
 
-#: classes/AlertView/Standard.php:152
+#: classes/AlertView/Standard.php:445
 msgid "That search is too long for our database; please split it up into multiple smaller alerts."
 msgstr "Mae'r chwiliad hwnnw'n rhy hir i'n cronfa ddata;  os gwelwch yna dda rhannwch i nifer o hysbysiadau llai."
+
+#: classes/AlertView/Standard.php:496 classes/AlertView/Standard.php:514
+msgid "No matching representative found"
+msgstr "Ni ddaethpwyd o hyd i unrhyw gynrychiolydd cyfatebol"
+
+#: classes/AlertView/Standard.php:516
+msgid "Multiple matching representatives found, please select one."
+msgstr "Daethpwyd o hyd i lawer o gynrychiolwyr cyfatebol. Dewiswch un os gwelwch yn dda."
 
 #: classes/Divisions.php:484
 #, php-format
@@ -48,6 +56,10 @@ msgstr "wedi pleidleisio %s"
 #, php-format
 msgid "voted %s on <em>%s</em>"
 msgstr "Fe wnaeth pleidleisio  % s ar <em>%s</EM>"
+
+#: classes/GlossaryView/AddTermView.php:13
+msgid "You don't have permission to manage the glossary"
+msgstr ""
 
 #: classes/Homepage.php:74 classes/SectionView/NiView.php:119
 #: classes/SectionView/SeneddView.php:125 classes/SPHomepage.php:33
@@ -78,6 +90,7 @@ msgstr "Cynulliad"
 #: classes/Member.php:425 classes/Member.php:426
 #: www/includes/easyparliament/hansardlist.php:1227
 #: www/includes/easyparliament/member.php:35
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:62
 #: www/includes/easyparliament/templates/html/divisions/index.php:65
 #: www/includes/easyparliament/templates/html/search/form_options.php:68
 msgid "Scottish Parliament"
@@ -91,6 +104,7 @@ msgstr "Senedd"
 
 #: classes/Member.php:429 classes/Member.php:430
 #: www/includes/easyparliament/member.php:37
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:76
 msgid "London Assembly"
 msgstr "Cynulliad Llundain"
@@ -179,6 +193,7 @@ msgid "Maximum term length is 255 characters."
 msgstr "Yr hyd term mwyaf yw 255 nod."
 
 #: classes/SectionView/SeneddView.php:111
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:67
 #: www/includes/easyparliament/templates/html/search/form_options.php:73
 msgid "Senedd / Welsh Parliament"
 msgstr "Senedd Cymru"
@@ -224,11 +239,94 @@ msgstr "Mae'n ddrwg gennym, nid yw hwn yn gôd post dilys"
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr "Mae'n ddrwg gennym, ni allwn ddod o hyd i AS ar gyfer y côd post hwnnw."
 
+#: classes/Utility/Alert.php:14
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:50
+#: www/includes/easyparliament/templates/html/search/form_options.php:56
+msgid "All UK"
+msgstr "Y Deyrnas Unedig cyfan"
+
+#: classes/Utility/Alert.php:15
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:51
+#: www/includes/easyparliament/templates/html/search/form_options.php:57
+msgid "House of Commons debates"
+msgstr "Dadleuon Tŷ'r Cyffredin"
+
+#: classes/Utility/Alert.php:16 scripts/alertmailer.php:153
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:52
+#: www/includes/easyparliament/templates/html/search/form_options.php:58
+msgid "Westminster Hall debates"
+msgstr "Dadleuon Neuadd San Steffan"
+
+#: classes/Utility/Alert.php:17
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:53
+#: www/includes/easyparliament/templates/html/search/form_options.php:59
+msgid "House of Lords debates"
+msgstr "Dadleuon Tŷ'r Arglwyddi"
+
+#: classes/Utility/Alert.php:18
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:54
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:65
+#: www/includes/easyparliament/templates/html/search/form_options.php:60
+#: www/includes/easyparliament/templates/html/search/form_options.php:71
+msgid "Written answers"
+msgstr "Atebion ysgrifenedig"
+
+#: classes/Utility/Alert.php:19
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:55
+#: www/includes/easyparliament/templates/html/search/form_options.php:61
+msgid "Written ministerial statements"
+msgstr "Datganiadau gweinidogol  ysgrifenedig"
+
+#: classes/Utility/Alert.php:20
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:56
+#: www/includes/easyparliament/templates/html/search/form_options.php:62
+msgid "Bill Committees"
+msgstr "Pwyllgorau"
+
+#: classes/Utility/Alert.php:21
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:57
+#: www/includes/easyparliament/templates/html/search/form_options.php:63
+msgid "Future Business"
+msgstr "Busnes y Dyfodol"
+
+#: classes/Utility/Alert.php:22
+msgid "Northern Ireland Assembly Debates"
+msgstr "Dadleuon Cynulliad Gogledd Iwerddon"
+
+#: classes/Utility/Alert.php:23
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:63
+#: www/includes/easyparliament/templates/html/search/form_options.php:69
+msgid "All Scotland"
+msgstr "Alban i gyd"
+
+#: classes/Utility/Alert.php:24
+msgid "Scottish Parliament Debates"
+msgstr "Dadleuon Senedd yr Alban"
+
+#: classes/Utility/Alert.php:25
+msgid "Scottish Parliament Written answers"
+msgstr "atebion ysgrifenedig Senedd yr Alban"
+
+#: classes/Utility/Alert.php:26
+msgid "Welsh parliament record"
+msgstr "Y Cofnod"
+
+#: classes/Utility/Alert.php:27
+msgid "Questions to the Mayor of London"
+msgstr "Cwestiynau i'r Maer"
+
+#: classes/Utility/Alert.php:67
+#, php-format
+msgid "+ %d more keyword"
+msgid_plural "+ %d more keywords"
+msgstr[0] "+ %d allweddair arall"
+msgstr[1] "+ %d allweddair arall"
+
 #: classes/Utility/House.php:43
 msgid "MS"
 msgstr "AS"
 
-#: classes/Utility/House.php:44 www/includes/easyparliament/metadata.php:1125
+#: classes/Utility/House.php:44 www/includes/easyparliament/metadata.php:1148
 msgid "MSs"
 msgstr "ASau"
 
@@ -488,11 +586,6 @@ msgstr "Pleidlais"
 msgid "Commons debates"
 msgstr "Dadleuon Tŷ'r Cyffredin"
 
-#: scripts/alertmailer.php:153
-#: www/includes/easyparliament/templates/html/search/form_options.php:58
-msgid "Westminster Hall debates"
-msgstr "Dadleuon Neuadd San Steffan"
-
 #: scripts/alertmailer.php:154
 msgid "Written Answers"
 msgstr "Atebion ysgrifenedig"
@@ -523,8 +616,8 @@ msgid "London Mayoral questions"
 msgstr "Cwestiynau Maer Llundain"
 
 #: scripts/alertmailer.php:161 scripts/alertmailer.php:162
-#: www/includes/easyparliament/metadata.php:1184
-#: www/includes/easyparliament/metadata.php:1187
+#: www/includes/easyparliament/metadata.php:1207
+#: www/includes/easyparliament/metadata.php:1210
 msgid "Senedd debates"
 msgstr "Dadleuon y Senedd"
 
@@ -540,37 +633,37 @@ msgstr "digwyddiadau"
 msgid "votes"
 msgstr "pleidleisiau"
 
-#: scripts/alertmailer.php:303
+#: scripts/alertmailer.php:304
 msgid "as a teller"
 msgstr "fel rhifwr"
 
-#: scripts/alertmailer.php:314
+#: scripts/alertmailer.php:315
 msgid "Voted aye"
 msgstr "Pleidleisiodd ie"
 
-#: scripts/alertmailer.php:316
+#: scripts/alertmailer.php:317
 msgid "Voted no"
 msgstr "Pleidleisio na"
 
-#: scripts/alertmailer.php:318
+#: scripts/alertmailer.php:319
 msgid "Voted abstain"
 msgstr "Wedi ymatal pleidlais"
 
-#: scripts/alertmailer.php:320
+#: scripts/alertmailer.php:321
 #, php-format
 msgid "Voted %s"
 msgstr "Pleidleisiodd %s"
 
-#: scripts/alertmailer.php:322
+#: scripts/alertmailer.php:323
 #, php-format
 msgid "(division #%s; result was <b>%s</b> aye, <b>%s</b> no)"
 msgstr "(adran #%s;  canlyniad oedd <b>%s</b> aye, <b>%s</b> na)"
 
-#: scripts/alertmailer.php:402 scripts/alertmailer.php:409
+#: scripts/alertmailer.php:403 scripts/alertmailer.php:410
 msgid "There are more results than we have shown here."
 msgstr "Gweld mwy"
 
-#: scripts/alertmailer.php:402 scripts/alertmailer.php:409
+#: scripts/alertmailer.php:403 scripts/alertmailer.php:410
 msgid "See more"
 msgstr "Gweld mwy"
 
@@ -703,8 +796,9 @@ msgid "Your <strong>%s region MSs</strong> are:"
 msgstr "Eich ASau <strong>%s</strong> yw:"
 
 #: www/docs/mp/index.php:1285
+#, fuzzy
 msgid "You had one constituency MS (Member of the Senedd) and multiple region MSs."
-msgstr "Roedd gennych un AS (Aelod o'r Senedd) ar gyfer eich etholaeth a nifer o ASau rhanbarthol."
+msgstr "Gennych un AS (Aelod o'r Senedd) ar gyfer eich etholaeth a nifer o ASau rhanbarthol."
 
 #: www/docs/mp/index.php:1286
 #, php-format
@@ -768,12 +862,12 @@ msgstr "Dadl"
 msgid "debates"
 msgstr "dadleuon"
 
-#: www/includes/easyparliament/alert.php:471
+#: www/includes/easyparliament/alert.php:542
 #, php-format
 msgid "Mentions of [%s]"
 msgstr "Sôn am [%s]"
 
-#: www/includes/easyparliament/alert.php:474
+#: www/includes/easyparliament/alert.php:545
 #, php-format
 msgid "Things by %s"
 msgstr "Pethau gan %s"
@@ -820,6 +914,7 @@ msgstr "Dyddiadau diweddar"
 
 #: www/includes/easyparliament/hansardlist.php:1223
 #: www/includes/easyparliament/member.php:34
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:59
 #: www/includes/easyparliament/templates/html/search/form_options.php:65
 msgid "Northern Ireland Assembly"
 msgstr "Cynulliad Gogledd Iwerddon"
@@ -828,7 +923,7 @@ msgstr "Cynulliad Gogledd Iwerddon"
 msgid "Public Bill Committee"
 msgstr "Pwyllgor Mesur Cyhoeddus"
 
-#: www/includes/easyparliament/hansardlist.php:2449
+#: www/includes/easyparliament/hansardlist.php:2463
 msgid "See the whole debate"
 msgstr "Gweler yr holl ddadl"
 
@@ -921,18 +1016,18 @@ msgstr "Apwyntiwyd, amnewid rhanbarthol"
 msgid "About us"
 msgstr "Amdanom ni"
 
-#: www/includes/easyparliament/metadata.php:378
 #: www/includes/easyparliament/metadata.php:381
+#: www/includes/easyparliament/metadata.php:384
 msgid "Contact"
 msgstr "Cysylltwch"
 
-#: www/includes/easyparliament/metadata.php:385
+#: www/includes/easyparliament/metadata.php:388
 msgid "News"
 msgstr "Newyddion"
 
-#: www/includes/easyparliament/metadata.php:456
-#: www/includes/easyparliament/metadata.php:457
+#: www/includes/easyparliament/metadata.php:459
 #: www/includes/easyparliament/metadata.php:460
+#: www/includes/easyparliament/metadata.php:463
 #: www/includes/easyparliament/templates/html/divisions/index.php:5
 #: www/includes/easyparliament/templates/html/homepage/recent-votes.php:3
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:120
@@ -940,122 +1035,127 @@ msgstr "Newyddion"
 msgid "Recent Votes"
 msgstr "Pleidleisiau diweddar"
 
-#: www/includes/easyparliament/metadata.php:480
 #: www/includes/easyparliament/metadata.php:483
+#: www/includes/easyparliament/metadata.php:486
 msgid "Donate"
 msgstr "Cyfrannu nawr"
 
-#: www/includes/easyparliament/metadata.php:520
+#: www/includes/easyparliament/metadata.php:543
 msgid "Help - Frequently Asked Questions"
 msgstr "Cymorth -   Cwestiynau Cyffredin"
 
-#: www/includes/easyparliament/metadata.php:544
+#: www/includes/easyparliament/metadata.php:567
 msgid "Link to us"
 msgstr "Creu dolen gyda ni"
 
-#: www/includes/easyparliament/metadata.php:545
+#: www/includes/easyparliament/metadata.php:568
 msgid "How to link to us"
 msgstr "Sut i greu dolen â ni"
 
-#: www/includes/easyparliament/metadata.php:549
+#: www/includes/easyparliament/metadata.php:572
 msgid "API"
 msgstr " API"
 
-#: www/includes/easyparliament/metadata.php:550
+#: www/includes/easyparliament/metadata.php:573
 msgid "API - Query the TheyWorkForYou database"
 msgstr "API – Ymholi cronfa ddata TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:554
+#: www/includes/easyparliament/metadata.php:577
 msgid "Raw Data"
 msgstr "Data Crai"
 
-#: www/includes/easyparliament/metadata.php:555
+#: www/includes/easyparliament/metadata.php:578
 msgid "Raw data (XML) - the data behind TheyWorkForYou and Public Whip"
 msgstr "Data crai (XML) - y data y tu ôl i TheyWorkForYou a Public Whip"
 
-#: www/includes/easyparliament/metadata.php:559
+#: www/includes/easyparliament/metadata.php:582
 msgid "Developer mailing list"
 msgstr "Rhestr e-bost datblygwr"
 
-#: www/includes/easyparliament/metadata.php:563
+#: www/includes/easyparliament/metadata.php:586
 msgid "Source code"
 msgstr "Côd ffynhonnell"
 
-#: www/includes/easyparliament/metadata.php:564
+#: www/includes/easyparliament/metadata.php:587
 msgid "TheyWorkForYou Source code"
 msgstr " Côd ffynhonnell TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:799
+#: www/includes/easyparliament/metadata.php:822
 msgid "Privacy Policy"
 msgstr "Polisi Preifatrwydd"
 
-#: www/includes/easyparliament/metadata.php:1064
+#: www/includes/easyparliament/metadata.php:1087
 msgid "Join"
 msgstr "Ymuno"
 
-#: www/includes/easyparliament/metadata.php:1065
+#: www/includes/easyparliament/metadata.php:1088
 msgid "Joining is free and allows you to manage your email alerts"
 msgstr "Mae ymuno yn rhad ac am ddim ac yn caniatáu ichi reoli eich hysbysiadau e-bost"
 
-#: www/includes/easyparliament/metadata.php:1069
+#: www/includes/easyparliament/metadata.php:1092
 #: www/includes/easyparliament/templates/html/user/join.php:9
 #: www/includes/easyparliament/templates/html/user/join.php:129
 msgid "Join TheyWorkForYou"
 msgstr "Ymunwch â TheyWorkForYou"
 
-#: www/includes/easyparliament/metadata.php:1074
-#: www/includes/easyparliament/metadata.php:1078
+#: www/includes/easyparliament/metadata.php:1097
+#: www/includes/easyparliament/metadata.php:1101
 #: www/includes/easyparliament/page.php:753
 msgid "Sign in"
 msgstr "Mewngofnodi"
 
-#: www/includes/easyparliament/metadata.php:1075
+#: www/includes/easyparliament/metadata.php:1098
 msgid "If you've already joined, sign in to your account"
 msgstr "Pe baech chi eisoes wedi ymuno, mewngofnodwch  i'ch  cyfrif"
 
-#: www/includes/easyparliament/metadata.php:1126
+#: www/includes/easyparliament/metadata.php:1149
 msgid "List of Members of the Senedd (MSs)"
 msgstr "Rhestr Aelodau o'r Senedd (ASau)"
 
-#: www/includes/easyparliament/metadata.php:1134
+#: www/includes/easyparliament/metadata.php:1157
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:60
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:64
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:68
 #: www/includes/easyparliament/templates/html/search/form_options.php:66
 #: www/includes/easyparliament/templates/html/search/form_options.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:74
 msgid "Debates"
 msgstr "Dadleuon"
 
-#: www/includes/easyparliament/metadata.php:1135
+#: www/includes/easyparliament/metadata.php:1158
 msgid "Debates in the Senedd"
 msgstr "Ddadleuon y Senedd"
 
-#: www/includes/easyparliament/metadata.php:1142
+#: www/includes/easyparliament/metadata.php:1165
 msgid "Find your MS"
 msgstr "Dewch o hyd i'ch Aelod o’r Senedd"
 
-#: www/includes/easyparliament/metadata.php:1147
-#: www/includes/easyparliament/metadata.php:1152
+#: www/includes/easyparliament/metadata.php:1170
+#: www/includes/easyparliament/metadata.php:1175
 msgid "Your MSs"
 msgstr "Eich ASau"
 
-#: www/includes/easyparliament/metadata.php:1148
+#: www/includes/easyparliament/metadata.php:1171
 msgid "Find out about your Members of the Senedd"
 msgstr "Dysgwch am eich Aelodau Senedd Cymru"
 
-#: www/includes/easyparliament/metadata.php:1159
+#: www/includes/easyparliament/metadata.php:1182
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:12
 msgid "Overview"
 msgstr "Trosolwg"
 
-#: www/includes/easyparliament/metadata.php:1160
+#: www/includes/easyparliament/metadata.php:1183
 msgid "Overview of the Senedd debates"
 msgstr "Trosolwg o ddadleuon y Senedd"
 
-#: www/includes/easyparliament/metadata.php:1300
-#: www/includes/easyparliament/metadata.php:1304
+#: www/includes/easyparliament/metadata.php:1323
+#: www/includes/easyparliament/metadata.php:1327
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:104
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:134
 msgid "Your MP"
 msgstr "Eich AS"
 
-#: www/includes/easyparliament/metadata.php:1301
+#: www/includes/easyparliament/metadata.php:1324
 msgid "Find out about your Member of Parliament"
 msgstr "Dysgwch am eich Aelod Seneddol"
 
@@ -1100,7 +1200,7 @@ msgstr "Addasu’r chwilio"
 #. no $pid
 #. end of isset($speakers)
 #: www/includes/easyparliament/page.php:641
-#: www/includes/easyparliament/templates/html/alert/index.php:324
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:89
 #: www/includes/easyparliament/templates/html/header.php:152
 #: www/includes/easyparliament/templates/html/mp/header.php:72
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
@@ -1201,15 +1301,15 @@ msgid "Join now!"
 msgstr "Ymunwch nawr!"
 
 #. Display everything.
-#: www/includes/easyparliament/page.php:1009
+#: www/includes/easyparliament/page.php:922
 msgid "Result page:"
 msgstr "Tudalen canlyniad:"
 
-#: www/includes/easyparliament/page.php:1016
+#: www/includes/easyparliament/page.php:929
 msgid "Previous"
 msgstr "Blaenorol"
 
-#: www/includes/easyparliament/page.php:1027
+#: www/includes/easyparliament/page.php:940
 msgid "Next"
 msgstr "Nesaf"
 
@@ -1238,6 +1338,206 @@ msgstr "Cymorth Mewngofnodi"
 #: www/includes/easyparliament/sidebars/userlogin.php:6
 msgid "Signing in allows you to manage your email alerts, and change your password or email address."
 msgstr "Mae mewngofnodi yn eich caniatáu i reoli eich hysbysiadau e-bost, a newid eich cyfrinair neu gyfeiriad e-bost."
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:8
+msgid "Confirm alert"
+msgstr "Cadarnhau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:12
+msgid "Resume alert"
+msgstr "Ailddechrau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:18
+msgid "Suspend alert"
+msgstr "Rhybudd atal"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:22
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:101
+msgid "Delete alert"
+msgstr "Dileu rhybudd"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:32
+msgid "Edit alert"
+msgstr "Golygu rhybudd"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:41
+msgid "Include votes"
+msgstr "Cynnwys pleidleisiau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:48
+msgid "Ignore votes"
+msgstr "Anwybyddu pleidleisiau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_form_abandon_button.php:4
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:96
+msgid "Abandon changes"
+msgstr "Rhoi'r gorau i newidiadau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_form_abandon_button.php:6
+msgid "Abandon new alert"
+msgstr "Rhoi’r gorau i rybudd newydd"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_form.php:4
+msgid "Edit Alert"
+msgstr "Golygu Rhybudd"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_form.php:6
+msgid "Create Alert"
+msgstr "Creu hysbysiad"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:3
+msgid "Keyword alert"
+msgstr "Rhybudd allweddair"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:10
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:11
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:51
+#: www/includes/easyparliament/templates/html/footer.php:13
+msgid "Your email address"
+msgstr "Eich cyfeiriad e-bost"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:16
+msgid "What word or phrase would you like to receive alerts about? (add as many as you like)"
+msgstr "Pa air neu ymadrodd hoffech chi dderbyn rhybuddion amdano? (Ychwanegwch gymaint ag y dymunwch)"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:29
+msgid "Add another phrase"
+msgstr "Ychwanegu ymadrodd arall"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:36
+msgid "Require all phrases to be present (AND rather than OR)"
+msgstr "Gofynnir i bob ymadrodd fod yn bresennol (A yn hytrach nag NEU)"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:41
+msgid "Are there any phrases you would not like to receive alerts about? (optional)"
+msgstr "A oes unrhyw ymadroddion na hoffech chi dderbyn rhybuddion amdanynt? (Dewisol)"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:46
+msgid "Would you like to limit which debates/questions we alert about?"
+msgstr "A hoffech chi gyfyngu ar ba ddadleuon/cwestiynau rydyn ni'n rhoi gwybod amdanynt?"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:48
+msgid "Include all"
+msgstr "Cynnwys y cyfan"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:49
+#: www/includes/easyparliament/templates/html/search/form_options.php:55
+msgid "UK Parliament"
+msgstr "Senedd San Steffan"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:71
+#: www/includes/easyparliament/templates/html/search/form_options.php:77
+msgid "Questions to the Mayor"
+msgstr "Cwestiynau i'r Maer"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:77
+msgid "Would you like to only alert when a particular person speaks? (optional)"
+msgstr "A hoffech chi roi rhybudd dim ond pan fydd person penodol yn siarad? (Dewisol)"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:90
+msgid "Or edit the name"
+msgstr "Neu olygu'r enw"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:98
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:85
+msgid "Next →"
+msgstr "Nesaf  →"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:19
+msgid "Review Your Alert"
+msgstr "Adolygu Eich Rhybudd"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:23
+msgid "If you click 'save alert', you will get an alert if all of these words are in a speech"
+msgstr "Os cliciwch 'cadw rhybudd', fe gewch rybudd os yw'r holl eiriau hyn mewn araith."
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:25
+msgid "You will get an alert if any of these words are in a speech"
+msgstr "Fe gewch chi rybudd os oes unrhyw un o'r geiriau hyn mewn araith"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:36
+msgid "Unless the speech also includes these words"
+msgstr "Oni bai bod yr araith hefyd yn cynnwys y geiriau hyn"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:47
+msgid "And only if the speech is in"
+msgstr "A dim ond os yw'r araith yn"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:54
+msgid "in the UK, Scottish or Welsh Parliaments or Northern Ireland Assembly"
+msgstr "yn Seneddau'r DU, yr Alban neu Gymru neu Gynulliad Gogledd Iwerddon"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:60
+msgid "And only when spoken by"
+msgstr "A dim ond pan gaiff ei siarad gan"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:72
+msgid "Alert statistics"
+msgstr "Ystadegau rhybuddion"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:76
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:37
+msgid "Last 7 days"
+msgstr "7 diwrnod diwethaf"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:77
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:34
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:38
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:21
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:25
+#, php-format
+msgid "%d mention"
+msgid_plural "%d mentions"
+msgstr[0] "%d enghraifft"
+msgstr[1] "%d enghreifftiau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:81
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:44
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:28
+msgid "Date of last mention"
+msgstr "Dyddiad y sôn olaf"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:86
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:49
+msgid "See results for this alert \t&rarr;"
+msgstr "Gweler canlyniadau ar gyfer y rhybudd hwn \t&rarr;"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:92
+msgid "Go Back"
+msgstr "Mynd yn ôl"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_review.php:95
+msgid "Save alert"
+msgstr "Creu hysbysiad"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:15
+msgid "Adding some extra keywords"
+msgstr "Ychwanegu rhai allweddeiriau ychwanegol"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:17
+msgid "Current keywords in this alert:"
+msgstr "Allweddeiriau cyfredol yn y rhybudd hwn:"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:33
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:19
+msgid "All time"
+msgstr "Ers y dechrau"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:55
+msgid "We have also found the following related terms."
+msgstr "Rydym hefyd wedi dod o hyd i'r termau cysylltiedig canlynol."
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:58
+msgid "Related Terms"
+msgstr "Termau Cysylltiedig"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:76
+msgid "Add all related terms"
+msgstr "Ychwanegu’r holl dermau cysylltiedig"
+
+#: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:84
+msgid "← Previous"
+msgstr "← Blaenorol"
 
 #: www/includes/easyparliament/templates/html/alert/index.php:19
 msgid "Your alert has been confirmed"
@@ -1309,94 +1609,90 @@ msgstr "Mae eich hysbysiad wedi'i ychwanegu"
 msgid "You will now receive email alerts on any day when %s in parliament."
 msgstr "Byddwch yn derbyn hysbysiad dros e-bost ar unrhyw ddiwrnod pan fydd %s yn y senedd."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:90
+#: www/includes/easyparliament/templates/html/alert/index.php:89
+#: www/includes/easyparliament/templates/html/alert/index.php:94
+msgid "Your alert has been updated"
+msgstr "Mae eich hysbysiad wedi'i ychwanegu"
+
+#: www/includes/easyparliament/templates/html/alert/index.php:91
+#, php-format
+msgid "You will now receive email alerts when %s in parliament."
+msgstr "Byddwch yn derbyn hysbysiad dros e-bost ar unrhyw ddiwrnod pan fydd %s yn y senedd."
+
+#: www/includes/easyparliament/templates/html/alert/index.php:96
+#, php-format
+msgid "You will no longer receive email alerts when %s in parliament."
+msgstr "Ni fyddwch yn derbyn hysbysiad dros e-bost mwyach ar unrhyw ddiwrnod pan fydd %s yn y Senedd."
+
+#: www/includes/easyparliament/templates/html/alert/index.php:100
 #: www/includes/easyparliament/templates/html/user/welcome.php:6
 msgid "We’re nearly done…"
 msgstr "Ni bron â gorffen..."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:92
-#: www/includes/easyparliament/templates/html/alert/index.php:104
+#: www/includes/easyparliament/templates/html/alert/index.php:102
+#: www/includes/easyparliament/templates/html/alert/index.php:114
 msgid "You should receive an email shortly which will contain a link. You will need to follow that link to confirm your email address and receive future alerts. Thanks."
 msgstr "Dylech dderbyn e-bost yn fuan a fydd yn cynnwys dolen. Bydd angen i chi ddilyn y ddolen honno er mwyn cadarnhau eich cyfeiriad e-bost a derbyn hysbysiadau yn y dyfodol.  Diolch."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:96
+#: www/includes/easyparliament/templates/html/alert/index.php:106
 msgid "You’re already subscribed to that!"
 msgstr "Rydych chi eisoes wedi tanysgrifio i hynny!"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:98
+#: www/includes/easyparliament/templates/html/alert/index.php:108
 msgid "It’s good to know you’re keen though."
 msgstr "Serch hynny, mae'n dda i wybod eich bod yn awyddus."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:102
+#: www/includes/easyparliament/templates/html/alert/index.php:112
 msgid "We’re nearly done"
 msgstr "Rydyn ni bron â gorffen"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:108
+#: www/includes/easyparliament/templates/html/alert/index.php:118
+msgid "Changes abandoned"
+msgstr "Newidiadau a adawyd"
+
+#: www/includes/easyparliament/templates/html/alert/index.php:120
+msgid "Those changes have been abandoned and your alerts are unchanged."
+msgstr "Mae'r newidiadau hynny wedi'u gadael ac nid yw eich rhybuddion wedi newid."
+
+#: www/includes/easyparliament/templates/html/alert/index.php:123
 msgid "Alert could not be created"
 msgstr "Ni ellid creu hysbysiad"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:110
+#: www/includes/easyparliament/templates/html/alert/index.php:125
 #, php-format
 msgid "Sorry, we were unable to create that alert. Please <a href=\"mailto:%s\">let us know</a>. Thanks."
 msgstr "Sori, doedden ni methu creu'r hysbysiad yna.  Os gwelwch yn dda <a href=\"mailto:%s\">rhowch wybod i ni</a>.   Diolch."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:132
+#: www/includes/easyparliament/templates/html/alert/index.php:136
+msgid "Create a Representative Alert"
+msgstr "Creu hysbysiad"
+
+#: www/includes/easyparliament/templates/html/alert/index.php:158
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:20
 #, php-format
 msgid "Sign up for alerts when people matching <i>%s</i> speaks"
 msgstr "Cofrestrwch am hysbysiadau pan fydd pobl sy’n gweddu <i>%s</i> siarad"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:147
+#: www/includes/easyparliament/templates/html/alert/index.php:174
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:36
 #, php-format
 msgid "When %s speaks."
 msgstr "Pan mae %s yn siarad."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:149
-#: www/includes/easyparliament/templates/html/alert/index.php:168
-#: www/includes/easyparliament/templates/html/alert/index.php:187
-#: www/includes/easyparliament/templates/html/alert/index.php:218
-#: www/includes/easyparliament/templates/html/alert/index.php:230
-#: www/includes/easyparliament/templates/html/alert/index.php:242
-#: www/includes/easyparliament/templates/html/alert/index.php:268
-#: www/includes/easyparliament/templates/html/alert/index.php:324
+#: www/includes/easyparliament/templates/html/alert/index.php:176
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:110
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:14
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:38
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:85
 #: www/includes/easyparliament/templates/html/footer.php:20
 msgid "Subscribe"
 msgstr "Tanysgrifio"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:158
-#, php-format
-msgid "Sign up for alerts when MPs for constituencies matching <i>%s</i> speaks"
-msgstr "Cofrestrwch am hysbysiadau pan fydd AS ar gyfer etholaethau sy'n cyfateb i <i>%s</i> yn siarad"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:176
-msgid "Sign up for alerts for topics"
-msgstr "Cofrestrwch am hysbysiadau ar gyfer themau"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:178
-msgid "Great! Can you just confirm what you mean?"
-msgstr "Gwych! Gallwch chi gadarnhau beth rydych chi'n ei olygu?"
-
 #: www/includes/easyparliament/templates/html/alert/index.php:186
-#, php-format
-msgid "Receive alerts when %s"
-msgstr "Derbyn hysbysiadau pan fo %s"
+msgid "That doesn’t match a person, postcode or constituency. Search again to refine your email alert."
+msgstr "Nid yw hynny'n cyd-fynd â pherson, cod post nac etholaeth. Chwiliwch eto i fireinio'ch rhybudd e-bost."
 
 #: www/includes/easyparliament/templates/html/alert/index.php:190
-msgid ""
-"\n"
-"                            You have used a comma in your search term –\n"
-"                            are you sure this is what you want? You cannot\n"
-"                            sign up to multiple search terms using a comma\n"
-"                            – either use OR, or create a separate alert\n"
-"                            for each individual term."
-msgstr ""
-"\n"
-" Rydych wedi defnyddio atalnod yn eich term chwilio –\n"
-"ydych chi'n siŵr mai dyma'r hyn rydych chi ei eisiau? Ni allwch\n"
-"gofrestru i dermau chwilio lluosog gan ddefnyddio coma\n"
-" – naill ai defnyddiwch NEU, neu greu hysbysiad ar wahân\n"
-" ar gyfer pob term unigol."
-
-#: www/includes/easyparliament/templates/html/alert/index.php:199
 msgid ""
 "\n"
 "                            You have used a postcode and something else in your\n"
@@ -1410,136 +1706,162 @@ msgstr ""
 " eisiau? Byddwch ond yn derbyn hysbysiad pe bai y rhain i gyd\n"
 " yn cael eu crybwyll yn yr un ddadl."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:205
+#: www/includes/easyparliament/templates/html/alert/index.php:196
 #, php-format
 msgid "Did you mean to get alerts for when your representative mentions something instead? If so maybe you want to subscribe to…"
 msgstr "Oeddech chi am dderbyn hysbysiadau pan fydd eich cynrychiolydd yn sôn am rywbeth?  Os felly, efallai y buasech chi eisiau tanysgrifio i..."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:217
+#: www/includes/easyparliament/templates/html/alert/index.php:209
 #, php-format
 msgid "Mentions of [%s] by your MP, %s"
 msgstr "Sôn am [%s  ] gan eich AS, %s"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:229
+#: www/includes/easyparliament/templates/html/alert/index.php:210
+#: www/includes/easyparliament/templates/html/alert/index.php:224
+#: www/includes/easyparliament/templates/html/alert/index.php:238
+#: www/includes/easyparliament/templates/html/alert/index.php:253
+msgid "Create alert"
+msgstr "Creu hysbysiad"
+
+#: www/includes/easyparliament/templates/html/alert/index.php:223
 #, php-format
 msgid "Mentions of [%s] by your MSP, %s"
 msgstr "Sôn am [%s  ] gan eich ASA, %s"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:241
+#: www/includes/easyparliament/templates/html/alert/index.php:237
 #, php-format
 msgid "Mentions of [%s] by your MS, %s"
 msgstr "Sôn am [%s  ] gan eich AS, %s"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:261
-msgid "Your MP alert"
-msgstr "Eich hysbysiad AS"
+#: www/includes/easyparliament/templates/html/alert/index.php:244
+msgid "Do you want alerts for a word or phrase?"
+msgstr "A ydych chi eisiau rhybuddion am air neu ymadrodd?"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:264
+#: www/includes/easyparliament/templates/html/alert/index.php:252
 #, php-format
-msgid "You are not subscribed to an alert for your current MP, %s"
-msgstr "Nid ydych wedi tanysgrifio ar gyfer rhybudd ar gyfer eich AS presennol, %s"
+msgid "Receive alerts when %s"
+msgstr "Derbyn hysbysiadau pan fo %s"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:276
+#: www/includes/easyparliament/templates/html/alert/index.php:257
+msgid "Not quite right? Search again to refine your email alert."
+msgstr "Ddim yn hollol gywir?  Chwiliwch eto i fireinio'ch hysbysiad e-bost."
+
+#: www/includes/easyparliament/templates/html/alert/index.php:269
 #, php-format
 msgid "If you <a href=\"%s\">join</a> or <a href=\"%s\">sign in</a>, you can suspend, resume and delete your email alerts from your profile page."
 msgstr "Pe baech yn <a href=\"%s\">ymuno</a> neu <a href=\"%s\">mewngofnodi</a>,  gallwch atal, ailddechrau neu ddileu eich hysbysiadau e-bost o'ch tudalen proffil."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:279
+#: www/includes/easyparliament/templates/html/alert/index.php:272
 msgid "Plus, you won’t need to confirm your email address for every alert you set."
 msgstr "Hefyd, ni fydd angen i chi gadarnhau eich cyfeiriad e-bost ar gyfer pob rhybudd rydych chi'n ei osod."
 
-#: www/includes/easyparliament/templates/html/alert/index.php:293
-#, php-format
-msgid "Sign up for an alert when %s speaks."
-msgstr "Cofrestrwch ar gyfer hysbysiad pan mae %s yn siarad."
+#: www/includes/easyparliament/templates/html/alert/index.php:275
+msgid "Create an alert for a phrase or keyword"
+msgstr "Creu rhybudd ar gyfer ymadrodd neu allweddair"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:297
-#, php-format
-msgid "Sign up for an alert when %s."
-msgstr "Cofrestrwch ar gyfer hysbysiad pan %s."
+#: www/includes/easyparliament/templates/html/alert/index.php:278
+#: www/includes/easyparliament/templates/html/alert/index.php:280
+#: www/includes/easyparliament/templates/html/alert/index.php:318
+#: www/includes/easyparliament/templates/html/alert/index.php:320
+msgid "Create new keyword alert"
+msgstr "Creu rhybudd allweddair newydd"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:300
-msgid "Not quite right? Search again to refine your email alert."
-msgstr "Ddim yn hollol gywir?  Chwiliwch eto i fireinio'ch hysbysiad e-bost."
+#: www/includes/easyparliament/templates/html/alert/index.php:289
+#, fuzzy
+msgid "Create an alert when an MP, MSP, MS or MLA speaks"
+msgstr "Creu rhybudd pan fydd AS, AS yr Alban neu AC yn siarad"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:302
-msgid "Request a new TheyWorkForYou email alert"
-msgstr "Gofyn am hysbysiad e-bost TheyWorkForYou newydd"
+#: www/includes/easyparliament/templates/html/alert/index.php:294
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:98
+msgid "Create new Representative alert"
+msgstr "Creu rhybudd Cynrychiolydd newydd"
 
-#: www/includes/easyparliament/templates/html/alert/index.php:311
-#: www/includes/easyparliament/templates/html/footer.php:13
-msgid "Your email address"
-msgstr "Eich cyfeiriad e-bost"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:322
-msgid "Search term, postcode, or MP name"
-msgstr "Term chwilio, côd post, neu enw MP"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:348
-msgid "Search tips"
-msgstr "Argymhellion chwilio"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:350
-msgid "To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes. Also use quotes around a word to avoid stemming (where ‘horse’ would also match ‘horses’)."
-msgstr "I dderbyn hysbysiad ar <strong>ymadrodd</strong> unigryw, sicrhewch i’w osod mewn dyfyniadau.  Hefyd, rhowch ddyfyniadau o gwmpas gair i osgoi stemio (ble buasai 'ceffyl' hefyd yn  cyfateb i 'ceffylau')."
-
-#: www/includes/easyparliament/templates/html/alert/index.php:353
-msgid "You should only enter <strong>one term per alert</strong> – if you wish to receive alerts on more than one thing, or for more than one person, simply fill in this form as many times as you need, or use boolean OR."
-msgstr "Dim ond <strong>un term i bob hysbysiad</strong> y dylech chi nodi – pe baech yn dymuno derbyn hysbysiadau am fwy nag un peth, neu am fwy nag un person, y cyfan sydd angen i chi wneud yw llenwi y ffurflen hon gymaint o weithiau ag sydd ei angen, neu defnyddiwch NEU Boolean."
-
-#: www/includes/easyparliament/templates/html/alert/index.php:356
-msgid "For example, if you wish to receive alerts whenever the words <i>horse</i> or <i>pony</i> are mentioned in Parliament, please fill in this form once with the word <i>horse</i> and then again with the word <i>pony</i> (or you can put <i>horse OR pony</i> with the OR in capitals). Do not put <i>horse, pony</i> as that will only sign you up for alerts where <strong>both</strong> horse and pony are mentioned."
-msgstr "Er enghraifft, pe baech yn dymuno derbyn hysbysiadau pan crybwyllir y geiriau <i>ceffyl</i> neu <  i>merlen</i>  yn Y Senedd,  llenwch y ffurflen hon  unwaith  gyda'r gair <i>ceffyl</i> ac yna eto gyda'r gair <i>merlen</i> (neu gallwch roi <i>ceffyl NEU ferlen</ i>   gyda'r NEU mewn priflythrennau). Peidiwch â rhoi <i>ceffyl, merlen</i> gan y bydd hynny ond yn eich cofrestru ar gyfer rhybuddion lle sonnir am ‘ceffyl’ <strong>a</strong> merlen."
-
-#: www/includes/easyparliament/templates/html/alert/index.php:362
-msgid "Step by step guides"
-msgstr "Canllawiau cam-wrth-gam"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:364
-msgid "The mySociety blog has a number of posts on signing up for and managing alerts:"
-msgstr "Mae gan flog mySociety nifer o gofnodion am gofrestru ar gyfer a rheoli hysbysiadau:"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:368
-msgid "How to sign up for alerts on what your MP is saying"
-msgstr "Sut i gofrestru ar gyfer hysbysiadau am yr hyn mae eich AS yn ei ddweud"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:369
-msgid "How to sign up for alerts when your chosen word is mentioned"
-msgstr "Sut i gofrestru ar gyfer hysbysiadau pan fydd eich gair dewisol yn cael ei grybwyll"
-
-#: www/includes/easyparliament/templates/html/alert/index.php:370
-#, php-format
-msgid "<a href=\"%s\">Managing email alerts</a>, including how to stop or suspend them."
-msgstr "<a href=\"%s\">Rheoli hysbysiadau e-bost</a>, gan gynnwys sut i'w hatal neu wahardd."
-
-#: www/includes/easyparliament/templates/html/alert/_list.php:1
-msgid "Your current email alerts"
-msgstr "Eich hysbysiadau e-bost presennol"
-
-#: www/includes/easyparliament/templates/html/alert/_list.php:6
-#, php-format
-msgid "When %s"
-msgstr "Pan %s"
-
+#: www/includes/easyparliament/templates/html/alert/index.php:303
 #: www/includes/easyparliament/templates/html/alert/_list.php:10
-msgid "Confirm"
-msgstr "Cadarnhau"
+msgid "Delete all alerts"
+msgstr "Dileu pob rhybudd"
 
-#: www/includes/easyparliament/templates/html/alert/_list.php:12
-msgid "Resume"
-msgstr "Ailddechrau"
+#: www/includes/easyparliament/templates/html/alert/index.php:310
+msgid "Keywords alerts"
+msgstr "Rhybuddion allweddair"
 
-#: www/includes/easyparliament/templates/html/alert/_list.php:14
-msgid "Suspend"
-msgstr "Atal"
+#: www/includes/easyparliament/templates/html/alert/index.php:313
+msgid "You haven't created any keyword alerts."
+msgstr "Nid ydych wedi creu unrhyw rybuddion allweddair."
 
-#: www/includes/easyparliament/templates/html/alert/_list.php:15
-msgid "Delete"
-msgstr "Dileu"
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:8
+#, php-format
+msgid "%d mentions this week"
+msgstr "%d enghreifftiau yr wythnos hon"
 
-#: www/includes/easyparliament/templates/html/alert/_list.php:25
-msgid "Delete All"
-msgstr "Dileu'r Cyfan"
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:24
+msgid "This week"
+msgstr "Yr wythnos hon."
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:32
+msgid "See results for this alert &rarr;"
+msgstr "Gweler canlyniadau ar gyfer y rhybudd hwn &rarr;"
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:75
+msgid "This alert applies to the following <strong class=\"bold\">representative</span>"
+msgstr "Mae'r rhybudd hwn yn berthnasol i'r <strong class=\"bold\">cynrychiolydd</span> canlynol"
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:92
+msgid "Representative alerts"
+msgstr "Rhybuddion cynrychiolydd"
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:107
+#, php-format
+msgid "You are not subscribed to an alert for your current MP, %s"
+msgstr "Nid ydych wedi tanysgrifio ar gyfer rhybudd ar gyfer eich AS presennol, %s"
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:117
+msgid "You are subscribed to the following alerts about your MP."
+msgstr "Rydych chi wedi tanysgrifio i'r rhybuddion canlynol am eich AS."
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:122
+#: www/includes/easyparliament/templates/html/alert/_own_mp_alerts.php:8
+#, php-format
+msgid "Alert when %s is <strong>mentioned</strong>"
+msgstr "Rhybudd pan fydd %s yn cael ei <strong>grybwyll</strong>"
+
+#: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:127
+#: www/includes/easyparliament/templates/html/alert/_own_mp_alerts.php:14
+msgid "Create new alert"
+msgstr "Creu hysbysiad"
+
+#: www/includes/easyparliament/templates/html/alert/_list.php:2
+msgid "Email alerts"
+msgstr "Rhybuddion e-bost"
+
+#: www/includes/easyparliament/templates/html/alert/_list.php:5
+#, php-format
+msgid "You currently have %d email alert"
+msgid_plural "You currently have %d email alerts"
+msgstr[0] "Mae gennych %d rhybudd e-bost"
+msgstr[1] "Mae gennych %d rybuddion e-bost"
+
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:3
+#, php-format
+msgid "Sign up for alerts when Representatives for constituencies matching <i>%s</i> speaks"
+msgstr "Cofrestrwch am hysbysiadau pan fydd AS ar gyfer etholaethau sy'n cyfateb i <i>%s</i> yn siarad"
+
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:66
+msgid "Search by postcode, or MP/MSP/MS/MLA name"
+msgstr "Chwiliwch yn ôl cod post, neu enw AS/AS yr Alban/AS/AC"
+
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:67
+msgid "e.g. B2 4QA or John Doe"
+msgstr "e.g. B2 4QA or John Doe"
+
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:77
+msgid "Do not include votes in the alert"
+msgstr "Peidiwch â chynnwys pleidleisiau yn y rhybudd"
+
+#: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:98
+#, fuzzy
+msgid "Abandon create"
+msgstr "Rhoi'r gorau i newidiadau"
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:25
 #: www/includes/easyparliament/templates/html/divisions/vote.php:24
@@ -1584,13 +1906,17 @@ msgid "Only show votes from:"
 msgstr "Dangos y pleidleisiau o:"
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:70
+msgid "Votes appear here the day after they happened - but will be available on <a href=\"https://votes.theyworkforyou.com/decisions\">TheyWorkForYou Votes</a> within half an hour of the vote, and posted on our <a href=\"https://bsky.app/profile/theyworkforyou.com\">BlueSky feed</a>."
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:74
+msgid "Learn more about our voting records and what they mean."
+msgstr "Dysgwch fwy am ein  cofnodion pleidleisio a'r hyn maen nhw'n ei olygu."
+
+#: www/includes/easyparliament/templates/html/divisions/index.php:78
 #: www/includes/easyparliament/templates/html/mp/register.php:33
 msgid "Last updated:"
 msgstr "Diweddarwyd ddiwethaf:"
-
-#: www/includes/easyparliament/templates/html/divisions/index.php:71
-msgid "Learn more about our voting records and what they mean."
-msgstr "Dysgwch fwy am ein  cofnodion pleidleisio a'r hyn maen nhw'n ei olygu."
 
 #: www/includes/easyparliament/templates/html/divisions/_name_vote_list.php:17
 msgid "A-Z by last name"
@@ -1622,6 +1948,13 @@ msgstr "Dangoswch y ddadl lawn"
 #, php-format
 msgid "%s’s full voting record"
 msgstr "%s's record pleidleisio llawn"
+
+#: www/includes/easyparliament/templates/html/divisions/vote.php:77
+#: www/includes/easyparliament/templates/html/section/_section_content.php:278
+#: www/includes/easyparliament/templates/html/section/_section_content.php:292
+#, fuzzy
+msgid "Vote analysis"
+msgstr "Pleidleisiodd ie"
 
 #: www/includes/easyparliament/templates/html/divisions/_votes.php:5
 msgid "Aye"
@@ -1688,12 +2021,31 @@ msgstr "Adeiladwyd gan"
 msgid "%s is a registered charity in England and Wales (1076346) and a limited company (03277032). We provide commercial services through our wholly owned subsidiary %s (05798215)."
 msgstr "Elusen gofrestredig yng Nghymru a Lloegr (1076346) a chwmni cyfyngedig (03277032) yw %s. Rydym yn darparu gwasanaethau masnachol trwy is-gwmni o’n heiddo llwyr %s (05798215)."
 
+#: www/includes/easyparliament/templates/html/glossary/addterm_matches.php:12
+msgid "match"
+msgid_plural "matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: www/includes/easyparliament/templates/html/glossary/addterm_matches.php:13
+#, fuzzy
+msgid "a definition"
+msgid_plural "some definitions"
+msgstr[0] "%d enghraifft"
+msgstr[1] "%d enghreifftiau"
+
+#: www/includes/easyparliament/templates/html/glossary/addterm_matches.php:13
+msgid "it"
+msgid_plural "them"
+msgstr[0] ""
+msgstr[1] ""
+
 #. All wrans have 2 speeches, so no need for this.
 #. All WMS have 1 speech
 #: www/includes/easyparliament/templates/html/hansard_person.php:31
 #: www/includes/easyparliament/templates/html/section/_business_list_item.php:12
 #: www/includes/easyparliament/templates/html/section/day.php:47
-#: www/includes/easyparliament/templates/html/section/_section_content.php:351
+#: www/includes/easyparliament/templates/html/section/_section_content.php:360
 #, php-format
 msgid "%s speech"
 msgid_plural "%s speeches"
@@ -1732,6 +2084,10 @@ msgstr "Digwyddiadau allweddol"
 #: www/includes/easyparliament/templates/html/homepage/recent-votes.php:4
 msgid "Show all recent votes"
 msgstr "Dangos yr holl  bleidleisiau diweddar"
+
+#: www/includes/easyparliament/templates/html/homepage/recent-votes.php:21
+msgid "More recent votes are available on <a href=\"https://votes.theyworkforyou.com/decisions\">TheyWorkForYou Votes</a>"
+msgstr ""
 
 #: www/includes/easyparliament/templates/html/interests/category.php:20
 msgid "Back to categories list"
@@ -2355,47 +2711,6 @@ msgstr "Rhowch enw fan hyn i gyfyngu canlyniadau i gyfraniadau gan y person hwnn
 msgid "Section"
 msgstr "Adran"
 
-#: www/includes/easyparliament/templates/html/search/form_options.php:55
-msgid "UK Parliament"
-msgstr "Senedd y DU"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:56
-msgid "All UK"
-msgstr "Y Deyrnas Unedig cyfan"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:57
-msgid "House of Commons debates"
-msgstr "Dadleuon Tŷ'r Cyffredin"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:59
-msgid "House of Lords debates"
-msgstr "Dadleuon Tŷ'r Arglwyddi"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:60
-#: www/includes/easyparliament/templates/html/search/form_options.php:71
-msgid "Written answers"
-msgstr "Atebion ysgrifenedig"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:61
-msgid "Written ministerial statements"
-msgstr "Datganiadau gweinidogol  ysgrifenedig"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:62
-msgid "Bill Committees"
-msgstr "Pwyllgorau"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:63
-msgid "Future Business"
-msgstr "Busnes y Dyfodol"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:69
-msgid "All Scotland"
-msgstr "Alban i gyd"
-
-#: www/includes/easyparliament/templates/html/search/form_options.php:77
-msgid "Questions to the Mayor"
-msgstr "Cwestiynau i'r Maer"
-
 #: www/includes/easyparliament/templates/html/search/form_options.php:82
 msgid "Restrict results to a particular parliament or assembly that we cover (e.g. the Scottish Parliament), or a particular type of data within an institution, such as Commons Written Answers."
 msgstr "Cyfyngu canlyniadau i  senedd neu gynulliad penodol yr ydym yn cynnwys (e.e. Senedd yr Alban), neu fath arbennig o  ddata o fewn  sefydliad, megis Atebion Ysgrifenedig Tŷ'r Cyffredin."
@@ -2652,23 +2967,27 @@ msgstr "Gweler yr eitem hon yn ei chyd-destun"
 msgid "Link to this item"
 msgstr "Dolen i'r eitem hon"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:283
+#: www/includes/easyparliament/templates/html/section/_section_content.php:286
 msgid "In context"
 msgstr "Yn ei gyd-destun"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:284
+#: www/includes/easyparliament/templates/html/section/_section_content.php:287
 msgid "Individually"
 msgstr "Yn unigol"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:302
+#: www/includes/easyparliament/templates/html/section/_section_content.php:289
+msgid "Annotate!"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/section/_section_content.php:311
 msgid "Tweet"
 msgstr "Trydar"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:303
+#: www/includes/easyparliament/templates/html/section/_section_content.php:312
 msgid "Share"
 msgstr "Rhannu"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:354
+#: www/includes/easyparliament/templates/html/section/_section_content.php:363
 #, php-format
 msgid "%s annotation"
 msgid_plural "%s annotations"
@@ -3009,6 +3328,76 @@ msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y b
 
 #~ msgid "Some vote information from <a href=\"https://www.publicwhip.org.uk/\">PublicWhip</a>."
 #~ msgstr "Mae rhywfaint o wybodaeth pleidleisio gan <a href=\"https://www.publicwhip.org.uk/\">PublicWhip</a>."
+
+#~ msgid "See results for this alert"
+#~ msgstr "Gweler canlyniadau ar gyfer y rhybudd hwn"
+
+#~ msgid "Sign up for alerts for topics"
+#~ msgstr "Cofrestrwch am hysbysiadau ar gyfer themau"
+
+#~ msgid "Great! Can you just confirm what you mean?"
+#~ msgstr "Gwych! Gallwch chi gadarnhau beth rydych chi'n ei olygu?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                            You have used a comma in your search term –\n"
+#~ "                            are you sure this is what you want? You cannot\n"
+#~ "                            sign up to multiple search terms using a comma\n"
+#~ "                            – either use OR, or create a separate alert\n"
+#~ "                            for each individual term."
+#~ msgstr ""
+#~ "\n"
+#~ " Rydych wedi defnyddio atalnod yn eich term chwilio –\n"
+#~ "ydych chi'n siŵr mai dyma'r hyn rydych chi ei eisiau? Ni allwch\n"
+#~ "gofrestru i dermau chwilio lluosog gan ddefnyddio coma\n"
+#~ " – naill ai defnyddiwch NEU, neu greu hysbysiad ar wahân\n"
+#~ " ar gyfer pob term unigol."
+
+#, php-format
+#~ msgid "Sign up for an alert when %s speaks."
+#~ msgstr "Cofrestrwch ar gyfer hysbysiad pan mae %s yn siarad."
+
+#, php-format
+#~ msgid "Sign up for an alert when %s."
+#~ msgstr "Cofrestrwch ar gyfer hysbysiad pan %s."
+
+#~ msgid "Request a new TheyWorkForYou email alert"
+#~ msgstr "Gofyn am hysbysiad e-bost TheyWorkForYou newydd"
+
+#~ msgid "Search tips"
+#~ msgstr "Argymhellion chwilio"
+
+#~ msgid "To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes. Also use quotes around a word to avoid stemming (where ‘horse’ would also match ‘horses’)."
+#~ msgstr "I dderbyn hysbysiad ar <strong>ymadrodd</strong> unigryw, sicrhewch i’w osod mewn dyfyniadau.  Hefyd, rhowch ddyfyniadau o gwmpas gair i osgoi stemio (ble buasai 'ceffyl' hefyd yn  cyfateb i 'ceffylau')."
+
+#~ msgid "You should only enter <strong>one term per alert</strong> – if you wish to receive alerts on more than one thing, or for more than one person, simply fill in this form as many times as you need, or use boolean OR."
+#~ msgstr "Dim ond <strong>un term i bob hysbysiad</strong> y dylech chi nodi – pe baech yn dymuno derbyn hysbysiadau am fwy nag un peth, neu am fwy nag un person, y cyfan sydd angen i chi wneud yw llenwi y ffurflen hon gymaint o weithiau ag sydd ei angen, neu defnyddiwch NEU Boolean."
+
+#~ msgid "For example, if you wish to receive alerts whenever the words <i>horse</i> or <i>pony</i> are mentioned in Parliament, please fill in this form once with the word <i>horse</i> and then again with the word <i>pony</i> (or you can put <i>horse OR pony</i> with the OR in capitals). Do not put <i>horse, pony</i> as that will only sign you up for alerts where <strong>both</strong> horse and pony are mentioned."
+#~ msgstr "Er enghraifft, pe baech yn dymuno derbyn hysbysiadau pan crybwyllir y geiriau <i>ceffyl</i> neu <  i>merlen</i>  yn Y Senedd,  llenwch y ffurflen hon  unwaith  gyda'r gair <i>ceffyl</i> ac yna eto gyda'r gair <i>merlen</i> (neu gallwch roi <i>ceffyl NEU ferlen</ i>   gyda'r NEU mewn priflythrennau). Peidiwch â rhoi <i>ceffyl, merlen</i> gan y bydd hynny ond yn eich cofrestru ar gyfer rhybuddion lle sonnir am ‘ceffyl’ <strong>a</strong> merlen."
+
+#~ msgid "Step by step guides"
+#~ msgstr "Canllawiau cam-wrth-gam"
+
+#~ msgid "The mySociety blog has a number of posts on signing up for and managing alerts:"
+#~ msgstr "Mae gan flog mySociety nifer o gofnodion am gofrestru ar gyfer a rheoli hysbysiadau:"
+
+#~ msgid "How to sign up for alerts on what your MP is saying"
+#~ msgstr "Sut i gofrestru ar gyfer hysbysiadau am yr hyn mae eich AS yn ei ddweud"
+
+#~ msgid "How to sign up for alerts when your chosen word is mentioned"
+#~ msgstr "Sut i gofrestru ar gyfer hysbysiadau pan fydd eich gair dewisol yn cael ei grybwyll"
+
+#, php-format
+#~ msgid "<a href=\"%s\">Managing email alerts</a>, including how to stop or suspend them."
+#~ msgstr "<a href=\"%s\">Rheoli hysbysiadau e-bost</a>, gan gynnwys sut i'w hatal neu wahardd."
+
+#, php-format
+#~ msgid "When %s"
+#~ msgstr "Pan %s"
+
+#~ msgid "Delete"
+#~ msgstr "Dileu"
 
 #~ msgid " and "
 #~ msgstr " a "

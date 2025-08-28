@@ -17,11 +17,12 @@
                             <?php if (array_key_exists("search_results", $alert)) { ?>
                               <div class="content-header-item">
                                 <dt><?= gettext('All time') ?></dt>
-                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['all_time_count']) ?></dd>
+                                
+                                <dd><?= sprintf(ngettext('%d mention', '%d mentions', $alert['search_results']['all_time_count']), $alert['search_results']['all_time_count']) ?></dd>
                               </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('This week') ?></dt>
-                                <dd><?= sprintf(gettext('%d mentions'), $alert['search_results']['last_week_count']) ?></dd>
+                                <dd><?= sprintf(ngettext('%d mention', '%d mentions', $alert['search_results']['all_time_count']), $alert['search_results']['last_week_count']) ?></dd>
                               </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('Date of last mention') ?></dt>

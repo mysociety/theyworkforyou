@@ -12,7 +12,7 @@
                 <input type="hidden" name="email" id="email" value="<?= _htmlentities($email) ?>">
                 <input type="hidden" name="match_all" value="<?= $match_all ? 'on' : ''?>">
                 <div class="alert-step" id="step2" role="region" aria-labelledby="step2-header">
-                <h2 id="step2-header"><?= gettext('Adding some extras') ?></h2>
+                <h2 id="step2-header"><?= gettext('Adding some extra keywords') ?></h2>
                   <div class="alert-form__section">
                   <h3><?= gettext('Current keywords in this alert:') ?></h3>
                     <ul class="keyword-list">
@@ -31,11 +31,11 @@
                         <?php if ($search_results["all_time_count"] > 0) { ?>
                           <div class="alert-meta__item">
                             <dt><?= gettext('All time') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
+                            <dd><?= sprintf(ngettext('%d mention', '%d mentions', $search_results["all_time_count"]), $search_results["all_time_count"]) ?></dd>
                           </div>
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_results["last_week_count"]) ?></dd>
+                            <dd><?= sprintf(ngettext('%d mention', '%d mentions', $search_results["last_week_count"]), $search_results["last_week_count"]) ?></dd>
                           </div>
                         <?php } ?>
 

@@ -74,7 +74,7 @@
                       <div class="alert-meta__results">
                           <div class="alert-meta__item">
                             <dt><?= gettext('Last 7 days') ?></dt>
-                            <dd><?= sprintf(gettext('%d mentions'), $search_results["all_time_count"]) ?></dd>
+                            <dd><?= sprintf(ngettext('%d mention', '%d mentions', $search_results["all_time_count"]), $search_results["all_time_count"]) ?></dd>
                           </div>
 
                           <div class="alert-meta__item">
