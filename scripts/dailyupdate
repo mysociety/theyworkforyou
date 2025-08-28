@@ -32,7 +32,7 @@ system './mpinfoin.pl';
 system "TQDM_DISABLE=1 ./personinfo upload-all-regmem >> $cron_log";
 
 # Update APPG memberships
-system "TQDM_DISABLE=1 ./personinfo upload-all-regmem >> $cron_log";
+system "TQDM_DISABLE=1 ./personinfo load-appg-membership >> $cron_log";
 
 # Update EDM and open letter signatures
 system "TQDM_DISABLE=1 ./personinfo load-statement-signatures >> $cron_log";
