@@ -3,6 +3,6 @@
                     <?php if ($token) { ?>
                       <span><?= gettext('Abandon changes') ?></span>
                     <?php } else { ?>
-                      <span><?= gettext('Abandon create') ?></span>
+                      <span><?= gettext('Abandon new alert') ?></span>
                     <?php } ?>
                   </button>

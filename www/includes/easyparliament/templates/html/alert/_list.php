@@ -2,8 +2,7 @@
 <h3><?= gettext('Email alerts') ?></h3>
 
 <?php $total_alerts = isset($alerts) ? count($alerts) : 0; ?>
-<p><?= sprintf(gettext('You currently have %d email alerts'), $total_alerts) ?></p>
-
+<p><?= sprintf(ngettext('You currently have %d email alert', 'You currently have %d email alerts', $total_alerts), $total_alerts) ?></p>
 <a href="/alert/" class="button radius">Check here to see your alerts</a>
 
 <form action="<?= $actionurl ?>" method="POST">
