@@ -1,0 +1,29 @@
+.js-table-content-button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    margin-bottom: 0;
+
+    @media (min-width: $medium-screen) {
+        display: none;
+    }
+}
+
+.js-table-of-content {
+    @media (max-width: $medium-screen) {
+        display: none;
+        position: fixed;
+        right: 1rem;
+        bottom: 4rem;
+        max-width: 300px;
+        width: 80dvw;
+        z-index: 999;
+        box-shadow: -1px 2px 5px 6px rgba(62, 62, 62, 0.3);
+        background-color: #fff;
+    }
+
+    @media (min-width: $medium-screen) {
+        display: block;
+        width: auto;
+    }
+}
