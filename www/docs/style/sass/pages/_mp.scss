@@ -319,9 +319,12 @@
     // (so that a list of content sections can be built up in $sidebar_links)
     // but we want to make sure the main content always displays on the right.
     .primary-content__unit {
+        margin-top: -3rem;
+
         @media (min-width: $medium-screen) {
             float: right; // non-flex fallback
             order: 1;
+            margin-top: 0;
         }
     }
 

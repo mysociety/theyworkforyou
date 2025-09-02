@@ -379,6 +379,39 @@ $(function(){
           }
       });
   });
+
+  // Mobile Sidebar functionality
+  $('.js-table-content-button').on('click', function(e) {
+    e.preventDefault();
+    var isOpen = $(this).hasClass('open');
+    $(this).toggleClass('open').attr('aria-expanded', !isOpen);
+    $('.js-table-of-content').slideToggle(300).attr('aria-hidden', isOpen);
+    $('body').toggleClass('sidebar-open');
+  });
+
+  $(document).on('keydown', function(e) {
+    if (e.key === 'Escape' && $('.js-table-of-content').is(':visible')) {
+      $('.js-table-content-button').removeClass('open').attr('aria-expanded', 'false');
+      $('.js-table-of-content').slideUp(300).attr('aria-hidden', 'true');
+      $('body').removeClass('sidebar-open');
+    }
+  });
+
+  $(window).on('resize', function() {
+    if (window.innerWidth >= 768) {
+      $('.js-table-of-content').show().attr('aria-hidden', 'false');
+      $('body').removeClass('sidebar-open');
+      $('.js-table-content-button').removeClass('open').attr('aria-expanded', 'false');
+    } else if (!$('.js-table-content-button').hasClass('open')) {
+      $('.js-table-of-content').hide().attr('aria-hidden', 'true');
+    }
+  });
+
+  // Set initial ARIA attributes
+  if (window.innerWidth < 768) {
+    $('.js-table-content-button').attr('aria-expanded', 'false');
+    $('.js-table-of-content').attr('aria-hidden', 'true').hide();
+  }
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
