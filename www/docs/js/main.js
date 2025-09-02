@@ -343,6 +343,42 @@ $(function(){
   if (!$('#options').data('advanced')) {
     $("#options").find(":input").attr("disabled", "disabled");
   }
+
+  $('.js-accordion').each(function() {
+      var $accordion = $(this);
+      var $button = $accordion.find('.js-accordion-button');
+      var $content = $accordion.find('.js-accordion-content');
+
+      $content.hide();
+
+      $button.attr({
+          'role': 'button',
+          'aria-expanded': 'false',
+          'tabindex': '0'
+      });
+
+      $button.on('click', function() {
+          var isOpen = $accordion.hasClass('is-open');
+          
+          if (isOpen) {
+              $content.slideUp(300);
+              $accordion.removeClass('is-open');
+              $button.attr('aria-expanded', 'false');
+          } else {
+              $content.slideDown(300);
+              $accordion.addClass('is-open');
+              $button.attr('aria-expanded', 'true');
+          }
+      });
+
+      // Keyboard support
+      $button.on('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              $(this).click();
+          }
+      });
+  });
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
@@ -577,4 +613,3 @@ $(function() {
       });
     });
   }
-  
