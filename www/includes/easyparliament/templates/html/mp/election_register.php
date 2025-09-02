@@ -36,26 +36,10 @@ function humInt(int $num): string {
 
 <div class="full-page">
     <div class="full-page__row">
-        <div class="full-page__unit">
-            <?php include '_person_navigation.php'; ?>
-        </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
-
-                <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
-                <ul>
-                        <li><a href="https://www.whofundsthem.com">About WhoFundsThem</a></li>              
-                    <?php $election_registers = [$register_2024_enriched]; ?>
-                    <?php foreach ($election_registers as $register) { ?>
-                        <?php foreach ($register->categories as $category) { ?>
-                            <?php if ($category->only_null_entries()) { ?>
-                                <?php continue; ?>
-                            <?php }; ?>
-                            <li><a href="#category-<?= $register->chamber . $category->category_id ?>"><?= $category->category_name ?></a></li>
-                        <?php }; ?>
-                    <?php }; ?>
-                    </ul>
+                    <?php include '_person_navigation.php'; ?>
                     <?php include '_featured_content.php'; ?>
                     <?php include '_donation.php'; ?>
                 </div>
