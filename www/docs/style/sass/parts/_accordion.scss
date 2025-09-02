@@ -1,0 +1,46 @@
+.js-accordion {
+    .js-accordion-button {
+        cursor: pointer;
+        position: relative;
+        padding-right: 30px;
+        transition: background-color 0.6s ease, color 0.5s ease;
+
+        &::after {
+            content: '+';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: normal;
+            transition: transform 0.3s ease;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        &:hover {
+            background-color: lighten($primary-color, 50%);
+            color: $body-font-color;
+        }
+
+        &:focus-visible {
+            background-color: $color-yellow;
+            color: $body-font-color;
+        } 
+    }
+
+    .js-accordion-content {
+        display: none;
+    }
+
+    &.is-open {
+        .js-accordion-button {
+            color: darken($primary-color, 10%);
+            background-color: lighten($primary-color, 50%);
+            &::after {
+                content: '×';
+                transform: translateY(-50%) rotate(45deg);
+            }
+        }
+    }
+}
