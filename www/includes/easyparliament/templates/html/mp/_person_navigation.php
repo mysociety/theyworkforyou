@@ -1,4 +1,8 @@
-<button class="button js-table-content-button" aria-label="open/close MP's navigation subpages">Table of contents</button>
+<div class="page-mobile-navigation-controller">
+    <button class="js-scroll-down" aria-label="open/close MP's navigation subpages"><svg role="presentation" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.0001 4.086V15.672L6.50006 11.172L5.08606 12.586L12.0001 19.5L18.9141 12.586L17.5001 11.172L13.0001 15.672V4.086H11.0001Z" fill="currentColor"/></svg></button>
+    <button class="js-scroll-up" aria-label="Go to the top of the page"><svg role="presentation" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.0001 19.5V7.914L6.50006 12.414L5.08606 11L12.0001 4.086L18.9141 11L17.5001 12.414L13.0001 7.914V19.5H11.0001Z" fill="currentColor"/></svg></button>
+    <button class="js-table-content-button" aria-label="open/close MP's navigation subpages">Table of contents</button>
+</div>
 
 <div class="person-navigation js-table-of-content">
     <h3 class="browse-content"><?= gettext('Browse content') ?></h3>

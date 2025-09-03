@@ -412,6 +412,26 @@ $(function(){
     $('.js-table-content-button').attr('aria-expanded', 'false');
     $('.js-table-of-content').attr('aria-hidden', 'true').hide();
   }
+
+  // Scroll Down button
+  $('.js-scroll-down').on('click', function (e) {
+    e.preventDefault();
+    var $footer = $('#footer');
+    if ($footer.length) {
+      var scrollPosition = $footer.offset().top - $(window).height() + 1;
+      $('html, body').animate({
+        scrollTop: scrollPosition
+      }, 600);
+    }
+  });
+
+  // Scroll Up button
+  $('.js-scroll-up').on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, 600, function () {
+    });
+  });
+
 });
 
 // Backwards-compatible functions for the click/submit trackers on MP pages
