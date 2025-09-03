@@ -9,40 +9,12 @@ $display_wtt_stats_banner = '2015';
 
 <div class="full-page">
     <div class="full-page__row">
-        <div class="full-page__unit">
-            <?php include '_person_navigation.php'; ?>
-        </div>
         <div class="person-panels">
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
-                    <ul>
-                        <?php if (array_key_exists('posts', $memberships)): ?>
-                          <li><a href="#posts"><?= gettext('Memberships') ?></a></li>
-                        <?php endif; ?>
-                        <?php if (array_key_exists('previous_posts', $memberships)): ?>
-                          <li><a href="#previous_posts"><?= gettext('Previous Memberships') ?></a></li>
-                        <?php endif; ?>
-                        <?php if (array_key_exists('appg_membership', $memberships)): ?>
-                            <?php if ($memberships['appg_membership']->is_an_officer()): ?>
-                              <li><a href="#appg_is_officer_of"><?= gettext('APPG Offices held') ?></a></li>
-                            <?php endif; ?>
-                            <?php if ($memberships['appg_membership']->is_a_member()): ?>
-                              <li><a href="#appg_is_ordinary_member_of"><?= gettext('APPG memberships') ?></a></li>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                        <?php if (array_key_exists('letters_signed', $memberships)): ?>
-                          <li><a href="#letters_signed"><?= gettext('Recent open letters') ?></a></li>
-                        <?php endif; ?>
-                        <?php if (array_key_exists('edms_signed', $memberships)): ?>
-                          <li><a href="#edms_signed"><?= gettext('Recent EDMs') ?></a></li>
-                        <?php endif; ?>
-                        <?php if (array_key_exists('topics_of_interest', $memberships) || array_key_exists('eu_stance', $memberships)): ?>
-                          <li><a href="#topics"><?= gettext('Topics of interest') ?></a></li>
-                        <?php endif; ?>
-                      </ul>
-                      <?php include '_featured_content.php'; ?>
-                      <?php include '_donation.php'; ?>
+                    <?php include '_person_navigation.php'; ?>
+                    <?php include '_featured_content.php'; ?>
+                    <?php include '_donation.php'; ?>
                 </div>
             </div>
 

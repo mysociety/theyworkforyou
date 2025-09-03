@@ -4,9 +4,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
 <div class="full-page">
     <div class="full-page__row">
-        <div class="full-page__unit">
-            <?php include '_person_navigation.php'; ?>
-        </div>
         <div class="person-panels">
             <div class="primary-content__unit">
 
@@ -54,18 +51,9 @@ include('_profile_footer.php'); ?>
 
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <h3 class="browse-content"><?= gettext('Browse content') ?></h3>
-                    <ul>
-                        <?php foreach($sidebar_links as $date) { ?>
-                          <li>
-                              <a href="#<?= strftime('%Y-%m-%d', strtotime($date)) ?>">
-                                  <?= strftime('%e %b %Y', strtotime($date)) ?>
-                              </a>
-                          </li>
-                        <?php } ?>
-                      </ul>
-                      <?php include '_featured_content.php'; ?>
-                      <?php include '_donation.php'; ?>
+                    <?php include '_person_navigation.php'; ?>
+                    <?php include '_featured_content.php'; ?>
+                    <?php include '_donation.php'; ?>
                 </div>
             </div>
         </div>
