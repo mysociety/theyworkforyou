@@ -30,7 +30,17 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <div class="panel">
                     <h2>Voting summaries</h2>
-                    <h3>For period: <?= $comparison_period->description ?></h3>
+                    <?php if (!empty($available_periods)): ?>
+                        <nav class="subpage-content-list js-accordion" aria-label="Comparison periods">
+                            <h3 class="js-accordion-button">For period: <?= $comparison_period->description ?></h3>
+                            <ul class="js-accordion-content">
+                                <?php foreach($available_periods as $period) { ?>
+                                    <li><a href="?comparison_period=<?= $period->lslug() ?>" class="<?= $period->lslug() === $comparison_period->lslug() ? 'active-comparison-period' : '' ?>"><?= $period->description ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </nav>
+                    <?php endif; ?>
+
                     <p>
                         MPs have many roles, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
                         One of the ways MPs make decisions is by voting.
@@ -38,22 +48,32 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <p>
                         On TheyWorkForYou, we create voting summaries that group a set of decisions together, show how an MP has generally voted on a set of related votes, and if they differ from their party.
                     </p>
+
+
                     <p>
-                        You can see these groups, randomly ordered, below.
+                        You can read more about <a href="/voting-information/#voting-summaries">our process</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
                     </p>
-                    <p>
-                        You can read more about <a href="/voting-information/#voting-summaries">how this works</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
-                    </p>
-                    <hr />
-                    <p>
-                        These summaries are created by the team at TheyWorkForYou. We are independent of Parliament and receive no public funding for this work.
-                    </p>
-                    <div class="inline-donation-box">
-                        <a href="/support-us/?how-often=monthly&how-much=5" class="button">Become a TheyWorkForYou Supporter for £5/month</a>
-                        <a href="/support-us/" class="button">Donate another amount</a>
-                    </div>
-                    <p>Learn more about <a href="/support-us/#why-does-mysociety-need-donations-for-these-sites">how we'll use your donation</a> and <a href="/support-us/#i-want-to-be-a-mysociety-supporter">other ways to help</a>.</p>
-                </div>
+
+                            <?php if ($has_voting_record): ?>
+                                <hr>
+                                <p>Below are summaries of how <?= $full_name ?> has voted on key issues, grouped by policy area (randomly ordered).</p>
+                                <nav aria-label="Key issues navigation">
+                                    <ul class="votes-navigation-menu">
+                                    <?php foreach ($key_votes_segments as $segment): ?>
+                                        <?php if (count($segment->policy_pairs) > 0): ?>
+                                        <li><a href="#<?= $segment->group_slug ?>"><?= $segment->group_name ?></a></li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                </nav>
+                    <?php if ($comparison_period->lslug() === 'labour_2024' && in_array('all_time', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
+                        <p>This page shows relevant votes in the current Parliament, you can also view an <a href="?comparison_period=ALL_TIME">all time voting summary</a>.</p>
+                    <?php } elseif ($comparison_period->lslug() === 'all_time' && in_array('labour_2024', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
+                        <p>This page shows relevant votes while <?= ucfirst($full_name) ?> has been in Parliament, you can also view a <a href="?comparison_period=labour_2024">summary just for the current Parliament</a>.</p>
+                    <?php } ?>
+                            <?php endif; ?>
+
+                            </div>
 
                 <?php if ($party_switcher == true): ?>
                     <?php include('_cross_party_mp_panel.php'); ?>

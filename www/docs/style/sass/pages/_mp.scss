@@ -921,3 +921,85 @@ h6.interest-summary {
     margin-top: 20px;
     margin-left: 20px;
 }
+
+// Register navigation menu styling
+.register-navigation-menu {
+    font-size: 0.9em;
+    margin: 1.5em 0;
+    
+    li {
+        list-style-type: none;
+        margin-bottom: 0.8em;
+        position: relative;
+        
+        
+        > a {
+            font-weight: 600;
+            text-decoration: none;
+            line-height: 1.4;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        
+        .register-last-updated {
+            color: #666;
+            font-size: 0.85em;
+            font-weight: normal;
+            margin-left: 0.3em;
+        }
+    }
+}
+
+.register-submenu {
+    margin: 0.5em 0 0 3em;
+    padding-left: 0;
+    
+    li {
+        list-style-type: none;
+        margin-bottom: 0.4em;
+        position: relative;
+        padding-left: 0.5em;
+        
+        a {
+            color: $body-font-color;
+            text-decoration: none;
+            font-size: 0.9em;
+            line-height: 1.3;
+            
+            &:hover {
+                color: $primary-color;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Votes page navigation menu styling
+.votes-navigation-menu {
+    border-radius: 4px;
+    padding-left: 1em;
+    
+    li {
+        list-style-type: disc;
+        margin-bottom: 0.5em;
+        position: relative;
+
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+        
+        a {
+            text-decoration: none;
+            font-weight: 500;
+            line-height: 1.4;
+            
+            &:hover {
+                text-decoration: underline;
+                color: darken($primary-color, 10%);
+            }
+        }
+    }
+}
