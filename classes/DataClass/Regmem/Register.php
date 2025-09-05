@@ -65,7 +65,7 @@ class Register extends BaseModel {
                 return self::fromFile($file);
             }
         }
-        throw new Exception("No register found for $chamber on or before $date");
+        throw new \Exception("No register found for $chamber on or before $date");
     }
 
     public static function getLatest(string $chamber): Register {
@@ -85,8 +85,7 @@ class Register extends BaseModel {
     }
 
     public static function getMisc(string $file): Register {
-        self::checkChamberSlug($chamber);
-
+        self::checkChamberSlug($file);
         $file_path = RAWDATA . "scrapedjson/universal_format_regmem/misc/" . $file;
         return self::fromFile($file_path);
     }
