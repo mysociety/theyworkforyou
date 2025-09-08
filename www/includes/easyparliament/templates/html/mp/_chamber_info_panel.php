@@ -44,7 +44,7 @@
                 <li><a href="#appearances">Recent speeches</a></li>
                 <?php if ($memberships) { ?>
                     <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
-                        <a href="<?= $member_url ?>/memberships#letters-and-edms"><?= gettext('Signatures') ?></a> (open letters and EDMs)
+                        <a href="<?= $member_url ?>/signatures"><?= gettext('Signatures') ?></a> (open letters and EDMs)
                     </li>
                 <?php } ?>
             </ul>
