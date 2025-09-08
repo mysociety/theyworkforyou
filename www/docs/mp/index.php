@@ -44,7 +44,7 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
-$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'memberships'];
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'memberships', 'signatures'];
 
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
@@ -447,8 +447,13 @@ switch ($pagetype) {
         break;
 
     case 'memberships':
-        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Committees, Memberships and Signatures', $data['current_assembly']);
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Committees and Memberships', $data['current_assembly']);
         MySociety\TheyWorkForYou\Renderer::output('mp/memberships', $data);
+        break;
+
+    case 'signatures':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Signatures', $data['current_assembly']);
+        MySociety\TheyWorkForYou\Renderer::output('mp/signatures', $data);
         break;
 
     case 'election_register':

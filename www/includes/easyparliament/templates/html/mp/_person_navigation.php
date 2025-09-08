@@ -21,7 +21,7 @@
         <?php if (!empty($memberships)): ?>
             <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
                 <a href="<?= $member_url ?>/memberships" class="person-navigation--subpage-heading">
-                    <h2>👥 <?= gettext('Committees / APPGs / Signatures') ?></h2>
+                    <h2>👥 <?= gettext('Committees / APPGs') ?></h2>
                 </a>
 
                 <?php if (!empty($memberships)): ?>
@@ -41,6 +41,20 @@
                                 <li><a href="#appg_is_ordinary_member_of"><?= gettext('APPG memberships') ?></a></li>
                                 <?php endif; ?>
                             <?php endif; ?>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
+            </li>
+        <?php endif; ?>
+
+        <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('topics_of_interest', $memberships) || array_key_exists('eu_stance', $memberships)): ?>
+            <li <?php if ($pagetype == "signatures"): ?>class="active"<?php endif; ?>>
+                <a href="<?= $member_url ?>/signatures" class="person-navigation--subpage-heading">
+                    <h2>✍️ <?= gettext('Signatures') ?></h2>
+                </a>
+
+                <nav class="subpage-content-list js-accordion" aria-label="Signatures list">
+                    <ul class="subpage-content-list">
                             <?php if (array_key_exists('letters_signed', $memberships)): ?>
                             <li><a href="#letters_signed"><?= gettext('Recent open letters') ?></a></li>
                             <?php endif; ?>
