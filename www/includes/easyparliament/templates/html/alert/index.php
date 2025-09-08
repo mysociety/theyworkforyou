@@ -286,7 +286,7 @@
               <h3>or</h3>
 
               <div class="alert-section__header">
-              <h3><?= gettext('Create an alert when an MP, MSP or AM speaks') ?></h3>
+              <h3><?= gettext('Create an alert when an MP, MSP, MS or MLA speaks') ?></h3>
                 <form action="<?= $actionurl ?>" method="post">
                   <input type="hidden" name="mp_step" value="mp_alert">
                   <button type="submit" class="button small">
