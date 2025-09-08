@@ -429,7 +429,6 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             if (!$this->data['valid_postcode']) {
                 $this->data['member_constituencies'] = \MySociety\TheyWorkForYou\Utility\Search::searchMembersByConstituency($text);
             }
-            [$this->data['constituencies'], $this->data['valid_postcode']] = \MySociety\TheyWorkForYou\Utility\Search::searchConstituenciesByQuery($text, false);
         } elseif ($this->data['pid']) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
