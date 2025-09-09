@@ -448,11 +448,26 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data['errors'] = $errors;
     }
 
+
     private function searchForConstituenciesAndMembers() {
         if ($this->data['results'] == 'changes-abandoned') {
             $this->data['members'] = false;
             return;
         }
+
+        $cons_sort = function ($a, $b) {
+            if ($a['rep_name'] == $b['rep_name']) {
+                if ($a['constituency'] == $b['constituency']) {
+                    if ($a['member']->family_name == $b['member']->family_name) {
+                        return 0;
+                    }
+                    return ($a['member']->family_name < $b['member']->family_name) ? -1 : 1;
+                }
+                return ($a['constituency'] < $b['constituency']) ? -1 : 1;
+            }
+
+            return ($a['rep_name'] < $b['rep_name']) ? -1 : 1;
+        };
 
         $text = $this->data['alertsearch'];
         if ($this->data['mp_search']) {
@@ -522,6 +537,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     // do nothing
                 }
             }
+            uasort($cons, $cons_sort);
             $this->data['constituencies'] = $cons;
         } elseif (isset($this->data['constituencies'])) {
             $cons = [];
@@ -534,7 +550,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                         $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
                         foreach ($q as $row) {
                             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $row['person_id'], 'house' => $house]);
-                            $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
+                            $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency, 'rep_name' => $MEMBER->getMostRecentMembership()['rep_name'] ];
                         }
 
                     } else {
@@ -545,6 +561,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     // do nothing
                 }
             }
+            uasort($cons, $cons_sort);
             $this->data['constituencies'] = $cons;
         }
 
