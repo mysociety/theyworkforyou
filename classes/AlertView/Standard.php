@@ -16,6 +16,43 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->data = [];
     }
 
+    /**
+     * This file handles all actions on user alerts.
+     *
+     * It splits alerts into two types and they get different screens:
+     *  * keyword alerts - a person wants an alert when a word or phrase is said
+     *  * representative alerts - a person wants an alert when a representative speaks or votes
+     *
+     * There are several form variables that control what is displayed or what action is taken:
+     * * action - this is used for things happening to alerts - creation/editing, deletion, suspension etc
+     * * step - this determines which step of creating a keyword alert to display
+     * * this_step - stores which step is currently being processed, also used for prev step button
+     * * mp_step - show the representative alert screen
+     * * results - stores the results of an action, used to display appropriate message
+     *
+     *  The steps in the keyword alert creation/editing process are:
+     *  * define - Initial options where you can add a keyword, any exclusions plus select which chambers it applies to
+     *  * add_vector_related - an optional related terms step which suggests extra terms if we find any in the database
+     *  * review - a confirmation step
+     *
+     *  If the user is happy then they will click Confirm which will submit the form with action set to Confirm and the alert
+     *  will be created or updated.
+     *
+     * If mp_step is one of the parameters set then the form to add a representative alert is displayed. This only has a creation
+     * and a confirm step. As part of this the mp_search param will be submitted which will trigger checking detecting
+     * which MP the user is trying to add. This will try the following steps:
+     * * try to match the search text against a name
+     * * check if the text contains a postcode and if so use that to look up the constituencies
+     * * if there's not a postcode then try to match against a constituency name
+     *
+     * If there is more than one match then these are stored in the constituencies varaible and a choice is
+     * presented to the user.
+     *
+     * The representive alert creation flow will also be entered if an alertsearch or pid parameter is submitted. This
+     * is used for handling "create an alert when $rep speaks" links from elsewhere in the site (e.g. an MP page)
+     *
+     * Other actions such as suspend use a form with only an action value and the alert token if required.
+     */
     public function display() {
         global $this_page;
         $this_page = "alert";
@@ -147,6 +184,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     }
 
 
+    /*
+     * set up the data we will be using in processing later steps
+     */
     private function getBasicData() {
         global $this_page;
 
@@ -298,6 +338,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         return $phrase;
     }
 
+    /*
+     * Check if the current alert has returned any results recently
+     */
     private function getRecentResults($text) {
         global $SEARCHENGINE;
         $today = date_create();
@@ -626,6 +669,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
     }
 
+    /*
+     * This makes sure that the $this->data makes sense once all the other steps have been completed
+     */
     private function setUserData() {
         if (!isset($this->data['criteria'])) {
             $criteria = $this->data['keyword'];
