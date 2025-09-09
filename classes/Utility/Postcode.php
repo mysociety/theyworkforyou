@@ -189,7 +189,7 @@ class Postcode {
             'SPE' => HOUSE_TYPE_SCOTLAND,
             'WAC' => HOUSE_TYPE_WALES,
             'WAE' => HOUSE_TYPE_WALES,
-            'LGU' => HOUSE_TYPE_NI,
+            'NIE' => HOUSE_TYPE_NI,
         ];
 
         if (isset($map[$type])) {
