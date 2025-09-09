@@ -507,7 +507,23 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
 
-        if (isset($this->data['constituencies'])) {
+        /*
+         * If member_constituncies is set then it implies there wasn't a postcode match and hence we will have
+         * a list of members which we can turn into constituencies, otherwise we have a hash of constituency names
+         * keyed by mapit type
+         */
+        if (isset($this->data['member_constituencies'])) {
+            $cons = [];
+            foreach ($this->data['member_constituencies'] as $pid) {
+                try {
+                    $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
+                    $cons[] = [ 'member' => $MEMBER, 'constituency' => $MEMBER->constituency, 'rep_name' => $MEMBER->getMostRecentMembership()['rep_name'] ];
+                } catch (\MySociety\TheyWorkForYou\MemberException $e) {
+                    // do nothing
+                }
+            }
+            $this->data['constituencies'] = $cons;
+        } elseif (isset($this->data['constituencies'])) {
             $cons = [];
             foreach ($this->data['constituencies'] as $type => $constituency) {
                 try {
@@ -532,18 +548,6 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['constituencies'] = $cons;
         }
 
-        if (isset($this->data['member_constituencies'])) {
-            $cons = [];
-            foreach ($this->data['member_constituencies'] as $pid) {
-                try {
-                    $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
-                    $cons[] = [ 'member' => $MEMBER, 'constituency' => $MEMBER->constituency ];
-                } catch (\MySociety\TheyWorkForYou\MemberException $e) {
-                    // do nothing
-                }
-            }
-            $this->data['constituencies'] = $cons;
-        }
 
         if ($this->data['alertsearch'] && !$this->data['mp_step'] && ($this->data['pid'] || $this->data['members'] || $this->data['constituencies'])) {
             $this->data['mp_step'] = 'mp_alert';
