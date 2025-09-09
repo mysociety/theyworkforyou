@@ -472,6 +472,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             if (!$this->data['valid_postcode']) {
                 $this->data['member_constituencies'] = \MySociety\TheyWorkForYou\Utility\Search::searchMembersByConstituency($text);
             }
+            $member_count = count($this->data['members']);
+            $cons_count = count($this->data['members']);
+            if ($member_count == 0 && $cons_count == 0) {
+                $errors["representative"] = gettext("No matching representative found");
+            }
         } elseif ($this->data['pid']) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
             $this->data['members'] = [[
@@ -605,6 +610,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         if ($this->data['alertsearch']) {
             $this->data['alertsearch_pretty'] = \MySociety\TheyWorkForYou\Utility\Alert::prettifyCriteria($this->data['alertsearch']);
             $this->data['search_text'] = $this->data['alertsearch'];
+        } elseif ($this->data['mp_search']) {
+            $this->data['search_text'] = $this->data['mp_search'];
         } else {
             $this->data['search_text'] = $this->data['keyword'];
         }
