@@ -27,7 +27,7 @@
     <?php if (count($alert['words'])) { ?>
     <input type="hidden" name="step" value="define">
     <input type="hidden" name="shown_related" value="1">
-    <button type="submit" class="button button--outline small" value="Edit">
+    <button type="submit" class="button button--outline small">
       <i aria-hidden="true" class="fi-page-edit"></i>
       <span><?= gettext('Edit alert') ?></span>
     </button>
@@ -36,14 +36,14 @@
       <?php if ($alert['ignore_speaker_votes'] == 1) { ?>
         <input type="hidden" name="ignore_speaker_votes" value="0">
         <input type="hidden" name="action" value="include-votes">
-        <button type="submit" class="button button--outline small" value="Edit">
+        <button type="submit" class="button button--outline small">
           <i aria-hidden="true" class="fi-page-edit"></i>
           <span><?= gettext('Include votes') ?></span>
         </button>
       <?php } else { ?>
         <input type="hidden" name="ignore_speaker_votes" value="1">
         <input type="hidden" name="action" value="ignore-votes">
-        <button type="submit" class="button button--outline small" value="Edit">
+        <button type="submit" class="button button--outline small">
           <i aria-hidden="true" class="fi-page-edit"></i>
           <span><?= gettext('Ignore votes') ?></span>
         </button>
