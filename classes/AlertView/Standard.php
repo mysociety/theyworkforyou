@@ -491,8 +491,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
             $member_count = count($this->data['members']);
             $cons_count = count($this->data['constituencies']);
-            $mem_cons_count = count($this->data['member_constituencies']);
-            if ($member_count == 0 && $cons_count == 0 && $mem_cons_count == 0) {
+            $mem_cons_count = isset($this->data['member_constituencies']) ? count($this->data['member_constituencies']) : 0;
+            if (!$this->data['alertsearch'] && $member_count == 0 && $cons_count == 0 && $mem_cons_count == 0) {
                 $errors["representative"] = gettext("No matching representative found");
             }
         } elseif ($this->data['pid']) {
@@ -732,7 +732,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['alertsearch'] = '';
         }
 
-        if ($this->data['alertsearch'] && !(isset($this->data['mistakes']['postcode_and']) || $this->data['members'] || $this->data['pid'])) {
+        if ($this->data['alertsearch'] && !(isset($this->data['mistakes']['postcode_and']) || $this->data['members'] || $this->data['pid'] || $this->data['constituencies'])) {
             $this->data['step'] = 'define';
             $this->data['words'] = [$this->data['alertsearch']];
             $this->data['keywords'] = [$this->data['alertsearch']];
