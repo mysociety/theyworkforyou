@@ -142,6 +142,18 @@
                   </div>
 
                   <div class="row">
+                  <span class="label"><label for="can_annotate">Can add annotations?</label></span>
+                  <span class="formw"><input type="checkbox" name="can_annotate[]" id="can_annotate" value="true"
+                    <?= isset($can_annotate) && $can_annotate == true ? 'checked' : '' ?>
+                  ></span>
+                  </div>
+
+                  <div class="row">
+                  <span class="label"><label for="organisation"><?= gettext('Organisation:') ?></label></span>
+                  <span class="formw"><input type="text" name="organisation" id="organisation" value="<?= _htmlentities($organisation) ?>" maxlength="255" size="30" class="form"></span>
+                  </div>
+
+                  <div class="row">
                   <span class="label"><label for="confirmed">Confirmed?</label></span>
                   <span class="formw"><input type="checkbox" name="confirmed[]" id="confirmed" value="true"
                     <?= isset($confirmed) && $confirmed == true ? 'checked' : '' ?>

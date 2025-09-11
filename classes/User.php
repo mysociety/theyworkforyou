@@ -118,6 +118,9 @@ class User {
         if ($this_page == "otheruseredit") {
             $details["user_id"] = trim(get_http_var("u"));
             $details["status"] = trim(get_http_var("status"));
+            $details["can_annotate"] = get_http_var("can_annotate") == "true" ? true : false;
+            $details["organisation"] = trim(get_http_var("organisation"));
+
 
             if (get_http_var("deleted") != "") {
                 $deleted = get_http_var("deleted");
