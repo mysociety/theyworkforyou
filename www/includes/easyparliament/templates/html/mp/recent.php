@@ -14,9 +14,41 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php endif; ?>
 
+                <?php $vote_count = isset($divisions) ? count($divisions) : 0;?>
+
+                <div class="panel">
+                    <div class="policy-votes-intro">
+                        <h2><?= gettext('Recent Votes') ?></h2>
+                        <?php if (in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
+                            <?php if ($vote_count > 0) { ?>
+                                <p>
+                                    This page shows <?= $full_name ?>'s most recent <strong><?= $vote_count ?></strong> votes.
+                                </p>
+                                <p>
+                                    For each vote you can see the vote in the context of the debate.
+                                    If they spoke in the same section as the vote, links to the speeches will be listed under the vote.
+                                </p>
+                                <p>
+                                    You can also see more analysis of individual votes through <a href="https://votes.theyworkforyou.com">TheyWorkForYou Votes</a>.
+                                </p>
+                                <p>
+                                    For a longer-term view of <?= $full_name ?>'s voting across different policy areas, 
+                                    see their <a href="<?= $member_url ?>/votes">voting summary</a>.
+                                </p>
+                            <?php } else { ?>
+                                <p>
+                                    This page shows <?= $full_name ?>'s most recent votes. 
+                                    For a longer-term view of their voting patterns, see 
+                                    <a href="<?= $member_url ?>/votes">voting summary</a>.
+                                </p>
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
+
                 <?php
 
-                $displayed_votes = false;
+$displayed_votes = false;
 $current_date = '';
 $sidebar_links = [];
 
