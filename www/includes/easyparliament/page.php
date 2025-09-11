@@ -1061,12 +1061,12 @@ class PAGE {
             // The user is not logged in.
 
             // The URL of this page - we'll want to return here after joining/logging in.
-            $THISPAGEURL = new URL($this_page);
+            $THISPAGEURL = new \MySociety\TheyWorkForYou\Url($this_page);
 
             // The URLs to login / join pages.
-            $LOGINURL = new URL('userlogin');
+            $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
             $LOGINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
-            $JOINURL = new URL('userjoin');
+            $JOINURL = new \MySociety\TheyWorkForYou\Url('userjoin');
             $JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
 
             ?>
@@ -1087,8 +1087,8 @@ class PAGE {
 
         // We can post a comment...
 
-        $ADDURL = new URL('addcomment');
-        $RULESURL = new URL('houserules');
+        $ADDURL = new \MySociety\TheyWorkForYou\Url('addcomment');
+        $RULESURL = new \MySociety\TheyWorkForYou\Url('houserules');
         ?>
                 <h4>Type your annotation</h4>
                 <a name="addcomment"></a>
