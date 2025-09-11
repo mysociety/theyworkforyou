@@ -541,6 +541,10 @@ class Divisions {
             $division['debate_url'] = $this->divisionUrlFromGid($row['gid']);
         }
 
+        if (isset($row['division_id'])) {
+            $division['analysis_url'] = $this->keyToVoteAnalysisUrl($row['division_id']);
+        }
+
         # Policy-related information
 
         # So one option is just to query for it here
@@ -717,5 +721,42 @@ class Divisions {
         }
 
         return $speeches;
+    }
+
+    /**
+     * Convert a division key to a votes.theyworkforyou.com URL
+     *
+     * @param string $key The division key (e.g., 'pw-2025-09-11-1-commons')
+     * @return string The URL for the vote analysis page
+     */
+    public function keyToVoteAnalysisUrl($key) {
+        // Remove the prefix
+        $trimmed = preg_replace('/^pw-/', '', $key);
+
+        // Split into parts
+        $parts = explode('-', $trimmed);
+
+        // Extract date
+        $date = implode('-', array_slice($parts, 0, 3));
+
+        // Chamber is always the last part
+        $chamber = array_pop($parts);
+
+        // The division ID is the first numeric part after the date
+        $id = null;
+        foreach (array_slice($parts, 3) as $part) {
+            if (ctype_digit($part)) {
+                $id = $part;
+                break;
+            }
+        }
+
+        // Build URL
+        return sprintf(
+            "https://votes.theyworkforyou.com/decisions/division/%s/%s/%s",
+            $chamber,
+            $date,
+            $id
+        );
     }
 }
