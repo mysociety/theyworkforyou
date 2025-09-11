@@ -49,6 +49,45 @@ It also spans multiple lines.");
         );
     }
 
+    /**
+     * Tests adding a new comment, testing HTML cleaning.
+     */
+	public function testHTMLCleaningAddComment()
+    {
+
+        global $THEUSER;
+
+        $THEUSER = new THEUSER;
+
+        $THEUSER->init(1);
+
+        $comment = new COMMENT();
+
+        $data = array(
+            'epobject_id' => 1,
+            'body' => "This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray < brackets to ensure they're not stripped.
+
+It also includes <script>alert('malicious!');</script> script tags, to ensure they are stripped correctly.
+
+It also spans multiple lines.",
+            'gid' => ''
+        );
+
+        $commentId = $comment->create($data);
+
+        // A correctly inserted comment returns an integer
+        $this->assertInternalType('integer', $commentId);
+
+        $comment = new COMMENT($commentId);
+
+        $this->assertEquals("This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray &lt; brackets to ensure they're not stripped.
+
+It also includes alert('malicious!'); script tags, to ensure they are stripped correctly.
+
+It also spans multiple lines.", $comment->body());
+
+    }
+
     public function testHTMLCleaningOfAngleBrackets() {
         $text = 'Is 2 < 3?';
 
