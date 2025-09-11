@@ -70,6 +70,8 @@ class USER {
     public $confirmed = '';        // boolean - Has the user confirmed via email?
     public $facebook_id = '';      // Facebook ID for users who login with FB
     public $facebook_token = '';   // Facebook token for users who login with FB
+    public $can_annotate = false;  // Can the user add annotations
+    public $organisation = '';     // The organisation the user belongs to
     // Don't use the status to check access privileges - use the is_able_to() function.
     public $status = "Viewer";
 
@@ -106,7 +108,9 @@ class USER {
                                 deleted,
                                 confirmed,
                                 facebook_id,
-                                facebook_token
+                                facebook_token,
+                                can_annotate,
+                                organisation
                         FROM    users
                         WHERE   user_id = :user_id",
             [':user_id' => $user_id]
@@ -131,8 +135,10 @@ class USER {
             $this->registrationip       = $q["registrationip"];
             $this->optin                = $q["optin"];
             $this->status               = $q["status"];
+            $this->organisation         = $q["organisation"];
             $this->deleted = $q["deleted"] == 1 ? true : false;
             $this->confirmed = $q["confirmed"] == 1 ? true : false;
+            $this->can_annotate = $q["can_annotate"] == 1 ? true : false;
 
             return true;
 
@@ -726,6 +732,13 @@ class USER {
         return $this->confirmed;
     }
 
+    public function can_annotate() {
+        return $this->can_annotate;
+    }
+
+    public function organisation() {
+        return $this->organisation;
+    }
 
     public function postcode_is_set() {
         // So we can tell if the, er, postcode is set or not.

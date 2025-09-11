@@ -68,6 +68,8 @@ class User {
         $data["status"] = $user->status();
         $data["facebook_id"] = $user->facebook_id();
         $data['facebook_user'] = $user->facebook_user();
+        $data['can_annotate'] = $user->can_annotate();
+        $data['organisation'] = $user->organisation();
         return $data;
     }
 
