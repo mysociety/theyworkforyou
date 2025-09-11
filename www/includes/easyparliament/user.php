@@ -779,6 +779,7 @@ class USER {
         $confirmedsql = "";
         $statussql = "";
         $emailsql = '';
+        $annotatesql = '';
 
         $params = [];
 
@@ -827,6 +828,12 @@ class USER {
 
         }
 
+        if (isset($details["can_annotate"])) {
+            $annotatesql = "can_annotate = :can_annotate, organisation = :organisation, ";
+            $params[':can_annotate'] = $details['can_annotate'] ? 1 : 0;
+            $params[':organisation'] = $details['organisation'];
+        }
+
         if (isset($details['email']) && $details['email']) {
             $emailsql = "email = :email, ";
             $params[':email'] = $details['email'];
@@ -841,7 +848,8 @@ class USER {
                                 . $deletedsql
                                 . $confirmedsql
                                 . $emailsql
-                                . $statussql . "
+                                . $statussql
+                                . $annotatesql . "
                                 optin       = :optin
                         WHERE   user_id     = :user_id
                         ", array_merge($params, [
