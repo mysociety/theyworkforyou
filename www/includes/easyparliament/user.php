@@ -646,6 +646,19 @@ class USER {
             case "voteonhansard":   // Rate hansard things interesting/not.
                 /* Everyone */              return true;
 
+            case "annotate":
+                if ($this->can_annotate) {
+                    return true;
+                }
+                switch ($status) {
+                    case "User":            return false;
+                    case "Moderator":       return true;
+                    case "Administrator":   return true;
+                    case "Superuser":       return true;
+                    default: /* Viewer */   return false;
+                }
+
+                // no break
             default:
                 $PAGE->error_message("You need to set permissions for '$action'!");
 
