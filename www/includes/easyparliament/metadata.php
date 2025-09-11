@@ -133,7 +133,10 @@ $page =  [
         'title' 	=> 'Parliaments and assemblies',
         'url'       => 'parliaments/',
     ],
-
+    'addcomment'  => [
+        'title'			=> 'Add comment',
+        'url'			=> 'addcomment/',
+    ],
     'alert_stats' =>  [
         'title'			=> 'Email alerts statistics',
         'parent'		=> 'admin',
