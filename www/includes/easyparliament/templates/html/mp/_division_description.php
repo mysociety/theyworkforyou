@@ -4,7 +4,30 @@
     <?php if ($division['date'] > '2020-06-01' && $division['date'] < '2020-06-10' && $division['vote'] == 'absent') { ?>
         <p class="vote-description__covid">This absence may have been affected by <a href="<?= $member_url ?>/votes#covid-19">COVID-19 restrictions</a>.</p> 
     <?php } ?>
-    <a class="vote-description__source" href="/divisions/<?= $division['division_id'] ?>/mp/<?= $person_id ?>">Show vote</a>
+    
+    <div class="vote-actions vote-actions--inline">
+        <a class="vote-action-btn" href="<?= $division['debate_url'] ?? '/divisions/' . $division['division_id'] . '/mp/' . $person_id ?>">Show vote in debate</a>
+        <?php if (isset($division['speeches']) && count($division['speeches']) > 0): ?>
+            <input type="checkbox" id="speeches-toggle-<?= $division['division_id'] ?>" class="vote-speeches-checkbox" hidden>
+            <label for="speeches-toggle-<?= $division['division_id'] ?>" class="vote-action-btn vote-speeches-toggle">
+                Related speeches (<?= count($division['speeches']) ?>)
+            </label>
+        <?php endif; ?>
+    </div>
+    
+    <?php if (isset($division['speeches']) && count($division['speeches']) > 0): ?>
+        <div class="vote-speeches-content">
+            <ul class="vote-speeches__list">
+                <?php foreach ($division['speeches'] as $speech): ?>
+                    <li>
+                        <a href="<?= $speech['url'] ?>" class="vote-speech__link">
+                            <?= $speech['time'] ? $speech['time'] . ': ' : '' ?><?= $speech['preview'] ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 
     <?php
     # remove the current policy from the list of related policies

@@ -764,6 +764,101 @@
   }
 }
 
+// Vote actions container - holds "Show vote" button and speeches dropdown inline
+.vote-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 8px;
+  position: relative;
+
+  .vote-description__source {
+    // Reset positioning since it's now in flexbox
+    position: static;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+}
+
+// Vote speeches dropdown
+.vote-speeches {
+  summary {
+    cursor: pointer;
+    padding: 0 1em;
+    line-height: 2em;
+    font-size: 14px;
+    color: $body-font-color;
+    background-color: $body-bg;
+    border: 1px solid transparent;
+    @include radius(1em);
+    display: inline-block;
+    text-decoration: none;
+    
+    &:hover,
+    &:focus {
+      background-color: $links;
+      color: #fff;
+    }
+    
+    // Remove default triangle
+    list-style: none;
+    &::-webkit-details-marker {
+      display: none;
+    }
+    
+    // Add custom arrow
+    &:after {
+      content: " ▼";
+      font-size: 10px;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+  }
+  
+  &[open] summary:after {
+    content: " ▲";
+  }
+  
+  // Make sure the dropdown content appears above other elements
+  &[open] {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+.vote-speeches__disclaimer {
+  margin: 8px 0 4px;
+  color: #757470;
+  background: white;
+  padding: 8px;
+  border: 1px solid $borders;
+  border-radius: 4px;
+}
+
+.vote-speeches__list {
+  margin: 0;
+  padding: 8px 8px 8px 28px;
+  background: white;
+  border: 1px solid $borders;
+  border-radius: 4px;
+  
+  li {
+    list-style-type: disc;
+    margin-bottom: 4px;
+    
+    a {
+      color: $links;
+      text-decoration: none;
+      font-size: 14px;
+      
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .policy-votes-list-footer {
     p {
         margin-bottom: 0.5em;
@@ -1002,4 +1097,93 @@ h6.interest-summary {
             }
         }
     }
+}
+
+.vote-actions--left {
+  justify-content: flex-start;
+}
+
+.vote-actions--inline {
+  position: relative;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.vote-action-btn {
+  display: inline-block;
+  padding: 0 1em;
+  line-height: 2em;
+  height: 2em;
+  font-size: 14px;
+  font-weight: normal;
+  border: 1px solid transparent;
+  border-radius: 1em;
+  background-color: $body-bg;
+  color: $body-font-color;
+  text-decoration: underline !important;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  box-sizing: border-box;
+
+  &:hover,
+  &:focus {
+    background-color: $links;
+    color: #fff;
+    text-decoration: underline !important;
+  }
+}
+
+.vote-speeches.vote-action-btn {
+  padding: 0;
+  background: none;
+  border: none;
+  margin-right: 0;
+  height: auto;
+  position: relative;
+  
+  summary {
+    padding: 0 1em;
+    line-height: 2em;
+    height: 2em;
+    font-size: 14px;
+    font-weight: normal;
+    border: 1px solid transparent;
+    border-radius: 1em;
+    background-color: $body-bg;
+    color: $body-font-color;
+    text-decoration: underline !important;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+    margin-right: 0;
+    box-sizing: border-box;
+    
+    &:hover,
+    &:focus {
+      background-color: $links;
+      color: #fff;
+      text-decoration: underline !important;
+    }
+  }
+}
+
+.vote-speeches-checkbox {
+  display: none;
+}
+
+.vote-speeches-toggle {
+  cursor: pointer;
+  
+  // Change text when checkbox is checked using content and data attributes would be complex
+  // So we'll use a simpler approach - just show/hide the content
+}
+
+.vote-speeches-content {
+  display: none;
+  margin-top: 8px;
+}
+
+// Show content when checkbox is checked
+.vote-actions:has(.vote-speeches-checkbox:checked) + .vote-speeches-content {
+  display: block;
 }

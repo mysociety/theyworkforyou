@@ -567,6 +567,11 @@ class Divisions {
             ];
         }
 
+        // If we have a member, fetch speeches made during the same debate
+        if ($this->member && $row['gid']) {
+            $division['speeches'] = $this->getSpeechesForDivision($row['gid'], $this->member->person_id);
+        }
+
         return $division;
     }
 
@@ -629,5 +634,88 @@ class Divisions {
         $url = new Url($hansardmajors[$q['major']]['page']);
         $url->insert(['gid' => $parent_gid]);
         return $url->generate() . '#g' . gid_to_anchor(fix_gid_from_db($gid));
+    }
+
+    /**
+     * Get speeches made by an MP in the same debate section as a division
+     *
+     * @param string $division_gid The GID of the division
+     * @param int $person_id The person ID of the MP
+     * @return array Array of speech data with gid, body, and URL
+     */
+    public function getSpeechesForDivision(string $division_gid, int $person_id): array {
+        global $hansardmajors;
+
+        // Get the division's hansard details to find the section/subsection
+        $q = $this->db->query(
+            "SELECT section_id, subsection_id, major, hdate FROM hansard WHERE gid = :gid AND htype = 14",
+            [':gid' => get_canonical_gid($division_gid)]
+        )->first();
+
+        if (!$q) {
+            return [];
+        }
+
+        $subsection_id = $q['subsection_id'];
+        $major = $q['major'];
+        $division_date = $q['hdate'];
+
+        // Get the subsection GID for URL construction
+        $subsection_q = $this->db->query(
+            "SELECT gid FROM hansard WHERE epobject_id = :subsection_id",
+            [':subsection_id' => $subsection_id]
+        )->first();
+
+        if ($subsection_q) {
+            $subsection_gid = fix_gid_from_db($subsection_q['gid']);
+        } else {
+            // subsection isn't present
+            return [];
+        }
+
+        // Find speeches by the MP in the same subsection on the same date
+        // We look for htype=12 (speeches) by this person in the same subsection
+        $speeches_query = $this->db->query(
+            "SELECT h.gid, h.hpos, e.body, h.htime
+             FROM hansard h
+             JOIN epobject e ON h.epobject_id = e.epobject_id
+             WHERE h.person_id = :person_id 
+             AND h.subsection_id = :subsection_id
+             AND h.htype = 12
+             AND h.hdate = :hdate
+             ORDER BY h.hpos ASC",
+            [
+                ':person_id' => $person_id,
+                ':subsection_id' => $subsection_id,
+                ':hdate' => $division_date,
+            ]
+        );
+
+        $speeches = [];
+        foreach ($speeches_query as $speech) {
+            $speech_gid = fix_gid_from_db($speech['gid']);
+
+            // Construct the URL to the speech
+            $url = new Url($hansardmajors[$major]['page']);
+            $url->insert(['gid' => $subsection_gid]);
+            $speech_url = $url->generate() . '#g' . gid_to_anchor($speech_gid);
+
+            // Extract first 100 characters of the speech for preview
+            $preview = strip_tags($speech['body']);
+            $preview = mb_substr($preview, 0, 100);
+            if (mb_strlen($speech['body']) > 100) {
+                $preview .= '...';
+            }
+
+            $speeches[] = [
+                'gid' => $speech_gid,
+                'url' => $speech_url,
+                'preview' => $preview,
+                'time' => $speech['htime'],
+                'position' => $speech['hpos'],
+            ];
+        }
+
+        return $speeches;
     }
 }
