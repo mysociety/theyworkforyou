@@ -282,6 +282,9 @@ foreach($data['rows'] as $speech) { ?>
                     <span class="link-to-speech__label"><?= $link_to ?></span>
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= gettext('In context') ?></a>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
+                    <?php if (isset($speech['annotation_url'])) { ?>
+                    <a href="<?= $speech['annotation_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Annotate!') ?></a>
+                    <?php } ?>
                 </li>
                 <?php
     }
