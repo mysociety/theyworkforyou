@@ -5,7 +5,7 @@
 <?php if ($current_member[1]) { ?>
 
 <div class="panel">
-    <h2>About your Member of Parliament</h2>
+    <h2>About <?= ucfirst($full_name) ?></h2>
     <p>
     <?= ucfirst($full_name) ?> represents the people who live in <?= $latest_membership['constituency'] ?>,
         at the UK Parliament in Westminster.

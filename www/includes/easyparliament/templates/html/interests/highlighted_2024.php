@@ -65,7 +65,7 @@
                                         <p><?= $entry->get_detail("mysoc_summary")->value ?></p> <details>
                                         <summary>More details</summary>
                                         <br>
-                                        <?php include('_register_entry.php'); ?>
+                                        <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_register_entry.php'; ?>
                                         </details></td>
                                         <td class="highlighted-data-cell">
                                             <?php $their_response = $entry->get_detail("mp_comment"); ?> 
