@@ -76,18 +76,22 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                         </p>
 
+                        <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_toggle_buttons.php'; ?>
+
                         <?php foreach ($register->categories as $category) { ?>
                             <?php if ($category->only_null_entries()) {
                                 continue;
                             }; ?>
                             <hr>
-                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?> <?= $category->category_name ?></h3>
+                            <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?> <?= $category->category_name ?></h2>
                         
-                            <?php foreach ($category->entries as $entry) {
-                                if ($entry->null_entry == false) {
-                                    include('_register_entry.php');
-                                }
-                            } ?>
+                            <div class="person-items <?php if ($category->only_old_entries($register->published_date)) { ?>old_entry<?php } ?>">
+                                <?php foreach ($category->entries as $entry) { ?>
+                                    <?php if ($entry->null_entry == false) { ?>
+                                        <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_entry_display.php'; ?>
+                                    <?php } ?>
+                                <?php } ?>
+                            </div>
                         
                         <?php }; ?>
                     

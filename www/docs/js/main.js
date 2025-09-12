@@ -646,3 +646,62 @@ $(function() {
       });
     });
   }
+
+// Register of interests toggle functions
+function initRegisterToggles() {
+  if (document.querySelectorAll('details').length > 0) {
+    var detailsButton = document.getElementById('detailsToggleButton');
+    if (detailsButton) {
+      detailsButton.style.display = 'block';
+    }
+  }
+
+  if (document.querySelectorAll('.new_entry').length > 0) {
+    var newButton = document.getElementById('newToggleButton');
+    if (newButton) {
+      newButton.style.display = 'block';
+    }
+  }
+}
+
+var new_entries_only = false;
+
+function toggleNewDetails() {
+  const old_entries = document.querySelectorAll('.old_entry');
+
+  new_entries_only = !new_entries_only;
+  if (new_entries_only) {
+    old_entries.forEach(d => d.style.display = 'none');
+    document.getElementById('newToggleButton').textContent = 'Show all';
+  } else {
+    old_entries.forEach(d => d.style.display = 'block');
+    document.getElementById('newToggleButton').textContent = 'Just new';
+  }
+}
+
+function toggleDetails() {
+  const details = document.querySelectorAll('details');
+  
+  // Determine if all details are currently open
+  let allOpen = true;
+  details.forEach(d => {
+    if (!d.open) {
+      allOpen = false;
+    }
+  });
+
+  if (allOpen) {
+    // If all are open, close them
+    details.forEach(d => d.open = false);
+    document.getElementById('detailsToggleButton').textContent = 'Expand All';
+  } else {
+    // If at least one is closed, open them all
+    details.forEach(d => d.open = true);
+    document.getElementById('detailsToggleButton').textContent = 'Collapse All';
+  }
+}
+
+// Initialize register toggles when page loads
+$(document).ready(function() {
+  initRegisterToggles();
+});
