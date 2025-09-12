@@ -1,8 +1,6 @@
 <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\InfoEntry $entry */ ?>
 
-<div class="interest-item" id="<?= $entry->comparable_id ?>">
-
-<?php if (!$entry->details->isEmpty()) { ?>
+<?php if ($entry->details && !$entry->details->isEmpty()) { ?>
 
     <?php if ($entry->content) { ?>
         <?php if ($entry->info_type == "subentry") { ?>
@@ -13,7 +11,13 @@
     <?php }; ?>
         <ul class="interest-details-list">
             <?php foreach ($entry->details as $detail) { ?>
-                <?php include '_register_field.php'; ?>
+                <?php
+                // Skip certain fields for interests view
+                if (in_array($detail->slug, ["mysoc_summary", "mp_comment", "industry"])) {
+                    continue;
+                }
+                include INCLUDESPATH . 'easyparliament/templates/html/register/_register_field.php';
+                ?>
             <?php }; ?>
 
             <?php if ($entry->date_registered) { ?>
@@ -29,7 +33,7 @@
 
     <?php } else { ?>
     <?php if ($entry->content) { ?>
-        <?php // This is a more mininal style of entry, don't use the header structure, just print the xml content?>
+        <?php // This is a more minimal style of entry, don't use the header structure, just print the xml content?>
         <?php if ($entry->content_format == "xml") { ?>
             <?= $entry->content ?>
         <?php } else { ?>
@@ -38,16 +42,14 @@
     <?php }; ?>
 <?php }; ?>
 
-    <?php if (!$entry->sub_entries->isEmpty()) { ?>
+    <?php if ($entry->sub_entries && !$entry->sub_entries->isEmpty()) { ?>
         <h5 class="child-item-header">Specific work or payments</h5>
         <div class="interest-child-items" id="parent-<?= $entry->comparable_id ?>">
             <?php foreach ($entry->sub_entries as $subentry) {
                 $parent_entry = $entry;
                 $entry = $subentry;
-                include '_register_entry.php';
+                include INCLUDESPATH . 'easyparliament/templates/html/register/_register_entry.php';
                 $entry = $parent_entry;
             } ?>
         </div>
     <?php }; ?>
-
-</div>
