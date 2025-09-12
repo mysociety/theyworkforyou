@@ -13,13 +13,30 @@
             </a>
             <ul class="subpage-content-list">
                 <li><a href="#profile"><?= gettext('Profile') ?></a></li>
-                <?php if (count($recent_appearances['appearances'])): ?>
-                    <li><a href="#appearances"><?= gettext('Appearances') ?></a></li>
-                <?php endif; ?>
             </ul>
         </li>
 
-
+        <?php if (count($recent_appearances['appearances'])): ?>
+            <li <?php if ($pagetype == "speeches"): ?>class="active"<?php endif; ?>>
+                <a href="<?= $member_url ?>/speeches" class="person-navigation--subpage-heading">
+                    <h2>💬 <?= gettext('Speeches and Questions') ?></h2>
+                </a>
+                
+                <?php if ($pagetype == "speeches"): ?>
+                    <nav class="subpage-content-list js-accordion" aria-label="Appearances list">
+                        <ul class="subpage-content-list">
+                            <?php if (count($recent_appearances['speeches']) > 0): ?>
+                            <li><a href="#speeches"><?= gettext('Speeches & Debates') ?></a></li>
+                            <?php endif; ?>
+                            <?php if (count($recent_appearances['written_questions']) > 0): ?>
+                            <li><a href="#written-questions"><?= gettext('Written Questions') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+                <?php endif; ?>
+            </li>
+        <?php endif; ?>
+        
         <?php if (!empty($memberships)): ?>
             <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
                 <a href="<?= $member_url ?>/memberships" class="person-navigation--subpage-heading">
@@ -101,6 +118,8 @@
                 </a>
             </li>
         <?php endif; ?>
+
+
 
         <?php if ($register_interests): ?>
             <li <?php if ($pagetype == "register"): ?>class="active"<?php endif; ?>>

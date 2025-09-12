@@ -44,7 +44,7 @@ include_once '../api/api_getGeometry.php';
 include_once '../api/api_getConstituencies.php';
 
 // Ensure that page type is set
-$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'memberships', 'signatures'];
+$allowed_page_types = ['divisions', 'votes', 'policy_set_svg', 'policy_set_png', 'recent', 'register', 'election_register', 'memberships', 'signatures', 'speeches'];
 
 if (get_http_var('pagetype')) {
     $pagetype = get_http_var('pagetype');
@@ -300,6 +300,12 @@ if ($pagetype == 'votes') {
     $desc = 'See how ' . $member_name . ' voted on topics like Employment, Social Issues, Foreign Policy, and more.';
 }
 
+// If this is a Speeches page, update title and description
+if ($pagetype == 'speeches') {
+    $title = "Speeches and Questions - " . $title;
+    $desc = 'Read ' . $member_name . "'s most recent speeches and parliamentary questions.";
+}
+
 // Set page metadata
 $DATA->set_page_metadata($this_page, 'title', $title);
 $DATA->set_page_metadata($this_page, 'meta_description', $desc);
@@ -454,6 +460,11 @@ switch ($pagetype) {
     case 'signatures':
         $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Signatures', $data['current_assembly']);
         MySociety\TheyWorkForYou\Renderer::output('mp/signatures', $data);
+        break;
+
+    case 'speeches':
+        $data['og_image'] = \MySociety\TheyWorkForYou\Url::generateSocialImageUrl($member_name, 'Speeches and Questions', $data['current_assembly']);
+        MySociety\TheyWorkForYou\Renderer::output('mp/speeches', $data);
         break;
 
     case 'election_register':
@@ -802,10 +813,11 @@ function person_rebellion_rate($member) {
 }
 
 function person_recent_appearances($member) {
-    global $DATA, $SEARCHENGINE, $this_page;
+    global $DATA, $SEARCHENGINE, $this_page, $hansardmajors;
 
     $out = [];
-    $out['appearances'] = [];
+    $out['speeches'] = [];
+    $out['written_questions'] = [];
 
     //$this->block_start(array('id'=>'hansard', 'title'=>$title));
     // This is really far from ideal - I don't really want $PAGE to know
@@ -817,39 +829,80 @@ function person_recent_appearances($member) {
     $person_id = $member->person_id();
 
     $memcache = new MySociety\TheyWorkForYou\Memcache();
-    $recent = $memcache->get("recent_appear:$person_id:" . LANGUAGE);
 
-    if (!$recent) {
-        // Initialise the search engine
-        $searchstring = "speaker:$person_id";
-        $SEARCHENGINE = new \SEARCHENGINE($searchstring);
+    // Perform separate searches for each category to ensure adequate coverage
+    $hansard = new MySociety\TheyWorkForYou\Hansard();
 
-        $hansard = new MySociety\TheyWorkForYou\Hansard();
-        $args =  [
-            's' => $searchstring,
+    // Search for speeches and debates (everything except written questions - major != 3)
+    $speeches_key = "recent_speeches:$person_id:" . LANGUAGE;
+    $recent_speeches = $memcache->get($speeches_key);
+
+    if (!$recent_speeches) {
+        $searchstring_speeches = "speaker:$person_id -section:wrans";  // Exclude written answers section
+        $SEARCHENGINE = new \SEARCHENGINE($searchstring_speeches);
+
+        // Search query excluding written questions
+        $args_speeches = [
+            's' => $searchstring_speeches,
+            'p' => 1,                       // First page
+            'num' => 8,                     // 8 recent speeches/debates
+            'pop' => 1,                     // Disable search logging
+            'o' => 'd',                     // Decending by date order
+        ];
+        $results_speeches = $hansard->search($searchstring_speeches, $args_speeches);
+        $recent_speeches = serialize($results_speeches['rows'] ?? []);
+        $memcache->set($speeches_key, $recent_speeches, 3600); // Cache for 1 hour
+    }
+    $out['speeches'] = unserialize($recent_speeches);
+
+    // Search for written questions/answers (major = 3)
+    $wrans_key = "recent_wrans:$person_id:" . LANGUAGE;
+    $recent_wrans = $memcache->get($wrans_key);
+
+    if (!$recent_wrans) {
+        $searchstring_wrans = "speaker:$person_id section:wrans";  // Only written answers section
+        $SEARCHENGINE = new \SEARCHENGINE($searchstring_wrans);
+
+        // Search query for written questions only
+        $args_wrans = [
+            's' => $searchstring_wrans,
             'p' => 1,
-            'num' => 3,
+            'num' => 8,
             'pop' => 1,
             'o' => 'd',
         ];
-        $results = $hansard->search($searchstring, $args);
-        $recent = serialize($results['rows']);
-        $memcache->set('recent_appear:' . $person_id, $recent);
+        $results_wrans = $hansard->search($searchstring_wrans, $args_wrans);
+        $recent_wrans = serialize($results_wrans['rows'] ?? []);
+        $memcache->set($wrans_key, $recent_wrans, 3600); // Cache for 1 hour
     }
-    $out['appearances'] = unserialize($recent);
+    $out['written_questions'] = unserialize($recent_wrans);
     twfy_debug_timestamp();
 
     $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $MOREURL->insert(['pid' => $person_id, 'pop' => 1]);
 
-    $out['more_href'] = $MOREURL->generate() . '#n4';
+    $out['more_href'] = $MOREURL->generate();
     $out['more_text'] = sprintf(gettext('More of %s’s recent appearances'), ucfirst($member->full_name()));
+
+    // Create separate "More" links for speeches and written questions
+    $MORE_SPEECHES_URL = new \MySociety\TheyWorkForYou\Url('search');
+    $MORE_SPEECHES_URL->insert(['pid' => $person_id, 'pop' => 1, 's' => "speaker:$person_id -section:wrans"]);
+    $out['more_speeches_href'] = $MORE_SPEECHES_URL->generate();
+    $out['more_speeches_text'] = sprintf(gettext('More of %s\'s speeches and debates'), ucfirst($member->full_name()));
+
+    $MORE_QUESTIONS_URL = new \MySociety\TheyWorkForYou\Url('search');
+    $MORE_QUESTIONS_URL->insert(['pid' => $person_id, 'pop' => 1, 's' => "speaker:$person_id section:wrans"]);
+    $out['more_questions_href'] = $MORE_QUESTIONS_URL->generate();
+    $out['more_questions_text'] = sprintf(gettext('More of %s\'s written questions'), ucfirst($member->full_name()));
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
         // If we set an RSS feed for this page.
         $HELPURL = new \MySociety\TheyWorkForYou\Url('help');
         $out['additional_links'] = '<a href="' . WEBPATH . $rssurl . '" title="XML version of this person&rsquo;s recent appearances">RSS feed</a> (<a href="' . $HELPURL->generate() . '#rss" title="An explanation of what RSS feeds are for">?</a>)';
     }
+
+    // Keep array of combined list for overview and menu checks
+    $out['appearances'] = array_merge($out['speeches'], $out['written_questions']);
 
     return $out;
 
