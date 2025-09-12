@@ -10,6 +10,7 @@ rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkf
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedjson data/pwdata
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/people.json data/pwdata
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/regme* data/pwdata
+rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/wrans/answers2025-09* data/pwdata
 echo 'Downloading minimal Senedd'
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/senedd/en/senedd2022-01* data/pwdata
 rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkforyou.com::parldata/scrapedxml/senedd/cy/senedd2022-01* data/pwdata
