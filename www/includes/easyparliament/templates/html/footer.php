@@ -72,8 +72,6 @@
         <div class="medium-3 columns">
             <ul class="mysoc-footer__badges">
                 <li role="presentation"><a href="https://github.com/mysociety/theyworkforyou" class="mysoc-footer__badge mysoc-footer__badge--github">Github</a></li>
-                <li role="presentation"><a href="https://twitter.com/theyworkforyou" class="mysoc-footer__badge mysoc-footer__badge--twitter">Twitter</a></li>
-                <li role="presentation"><a href="https://www.facebook.com/TheyWorkForYou" class="mysoc-footer__badge mysoc-footer__badge--facebook">Facebook</a></li>
             </ul>
         </div>
 
