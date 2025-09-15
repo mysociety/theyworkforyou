@@ -62,13 +62,13 @@ sub db_connect {
     $dbh = DBI->connect($dsn, mySociety::Config::get('TWFY_DB_USER'), mySociety::Config::get('TWFY_DB_PASS'), { RaiseError => 1, PrintError => 0, mysql_enable_utf8 => 1 });
 
     $memberadd = $dbh->prepare("replace into member (member_id, person_id, house,
-        constituency, party, entered_house, left_house, entered_reason, left_reason)
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        constituency, party, entered_house, left_house, entered_reason, left_reason, source)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $memberexist = $dbh->prepare("select member_id from member where member_id = ?");
     $membercheck = $dbh->prepare("select member_id from member where
         member_id = ? and person_id = ? and house = ?
         and constituency = ? and party = ? and entered_house = ? and left_house = ?
-        and entered_reason = ? and left_reason = ?");
+        and entered_reason = ? and left_reason = ? and source = ?");
 
     $personinfoupdate = $dbh->prepare("insert into personinfo (person_id, data_key, data_value) values (?, ?, ?) on duplicate key update data_value=?");
 
@@ -223,6 +223,8 @@ sub load_member {
 
     my $party = $member->{on_behalf_of_id} ? $organizations{$member->{on_behalf_of_id}}{name} : '';
 
+    my $source = $member->{source} || '';
+
     db_memberadd(
         $id,
         $person_id,
@@ -232,6 +234,7 @@ sub load_member {
         $start_date, $end_date,
         $member->{start_reason} || '',
         $member->{end_reason} || ($end_date eq '9999-12-31' && $org_slug ne 'house-of-lords' ? 'still_in_office' : ''),
+        $source,
     );
 }
 
