@@ -839,6 +839,12 @@ msgid "Changed party"
 msgstr "Wedi newid plaid"
 
 #: www/includes/easyparliament/member.php:47
+msgid "Had whip removed"
+msgstr "Tynnwyd y chwip"
+
+#: www/includes/easyparliament/member.php:48
+msgid "Had whip restored"
+msgstr "Adferwyd y chwip"
 msgid "Changed name"
 msgstr "Wedi newid enw"
 

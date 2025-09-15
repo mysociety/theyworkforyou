@@ -44,6 +44,8 @@ class MEMBER {
             'became_peer'		=> gettext('Became peer'),
             'by_election'		=> gettext('Byelection'),
             'changed_party'		=> gettext('Changed party'),
+            'whip_removed'      => gettext('Had whip removed'),
+            'whip_restored'    => gettext('Had whip restored'),
             'changed_name' 		=> gettext('Changed name'),
             'declared_void'		=> gettext('Declared void'),
             'died'			=> gettext('Died'),
