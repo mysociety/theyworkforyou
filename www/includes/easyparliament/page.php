@@ -1057,31 +1057,8 @@ class PAGE {
             return;
         }
 
-        if (!$THEUSER->isloggedin()) {
-            // The user is not logged in.
-
-            // The URL of this page - we'll want to return here after joining/logging in.
-            $THISPAGEURL = new \MySociety\TheyWorkForYou\Url($this_page);
-
-            // The URLs to login / join pages.
-            $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
-            $LOGINURL->insert(['ret' => $THISPAGEURL->generate() . '#addcomment']);
-            $JOINURL = new \MySociety\TheyWorkForYou\Url('userjoin');
-            $JOINURL->insert(['ret' => $THISPAGEURL->generate() . '#addcomment']);
-
-            ?>
-                <p><a href="<?php echo $LOGINURL->generate(); ?>">Sign in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
-<?php
-
-            return;
-
-        } elseif (!$THEUSER->is_able_to('addcomment')) {
+        if (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('addcomment')) {
             // The user is logged in but not allowed to post a comment.
-
-            ?>
-                <p>You are not allowed to post annotations.</p>
-<?php
-
             return;
         }
 
