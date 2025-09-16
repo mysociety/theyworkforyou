@@ -398,7 +398,7 @@ class SectionView {
                 # Annotation link
                 if ($this->is_debate_section_page()) {
                     // Build the 'Add an annotation' link.
-                    if ($THEUSER->isloggedin() && $THEUSER->is_able_to('annotate')) {
+                    if ($THEUSER->isloggedin() && $THEUSER->is_able_to('addcomment')) {
                         $data['rows'][$i]['annotation_url'] = $row['commentsurl'];
                     }
 
