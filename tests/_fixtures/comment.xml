@@ -100,6 +100,27 @@ It also spans multiple lines.</field>
 		<field name="postcode"></field>
 		<field name="registrationtoken"></field>
 		<field name="confirmed">1</field>
+		<field name="can_annotate">1</field>
+		<field name="url"></field>
+		<field name="api_key" xsi:nil="true" />
+	</row>
+	<row>
+		<field name="user_id">2</field>
+		<field name="firstname">Another</field>
+		<field name="lastname">User</field>
+		<field name="email">another@theyworkforyou.com</field>
+		<field name="password">$1$y1dlF6PO$z3N3VoTw6/A50kxY3FOG80</field>
+		<field name="lastvisit">0000-00-00 00:00:00</field>
+		<field name="registrationtime">0000-00-00 00:00:00</field>
+		<field name="registrationip" xsi:nil="true" />
+		<field name="status">User</field>
+		<field name="emailpublic">0</field>
+		<field name="optin">0</field>
+		<field name="deleted">0</field>
+		<field name="postcode"></field>
+		<field name="registrationtoken"></field>
+		<field name="confirmed">1</field>
+		<field name="can_annotate">0</field>
 		<field name="url"></field>
 		<field name="api_key" xsi:nil="true" />
 	</row>
