@@ -48,6 +48,18 @@ It also spans multiple lines.</field>
 	<table_data name="editqueue">
 	</table_data>
 	<table_data name="epobject">
+        <row>
+            <field name="epobject_id">601</field>
+            <field name="body">Test Hansard Section</field>
+        </row>
+        <row>
+            <field name="epobject_id">602</field>
+            <field name="body">Test Hansard Subsection</field>
+        </row>
+        <row>
+            <field name="epobject_id">603</field>
+            <field name="body">Test Hansard Body A, Speaker 1</field>
+        </row>
 	</table_data>
 	<table_data name="future">
 	</table_data>
@@ -58,6 +70,45 @@ It also spans multiple lines.</field>
 	<table_data name="glossary">
 	</table_data>
 	<table_data name="hansard">
+        <row>
+            <field name="epobject_id">601</field>
+						<field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.1</field>
+            <field name="htype">10</field>
+            <field name="hdate">2014-01-01</field>
+            <field name="htime">10:00</field>
+            <field name="hpos">1</field>
+            <field name="person_id">0</field>
+            <field name="major">1</field>
+            <field name="minor">0</field>
+            <field name="section_id">0</field>
+            <field name="subsection_id">0</field>
+        </row>
+        <row>
+            <field name="epobject_id">602</field>
+            <field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.2</field>
+            <field name="htype">11</field>
+            <field name="hdate">2014-01-01</field>
+            <field name="htime">10:00</field>
+            <field name="hpos">2</field>
+            <field name="person_id">0</field>
+            <field name="major">1</field>
+            <field name="minor">0</field>
+            <field name="section_id">601</field>
+            <field name="subsection_id">0</field>
+        </row>
+        <row>
+            <field name="epobject_id">603</field>
+            <field name="gid">uk.org.publicwhip/debate/2014-01-01b.1.3</field>
+            <field name="htype">12</field>
+            <field name="hdate">2014-01-01</field>
+            <field name="htime">10:01</field>
+            <field name="hpos">3</field>
+            <field name="person_id">0</field>
+            <field name="major">1</field>
+            <field name="minor">0</field>
+            <field name="section_id">601</field>
+            <field name="subsection_id">602</field>
+        </row>
 	</table_data>
 	<table_data name="indexbatch">
 	</table_data>
@@ -100,6 +151,27 @@ It also spans multiple lines.</field>
 		<field name="postcode"></field>
 		<field name="registrationtoken"></field>
 		<field name="confirmed">1</field>
+		<field name="can_annotate">1</field>
+		<field name="url"></field>
+		<field name="api_key" xsi:nil="true" />
+	</row>
+	<row>
+		<field name="user_id">2</field>
+		<field name="firstname">Another</field>
+		<field name="lastname">User</field>
+		<field name="email">another@theyworkforyou.com</field>
+		<field name="password">$1$y1dlF6PO$z3N3VoTw6/A50kxY3FOG80</field>
+		<field name="lastvisit">0000-00-00 00:00:00</field>
+		<field name="registrationtime">0000-00-00 00:00:00</field>
+		<field name="registrationip" xsi:nil="true" />
+		<field name="status">User</field>
+		<field name="emailpublic">0</field>
+		<field name="optin">0</field>
+		<field name="deleted">0</field>
+		<field name="postcode"></field>
+		<field name="registrationtoken"></field>
+		<field name="confirmed">1</field>
+		<field name="can_annotate">0</field>
 		<field name="url"></field>
 		<field name="api_key" xsi:nil="true" />
 	</row>
