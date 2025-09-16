@@ -75,7 +75,8 @@
 .fi-megaphone:before,
 .fi-pound:before,
 .fi-magnifying-glass:before,
-.fi-heart:before
+.fi-heart:before,
+.fi-list:before
 {
   font-family: "foundation-icons";
   font-style: normal;
@@ -97,6 +98,7 @@
 .fi-pound:before {content: "\f19a"}
 .fi-magnifying-glass:before {content: "\f16c"}
 .fi-heart:before { content: "\f159"; }
+.fi-list:before { content: "\f169"; }
 
 html,
 body {
