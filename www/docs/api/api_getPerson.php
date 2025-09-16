@@ -60,6 +60,9 @@ function _api_getPerson_row($row, $has_party = false) {
         }
     }
 
+    // Remove internal source field from API response
+    unset($row['source']);
+
     return $row;
 }
 
