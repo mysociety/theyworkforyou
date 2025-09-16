@@ -2306,9 +2306,11 @@ class HANSARDLIST {
         ) {
             // We'll be getting a count of the comments on all items
             // within this (sub)section.
-            $from = "comments, hansard";
+            $from = "comments, hansard, users";
             $where = "comments.epobject_id = hansard.epobject_id
-                    AND subsection_id = :epobject_id";
+                    AND subsection_id = :epobject_id
+                    AND comments.user_id = users.user_id
+                    AND users.can_annotate = 1";
 
             if ($item_data['htype'] == '10') {
                 // Section - get a count of comments within this section that
@@ -2318,8 +2320,10 @@ class HANSARDLIST {
 
         } else {
             // Just getting a count of the comments on this item.
-            $from = "comments";
-            $where = 'epobject_id = :epobject_id';
+            $from = "comments, users";
+            $where = 'epobject_id = :epobject_id
+                    AND comments.user_id = users.user_id
+                    AND users.can_annotate = 1';
         }
 
         $q = $this->db->query(
