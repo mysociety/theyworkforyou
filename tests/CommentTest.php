@@ -75,7 +75,7 @@ It also spans multiple lines.",
         $commentId = $comment->create($data);
 
         // A correctly inserted comment returns an integer
-        $this->assertInternalType('integer', $commentId);
+        $this->assertIsInt($commentId);
 
         $comment = new COMMENT($commentId);
 
