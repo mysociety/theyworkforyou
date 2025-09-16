@@ -1,6 +1,6 @@
 <div class="page-mobile-navigation-controller">
     <button class="js-table-content-button" aria-label="open/close navigation subpages">
-        <?= sprintf(gettext('%s Menu'), strtoupper($this_page)) ?>
+        <i class="fi-list"></i><?= sprintf(gettext('%s Menu'), strtoupper($this_page)) ?>
     </button>   
 </div>
 

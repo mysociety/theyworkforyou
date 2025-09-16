@@ -4,6 +4,10 @@
     right: 1rem;
     margin-bottom: 0;
 
+    i {
+        margin-right: 0.25em;
+    }
+
     @media (min-width: $medium-screen) {
         display: none;
     }
