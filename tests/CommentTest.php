@@ -52,26 +52,25 @@ It also spans multiple lines.");
     /**
      * Tests adding a new comment, testing HTML cleaning.
      */
-	public function testHTMLCleaningAddComment()
-    {
+    public function testHTMLCleaningAddComment() {
 
         global $THEUSER;
 
-        $THEUSER = new THEUSER;
+        $THEUSER = new THEUSER();
 
         $THEUSER->init(1);
 
         $comment = new COMMENT();
 
-        $data = array(
+        $data = [
             'epobject_id' => 1,
             'body' => "This is a test comment, including https://www.theyworkforyou.com <a href=\"https://www.theyworkforyou.com\">links</a>, <b>bold</b>, <i>italics</i>, and stray < brackets to ensure they're not stripped.
 
 It also includes <script>alert('malicious!');</script> script tags, to ensure they are stripped correctly.
 
 It also spans multiple lines.",
-            'gid' => ''
-        );
+            'gid' => '',
+        ];
 
         $commentId = $comment->create($data);
 

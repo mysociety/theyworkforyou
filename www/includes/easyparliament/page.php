@@ -1065,9 +1065,9 @@ class PAGE {
 
             // The URLs to login / join pages.
             $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
-            $LOGINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
+            $LOGINURL->insert(['ret' => $THISPAGEURL->generate() . '#addcomment']);
             $JOINURL = new \MySociety\TheyWorkForYou\Url('userjoin');
-            $JOINURL->insert(array('ret'=>$THISPAGEURL->generate().'#addcomment'));
+            $JOINURL->insert(['ret' => $THISPAGEURL->generate() . '#addcomment']);
 
             ?>
                 <p><a href="<?php echo $LOGINURL->generate(); ?>">Sign in</a> or <a href="<?php echo $JOINURL->generate(); ?>">join</a> to post a public annotation.</p>
@@ -1110,7 +1110,7 @@ Annotations should be information that adds value to the contribution, not opini
         if (isset($commentdata['body'])) {
             echo '<input type="submit" name="submitcomment" value="Post" class="submit">';
         }
-?>
+        ?>
 </p>
                     <input type="hidden" name="epobject_id" value="<?php echo $commentdata['epobject_id']; ?>">
                     <input type="hidden" name="gid" value="<?php echo $commentdata['gid']; ?>">

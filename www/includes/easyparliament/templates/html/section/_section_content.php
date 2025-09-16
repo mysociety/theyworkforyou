@@ -375,11 +375,10 @@ if ($section && $individual_item) { ?>
             <div class="full-page__row">
                 <div class="full-page__unit">
                 <?php
-                # XXX
-                global $PAGE;
-                $comments['object']->display('ep', $comments['args']);
-                $PAGE->comment_form($comments['commentdata']);
-                # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+                    global $PAGE;
+
+    $comments['object']->display('ep', $comments['args']);
+    $PAGE->comment_form($comments['commentdata']);
     ?>
                 </div>
             </div>
