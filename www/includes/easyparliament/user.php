@@ -599,6 +599,7 @@ class USER {
             // You can add more below as they're needed...
             // But keep them in alphabetical order!
 
+            // no break
             case "addcomment":  // Post comments.
 
                 switch ($status) {
@@ -609,6 +610,7 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             case "deletecomment": // Delete comments.
 
                 switch ($status) {

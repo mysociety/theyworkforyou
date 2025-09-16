@@ -142,54 +142,31 @@ class COMMENT {
         }
 
         if (!$THEUSER->is_able_to('addcomment')) {
-            $message = 	array (
+            $message = 	[
                 'title' => 'Sorry',
-                'text' => 'You are not allowed to post annotations.'
-            );
+                'text' => 'You are not allowed to post annotations.',
+            ];
             $PAGE->error_message($message);
             return false;
         }
 
-        if (!is_numeric ($data['epobject_id'])) {
-            $message = array (
+        if (!is_numeric($data['epobject_id'])) {
+            $message = [
                 'title' => 'Sorry',
-                'text' => "We don't have an epobject id."
-            );
+                'text' => "We don't have an epobject id.",
+            ];
             $PAGE->error_message($message);
             return false;
         }
 
         if ($data['body'] == '') {
-            $message = array (
+            $message = [
                 'title' => 'Whoops!',
-                'text' => "You haven't entered an annotation!"
-            );
+                'text' => "You haven't entered an annotation!",
+            ];
             $PAGE->error_message($message);
             return false;
         }
-
-/*
-        if (is_numeric($THEUSER->user_id())) {
-            // Flood check - make sure the user hasn't just posted a comment recently.
-            // To help prevent accidental duplicates, among other nasty things.
-
-            $flood_time_limit = 60; // How many seconds until a user can post again?
-
-            $q = $this->db->query("SELECT comment_id
-                            FROM	comments
-                            WHERE	user_id = '" . $THEUSER->user_id() . "'
-                            AND		posted + 0 > NOW() - $flood_time_limit");
-
-            if ($q->rows() > 0) {
-                $message = array (
-                    'title' => 'Hold your horses!',
-                    'text' => "We limit people to posting one comment per $flood_time_limit seconds to help prevent duplicate postings. Please go back and try again, thanks."
-                );
-                $PAGE->error_message($message);
-                return false;
-            }
-        }
-*/
 
         // OK, let's get on with it...
 
@@ -200,10 +177,11 @@ class COMMENT {
         $posted = date('Y-m-d H:i:s', time());
 
 
-        $q_gid = $this->db->query("select gid from hansard where epobject_id = :epobject_id", array(':epobject_id' => $data['epobject_id']));
+        $q_gid = $this->db->query("select gid from hansard where epobject_id = :epobject_id", [':epobject_id' => $data['epobject_id']]);
         $data['gid'] = $q_gid->field(0, 'gid');
 
-        $q = $this->db->query("INSERT INTO comments
+        $q = $this->db->query(
+            "INSERT INTO comments
             (user_id, epobject_id, body, posted, visible, original_gid)
             VALUES
             (
@@ -213,13 +191,15 @@ class COMMENT {
             :posted,
             1,
             :gid
-            )", array(
+            )",
+            [
                 ':user_id' => $THEUSER->user_id(),
                 ':epobject_id' => $data['epobject_id'],
                 ':body' => $body,
                 ':posted' => $posted,
-                ':gid' => $data['gid']
-            ));
+                ':gid' => $data['gid'],
+            ]
+        );
 
         if ($q->success()) {
             // Set the object varibales up.
@@ -238,7 +218,7 @@ class COMMENT {
     }
 
 
-    public function display($format='html', $template='comments') {
+    public function display($format = 'html', $template = 'comments') {
         $data['comments'][0] =  [
             'comment_id'	=> $this->comment_id,
             'user_id'		=> $this->user_id,

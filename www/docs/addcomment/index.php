@@ -10,12 +10,12 @@ $this_page = "addcomment";
 if (get_http_var("submitcomment") != '') {
     // We're submitting a comment.
 
-    $data = array (
+    $data = [
         'epobject_id' => get_http_var('epobject_id'),
-        'body'	=> get_http_var('body')
-    );
+        'body'	=> get_http_var('body'),
+    ];
 
-    $COMMENT = new COMMENT;
+    $COMMENT = new COMMENT();
 
     $success = $COMMENT->create($data);
 
@@ -31,7 +31,7 @@ if (get_http_var("submitcomment") != '') {
         // BUT it makes picky browsers like Opera think it's a whole new page
         // so it reloads it, rather than being clever and thinking no refresh
         // is required.
-        $URL->insert(array('id'=>get_http_var('gid'), 'c'=>$success));
+        $URL->insert(['id' => get_http_var('gid'), 'c' => $success]);
 
         header("Location: " . $URL->generate('none') . "#c" . $success);
         exit;
@@ -58,36 +58,36 @@ if (get_http_var("submitcomment") != '') {
 
         // Preview the comment.
         // Mock up a data array for the comment listing template.
-        $data['comments'][0] = array (
+        $data['comments'][0] = [
             'body' => $body,
             'firstname' => $THEUSER->firstname(),
             'lastname' => $THEUSER->lastname(),
             'user_id' => $THEUSER->user_id(),
             'posted' => date('Y-m-d H:i:s', time()),
-            'modflagged' => NULL,
+            'modflagged' => null,
             'visible' => 1,
-            'preview' => true	// Extra tag so we know this is just a preview.
-        );
+            'preview' => true,	// Extra tag so we know this is just a preview.
+        ];
 
-        $COMMENTLIST = new COMMENTLIST;
+        $COMMENTLIST = new COMMENTLIST();
 
         $COMMENTLIST->render($data, 'html');
 
 
         // Show the populated comment form.
-        $commendata = array (
+        $commendata = [
             'epobject_id' => get_http_var('epobject_id'),
             'gid' => get_http_var('gid'),
             'body'	=> get_http_var('body'),
-            'return_page' => get_http_var('return_page')
-        );
+            'return_page' => get_http_var('return_page'),
+        ];
         $PAGE->comment_form($commendata);
 
 
         // Show all comments for this epobject.
-        $args = array (
-            'epobject_id' => get_http_var('epobject_id')
-        );
+        $args = [
+            'epobject_id' => get_http_var('epobject_id'),
+        ];
 
         $COMMENTLIST->display('ep', $args);
     }
