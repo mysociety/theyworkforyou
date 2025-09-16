@@ -1,5 +1,7 @@
 <div class="page-mobile-navigation-controller">
-    <button class="js-table-content-button" aria-label="open/close MP's navigation subpages"><?= gettext('Menu') ?></button>
+    <button class="js-table-content-button" aria-label="open/close navigation subpages">
+        <?= sprintf(gettext('%s Menu'), strtoupper($this_page)) ?>
+    </button>   
 </div>
 
 <div class="person-navigation js-table-of-content">
