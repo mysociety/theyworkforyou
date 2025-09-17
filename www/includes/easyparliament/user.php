@@ -658,6 +658,7 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             default:
                 $PAGE->error_message("You need to set permissions for '$action'!");
 
