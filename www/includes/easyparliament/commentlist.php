@@ -79,13 +79,16 @@ class COMMENTLIST {
             $template = 'comments';
         }
 
-        $this->render($data, $format, $template);
-
-        return true;
+        return $this->render($data, $format, $template);
     }
 
     public function render($data, $format = 'html', $template = 'comments') {
+        if ($format == 'none') {
+            return $data;
+        }
+
         include(INCLUDESPATH . "easyparliament/templates/$format/$template.php");
+        return true;
     }
 
     public function _get_data_by_ep($args) {
