@@ -28,6 +28,8 @@ printf(gettext('on <a href="%s">%s</a>'), $debate_day_link, $debate_day_human);
 include '_section_nav.php'; ?>
 </div>
 
+<?php include '_section_comments.php'; ?>
+
 <div class="full-page">
 
 <?php
