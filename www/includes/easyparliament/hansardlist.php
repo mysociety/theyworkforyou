@@ -2533,13 +2533,6 @@ class HANSARDLIST {
 
         }
 
-        // add section level comments
-        if ($itemdata['htype'] == 10 || $itemdata['htype'] == 11) {
-            $comments = new \COMMENTLIST();
-            $comment_data = $comments->display('ep', ['epobject_id' => $this->epobject_id], 'none');
-            $data['section_comments'] = $comment_data['comments'];
-        }
-
         // Put the section and subsection at the top of the rows array.
         if (count($subsectionrow) > 0 &&
             $subsectionrow['gid'] != $sectionrow['gid']) {
