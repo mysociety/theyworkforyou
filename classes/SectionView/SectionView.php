@@ -228,6 +228,12 @@ class SectionView {
                 'gid' => get_http_var('id'), # wrans is LIST->gid?
                 'return_page' => $this_page,
             ];
+        } else {
+            if ($THEUSER->isloggedin() && $THEUSER->is_able_to('addcomment')) {
+                $URL = new \MySociety\TheyWorkForYou\Url('addcomment');
+                $URL->insert(['id' => $args['gid']]);
+                $data['section_annotation_url'] = $URL->generate();
+            }
         }
 
         if (!isset($data['info'])) {
