@@ -200,27 +200,27 @@ msgstr "Cyfrannu"
 msgid "Learn more about TheyWorkForYou"
 msgstr "Ynglŷn â TheyWorkForYou"
 
-#: classes/User.php:196
+#: classes/User.php:201
 msgid "Please enter a password"
 msgstr "Rhowch eich cyfrinair"
 
-#: classes/User.php:199 classes/User.php:215
+#: classes/User.php:204 classes/User.php:220
 msgid "Please enter at least six characters"
 msgstr "Mae angen o leiaf chwe mewnbwn"
 
-#: classes/User.php:203
+#: classes/User.php:208
 msgid "Please enter a password again"
 msgstr "Nodwch eich cyfrinair eto"
 
-#: classes/User.php:207 classes/User.php:219
+#: classes/User.php:212 classes/User.php:224
 msgid "The passwords did not match. Please try again."
 msgstr "Mae’n rhaid i’r cyfrineiriau fod yr un fath. Ceisiwch eto os gwelwch yn dda."
 
-#: classes/User.php:227
+#: classes/User.php:232
 msgid "Sorry, this isn't a valid UK postcode."
 msgstr "Mae'n ddrwg gennym, nid yw hwn yn gôd post dilys"
 
-#: classes/User.php:235
+#: classes/User.php:240
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr "Mae'n ddrwg gennym, ni allwn ddod o hyd i AS ar gyfer y côd post hwnnw."
 
@@ -2859,7 +2859,7 @@ msgid "We use this to show you information about your MP."
 msgstr "Rydym yn defnyddio hyn i ddangos gwybodaeth i chi am eich AS."
 
 #: www/includes/easyparliament/templates/html/user/form.php:29
-#: www/includes/easyparliament/templates/html/user/form.php:192
+#: www/includes/easyparliament/templates/html/user/form.php:204
 msgid "Update details"
 msgstr "Diweddaru manylion"
 
@@ -2900,15 +2900,19 @@ msgstr "Eich gwefan:"
 msgid "Optional and public"
 msgstr "Dewisol a chyhoeddus"
 
-#: www/includes/easyparliament/templates/html/user/form.php:163
+#: www/includes/easyparliament/templates/html/user/form.php:152
+msgid "Organisation:"
+msgstr "Sefydliad"
+
+#: www/includes/easyparliament/templates/html/user/form.php:175
 msgid "Can we send you occasional emails about TheyWorkForYou.com?"
 msgstr "A ydych chi am dderbyn e-byst achlysurol ynglŷn â TheyWorkForYou.com?"
 
-#: www/includes/easyparliament/templates/html/user/form.php:164
+#: www/includes/easyparliament/templates/html/user/form.php:176
 msgid "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?"
 msgstr "A ydych chi am dderbyn ein cylchlythyr am ein gwaith democratiaeth ehangach, gan gynnwys ein hymchwil a'n hymgyrchoedd?"
 
-#: www/includes/easyparliament/templates/html/user/form.php:165
+#: www/includes/easyparliament/templates/html/user/form.php:177
 #: www/includes/easyparliament/templates/html/user/join.php:92
 msgid "Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"
 msgstr "Ydych chi am dderbyn y cylchlythyr misol gan mySociety, gyda newyddion am TheyWorkForYou a'n prosiectau eraill?"
