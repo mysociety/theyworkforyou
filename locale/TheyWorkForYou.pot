@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 09:13+0000\n"
+"POT-Creation-Date: 2025-09-17 10:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,27 +215,27 @@ msgstr ""
 msgid "Learn more about TheyWorkForYou"
 msgstr ""
 
-#: classes/User.php:196
+#: classes/User.php:201
 msgid "Please enter a password"
 msgstr ""
 
-#: classes/User.php:199 classes/User.php:215
+#: classes/User.php:204 classes/User.php:220
 msgid "Please enter at least six characters"
 msgstr ""
 
-#: classes/User.php:203
+#: classes/User.php:208
 msgid "Please enter a password again"
 msgstr ""
 
-#: classes/User.php:207 classes/User.php:219
+#: classes/User.php:212 classes/User.php:224
 msgid "The passwords did not match. Please try again."
 msgstr ""
 
-#: classes/User.php:227
+#: classes/User.php:232
 msgid "Sorry, this isn't a valid UK postcode."
 msgstr ""
 
-#: classes/User.php:235
+#: classes/User.php:240
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr ""
 
@@ -2990,7 +2990,7 @@ msgid "We use this to show you information about your MP."
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/user/form.php:29
-#: www/includes/easyparliament/templates/html/user/form.php:192
+#: www/includes/easyparliament/templates/html/user/form.php:204
 msgid "Update details"
 msgstr ""
 
@@ -3032,17 +3032,21 @@ msgstr ""
 msgid "Optional and public"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/user/form.php:163
+#: www/includes/easyparliament/templates/html/user/form.php:152
+msgid "Organisation:"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/user/form.php:175
 msgid "Can we send you occasional emails about TheyWorkForYou.com?"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/user/form.php:164
+#: www/includes/easyparliament/templates/html/user/form.php:176
 msgid ""
 "Do you want to receive our newsletter about our wider democracy work, "
 "including our research and campaigns?"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/user/form.php:165
+#: www/includes/easyparliament/templates/html/user/form.php:177
 #: www/includes/easyparliament/templates/html/user/join.php:92
 msgid ""
 "Do you want to receive the monthly newsletter from mySociety, with news on "
