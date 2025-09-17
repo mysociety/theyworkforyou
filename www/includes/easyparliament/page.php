@@ -1036,6 +1036,66 @@ class PAGE {
 
     }
 
+
+
+    public function comment_form($commentdata) {
+        // Comment data must at least contain an epobject_id.
+        // Comment text is optional.
+        // 'return_page' is either 'debate' or 'wran'.
+        /* array (
+            'epobject_id' => '7',
+            'gid' => '2003-02-02.h34.2',
+            'body' => 'My comment text is here.',
+            'return_page' => 'debate'
+          )
+        */
+        global $THEUSER, $this_page;
+
+        if (!isset($commentdata['epobject_id']) || !is_numeric($commentdata['epobject_id'])) {
+            $this->error_message("Sorry, we need an epobject id");
+
+            return;
+        }
+
+        if (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('addcomment')) {
+            // The user is logged in but not allowed to post a comment.
+            return;
+        }
+
+        // We can post a comment...
+
+        $ADDURL = new \MySociety\TheyWorkForYou\Url('addcomment');
+        $RULESURL = new \MySociety\TheyWorkForYou\Url('houserules');
+        ?>
+                <h4>Type your annotation</h4>
+                <a name="addcomment"></a>
+
+                <p><small>
+Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting an annotation.
+Annotations should be information that adds value to the contribution, not opinion, rants, or messages to a politician.
+</small></p>
+
+                <form accept-charset="utf-8" action="<?php echo $ADDURL->generate(); ?>" method="post">
+                    <p><textarea name="body" rows="15" cols="55"><?php
+        if (isset($commentdata['body'])) {
+            echo _htmlentities($commentdata['body']);
+        }
+        ?></textarea></p>
+
+                    <p><input type="submit" value="Preview" class="submit">
+<?php
+        if (isset($commentdata['body'])) {
+            echo '<input type="submit" name="submitcomment" value="Post" class="submit">';
+        }
+        ?>
+</p>
+                    <input type="hidden" name="epobject_id" value="<?php echo $commentdata['epobject_id']; ?>">
+                    <input type="hidden" name="gid" value="<?php echo $commentdata['gid']; ?>">
+                    <input type="hidden" name="return_page" value="<?php echo $commentdata['return_page']; ?>">
+                </form>
+<?php
+    }
+
     public function display_commentreport($data) {
         // $data has key value pairs.
         // Called from $COMMENT->display_report().

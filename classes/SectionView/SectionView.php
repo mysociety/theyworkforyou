@@ -29,6 +29,8 @@ class SectionView {
     }
 
     public function display() {
+        global $THEUSER;
+
         if ($year = get_http_var('y')) {
             $data = $this->display_year($year);
             $data['year'] = $year;
@@ -395,6 +397,11 @@ class SectionView {
 
                 # Annotation link
                 if ($this->is_debate_section_page()) {
+                    // Build the 'Add an annotation' link.
+                    if ($THEUSER->isloggedin() && $THEUSER->is_able_to('addcomment')) {
+                        $data['rows'][$i]['annotation_url'] = $row['commentsurl'];
+                    }
+
                     $data['rows'][$i]['commentteaser'] = $this->generate_commentteaser($row);
                 }
 

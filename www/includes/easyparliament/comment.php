@@ -129,8 +129,96 @@ class COMMENT {
     }
 
 
-    public function display($format = 'html', $template = 'comments') {
+    public function create($data) {
+        // Inserts data for this comment into the database.
+        // $data has 'epobject_id' and 'body' elements.
+        // Returns the new comment_id if successful, false otherwise.
 
+        global $THEUSER, $PAGE;
+
+        if ($this->comments_enabled() == false) {
+            $PAGE->error_message("Sorry, the posting of annotations has been temporarily disabled.");
+            return;
+        }
+
+        if (!$THEUSER->is_able_to('addcomment')) {
+            $message = 	[
+                'title' => 'Sorry',
+                'text' => 'You are not allowed to post annotations.',
+            ];
+            $PAGE->error_message($message);
+            return false;
+        }
+
+        if (!is_numeric($data['epobject_id'])) {
+            $message = [
+                'title' => 'Sorry',
+                'text' => "We don't have an epobject id.",
+            ];
+            $PAGE->error_message($message);
+            return false;
+        }
+
+        if ($data['body'] == '') {
+            $message = [
+                'title' => 'Whoops!',
+                'text' => "You haven't entered an annotation!",
+            ];
+            $PAGE->error_message($message);
+            return false;
+        }
+
+        // OK, let's get on with it...
+
+        // Tidy up the HTML tags
+        // (but we don't make URLs into links; only when displaying the comment).
+        $body = filter_user_input($data['body'], 'comment'); // In utility.php
+
+        $posted = date('Y-m-d H:i:s', time());
+
+
+        $q_gid = $this->db->query("select gid from hansard where epobject_id = :epobject_id", [':epobject_id' => $data['epobject_id']]);
+        $data['gid'] = $q_gid->field(0, 'gid');
+
+        $q = $this->db->query(
+            "INSERT INTO comments
+            (user_id, epobject_id, body, posted, visible, original_gid)
+            VALUES
+            (
+            :user_id,
+            :epobject_id,
+            :body,
+            :posted,
+            1,
+            :gid
+            )",
+            [
+                ':user_id' => $THEUSER->user_id(),
+                ':epobject_id' => $data['epobject_id'],
+                ':body' => $body,
+                ':posted' => $posted,
+                ':gid' => $data['gid'],
+            ]
+        );
+
+        if ($q->success()) {
+            // Set the object varibales up.
+            $this->comment_id 	= $q->insert_id();
+            $this->user_id	  	= $THEUSER->user_id();
+            $this->epobject_id 	= $data['epobject_id'];
+            $this->body			= $data['body'];
+            $this->posted		= $posted;
+            $this->visible		= 1;
+
+            return $this->comment_id();
+
+        } else {
+            return false;
+        }
+    }
+
+
+    public function display($format = 'html', $template = 'comments') {
         $data['comments'][0] =  [
             'comment_id'	=> $this->comment_id,
             'user_id'		=> $this->user_id,
