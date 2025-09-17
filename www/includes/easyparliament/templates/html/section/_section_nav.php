@@ -2,6 +2,11 @@
         <div class="full-page__row">
             <div class="full-page__unit">
                 <div class="debate-navigation__pagination">
+                    <?php if (isset($section_annotation_url)) { ?>
+                    <div class="debate-navigation__all-debates">
+                        <a href="<?= $section_annotation_url ?>">Annotate!</a>
+                    </div>
+                    <?php } ?>
                     <?php if (isset($nextprev['prev'])) { ?>
                     <div class="debate-navigation__previous-debate">
                         <a href="<?= $nextprev['prev']['url'] ?>" rel="prev">&laquo; <?= $nextprev['prev']['body'] ?></a>
