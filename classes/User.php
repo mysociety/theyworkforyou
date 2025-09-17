@@ -90,9 +90,6 @@ class User {
 
             $details["url"] = trim(get_http_var("url"));
 
-            $details["can_annotate"] = get_http_var("can_annotate") == "true" ? true : false;
-            $details["organisation"] = trim(get_http_var("organisation"));
-
             $optin_service = get_http_var("optin_service") == "true" ? true : false;
             $optin_stream = get_http_var("optin_stream") == "true" ? true : false;
             $optin_org = get_http_var("optin_org") == "true" ? true : false;
