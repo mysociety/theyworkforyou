@@ -28,7 +28,20 @@ printf(gettext('on <a href="%s">%s</a>'), $debate_day_link, $debate_day_human);
 include '_section_nav.php'; ?>
 </div>
 
-<?php include '_section_comments.php'; ?>
+<?php
+if (isset($show_comment_form)) { ?>
+<div class="full-page">
+    <div class="full-page__row">
+<?php
+    global $PAGE;
+
+    $comments['object']->display('ep', $comments['args']);
+    $PAGE->comment_form($comments['commentdata']);
+?>
+    </div>
+</div>
+<?php } else {
+include '_section_comments.php'; ?>
 
 <div class="full-page">
 
@@ -39,5 +52,6 @@ include '_section_content.php';
 ?>
 
 </div>
+<?php } ?>
 
 <?php include '_section_footer.php'; ?>
