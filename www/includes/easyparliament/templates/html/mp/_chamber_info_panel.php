@@ -41,7 +41,7 @@
                 <?php if ($register_interests) { ?>
                     <li><a href="<?= $member_url ?>/register">Declared financial interests</a>.</li>
                 <?php } ?>
-                <li><a href="#appearances">Recent speeches</a></li>
+                <li><a href="/speeches">Recent speeches and questions</a></li>
                 <?php if ($memberships) { ?>
                     <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
                         <a href="<?= $member_url ?>/signatures"><?= gettext('Signatures') ?></a> (open letters and EDMs)
