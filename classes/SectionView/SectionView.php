@@ -228,6 +228,30 @@ class SectionView {
                 'gid' => get_http_var('id'), # wrans is LIST->gid?
                 'return_page' => $this_page,
             ];
+        } else {
+            if ($THEUSER->isloggedin() && $THEUSER->is_able_to('addcomment')) {
+                if (get_http_var("addcomment")) {
+                    $data['show_comment_form'] = true;
+                    $COMMENTLIST = new \COMMENTLIST();
+                    $args['user_id'] = get_http_var('u');
+                    $args['epobject_id'] = $this->list->epobject_id();
+                    $data['comments']['object'] = $COMMENTLIST;
+                    $data['comments']['args'] = $args;
+                    $data['comments']['commentdata'] = [
+                        'epobject_id' => $this->list->epobject_id(),
+                        'gid' => get_http_var('id'), # wrans is LIST->gid?
+                        'return_page' => $this_page,
+                    ];
+                } else {
+                    $URL = new \MySociety\TheyWorkForYou\Url($this_page);
+                    # do not add an id to PBCs
+                    if ($this->major != 6) {
+                        $URL->insert(['id' => $args['gid']]);
+                    }
+                    $URL->insert(['addcomment' => 1]);
+                    $data['section_annotation_url'] = $URL->generate();
+                }
+            }
         }
 
         if (!isset($data['info'])) {
