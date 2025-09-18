@@ -881,18 +881,18 @@ function person_recent_appearances($member) {
     $MOREURL = new \MySociety\TheyWorkForYou\Url('search');
     $MOREURL->insert(['pid' => $person_id, 'pop' => 1]);
 
-    $out['more_href'] = $MOREURL->generate() . '#n4';
+    $out['more_href'] = $MOREURL->generate();
     $out['more_text'] = sprintf(gettext('More of %s’s recent appearances'), ucfirst($member->full_name()));
 
     // Create separate "More" links for speeches and written questions
     $MORE_SPEECHES_URL = new \MySociety\TheyWorkForYou\Url('search');
     $MORE_SPEECHES_URL->insert(['pid' => $person_id, 'pop' => 1, 's' => "speaker:$person_id -section:wrans"]);
-    $out['more_speeches_href'] = $MORE_SPEECHES_URL->generate() . '#n4';
+    $out['more_speeches_href'] = $MORE_SPEECHES_URL->generate();
     $out['more_speeches_text'] = sprintf(gettext('More of %s\'s speeches and debates'), ucfirst($member->full_name()));
 
     $MORE_QUESTIONS_URL = new \MySociety\TheyWorkForYou\Url('search');
     $MORE_QUESTIONS_URL->insert(['pid' => $person_id, 'pop' => 1, 's' => "speaker:$person_id section:wrans"]);
-    $out['more_questions_href'] = $MORE_QUESTIONS_URL->generate() . '#n4';
+    $out['more_questions_href'] = $MORE_QUESTIONS_URL->generate();
     $out['more_questions_text'] = sprintf(gettext('More of %s\'s written questions'), ucfirst($member->full_name()));
 
     if ($rssurl = $DATA->page_metadata($this_page, 'rss')) {
