@@ -40,6 +40,16 @@ It also spans multiple lines.</field>
 		<field name="visible">1</field>
 		<field name="original_gid" xsi:nil="true" />
 	</row>
+	<row>
+		<field name="comment_id">3</field>
+		<field name="user_id">1</field>
+		<field name="epobject_id">1</field>
+		<field name="body">This is a comment with **bold** and [a link](https://www.theyworkforyou.com).</field>
+		<field name="posted" xsi:nil="true" />
+		<field name="modflagged" xsi:nil="true" />
+		<field name="visible">1</field>
+		<field name="original_gid" xsi:nil="true" />
+	</row>
 	</table_data>
 	<table_data name="consinfo">
 	</table_data>
