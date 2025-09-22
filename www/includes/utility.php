@@ -519,29 +519,20 @@ function filter_user_input($text, $filter_type) {
 }
 
 function prepare_comment_for_display($text) {
-    // Makes any URLs into HTML links.
-    // Turns \n's into <br>
+    $Parsedown = new \Parsedown();
+    $Parsedown->setSafeMode(true);
+    $text = $Parsedown->text($text);
 
-    // Encode HTML entities.
-    // Can't do htmlentities() because it'll turn the few tags we allow into &lt;
-    // Must go before the URL stuff.
-    $text = htmlentities_notags($text);
-
-    $link_length = 60;
+    # parsedown converts plain URLs to links but does not add nofollow and does
+    # not shorten very long ones so do some post conversion replacing
+    $text = preg_replace('(href="[^"]*")', '$0 rel="nofollow"', $text);
     $text = preg_replace_callback(
-        "/(?<!\"|\/)((http(s?):\/\/)|(www\.))([a-zA-Z\d_.+,;:?%~\-\/#='*$!()&[\]]+)([a-zA-Z\d_?%~\-\/#='*$!&])/",
-        function ($matches) use ($link_length) {
-            if (strlen($matches[0]) > $link_length) {
-                return '<a href="' . $matches[0] . '" rel="nofollow">' . substr($matches[0], 0, $link_length) . "...</a>";
-            } else {
-                return '<a href="' . $matches[0] . '" rel="nofollow">' . $matches[0] . '</a>';
-            }
+        '/(rel="nofollow">)(http[^<]{60,})</',
+        function ($matches) {
+            return $matches[1] . substr($matches[2], 0, 60) . '...<';
         },
         $text
     );
-    $text = str_replace('<a href="www', '<a href="https://www', $text);
-    $text = preg_replace("/([\w\.]+)(@)([\w\.\-]+)/i", "<a href=\"mailto:$0\">$0</a>", $text);
-    $text = str_replace("\n", "<br>\n", $text);
 
     return $text;
 }
