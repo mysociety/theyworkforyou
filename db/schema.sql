@@ -442,6 +442,8 @@ CREATE TABLE `users` (
   `api_key` char(24) default NULL,
   `facebook_id` char(24) default NULL,
   `facebook_token` char(200) default NULL,
+  `can_annotate` tinyint(1) NOT NULL default 0,
+  `organisation` varchar(255) default NULL,
   PRIMARY KEY  (`user_id`),
   UNIQUE KEY `api_key` (`api_key`),
   KEY `email` (`email`)
