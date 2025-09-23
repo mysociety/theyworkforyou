@@ -311,6 +311,9 @@ def load_statement_signatures(quiet: bool = False):
 
     df = pd.read_parquet(signatures_url)
 
+    # remove nan person_ids (this is non-parliamentary signatures)
+    df = df[~pd.isna(df["person_id"])]
+
     signature_counts = pd.pivot_table(
         df, values="person_id", index="statement_id", aggfunc="count"
     )
