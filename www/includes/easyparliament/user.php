@@ -308,11 +308,11 @@ class USER {
 
     public function send_email_confirmation_email($details) {
         // A brief check of the facts...
-        if (!is_numeric($this->user_id) ||
-            !isset($details['email']) ||
-            $details['email'] == '' ||
-            !isset($details['token']) ||
-            $details['token'] == '') {
+        if (!is_numeric($this->user_id)
+            || !isset($details['email'])
+            || $details['email'] == ''
+            || !isset($details['token'])
+            || $details['token'] == '') {
             return false;
         }
 
@@ -350,9 +350,9 @@ class USER {
         // passed on to us here.
 
         // A brief check of the facts...
-        if (!is_numeric($this->user_id) ||
-            !isset($details['email']) ||
-            $details['email'] == '') {
+        if (!is_numeric($this->user_id)
+            || !isset($details['email'])
+            || $details['email'] == '') {
             return false;
         }
 
@@ -438,13 +438,13 @@ class USER {
                 // Generates the password ....
                 for ($x = 0; $x < 6;) {
                     $y = rand(1, 1000);
-                    if($y > 350 && $y < 601) {
+                    if ($y > 350 && $y < 601) {
                         $d = chr(rand(48, 57));
                     }
-                    if($y < 351) {
+                    if ($y < 351) {
                         $d = chr(rand(65, 90));
                     }
-                    if($y > 600) {
+                    if ($y > 600) {
                         $d = chr(rand(97, 122));
                     }
                     if ($d != $o && !preg_match('#[O01lI]#', $d)) {
@@ -605,8 +605,11 @@ class USER {
                     return true;
                 }
 
+                // no break
+            case "addterm": // Add Glossary terms.
+
                 switch ($status) {
-                    case "User":            return false;
+                    case "User":            return true;
                     case "Moderator":       return true;
                     case "Administrator":   return true;
                     case "Superuser":       return true;
