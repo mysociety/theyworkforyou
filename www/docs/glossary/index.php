@@ -59,6 +59,12 @@ $PAGE->stripe_start();
 
 $PAGE->glossary_atoz($GLOSSARY);
 
+// Hiding the search box for now...
+/*
+$args['action'] = "help_us_out";
+$PAGE->glossary_search_form($args);
+*/
+
 if ($GLOSSARY->glossary_id != '') {
     // Deal with a single instance in the form of a glossary_id
 

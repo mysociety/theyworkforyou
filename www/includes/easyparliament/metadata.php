@@ -500,7 +500,27 @@ $page =  [
         'parent'		=> 'help_us_out',
         'url'			=> 'glossary/',
     ],
-    'glossary_item' =>  [
+    'glossary_addterm' => [
+        'menu'			=> [
+            'text'			=> 'Add a term',
+            'title'			=> "Add a definition for a term to the glossary",
+        ],
+        'parent'		=> 'help_us_out',
+        'title'			=> 'Add a glossary item',
+        'url'			=> 'addterm/',
+        'session_vars'	=> ['g'],
+    ],
+    'glossary_addlink' => [
+        'menu'			=> [
+            'text'			=> 'Add a link',
+            'title'			=> "Add an external link",
+        ],
+        'parent'		=> 'help_us_out',
+        'title'			=> 'Add a link',
+        'url'			=> 'addlink/',
+        'session_vars'	=> ['g'],
+    ],
+    'glossary_item' => [
         'heading'		=> 'Glossary heading',
         'parent'		=> 'help_us_out',
         'url'			=> 'glossary/',
