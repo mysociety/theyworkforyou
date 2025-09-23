@@ -808,6 +808,84 @@ class PAGE {
 <?php
     }
 
+    public function glossary_search_form($args) {
+        // Search box on the glossary page.
+        global $THEUSER;
+
+        $type = "";
+
+        if (isset($args['blankform']) && $args['blankform'] == 1) {
+            $formcontent = "";
+        }
+        else {
+            $formcontent = _htmlentities(get_http_var('g'));
+        }
+
+        if ($THEUSER->isloggedin()) {
+            $URL = new URL($args['action']);
+            $URL->remove(array('g'));
+        }
+        else {
+            $URL = new URL('userprompt');
+            $URL->remove(array('g'));
+            $type = "<input type=\"hidden\" name=\"type\" value=\"2\">";
+        }
+
+        $add_link = $URL->generate('url');
+        ?>
+        <form action="<?php echo $add_link; ?>" method="get">
+        <?php echo $type; ?>
+        <p>Help make TheyWorkForYou.com better by adding a definition:<br>
+        <label for="g"><input type="text" name="g" value="<?php echo $formcontent; ?>" size="45">
+        <input type="submit" value="Search" class="submit"></label>
+        </p>
+        </form>
+<?php
+    }
+
+    public function glossary_add_definition_form($args) {
+        // Add a definition for a new Glossary term.
+        global $GLOSSARY;
+
+        $URL = new URL($args['action']);
+        $URL->remove(array('g'));
+
+        ?>
+    <div class="glossaryaddbox">
+        <form action="<?php print $URL->generate(); ?>" method="post">
+        <input type="hidden" name="g" value="<?php echo $args['s']; ?>">
+        <input type="hidden" name="return_page" value="glossary">
+        <label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo _htmlentities($GLOSSARY->current_term['body']); ?></textarea></p>
+
+        <p><input type="submit" name="previewterm" value="Preview" class="submit">
+        <input type="submit" name="submitterm" value="Post" class="submit"></p></label>
+        <p><small>Only &lt;b&gt; and &lt;i&gt; tags are allowed. URLs and email addresses will automatically be turned into links.</small></p>
+    </div>
+<?php
+    }
+
+    public function glossary_add_link_form($args) {
+        // Add an external link to the glossary.
+        global $GLOSSARY;
+
+        $URL = new URL('glossary_addlink');
+        $URL->remove(array('g'));
+        ?>
+    <h4>All checks fine and dandy!</h4><p>Just so you know, we found <strong><?php echo $args['count']; ?></strong> occurences of <?php echo $GLOSSARY->query; ?> in Hansard</p>
+    <p>Please add your link below:</p>
+    <h4>Add an external link for <em><?php echo $args['s']; ?></em></h4>
+    <div class="glossaryaddbox">
+        <form action="<?php print $URL->generate(); ?>" method="post">
+        <input type="hidden" name="g" value="<?php echo $args['s']; ?>">
+        <input type="hidden" name="return_page" value="glossary">
+        <label for="definition"><input type="text" name="definition" id="definition">
+        <p><!-- input type="submit" name="previewterm" value="Preview" class="submit" /-->
+        <input type="submit" name="submitterm" value="Post" class="submit"></p></label>
+        <p><small>Only &lt;b&gt; and &lt;i&gt; tags are allowed. URLs and email addresses will automatically be turned into links.</small></p>
+    </div>
+<?php
+    }
+
     public function glossary_atoz(&$GLOSSARY) {
         // Print out a nice list of lettered links to glossary pages
 
@@ -923,6 +1001,22 @@ class PAGE {
 <?php
     }
 
+    public function glossary_addterm_link() {
+        // print a link to the "add glossary term" page
+        $URL = new URL('glossary_addterm');
+        $URL->remove(array("g"));
+        $glossary_addterm_link = $URL->generate('url');
+        print "<small><a href=\"" . $glossary_addterm_link . "\">Add a term to the glossary</a></small>";
+    }
+
+    public function glossary_addlink_link() {
+        // print a link to the "add external link" page
+        $URL = new URL('glossary_addlink');
+        $URL->remove(array("g"));
+        $glossary_addlink_link = $URL->generate('url');
+        print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
+    }
+
     public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
         $URL = new \MySociety\TheyWorkForYou\Url('glossary');
@@ -934,6 +1028,8 @@ class PAGE {
     public function glossary_links() {
         print "<div>";
         $this->glossary_link();
+        print "<br>";
+        $this->glossary_addterm_link();
         print "</div>";
     }
 

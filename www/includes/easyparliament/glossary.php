@@ -188,6 +188,11 @@ class GLOSSARY {
 
         global $THEUSER;
 
+        if (!$THEUSER->is_able_to('addterm')) {
+            error ("Sorry, you are not allowed to add Glossary terms.");
+            return false;
+        }
+
         if ($data['title'] == '') {
             error("Sorry, you can't define a term without a title");
             return false;
