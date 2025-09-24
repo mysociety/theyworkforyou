@@ -495,9 +495,9 @@ $page =  [
     'glossary' =>  [
         'heading'		=> 'Glossary',
         'parent'		=> 'help_us_out',
-        'url'			=> 'glossary/'
-    ),
-    'glossary_addterm' => array (
+        'url'			=> 'glossary/',
+    ],
+    'glossary_addterm' => [
         'menu'			=> array (
             'text'			=> 'Add a term',
             'title'			=> "Add a definition for a term to the glossary"
@@ -506,8 +506,8 @@ $page =  [
         'title'			=> 'Add a glossary item',
         'url'			=> 'addterm/',
         'session_vars'	=> array ('g')
-    ),
-    'glossary_addlink' => array (
+    ],
+    'glossary_addlink' => [
         'menu'			=> array (
             'text'			=> 'Add a link',
             'title'			=> "Add an external link"
@@ -516,8 +516,8 @@ $page =  [
         'title'			=> 'Add a link',
         'url'			=> 'addlink/',
         'session_vars'	=> array ('g')
-    ),
-    'glossary_item' => array (
+    ],
+    'glossary_item' => [
         'heading'		=> 'Glossary heading',
         'parent'		=> 'help_us_out',
         'url'			=> 'glossary/',

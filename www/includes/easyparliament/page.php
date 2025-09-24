@@ -822,11 +822,11 @@ class PAGE {
         }
 
         if ($THEUSER->isloggedin()) {
-            $URL = new URL($args['action']);
+            $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
             $URL->remove(array('g'));
         }
         else {
-            $URL = new URL('userprompt');
+            $URL = new \MySociety\TheyWorkForYou\Url('userprompt');
             $URL->remove(array('g'));
             $type = "<input type=\"hidden\" name=\"type\" value=\"2\">";
         }
@@ -847,7 +847,7 @@ class PAGE {
         // Add a definition for a new Glossary term.
         global $GLOSSARY;
 
-        $URL = new URL($args['action']);
+        $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
         $URL->remove(array('g'));
 
         ?>
@@ -855,7 +855,7 @@ class PAGE {
         <form action="<?php print $URL->generate(); ?>" method="post">
         <input type="hidden" name="g" value="<?php echo $args['s']; ?>">
         <input type="hidden" name="return_page" value="glossary">
-        <label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo _htmlentities($GLOSSARY->current_term['body']); ?></textarea></p>
+        <label for="definition"><p><textarea name="definition" id="definition" rows="15" cols="55"><?php echo $GLOSSARY->current_term ? _htmlentities($GLOSSARY->current_term['body']) : ''; ?></textarea></p>
 
         <p><input type="submit" name="previewterm" value="Preview" class="submit">
         <input type="submit" name="submitterm" value="Post" class="submit"></p></label>
@@ -868,7 +868,7 @@ class PAGE {
         // Add an external link to the glossary.
         global $GLOSSARY;
 
-        $URL = new URL('glossary_addlink');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
         $URL->remove(array('g'));
         ?>
     <h4>All checks fine and dandy!</h4><p>Just so you know, we found <strong><?php echo $args['count']; ?></strong> occurences of <?php echo $GLOSSARY->query; ?> in Hansard</p>
@@ -1003,7 +1003,7 @@ class PAGE {
 
     public function glossary_addterm_link() {
         // print a link to the "add glossary term" page
-        $URL = new URL('glossary_addterm');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
         $URL->remove(array("g"));
         $glossary_addterm_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addterm_link . "\">Add a term to the glossary</a></small>";
@@ -1011,7 +1011,7 @@ class PAGE {
 
     public function glossary_addlink_link() {
         // print a link to the "add external link" page
-        $URL = new URL('glossary_addlink');
+        $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
         $URL->remove(array("g"));
         $glossary_addlink_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
