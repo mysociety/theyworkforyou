@@ -3,7 +3,7 @@
 // The user comes to this page after clicking an 'add a comment' link
 // in hansard, if they aren't logged in.
 
-// This page will expect a 'ret' value with the URL of the page
+// This page will expect a 'ret' value with the \MySociety\TheyWorkForYou\Url of the page
 // the user should return to after logging in.
 
 // And a 'type' value of 1 to indicate the user was going to enter a comment.
