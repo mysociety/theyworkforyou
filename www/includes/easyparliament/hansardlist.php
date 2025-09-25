@@ -2266,6 +2266,10 @@ class HANSARDLIST {
                             WHERE	c.epobject_id = :epobject_id
                             AND		c.user_id = u.user_id
                             AND		c.visible = 1
+                            AND (
+                                c.posted < '2025-01-01' OR
+                                u.can_annotate = 1
+                            )
                             ORDER BY c.posted ASC
                             LIMIT	1",
                     [':epobject_id' => $item_data['epobject_id']]
@@ -2310,7 +2314,10 @@ class HANSARDLIST {
             $where = "comments.epobject_id = hansard.epobject_id
                     AND subsection_id = :epobject_id
                     AND comments.user_id = users.user_id
-                    AND users.can_annotate = 1";
+                    AND (
+                        comments.posted < '2025-01-01' OR
+                        users.can_annotate = 1
+                    )";
 
             if ($item_data['htype'] == '10') {
                 // Section - get a count of comments within this section that
@@ -2321,9 +2328,12 @@ class HANSARDLIST {
         } else {
             // Just getting a count of the comments on this item.
             $from = "comments, users";
-            $where = 'epobject_id = :epobject_id
+            $where = "epobject_id = :epobject_id
                     AND comments.user_id = users.user_id
-                    AND users.can_annotate = 1';
+                    AND (
+                        comments.posted < '2025-01-01' OR
+                        users.can_annotate = 1
+                    )";
         }
 
         $q = $this->db->query(

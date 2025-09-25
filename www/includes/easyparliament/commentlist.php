@@ -108,7 +108,7 @@ class COMMENTLIST {
             ],
             'where' =>  [
                 'comments.epobject_id=' => $args['epobject_id'],
-                #'visible=' => '1'
+                'visible=' => '1'
             ],
             'order' => 'posted ASC',
         ];
@@ -531,6 +531,11 @@ class COMMENTLIST {
             $i++;
         }
         $where = implode(" AND ", $wherearr2);
+
+        # limit to either old comments or comments from people who have annotate flag
+        if (isset($amount['user']) && $amount['user'] == true) {
+            $where .= " AND (users.can_annotate = 1 OR comments.posted < '2025-01-01 00:00:00')";
+        }
 
         if ($order != '') {
             $order = "ORDER BY $order";
