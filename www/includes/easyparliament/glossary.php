@@ -189,7 +189,7 @@ class GLOSSARY {
         global $THEUSER;
 
         if (!$THEUSER->is_able_to('addterm')) {
-            error ("Sorry, you are not allowed to add Glossary terms.");
+            error("Sorry, you are not allowed to add Glossary terms.");
             return false;
         }
 

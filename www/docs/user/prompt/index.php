@@ -24,7 +24,7 @@ if ($type == 2) {
     $message2 = "You'll be able to add your glossary item straight after.";
 
     $URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
-    $URL->insert(array('g' => get_http_var('g')));
+    $URL->insert(['g' => get_http_var('g')]);
     $glossary_returl = $URL->generate();
     $anchor = '';
 

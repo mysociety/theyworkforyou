@@ -603,6 +603,7 @@ class USER {
                     default: /* Viewer */   return false;
                 }
 
+                // no break
             case "deletecomment": // Delete comments.
 
                 switch ($status) {
