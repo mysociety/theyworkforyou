@@ -498,24 +498,24 @@ $page =  [
         'url'			=> 'glossary/',
     ],
     'glossary_addterm' => [
-        'menu'			=> array (
+        'menu'			=> [
             'text'			=> 'Add a term',
-            'title'			=> "Add a definition for a term to the glossary"
-        ),
+            'title'			=> "Add a definition for a term to the glossary",
+        ],
         'parent'		=> 'help_us_out',
         'title'			=> 'Add a glossary item',
         'url'			=> 'addterm/',
-        'session_vars'	=> array ('g')
+        'session_vars'	=> ['g'],
     ],
     'glossary_addlink' => [
-        'menu'			=> array (
+        'menu'			=> [
             'text'			=> 'Add a link',
-            'title'			=> "Add an external link"
-        ),
+            'title'			=> "Add an external link",
+        ],
         'parent'		=> 'help_us_out',
         'title'			=> 'Add a link',
         'url'			=> 'addlink/',
-        'session_vars'	=> array ('g')
+        'session_vars'	=> ['g'],
     ],
     'glossary_item' => [
         'heading'		=> 'Glossary heading',

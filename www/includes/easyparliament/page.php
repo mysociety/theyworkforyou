@@ -816,18 +816,16 @@ class PAGE {
 
         if (isset($args['blankform']) && $args['blankform'] == 1) {
             $formcontent = "";
-        }
-        else {
+        } else {
             $formcontent = _htmlentities(get_http_var('g'));
         }
 
         if ($THEUSER->isloggedin()) {
             $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
-            $URL->remove(array('g'));
-        }
-        else {
+            $URL->remove(['g']);
+        } else {
             $URL = new \MySociety\TheyWorkForYou\Url('userprompt');
-            $URL->remove(array('g'));
+            $URL->remove(['g']);
             $type = "<input type=\"hidden\" name=\"type\" value=\"2\">";
         }
 
@@ -848,7 +846,7 @@ class PAGE {
         global $GLOSSARY;
 
         $URL = new \MySociety\TheyWorkForYou\Url($args['action']);
-        $URL->remove(array('g'));
+        $URL->remove(['g']);
 
         ?>
     <div class="glossaryaddbox">
@@ -869,7 +867,7 @@ class PAGE {
         global $GLOSSARY;
 
         $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
-        $URL->remove(array('g'));
+        $URL->remove(['g']);
         ?>
     <h4>All checks fine and dandy!</h4><p>Just so you know, we found <strong><?php echo $args['count']; ?></strong> occurences of <?php echo $GLOSSARY->query; ?> in Hansard</p>
     <p>Please add your link below:</p>
@@ -1004,7 +1002,7 @@ class PAGE {
     public function glossary_addterm_link() {
         // print a link to the "add glossary term" page
         $URL = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
-        $URL->remove(array("g"));
+        $URL->remove(['g']);
         $glossary_addterm_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addterm_link . "\">Add a term to the glossary</a></small>";
     }
@@ -1012,7 +1010,7 @@ class PAGE {
     public function glossary_addlink_link() {
         // print a link to the "add external link" page
         $URL = new \MySociety\TheyWorkForYou\Url('glossary_addlink');
-        $URL->remove(array("g"));
+        $URL->remove(['g']);
         $glossary_addlink_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_addlink_link . "\">Add an external link</a></small>";
     }
@@ -1020,7 +1018,7 @@ class PAGE {
     public function glossary_link() {
         // link to the glossary with no epobject_id - i.e. show all entries
         $URL = new \MySociety\TheyWorkForYou\Url('glossary');
-        $URL->remove(["g"]);
+        $URL->remove(['g']);
         $glossary_link = $URL->generate('url');
         print "<small><a href=\"" . $glossary_link . "\">Browse the glossary</a></small>";
     }
