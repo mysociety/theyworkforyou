@@ -150,6 +150,34 @@ It also spans multiple lines.", $comment->body());
         $this->assertStringNotContainsString('This is a...', $page);
     }
 
+    public function testOldCommentsShown() {
+        global $THEUSER;
+
+        $THEUSER = new THEUSER();
+
+        $THEUSER->init(1);
+
+        $comment = new COMMENT();
+
+        $data = [
+            'epobject_id' => 603,
+            'body' => "This is a test comment that should be displayed as it is old",
+            'gid' => '',
+        ];
+
+        $commentId = $comment->create($data);
+
+        self::$db->query("UPDATE comments SET user_id = 2 WHERE comment_id = $commentId");
+
+        $page = $this->fetch_page([ 'type' => 'debates', 'id' => '2014-01-01b.1.2' ]);
+        $this->assertStringNotContainsString('This is a...', $page);
+
+        self::$db->query("UPDATE comments SET posted = '2024-10-09 12:42:11' WHERE comment_id = $commentId");
+
+        $page = $this->fetch_page([ 'type' => 'debates', 'id' => '2014-01-01b.1.2' ]);
+        $this->assertStringContainsString('This is a...', $page);
+    }
+
     public function testHTMLCleaningOfAngleBrackets() {
         $text = 'Is 2 < 3?';
 
