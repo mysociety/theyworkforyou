@@ -599,6 +599,21 @@ class USER {
             // You can add more below as they're needed...
             // But keep them in alphabetical order!
 
+            // no break
+            case "addcomment":  // Post comments.
+                if ($this->can_annotate) {
+                    return true;
+                }
+
+                switch ($status) {
+                    case "User":            return false;
+                    case "Moderator":       return true;
+                    case "Administrator":   return true;
+                    case "Superuser":       return true;
+                    default: /* Viewer */   return false;
+                }
+
+                // no break
             case "deletecomment": // Delete comments.
 
                 switch ($status) {

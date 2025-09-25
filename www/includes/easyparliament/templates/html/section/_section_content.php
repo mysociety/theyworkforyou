@@ -282,6 +282,9 @@ foreach($data['rows'] as $speech) { ?>
                     <span class="link-to-speech__label"><?= $link_to ?></span>
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= gettext('In context') ?></a>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
+                    <?php if (isset($speech['annotation_url'])) { ?>
+                    <a href="<?= $speech['annotation_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Annotate!') ?></a>
+                    <?php } ?>
                 </li>
                 <?php
     }
@@ -372,10 +375,10 @@ if ($section && $individual_item) { ?>
             <div class="full-page__row">
                 <div class="full-page__unit">
                 <?php
-                # XXX
-                global $PAGE;
+                    global $PAGE;
+
     $comments['object']->display('ep', $comments['args']);
-    # XXX COMMENT SIDEBAR SHOULD GO HERE IF LOGGED IN
+    $PAGE->comment_form($comments['commentdata']);
     ?>
                 </div>
             </div>
