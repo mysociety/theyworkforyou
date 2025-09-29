@@ -189,18 +189,18 @@ class GLOSSARY {
         global $THEUSER;
 
         if (!$THEUSER->is_able_to('addterm')) {
-            error("Sorry, you are not allowed to add Glossary terms.");
-            return false;
+            $data['error'] = "Sorry, you are not allowed to add Glossary terms.";
+            return $data;
         }
 
         if ($data['title'] == '') {
-            error("Sorry, you can't define a term without a title");
-            return false;
+            $data['error'] = "Sorry, you can't define a term without a title";
+            return $data;
         }
 
         if ($data['body'] == '') {
-            error("You haven't entered a definition!");
-            return false;
+            $data['error'] = "You haven't entered a definition!";
+            return $data;
         }
 
         if (is_numeric($THEUSER->user_id()) && !$THEUSER->status == 'Superuser') {
