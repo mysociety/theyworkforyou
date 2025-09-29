@@ -299,6 +299,8 @@ class GLOSSARY {
                     $link_url = $URL->generate('url');
                 }
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
+                # strip markdown
+                $title = preg_replace("/[*~_]/", "", $title);
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\" class=\"glossary\">\\1</a>";
             }
         }

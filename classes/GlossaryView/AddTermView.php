@@ -31,8 +31,11 @@ class AddTermView {
         } elseif ((get_http_var('g') != '') && (get_http_var('previewterm') == '')) {
             $data = $this->check_glossary_entry($data);
         } elseif (get_http_var('previewterm') != '') {
-            $data['definition'] = get_http_var('definition');
             $data['contributing_user'] = $THEUSER->firstname . " " . $THEUSER->lastname;
+            $data['definition_raw'] = get_http_var('definition');
+            $Parsedown = new \Parsedown();
+            $Parsedown->setSafeMode(true);
+            $data['definition'] = $Parsedown->text($data['definition_raw']);
             $data['preview'] = 1;
         } else {
             $data = $this->add_example_urls($data);
@@ -84,11 +87,11 @@ class AddTermView {
 
     protected function check_glossary_entry(array $data): array {
         $data['appearances'] = $this->get_appearance_count($data['term']);
-        $data['definition'] = '';
+        $data['definition_raw'] = '';
         $data = $this->check_term_is_useful($data);
 
         if (!isset($data['error'])) {
-            $data['definition'] = '';
+            $data['definition_raw'] = '';
             $list = new \HANSARDLIST();
             $examples = $list->display('search', [
                 'num' => 5,

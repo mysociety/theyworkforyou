@@ -21,7 +21,12 @@ class AtoZView {
         if ($glossary->current_term) {
             $data['notitle'] = 1;
             $data['title'] = $glossary->current_term['title'];
-            $data['definition'] = $glossary->current_term['body'];
+
+            $Parsedown = new \Parsedown();
+            $Parsedown->setSafeMode(true);
+            $text = $Parsedown->text($glossary->current_term['body']);
+            $data['definition'] = $text;
+
             $data['contributing_user'] = $glossary->current_term['user_id'] ? $glossary->current_term['firstname'] . " " . $glossary->current_term['lastname'] : '';
             $az = strtoupper($glossary->current_term['title'][0]);
 
