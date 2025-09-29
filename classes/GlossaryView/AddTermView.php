@@ -8,6 +8,7 @@ class AddTermView {
     public $glossary;
 
     public function display(): array {
+        global $THEUSER;
         if (!$this->has_access()) {
             return ['error' => _("You don't have permission to manage the glossary")];
         }
@@ -31,6 +32,7 @@ class AddTermView {
             $data = $this->check_glossary_entry($data);
         } elseif (get_http_var('previewterm') != '') {
             $data['definition'] = get_http_var('definition');
+            $data['contributing_user'] = $THEUSER->firstname . " " . $THEUSER->lastname;
             $data['preview'] = 1;
         } else {
             $data = $this->add_example_urls($data);
