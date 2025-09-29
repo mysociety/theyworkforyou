@@ -2511,6 +2511,7 @@ class HANSARDLIST {
                     throw new RedirectException($data['subrows'][0]['gid']);
                 }
             }
+
         } elseif ($itemdata['htype'] == '11') {
             // This item is a subsection, so we're displaying everything within it.
 
@@ -2530,6 +2531,13 @@ class HANSARDLIST {
 
             $data['rows'][] = $itemdata;
 
+        }
+
+        // add section level comments
+        if ($itemdata['htype'] == 10 || $itemdata['htype'] == 11) {
+            $comments = new \COMMENTLIST();
+            $comment_data = $comments->display('ep', ['epobject_id' => $this->epobject_id], 'none');
+            $data['section_comments'] = $comment_data['comments'];
         }
 
         // Put the section and subsection at the top of the rows array.
