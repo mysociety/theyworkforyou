@@ -68,6 +68,8 @@ class User {
         $data["status"] = $user->status();
         $data["facebook_id"] = $user->facebook_id();
         $data['facebook_user'] = $user->facebook_user();
+        $data['can_annotate'] = $user->can_annotate();
+        $data['organisation'] = $user->organisation();
         return $data;
     }
 
@@ -116,6 +118,9 @@ class User {
         if ($this_page == "otheruseredit") {
             $details["user_id"] = trim(get_http_var("u"));
             $details["status"] = trim(get_http_var("status"));
+            $details["can_annotate"] = get_http_var("can_annotate") == "true" ? true : false;
+            $details["organisation"] = trim(get_http_var("organisation"));
+
 
             if (get_http_var("deleted") != "") {
                 $deleted = get_http_var("deleted");
