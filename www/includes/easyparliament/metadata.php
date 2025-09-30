@@ -507,6 +507,16 @@ $page =  [
         'url'			=> 'addterm/',
         'session_vars'	=> ['g'],
     ],
+    'glossary_editterm' => [
+        'menu'			=> [
+            'text'			=> 'Edit a term',
+            'title'			=> "Edit definition for a term to the glossary",
+        ],
+        'parent'		=> 'help_us_out',
+        'title'			=> 'Edit a glossary item',
+        'url'			=> 'editterm/',
+        'session_vars'	=> ['id'],
+    ],
     'glossary_addlink' => [
         'menu'			=> [
             'text'			=> 'Add a link',

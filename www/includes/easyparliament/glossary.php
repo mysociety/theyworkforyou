@@ -241,6 +241,43 @@ class GLOSSARY {
         }
     }
 
+    public function update(&$data) {
+        global $THEUSER;
+
+        if (!$THEUSER->is_able_to('addterm')) {
+            $data['error'] = "Sorry, you are not allowed to add Glossary terms.";
+            return $data;
+        }
+
+        if ($data['body'] == '') {
+            $data['error'] = "You haven't entered a definition!";
+            return $data;
+        }
+
+        if ($data['glossary_id'] == '') {
+            $data['error'] = "You haven't entered specified an entry!";
+            return $data;
+        }
+
+        $q = $this->db->query(
+            "UPDATE glossary
+            SET body = :body
+            WHERE glossary_id = :id",
+            [
+                ':id' => $data['glossary_id'],
+                ':body' => $data['body'],
+            ]
+        );
+
+        if ($q->success()) {
+            $data['success'] = true;
+        } else {
+            $data['error'] = "There was a problem updating the entry";
+        }
+
+        return $data;
+    }
+
     public function delete($glossary_id) {
         $q = $this->db->query("DELETE from glossary where glossary_id=$glossary_id LIMIT 1;");
         // if that worked, we need to update the editqueue,
