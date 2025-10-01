@@ -27,6 +27,12 @@ class AtoZView extends BaseView {
             $az = strtoupper($glossary->current_term['title'][0]);
 
             $data['nextprev'] = $this->get_next_prev($glossary);
+
+            if ($this->has_edit_access()) {
+                $url = new \MySociety\TheyWorkForYou\Url('glossary_editterm');
+                $url->insert(['id' => $glossary->glossary_id]);
+                $data['edit_url'] = $url->generate('url');
+            }
         } else {
             $data['letter'] = $az;
 

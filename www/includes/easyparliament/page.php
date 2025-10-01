@@ -949,7 +949,10 @@ class PAGE {
             $URL = new \MySociety\TheyWorkForYou\Url('admin_glossary');
             $URL->insert(["delete_confirm" => $term['glossary_id']]);
             $delete_url = $URL->generate();
-            $admin_links = "<br><small><a href=\"" . $delete_url . "\">delete</a></small>";
+            $URL = new \MySociety\TheyWorkForYou\Url('glossary_editterm');
+            $URL->insert(["id" => $term['glossary_id']]);
+            $edit_url = $URL->generate();
+            $admin_links = "<br><small><a href=\"" . $delete_url . "\">delete</a> : <a href=\"" . $edit_url . "\">edit</a></small>";
         } else {
             $admin_links = "";
         }
