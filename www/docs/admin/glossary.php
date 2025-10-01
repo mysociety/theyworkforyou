@@ -42,11 +42,80 @@ if (get_http_var('approve')) {
     $delete_id = get_http_var('delete_confirm');
     // Delete the existing glossary entry
     $GLOSSARY->delete($delete_id);
+} elseif (get_http_var('bulk_download')) {
+    $data = [];
+    if (isset($GLOSSARY->terms)) {
+        foreach ($GLOSSARY->terms as $term) {
+            $data[] = [
+                'glossary_id' => $term['glossary_id'],
+                'title' => $term['title'],
+                'body' => $term['body'],
+            ];
+        }
+    }
+
+    header('Content-Type: application/json');
+    print(json_encode($data));
+    exit();
+} elseif (get_http_var('bulk_upload')) {
+    $json = get_http_var('glossary_entries');
+    $data = json_decode($json);
+
+    $upload_success = true;
+    $upload_errors = [];
+    foreach ($data as $entry) {
+        if (!isset($GLOSSARY->terms[$entry->glossary_id])) {
+            $upload_errors[] = ['title' => $entry->title, 'error' => 'No entry with matching id'];
+        } else {
+            $update = ['glossary_id' => $entry->glossary_id, 'body' => $entry->body];
+            $update = $GLOSSARY->update($update);
+            if (isset($update['error'])) {
+                $upload_errors[] = ['title' => $entry->title, 'error' => $update['error']];
+            }
+        }
+    }
+    if ($upload_errors) {
+        $upload_success = false;
+    }
 }
 
 $PAGE->page_start();
 
 $PAGE->stripe_start();
+
+if (get_http_var('bulk_upload')) {
+    if ($upload_success) {
+        print('<p>Upload successful!</p>');
+    } else {
+        print('<h4>There were errors in the upload</h4>');
+        print('<ul>');
+        foreach ($upload_errors as $error) {
+            print('<li>' . $error['title'] . ': ' . $error['error'] . '</li>');
+        }
+        print('</ul>');
+    }
+}
+$URL = new \MySociety\TheyWorkForYou\Url('admin_glossary');
+$URL->insert(["bulk_download" => 1]);
+?>
+<h4>Bulk update</h4>
+<p>
+<form method="POST">
+<input type="hidden" name="bulk_upload" value="1">
+<label for="glossary_entries">JSON (existing entries only)</label>
+<textarea name="glossary_entries" id="glossary_entries"><?php if (isset($upload_success) && !$upload_success) {
+    print($json);
+} ?></textarea>
+<input type="submit" value="Update">
+</form>
+</p>
+
+<p>
+<a href="<?php echo $URL->generate('url') ?>">Download all entries as JSON</a>
+</p>
+
+<h4>Entries</h4>
+<?php
 
 // Display the results
 if (isset($GLOSSARY->terms)) {
