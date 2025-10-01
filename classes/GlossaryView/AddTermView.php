@@ -4,12 +4,12 @@
 
 namespace MySociety\TheyWorkForYou\GlossaryView;
 
-class AddTermView {
+class AddTermView extends BaseView {
     public $glossary;
 
     public function display(): array {
         global $THEUSER;
-        if (!$this->has_access()) {
+        if (!$this->has_edit_access()) {
             return ['error' => _("You don't have permission to manage the glossary")];
         }
 
@@ -33,9 +33,7 @@ class AddTermView {
         } elseif (get_http_var('previewterm') != '') {
             $data['contributing_user'] = $THEUSER->firstname . " " . $THEUSER->lastname;
             $data['definition_raw'] = get_http_var('definition');
-            $Parsedown = new \Parsedown();
-            $Parsedown->setSafeMode(true);
-            $data['definition'] = $Parsedown->text($data['definition_raw']);
+            $data['definition'] = $this->format_body($data['definition_raw']);
             $data['preview'] = 1;
         } else {
             $data = $this->add_example_urls($data);
@@ -45,16 +43,6 @@ class AddTermView {
         $data['form_url'] = $URL->generate();
 
         return $data;
-    }
-
-    protected function has_access(): bool {
-        global $THEUSER;
-
-        if (!$THEUSER->is_able_to('addterm')) {
-            return false;
-        }
-
-        return true;
     }
 
     protected function has_stop_words(): bool {
