@@ -62,6 +62,12 @@
                         <span class="prev"><a href="<?= $nextprev['prev']['url'] ?>" title="Previous term" class="linkbutton">« <?= $nextprev['prev']['body'] ?></a></span>
                     </p>
                 <?php } ?>
+
+                <?php if (isset($add_url)) { ?>
+                    <p>
+                        <a href="<?= $add_url ?>">Add entry</a>
+                    </p>
+                <?php } ?>
                 </div>
             </div>
         </div>
