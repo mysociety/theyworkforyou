@@ -188,6 +188,11 @@ class GLOSSARY {
 
         global $THEUSER;
 
+        if (!$THEUSER->is_able_to('addterm')) {
+            error("Sorry, you are not allowed to add Glossary terms.");
+            return false;
+        }
+
         if ($data['title'] == '') {
             error("Sorry, you can't define a term without a title");
             return false;
@@ -198,20 +203,20 @@ class GLOSSARY {
             return false;
         }
 
-        if (is_numeric($THEUSER->user_id())) {
+        if (is_numeric($THEUSER->user_id()) && !$THEUSER->status == 'Superuser') {
             // Flood check - make sure the user hasn't just posted a term recently.
             // To help prevent accidental duplicates, among other nasty things.
 
             $flood_time_limit = 20; // How many seconds until a user can post again?
 
-            $q = $this->db->query("SELECT glossary_id
+            $q = $this->db->query("SELECT glossary_id, submitted, submitted + 0 as s, NOW() as n, NOW() - $flood_time_limit as f
                             FROM	editqueue
                             WHERE	user_id = '" . $THEUSER->user_id() . "'
                             AND		submitted + 0 > NOW() - $flood_time_limit");
 
             if ($q->rows() > 0) {
-                error("Sorry, we limit people to posting one term per $flood_time_limit seconds to help prevent duplicate postings. Please go back and try again, thanks.");
-                return false;
+                $data['error'] = "Sorry, we limit people to posting one term per $flood_time_limit seconds to help prevent duplicate postings. Please go back and try again, thanks.";
+                return $data;
             }
         }
 
@@ -294,6 +299,8 @@ class GLOSSARY {
                     $link_url = $URL->generate('url');
                 }
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
+                # strip markdown
+                $title = preg_replace("/[*~_]/", "", $title);
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\" class=\"glossary\">\\1</a>";
             }
         }
