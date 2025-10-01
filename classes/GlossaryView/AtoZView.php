@@ -2,7 +2,7 @@
 
 namespace MySociety\TheyWorkForYou\GlossaryView;
 
-class AtoZView {
+class AtoZView extends BaseView {
     public function display(): array {
         $data = [];
 
@@ -21,11 +21,7 @@ class AtoZView {
         if ($glossary->current_term) {
             $data['notitle'] = 1;
             $data['title'] = $glossary->current_term['title'];
-
-            $Parsedown = new \Parsedown();
-            $Parsedown->setSafeMode(true);
-            $text = $Parsedown->text($glossary->current_term['body']);
-            $data['definition'] = $text;
+            $data['definition'] = $this->format_body($glossary->current_term['body']);
 
             $data['contributing_user'] = $glossary->current_term['user_id'] ? $glossary->current_term['firstname'] . " " . $glossary->current_term['lastname'] : '';
             $az = strtoupper($glossary->current_term['title'][0]);
