@@ -533,9 +533,6 @@ function prepare_comment_for_display($text) {
         },
         $text
     );
-    // this makes sure we turn encoded characters into entities as parsedown
-    // doesn't do this
-    $text = htmlentities_notags($text);
 
     return $text;
 }
