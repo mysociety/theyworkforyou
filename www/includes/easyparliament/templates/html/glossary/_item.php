@@ -6,6 +6,6 @@
 </p>
 <?php if ($contributing_user) { ?>
   <p>
-  <small>contrtibuted by user <?= $contributing_user ?></small>
+  <small>contributed by user <?= $contributing_user ?></small>
   </p>
 <?php } ?>
