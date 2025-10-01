@@ -1072,7 +1072,8 @@ class PAGE {
 
                 <p><small>
 Please read our <a href="<?php echo $RULESURL->generate(); ?>"><strong>House Rules</strong></a> before posting an annotation.
-Annotations should be information that adds value to the contribution, not opinion, rants, or messages to a politician.
+Annotations should be information that adds value to the contribution, not opinion, rants, or messages to a politician. You
+can use basic Markdown to format comments.
 </small></p>
 
                 <form accept-charset="utf-8" action="<?php echo $ADDURL->generate(); ?>" method="post">
