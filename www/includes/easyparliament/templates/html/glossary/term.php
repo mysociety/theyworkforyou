@@ -23,6 +23,12 @@
                         <a href="<?= $add_url ?>">Add entry</a>
                     </p>
                 <?php } ?>
+
+                <?php if (isset($edit_url)) { ?>
+                    <p>
+                        <a href="<?= $edit_url ?>">Edit entry</a>
+                    </p>
+                <?php } ?>
             </div>
         </div>
     </div>
