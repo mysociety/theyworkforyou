@@ -274,6 +274,9 @@ foreach($data['rows'] as $speech) { ?>
                 <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) { ?>
                 <li class="link-to-speech">
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= $in_context ?></a>
+                    <?php if ($speech['htype'] == '14' && isset($speech['division']['analysis_url'])) { ?>
+                        <a href="<?= $speech['division']['analysis_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Vote analysis') ?></a>
+                    <?php } ?>
                 </li>
                 <?php
                 }
@@ -282,6 +285,9 @@ foreach($data['rows'] as $speech) { ?>
                     <span class="link-to-speech__label"><?= $link_to ?></span>
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= gettext('In context') ?></a>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
+                    <?php if ($speech['htype'] == '14' && isset($speech['division']['analysis_url'])) { ?>
+                        <a href="<?= $speech['division']['analysis_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Vote analysis') ?></a>
+                    <?php } ?>
                 </li>
                 <?php
     }
