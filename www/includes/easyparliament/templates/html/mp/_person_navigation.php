@@ -74,6 +74,9 @@
 
                 <nav class="subpage-content-list js-accordion" aria-label="Signatures list">
                     <ul class="subpage-content-list">
+                            <?php if (array_key_exists('annul_motions_signed', $memberships)): ?>
+                            <li><a href="#annul_motions_signed"><?= gettext('Recent motions to annul') ?></a></li>
+                            <?php endif; ?>
                             <?php if (array_key_exists('letters_signed', $memberships)): ?>
                             <li><a href="#letters_signed"><?= gettext('Recent open letters') ?></a></li>
                             <?php endif; ?>
