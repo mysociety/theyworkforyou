@@ -67,8 +67,15 @@
                     </ul>
 
                     <p class="voting-information-provenance">
+                        <?= gettext('Votes appear here the day after they happened - but will be available on <a href="https://votes.theyworkforyou.com/decisions">TheyWorkForYou Votes</a> within half an hour of the vote, and posted on our <a href="https://bsky.app/profile/theyworkforyou.com">BlueSky feed</a>.') ?>
+                    </p>
+
+                    <p class="voting-information-provenance">
+                    <a href="/voting-information"><?= gettext('Learn more about our voting records and what they mean.') ?></a>
+                    </p>
+
+                    <p class="voting-information-provenance">
                         <?= gettext('Last updated:') ?> <?= $last_updated ?>.
-                        <a href="/voting-information"><?= gettext('Learn more about our voting records and what they mean.') ?></a>
                     </p>
                 </div>
                 <?php include dirname(__FILE__) . '/../announcements/_sidebar_right_announcements.php'; ?>
