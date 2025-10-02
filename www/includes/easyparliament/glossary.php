@@ -259,8 +259,8 @@ class GLOSSARY {
         // External links shown within their own definition
         // should be the complete and linked url.
         // NB. This should only match when $body is a definition beginning with "https:"
-        if (is_string($body) && preg_match("/^(https?:*[^\s])$/i", $body)) {
-            $body = "<a href=\"" . $body . "\" title=\"External link to " . $body . "\">" . $body . "</a>";
+        if (is_string($body) && preg_match("/^(https?:*[^\s]*)$/i", $body)) {
+            $body = "<a href=\"" . $body . "\" rel=\"nofollow\" title=\"External link to " . $body . "\">" . $body . "</a>";
             return ($body);
         }
 
@@ -294,7 +294,15 @@ class GLOSSARY {
                     $link_url = $URL->generate('url');
                 }
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
-                $replacewords[] = "<a href=\"$link_url\" title=\"$title\" class=\"glossary\">\\1</a>";
+                $class_extra = '';
+                $nofollow = '';
+                if (preg_match("/^(https?:*[^\s]*)$/i", $term_body)) {
+                    $link_url = $term_body;
+                    $title = "External link to " . $term_body;
+                    $class_extra = ' glossary_external';
+                    $nofollow = ' rel="nofollow"';
+                }
+                $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
             }
         }
         // Highlight all occurrences of another glossary term in the definition.
