@@ -17,4 +17,7 @@
       </li>
       <?php } ?>
     </ul>
+    <p>
+    <small><?= gettext('More recent votes are available on <a href="https://votes.theyworkforyou.com/decisions">TheyWorkForYou Votes</a>') ?></small>
+    </p>
 <?php } ?>
