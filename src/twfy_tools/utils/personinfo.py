@@ -86,6 +86,12 @@ class SignatureList(RootModel[list[Signature]]):
     def truncate(self, value):
         self.root = self.root[value:]
 
+    def sort_by_date_desc(self):
+        """
+        Sort signatures by date, most recent first
+        """
+        self.root.sort(key=lambda x: x.date, reverse=True)
+
 
 def is_valid_language(lang: str) -> TypeGuard[Literal["en", "cy"]]:
     """
@@ -288,13 +294,16 @@ def make_signature_object(row, signature_counts):
 @app.command()
 def load_statement_signatures(quiet: bool = False):
     """
-    Upload signatures of EDMs and open letters
+    Upload signatures of EDMs, open letters, and negative SI requests (motions to annul)
     """
     min_edm_date = datetime.date.today() - pd.offsets.DateOffset(months=3)
     min_edm_date = min_edm_date.date()
 
-    min_letter_date = datetime.date.today() - pd.offsets.DateOffset(year=1)
+    min_letter_date = datetime.date.today() - pd.offsets.DateOffset(years=1)
     min_letter_date = min_letter_date.date()
+
+    min_annul_date = datetime.date.today() - pd.offsets.DateOffset(years=1)
+    min_annul_date = min_annul_date.date()
 
     statements = pd.read_parquet(statements_url)
     statements = statements.set_index("id")
@@ -307,6 +316,10 @@ def load_statement_signatures(quiet: bool = False):
     letters = statements[
         (statements["type"] == "letter")
         & (statements["statement_date"] >= min_letter_date)
+    ]
+    annul_motions = statements[
+        (statements["type"] == "negative_si_request")
+        & (statements["statement_date"] >= min_annul_date)
     ]
 
     df = pd.read_parquet(signatures_url)
@@ -321,9 +334,11 @@ def load_statement_signatures(quiet: bool = False):
 
     edms = edms.merge(df, left_on="id", right_on="statement_id")
     letters = letters.merge(df, left_on="id", right_on="statement_id")
+    annul_motions = annul_motions.merge(df, left_on="id", right_on="statement_id")
 
     edm_id_to_person = {}
     letter_id_to_person = {}
+    annul_id_to_person = {}
 
     for _, row in edms.iterrows():
         details = make_signature_object(row, signature_counts)
@@ -347,9 +362,29 @@ def load_statement_signatures(quiet: bool = False):
         else:
             letter_id_to_person[row["person_id"]].append(details)
 
-    # restrict to the last 10 because some people sign a lot of things
+    for _, row in annul_motions.iterrows():
+        details = make_signature_object(row, signature_counts)
+        if annul_id_to_person.get(row["person_id"]) is None:
+            annul_id_to_person[row["person_id"]] = SignatureList(
+                [
+                    details,
+                ]
+            )
+        else:
+            annul_id_to_person[row["person_id"]].append(details)
+
+    # sort by date (most recent first) and restrict to the last 10 because some people sign a lot of things
     for person_id in edm_id_to_person.keys():
+        edm_id_to_person[person_id].sort_by_date_desc()
         edm_id_to_person[person_id].truncate(-10)
+
+    for person_id in letter_id_to_person.keys():
+        letter_id_to_person[person_id].sort_by_date_desc()
+        letter_id_to_person[person_id].truncate(-10)
+
+    for person_id in annul_id_to_person.keys():
+        annul_id_to_person[person_id].sort_by_date_desc()
+        annul_id_to_person[person_id].truncate(-10)
 
     upload_person_info(
         "edms_signed",
@@ -361,6 +396,13 @@ def load_statement_signatures(quiet: bool = False):
     upload_person_info(
         "letters_signed",
         letter_id_to_person,
+        remove_absent=True,
+        quiet=quiet,
+    )
+
+    upload_person_info(
+        "annul_motions_signed",
+        annul_id_to_person,
         remove_absent=True,
         quiet=quiet,
     )

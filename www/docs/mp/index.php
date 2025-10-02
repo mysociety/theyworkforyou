@@ -1051,6 +1051,7 @@ function person_statements($member) {
     $out = [
         "edms" => null,
         "letter" => null,
+        "annul_motions" => null,
     ];
 
     $extra_info = $member->extra_info();
@@ -1059,6 +1060,9 @@ function person_statements($member) {
     }
     if (isset($extra_info['letters_signed'])) {
         $out["letters"] = MySociety\TheyWorkForYou\DataClass\Statements\SignatureList::fromJson($extra_info['letters_signed']);
+    }
+    if (isset($extra_info['annul_motions_signed'])) {
+        $out["annul_motions"] = MySociety\TheyWorkForYou\DataClass\Statements\SignatureList::fromJson($extra_info['annul_motions_signed']);
     }
 
     return $out;
@@ -1114,6 +1118,9 @@ function memberships($member) {
         }
         if (isset($statments_signed["letters"]) && $statments_signed["letters"]->count() > 0) {
             $out['letters_signed'] = $statments_signed["letters"];
+        }
+        if (isset($statments_signed["annul_motions"]) && $statments_signed["annul_motions"]->count() > 0) {
+            $out['annul_motions_signed'] = $statments_signed["annul_motions"];
         }
     }
 
