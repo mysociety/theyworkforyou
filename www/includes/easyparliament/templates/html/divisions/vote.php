@@ -72,6 +72,11 @@
                         <a class="internal-link debate-speech__meta__link" href="<?= $mp_data['mp_url'] ?>/votes"><?= sprintf(gettext('%s’s full voting record'), $mp_data['name']) ?></a>
                     </li>
                   <?php } ?>
+                  <?php if (isset($division['analysis_url'])) { ?>
+                    <li>
+                        <a class="internal-link debate-speech__meta__link" href="<?= $division['analysis_url'] ?>"><?= gettext('Vote analysis') ?></a>
+                    </li>
+                  <?php } ?>
                 </ul>
 
             </div>
