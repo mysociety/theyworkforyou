@@ -1,6 +1,6 @@
 <?php
 
-foreach($data['rows'] as $speech) { ?>
+foreach ($data['rows'] as $speech) { ?>
 
     <?php
 
@@ -119,7 +119,7 @@ foreach($data['rows'] as $speech) { ?>
             <div class="debate-speech__speaker-and-content">
             <?php } ?>
 
-          <?php if(isset($speech['speaker']) && count($speech['speaker']) > 0) { ?>
+          <?php if (isset($speech['speaker']) && count($speech['speaker']) > 0) { ?>
             <h2 class="debate-speech__speaker">
                 <?php
 
@@ -140,10 +140,10 @@ foreach($data['rows'] as $speech) { ?>
                   $speaker_position = join(', ', $desc);
               } else {
                   $speaker_position = _htmlentities($speaker['party']);
-                  if ($speaker['house'] == 1 &&
-                      $speaker['party'] != 'Speaker' &&
-                      $speaker['party'] != 'Deputy Speaker' &&
-                      $speaker['constituency']
+                  if ($speaker['house'] == 1
+                      && $speaker['party'] != 'Speaker'
+                      && $speaker['party'] != 'Deputy Speaker'
+                      && $speaker['constituency']
                   ) {
                       $speaker_position .= ', ' . $speaker['constituency'];
                   }
@@ -274,6 +274,9 @@ foreach($data['rows'] as $speech) { ?>
                 <?php if ($section && $hansardmajors[$speech['major']]['type'] == 'debate' && $individual_item) { ?>
                 <li class="link-to-speech">
                     <a href="<?= $speech['listurl'] ?>" class="link debate-speech__meta__link"><?= $in_context ?></a>
+                    <?php if ($speech['htype'] == '14' && isset($speech['division']['analysis_url'])) { ?>
+                        <a href="<?= $speech['division']['analysis_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Vote analysis') ?></a>
+                    <?php } ?>
                 </li>
                 <?php
                 }
@@ -284,6 +287,9 @@ foreach($data['rows'] as $speech) { ?>
                     <a href="<?= $speech['commentsurl'] ?>" class="link debate-speech__meta__link"><?= gettext('Individually') ?></a>
                     <?php if (isset($speech['annotation_url'])) { ?>
                     <a href="<?= $speech['annotation_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Annotate!') ?></a>
+                    <?php } ?>
+                    <?php if ($speech['htype'] == '14' && isset($speech['division']['analysis_url'])) { ?>
+                        <a href="<?= $speech['division']['analysis_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Vote analysis') ?></a>
                     <?php } ?>
                 </li>
                 <?php
