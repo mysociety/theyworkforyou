@@ -20,15 +20,25 @@ $display_wtt_stats_banner = '2015';
 
             <div class="primary-content__unit">
 
-                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships)): ?>
+                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
                     <div class="panel">
-                    <h2 id="letters-and-edms">Letters and EDMs</h2>
-                    <p>Early Day Motions are when MPs can propose and co-sign statements for discussion. In practice, these work as internal petitions where MPs can signal their support for a particular issue or cause.</p>
-
-                    <p>We're starting to collect and display when MPs sign open letters outside Parliament - if there are examples we're missing, <a href="https://survey.alchemer.com/s3/8440376/TheyWorkForYou-Open-Letter">please let us know</a>. </p>
+                    <h2 id="signatures"><?= gettext('Signatures') ?></h2>
                 <?php endif; ?>
+                <?php if (array_key_exists('annul_motions_signed', $memberships)): ?>
+                    <h3 id="annul_motions_signed"><?=gettext('Recent motions to annul signed') ?></h3>
+                    <p>Some kinds of government regulations automatically become law if Parliament does not object (negative statutory instrument). A motion to annul/prayer is a request to hold a vote to object. </p>
+                    <p><em>Showing motions to annul signed in the last year.</em></p>
+                    <ul class='list-dates'>
+                        <?php foreach ($memberships['annul_motions_signed'] as $signature): ?>
+                        <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1 ?> others)</li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+
                 <?php if (array_key_exists('letters_signed', $memberships)): ?>
                     <h3 id="letters_signed"><?=gettext('Recent open letters signed') ?></h3>
+                    <p>We're starting to collect and display when MPs sign open letters outside Parliament - if there are examples we're missing, <a href="https://survey.alchemer.com/s3/8440376/TheyWorkForYou-Open-Letter">please let us know</a>.</p>
+                    <p><em>Showing open letters signed in the last year.</em></p>
                     <ul class='list-dates'>
                         <?php foreach ($memberships['letters_signed'] as $signature): ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1 ?> others)</li>
@@ -38,6 +48,8 @@ $display_wtt_stats_banner = '2015';
 
                 <?php if (array_key_exists('edms_signed', $memberships)): ?>
                     <h3 id="edms_signed"><?=gettext('Recent Early Day Motions signed') ?></h3>
+                    <p>Early Day Motions are when MPs can propose and co-sign statements for discussion. In practice, these work as internal petitions where MPs can signal their support for a particular issue or cause.</p>
+                    <p><em>Showing Early Day Motions signed in the last 3 months.</em></p>
                     <ul class='list-dates'>
                         <?php foreach ($memberships['edms_signed'] as $signature): ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1  ?> others)</li>
@@ -45,13 +57,13 @@ $display_wtt_stats_banner = '2015';
                     </ul>
                 <?php endif; ?>
 
-                <?php if (array_key_exists('edms_signed', $memberships) || array_key_exists('letters_signed', $memberships)): ?>
+                <?php if (array_key_exists('edms_signed', $memberships) || array_key_exists('letters_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
                     <p>
                     <a href="https://votes.theyworkforyou.com/person/<?= $person_id ?>/statements"><?= gettext('All open letters and EDMs signed') ?></a>.
                     </p>
                     <?php endif; ?>
 
-                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships)): ?>
+                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
                     </div>
                 <?php endif; ?>
 
