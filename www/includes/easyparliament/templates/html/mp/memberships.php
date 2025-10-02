@@ -85,7 +85,13 @@ $display_wtt_stats_banner = '2015';
                                             <div class="appg-more-info">
                                                 <ul>
                                                     <li><span class="appg-property-label">Purpose:</span> <?= $membership->appg->purpose ?></li>
-                                                    <li><span class="appg-property-label">Membership Source:</span> <a href="<?= $membership->membership_source_url ?>">Source</a></li>
+                                                    <li><span class="appg-property-label">Membership Source:</span> 
+                                                        <?php if (!empty($membership->membership_source_url)) { ?>
+                                                            <a href="<?= $membership->membership_source_url ?>">Source</a>
+                                                        <?php } else { ?>
+                                                            E-mail correspondence with APPG
+                                                        <?php } ?>
+                                                    </li>
                                                     <li><span class="appg-property-label">APPG Website:</span> <?php if ($membership->appg->website): ?><a href="<?= $membership->appg->website ?>"><?= $membership->appg->website ?></a><?php else: ?>N/A<?php endif; ?></li>
                                                     <li><span class="appg-property-label">APPG register:</span> <a href="<?= $membership->appg->source_url ?>">Parliament website</a></li>
                                                 </ul>
