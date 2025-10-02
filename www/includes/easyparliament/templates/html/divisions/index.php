@@ -68,6 +68,7 @@
 
                     <p class="voting-information-provenance">
                         <?= gettext('Last updated:') ?> <?= $last_updated ?>.
+                        <?= gettext('More recent votes are available on <a href="https://votes.theyworkforyou.com/decisions">TheyWorkForYou Votes</a>') ?>.
                         <a href="/voting-information"><?= gettext('Learn more about our voting records and what they mean.') ?></a>
                     </p>
                 </div>
