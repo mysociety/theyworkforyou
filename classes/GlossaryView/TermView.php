@@ -2,18 +2,18 @@
 
 namespace MySociety\TheyWorkForYou\GlossaryView;
 
-class AtoZView extends BaseView {
+class TermView extends BaseView {
     public function display(): array {
-        $data = [];
+        $data = [
+            'title' => 'Glossary',
+            'page_title' => 'Glossary Index',
+            'this_page' => 'glossary',
+            'template_name' => 'term',
+        ];
 
+        $gl = filter_input(INPUT_GET, 'gl', FILTER_VALIDATE_INT);
 
-        $az = filter_input(INPUT_GET, 'az', FILTER_VALIDATE_REGEXP, ['options' => ['default' => 'A', 'regexp' => '#^[A-Z]$#']]);
-
-        $gl = '';
-        if (get_http_var('gl') and is_numeric(get_http_var('gl'))) {
-            $gl = filter_user_input(get_http_var('gl'), 'strict');
-        }
-
+        $az = 'A';
         $glossary = new \GLOSSARY(['sort' => 'regexp_replace', 'glossary_id' => $gl]);
         if ($glossary->current_term) {
             $data['notitle'] = 1;
@@ -24,9 +24,8 @@ class AtoZView extends BaseView {
             $az = strtoupper($glossary->current_term['title'][0]);
 
             $data['nextprev'] = $this->get_next_prev($glossary);
-        } else {
-            $data['letter'] = $az;
-
+            $data['this_page'] = 'glossary_item';
+            $data['page_title'] = $data['title'] . ': Glossary Item';
         }
 
         if ($this->has_edit_access()) {
@@ -37,7 +36,6 @@ class AtoZView extends BaseView {
         $glossary->current_letter = $az;
 
         $data['glossary'] = $glossary;
-        $data['term'] = $glossary->current_term;
         return $data;
     }
 

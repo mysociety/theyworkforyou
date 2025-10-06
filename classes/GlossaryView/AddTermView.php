@@ -13,14 +13,15 @@ class AddTermView extends BaseView {
             return ['error' => _("You don't have permission to manage the glossary")];
         }
 
-        $data = [];
+        $data = [
+            'template_name' => 'addterm_start',
+        ];
         $term = filter_user_input(get_http_var('g'), 'strict');
         // glossary matches should always be quoted.
         // Just to be sure, we'll strip away any quotes and add them again.
         if (preg_match("/^(\"|\')/", $term)) {
             $term = preg_replace("/\"|\'/", "", $term);
         }
-        $data['term'] = $term;
         $data['title'] = $term;
 
         $this->glossary = new \GLOSSARY(['s' => $term]);
@@ -28,13 +29,13 @@ class AddTermView extends BaseView {
 
         if (get_http_var('submitterm') != '') {
             $data = $this->add_glossary_entry($data);
-        } elseif ((get_http_var('g') != '') && (get_http_var('previewterm') == '')) {
-            $data = $this->check_glossary_entry($data);
         } elseif (get_http_var('previewterm') != '') {
             $data['contributing_user'] = $THEUSER->firstname . " " . $THEUSER->lastname;
             $data['definition_raw'] = get_http_var('definition');
             $data['definition'] = $this->format_body($data['definition_raw']);
-            $data['preview'] = 1;
+            $data['template_name'] = 'addterm_preview';
+        } elseif (get_http_var('g') != '') {
+            $data = $this->check_glossary_entry($data);
         } else {
             $data = $this->add_example_urls($data);
         }
@@ -56,9 +57,9 @@ class AddTermView extends BaseView {
         if ($this->has_stop_words()) {
             $data['error'] = 'Sorry, that phrase appears too many times to be a useful as a link within the parliamentary record.';
         } elseif (isset($data['appearances']) && !$data['appearances']) {
-            $data['error'] = "Unfortunately <strong>" . $data['term'] . "</strong>, doesn't seem to appear in hansard at all...</p>";
+            $data['error'] = "Unfortunately <strong>" . $data['title'] . "</strong>, doesn't seem to appear in hansard at all...</p>";
         } elseif ($this->glossary->num_search_matches > 0) {
-            $data['show_matches'] = 1;
+            $data['template_name'] = 'addterm_matches';
             $data['error'] = 'Existing matches';
             $data['count'] = $this->glossary->num_search_matches;
         }
@@ -74,7 +75,8 @@ class AddTermView extends BaseView {
     }
 
     protected function check_glossary_entry(array $data): array {
-        $data['appearances'] = $this->get_appearance_count($data['term']);
+        $data['template_name'] = 'addterm_appearances';
+        $data['appearances'] = $this->get_appearance_count($data['title']);
         $data['definition_raw'] = '';
         $data = $this->check_term_is_useful($data);
 
@@ -83,7 +85,7 @@ class AddTermView extends BaseView {
             $list = new \HANSARDLIST();
             $examples = $list->display('search', [
                 'num' => 5,
-                's' => $data['term'],
+                's' => $data['title'],
                 'view_override' => 'glossary_search',
             ], 'none');
             $data['examples'] = $examples['rows'];
@@ -94,20 +96,21 @@ class AddTermView extends BaseView {
 
     protected function add_glossary_entry(array $data): array {
         $data['submitted'] = 1;
+        $data['template_name'] = 'addterm_examples';
         $data['body'] = get_http_var('definition');
         $data = $this->check_term_is_useful($data);
 
         $success = false;
         if (!isset($data['error'])) {
             $entry = [
-                'title' => $data['term'],
+                'title' => $data['title'],
                 'body'  => $data['body'],
             ];
             $success = $this->glossary->create($entry);
         }
 
         if (is_int($success)) {
-            $data['success'] = 1;
+            $data['template_name'] = 'addterm_success';
         } elseif (is_array($success)) {
             $data = array_merge($data, $success);
         } else {
