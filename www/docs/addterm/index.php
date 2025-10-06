@@ -8,4 +8,5 @@ $view = new MySociety\TheyWorkForYou\GlossaryView\AddTermView();
 $data = $view->display();
 $data['PAGE'] = $PAGE;
 
-MySociety\TheyWorkForYou\Renderer::output("glossary/addterm", $data);
+$template = "glossary/" . $data['template_name'];
+MySociety\TheyWorkForYou\Renderer::output($template, $data);
