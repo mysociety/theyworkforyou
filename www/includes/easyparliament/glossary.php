@@ -235,6 +235,10 @@ class GLOSSARY {
         $success = $EDITQUEUE->add($data);
 
         if ($success) {
+            // if the user is a super user then just add the entry without confirmation
+            if ($THEUSER->status == 'Superuser') {
+                $EDITQUEUE->approve(['approvals' => [$success], 'epobject_type' => 2]);
+            }
             return ($success);
         } else {
             return false;
