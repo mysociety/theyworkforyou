@@ -13,8 +13,7 @@
 
           <p>You can browse the exising glossary below:</p>
 
-          <?= $PAGE->glossary_atoz($glossary) ?>
-  
+          <?php include('_atoz.php'); ?>
         </div>
       </div>
     </div>
