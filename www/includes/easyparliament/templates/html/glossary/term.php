@@ -6,9 +6,7 @@
 
                 <?php
                 include('_atoz.php');
-                if (isset($definition)) {
-                    include('_item.php');
-                }
+                include('_item.php');
                 ?>
 
             </div>

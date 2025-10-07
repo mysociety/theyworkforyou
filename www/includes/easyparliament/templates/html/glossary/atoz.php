@@ -3,32 +3,8 @@
         <div class="panel">
             <div class="main">
                 <h1>Glossary index</h1>
-                <div class="letters">
-                    <ul>
-                    <?php
 
-                    $url = new \MySociety\TheyWorkForYou\Url('glossary');
-                    $count = 0;
-                    foreach ($glossary->alphabet as $letter => $eps) {
-                        if ($count == 13) { ?>
-                            </ul>
-                            </div>
-                            <div class="letters">
-                            <ul>
-                        <?php }
-                        $url->insert(['az' => $letter]);
-
-                        if ($letter == $glossary->current_letter) { ?>
-                            <li class="on"><?= $letter ?></li>
-                        <?php } elseif (!empty($eps)) { ?>
-                            <li><a href="<?= $url->generate('url') ?>"><?= $letter ?></a></li>
-                        <?php } else { ?>
-                            <li><?= $letter ?></li>
-                        <?php }
-                        $count++;
-                    } ?>
-                    </ul>
-                </div>
+                <?php include('_atoz.php'); ?>
 
                 <ul class="glossary">
                 <?php

@@ -20,7 +20,7 @@
               An external web document e.g. <em>&quot;<a href="<?= $example_urls['document']['url'] ?>"><?= $example_urls['document']['name'] ?></a>&quot;(104 occurrences)</em></small></p>
             <p>Or browse the existing entries:</p>
 
-            <?= $PAGE->glossary_atoz($glossary) ?>
+            <?php include('_atoz.php'); ?>
         </div>
       </div>
     </div>
