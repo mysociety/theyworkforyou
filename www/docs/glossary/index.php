@@ -3,17 +3,18 @@
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . "easyparliament/glossary.php";
 
-$view = new MySociety\TheyWorkForYou\GlossaryView\AtoZView();
-$data = $view->display();
-
-if (isset($data['term'])) {
-    $this_page = 'glossary_item';
-    $DATA->set_page_metadata($this_page, 'title', $data['title'] . ': Glossary Item');
-} else {
-    $this_page = "glossary";
-    $DATA->set_page_metadata($this_page, 'title', $data['letter'] . ': Glossary Index');
+$class = 'AtoZView';
+if (get_http_var('gl')) {
+    $class = 'TermView';
 }
 
+$class_path = 'MySociety\\TheyWorkForYou\\GlossaryView\\' . $class;
+$view = new $class_path();
+$data = $view->display();
+
+$this_page = $data['this_page'];
+$DATA->set_page_metadata($this_page, 'title', $data['page_title']);
 $data['PAGE'] = $PAGE;
 
-MySociety\TheyWorkForYou\Renderer::output("glossary/atoz", $data);
+$template = "glossary/" . $data['template_name'];
+MySociety\TheyWorkForYou\Renderer::output($template, $data);
