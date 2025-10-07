@@ -4,40 +4,26 @@ namespace MySociety\TheyWorkForYou\GlossaryView;
 
 class AtoZView extends BaseView {
     public function display(): array {
-        $data = [];
+        $data = [
+            'template_name' => 'atoz',
+            'this_page' => 'glossary',
+        ];
 
 
         $az = filter_input(INPUT_GET, 'az', FILTER_VALIDATE_REGEXP, ['options' => ['default' => 'A', 'regexp' => '#^[A-Z]$#']]);
 
-        $gl = '';
-        if (get_http_var('gl') and is_numeric(get_http_var('gl'))) {
-            $gl = filter_user_input(get_http_var('gl'), 'strict');
-        }
-
-        $glossary = new \GLOSSARY(['sort' => 'regexp_replace', 'glossary_id' => $gl]);
-        if ($glossary->current_term) {
-            $data['notitle'] = 1;
-            $data['title'] = $glossary->current_term['title'];
-            $data['definition'] = $this->format_body($glossary->current_term['body']);
-
-            $data['contributing_user'] = $glossary->current_term['user_id'] ? $glossary->current_term['firstname'] . " " . $glossary->current_term['lastname'] : '';
-            $az = strtoupper($glossary->current_term['title'][0]);
-
-            $data['nextprev'] = $this->get_next_prev($glossary);
-        } else {
-            $data['letter'] = $az;
-
-        }
+        $data['letter'] = $az;
 
         if ($this->has_edit_access()) {
             $url = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
             $data['add_url'] = $url->generate('url');
         }
 
+        $glossary = new \GLOSSARY(['sort' => 'regexp_replace']);
         $glossary->current_letter = $az;
 
+        $data['page_title'] = $az . ': Glossary Index';
         $data['glossary'] = $glossary;
-        $data['term'] = $glossary->current_term;
         return $data;
     }
 
