@@ -14,4 +14,16 @@ class BaseView {
 
         return $THEUSER->is_able_to('addterm');
     }
+
+    protected function add_management_urls($data): array {
+        if ($this->has_edit_access()) {
+            $url = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
+            $data['add_url'] = $url->generate('url');
+
+            $url = new \MySociety\TheyWorkForYou\Url('admin_glossary');
+            $data['admin_url'] = $url->generate('url');
+        }
+
+        return $data;
+    }
 }

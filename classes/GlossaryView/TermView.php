@@ -34,10 +34,7 @@ class TermView extends BaseView {
             }
         }
 
-        if ($this->has_edit_access()) {
-            $url = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
-            $data['add_url'] = $url->generate('url');
-        }
+        $data = $this->add_management_urls($data);
 
         $glossary->current_letter = $az;
 
