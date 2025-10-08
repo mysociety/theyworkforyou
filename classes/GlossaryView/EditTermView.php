@@ -4,12 +4,12 @@
 
 namespace MySociety\TheyWorkForYou\GlossaryView;
 
-class EditTermView {
+class EditTermView extends BaseView {
     public $glossary;
 
     public function display(): array {
         global $THEUSER;
-        if (!$this->has_access()) {
+        if (!$this->has_edit_access()) {
             return ['error' => _("You don't have permission to manage the glossary")];
         }
 
@@ -31,7 +31,6 @@ class EditTermView {
 
 
         if (get_http_var('submitterm') != '') {
-            $data['definition'] = get_http_var('definition');
             $data['definition_raw'] = get_http_var('definition');
             $data = $this->update_glossary_entry($data);
             if ($data['success']) {
@@ -43,10 +42,7 @@ class EditTermView {
         } elseif (get_http_var('previewterm') != '') {
             $data['contributing_user'] = $term['firstname'] . " " . $term['lastname'];
             $data['definition_raw'] = get_http_var('definition');
-            $Parsedown = new \Parsedown();
-            $Parsedown->setSafeMode(true);
-            $data['definition'] = $Parsedown->text($data['definition_raw']);
-            $data['preview'] = 1;
+            $data['definition'] = $this->format_body($data['definition_raw']);
             $data['template_name'] = 'editterm_preview';
         }
 
@@ -56,27 +52,14 @@ class EditTermView {
         return $data;
     }
 
-    protected function has_access(): bool {
-        global $THEUSER;
-
-        if (!$THEUSER->is_able_to('addterm')) {
-            return false;
-        }
-
-        return true;
-    }
-
     protected function update_glossary_entry(array $data): array {
-        $data['submitted'] = 1;
-        $data['body'] = get_http_var('definition');
-
         $success = false;
         if (!isset($data['error'])) {
             $entry = [
                 'glossary_id' => $data['glossary_id'],
                 'body'  => $data['definition_raw'],
             ];
-            $success = $this->glossary->update($data);
+            $success = $this->glossary->update($entry);
         }
 
         if (is_int($success)) {
