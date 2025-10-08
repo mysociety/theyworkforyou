@@ -8,12 +8,20 @@ foreach ($section_comments as $comment) {
     $USERURL = new \MySociety\TheyWorkForYou\Url('userview');
     $USERURL->insert(['u' => $comment['user_id']]);
     ?>
-    <div class="debate-speech">
+    <div class="debate-intro">
         <div class="full-page__row">
             <div class="full-page__unit">
                 <div class="debate-speech__speaker-and-content">
-                    <p class="credit"><a href="<?= $USERURL->generate() ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) . ' ' . _htmlentities($comment['lastname']); ?></strong></a><br>
-                    <small>Posted on <?= $date ?> <?= $time ?></small>
+                    <div class="intro-header">
+                        <h2>About this debate</h2>
+                        <div>
+                            <div class="credit">
+                                <a href="<?= $USERURL->generate() ?>" title="See information about this user"><strong><?php echo _htmlentities($comment['firstname']) . ' ' . _htmlentities($comment['lastname']); ?></strong></a>
+                                <small>· Posted on <?= $date ?> <?= $time ?></small>
+                            </div>
+                        </div>
+                    </div>
+
                     <p class="comment">
                     <?= prepare_comment_for_display($comment['body']) ?>
                     </p>
