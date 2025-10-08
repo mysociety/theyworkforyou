@@ -17,11 +17,7 @@
                 </ul>
             </div>
             <div class="sidebar">
-                <?php if (isset($add_url)) { ?>
-                    <p>
-                        <a href="<?= $add_url ?>">Add entry</a>
-                    </p>
-                <?php } ?>
+                <?php include("_sidebar.php"); ?>
             </div>
         </div>
     </div>
