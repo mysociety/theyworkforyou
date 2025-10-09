@@ -59,6 +59,26 @@ span.hi {
   margin-top: 0;
 }
 
+.debate-intro {
+  background-color: #faf9f6;
+  padding: 2rem 0;
+
+  .intro-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    gap: 0.75rem;
+
+    h2 {
+      margin: 0;
+    }
+
+    small {
+      font-size: 80%;
+    }
+  }
+}
+
 .debate-speech {
   background-color: #fff;
   border-top: 1px solid $borders;
