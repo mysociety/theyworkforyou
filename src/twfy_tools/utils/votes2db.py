@@ -22,6 +22,7 @@ org_url = config.TWFY_VOTES_URL + "/static/data/organization.parquet"
 chambers_url = config.TWFY_VOTES_URL + "/static/data/chambers.parquet"
 period_url = config.TWFY_VOTES_URL + "/static/data/policy_comparison_period.parquet"
 distribution_url = config.TWFY_VOTES_URL + "/static/data/policy_calc_to_load.parquet"
+annotations_url = config.TWFY_VOTES_URL + "/static/data/vote_annotations.parquet"
 voting_alignment_url = (
     config.TWFY_VOTES_URL + "/static/data/per_person_party_diff_period.parquet"
 )
@@ -405,6 +406,7 @@ def load_dev_divisions_votes():
             person_id=row["person_id"],
             vote=row["vote"],
             proxy=row["proxy"],
+            annotation=row.get("annotation"),
             lastupdate=now(),
         )
         votes.append(vote)
@@ -441,6 +443,26 @@ def load_voting_alignment_to_db():
     )
 
 
+def process_annotations():
+    """
+    Load any annotations and add them to the MPs vote
+    """
+
+    rich_print("Loading voting alignment data")
+    df = pd.read_parquet(annotations_url)
+    votes: list[PersonDivisionVote] = []
+    for _, row in df.iterrows():
+        vote = PersonDivisionVote(
+            division_id=row["division_id"],
+            person_id=row["person_id"],
+            annotation=row["link"],
+            lastupdate=now(),
+        )
+        votes.append(vote)
+
+    PersonDivisionVote.objects.bulk_update(votes, fields=["annotation", "lastupdate"])
+
+
 @app.command()
 def load_policies(quiet: bool = False):
     """
@@ -472,6 +494,16 @@ def load_voting_alignment(quiet: bool = False):
     QuietPrint.set_quiet(quiet)
     rich_print("Loading voting alignment")
     load_voting_alignment_to_db()
+
+
+@app.command()
+def load_voting_annotations(quiet: bool = False):
+    """
+    Load vote annotations
+    """
+    QuietPrint.set_quiet(quiet)
+    rich_print("Loading annotations")
+    process_annotations()
 
 
 if __name__ == "__main__":

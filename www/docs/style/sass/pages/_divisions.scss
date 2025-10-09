@@ -166,6 +166,10 @@
   }
 }
 
+.your-mp__annotation {
+  margin-top: 8px; // vertical space for when items wrap on narrow screens
+}
+
 .debate-speech__division__details {
   clear: left; // clear the floated .debate-speech__division__header img
 

@@ -46,6 +46,11 @@
             </p>
         </div>
     </a>
+      <?php if (isset($mp_vote) && $mp_vote['annotation']) { ?>
+      <div class="your-mp__annotation">
+        <a href="<?= $mp_vote['annotation'] ?>" title="External link to <?= $mp_vote['annotation'] ?>">More information about why your MP voted this way</a>.
+      </div>
+      <?php } ?>
   <?php if (isset($before_mp) || isset($after_mp)) { ?>
     <div class="your-mp__footer">
       <?php if (isset($before_mp)) { ?>
