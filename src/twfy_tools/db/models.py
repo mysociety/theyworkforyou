@@ -262,6 +262,7 @@ class PersonDivisionVote(
         ],
     )
     proxy: Optional[int] = field(models.IntegerField, blank=True, null=True)
+    annotation: Optional[str] = field(models.TextField, blank=True, null=True)
     lastupdate: datetime.datetime = field(models.DateTimeField, auto_now=True)
 
     def __str__(self):

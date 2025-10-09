@@ -1,3 +1,4 @@
+from django.db import connection, transaction
 from django.utils.timezone import now
 
 import httpx
@@ -22,6 +23,7 @@ org_url = config.TWFY_VOTES_URL + "/static/data/organization.parquet"
 chambers_url = config.TWFY_VOTES_URL + "/static/data/chambers.parquet"
 period_url = config.TWFY_VOTES_URL + "/static/data/policy_comparison_period.parquet"
 distribution_url = config.TWFY_VOTES_URL + "/static/data/policy_calc_to_load.parquet"
+annotations_url = config.TWFY_VOTES_URL + "/static/data/vote_annotations.parquet"
 voting_alignment_url = (
     config.TWFY_VOTES_URL + "/static/data/per_person_party_diff_period.parquet"
 )
@@ -405,12 +407,23 @@ def load_dev_divisions_votes():
             person_id=row["person_id"],
             vote=row["vote"],
             proxy=row["proxy"],
+            annotation=row.get("annotation"),
             lastupdate=now(),
         )
         votes.append(vote)
 
     rich_print(f"About to load [blue]{len(votes)}[/blue] votes")
-    PersonDivisionVote.objects.bulk_create(votes, batch_size=1000)
+
+    # blank out all annotations in PersonDivisionVote table (debug for previous errors)
+    PersonDivisionVote.objects.filter(division_id__in=policy_divisions).update(
+        annotation=""
+    )
+
+    updated = PersonDivisionVote.objects.bulk_create(
+        votes, unique_fields=["person_id", "division_id"], batch_size=1000
+    )
+
+    rich_print(f"Loaded [blue]{len(updated)}[/blue] votes")
 
 
 def load_voting_alignment_to_db():
@@ -439,6 +452,59 @@ def load_voting_alignment_to_db():
         remove_absent=True,
         quiet=QuietPrint.quiet,
     )
+
+
+def process_annotations():
+    """
+    Load any annotations and add them to the MPs vote.
+
+    This annoyingly needs to use some manual SQL to do an efficent update.
+
+    bulk_update doesn't work because this table doesn't have a single primary key.
+    Django's approach for handling unique_together doesn't work for mariaDB.
+    Hence: ON DUPLICATE KEY UPDATE
+    """
+    df = pd.read_parquet(annotations_url)
+
+    # get the values of currently live annotations from the file
+    to_update = [
+        (int(r["person_id"]), r["division_key"], r.get("link") or "")
+        for _, r in df.iterrows()
+    ]
+
+    # get all the (person_id, division_id) combos we have annotations for
+    combo_keys = []
+    for _, r in df.iterrows():
+        combo_keys.append((int(r["person_id"]), r["division_key"]))
+
+    # to remove old annotations we need to check all existing annotations
+    # to remove those that aren't in the new set
+    annotated_votes = PersonDivisionVote.objects.all().exclude(annotation="")
+    to_remove = 0
+    for vote in annotated_votes:
+        if (vote.person_id, vote.division_id) not in combo_keys:
+            to_update.append((vote.person_id, vote.division_id, ""))
+            to_remove += 1
+
+    rich_print(f"Removing [blue]{to_remove}[/blue] old annotations")
+
+    sql = """
+    INSERT INTO persondivisionvotes (person_id, division_id, annotation)
+    VALUES (%s, %s, %s)
+    ON DUPLICATE KEY UPDATE
+        annotation = VALUES(annotation)
+    """
+
+    BATCH = 1000
+
+    with transaction.atomic():
+        with connection.cursor() as cur:
+            for i in range(0, len(to_update), BATCH):
+                cur.executemany(sql, to_update[i : i + BATCH])
+
+    rich_print(f"Updated [blue]{len(to_update)}[/blue] annotations")
+
+    # check for any annotations we have that aren't in the parquet file
 
 
 @app.command()
@@ -472,6 +538,16 @@ def load_voting_alignment(quiet: bool = False):
     QuietPrint.set_quiet(quiet)
     rich_print("Loading voting alignment")
     load_voting_alignment_to_db()
+
+
+@app.command()
+def load_voting_annotations(quiet: bool = False):
+    """
+    Load vote annotations
+    """
+    QuietPrint.set_quiet(quiet)
+    rich_print("Loading annotations")
+    process_annotations()
 
 
 if __name__ == "__main__":
