@@ -168,6 +168,7 @@ CREATE TABLE `persondivisionvotes` (
   `division_id` varchar(100) NOT NULL default '',
   `vote` enum("yes", "aye", "no", "both", "tellaye", "tellno", "absent", "spoiled") NOT NULL,
   `proxy` int(11),
+  `annotation` text,
   `lastupdate` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   UNIQUE KEY `person_vote` (`person_id`, `division_id`),
   KEY `division_id` (`division_id`),
