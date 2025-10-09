@@ -172,5 +172,13 @@
                 </ul>
             </li>
         <?php endif; ?>
+
+        <?php if (in_array($this_page, ["mp"])): ?>
+            <li <?php if ($pagetype == "constituency"): ?>class="active"<?php endif; ?>>
+                <a href="<?= $member_url ?>/constituency" class="person-navigation--subpage-heading">
+                    <h2>🌍 <?= gettext('Constituency information') ?></h2>
+                </a>
+            </li>
+        <?php endif; ?>
     </ul>
 </div>
