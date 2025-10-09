@@ -386,7 +386,7 @@ class Divisions {
             ':person_id' => $person_id,
         ];
         $q = $this->db->query(
-            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, vote
+            "SELECT division_id, division_title, yes_text, no_text, division_date, division_number, gid, vote, annotation
             FROM divisions JOIN persondivisionvotes USING(division_id)
             WHERE division_id = :division_id AND person_id = :person_id",
             $args
@@ -535,6 +535,7 @@ class Divisions {
             'text' => $this->constructVoteDescription($vote, $yes_text, $no_text, $row['division_title']),
             'has_description' => $yes_text && $no_text,
             'vote' => $vote,
+            'annotation' => $row['annotation'] ?? '',
         ];
 
         if ($row['gid']) {
