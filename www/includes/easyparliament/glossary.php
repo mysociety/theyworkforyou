@@ -259,7 +259,7 @@ class GLOSSARY {
         }
 
         if ($data['glossary_id'] == '') {
-            $data['error'] = "You haven't entered specified an entry!";
+            $data['error'] = "You haven't specified an entry!";
             return $data;
         }
 
