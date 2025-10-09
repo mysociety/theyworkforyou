@@ -14,10 +14,7 @@ class AtoZView extends BaseView {
 
         $data['letter'] = $az;
 
-        if ($this->has_edit_access()) {
-            $url = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
-            $data['add_url'] = $url->generate('url');
-        }
+        $data = $this->add_management_urls($data);
 
         $glossary = new \GLOSSARY(['sort' => 'regexp_replace']);
         $glossary->current_letter = $az;

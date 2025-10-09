@@ -26,12 +26,15 @@ class TermView extends BaseView {
             $data['nextprev'] = $this->get_next_prev($glossary);
             $data['this_page'] = 'glossary_item';
             $data['page_title'] = $data['title'] . ': Glossary Item';
+
+            if ($this->has_edit_access()) {
+                $url = new \MySociety\TheyWorkForYou\Url('glossary_editterm');
+                $url->insert(['id' => $glossary->glossary_id]);
+                $data['edit_url'] = $url->generate('url');
+            }
         }
 
-        if ($this->has_edit_access()) {
-            $url = new \MySociety\TheyWorkForYou\Url('glossary_addterm');
-            $data['add_url'] = $url->generate('url');
-        }
+        $data = $this->add_management_urls($data);
 
         $glossary->current_letter = $az;
 
