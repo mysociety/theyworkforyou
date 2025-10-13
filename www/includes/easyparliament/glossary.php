@@ -255,13 +255,16 @@ class GLOSSARY {
         }
     }
 
-    public function glossarise($body, $tokenize = 0, $urlize = 0) {
+    public function glossarise($body, $tokenize = 0, $urlize = 0, $return_expansions = 0) {
         // Turn a body of text into a link-up wonderland of glossary joy
 
         global $this_page;
 
         $findwords = [];
         $replacewords = [];
+        global $replacemap, $titlemap;
+        $replacemap = [];
+        $titlemap = [];
         $URL = new \MySociety\TheyWorkForYou\Url("glossary");
         $URL->insert(["gl" => ""]);
 
@@ -312,10 +315,22 @@ class GLOSSARY {
                     $nofollow = ' rel="nofollow"';
                 }
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
+                $replacemap[$term_title] = "<button type=\"button\" popovertarget=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary-term" . $class_extra . "\">" . $term_title . "</button>";
+                $titlemap[$term_title] = ['id' => $glossary_id, 'body' => $term_body];
             }
         }
         // Highlight all occurrences of another glossary term in the definition.
-        $body = preg_replace($findwords, $replacewords, $body, 1);
+        if ($return_expansions) {
+            global $expansions;
+            $expansions = [];
+            $body = preg_replace_callback($findwords, function ($matches) {
+                global $expansions, $replacemap, $titlemap;
+                $expansions = $expansions + [$matches[0] => $titlemap[$matches[0]]];
+                return $replacemap[$matches[0]];
+            }, $body, 1);
+        } else {
+            $body = preg_replace($findwords, $replacewords, $body, 1);
+        }
         if (isset($this->glossary_id)) {
             $body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
         }
@@ -325,6 +340,9 @@ class GLOSSARY {
         // don't clash (e.g. URLs getting doubly munged etc.)
         $body = \MySociety\TheyWorkForYou\Utility\Wikipedia::wikipedize($body);
 
+        if ($return_expansions) {
+            return [($body), $expansions];
+        }
         return ($body);
     }
 

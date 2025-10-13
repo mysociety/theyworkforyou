@@ -391,3 +391,13 @@ if ($section && $individual_item) { ?>
         </div>
 <?php
 }
+
+if (isset($expansions)) {
+    foreach ($expansions as $title => $entry) {?>
+        <div id="def-<?php $entry['id'] ?>" popover class="glossary-popover" >
+        <h3><?= $title ?></h3>
+        <?= $entry['body'] ?>
+    </div>
+<?php
+    }
+}

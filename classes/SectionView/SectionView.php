@@ -238,7 +238,8 @@ class SectionView {
 
         # Okay, let's set up highlighting and glossarisation
 
-        [$bodies, $speeches] = $this->highlightSpeeches($data);
+        [$bodies, $speeches, $expansions] = $this->highlightSpeeches($data);
+        $data['expansions'] = $expansions;
 
         [$data, $first_speech, $subsection_title] = $this->annotateSpeeches($data, $bodies, $speeches);
 
@@ -355,12 +356,12 @@ class SectionView {
 
             $args['sort'] = "regexp_replace";
             $GLOSSARY = new \GLOSSARY($args);
-            $bodies = $GLOSSARY->glossarise($bodies, 1);
+            [$bodies, $expansions] = $GLOSSARY->glossarise($bodies, 1, 0, 1);
 
             twfy_debug_timestamp('After glossarise');
         }
 
-        return [$bodies, $speeches];
+        return [$bodies, $speeches, $expansions];
     }
 
     private function annotateSpeeches($data, $bodies, $speeches) {
