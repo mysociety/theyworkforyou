@@ -394,3 +394,14 @@ if ($section && $individual_item) { ?>
         </div>
 <?php
 }
+
+if (isset($expansions)) {
+    foreach ($expansions as $title => $entry) {?>
+        <div id="def-<?php echo $entry['id']; ?>" class="glossary-popover" >
+        <h3><?= $title ?></h3>
+        <!-- Ideally we want to keep using the markdown format here, but it might compromise accessibility, for example is someone decides to use and h1 title here we might end up with two h1 elements in the page, even more -->
+        <?= $entry['body'] ?>
+    </div>
+<?php
+    }
+}
