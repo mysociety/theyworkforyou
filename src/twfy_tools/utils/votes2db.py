@@ -253,10 +253,14 @@ def process_policy_json():
 
     for policy_data in data:
         # we might not end up saving it, but creating a policy obj
+        contains_free_vote = 0
+        if len(policy_data["free_vote_parties"]) > 0:
+            contains_free_vote = 1
         policy = Policy(
             policy_id=str(policy_data["id"]),
             title=policy_data["name"],
             description=policy_data["policy_description"],
+            contains_free_vote=contains_free_vote,
             image="",
             image_attrib="",
             image_license="",
@@ -324,7 +328,9 @@ def process_policy_json():
     rich_print(f"About to load [blue]{len(to_create)}[/blue] policies")
     Policy.objects.bulk_create(to_create)
     rich_print(f"About to update [blue]{len(to_update)}[/blue] policies")
-    Policy.objects.bulk_update(to_update, fields=["title", "description"])
+    Policy.objects.bulk_update(
+        to_update, fields=["title", "description", "contains_free_vote"]
+    )
     rich_print(f"About to delete [blue]{len(to_delete_ids)}[/blue] policies")
     Policy.objects.filter(policy_id__in=to_delete_ids).delete()
 
