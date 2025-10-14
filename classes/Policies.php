@@ -196,7 +196,7 @@ class Policies {
 
     public function getPolicyDetails($policyID) {
         $q = $this->db->query(
-            "SELECT policy_id, title, description, image, image_attrib, image_license, image_license_url, image_source
+            "SELECT policy_id, title, description, contains_free_vote, image, image_attrib, image_license, image_license_url, image_source
             FROM policies WHERE policy_id = :policy_id",
             [':policy_id' => $policyID]
         )->first();
@@ -207,6 +207,7 @@ class Policies {
             // remove full stops from the end of descriptions. Some of them have them and
             // some of them don't so we enforce consistency here
             'description' => preg_replace('/\. *$/', '', $q['description']),
+            'contains_free_vote' => $q['contains_free_vote'],
             'image' => '/images/header-debates-uk.jpg', // TODO: get a better default image
             'image_license' => '',
             'image_attribution' => '',

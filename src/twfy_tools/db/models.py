@@ -202,6 +202,7 @@ class Policy(UnmanagedDataclassModel, db_table="policies"):
     policy_id: str = field(models.CharField, max_length=100, primary_key=True)
     title: str = field(models.TextField)
     description: str = field(models.TextField)
+    contains_free_vote: bool = field(models.BooleanField)
     image: str = field(models.CharField, max_length=200, blank=True, null=True)
     image_attrib: str = field(models.CharField, max_length=200, blank=True, null=True)
     image_license: str = field(models.CharField, max_length=200, blank=True, null=True)
