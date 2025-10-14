@@ -12,13 +12,13 @@
         <h4>So far so good</h4>
 
         <p>
-          Just so you know, we found <strong><?= $appearances ?></strong> occurrences of <strong><?= $term ?></strong> in Hansard.<br>
+          Just so you know, we found <strong><?= $appearances ?></strong> occurrences of <strong><?= $title ?></strong> in Hansard.<br>
           To make sure that your definition will not appear out of context, please have a look at the <a href="#excerpts">excerpts</a>. If you're happy that your definition will apply to the right thing, then carry on below:
         </p>
 
           <a id='definition'></a>
           <p>Please add your definition below:</p>
-          <h4>Add a definition for <em><?= $term ?></em></h4>
+          <h4>Add a definition for <em><?= $title ?></em></h4>
 
           <?php include("_addterm_form.php"); ?>
 
