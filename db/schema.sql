@@ -124,6 +124,7 @@ CREATE TABLE `policies` (
   `policy_id` varchar(100) NOT NULL default '',
   `title` text NOT NULL,
   `description` text NOT NULL,
+  `contains_free_vote` bool DEFAULT FALSE,
   `image` varchar(200) default '',
   `image_attrib` varchar(200) default '',
   `image_license` varchar(200) default '',
