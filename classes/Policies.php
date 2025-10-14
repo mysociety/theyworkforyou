@@ -194,6 +194,20 @@ class Policies {
         return $new_policies;
     }
 
+    public function getPoliciesWithFreeVote() {
+        $q = $this->db->query(
+            "SELECT policy_id
+            FROM policies WHERE contains_free_vote = 1",
+        );
+
+        $ids = [];
+        foreach ($q as $row) {
+            $ids[] = $row['policy_id'];
+        }
+
+        return $ids;
+    }
+
     public function getPolicyDetails($policyID) {
         $q = $this->db->query(
             "SELECT policy_id, title, description, contains_free_vote, image, image_attrib, image_license, image_license_url, image_source

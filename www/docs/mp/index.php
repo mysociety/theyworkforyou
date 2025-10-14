@@ -433,6 +433,7 @@ switch ($pagetype) {
             $data['key_votes_segments'] = PolicyDistributionCollection::getPersonDistributions($sets, $MEMBER->person_id(), $cohort_party, $voting_comparison_period->slug, $house);
         }
 
+        $data['free_votes'] = $policiesList->getPoliciesWithFreeVote();
         $data["comparison_period"] = $voting_comparison_period;
         $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
         // shuffle the key_votes_segments for a random order
