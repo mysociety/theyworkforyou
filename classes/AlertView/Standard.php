@@ -801,7 +801,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
-                    $alert['search_results']  = $this->getRecentResults($alert["criteria"]);
+                    $alert['search_results']  = $this->getRecentResults($alert["raw"]);
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }
