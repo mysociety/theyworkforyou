@@ -20,16 +20,17 @@ class PolicyDistributionPair {
     public int $policy_id;
     public string $policy_desc;
     public bool $covid_affected;
+    public int $annotation_count;
 
 
     public function __construct(
         ?PolicyDistribution $member_distribution,
-        ?PolicyDistribution $comparison_distribution
+        ?PolicyDistribution $comparison_distribution,
+        array $annotation_counts = []
     ) {
         $this->member_distribution = $member_distribution;
         $this->comparison_distribution = $comparison_distribution;
         $this->policy_id = $this->getPolicyId();
-
 
         $policies_obj = new Policies();
         $policies_obj->getCovidAffected();
@@ -37,6 +38,8 @@ class PolicyDistributionPair {
 
         $this->policy_desc = $policies_obj->getPolicies()[$this->policy_id];
 
+        // Check if this policy has any annotations for the member
+        $this->annotation_count = $annotation_counts[$this->policy_id] ?? 0;
     }
 
     public function getMoreDetailsLink(): string {
@@ -133,6 +136,10 @@ class PolicyDistributionPair {
 
         $distributions = PolicyDistribution::getPersonDistributions($person_id, $party_slug, $period_slug, $house);
 
+        // Get annotation counts for all policies for this person
+        $policies = new Policies();
+        $annotation_counts = $policies->getAnnotationCountsForAllPolicies($person_id);
+
         // group the distributions by policy_id
         $grouped_distributions = [];
         foreach ($distributions as $distribution) {
@@ -151,7 +158,7 @@ class PolicyDistributionPair {
                     $comparison_distribution = $distribution;
                 }
             }
-            $pairs[] = new PolicyDistributionPair($member_distribution, $comparison_distribution);
+            $pairs[] = new PolicyDistributionPair($member_distribution, $comparison_distribution, $annotation_counts);
         }
         return $pairs;
     }

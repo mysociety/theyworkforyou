@@ -227,4 +227,40 @@ class Policies {
         return $props;
     }
 
+    /**
+     * Get annotation counts for all policies for a specific person
+     *
+     * @param int $personId The person ID to check
+     * @return array Array of policy_id => annotation_count
+     */
+    /**
+     * Get annotation counts for all policies for a specific person
+     *
+     * @param int $personId The person ID to check
+     * @return array Array of policy_id => annotation_count
+     */
+    public function getAnnotationCountsForAllPolicies($personId) {
+        $args = [
+            ':person_id' => $personId,
+        ];
+
+        $result = $this->db->query(
+            "SELECT pdl.policy_id, COUNT(*) as annotation_count
+            FROM policydivisionlink pdl
+            JOIN persondivisionvotes pdv ON pdl.division_id = pdv.division_id
+            WHERE pdv.person_id = :person_id 
+            AND pdv.annotation IS NOT NULL 
+            AND pdv.annotation != ''
+            GROUP BY pdl.policy_id",
+            $args
+        )->fetchAll();
+
+        $annotation_counts = [];
+        foreach ($result as $row) {
+            $annotation_counts[$row['policy_id']] = $row['annotation_count'];
+        }
+
+        return $annotation_counts;
+    }
+
 }
