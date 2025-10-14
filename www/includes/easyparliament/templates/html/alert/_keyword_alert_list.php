@@ -5,7 +5,7 @@
                         <div class="keyword-alert-accordion__button-content">
                           <span class="keyword-alert-accordion__title"><?= _htmlspecialchars($alert['simple_criteria']) ?></span>
                           <?php if (array_key_exists("search_results", $alert)) { ?>
-                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(gettext('%d mentions this week'), $alert['search_results']['last_week_count']) ?></span>
+                            <span class="keyword-alert-accordion__subtitle"><?= sprintf(ngettext('%d mention this week', '%d mentions this week', $alert['search_results']['last_week_count']), $alert['search_results']['last_week_count']) ?></span>
                           <?php } ?>
                         </div>
                         <i aria-hidden="true" role="img" class="fi-plus"></i>
@@ -22,7 +22,7 @@
                               </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('This week') ?></dt>
-                                <dd><?= sprintf(ngettext('%d mention', '%d mentions', $alert['search_results']['all_time_count']), $alert['search_results']['last_week_count']) ?></dd>
+                                <dd><?= sprintf(ngettext('%d mention', '%d mentions', $alert['search_results']['last_week_count']), $alert['search_results']['last_week_count']) ?></dd>
                               </div>
                               <div class="content-header-item">
                                 <dt><?= gettext('Date of last mention') ?></dt>
