@@ -193,7 +193,10 @@ foreach ($data['rows'] as $speech) { ?>
                 <?php } ?>
 
               <?php if (isset($speech['mp_vote'])) {
-                  $mp_vote = [ 'vote' => $speech['mp_vote']['vote'] ];
+                  $divisions = new MySociety\TheyWorkForYou\Divisions();
+                  $division_id = $speech['division']['division_id'];
+                  $person_id = $data['mp_data']['person_id'];
+                  $mp_vote = $divisions->getDivisionResultsForMember($division_id, $person_id);
                   if (isset($speech['before_mp'])) {
                       $before_mp = $speech['before_mp'];
                   }

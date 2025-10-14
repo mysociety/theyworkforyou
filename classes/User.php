@@ -356,6 +356,7 @@ class User {
         }
         $mp_data['postcode'] = $user->postcode();
         $mp_data['mp_url'] = $member->url();
+        $mp_data['person_id'] = $member->person_id();
         $mp_data['change_url'] = $this->getPostCodeChangeURL();
 
         $image = $member->image();
