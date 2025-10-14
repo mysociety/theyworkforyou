@@ -10,6 +10,9 @@
         <?php if (isset($division['analysis_url'])): ?>
             <a class="vote-action-btn" href="<?= $division['analysis_url'] ?>">Vote analysis</a>
         <?php endif; ?>
+        <?php if (isset($division['annotation']) && !empty($division['annotation'])): ?>
+            <a class="vote-action-btn" href="<?= $division['annotation'] ?>" title="External link to <?= $division['annotation'] ?>">Public Statement</a>
+        <?php endif; ?>
         <?php if (isset($division['speeches']) && count($division['speeches']) > 0): ?>
             <input type="checkbox" id="speeches-toggle-<?= $division['division_id'] ?>" class="vote-speeches-checkbox" hidden>
             <label for="speeches-toggle-<?= $division['division_id'] ?>" class="vote-action-btn vote-speeches-toggle">
