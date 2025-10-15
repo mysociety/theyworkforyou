@@ -54,8 +54,8 @@ $display_wtt_stats_banner = '2015';
                         <?php endforeach; ?>
 
                     </ul>
-                        </div>
                     <?php endif; ?>
+                </div>
 
                     <?php if (array_key_exists('appg_membership', $memberships)): ?>
                         <div class="panel">
