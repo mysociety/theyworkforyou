@@ -868,6 +868,7 @@ class GlossaryDrawer {
       // Set initial ARIA attributes
       button.setAttribute('aria-expanded', 'false');
       button.setAttribute('aria-haspopup', 'dialog');
+      button.setAttribute('role', 'button');
 
       const defId = button.getAttribute('popovertarget');
       if (defId && this.definitions.has(defId)) {

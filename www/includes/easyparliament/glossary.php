@@ -347,15 +347,18 @@ class GLOSSARY {
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
                 $class_extra = '';
                 $nofollow = '';
+                $map_replacement = "<a popovertarget=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"Display definition of " . $term_title . "\"$nofollow class=\"glossary-term-button" . $class_extra . "\">" . $term_title . "</a>";
                 if (preg_match("/^(https?:*[^\s]*)$/i", $term_body)) {
                     $link_url = $term_body;
                     $title = "External link to " . $term_body;
                     $class_extra = ' glossary_external';
                     $nofollow = ' rel="nofollow"';
+                    $map_replacement = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">" . $term_title . "</a>";
                 }
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
-                $replacemap[$term_title] = "<a type=\"button\" popovertarget=\"def-" . $glossary_id . "\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-describedby=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"Display definition of " . $term_title . "\"$nofollow class=\"glossary-term-button" . $class_extra . "\">" . $term_title . "</a>";
-                $titlemap[$term_title] = ['id' => $glossary_id, 'body' => $pd->text($term_body)];
+                $lc_title = strtolower($term_title);
+                $replacemap[$lc_title] = $map_replacement;
+                $titlemap[$lc_title] = ['id' => $glossary_id, 'body' => $pd->text($term_body)];
             }
         }
         // Highlight all occurrences of another glossary term in the definition.
@@ -364,8 +367,9 @@ class GLOSSARY {
             $expansions = [];
             $body = preg_replace_callback($findwords, function ($matches) {
                 global $expansions, $replacemap, $titlemap;
-                $expansions = $expansions + [$matches[0] => $titlemap[$matches[0]]];
-                return $replacemap[$matches[0]];
+                $lc_match = strtolower($matches[0]);
+                $expansions = $expansions + [$matches[0] => $titlemap[$lc_match]];
+                return $replacemap[$lc_match];
             }, $body, 1);
         } else {
             $body = preg_replace($findwords, $replacewords, $body, 1);
