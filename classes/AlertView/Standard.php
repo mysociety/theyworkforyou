@@ -346,8 +346,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $today = date_create();
         $one_week_ago = date_create('7 days ago');
         $restriction = date_format($one_week_ago, 'd/m/Y') . '..' . date_format($today, 'd/m/Y');
+        // Wrap the original query in parentheses and add the date restriction with AND
+        $wrapped_query = '(' . $text . ') AND ' . $restriction;
         $last_week_count = 0;
-        $se = new \SEARCHENGINE($text . ' ' . $restriction);
+        $se = new \SEARCHENGINE($wrapped_query);
         $last_week_count = $se->run_count(0, 10);
         $se = new \SEARCHENGINE($text);
         $count = $se->run_count(0, 10, 'date');
