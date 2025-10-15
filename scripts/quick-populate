@@ -37,6 +37,9 @@ scripts/votes2db load-dev-votes
 echo 'Load Jan 2022 debates and divisions'
 scripts/xml2db.pl --debates --wales --scotland --all
 
+echo 'Load vector search suggestions'
+scripts/import-search-suggestions load
+
 echo 'Generate search index'
 search/index.pl all
 echo 'Quick setup completed'
