@@ -1,24 +1,3 @@
 #!/bin/bash
-# Get new wikipedia titles database
-# Only runs on live site
-#set -x
 
-cd `dirname $0`
-cd ../
-source commonlib/shlib/deployfns
-
-read_conf conf/general
-
-cd /data/vhost/www.theyworkforyou.com/dumps
-rm -f all-titles-in-ns0.gz
-rm -f all-titles-in-ns0
-
-DUMPDATE=`wget -q -O - http://download.wikimedia.org/backup-index.html | grep '"enwiki/' | perl -p -e "s/.*(\d\d\d\d\d\d\d\d).*/\\\$1/;"`
-#echo "Wikipedia dump date $DUMPDATE"
-wget -q -O all-titles-in-ns0.gz http://download.wikimedia.org/enwiki/$DUMPDATE/enwiki-$DUMPDATE-all-titles-in-ns0.gz
-gunzip all-titles-in-ns0.gz
-echo "load data concurrent local infile '/data/vhost/www.theyworkforyou.com/dumps/all-titles-in-ns0' ignore into table titles;" | mysql --local-infile=1 $OPTION_TWFY_DB_NAME -h $OPTION_TWFY_DB_HOST
-
-#Full database:
-#http://download.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-
+poetry run python -m twfy_tools.utils.wikipedia "$@"
