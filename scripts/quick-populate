@@ -32,6 +32,8 @@ scripts/personinfo load-statement-signatures
 echo 'Load policies and votes from twfy-votes'
 scripts/votes2db load-policies 
 scripts/votes2db load-voting-alignment 
+scripts/votes2db load-voting-annotations
+
 scripts/votes2db load-dev-votes
 
 echo 'Load Jan 2022 debates and divisions'
