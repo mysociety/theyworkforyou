@@ -2,10 +2,14 @@
 Functions to update the vector search suggestions
 """
 
+from pathlib import Path
+from typing import Optional
+
 import pandas as pd
 import rich
 import rich_click as click
 
+from twfy_tools.common.config import config
 from twfy_tools.db.models import VectorSearchSuggestions
 
 
@@ -46,11 +50,29 @@ def df_to_db(df: pd.DataFrame, verbose: bool = False):
     help="A csv file/url to update search suggestions from.",
 )
 @click.option("--verbose", is_flag=True, help="Show verbose output")
-def load(file: str, verbose: bool = False):
+def load(file: Optional[str], verbose: bool = False):
     """
     Update the vector search suggestions
     """
-    df = pd.read_csv(file)
+
+    if file is None:
+        parlparse_dir = config.PWMEMBERS.parent
+        search_dir = parlparse_dir / "rawdata" / "search"
+        data_file = search_dir / "twfy_vector_search_suggestions.json"
+    else:
+        data_file = Path(file)
+
+    if not data_file.exists():
+        raise FileNotFoundError(f"File {data_file} does not exist")
+
+    # open based on extention,  csv or json
+    if data_file.suffix == ".json":
+        df = pd.read_json(data_file)
+    elif data_file.suffix == ".csv":
+        df = pd.read_csv(data_file)
+    else:
+        raise ValueError(f"File {data_file} is not a csv or json file")
+
     df_to_db(df, verbose=verbose)
 
 
