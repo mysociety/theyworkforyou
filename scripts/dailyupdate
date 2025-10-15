@@ -43,5 +43,8 @@ system "./votes2db load-policies >> $cron_log";
 # upload party alignment (rebellions)
 system "./votes2db load-voting-alignment >> $cron_log";
 
+# upload vote annotations
+system "./votes2db load-voting-annotations >> $cron_log";
+
 # Add yesterdays optins to mailchimp
 system "poetry run contact-io upload-yesterday >> $cron_log";
