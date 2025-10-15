@@ -243,7 +243,7 @@ foreach ($data['rows'] as $speech) { ?>
                 } # End of voting HTML
 
                 if (isset($speech['commentteaser'])) { ?>
-                <div class="comment-teaser">
+                <div class="comment-teaser js-comment-teaser">
                     <div class="comment-teaser__avatar">
                         <span class="initial"><?= substr($speech['commentteaser']['username'], 0, 1); ?></span>
                     </div>
