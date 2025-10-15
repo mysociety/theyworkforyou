@@ -3,6 +3,13 @@
             <div class="full-page__unit">
                 <div class="debate-navigation__pagination">
                     <?php if (isset($section_annotation_url)) { ?>
+                    <div class="js-annotation-toggle">
+                        <label for="annotation-toggle">
+                            <input type="checkbox" id="annotation-toggle" checked>
+                            <span><?= gettext('Show annotations') ?></span>
+                        </label>
+                    </div>
+                    <div id="annotation-status" class="visuallyhidden" aria-live="polite" aria-atomic="true"></div>
                     <div class="debate-navigation__all-debates">
                         <a href="<?= $section_annotation_url ?>">Annotate!</a>
                     </div>

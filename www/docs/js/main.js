@@ -782,3 +782,46 @@ function toggleDetails() {
 $(document).ready(function() {
   initRegisterToggles();
 });
+
+// Annotations Toggle
+document.addEventListener('DOMContentLoaded', function() {
+      // Get all comment teasers
+    const commentTeasers = document.querySelectorAll('.js-comment-teaser');
+
+    // Add class to body if any comment teasers exist
+    if (commentTeasers.length > 0) {
+        document.body.classList.add('js-annotations-enabled');
+    }
+
+    // Get the toggle checkbox
+    const toggle = document.querySelector('.js-annotation-toggle input[type="checkbox"]');
+
+    if (!toggle) return;
+
+    function updateVisibility() {
+        const isHidden = !toggle.checked;
+
+        commentTeasers.forEach(teaser => {
+            if (isHidden) {
+                teaser.setAttribute('aria-hidden', 'true');
+                teaser.classList.add('is-hidden');
+            } else {
+                teaser.removeAttribute('aria-hidden');
+                teaser.classList.remove('is-hidden');
+            }
+        });
+
+
+        const status = document.getElementById('annotation-status');
+        if (status) {
+            status.textContent = isHidden 
+                ? 'Annotations are hidden' 
+                : 'Annotations are visible';
+        }
+    }
+
+    toggle.addEventListener('change', updateVisibility);
+
+    toggle.checked = true;
+    updateVisibility();
+});
