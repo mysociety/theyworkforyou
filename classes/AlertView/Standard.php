@@ -71,6 +71,17 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         $this->formatSearchTerms();
         $this->checkForCommonMistakes();
         $this->formatSearchMemberData();
+
+        // Determine if we should fetch alert counts
+        // We skip counts when in form workflows (step, mp_step, disambiguation)
+        $in_active_workflow = $this->data['step'] ||           // Alert creation wizard steps
+                             $this->data['mp_step'] ||         // MP alert creation
+                             ($this->data['members'] && is_array($this->data['members']) && count($this->data['members']) > 0) || // Member disambiguation
+                             (isset($this->data['constituencies']) && count($this->data['constituencies']) > 0) ||  // Constituency disambiguation
+                             ($this->data['alertsearch'] && !$this->data['results']); // Search disambiguation (but not if showing results)
+
+        $this->data['showing_main_alert_list'] = !$in_active_workflow;
+
         $this->setUserData();
 
         return $this->data;
@@ -803,7 +814,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 }
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
-                    $alert['search_results']  = $this->getRecentResults($alert["raw"]);
+                    // Only fetch search results when displaying the main alert list
+                    if ($this->data['showing_main_alert_list']) {
+                        $alert['search_results'] = $this->getRecentResults($alert["raw"]);
+                    }
                     $this->data['keyword_alerts'][] = $alert;
                 }
             }
