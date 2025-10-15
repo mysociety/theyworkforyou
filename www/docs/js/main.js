@@ -782,3 +782,246 @@ function toggleDetails() {
 $(document).ready(function() {
   initRegisterToggles();
 });
+
+// GLOSSARY DRAWER
+class GlossaryDrawer {
+  constructor() {
+    this.drawer = document.querySelector('.js-glossary-drawer');
+    this.overlay = document.querySelector('.js-glossary-overlay');
+    this.closeButton = document.querySelector('.js-glossary-drawer__close');
+    this.contentArea = document.querySelector('.js-glossary-drawer__content');
+    this.titleElement = document.getElementById('js-glossary-drawer-title');
+    this.announcer = document.getElementById('js-glossary-announcer');
+
+    this.activeButton = null;
+    this.focusTrap = null;
+    this.definitions = new Map();
+
+    // Initialize if elements exist
+    if (this.drawer && this.overlay) {
+      this.init();
+    } else {
+      console.error('Glossary drawer HTML structure not found. Please add the required HTML elements.');
+    }
+  }
+
+  init() {
+    this.cacheDefinitions();
+    this.bindEvents();
+  }
+
+  cacheDefinitions() {
+    // Find all glossary popover divs and cache their content
+    const popovers = document.querySelectorAll('.glossary-popover');
+    popovers.forEach(popover => {
+      const id = popover.id;
+      const title = popover.querySelector('h3')?.textContent || 'Definition';
+      const content = popover.innerHTML;
+
+      this.definitions.set(id, {
+        title: title,
+        content: content
+      });
+    });
+  }
+
+  bindEvents() {
+    // Bind click events to all glossary buttons
+    this.bindGlossaryButtons();
+
+    // Close button click
+    if (this.closeButton) {
+      this.closeButton.addEventListener('click', () => this.close());
+    }
+
+    // Overlay click
+    if (this.overlay) {
+      this.overlay.addEventListener('click', () => this.close());
+    }
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen()) {
+        this.close();
+      }
+    });
+
+    // Tab trap for accessibility
+    if (this.drawer) {
+      this.drawer.addEventListener('keydown', (e) => this.handleTabTrap(e));
+    }
+  }
+
+  bindGlossaryButtons() {
+    const buttons = document.querySelectorAll('.glossary-term-button');
+    buttons.forEach(button => {
+
+      if (!button._glossaryHandler) {
+        button._glossaryHandler = (e) => this.handleButtonClick(e);
+      } else {
+        button.removeEventListener('click', button._glossaryHandler);
+      }
+
+      // Add listener using the stored handler
+      button.addEventListener('click', button._glossaryHandler);
+
+      // Set initial ARIA attributes
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-haspopup', 'dialog');
+
+      const defId = button.getAttribute('popovertarget');
+      if (defId && this.definitions.has(defId)) {
+        button.setAttribute('aria-describedby', defId);
+      }
+    });
+  }
+
+  handleButtonClick(e) {
+    e.preventDefault();
+    const button = e.currentTarget;
+    const defId = button.getAttribute('popovertarget');
+    
+    if (defId && this.definitions.has(defId)) {
+      this.open(defId, button);
+    }
+  }
+
+  open(definitionId, triggerButton) {
+    const definition = this.definitions.get(definitionId);
+
+    if (!definition) return;
+
+    // Store reference to active button
+    this.activeButton = triggerButton;
+
+    // Update button state
+    if (this.activeButton) {
+      this.activeButton.setAttribute('aria-expanded', 'true');
+    }
+
+    // Update drawer content
+    if (this.titleElement) {
+      this.titleElement.textContent = definition.title;
+    }
+    if (this.contentArea) {
+      this.contentArea.innerHTML = definition.content;
+    }
+
+    // Show drawer and overlay
+    if (this.drawer) {
+      this.drawer.classList.add('is-open');
+      this.drawer.setAttribute('aria-hidden', 'false');
+    }
+    if (this.overlay) {
+      this.overlay.classList.add('is-visible');
+      this.overlay.setAttribute('aria-hidden', 'false');
+    }
+
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+
+    // Announce to screen readers
+    this.announceToScreenReader(`${definition.title} definition opened`);
+
+    // Focus management
+    setTimeout(() => {
+      if (this.closeButton) {
+        this.closeButton.focus();
+      }
+      this.setupFocusTrap();
+    }, 100);
+  }
+
+  close() {
+    // Update button state
+    if (this.activeButton) {
+      this.activeButton.setAttribute('aria-expanded', 'false');
+    }
+
+    // Hide drawer and overlay
+    if (this.drawer) {
+      this.drawer.classList.remove('is-open');
+      this.drawer.setAttribute('aria-hidden', 'true');
+    }
+    if (this.overlay) {
+      this.overlay.classList.remove('is-visible');
+      this.overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // Restore body scroll
+    document.body.style.overflow = '';
+
+    this.announceToScreenReader('Glossary drawer closed');
+
+    // Return focus to trigger button
+    if (this.activeButton) {
+      this.activeButton.focus();
+      this.activeButton = null;
+    }
+
+    // Clear focus trap
+    this.focusTrap = null;
+  }
+
+  isOpen() {
+    return this.drawer && this.drawer.classList.contains('is-open');
+  }
+
+  setupFocusTrap() {
+    if (!this.drawer) return;
+
+    // Get all focusable elements within the drawer
+    const focusableElements = this.drawer.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    if (focusableElements.length > 0) {
+      this.focusTrap = {
+        first: focusableElements[0],
+        last: focusableElements[focusableElements.length - 1]
+      };
+    }
+  }
+
+  handleTabTrap(e) {
+    if (e.key !== 'Tab' || !this.focusTrap) return;
+
+    if (e.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === this.focusTrap.first) {
+        e.preventDefault();
+        this.focusTrap.last.focus();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === this.focusTrap.last) {
+        e.preventDefault();
+        this.focusTrap.first.focus();
+      }
+    }
+  }
+
+  announceToScreenReader(message) {
+    if (!this.announcer) return;
+
+    this.announcer.textContent = message;
+
+    setTimeout(() => {
+      this.announcer.textContent = '';
+    }, 1000);
+  }
+
+  // Public method to refresh definitions (useful if content changes)
+  refresh() {
+    this.cacheDefinitions();
+    this.bindGlossaryButtons();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    window.glossaryDrawer = new GlossaryDrawer();
+  });
+} else {
+  window.glossaryDrawer = new GlossaryDrawer();
+}

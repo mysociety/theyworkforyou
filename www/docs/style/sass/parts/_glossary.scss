@@ -1,0 +1,121 @@
+.glossary-term-button {
+  padding: 0;
+  background-color: transparent;
+  color: $links;
+  font-weight: 400;
+  margin-bottom: 0;
+  font-size: inherit;
+  transition: background-color 0.4s ease, color 0.3s ease;
+
+  &:hover {
+    color: #fff;
+    background-color: $links;
+  }
+}
+
+.js-glossary-drawer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 90vw;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid $borders;
+    background-color: $body-bg;
+
+    h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+  }
+
+  &__close {
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: $global-radius;
+    transition: all 0.2s ease;
+    color: $body-font-color;
+    margin-bottom: 0;
+
+    &:hover {
+      color: #fff;
+      background-color: $body-font-color;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $links;
+      background-color: $body-bg;
+      color: $body-font-color;
+    }
+  }
+
+  &__content {
+    // Flex 1 makes vertical scroll work when the definition is too long
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    line-height: 120%;
+    color: $body-font-color;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+    }
+  }
+
+  @media #{$large}  {
+    width: 28.125rem;
+
+    &__header {
+      padding: 1.5rem;
+    }
+
+    &__content {
+      padding: 1.5rem;
+    }
+  }
+}
+
+.js-glossary-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.glossary-popover {
+  display: none;
+}

@@ -352,7 +352,7 @@ class GLOSSARY {
                     $nofollow = ' rel="nofollow"';
                 }
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
-                $replacemap[$term_title] = "<button type=\"button\" popovertarget=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary-term" . $class_extra . "\">" . $term_title . "</button>";
+                $replacemap[$term_title] = "<button type=\"button\" popovertarget=\"def-" . $glossary_id . "\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-describedby=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"Display definition of " . $term_title . "\"$nofollow class=\"glossary-term-button" . $class_extra . "\">" . $term_title . "</button>";
                 $titlemap[$term_title] = ['id' => $glossary_id, 'body' => $term_body];
             }
         }

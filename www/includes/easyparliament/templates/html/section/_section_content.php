@@ -397,11 +397,31 @@ if ($section && $individual_item) { ?>
 
 if (isset($expansions)) {
     foreach ($expansions as $title => $entry) {?>
-        <div id="def-<?php echo $entry['id']; ?>" class="glossary-popover" >
-        <h3><?= $title ?></h3>
+    <div id="def-<?php echo $entry['id']; ?>" class="glossary-popover" role="definition">
+        <h3 class="visuallyhidden"><?= $title ?></h3>
         <!-- Ideally we want to keep using the markdown format here, but it might compromise accessibility, for example is someone decides to use and h1 title here we might end up with two h1 elements in the page, even more -->
         <?= $entry['body'] ?>
     </div>
 <?php
     }
-}
+} ?>
+
+<div class="js-glossary-overlay" aria-hidden="true"></div>
+
+<aside class="js-glossary-drawer" 
+       role="dialog" 
+       aria-modal="true" 
+       aria-labelledby="js-glossary-drawer-title" 
+       aria-hidden="true">
+
+    <div class="js-glossary-drawer__header">
+        <h2 id="js-glossary-drawer-title">Definition</h2>
+        <button type="button" class="js-glossary-drawer__close" aria-label="Close glossary drawer">&#10005;</button>
+    </div>
+
+    <div class="js-glossary-drawer__content" role="document"></div>
+</aside>
+
+<div class="visuallyhidden" role="status" aria-live="polite" id="js-glossary-announcer"></div>
+
+<?php
