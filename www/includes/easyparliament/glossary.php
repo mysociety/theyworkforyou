@@ -321,6 +321,8 @@ class GLOSSARY {
             $body = preg_replace("~(http(s)?:\/\/[^\s\n]*)\b(\/)?~i", "<a href=\"\\0\">\\0</a>", $body);
         }
 
+        $pd = new \Parsedown();
+        $pd->setSafeMode(true);
         // check for any glossary terms to replace
         foreach ($this->replace_order as $glossary_id => $count) {
             if ($glossary_id == $this->glossary_id) {
@@ -353,7 +355,7 @@ class GLOSSARY {
                 }
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
                 $replacemap[$term_title] = "<button type=\"button\" popovertarget=\"def-" . $glossary_id . "\" aria-expanded=\"false\" aria-haspopup=\"dialog\" aria-describedby=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"Display definition of " . $term_title . "\"$nofollow class=\"glossary-term-button" . $class_extra . "\">" . $term_title . "</button>";
-                $titlemap[$term_title] = ['id' => $glossary_id, 'body' => $term_body];
+                $titlemap[$term_title] = ['id' => $glossary_id, 'body' => $pd->text($term_body)];
             }
         }
         // Highlight all occurrences of another glossary term in the definition.
