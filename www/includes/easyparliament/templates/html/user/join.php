@@ -6,10 +6,21 @@
                 <?php } ?>
 
             <div class="main">
-				<h1><?= gettext('Join TheyWorkForYou') ?></h1>
+				<h1><?= gettext('Create a TheyWorkForYou Account') ?></h1>
 
-        <p><?= gettext('Joining TheyWorkForYou makes it easier to manage your email alerts…') ?></p>
-        <p><?= gettext('Already joined? <a href="/user/login/">Then sign in!</a>') ?></p>
+        <p><?= gettext('Already registered? <a href="/user/login/">Then sign in!</a>') ?></p>
+
+
+        <?php if (LANGUAGE == 'en') { ?>
+        <div class="registration-benefits">
+            <p><strong>Joining is free and allows you to manage your email alerts</strong></p>
+            <ul>
+            <li>See recent mentions of all your alerts</li>
+            <li>Suspend, resume and delete your email alerts from your profile page</li>
+            </ul>
+        </div>
+        <?php } ?>
+
 
                 <form method="post" class="join-form" action="/user/index.php">
                 <?php if (isset($errors['firstname'])) { ?>

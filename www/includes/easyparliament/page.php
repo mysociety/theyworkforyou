@@ -771,21 +771,25 @@ class PAGE {
 <?php
         }
         ?>
-
-            <p>
-                <?= gettext('Forgotten your password?') ?>
-                <a href="<?php
-                    $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
-        $URL->insert(["email" => get_http_var("email")]);
-        echo $URL->generate();
-        ?>"><?= gettext('Set a new one!') ?></a>
-            </p>
-
-            <p>
-                <?= gettext('Not yet a member?') ?>
-                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin");
-        echo $URL->generate(); ?>"><?= gettext('Join now!') ?></a>
-            </p>
+    <hr>
+    <div class="login">
+            <h3><?= gettext('New to TheyWorkForYou?') ?></h3>
+            <?php if (LANGUAGE == 'en') { ?>
+            <div class="registration-benefits">
+                <p><strong>Joining is free and allows you to manage your email alerts</strong></p>
+                <ul>
+                <li>See recent mentions of all your alerts</li>
+                <li>Suspend, resume and delete your email alerts from your profile page</li>
+                </ul>
+            </div>
+            <?php } ?>
+            <div>
+                <a href="<?= (new \MySociety\TheyWorkForYou\Url("userjoin"))->generate(); ?>"
+                   class="button">
+                    <?= gettext('Create Free Account') ?>
+                </a>
+            </div>
+    </div>
 
         </form>
 <?php
