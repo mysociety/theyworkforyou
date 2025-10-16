@@ -257,7 +257,6 @@
               <h3><?= gettext('Not quite right? Search again to refine your email alert.') ?></h3>
                 <?php } ?>
               <?php } ?>
-              <?php include '_mp_alert_form.php' ?>
             </div>
         </div>
         <?php } else { ?>
