@@ -25,7 +25,9 @@ $cd = $policy_pair->comparison_distribution;
     <?php } ?>
     
     <?php if (in_array($pp->policy_id, $free_votes)) { ?>
-        <span style="font-size:60%">This policy contains a free vote</span>.
+        <a class="vote-description__evidence" href="/voting-information/#free-votes">
+        <span>🗳️ This policy contains a free vote (learn more).</span>
+        </a>
     <?php
     }
 if ($pp->covid_affected) { ?>
