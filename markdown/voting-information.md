@@ -52,6 +52,21 @@ In our voting summaries we try to illustrate this mix of factors. In the long ru
 
 Ultimately, **a vote might not represent an MP’s personal opinion, but it does represent their impact in the political process**. We track and highlight the votes of individual MPs because they are the ones who have been given the power to make those decisions. Even where a voting record does not differ much from the party, it reflects the consequences of electing someone from that party, rather than another. 
 
+### Free Votes
+
+Free votes are where MPs are not given instructions or put under pressure by party leadership to vote in a certain way. In the voting summaries, we have started to flag items that include a free vote, and are thinking about how best to describe these votes.
+
+A vote being free is a decision of the party - and sometimes a vote might be free for one party but not another. In practice, free votes [tend to break down by party lines](https://theconversation.com/assisted-dying-how-mps-voted-and-what-it-tells-us-about-cross-party-consensus-245060), but with significant minorities against the general position of the party. 
+
+There is no official rules for what kind of vote should be a free vote. There are conventions that votes on [parliamentary procedure](https://constitution-unit.com/2025/07/08/house-of-commons-procedure-why-does-it-matter-and-how-does-it-change/) (including votes on disciplining MPs for breaking rules) should be free votes - but [this has been inconsistent](https://ukandeu.ac.uk/the-owen-paterson-standards-row-reflects-worrying-broader-trends-in-our-politics/). 
+
+Another group is described as "ethical issues that are seen as a matter of conscience" (from [Parliament's glossary](https://www.parliament.uk/site-information/glossary/free-vote/)). However, many other votes involve ethical/moral issues but remain whipped. What generally defines "issues of conscience" is where for a significant number of MPs a whipped vote would be a choice between party and their ethical/religious beliefs. Faith isn't the motivation for all MPs in these votes, but it can tip the numbers enough that normal party management would not be effective (or that disciplining these MPs would be viewed negatively).
+
+Normal party management approaches are less useful for these votes because the basic principle of the vote is the source of the objections (the minority can't be won over with amendments), and there would be too many "rebels" to effectively discipline if the party leadership wanted to take a hard stance on the issue.
+
+Free votes reflect that the whip is a conversation between party leadership and their MPs, and part of the general argument talked [about in the previous section](#party-and-individual-responsibility-for-decisions) about the balance between party and individual responsibility for votes.
+
+
 ### Agreements and divisions
 
 Sometimes when it’s time for a decision on a motion, there is no (or small) vocal opposition, and the motion is seen as having been agreed collectively without MPs individually voting for or against. In TheyWorkForYou, we call these types of decisions ‘agreements’ (as opposed to ‘divisions’). Within Parliament these are sometimes described as decisions made “on the nod”. 
