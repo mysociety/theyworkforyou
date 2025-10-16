@@ -278,3 +278,17 @@ class VectorSearchSuggestions(
 
     def __str__(self):
         return f"{self.search_term}: {self.search_suggestion}"
+
+
+class Titles(UnmanagedDataclassModel, db_table="titles"):
+    title: str = field(models.CharField, max_length=190, primary_key=True)
+
+    def __str__(self):
+        return self.title
+
+
+class TitlesIgnored(UnmanagedDataclassModel, db_table="titles_ignored"):
+    title: str = field(models.CharField, max_length=190, primary_key=True)
+
+    def __str__(self):
+        return self.title
