@@ -1104,7 +1104,7 @@ $page =  [
     ],
     'userlogin' =>  [
         'menu'			=>  [
-            'text'			=> gettext('Sign in'),
+            'text'			=> gettext('Sign in / Register'),
             'title'			=> gettext("If you've already joined, sign in to your account"),
         ],
         'sidebar'		=> 'userlogin',

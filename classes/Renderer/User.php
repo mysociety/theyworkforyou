@@ -112,22 +112,7 @@ class User {
 
     private function addLoggedOutLinks() {
         // The 'Join' link.
-        $menudata   = $this->pagedata->page_metadata('userjoin', 'menu');
-        $jointext   = $menudata['text'];
-        $jointitle  = $menudata['title'];
 
-        $JOINURL    = new \MySociety\TheyWorkForYou\Url('userjoin');
-        if ($this->page != 'userjoin') {
-            if ($this->page != 'userlogout' && $this->page != 'userlogin') {
-                // We don't do this on the logout page, because then the user
-                // will return straight to the logout page and be logged out
-                // immediately!
-                $JOINURL->insert(["ret" => $this->returl]);
-            }
-            $joinclass = '';
-        } else {
-            $joinclass = 'on';
-        }
 
         // The 'Log in' link.
         $menudata = $this->pagedata->page_metadata('userlogin', 'menu');
@@ -158,12 +143,7 @@ class User {
             'text'    => $logintext,
         ];
 
-        $this->data['user_nav_links'][] = [
-            'href'    => $JOINURL->generate(),
-            'title'   => $jointitle,
-            'classes' => $joinclass,
-            'text'    => $jointext,
-        ];
+
 
         $this->addRepLinks();
         $this->addContactLink();
