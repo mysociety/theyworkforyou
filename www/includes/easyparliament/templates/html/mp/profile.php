@@ -24,6 +24,8 @@ $display_wtt_stats_banner = '2015';
                 <div id="profile-message" class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
+              <?php else: ?>
+                <?php include '_donation_banner.php'; ?>
               <?php endif; ?>
 
               <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
