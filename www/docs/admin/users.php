@@ -67,7 +67,7 @@ if ($search = get_http_var('s')) {
 
         $user_data['rows'][] = [
             $name,
-            $email,
+            _htmlspecialchars($row['email']),
             $confirmed,
             $row['registrationtime'],
             scrub_form($row['email']),
