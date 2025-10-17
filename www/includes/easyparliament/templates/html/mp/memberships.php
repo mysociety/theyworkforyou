@@ -20,6 +20,8 @@ $display_wtt_stats_banner = '2015';
 
             <div class="primary-content__unit">
 
+                <?php include '_donation_banner.php'; ?>
+
                 <div class="panel">
                     <a name="interests"></a>
                     <h2 id="posts"><?=gettext('Committees') ?></h2>

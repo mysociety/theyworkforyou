@@ -515,34 +515,21 @@ function restrict_to_default($howmuch, $howoften){
     scrollTop: $('.donate-form').offset().top
   }, 500);
 
-  // if howoften monthly hide annually and one-off
   if ($howoften == 'monthly') {
-    $('#how-often-one-off').parent().hide();
-    $('#how-often-annually').parent().hide();
     $('#how-often-monthly').prop('checked', true);
     amounts_monthly()
-    $('.donate-monthly-amount').hide();
-    $('#how-much-other').parent().hide();
     $('#how-much-monthly-' + $howmuch).parent().show();
     $('#how-much-monthly-' + $howmuch).prop('checked', true);
   }
   if ($howoften == 'annually') {
-    $('#how-often-one-off').parent().hide();
-    $('#how-often-monthly').parent().hide();
     $('#how-often-annually').prop('checked', true);
     amounts_annually()
-    $('.donate-annually-amount').hide();
-    $('#how-much-other').parent().hide();
     $('#how-much-annually-' + $howmuch).parent().show();
     $('#how-much-annually-' + $howmuch).prop('checked', true);
   }
   if ($howoften == 'one-off') {
-    $('#how-often-monthly').parent().hide();
-    $('#how-often-annually').parent().hide();
     $('#how-often-one-off').prop('checked', true);
     amounts_oneoff()
-    $('.donate-one-off-amount').hide();
-    $('#how-much-other').parent().hide();
     $('#how-much-one-off-' + $howmuch).parent().show();
     $('#how-much-one-off-' + $howmuch).prop('checked', true);
   }
