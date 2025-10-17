@@ -749,8 +749,13 @@ class PAGE {
                 <label for="remember" class="remember-label"><?= gettext('Keep me signed in on this device') ?></label>
             </p>
 
-            <p>
+            <p class="login-buttons">
                 <input type="submit" value="<?= gettext('Sign in') ?>" class="button">
+                <a href="<?php
+                    $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
+        $URL->insert(["email" => get_http_var("email")]);
+        echo $URL->generate();?>"
+                   class="button button button--secondary"><?= gettext('Forgotten Password?') ?></a>
             </p>
 
             <input type="hidden" name="submitted" value="true">
@@ -771,21 +776,24 @@ class PAGE {
 <?php
         }
         ?>
+    <hr>
+    <div class="login">
+                <h3><?= gettext('New to TheyWorkForYou?') ?></h3>
 
-            <p>
-                <?= gettext('Forgotten your password?') ?>
-                <a href="<?php
-                    $URL = new \MySociety\TheyWorkForYou\Url("userpassword");
-        $URL->insert(["email" => get_http_var("email")]);
-        echo $URL->generate();
-        ?>"><?= gettext('Set a new one!') ?></a>
-            </p>
-
-            <p>
-                <?= gettext('Not yet a member?') ?>
-                <a href="<?php $URL = new \MySociety\TheyWorkForYou\Url("userjoin");
-        echo $URL->generate(); ?>"><?= gettext('Join now!') ?></a>
-            </p>
+            <div class="registration-benefits__content">
+                <p><strong><?= gettext('Registering is free and allows you to manage your email alerts') ?></strong></p>
+                <ul>
+                    <li><?= gettext('See recent mentions of all your alerts') ?></li>
+                    <li><?= gettext('Suspend, resume and delete your email alerts from your profile page') ?></li>
+                </ul>
+            </div>
+            <div class="registration-benefits__action">
+                <a href="<?= (new \MySociety\TheyWorkForYou\Url("userjoin"))->generate(); ?>"
+                   class="button">
+                    <?= gettext('Create Free Account') ?>
+                </a>
+            </div>
+    </div>
 
         </form>
 <?php

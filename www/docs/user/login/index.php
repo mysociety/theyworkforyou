@@ -114,13 +114,9 @@ function display_page($errors = []) {
         return;
     }
 
-    $login = new \MySociety\TheyWorkForYou\FacebookLogin();
-
     ?>
 
-    <p><a href="<?php echo htmlspecialchars($login->getloginURL()); ?>" class="button button--facebook">Sign in with Facebook</a></p>
 
-    <p><?= gettext("Or sign in by email:")?></p>
 
     <?php $PAGE->login_form($errors); ?>
 

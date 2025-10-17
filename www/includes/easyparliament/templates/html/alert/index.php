@@ -263,13 +263,13 @@
 
         <div class="alert-section">
             <div class="alert-section__primary">
+              <h1><?= gettext('Email Alerts') ?></h1>
               <?php if (!$email_verified) { ?>
-                <p>
-                    <?= sprintf(gettext('If you <a href="%s">join</a> or <a href="%s">sign in</a>, you can suspend, resume and delete your email alerts from your profile page.'), '/user/?pg=join', '/user/login/?ret=%2Falert%2F') ?>
-                </p>
-                <p>
-                    <?= gettext('Plus, you won’t need to confirm your email address for every alert you set.') ?>
-                </p>
+                <div class="signin-links">
+                    <a href="/user/login/?ret=%2Falert%2F" class="button"><?= gettext('Sign in to see your previous alerts') ?></a>
+                    <a href="/user/?pg=join" class="button"><?= gettext('Create a free account') ?></a>
+                    <hr>
+                </div>
               <div class="alert-section__header">
                 <h3><?= gettext('Create an alert for a phrase or keyword') ?></h3>
                 <form action="<?= $actionurl ?>" method="post">
