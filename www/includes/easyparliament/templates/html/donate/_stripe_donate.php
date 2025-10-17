@@ -36,18 +36,18 @@
     <h3>How much would you like to give?</h3>
 
     <div class="fat-radio-buttons donate-amounts">
-      <?php foreach ($payment_amounts as $payment_type => $amounts) { ?>
+      <?php foreach ($payment_amounts as $amount_type => $amounts) { ?>
       <?php foreach ($amounts as $amount => $label) { ?>
         <label
-          for="how-much-<?=$payment_type?>-<?=$amount?>"
-          class="donate-<?=$payment_type?>-amount inline-radio-label"
-          <?php if ($payment_type != $payment_type) { ?>style="display:none"<?php } ?> />
+          for="how-much-<?=$amount_type?>-<?=$amount?>"
+          class="donate-<?=$amount_type?>-amount inline-radio-label"
+          <?php if ($amount_type != $payment_type) { ?>style="display:none"<?php } ?> />
             <input
               type="radio"
-              id="how-much-<?=$payment_type?>-<?=$amount?>"
+              id="how-much-<?=$amount_type?>-<?=$amount?>"
               name="how-much"
               value="<?=$amount?>"
-              required <?= (($how_much == $amount) and ($payment_type == $payment_type)) ? ' checked' : '' ?> />
+              required <?= (($how_much == $amount) and ($amount_type == $payment_type)) ? ' checked' : '' ?> />
             <span class="radio-label-large"><?=$label?></span>
         </label>
       <?php } ?>
