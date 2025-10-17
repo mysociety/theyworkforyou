@@ -15,7 +15,7 @@ For over 20 years, TheyWorkForYou has been making our democracy more transparent
 * **Keep It Free and Accessible** — TheyWorkForYou has no paywalls because everyone deserves unbiased and high quality information about decisions made on their behalf. Your support keeps it free for all the organisations and community groups who can’t afford costly political monitoring. Together, we strengthen countless good causes.
 * **Innovate and go further** — We’re always looking for new ways we can do more to improve on official data, or work with our volunteers to create new information and analysis. With you behind us, we’ll keep pioneering new ways of improving our democracy.
 
-We're not funded by the government and we run this for the public, not MPs. We're not going to wait for a better political system to be given to us – **we want to work together to make it happen now**.
+We don't want to wait for a better political system to be given to us – **we want to work together to make it happen now**.
 
 By becoming a TheyWorkForYou Supporter, you ensure that this crucial service not only stays up and running, but gives us the freedom to innovate and be bolder.
 

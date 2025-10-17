@@ -15,6 +15,8 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
             <div class="primary-content__unit">
 
+                    <?php include '_donation_banner.php'; ?>
+
                     <?php if (LANGUAGE == 'en') { ?>
 
                     <div class="panel register">
