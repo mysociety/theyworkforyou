@@ -746,11 +746,17 @@ class PAGE {
             print " checked";
         }
         ?>>
+        <?php
+        $forgotten_password = new \MySociety\TheyWorkForYou\Url("userpassword");
+        $forgotten_password->insert(["email" => get_http_var("email")]);
+        ?>
                 <label for="remember" class="remember-label"><?= gettext('Keep me signed in on this device') ?></label>
             </p>
 
-            <p>
+            <p class="login-buttons">
                 <input type="submit" value="<?= gettext('Sign in') ?>" class="button">
+                <a href="<?=$forgotten_password->generate()?>"
+                   class="button button button--secondary"><?= gettext('Forgotten Password?') ?></a>
             </p>
 
             <input type="hidden" name="submitted" value="true">
