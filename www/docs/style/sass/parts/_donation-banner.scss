@@ -1,0 +1,177 @@
+// Donation banner styles - Wikipedia-style prominent banner for MP profiles
+// Uses existing panel structure but with distinctive styling
+
+.panel--donation-banner {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    margin-bottom: 1.5em !important;
+    position: relative;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #007bff 0%, #28a745 50%, #ffc107 100%);
+        border-radius: 3px 3px 0 0;
+    }
+}
+
+.donation-banner__content {
+    padding: 0; // Override panel default padding
+}
+
+.donation-banner__header {
+    padding: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+    
+    @media (max-width: $small-screen) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.donation-banner__title {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #212529;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex: 1;
+}
+
+.donation-banner__icon {
+    font-size: 1.2em;
+}
+
+.donation-banner__toggle {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    transition: all 0.2s ease;
+    
+    &:hover {
+        background: #e9ecef;
+        border-color: #adb5bd;
+    }
+    
+    &:focus {
+        outline: 2px solid #007bff;
+        outline-offset: 2px;
+    }
+}
+
+.donation-banner__toggle-text {
+    font-weight: 500;
+    color: #495057;
+}
+
+.donation-banner__toggle-arrow {
+    font-size: 0.8em;
+    transition: transform 0.2s ease;
+}
+
+.donation-banner__details {
+    padding: 1.5em;
+    background: #fff;
+    border-radius: 0 0 3px 3px;
+}
+
+.donation-banner__message {
+    margin-bottom: 1.5em;
+    
+    p {
+        margin-bottom: 1em;
+        line-height: 1.5;
+    }
+}
+
+.donation-banner__benefits {
+    margin: 1em 0 1.5em 1.5em;
+    
+    li {
+        margin-bottom: 0.75em;
+        line-height: 1.4;
+        
+        strong {
+            color: #212529;
+        }
+    }
+}
+
+.donation-banner__actions {
+    display: flex;
+    gap: 0.75em;
+    flex-wrap: wrap;
+    align-items: center;
+    
+    @media (max-width: $small-screen) {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .donation-banner__button {
+            text-align: center;
+        }
+    }
+}
+
+.donation-banner__button {
+    margin-bottom: 0;
+    text-decoration: none;
+    
+    &.button--primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        
+        &:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    }
+    
+    &.button--secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        
+        &:hover {
+            background-color: #545b62;
+            border-color: #545b62;
+            color: #fff;
+        }
+    }
+}
+
+// Animation for the expanding content
+.donation-banner__details:not([hidden]) {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+    }
+}

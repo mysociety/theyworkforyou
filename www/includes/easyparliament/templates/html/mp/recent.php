@@ -7,6 +7,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
         <div class="person-panels">
             <div class="primary-content__unit">
 
+                <?php include '_donation_banner.php'; ?>
 
                 <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
                 <div class="panel">
