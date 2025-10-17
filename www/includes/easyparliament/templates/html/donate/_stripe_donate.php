@@ -118,6 +118,11 @@
 var stripe = Stripe('<?=STRIPE_DONATE_PUBLIC_KEY ?>', { apiVersion: '<?= STRIPE_API_VERSION ?>' });
 </script>
 <script>
-    // hide .donate-form by default
-    document.querySelector('.donate-form').style.display = 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+        // hide .donate-form by default, unless #open-form hash is present
+        document.querySelector('.donate-form').style.display = 'none';
+        if (window.location.hash == '#donate-form') {
+            restrict_to_default('<?= $how_much ?>', '<?= $payment_type ?>');
+        }
+    });
 </script>
