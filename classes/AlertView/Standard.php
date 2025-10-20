@@ -151,7 +151,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     private function processStep() {
         # fetch a list of suggested terms. Need this for the define screen so we can filter out the suggested terms
         # and not show them if the user goes back
-        if (($this->data['step'] == 'review' || $this->data['step'] == 'define') && !$this->data['shown_related']) {
+        if (in_array($this->data['step'], ['review', 'define', 'add_vector_related']) && !$this->data['shown_related']) {
             $suggestions = [];
             foreach ($this->data['keywords'] as $word) {
                 $terms = $this->alert->get_related_terms($word);
@@ -160,9 +160,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                     $suggestions = array_merge($suggestions, $terms);
                 }
             }
-
             if (count($suggestions) > 0) {
                 $this->data['step'] = 'add_vector_related';
+            }
+            if ($this->data["step"] == 'add_vector_related') {
                 $this->data['suggestions'] = $suggestions;
             }
             # confirm the alert. Handles both creating and editing alerts
