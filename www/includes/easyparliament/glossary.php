@@ -292,13 +292,16 @@ class GLOSSARY {
         }
     }
 
-    public function glossarise($body, $tokenize = 0, $urlize = 0) {
+    public function glossarise($body, $tokenize = 0, $urlize = 0, $return_expansions = 0) {
         // Turn a body of text into a link-up wonderland of glossary joy
 
         global $this_page;
 
         $findwords = [];
         $replacewords = [];
+        global $replacemap, $titlemap;
+        $replacemap = [];
+        $titlemap = [];
         $URL = new \MySociety\TheyWorkForYou\Url("glossary");
         $URL->insert(["gl" => ""]);
 
@@ -318,6 +321,8 @@ class GLOSSARY {
             $body = preg_replace("~(http(s)?:\/\/[^\s\n]*)\b(\/)?~i", "<a href=\"\\0\">\\0</a>", $body);
         }
 
+        $pd = new \Parsedown();
+        $pd->setSafeMode(true);
         // check for any glossary terms to replace
         foreach ($this->replace_order as $glossary_id => $count) {
             if ($glossary_id == $this->glossary_id) {
@@ -342,17 +347,33 @@ class GLOSSARY {
                 $title = _htmlentities(trim_characters($term_body, 0, 80));
                 $class_extra = '';
                 $nofollow = '';
+                $map_replacement = "<a popovertarget=\"def-" . $glossary_id . "\" href=\"$link_url\" title=\"Display definition of " . $term_title . "\"$nofollow class=\"glossary-term-button" . $class_extra . "\">" . $term_title . "</a>";
                 if (preg_match("/^(https?:*[^\s]*)$/i", $term_body)) {
                     $link_url = $term_body;
                     $title = "External link to " . $term_body;
                     $class_extra = ' glossary_external';
                     $nofollow = ' rel="nofollow"';
+                    $map_replacement = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">" . $term_title . "</a>";
                 }
                 $replacewords[] = "<a href=\"$link_url\" title=\"$title\"$nofollow class=\"glossary" . $class_extra . "\">\\1</a>";
+                $lc_title = strtolower($term_title);
+                $replacemap[$lc_title] = $map_replacement;
+                $titlemap[$lc_title] = ['id' => $glossary_id, 'body' => $pd->text($term_body)];
             }
         }
         // Highlight all occurrences of another glossary term in the definition.
-        $body = preg_replace($findwords, $replacewords, $body, 1);
+        if ($return_expansions) {
+            global $expansions;
+            $expansions = [];
+            $body = preg_replace_callback($findwords, function ($matches) {
+                global $expansions, $replacemap, $titlemap;
+                $lc_match = strtolower($matches[0]);
+                $expansions = $expansions + [$matches[0] => $titlemap[$lc_match]];
+                return $replacemap[$lc_match];
+            }, $body, 1);
+        } else {
+            $body = preg_replace($findwords, $replacewords, $body, 1);
+        }
         if (isset($this->glossary_id)) {
             $body = preg_replace("/(?<![>\.\'\/])\b(" . $this->terms[$this->glossary_id]['title'] . ")\b(?![<\'])/i", '<strong>\\1</strong>', $body, 1);
         }
@@ -362,6 +383,9 @@ class GLOSSARY {
         // don't clash (e.g. URLs getting doubly munged etc.)
         $body = \MySociety\TheyWorkForYou\Utility\Wikipedia::wikipedize($body);
 
+        if ($return_expansions) {
+            return [($body), $expansions];
+        }
         return ($body);
     }
 
