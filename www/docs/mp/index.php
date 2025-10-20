@@ -412,7 +412,7 @@ switch ($pagetype) {
             $sets = [
                 'social', 'foreignpolicy', 'welfare', 'taxation', 'business',
                 'health', 'education', 'reform', 'home', 'environment',
-                'transport', 'housing', 'misc',
+                'transport', 'housing', 'justice', 'misc',
             ];
             $sets = array_filter($sets, function ($v) use ($set_descriptions) {
                 return array_key_exists($v, $set_descriptions);
