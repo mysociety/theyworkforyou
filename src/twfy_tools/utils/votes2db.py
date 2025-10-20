@@ -498,7 +498,8 @@ def process_annotations():
     INSERT INTO persondivisionvotes (person_id, division_id, annotation)
     VALUES (%s, %s, %s)
     ON DUPLICATE KEY UPDATE
-        annotation = VALUES(annotation)
+        annotation = VALUES(annotation),
+        lastupdate = lastupdate;
     """
 
     BATCH = 1000
