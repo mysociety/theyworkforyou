@@ -548,13 +548,10 @@ span.hi {
   @media (min-width: $medium-screen) {
     margin-left: 70px;
     padding-left: 26px;
-    background-image: url('../img/elbow.png');
-    background-position: 0 3px;
+    background-image: url('../img/elbow.svg');
+    background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 24px;
-    @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-      background-image: url('../img/elbow@2.png');
-    }
   }
 
   .morecomments {
@@ -574,16 +571,16 @@ span.hi {
 .comment-teaser__avatar {
   background-color: #a94ca6;
   display: inline-block;
-  @include radius(emCalc(24));
+  @include radius(24px);
   color: #fff;
   text-align: center;
-  width: emCalc(24);
-  height: emCalc(24);
+  width: 24px;
+  height: 24px;
   float: left;
   .initial {
       font-size: emCalc(14);
       vertical-align: middle;
-      line-height: 1em;
+      line-height: 24px;
       font-weight: 600;
   }
 }

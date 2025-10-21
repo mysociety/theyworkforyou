@@ -782,3 +782,58 @@ function toggleDetails() {
 $(document).ready(function() {
   initRegisterToggles();
 });
+
+// Annotations Toggle
+document.addEventListener('DOMContentLoaded', function() {
+  const commentTeasers = document.querySelectorAll('.js-comment-teaser');
+  if (commentTeasers.length > 0) {
+    document.body.classList.add('js-annotations-enabled');
+  }
+
+  // There are two switches, one in the footer and one in the header
+  const toggles = document.querySelectorAll('.js-annotation-toggle input[type="checkbox"]');
+  if (toggles.length === 0) return;
+
+  function updateVisibility(isChecked) {
+    const isHidden = !isChecked;
+    commentTeasers.forEach((teaser, index) => {
+      setTimeout(() => {
+        if (isHidden) {
+          teaser.setAttribute('aria-hidden', 'true');
+          teaser.classList.add('is-hidden');
+        } else {
+          teaser.removeAttribute('aria-hidden');
+          teaser.classList.remove('is-hidden');
+        }
+      }, index * 50);
+    });
+
+    const statusElements = document.querySelectorAll('#annotation-status');
+    statusElements.forEach(status => {
+      status.textContent = isHidden
+        ? 'Annotations are hidden'
+        : 'Annotations are visible';
+    });
+  }
+
+  function syncToggles(changedToggle) {
+    const newState = changedToggle.checked;
+    toggles.forEach(toggle => {
+      if (toggle !== changedToggle) {
+        toggle.checked = newState;
+      }
+    });
+    updateVisibility(newState);
+  }
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('change', function() {
+      syncToggles(this);
+    });
+  });
+
+  toggles.forEach(toggle => {
+    toggle.checked = true;
+  });
+  updateVisibility(true);
+});
