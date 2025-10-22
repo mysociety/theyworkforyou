@@ -68,15 +68,6 @@ def load_blocklist(quiet: bool = False):
     sync_folder(TitlesIgnored, block_list_path, quiet=quiet)
 
 
-@app.command()
-def load_all(quiet: bool = False):
-    """
-    Load both the wikipedia allowlist and blocklist into the database.
-    """
-    load_allowlist(quiet)
-    load_blocklist(quiet)
-
-
 @app.callback()
 def main(
     ctx: typer.Context,
@@ -87,7 +78,7 @@ def main(
     """
     if ctx.invoked_subcommand is None:
         # No subcommand was invoked, run load_all as default
-        load_all(quiet)
+        load_allowlist(quiet)
 
 
 if __name__ == "__main__":
