@@ -9,9 +9,7 @@ $data = $view->display();
 
 // Check for permission errors
 if (isset($data['error']) && !isset($data['template_name'])) {
-    $PAGE->page_start();
-    echo '<p>' . $data['error'] . '</p>';
-    $PAGE->page_end();
+    $PAGE->error_message($data['error'], true);
     exit;
 }
 
