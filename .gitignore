@@ -15,9 +15,6 @@ build/
 puphpet/files/dot/ssh
 !puphpet/files/dot/ssh/insecure_private_key
 
-www/docs/rss/*.rss
-www/docs/rss/mp/*.rdf
-
 /www/docs/people-images
 
 data/
