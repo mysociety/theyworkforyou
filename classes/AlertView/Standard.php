@@ -829,7 +829,10 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $this->data['delete_token'] = $this->data['alerts'][0]['token'];
         }
         if ($this->data['addword'] != '' || ($this->data['step'] && count($this->data['errors']) > 0)) {
-            $this->data["step"] = get_http_var('this_step');
+            // transitioning between add_vector_related step handled elsewhere
+            if (get_http_var('this_step') != "add_vector_related") {
+                $this->data["step"] = get_http_var('this_step');
+            }
         } elseif ($this->data['mp_step'] && count($this->data['errors']) > 0) {
             $this->data["mp_step"] = 'mp_alert';
         } else {
