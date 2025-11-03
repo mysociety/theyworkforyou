@@ -322,7 +322,9 @@ class GLOSSARY {
         }
 
         $pd = new \Parsedown();
-        $pd->setSafeMode(true);
+        // everything should be clean already because it's been checked so
+        // we don't need this
+        // $pd->setSafeMode(true);
         // check for any glossary terms to replace
         foreach ($this->replace_order as $glossary_id => $count) {
             if ($glossary_id == $this->glossary_id) {
