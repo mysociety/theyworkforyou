@@ -334,7 +334,7 @@ CREATE TABLE `future_people` (
 CREATE TABLE `alerts` (
   `alert_id` mediumint(8) unsigned NOT NULL auto_increment,
   `email` varchar(255) NOT NULL default '',
-  `criteria` varchar(255) NOT NULL default '',
+  `criteria` varchar(1000) NOT NULL default '',
   `deleted` tinyint(1) NOT NULL default '0',
   `registrationtoken` varchar(34) NOT NULL default '',
   `confirmed` tinyint(1) NOT NULL default '0',
