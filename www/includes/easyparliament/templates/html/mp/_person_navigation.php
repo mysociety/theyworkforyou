@@ -37,7 +37,7 @@
             </li>
         <?php endif; ?>
         
-        <?php if (!empty($memberships)): ?>
+        <?php if (!empty($memberships) && (array_key_exists('posts', $memberships) || array_key_exists('previous_posts', $memberships) || array_key_exists('appg_membership', $memberships))): ?>
             <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
                 <a href="<?= $member_url ?>/memberships" class="person-navigation--subpage-heading">
                     <h2>👥 <?= gettext('Committees / APPGs') ?></h2>
