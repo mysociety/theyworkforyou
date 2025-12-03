@@ -37,7 +37,7 @@ $display_wtt_stats_banner = '2015';
 
                 <?php if (array_key_exists('letters_signed', $memberships)): ?>
                     <h3 id="letters_signed"><?=gettext('Recent open letters signed') ?></h3>
-                    <p>We're starting to collect and display when MPs sign open letters outside Parliament - if there are examples we're missing, <a href="https://survey.alchemer.com/s3/8440376/TheyWorkForYou-Open-Letter">please let us know</a>.</p>
+                    <p>We're starting to collect and display when representatives sign open letters - if there are examples we're missing, <a href="https://survey.alchemer.com/s3/8440376/TheyWorkForYou-Open-Letter">please let us know</a>.</p>
                     <p><em>Showing open letters signed in the last year.</em></p>
                     <ul class='list-dates'>
                         <?php foreach ($memberships['letters_signed'] as $signature): ?>
