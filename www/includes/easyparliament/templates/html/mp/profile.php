@@ -42,6 +42,8 @@ $display_wtt_stats_banner = '2015';
                 </div>
               <?php endif; ?>
 
+                <?php include "_whip_removal_panel.php"; ?>
+
                 <?php include "_chamber_info_panel.php"; ?>
 
                 <div class="panel">
