@@ -271,6 +271,45 @@ class Member extends \MEMBER {
     }
 
     /**
+    * Get Whip Removal Information
+    *
+    * Check if the current membership has 'whip_removed' as entered_reason and return info.
+    *
+    * @return array|null Information about whip removal including previous party and source URL.
+    */
+    public function getWhipRemovalInfo() {
+        // Check if there are any memberships
+        if (empty($this->memberships)) {
+            return null;
+        }
+
+        // Get the current (most recent) membership
+        $current_membership = $this->memberships[0];
+
+        // Check if this is a current membership (still in office)
+        if ($current_membership['left_house'] != '9999-12-31') {
+            return null;
+        }
+
+        // Check if entered_reason is 'whip_removed' for current membership
+        if ($current_membership['entered_reason'] != 'whip_removed') {
+            return null;
+        }
+
+        // Find the previous membership (next in the array)
+        $previous_membership = null;
+        if (count($this->memberships) > 1) {
+            $previous_membership = $this->memberships[1];
+        }
+
+        return [
+            'has_whip_removed' => true,
+            'previous_party' => $previous_membership ? $previous_membership['party'] : null,
+            'source' => $current_membership['source'] ?? '',
+        ];
+    }
+
+    /**
     * Offices
     *
     * Return an array of Office objects held (or previously held) by the member.

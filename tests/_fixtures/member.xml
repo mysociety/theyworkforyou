@@ -354,6 +354,32 @@
 			<field name="person_id">22</field>
 			<field name="lastupdate">2013-08-07 15:06:19</field>
 		</row>
+		<row>
+			<field name="member_id">100</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Whip Removed Constituency</field>
+			<field name="party">Conservative</field>
+			<field name="entered_house">2015-05-01</field>
+			<field name="left_house">2023-10-01</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">whip_removed</field>
+			<field name="person_id">100</field>
+			<field name="source"></field>
+			<field name="lastupdate">2023-10-01 10:00:00</field>
+		</row>
+		<row>
+			<field name="member_id">101</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Whip Removed Constituency</field>
+			<field name="party">Independent</field>
+			<field name="entered_house">2023-10-01</field>
+			<field name="left_house">9999-12-31</field>
+			<field name="entered_reason">whip_removed</field>
+			<field name="left_reason">still_in_office</field>
+			<field name="person_id">100</field>
+			<field name="source">https://example.com/whip-removal-info</field>
+			<field name="lastupdate">2023-10-01 10:00:00</field>
+		</row>
 	</table_data>
 	<table_data name="person_names">
 		<row>
@@ -522,6 +548,14 @@
 			<field name="start_date">2000-01-01</field>
 			<field name="end_date">9999-12-31</field>
 			<field name="person_id">22</field>
+			<field name="title">Mr</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">WhipRemoved</field>
+			<field name="start_date">2015-05-01</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">100</field>
 			<field name="title">Mr</field>
 		</row>
 	</table_data>

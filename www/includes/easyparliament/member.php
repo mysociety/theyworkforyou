@@ -148,7 +148,7 @@ class MEMBER {
         // Find the memberships of this person, in reverse chronological order (latest first)
         $q = $this->db->query("SELECT member_id, house, title,
             given_name, family_name, lordofname, constituency, party, lastupdate,
-            entered_house, left_house, entered_reason, left_reason, member.person_id
+            entered_house, left_house, entered_reason, left_reason, source, member.person_id
             FROM member, person_names pn
             WHERE member.person_id = :person_id
                 AND member.person_id = pn.person_id AND pn.type = 'name' AND pn.start_date <= left_house AND left_house <= pn.end_date
