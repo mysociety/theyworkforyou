@@ -342,4 +342,26 @@ class MemberTest extends TWFY_Database_TestCase {
         $this->assertEquals([], \MySociety\TheyWorkForYou\Member::getRegionalList('KY16 8YG', '', ''));
     }
 
+    /**
+     * Test that whip removal information is correctly retrieved.
+     */
+    public function testGetWhipRemovalInfo() {
+        include_once('classes/Member.php');
+
+        // Test MP with whip removed
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => 100]);
+        $whip_info = $MEMBER->getWhipRemovalInfo();
+
+        $this->assertNotNull($whip_info);
+        $this->assertTrue($whip_info['has_whip_removed']);
+        $this->assertEquals('Conservative', $whip_info['previous_party']);
+        $this->assertEquals('https://example.com/whip-removal-info', $whip_info['source']);
+
+        // Test regular MP without whip removed
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => 2]);
+        $whip_info = $MEMBER->getWhipRemovalInfo();
+
+        $this->assertNull($whip_info);
+    }
+
 }

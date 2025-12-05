@@ -360,6 +360,7 @@ $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
 $data['memberships'] = memberships($MEMBER);
+$data['whip_removal_info'] = $MEMBER->getWhipRemovalInfo();
 
 # People who are or were MPs and Lords potentially have voting records, except Sinn Fein MPs
 $data['has_voting_record'] = (($MEMBER->house(HOUSE_TYPE_COMMONS) && $MEMBER->party() != 'Sinn Féin') || $MEMBER->house(HOUSE_TYPE_LORDS));
