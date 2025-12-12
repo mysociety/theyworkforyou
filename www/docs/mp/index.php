@@ -423,7 +423,11 @@ switch ($pagetype) {
         $house = HOUSE_TYPE_COMMONS;
         $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
         $voting_comparison_period_slug = get_http_var('comparison_period') ?: 'all_time';
-        $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
+        try {
+            $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
+        } catch (\Exception $e) {
+            member_redirect($MEMBER, 302, 'votes');
+        }
         $cohort_party = $MEMBER->cohortParty();
 
         // this comes up if the votes page is being accessed for an old MP/Lord without party information.
