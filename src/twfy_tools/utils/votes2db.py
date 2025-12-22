@@ -253,9 +253,9 @@ def process_policy_json():
 
     for policy_data in data:
         # we might not end up saving it, but creating a policy obj
-        contains_free_vote = 0
+        contains_free_vote = False
         if len(policy_data["free_vote_parties"]) > 0:
-            contains_free_vote = 1
+            contains_free_vote = True
         policy = Policy(
             policy_id=str(policy_data["id"]),
             title=policy_data["name"],
