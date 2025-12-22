@@ -42,8 +42,24 @@
 	],
 	"portsAttributes": {"8000": {"label": "TWFY"}}, 
 	"forwardPorts": [8000],
-	"customizations":
-		{"vscode":
+	"customizations": {
+		"codespaces": {
+			"repositories": {
+				"mysociety/parlparse": {
+					"permissions": {
+						"contents": "write",
+						"actions": "write",
+						"deployments": "write",
+						"issues": "write",
+						"packages": "read",
+						"pull_requests": "write",
+						"repository_projects": "write",
+						"statuses": "write",
+						"workflows": "write"
+					}
+				}
+			}},
+			"vscode":
 			{"extensions": [
 				"ms-vscode.test-adapter-converter",
 				"ms-azuretools.vscode-docker",
