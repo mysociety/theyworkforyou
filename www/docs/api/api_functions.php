@@ -223,6 +223,22 @@ function api_sidebar($subscription) {
     return $sidebar;
 }
 
+# Utility functions
+
+function api_decode_value($data_value) {
+    // For JSON-based outputs (json, default JS), decode stored JSON so it
+    // isn't double-encoded. For xml/php/rabx, return as-is.
+    $output = get_http_var('output');
+    if (in_array($output, ['xml', 'php', 'rabx'])) {
+        return $data_value;
+    }
+    $json_decoded = json_decode($data_value, true);
+    if (json_last_error() === JSON_ERROR_NONE && $json_decoded !== null) {
+        return $json_decoded;
+    }
+    return $data_value;
+}
+
 # Output functions
 
 function api_output($arr, $last_mod = null) {

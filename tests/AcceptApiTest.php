@@ -67,7 +67,7 @@ class AcceptApiTest extends FetchPageTestCase {
             'getConstituency',
             'name',
             'Amber Valley',
-            '{"name":"Amber Valley"}'
+            '{"demographics":{"population":72000,"age_groups":{"18-35":25,"36-55":40,"56+":35}},"description":"A parliamentary constituency in Derbyshire","name":"Amber Valley"}'
         );
     }
 
@@ -138,6 +138,68 @@ class AcceptApiTest extends FetchPageTestCase {
             '101',
             '[{"member_id":"101","house":"3","given_name":"Test1","family_name":"Nimember","constituency":"Belfast West","party":"DUP","entered_house":"2000-01-01","left_house":"9999-12-31","entered_reason":"general_election","left_reason":"still_in_office","person_id":"101","title":"Mr","lastupdate":"2013-08-07 15:06:19","full_name":"Mr Test1 Nimember"}]'
         );
+    }
+
+    public function testGetMPsInfoJsonEscaping() {
+        // Test that JSON stored in personinfo is not double-encoded when requesting JSON output
+        $page = $this->fetch_page('getMPsInfo', [
+            'key' => 'test_key',
+            'id' => '2,3',
+            'output' => 'json',
+        ]);
+
+        $response = json_decode($page, true);
+        $this->assertNotNull($response, 'Response should be valid JSON');
+
+        // Check that the JSON field is properly parsed as an object, not escaped as a string
+        $this->assertIsArray($response['2']['test_json_field'], 'JSON field should be parsed as array/object, not string');
+        $this->assertEquals('Test Person', $response['2']['test_json_field']['name']);
+        $this->assertEquals('London', $response['2']['test_json_field']['location']);
+        $this->assertIsArray($response['2']['test_json_field']['interests']);
+
+        // Check that plain text fields remain as strings
+        $this->assertIsString($response['2']['test_plain_field']);
+        $this->assertEquals('Simple text value', $response['2']['test_plain_field']);
+
+        // Check that JSON arrays are properly parsed
+        $this->assertIsArray($response['3']['test_json_array']);
+        $this->assertEquals(1, $response['3']['test_json_array'][0]['id']);
+        $this->assertEquals('Item 1', $response['3']['test_json_array'][0]['name']);
+    }
+
+    public function testGetMPsInfoXmlOutput() {
+        // Test that XML output still works with JSON content (should be escaped in XML)
+        $page = $this->fetch_page('getMPsInfo', [
+            'key' => 'test_key',
+            'id' => '2',
+            'output' => 'xml',
+        ]);
+
+        $this->assertStringContainsString('<test_json_field>', $page);
+        // In XML, JSON content should be escaped/as string with HTML entities
+        $this->assertStringContainsString('&quot;name&quot;: &quot;Test Person&quot;', $page);
+    }
+
+    public function testGetConstituencyInfoJsonEscaping() {
+        // Test that JSON stored in consinfo is not double-encoded when requesting JSON output
+        $page = $this->fetch_page('getConstituency', [
+            'key' => 'test_key',
+            'name' => 'Amber Valley',
+            'output' => 'json',
+        ]);
+
+        $response = json_decode($page, true);
+        $this->assertNotNull($response, 'Response should be valid JSON');
+
+        // Check that the JSON field is properly parsed as an object, not escaped as a string
+        $this->assertIsArray($response['demographics'], 'JSON field should be parsed as array/object, not string');
+        $this->assertEquals(72000, $response['demographics']['population']);
+        $this->assertIsArray($response['demographics']['age_groups']);
+        $this->assertEquals(25, $response['demographics']['age_groups']['18-35']);
+
+        // Check that plain text fields remain as strings
+        $this->assertIsString($response['description']);
+        $this->assertEquals('A parliamentary constituency in Derbyshire', $response['description']);
     }
 
     public function testApiKeySignup() {

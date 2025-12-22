@@ -62,7 +62,7 @@ function _api_getConstituency_name($constituency) {
     $output = [];
     foreach ($q as $row) {
         $data_key = $row['data_key'];
-        $output[$data_key] = $row['data_value'];
+        $output[$data_key] = api_decode_value($row['data_value']);
     }
     ksort($output);
     $output['name'] = $constituency;
