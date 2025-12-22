@@ -24,7 +24,7 @@ def field(
     """
     if args:
         raise ValueError("Positional arguments are not supported")
-    kwargs["null"] = null
+    kwargs["null"] = null  # type: ignore
     if isinstance(model_class, type) and issubclass(model_class, models.Field):
         return model_class(**kwargs)
     else:
