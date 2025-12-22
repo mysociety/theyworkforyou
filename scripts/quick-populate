@@ -2,7 +2,14 @@
 # For a fresh install get a basic set of data in
 
 echo 'Cloning parlparse'
-git clone https://github.com/mysociety/parlparse data/parlparse --depth 1
+git clone https://github.com/mysociety/parlparse data/parlparse
+cd data/parlparse
+echo 'Installing parlparse dependencies'
+
+# set up parlparse venv
+python3 -m venv .venv
+poetry install
+cd ../..
 
 # See http://parser.theyworkforyou.com/hansard.html for details on download specific ranges
 echo 'Downloading minimal data'
