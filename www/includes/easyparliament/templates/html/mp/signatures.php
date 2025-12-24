@@ -20,6 +20,8 @@ $display_wtt_stats_banner = '2015';
 
             <div class="primary-content__unit">
 
+                <?php include '_donation_banner.php'; ?>
+
                 <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
                     <div class="panel">
                     <h2 id="signatures"><?= gettext('Signatures') ?></h2>
