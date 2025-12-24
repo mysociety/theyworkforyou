@@ -21,7 +21,7 @@ if (isset($_GET['show_donation_banner'])) {
     <div class="donation-banner__content">
         <div class="donation-banner__header">
             <h3 class="donation-banner__title">
-                <span class="donation-banner__icon">💙</span>
+                <span class="donation-banner__icon">💚</span>
                 Help keep TheyWorkForYou free and independent
             </h3>
             <button class="donation-banner__toggle js-donation-banner-toggle" aria-expanded="false" aria-controls="donation-banner-details">
@@ -44,13 +44,13 @@ if (isset($_GET['show_donation_banner'])) {
             </div>
             
             <div class="donation-banner__actions">
-                <a href="/support-us/?utm_source=<?= urlencode($current_page) ?>#donate-form" class="button button--primary donation-banner__button">
+                <a href="/support-us/?utm_source=<?= urlencode($current_page) ?>#donate-form" class="button tertiary">
                     Support TheyWorkForYou
                 </a>
-                <a href="/support-us/?how-often=monthly&how-much=5&utm_source=<?= urlencode($current_page) ?>#donate-form" class="button button--secondary donation-banner__button">
+                <a href="/support-us/?how-often=monthly&how-much=5&utm_source=<?= urlencode($current_page) ?>#donate-form" class="button button--outline">
                     £5/month
                 </a>
-                <a href="/support-us/?how-often=one-off&how-much=10&utm_source=<?= urlencode($current_page) ?>#donate-form" class="button button--secondary donation-banner__button">
+                <a href="/support-us/?how-often=one-off&how-much=10&utm_source=<?= urlencode($current_page) ?>#donate-form" class="button button--outline">
                     £10 one-off
                 </a>
             </div>
