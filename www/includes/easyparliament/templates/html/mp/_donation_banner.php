@@ -30,7 +30,7 @@ if (isset($_GET['show_donation_banner'])) {
             </button>
         </div>
         
-        <div id="donation-banner-details" class="donation-banner__details" hidden>
+        <div id="donation-banner-details" class="donation-banner__details">
             <div class="donation-banner__message">
                 <p><strong>For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable.</strong> We need your support to:</p>
                 
@@ -64,20 +64,17 @@ if (isset($_GET['show_donation_banner'])) {
     const toggle = document.querySelector('.js-donation-banner-toggle');
     const details = document.querySelector('#donation-banner-details');
     const arrow = document.querySelector('.donation-banner__toggle-arrow');
-    
-    // Toggle expanded details
+
     if (toggle && details && arrow) {
         toggle.addEventListener('click', function() {
             const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
             
             if (isExpanded) {
-                details.hidden = true;
+                details.classList.remove('is-open');
                 toggle.setAttribute('aria-expanded', 'false');
-                arrow.textContent = '↓';
             } else {
-                details.hidden = false;
+                details.classList.add('is-open');
                 toggle.setAttribute('aria-expanded', 'true');
-                arrow.textContent = '↑';
             }
         });
     }

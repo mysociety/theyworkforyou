@@ -120,10 +120,28 @@
         color: $primary-color;
         font-size: 1em;
     }
+
+    &[aria-expanded="true"] {
+        .donation-banner__toggle-arrow {
+            transform: rotate(180deg);
+        }
+    }
 }
 
 .donation-banner__details {
-    padding: 2em;
+    max-height: 0;
+    opacity: 0;
+    padding: 0 2em;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out,
+                opacity 0.3s ease-out,
+                padding 0.3s ease-out;
+
+    &.is-open {
+        max-height: 600px;
+        opacity: 1;
+        padding: 2em;
+    }
 }
 
 .donation-banner__message {
@@ -162,11 +180,6 @@
             text-align: center;
         }
     }
-}
-
-// Animation for the expanding content
-.donation-banner__details:not([hidden]) {
-    animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {
