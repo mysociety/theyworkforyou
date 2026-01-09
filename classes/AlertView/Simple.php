@@ -101,6 +101,13 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
                 $data['error'] = true;
                 break;
             default: // alert created
+                // Send Google Analytics event for new alert creation
+                $alert_type = empty($this->data['pid']) ? 'keyword' : 'representative';
+                send_ga_event('new_alert', [
+                    'alert_type' => $alert_type,
+                    'alert_origin' => 'postcode_alert',
+                ]);
+
                 if ($not_logged_in) {
                     $data['confirmation_sent'] = true;
                 } else {
@@ -146,6 +153,12 @@ class Simple extends \MySociety\TheyWorkForYou\AlertView {
 
             $this->alert->delete($row['alert_id'] . '::' . $row['registrationtoken']);
             $this->alert->add($details, false);
+
+            // Send Google Analytics event updating alert
+            $alert_type = empty($details['pid']) ? 'keyword' : 'representative';
+            send_ga_event('update_alert', [
+                'alert_type' => $alert_type,
+            ]);
         }
 
         return [
