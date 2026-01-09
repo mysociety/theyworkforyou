@@ -605,6 +605,15 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         // will be sent to them.
         $success = $this->alert->add($this->data, $confirm);
 
+        // Send Google Analytics event for new alert creation
+        if ($success > 0) {
+            $alert_type = empty($this->data['pid']) ? 'keyword' : 'representative';
+            send_ga_event('new_alert', [
+                'alert_type' => $alert_type,
+                'alert_origin' => 'alert_form',
+            ]);
+        }
+
         if ($success > 0 && !$confirm) {
             $this->data['step'] = '';
             $this->data['mp_step'] = '';

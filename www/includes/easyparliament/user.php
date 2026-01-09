@@ -255,11 +255,19 @@ class USER {
                     $pid = $MEMBER->person_id();
                     # No confirmation email, but don't automatically confirm
                     $ALERT = new ALERT();
-                    $ALERT->add([
+                    $result = $ALERT->add([
                         'email' => $details['email'],
                         'pid' => $pid,
                         'pc' => $details['postcode'],
                     ], false, false);
+
+                    // Send Google Analytics event for new alert creation during user registration
+                    if ($result > 0) {
+                        send_ga_event('new_alert', [
+                            'alert_type' => 'representative',
+                            'alert_origin' => 'new_user',
+                        ]);
+                    }
                 }
 
                 if ($confirmation_required) {
