@@ -75,6 +75,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         // Determine if we should fetch alert counts
         // We skip counts when in form workflows (step, mp_step, disambiguation)
         $in_active_workflow = $this->data['step']           // Alert creation wizard steps
+                             || $this->data['addword']      // Adding another word during alert creation wizard
                              || $this->data['mp_step']         // MP alert creation
                              || $this->data['alertsearch']; // Search disambiguation (but not if showing results)
 
