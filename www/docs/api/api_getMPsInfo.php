@@ -38,7 +38,13 @@ function _api_getMPsInfo_id($ids) {
                 continue;
             }
             $pid = $row['person_id'];
-            $output[$pid][$data_key] = $row['data_value'];
+            // Check if data_value is valid JSON and we're outputting JSON format
+            if (get_http_var('output') == 'json') {
+                $data_value = api_decode_json($row['data_value']);
+            } else {
+                $data_value = $row['data_value'];
+            }
+            $output[$pid][$data_key] = $data_value;
             $time = strtotime($row['lastupdate']);
             if ($time > $last_mod) {
                 $last_mod = $time;
@@ -61,7 +67,11 @@ function _api_getMPsInfo_id($ids) {
                 if (!isset($output[$pid]['by_member_id'][$mid])) {
                     $output[$pid]['by_member_id'][$mid] = [];
                 }
-                $output[$pid]['by_member_id'][$mid][$data_key] = $row['data_value'];
+
+                // Check if data_value is valid JSON and we're outputting JSON
+                $data_value = api_decode_json($row['data_value']);
+
+                $output[$pid]['by_member_id'][$mid][$data_key] = $data_value;
                 $time = strtotime($row['lastupdate']);
                 if ($time > $last_mod) {
                     $last_mod = $time;
