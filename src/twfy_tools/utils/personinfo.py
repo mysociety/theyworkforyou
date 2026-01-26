@@ -296,13 +296,13 @@ def load_statement_signatures(quiet: bool = False):
     """
     Upload signatures of EDMs, open letters, and negative SI requests (motions to annul)
     """
-    min_edm_date = datetime.date.today() - pd.offsets.DateOffset(months=3)
+    min_edm_date = datetime.date.today() - pd.offsets.DateOffset(months=3)  # type: ignore
     min_edm_date = min_edm_date.date()
 
-    min_letter_date = datetime.date.today() - pd.offsets.DateOffset(years=1)
+    min_letter_date = datetime.date.today() - pd.offsets.DateOffset(years=1)  # type: ignore
     min_letter_date = min_letter_date.date()
 
-    min_annul_date = datetime.date.today() - pd.offsets.DateOffset(years=1)
+    min_annul_date = datetime.date.today() - pd.offsets.DateOffset(years=1)  # type: ignore
     min_annul_date = min_annul_date.date()
 
     statements = pd.read_parquet(statements_url)
