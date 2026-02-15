@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/.."
+poetry run python -m twfy_tools.utils.send_announcement "$@"
