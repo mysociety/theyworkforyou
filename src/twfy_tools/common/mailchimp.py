@@ -185,10 +185,34 @@ def campaign_web_id_to_unique_id(api_key: MailChimpApiKey, web_id: str) -> str:
     """
     Convert a campaign web id to a campaign id
     """
-    df = get_recent_campaigns(1000)
+    df = get_recent_campaigns(api_key, count=1000)
     # convert to web_id, id column dict
     lookup = df.set_index("web_id")["id"].to_dict()
     return lookup[int(web_id)]
+
+
+def campaign_name_to_unique_id(api_key: MailChimpApiKey, name: str) -> str:
+    """
+    Convert a campaign's human name (title) to a unique campaign id.
+    Uses case-insensitive matching.
+    Raises KeyError if no campaign with the given name is found.
+    """
+    df = get_recent_campaigns(api_key, count=1000)
+    df["title_lower"] = df["title"].str.lower()
+    lookup = df.set_index("title_lower")["id"].to_dict()
+    key = name.lower()
+    if key not in lookup:
+        raise KeyError(f"Campaign '{name}' not found in recent campaigns")
+    return lookup[key]
+
+
+def send_campaign(api_key: MailChimpApiKey, campaign_id: str) -> bool:
+    """
+    Send a campaign immediately by its unique campaign id.
+    """
+    client = get_client(api_key)
+    client.campaigns.send(campaign_id)
+    return True
 
 
 def list_web_id_to_unique_id(api_key: MailChimpApiKey, web_id: str) -> str:
@@ -567,6 +591,12 @@ class MailChimpHandler:
 
     def get_recent_campaigns(self, count: int = 20) -> pd.DataFrame:
         return get_recent_campaigns(self.api_settings, count)
+
+    def campaign_name_to_unique_id(self, name: str) -> str:
+        return campaign_name_to_unique_id(self.api_settings, name)
+
+    def send_campaign(self, campaign_id: str) -> bool:
+        return send_campaign(self.api_settings, campaign_id)
 
     def get_templates(self) -> pd.DataFrame:
         return get_templates(self.api_settings)

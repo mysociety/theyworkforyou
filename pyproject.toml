@@ -28,6 +28,7 @@ ruff = "^0.6.1"
 [tool.poetry.scripts]
 contact-io = "twfy_tools.utils.contact_io:app"
 personinfo = "twfy_tools.utils.personinfo:app"
+send-announcement = "twfy_tools.utils.send_announcement:app"
 
 [build-system]
 requires = ["poetry-core"]
