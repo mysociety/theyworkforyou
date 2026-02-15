@@ -195,11 +195,15 @@ def campaign_name_to_unique_id(api_key: MailChimpApiKey, name: str) -> str:
     """
     Convert a campaign's human name (title) to a unique campaign id.
     Uses case-insensitive matching.
+    Raises KeyError if no campaign with the given name is found.
     """
     df = get_recent_campaigns(api_key, count=1000)
     df["title_lower"] = df["title"].str.lower()
     lookup = df.set_index("title_lower")["id"].to_dict()
-    return lookup[name.lower()]
+    key = name.lower()
+    if key not in lookup:
+        raise KeyError(f"Campaign '{name}' not found in recent campaigns")
+    return lookup[key]
 
 
 def send_campaign(api_key: MailChimpApiKey, campaign_id: str) -> bool:
@@ -208,7 +212,6 @@ def send_campaign(api_key: MailChimpApiKey, campaign_id: str) -> bool:
     """
     client = get_client(api_key)
     client.campaigns.send(campaign_id)
-    # successful send returns empty response with 204 status
     return True
 
 
