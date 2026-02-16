@@ -213,6 +213,17 @@ function api_sidebar($subscription) {
     return $sidebar;
 }
 
+# Utility functions
+
+function api_decode_json($data_value) {
+    // Try to decode as JSON - if successful, use the decoded value
+    $json_decoded = json_decode($data_value, true);
+    if (json_last_error() === JSON_ERROR_NONE && $json_decoded !== null) {
+        return $json_decoded;
+    }
+    return $data_value;
+}
+
 # Output functions
 
 function api_output($arr, $last_mod = null) {
