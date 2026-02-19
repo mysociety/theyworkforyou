@@ -2,3 +2,5 @@
 /general.deployed
 /crontab
 /crontab.deployed
+/logrotate
+/logrotate.deployed

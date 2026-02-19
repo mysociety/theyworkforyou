@@ -1,0 +1,12 @@
+# Rotate applogs
+/var/www/www.theyworkforyou.com/applogs/twfy-* {
+    daily
+    missingok
+    rotate 28
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+    dateext
+    dateformat .%Y-%m-%d
+}
