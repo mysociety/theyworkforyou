@@ -98,8 +98,8 @@ jobs:
         mkdir -p build/logs
         vendor/bin/phpunit --exclude-group xapian
 
-    - name: Afterwards
-      if: matrix.php_version == '7.4'
-      run: |
-        wget https://scrutinizer-ci.com/ocular.phar
-        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+#    - name: Afterwards
+#      if: matrix.php_version == '7.4'
+#      run: |
+#        wget https://scrutinizer-ci.com/ocular.phar
+#        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
