@@ -724,11 +724,26 @@ function initRegisterToggles() {
     var newButton = document.getElementById('newToggleButton');
     if (newButton) {
       newButton.style.display = 'block';
+
+      if (shouldStartWithJustNew()) {
+        toggleNewDetails();
+      }
     }
   }
 }
 
 var new_entries_only = false;
+
+function shouldStartWithJustNew() {
+  var params = new URLSearchParams(window.location.search);
+  var value = params.get('just_new');
+
+  if (value === null) {
+    return false;
+  }
+
+  return value.toLowerCase() === 'true';
+}
 
 function toggleNewDetails() {
   const old_entries = document.querySelectorAll('.old_entry');
