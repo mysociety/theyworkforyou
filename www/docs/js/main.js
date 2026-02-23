@@ -734,6 +734,59 @@ function initRegisterToggles() {
 
 var new_entries_only = false;
 
+function syncJustNewHeading() {
+  var heading = document.getElementById('register-date-heading');
+
+  if (!heading) {
+    return;
+  }
+
+  var baseText = heading.getAttribute('data-base-text');
+  var justNewLabel = heading.getAttribute('data-just-new-label') || 'just new entries';
+
+  if (!baseText) {
+    return;
+  }
+
+  if (new_entries_only) {
+    heading.textContent = baseText + ' (' + justNewLabel + ')';
+  } else {
+    heading.textContent = baseText;
+  }
+}
+
+function syncCurrentPageJustNewParam() {
+  if (!window.history || !window.history.replaceState) {
+    return;
+  }
+
+  var url = new URL(window.location.href);
+
+  if (new_entries_only) {
+    url.searchParams.set('just_new', 'true');
+  } else {
+    url.searchParams.delete('just_new');
+  }
+
+  window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+}
+
+function syncJustNewLinks() {
+  var links = document.querySelectorAll('.js-just-new-link');
+
+  links.forEach(function(link) {
+    var url = new URL(link.href, window.location.origin);
+
+    if (new_entries_only) {
+      url.searchParams.set('just_new', 'true');
+    } else {
+      url.searchParams.delete('just_new');
+    }
+
+    link.href = url.pathname + url.search + url.hash;
+  });
+}
+
 function shouldStartWithJustNew() {
   var params = new URLSearchParams(window.location.search);
   var value = params.get('just_new');
@@ -756,6 +809,10 @@ function toggleNewDetails() {
     old_entries.forEach(d => d.style.display = 'block');
     document.getElementById('newToggleButton').textContent = 'Just new';
   }
+
+  syncJustNewHeading();
+  syncCurrentPageJustNewParam();
+  syncJustNewLinks();
 }
 
 function toggleDetails() {
@@ -783,6 +840,9 @@ function toggleDetails() {
 // Initialize register toggles when page loads
 $(document).ready(function() {
   initRegisterToggles();
+  syncJustNewHeading();
+  syncCurrentPageJustNewParam();
+  syncJustNewLinks();
 });
 
 // GLOSSARY DRAWER
