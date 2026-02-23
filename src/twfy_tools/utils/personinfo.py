@@ -227,12 +227,17 @@ def load_appg_membership(quiet: bool = False, include_ai_sources: bool = True):
     Upload APPG membership information
     """
     appg_lookup = pd.read_parquet(appg_names_url)
+
+    # limit to just uk parl APPGS for the moment
+    appg_lookup = appg_lookup[appg_lookup["parliament"] == "uk"]
     appg_lookup = appg_lookup.set_index("slug")
 
     id_to_person: defaultdict[int, APPGMembershipAssignment] = defaultdict(
         APPGMembershipAssignment
     )
     df = pd.read_parquet(appg_membership_url)
+    # restrict to just APPGS included in the lookup
+    df = df[df["appg"].isin(appg_lookup.index)]
     # skip this by default while we validate the results
     if not include_ai_sources:
         df = df[df["source"] != "ai_search"]
