@@ -1,10 +1,12 @@
 <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\InfoEntry $entry */ ?>
 
+<?php $entry_is_new = isset($register) ? (bool) $entry->isNew($register->published_date) : false; ?>
+
 <?php if ($entry->details && !$entry->details->isEmpty()) { ?>
 
     <?php if ($entry->content) { ?>
         <?php if ($entry->info_type == "subentry") { ?>
-            <h6 class="interest-summary"><?= htmlspecialchars($entry->content) ?></h6>
+            <h6 class="interest-summary"><?= $entry_is_new ? '🆕 ' : '' ?><?= htmlspecialchars($entry->content) ?></h6>
         <?php } else { ?>
             <h4 class="interest-summary"><?= str_replace(' - ', ' – ', htmlspecialchars($entry->content)) ?></h4>
         <?php }; ?>
@@ -47,8 +49,13 @@
         <div class="interest-child-items" id="parent-<?= $entry->comparable_id ?>">
             <?php foreach ($entry->sub_entries as $subentry) {
                 $parent_entry = $entry;
+                $subentry_is_new = isset($register) ? $subentry->isNew($register->published_date) : false;
                 $entry = $subentry;
-                include INCLUDESPATH . 'easyparliament/templates/html/register/_register_entry.php';
+                ?>
+                <div class="interest-subentry <?= $subentry_is_new ? 'new_entry' : 'old_entry' ?>">
+                    <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_register_entry.php'; ?>
+                </div>
+                <?php
                 $entry = $parent_entry;
             } ?>
         </div>
