@@ -26,10 +26,10 @@
         <?php if ($selected_category_id) { ?>
         <div class="toc js-toc">
             <ul>
-            <li><a href="?>&chamber=<?= $chamber_slug ?>"><?= gettext("Back to categories list")?></a></li>
+            <li><a class="js-just-new-link" href="?chamber=<?= $chamber_slug ?><?= $just_new_suffix ?>"><?= gettext("Back to categories list")?></a></li>
 
                 <?php foreach ($categories as $category_id => $category_name) { ?>
-                    <li><a href="?chamber=<?= $chamber_slug ?>&category_id=<?= $category_id ?>"><?= $category_name ?></a></li>
+                    <li><a class="js-just-new-link" href="?chamber=<?= $chamber_slug ?>&category_id=<?= $category_id ?><?= $just_new_suffix ?>"><?= $category_name ?></a></li>
                 <?php }; ?>
             </ul>
         </div>
@@ -40,7 +40,8 @@
 
             <div class="panel">
                 <h1>📒<?= gettext('Register of interests')?></h1>
-                <h2><?= $register->displayChamber() ?> - <?= $register->published_date ?></h2>
+                <?php $register_heading_base = $register->displayChamber() . ' - ' . $register->published_date; ?>
+                <h2 id="register-date-heading" data-base-text="<?= htmlspecialchars($register_heading_base) ?>" data-just-new-label="<?= htmlspecialchars(gettext('just new entries')) ?>"><?= htmlspecialchars($register_heading_base) ?><?php if (!empty($just_new)) { ?> (<?= gettext('just new entries') ?>)<?php } ?></h2>
                 <p><?= gettext('This page shows the latest version of the register of interests by category.') ?></p>
                 <?php if (LANGUAGE == 'cy') { ?>
                     <p><?= gettext('For more information, see the official Senedd page') ?></a>.
@@ -55,7 +56,7 @@
                     <h3><?= gettext('Categories') ?></h3>
                     <ul>
                         <?php foreach ($categories as $category_id => $category_name) { ?>
-                            <li><a href="?chamber=<?= $chamber_slug ?>&category_id=<?= $category_id ?>"><?= $category_name ?></a></li>
+                            <li><a class="js-just-new-link" href="?chamber=<?= $chamber_slug ?>&category_id=<?= $category_id ?><?= $just_new_suffix ?>"><?= $category_name ?></a></li>
                         <?php }; ?>
                     </ul>
                 <?php } else { ?>
