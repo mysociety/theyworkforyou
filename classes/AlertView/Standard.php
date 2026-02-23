@@ -151,7 +151,11 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
     private function processStep() {
         # fetch a list of suggested terms. Need this for the define screen so we can filter out the suggested terms
         # and not show them if the user goes back
-        if (in_array($this->data['step'], ['review', 'define', 'add_vector_related']) && !$this->data['shown_related']) {
+        # if we're looking at the review or define step - and we haven't previously shown suggestions
+        # we look for them, and if find them, trigger the add_vector_related step
+        $is_step_add_vector_related = $this->data['step'] == 'add_vector_related';
+        $not_shown_related_yet = (in_array($this->data['step'], ['review', 'define']) && !$this->data['shown_related']);
+        if ($is_step_add_vector_related || $not_shown_related_yet) {
             $suggestions = [];
             foreach ($this->data['keywords'] as $word) {
                 $terms = $this->alert->get_related_terms($word);
