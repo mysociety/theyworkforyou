@@ -10,6 +10,15 @@
     </div>
 <?php } else { ?>
 
+<?php $just_new_suffix = !empty($just_new) ? '&just_new=true' : ''; ?>
+<?php if (!empty($just_new)) { ?>
+<style>
+    .old_entry {
+        display: none;
+    }
+</style>
+<?php } ?>
+
 <div class="full-page static-page toc-page">
     <div class="full-page__row">
 

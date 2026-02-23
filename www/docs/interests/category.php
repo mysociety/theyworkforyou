@@ -8,6 +8,8 @@ include_once '../../includes/easyparliament/init.php';
 $chamber = get_http_var("chamber", "house-of-commons");
 $date = get_http_var("date", null);
 $selected_category_id = get_http_var("category_id", null);
+$just_new_param = strtolower((string) get_http_var("just_new", "false"));
+$just_new = $just_new_param === "true";
 
 // ensure $date if set is a valid iso date
 if ($date && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
@@ -88,6 +90,7 @@ $context = [
     "selected_category_id" => $selected_category_id,
     "selected_category_name" => $selected_category_id ? $categories[$selected_category_id] : null,
     "chamber_slug" => $chamber,
+    "just_new" => $just_new,
     "category_emojis" => $category_emojis,
     "og_image" => MySociety\TheyWorkForYou\Url::generateSocialImageUrl(
         gettext("Register of Interests"),
