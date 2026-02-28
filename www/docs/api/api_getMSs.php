@@ -44,3 +44,5 @@ function api_getMSs_date($date) {
 function api_getMSs($date = 'now()') {
     api_getMembers(HOUSE_TYPE_WALES, $date);
 }
+
+?>

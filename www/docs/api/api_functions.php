@@ -77,6 +77,16 @@ $methods = [
         'required' => false,
         'help' => 'Returns list of MSPs',
     ],
+    'getMS' => [
+        'parameters' => ['id', 'constituency', 'postcode', 'always_return'],
+        'required' => true,
+        'help' => 'Returns details for an MS/AS',
+    ],
+    'getMSs' => [
+        'parameters' => ['date', 'party', 'search'],
+        'required' => false,
+        'help' => 'Returns list of MSs/ASs',
+    ],
     'getGeometry' => [
         'new' => true,
         'parameters' => ['name'],
