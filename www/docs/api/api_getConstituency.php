@@ -62,7 +62,13 @@ function _api_getConstituency_name($constituency) {
     $output = [];
     foreach ($q as $row) {
         $data_key = $row['data_key'];
-        $output[$data_key] = $row['data_value'];
+        // Check if data_value is valid JSON and we're outputting JSON format
+        if (get_http_var('output') == 'json') {
+            $data_value = api_decode_json($row['data_value']);
+        } else {
+            $data_value = $row['data_value'];
+        }
+        $output[$data_key] = $data_value;
     }
     ksort($output);
     $output['name'] = $constituency;

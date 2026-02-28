@@ -30,6 +30,16 @@
 	<table_data name="comments">
 	</table_data>
 	<table_data name="consinfo">
+		<row>
+			<field name="constituency">Amber Valley</field>
+			<field name="data_key">demographics</field>
+			<field name="data_value">{"population": 72000, "age_groups": {"18-35": 25, "36-55": 40, "56+": 35}}</field>
+		</row>
+		<row>
+			<field name="constituency">Amber Valley</field>
+			<field name="data_key">description</field>
+			<field name="data_value">A parliamentary constituency in Derbyshire</field>
+		</row>
 	</table_data>
 	<table_data name="constituency">
 	<row>
@@ -184,6 +194,21 @@
 		</row>
 	</table_data>
 	<table_data name="personinfo">
+		<row>
+			<field name="person_id">2</field>
+			<field name="data_key">test_json_field</field>
+			<field name="data_value">{"name": "Test Person", "location": "London", "interests": ["politics", "technology"]}</field>
+		</row>
+		<row>
+			<field name="person_id">2</field>
+			<field name="data_key">test_plain_field</field>
+			<field name="data_value">Simple text value</field>
+		</row>
+		<row>
+			<field name="person_id">3</field>
+			<field name="data_key">test_json_array</field>
+			<field name="data_value">[{"id": 1, "name": "Item 1"}, {"id": 2, "name": "Item 2"}]</field>
+		</row>
 	</table_data>
 	<table_data name="postcode_lookup">
       <row>
