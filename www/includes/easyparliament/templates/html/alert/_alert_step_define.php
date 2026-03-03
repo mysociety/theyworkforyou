@@ -25,7 +25,7 @@
                     <input type="text" id="words<?= count($words) ?>" name="words[]" value="" placeholder="e.g. Freedom of Information, FOI">
                     <?php } ?>
                     <button class="button" type="submit" name="addword" value="add">
-                      <i aria-hidden="true" class="fi-save"></i>
+                      <i aria-hidden="true" class="fi-plus"></i>
                       <span><?= gettext('Add another phrase') ?></span>
                     </button>
                   </div>
