@@ -778,6 +778,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $this->data['own_mp_criteria'] = $own_mp_criteria;
             }
             $this->data['alerts'] = \MySociety\TheyWorkForYou\Utility\Alert::forUser($this->data['email']);
+            // Skip rendering alert counts if a large number of alerts
+            $this->data['preview_alerts_skipped'] = count($this->data['alerts']) > 20;
             foreach ($this->data['alerts'] as $alert) {
                 if (array_key_exists('spokenby', $alert) and sizeof($alert['spokenby']) == 1 and $alert['spokenby'][0] == $own_mp_criteria) {
                     $this->data['own_member_alerts'][] = $alert;
@@ -814,7 +816,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 if ($add) {
                     $this->data['all_keywords'][] = $term;
                     // Only fetch search results when displaying the main alert list
-                    if ($this->data['showing_main_alert_list']) {
+                    // and when not exceeding the preview threshold
+                    if ($this->data['showing_main_alert_list'] && !$this->data['preview_alerts_skipped']) {
                         $alert['search_results'] = $this->getRecentResults($alert["raw"]);
                     }
                     $this->data['keyword_alerts'][] = $alert;

@@ -321,6 +321,10 @@
                 </form>
               </div>
 
+                <?php if ($preview_alerts_skipped) { ?>
+                <p class="alert-section__message"><?= gettext('You have a large number of alerts, so preview counts are disabled. Click on an alert to see its full search results.') ?></p>
+                <?php } ?>
+
                 <!-- The groups alerts should be sorted by default from most recent mention to oldest one -->
                 <!-- Future functionality: The groups alerts can be sorted alphabetically-->
 
