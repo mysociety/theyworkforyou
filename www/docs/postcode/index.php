@@ -8,6 +8,23 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 $data = [];
 $errors = [];
 
+
+$valid_scotland_single_member_mapit_codes = ['SPC', 'SPCF'];
+$valid_scotland_multi_member_mapit_codes = ['SPE', 'SPEF'];
+$valid_wales_single_member_mapit_codes = ['WAC'];
+$valid_wales_multi_member_mapit_codes = ['WAE','WACF'];
+$valid_ni_mapit_codes = ['NIE'];
+$valid_wmc_mapit_codes = ['WMC'];
+
+$valid_scotland_mapit_codes = array_merge($valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes);
+$valid_wales_mapit_codes = array_merge($valid_wales_single_member_mapit_codes, $valid_wales_multi_member_mapit_codes);
+$valid_mapit_area_types = array_merge($valid_wmc_mapit_codes, $valid_scotland_mapit_codes, $valid_wales_mapit_codes, $valid_ni_mapit_codes);
+
+$old_single_member_mapit_codes = ['SPC', 'WAC'];
+$new_single_member_mapit_codes = ['SPCF', 'WACF'];
+$old_multi_member_mapit_codes = ['SPE'];
+$new_multi_member_mapit_codes = ['SPEF'];
+
 // handling to switch the GE message based either on time or a query string
 
 $pc = get_http_var('pc');
@@ -29,15 +46,17 @@ if (!$constituencies) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
 }
 
-if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
+
+
+if (has_any_area_type($constituencies, $valid_scotland_mapit_codes)) {
     $data['multi'] = "scotland";
     $MEMBER = fetch_mp($pc, $constituencies);
     pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
-} elseif (isset($constituencies['WAE']) || isset($constituencies['WAC'])) {
+} elseif (has_any_area_type($constituencies, $valid_wales_mapit_codes)) {
     $data['multi'] = "wales";
     $MEMBER = fetch_mp($pc, $constituencies);
     pick_multiple($pc, $constituencies, 'WAE', HOUSE_TYPE_WALES);
-} elseif (isset($constituencies['NIE'])) {
+} elseif (has_any_area_type($constituencies, $valid_ni_mapit_codes)) {
     $data['multi'] = "northern-ireland";
     $MEMBER = fetch_mp($pc, $constituencies);
     pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
@@ -47,6 +66,7 @@ if (isset($constituencies['SPE']) || isset($constituencies['SPC'])) {
     member_redirect($MEMBER);
 }
 
+$data['constituencies'] = $constituencies;
 MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
 
 # ---
@@ -79,20 +99,63 @@ function fetch_mp($pc, $constituencies, $house = null) {
     return $MEMBER;
 }
 
+/**
+ * Check whether any of the given area types exist in the areas array.
+ *
+ * @param array $areas
+ * @param array $area_types
+ * @return bool
+ */
+function has_any_area_type($areas, $area_types) {
+    foreach ($area_types as $area_type) {
+        if (isset($areas[$area_type])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Return areas for matching area types
+ *
+ * @param array $areas
+ * @param array $area_types
+ * @return array
+ */
+function get_area_names_by_type($areas, $area_types) {
+    $values = [];
+    foreach ($area_types as $area_type) {
+        if (isset($areas[$area_type])) {
+            $values[] = $areas[$area_type];
+        }
+    }
+    return $values;
+}
+
 function pick_multiple($pc, $areas, $area_type, $house) {
     global $PAGE, $data;
+    global $valid_ni_mapit_codes;
+    global $valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes;
+    global $valid_wales_single_member_mapit_codes, $valid_wales_multi_member_mapit_codes;
     $db = new ParlDB();
 
     $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
+    $single_member_areas = [];
+    $multi_member_areas = [];
+    $member_area_names = [];
     if ($house == HOUSE_TYPE_SCOTLAND) {
         $urlp = 'msp';
-        $a = [ $areas['SPC'], $areas['SPE'] ];
+        $single_member_areas = get_area_names_by_type($areas, $valid_scotland_single_member_mapit_codes);
+        $multi_member_areas = get_area_names_by_type($areas, $valid_scotland_multi_member_mapit_codes);
+        $member_area_names = array_merge($single_member_areas, $multi_member_areas);
     } elseif ($house == HOUSE_TYPE_WALES) {
         $urlp = 'ms';
-        $a = [ $areas['WAC'], $areas['WAE'] ];
+        $single_member_areas = get_area_names_by_type($areas, $valid_wales_single_member_mapit_codes);
+        $multi_member_areas = get_area_names_by_type($areas, $valid_wales_multi_member_mapit_codes);
+        $member_area_names = array_merge($single_member_areas, $multi_member_areas);
     } elseif ($house == HOUSE_TYPE_NI) {
         $urlp = 'mla';
-        $a = [ $areas['NIE'] ];
+        $member_area_names = get_area_names_by_type($areas, $valid_ni_mapit_codes);
     }
     $urlpl = $urlp . 's';
     $urlp = "/$urlp/?p=";
@@ -116,7 +179,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
 
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
         FROM member, person_names pn
-        WHERE constituency IN ('" . join("','", $a) . "')
+        WHERE constituency IN ('" . join("','", $member_area_names) . "')
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
             AND house = $house";
@@ -130,6 +193,8 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         );
     }
 
+    // in this file we talk about single_member multiple member constituencies
+    // externally this becomes mcon for single, mreg for multiple.
     $mcon = [];
     $mreg = [];
     foreach ($q as $row) {
@@ -137,15 +202,15 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         if ($house == HOUSE_TYPE_NI) {
             $mreg[] = $row;
         } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            if ($cons == $areas['SPC']) {
+            if (in_array($cons, $single_member_areas, true)) {
                 $mcon = $row;
-            } elseif ($cons == $areas['SPE']) {
+            } elseif (in_array($cons, $multi_member_areas, true)) {
                 $mreg[] = $row;
             }
         } elseif ($house == HOUSE_TYPE_WALES) {
-            if ($cons == $areas['WAC']) {
+            if (in_array($cons, $single_member_areas, true)) {
                 $mcon = $row;
-            } elseif ($cons == $areas['WAE']) {
+            } elseif (in_array($cons, $multi_member_areas, true)) {
                 $mreg[] = $row;
             }
         } else {
@@ -208,6 +273,7 @@ function mapit_address($address, $pc) {
 }
 
 function mapit_lookup($type, $filename) {
+    global $valid_mapit_area_types;
     $file = web_lookup(OPTION_MAPIT_URL . $filename);
     $r = json_decode($file);
     if (isset($r->error)) {
@@ -220,7 +286,7 @@ function mapit_lookup($type, $filename) {
     $input = ($type == 'postcode') ? $r->areas : $r;
     $areas = [];
     foreach ($input as $row) {
-        if (in_array($row->type, ['WMC', 'WMCF', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE'])) {
+        if (in_array($row->type, $valid_mapit_area_types, true)) {
             $areas[$row->type] = $row->name;
         }
     }
