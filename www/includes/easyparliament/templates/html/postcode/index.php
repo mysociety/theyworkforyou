@@ -37,6 +37,16 @@ function member_image_box(string $person_id, string $person_url, string $person_
     }
 }
 
+// Include Scottish Parliament election template if there are SP ballots
+if (!empty($sp_ballots)) {
+    include "sp2026.php";
+}
+
+// Include Welsh Senedd election template if there is a Senedd ballot
+if (!empty($senedd_ballot)) {
+    include "senedd2026.php";
+}
+
 ?>
 
 <div id="current">
@@ -137,12 +147,10 @@ include("repexplain.php");
                   <?php } ?>
                 </ul>
 
-<h3>We can make politics better together</h3>
-
-<p>We want MPs to meet the standards and expectations of the people who elected them - <strong>you</strong>!</p>
-<p>Learn about <a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5">our current work</a>, and <a href="https://www.mysociety.org/democracy/who-funds-them/">our new project WhoFundsThem</a> - looking into MPs’ and APPGs’ financial interests.</p>
-<a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" style="width:100%">Donate £5 to TheyWorkForYou</a>
-<a href="https://www.mysociety.org/democracy/who-funds-them/" class="button" style="width:100%">Support our WhoFundsThem campaign</a>
+<h3><?= gettext('Support TheyWorkForYou') ?></h3>
+    <p><?= gettext('After the election we\'ll be working to help you understand and hold your representatives to account.') ?></p>
+<p><?= gettext('Can you help us do that by making a small donation?') ?></p> 
+<a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" style="width:100%"><?= gettext('Donate £5 to TheyWorkForYou') ?></a>
             </div>
         </div>
     </div>
