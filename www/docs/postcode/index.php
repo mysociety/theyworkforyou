@@ -321,7 +321,11 @@ function mapit_address($address, $pc) {
 
 function mapit_lookup($type, $filename) {
     global $valid_mapit_area_types;
-    $file = web_lookup(OPTION_MAPIT_URL . $filename);
+    $headers = [];
+    if (defined('OPTION_MAPIT_API_KEY') && OPTION_MAPIT_API_KEY) {
+        $headers[] = 'X-Api-Key: ' . OPTION_MAPIT_API_KEY;
+    }
+    $file = web_lookup(OPTION_MAPIT_URL . $filename, $headers);
     $r = json_decode($file);
     if (isset($r->error)) {
         return '';
@@ -351,12 +355,15 @@ function show_address_list($pc, $addresses) {
     $PAGE->page_end();
 }
 
-function web_lookup($url) {
+function web_lookup($url, $headers = []) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    if ($headers) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
     $file = curl_exec($ch);
     curl_close($ch);
     return $file;
