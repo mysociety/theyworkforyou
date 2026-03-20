@@ -127,7 +127,9 @@ class Postcode {
         }
         $areas = [];
         foreach ($r['areas'] as $row) {
-            if (in_array($row['type'], ['WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE'])) {
+            # Include future constituency types for 2025 Scottish/Welsh elections
+            # This can be removed at at future point
+            if (in_array($row['type'], ['WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE', 'SPCF', 'SPEF', 'WACF'])) {
                 $areas[$row['type']] = $row['name'];
             }
         }
@@ -187,8 +189,11 @@ class Postcode {
             'WMC' => HOUSE_TYPE_COMMONS,
             'SPC' => HOUSE_TYPE_SCOTLAND,
             'SPE' => HOUSE_TYPE_SCOTLAND,
+            'SPCF' => HOUSE_TYPE_SCOTLAND,  # Future Scottish constituency
+            'SPEF' => HOUSE_TYPE_SCOTLAND,  # Future Scottish regional list
             'WAC' => HOUSE_TYPE_WALES,
             'WAE' => HOUSE_TYPE_WALES,
+            'WACF' => HOUSE_TYPE_WALES,     # Future Welsh Senedd constituency (multi-member)
             'NIE' => HOUSE_TYPE_NI,
         ];
 
