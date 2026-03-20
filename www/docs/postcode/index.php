@@ -39,13 +39,60 @@ if (!validate_postcode($pc)) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a valid postcode");
 }
 
-# 2024 ELECTION EXTRA
+# 2026 DEVOLVED ELECTIONS
 
-$constituencies = mapit_postcode($pc);
+$data['address'] = $address = get_http_var('address');
+if ($address) {
+    $dc_data = democracy_club_address($address);
+    $constituencies = mapit_address($address, $pc);
+} else {
+    $dc_data = democracy_club_postcode($pc);
+    if (!isset($dc_data->error) && isset($dc_data->address_picker) && $dc_data->address_picker) {
+        show_address_list($pc, $dc_data->addresses);
+        exit;
+    }
+    $constituencies = mapit_postcode($pc);
+}
 if (!$constituencies) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
 }
 
+# Get dissolution dates to check if parliaments are dissolved
+$dissolution_dates = MySociety\TheyWorkForYou\Dissolution::dates();
+
+# Check for 2025 Scottish Parliament election ballots (only show if Scottish Parliament is dissolved)
+$data['sp_ballots'] = [];
+$sp_dissolved = isset($dissolution_dates[HOUSE_TYPE_SCOTLAND]);
+# If dissovled and we have future constituency information
+if ($sp_dissolved && (isset($constituencies['SPCF']) || isset($constituencies['SPEF'])) && isset($dc_data->dates)) {
+    foreach ($dc_data->dates as $date) {
+        foreach ($date->ballots as $b) {
+            # Scottish Parliament constituency election (e.g. sp.c.2025-05-07)
+            if (preg_match('/^sp\.c\./', $b->election_id)) {
+                $data['sp_ballots']['constituency'] = $b;
+            }
+            # Scottish Parliament regional election (e.g. sp.r.2025-05-07)
+            if (preg_match('/^sp\.r\./', $b->election_id)) {
+                $data['sp_ballots']['regional'] = $b;
+            }
+        }
+    }
+}
+
+# Check for 2025 Welsh Senedd election ballot (only show if Senedd is dissolved)
+$data['senedd_ballot'] = null;
+$senedd_dissolved = isset($dissolution_dates[HOUSE_TYPE_WALES]);
+# if dissolved and we have future constituency information
+if ($senedd_dissolved && (isset($constituencies['WACF'])) && isset($dc_data->dates)) {
+    foreach ($dc_data->dates as $date) {
+        foreach ($date->ballots as $b) {
+            # Senedd election (e.g. senedd.2026-05-07)
+            if (preg_match('/^senedd\./', $b->election_id)) {
+                $data['senedd_ballot'] = $b;
+            }
+        }
+    }
+}
 
 
 if (has_any_area_type($constituencies, $valid_scotland_mapit_codes)) {
