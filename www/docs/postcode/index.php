@@ -176,9 +176,35 @@ function member_redirect(&$MEMBER) {
     }
 }
 
+function democracy_club_postcode($pc) {
+    $pc = urlencode($pc);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/postcode/$pc/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = json_decode($data);
+    return $data;
+}
+
+function democracy_club_address($address) {
+    $address = urlencode($address);
+    $data = web_lookup("https://developers.democracyclub.org.uk/api/v1/address/$address/?include_current=1&auth_token=" . OPTION_DEMOCRACYCLUB_TOKEN);
+    $data = json_decode($data);
+    return $data;
+}
+
 function mapit_postcode($postcode) {
     $filename = 'postcode/' . rawurlencode($postcode);
     return mapit_lookup('postcode', $filename);
+}
+
+function mapit_address($address, $pc) {
+    $address = urlencode($address);
+    $url = str_replace('{s}', $address, OPTION_MAPIT_UPRN_LOOKUP);
+    $file = web_lookup($url);
+    $r = json_decode($file);
+    if (isset($r->error)) {
+        return mapit_postcode($pc);
+    }
+    $filename = 'point/4326/' . $r->wgs84_lon . ',' . $r->wgs84_lat;
+    return mapit_lookup('point', $filename);
 }
 
 function mapit_lookup($type, $filename) {
@@ -202,6 +228,14 @@ function mapit_lookup($type, $filename) {
         return '';
     }
     return $areas;
+}
+
+function show_address_list($pc, $addresses) {
+    global $PAGE;
+    $PAGE->page_start();
+    $PAGE->stripe_start();
+    include("address_list.php");
+    $PAGE->page_end();
 }
 
 function web_lookup($url) {
