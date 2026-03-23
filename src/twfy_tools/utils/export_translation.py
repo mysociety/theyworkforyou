@@ -280,7 +280,7 @@ def export(
     print(table)
 
 
-@app.command()
+@app.command(name="import")
 def import_translations(
     input_file: Path = typer.Argument(
         ..., help="Input file with translations (JSON or CSV)"
