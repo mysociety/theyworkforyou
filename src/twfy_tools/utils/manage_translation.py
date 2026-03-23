@@ -292,10 +292,10 @@ def import_translations(
         help="Path to .po file to update (defaults to Welsh translation file)",
     ),
     dry_run: bool = typer.Option(
-        False,
-        "--dry-run",
-        "-n",
-        help="Show what would be changed without making changes",
+        True,
+        "--dry-run/--commit",
+        "-n/-c",
+        help="Show what would be changed without making changes (default: dry-run)",
     ),
     remove_fuzzy: bool = typer.Option(
         True,
