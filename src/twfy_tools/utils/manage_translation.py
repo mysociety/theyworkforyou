@@ -3,6 +3,8 @@ Export and import translation data from Welsh .po files.
 Handles missing and fuzzy translations, exports to JSON/CSV, and can update .po files.
 """
 
+import json
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -16,7 +18,78 @@ from typer import Typer
 
 from ..common.enum_backport import StrEnum
 
+WRAP_LIMIT = 9999
+LOCATION_WRAP_LIMIT = 80
 app = Typer()
+
+
+def fix_location_formatting(po_file: Path) -> None:
+    """
+    Fix polib export to conform to php export line-wrapping etc
+    """
+
+    def split_occurrences(match):
+        line = match.group(0)
+        # Only split if the line is longer than the wrap limit
+        if len(line) <= LOCATION_WRAP_LIMIT:
+            return line
+
+        refs = match.group(1).split()
+        lines = []
+        current_line = "#:"
+
+        for ref in refs:
+            # Check if adding this ref would exceed the limit
+            test_line = current_line + " " + ref
+            if len(test_line) <= LOCATION_WRAP_LIMIT:
+                current_line = test_line
+            else:
+                # Start a new line
+                if current_line != "#:":
+                    lines.append(current_line)
+                current_line = "#: " + ref
+
+        # Add the last line
+        if current_line != "#:":
+            lines.append(current_line)
+
+        return "\n".join(lines)
+
+    text = po_file.read_text(encoding="utf-8")
+
+    # Fix location comments formatting
+    text = re.sub(r"^#:\s+(.*)$", split_occurrences, text, flags=re.MULTILINE)
+
+    # Remove standalone '#' at the very top of the file
+    if text.startswith("#\n"):
+        text = text[2:]  # Remove the '#\n'
+
+    # Fix Project-Id-Version positioning in header - move it up to be sorted without the leading space
+    lines = text.split("\n")
+    project_id_line = None
+    project_id_index = None
+
+    # Find the Project-Id-Version line in the header block
+    for i, line in enumerate(lines):
+        if '" Project-Id-Version:' in line:
+            project_id_line = line
+            project_id_index = i
+            break
+
+    if project_id_line and project_id_index is not None:
+        # Remove it from current position
+        lines.pop(project_id_index)
+
+        # Find where to insert it (after "Content-Transfer-Encoding" line)
+        for i, line in enumerate(lines):
+            if '"Content-Transfer-Encoding:' in line:
+                # Insert Project-Id-Version after Content-Transfer-Encoding
+                lines.insert(i + 1, project_id_line)
+                break
+
+        text = "\n".join(lines)
+
+    po_file.write_text(text, encoding="utf-8")
 
 
 class TranslationType(StrEnum):
@@ -150,6 +223,8 @@ def save_to_csv(entries: list[TranslationEntry], output_file: Path) -> None:
     translation_list = TranslationList(entries)
     json_data = translation_list.model_dump()
     df = pd.DataFrame(json_data)
+    # Convert locations list to JSON string for proper CSV storage
+    df["locations"] = df["locations"].apply(lambda x: json.dumps(x))
     df.to_csv(output_file, index=False, encoding="utf-8")
     print(f"✅ Exported {len(entries)} entries to {output_file}")
 
@@ -171,6 +246,10 @@ def load_translations_from_csv(input_file: Path) -> dict[str, str]:
     Load translations from CSV file using pandas.
     """
     df = pd.read_csv(input_file, encoding="utf-8")
+    # Handle empty string values that become NaN
+    df = df.fillna("")
+    # Convert locations JSON string back to list
+    df["locations"] = df["locations"].apply(lambda x: json.loads(x) if x else [])
     # Convert to dict format expected by validation
     data = df.to_dict("records")
 
@@ -227,6 +306,9 @@ def export(
     # Load and process .po file
     try:
         po = polib.pofile(str(po_file))
+        # Set a very large wrapwidth to prevent automatic line wrapping/reformatting
+        # This helps preserve the original formatting and makes diffs cleaner
+        po.wrapwidth = WRAP_LIMIT
     except Exception as e:
         print(f"❌ Error loading .po file: {e}")
         raise typer.Exit(1)
@@ -339,6 +421,7 @@ def import_translations(
     # Load .po file
     try:
         po = polib.pofile(str(po_file))
+        po.wrapwidth = WRAP_LIMIT
     except Exception as e:
         print(f"❌ Error loading .po file: {e}")
         raise typer.Exit(1)
@@ -415,6 +498,8 @@ def import_translations(
     else:
         if updated_count > 0:
             po.save(str(po_file))
+            # Ensure location formatting is consistent
+            fix_location_formatting(po_file)
             print(f"✅ Updated {updated_count} translations in {po_file}")
 
             # Show summary
