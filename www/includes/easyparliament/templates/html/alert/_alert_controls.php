@@ -21,7 +21,9 @@
       <i aria-hidden="true" class="fi-trash"></i>
       <span><?= gettext('Delete alert') ?></span>
     </button>
+    <?php } ?>
   </form>
+  <?php if ($alert['status'] != 'unconfirmed' && $alert['status'] != 'suspended') { ?>
   <form action="<?= $actionurl ?>" method="POST">
     <input type="hidden" name="t" value="<?= _htmlspecialchars($alert['token']) ?>">
     <?php if (count($alert['words'])) { ?>
@@ -50,5 +52,5 @@
       <?php } ?>
     <?php } ?>
   </form>
-    <?php } ?>
+  <?php } ?>
 </div>
