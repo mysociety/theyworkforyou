@@ -96,6 +96,9 @@ class Category extends BaseModel {
     }
 
     public function only_null_entries(): bool {
+        if ($this->entries === null) {
+            return true;
+        }
         foreach ($this->entries as $entry) {
             if (!$entry->null_entry) {
                 return false;
