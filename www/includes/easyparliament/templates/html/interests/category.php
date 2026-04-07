@@ -61,7 +61,7 @@
                     </ul>
                 <?php } else { ?>
 
-                    <h2 id="category-<?= $category_id ?>"><?= $category_emojis[$selected_category_id] ?><?= $selected_category_name ?></h2>
+                    <h2 id="category-<?= $category_id ?>"><?= $category_emojis[$selected_category_id] ?? '' ?><?= $selected_category_name ?></h2>
                     <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_toggle_buttons.php'; ?>
                 <?php } ; ?>
 
