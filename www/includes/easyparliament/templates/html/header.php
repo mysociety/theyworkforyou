@@ -32,7 +32,16 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
   <?php } else { ?>
-    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/social_<?= $current_assembly ?? 'uk' ?>.png">
+    <?php
+      $og_image_assembly_map = [
+          'uk-commons' => 'uk',
+          'uk-lords' => 'uk',
+          'senedd' => 'wales',
+      ];
+      $og_assembly = $current_assembly ?? 'uk';
+      $og_image_suffix = $og_image_assembly_map[$og_assembly] ?? $og_assembly;
+    ?>
+    <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/social_<?= $og_image_suffix ?>.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
