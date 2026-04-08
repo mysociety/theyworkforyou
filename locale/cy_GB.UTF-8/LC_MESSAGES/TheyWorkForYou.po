@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 14:19+0000\n"
+"POT-Creation-Date: 2026-04-08 14:46+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -11,39 +11,39 @@ msgstr ""
 " Project-Id-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: classes/AlertView/Standard.php:425 www/docs/user/login/index.php:34
+#: classes/AlertView/Standard.php:426 www/docs/user/login/index.php:34
 #: www/docs/user/password/index.php:33
 msgid "Please enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
 #. validate_email() is in includes/utilities.php
-#: classes/AlertView/Standard.php:428 www/docs/user/login/index.php:36
+#: classes/AlertView/Standard.php:429 www/docs/user/login/index.php:36
 #: www/docs/user/password/index.php:35
 msgid "Please enter a valid email address"
 msgstr "Mewnbynnwch gyfeiriad e-bost dilys"
 
-#: classes/AlertView/Standard.php:444
+#: classes/AlertView/Standard.php:445
 msgid "Please enter what you want to be alerted about"
 msgstr "Nodwch yr hyn rydych chi am gael hysbysiadau"
 
-#: classes/AlertView/Standard.php:448
+#: classes/AlertView/Standard.php:449
 msgid "You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!"
 msgstr "Mae'n debyg na fyddwch chi eisiau cynnwys ystod o ddyddiadau fel rhan o'ch meini prawf, gan na fyddwch yn cael eich hysbysu o unrhyw beth newydd!"
 
-#: classes/AlertView/Standard.php:453
+#: classes/AlertView/Standard.php:454
 #, php-format
 msgid "That search appears to be invalid - %s - please check and try again."
 msgstr "Mae'n ymddangos bod y chwiliad hwnnw'n annilys -  %s - gwiriwch a cheisiwch eto."
 
-#: classes/AlertView/Standard.php:457
+#: classes/AlertView/Standard.php:458
 msgid "That search is too long for our database; please split it up into multiple smaller alerts."
 msgstr "Mae'r chwiliad hwnnw'n rhy hir i'n cronfa ddata;  os gwelwch yna dda rhannwch i nifer o hysbysiadau llai."
 
-#: classes/AlertView/Standard.php:508 classes/AlertView/Standard.php:526
+#: classes/AlertView/Standard.php:509 classes/AlertView/Standard.php:527
 msgid "No matching representative found"
 msgstr "Ni ddaethpwyd o hyd i unrhyw gynrychiolydd cyfatebol"
 
-#: classes/AlertView/Standard.php:528
+#: classes/AlertView/Standard.php:529
 msgid "Multiple matching representatives found, please select one."
 msgstr "Daethpwyd o hyd i lawer o gynrychiolwyr cyfatebol. Dewiswch un os gwelwch yn dda."
 
@@ -683,7 +683,7 @@ msgid "Share this"
 msgstr "Rhannwch hyn"
 
 #. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
-#: www/docs/interests/category.php:93
+#: www/docs/interests/category.php:96
 #: www/includes/easyparliament/metadata.php:119
 #: www/includes/easyparliament/metadata.php:120
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:130
@@ -1352,15 +1352,15 @@ msgstr "Rhybudd atal"
 msgid "Delete alert"
 msgstr "Dileu rhybudd"
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:32
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:34
 msgid "Edit alert"
 msgstr "Golygu rhybudd"
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:41
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:43
 msgid "Include votes"
 msgstr "Cynnwys pleidleisiau"
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:48
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:50
 msgid "Ignore votes"
 msgstr "Anwybyddu pleidleisiau"
 
@@ -1784,6 +1784,11 @@ msgstr "Rhybuddion allweddair"
 msgid "You haven't created any keyword alerts."
 msgstr "Nid ydych wedi creu unrhyw rybuddion allweddair."
 
+# auto 
+#: www/includes/easyparliament/templates/html/alert/index.php:325
+msgid "You have a large number of alerts, so preview counts are disabled. Click on an alert to see its full search results."
+msgstr "Mae gennych nifer fawr o rybuddion, felly mae cyfrifon rhagolwg wedi’u hanalluogi. Cliciwch ar rybudd i weld canlyniadau llawn ei chwiliad."
+
 #: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:8
 #, php-format
 msgid "%d mention this week"
@@ -2085,29 +2090,34 @@ msgstr "Dangos yr holl  bleidleisiau diweddar"
 msgid "More recent votes are available on <a href=\"https://votes.theyworkforyou.com/decisions\">TheyWorkForYou Votes</a>"
 msgstr "Mae pleidleisiau mwy diweddar ar gael ar <a href=\"https://votes.theyworkforyou.com/decisions\">Pleidleisiau TheyWorkForYou</a>"
 
-#: www/includes/easyparliament/templates/html/interests/category.php:20
+#: www/includes/easyparliament/templates/html/interests/category.php:29
 msgid "Back to categories list"
 msgstr "Yn ôl i’r rhestr o gategorïau"
 
-#: www/includes/easyparliament/templates/html/interests/category.php:33
+#: www/includes/easyparliament/templates/html/interests/category.php:42
 msgid "Register of interests"
 msgstr "Cofrestr Buddiannau"
 
-#: www/includes/easyparliament/templates/html/interests/category.php:35
+# auto
+#: www/includes/easyparliament/templates/html/interests/category.php:44
+msgid "just new entries"
+msgstr "dim ond cofnodion newydd"
+
+#: www/includes/easyparliament/templates/html/interests/category.php:45
 msgid "This page shows the latest version of the register of interests by category."
 msgstr "Mae'r dudalen hon yn dangos y fersiwn ddiweddaraf o'r gofrestr o fuddiannau yn ôl categori."
 
-#: www/includes/easyparliament/templates/html/interests/category.php:37
+#: www/includes/easyparliament/templates/html/interests/category.php:47
 #: www/includes/easyparliament/templates/html/mp/register.php:74
 msgid "For more information, see the official Senedd page"
 msgstr "Am ragor o wybodaeth, gweler tudalen swyddogol y Senedd."
 
-#: www/includes/easyparliament/templates/html/interests/category.php:41
+#: www/includes/easyparliament/templates/html/interests/category.php:51
 msgid "Read more about our registers data"
 msgstr "Darllenwch ragor am ein data ynglŷn â chofrestrau o fuddiannau."
 
 #. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Register $register
-#: www/includes/easyparliament/templates/html/interests/category.php:46
+#: www/includes/easyparliament/templates/html/interests/category.php:56
 msgid "Categories"
 msgstr "Categorïau"
 

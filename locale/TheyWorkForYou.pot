@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 14:19+0000\n"
+"POT-Creation-Date: 2026-04-08 14:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: classes/AlertView/Standard.php:425 www/docs/user/login/index.php:34
+#: classes/AlertView/Standard.php:426 www/docs/user/login/index.php:34
 #: www/docs/user/password/index.php:33
 msgid "Please enter your email address"
 msgstr ""
 
 #. validate_email() is in includes/utilities.php
-#: classes/AlertView/Standard.php:428 www/docs/user/login/index.php:36
+#: classes/AlertView/Standard.php:429 www/docs/user/login/index.php:36
 #: www/docs/user/password/index.php:35
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: classes/AlertView/Standard.php:444
+#: classes/AlertView/Standard.php:445
 msgid "Please enter what you want to be alerted about"
 msgstr ""
 
-#: classes/AlertView/Standard.php:448
+#: classes/AlertView/Standard.php:449
 msgid ""
 "You probably don&rsquo;t want a date range as part of your criteria, as you "
 "won&rsquo;t be alerted to anything new!"
 msgstr ""
 
-#: classes/AlertView/Standard.php:453
+#: classes/AlertView/Standard.php:454
 #, php-format
 msgid "That search appears to be invalid - %s - please check and try again."
 msgstr ""
 
-#: classes/AlertView/Standard.php:457
+#: classes/AlertView/Standard.php:458
 msgid ""
 "That search is too long for our database; please split it up into multiple "
 "smaller alerts."
 msgstr ""
 
-#: classes/AlertView/Standard.php:508 classes/AlertView/Standard.php:526
+#: classes/AlertView/Standard.php:509 classes/AlertView/Standard.php:527
 msgid "No matching representative found"
 msgstr ""
 
-#: classes/AlertView/Standard.php:528
+#: classes/AlertView/Standard.php:529
 msgid "Multiple matching representatives found, please select one."
 msgstr ""
 
@@ -697,7 +697,7 @@ msgid "Share this"
 msgstr ""
 
 #. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register
-#: www/docs/interests/category.php:93
+#: www/docs/interests/category.php:96
 #: www/includes/easyparliament/metadata.php:119
 #: www/includes/easyparliament/metadata.php:120
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:130
@@ -1383,15 +1383,15 @@ msgstr ""
 msgid "Delete alert"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:32
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:34
 msgid "Edit alert"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:41
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:43
 msgid "Include votes"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:48
+#: www/includes/easyparliament/templates/html/alert/_alert_controls.php:50
 msgid "Ignore votes"
 msgstr ""
 
@@ -1834,6 +1834,12 @@ msgstr ""
 msgid "You haven't created any keyword alerts."
 msgstr ""
 
+#: www/includes/easyparliament/templates/html/alert/index.php:325
+msgid ""
+"You have a large number of alerts, so preview counts are disabled. Click on "
+"an alert to see its full search results."
+msgstr ""
+
 #: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:8
 #, php-format
 msgid "%d mention this week"
@@ -2153,30 +2159,34 @@ msgid ""
 "com/decisions\">TheyWorkForYou Votes</a>"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/interests/category.php:20
+#: www/includes/easyparliament/templates/html/interests/category.php:29
 msgid "Back to categories list"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/interests/category.php:33
+#: www/includes/easyparliament/templates/html/interests/category.php:42
 msgid "Register of interests"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/interests/category.php:35
+#: www/includes/easyparliament/templates/html/interests/category.php:44
+msgid "just new entries"
+msgstr ""
+
+#: www/includes/easyparliament/templates/html/interests/category.php:45
 msgid ""
 "This page shows the latest version of the register of interests by category."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/interests/category.php:37
+#: www/includes/easyparliament/templates/html/interests/category.php:47
 #: www/includes/easyparliament/templates/html/mp/register.php:74
 msgid "For more information, see the official Senedd page"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/interests/category.php:41
+#: www/includes/easyparliament/templates/html/interests/category.php:51
 msgid "Read more about our registers data"
 msgstr ""
 
 #. * @var MySociety\TheyWorkForYou\DataClass\Regmem\Register $register
-#: www/includes/easyparliament/templates/html/interests/category.php:46
+#: www/includes/easyparliament/templates/html/interests/category.php:56
 msgid "Categories"
 msgstr ""
 
