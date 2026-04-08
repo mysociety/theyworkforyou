@@ -44,7 +44,7 @@ if ($election_date) {
   <a class="lite-youtube-fallback" href="https://www.youtube.com/watch?v=UrUBv2e4U_w">Watch on YouTube: "How are members of the Senedd elected?"</a>
 </lite-youtube>
 
-<h2><?= gettext('Parties standing in your constituency'); ?></h2>
+<h2><?= gettext('Parties standing in your constituency'); ?><?= !$senedd_ballot->candidates_verified ? ' (not yet finalised or verified)' : '' ?></h2>
 
 <p><?= gettext('The following shows the candidate lists for the different parties standing in your constituency. The order of parties is randomised.') ?></p>
 <p><?= gettext('Within a party list, candidates are ordered by their position on the party list, with the first candidate more likely to be elected than the second, and so on.') ?></p>
