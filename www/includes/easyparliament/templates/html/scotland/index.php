@@ -5,7 +5,9 @@
             <div class="panel panel--flushtop clearfix">
                 <div class="row nested-row">
                     <div class="homepage-featured-content homepage-content-section">
-                        <?php if ($featured) {
+                        <?php $featured_item = $announcement_manager->get_random_valid_item("homepage_scotland"); ?>
+                        <?php include dirname(__FILE__) . '/../homepage/_featured_announcement.php'; ?>
+                        <?php if (!$featured_item && $featured) {
                             include dirname(__FILE__) . "/../homepage/featured.php";
                         } ?>
                     </div>
