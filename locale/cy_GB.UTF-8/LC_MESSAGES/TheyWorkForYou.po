@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 14:46+0000\n"
+"POT-Creation-Date: 2026-04-09 09:03+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -2691,7 +2691,7 @@ msgstr "Democracy Club"
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:71
 #, php-format
-msgid "For more information visit <a href=\"%s\">WhoCanIVoteFor</a>."
+msgid "For more information visit <a href=\"%s\">WhoCanIVoteFor</a>. "
 msgstr "Am ragor o gwybodaeth, ewch i <a href=\"%s\">WhoCanIVoteFor</a>."
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:72

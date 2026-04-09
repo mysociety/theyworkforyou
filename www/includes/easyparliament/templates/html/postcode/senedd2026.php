@@ -68,6 +68,6 @@ $by_party = array_reduce($senedd_ballot->candidates, function ($carry, $c) {
 
 <p>
 <a href="https://democracyclub.org.uk/"><img width=150 align="right" src="https://static.democracyclub.org.uk/static/dc_theme/images/logo-with-text.png" alt="<?= gettext('Democracy Club') ?>"></a>
-<?php printf(gettext('For more information visit <a href="%s">WhoCanIVoteFor</a>.'), $senedd_ballot->wcivf_url); ?>
+<?php printf(gettext('For more information visit <a href="%s">WhoCanIVoteFor</a>. '), $senedd_ballot->wcivf_url); ?>
 <?php printf(gettext('This data has been provided by <a href="%s">Democracy Club</a>, thanks to them.'), 'https://democracyclub.org.uk/'); ?>
 <?php } ?>

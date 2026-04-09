@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 14:46+0000\n"
+"POT-Creation-Date: 2026-04-09 09:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2805,7 +2805,7 @@ msgstr ""
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:71
 #, php-format
-msgid "For more information visit <a href=\"%s\">WhoCanIVoteFor</a>."
+msgid "For more information visit <a href=\"%s\">WhoCanIVoteFor</a>. "
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:72
