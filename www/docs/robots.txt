@@ -1,3 +1,35 @@
+# https://support.shareaholic.com/hc/en-us/articles/38798873799956-Social-Media-Content-Preview-Bots-to-Whitelist-in-Robots-txt
+# https://developers.facebook.com/docs/sharing/webmasters/web-crawlers/
+
+User-agent: facebookexternalhit
+Disallow: /pwdata
+Disallow: /pwdata/scrapedxml
+Disallow: /pwdata/cmpages
+Disallow: /user
+Disallow: /vote
+
+User-agent: Twitterbot
+Disallow: /pwdata
+Disallow: /pwdata/scrapedxml
+Disallow: /pwdata/cmpages
+Disallow: /user
+Disallow: /vote
+
+User-agent: LinkedInBot
+Disallow: /pwdata
+Disallow: /pwdata/scrapedxml
+Disallow: /pwdata/cmpages
+Disallow: /user
+Disallow: /vote
+
+User-agent: Bluesky
+Disallow: /pwdata
+Disallow: /pwdata/scrapedxml
+Disallow: /pwdata/cmpages
+Disallow: /user
+Disallow: /vote
+
+# All other crawlers
 User-agent: *
 Disallow: /pwdata
 Disallow: /pwdata/scrapedxml
