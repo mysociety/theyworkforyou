@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 16:01+0000\n"
+"POT-Creation-Date: 2026-04-14 16:08+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -2069,6 +2069,10 @@ msgstr "Chwiliwch TheyWorkForYou"
 msgid "e.g. a postcode, person, or topic"
 msgstr "e.e. côd post, person, neu bwnc"
 
+#: www/includes/easyparliament/templates/html/homepage/_featured_announcement.php:2
+msgid "The latest"
+msgstr "Yn y newyddion"
+
 #: www/includes/easyparliament/templates/html/homepage/featured.php:2
 msgid "In the news"
 msgstr "Yn y newyddion"
@@ -2947,8 +2951,8 @@ msgstr "Tudalen olaf"
 
 #. end of !isset($error)
 #: www/includes/easyparliament/templates/html/search/sidebar.php:3
-#: www/includes/easyparliament/templates/html/senedd/index.php:14
-#: www/includes/easyparliament/templates/html/senedd/index.php:17
+#: www/includes/easyparliament/templates/html/senedd/index.php:16
+#: www/includes/easyparliament/templates/html/senedd/index.php:19
 msgid "Create an alert"
 msgstr "Creu hysbysiad"
 
@@ -3157,19 +3161,19 @@ msgstr "Dadleuon y Senedd"
 msgid "We don’t seem to have any %s for this year."
 msgstr "Nid yw'n ymddangos bod gennym unrhyw %s ar gyfer eleni."
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:15
+#: www/includes/easyparliament/templates/html/senedd/index.php:17
 msgid "Stay informed!"
 msgstr "Byddwch wybodus!"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:16
+#: www/includes/easyparliament/templates/html/senedd/index.php:18
 msgid "Get an email every time an issue you care about is mentioned in the Senedd (and more)"
 msgstr "Hawliwch e-bost bob tro mae mater yr ydych yn poeni amdano yn cael ei grybwyll yn Y Senedd (a mwy)"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:24
+#: www/includes/easyparliament/templates/html/senedd/index.php:26
 msgid "Recently in the Senedd"
 msgstr "Yn ddiweddar yn Senedd Cymru"
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:32
+#: www/includes/easyparliament/templates/html/senedd/index.php:34
 msgid "What is the Senedd?"
 msgstr "Beth yw hwn?"
 

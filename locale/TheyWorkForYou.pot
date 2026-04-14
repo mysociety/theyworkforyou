@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 09:03+0000\n"
+"POT-Creation-Date: 2026-04-14 16:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2137,6 +2137,10 @@ msgstr ""
 msgid "e.g. a postcode, person, or topic"
 msgstr ""
 
+#: www/includes/easyparliament/templates/html/homepage/_featured_announcement.php:2
+msgid "The latest"
+msgstr ""
+
 #: www/includes/easyparliament/templates/html/homepage/featured.php:2
 msgid "In the news"
 msgstr ""
@@ -3086,8 +3090,8 @@ msgstr ""
 
 #. end of !isset($error)
 #: www/includes/easyparliament/templates/html/search/sidebar.php:3
-#: www/includes/easyparliament/templates/html/senedd/index.php:14
-#: www/includes/easyparliament/templates/html/senedd/index.php:17
+#: www/includes/easyparliament/templates/html/senedd/index.php:16
+#: www/includes/easyparliament/templates/html/senedd/index.php:19
 msgid "Create an alert"
 msgstr ""
 
@@ -3295,21 +3299,21 @@ msgstr ""
 msgid "We don’t seem to have any %s for this year."
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:15
+#: www/includes/easyparliament/templates/html/senedd/index.php:17
 msgid "Stay informed!"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:16
+#: www/includes/easyparliament/templates/html/senedd/index.php:18
 msgid ""
 "Get an email every time an issue you care about is mentioned in the Senedd "
 "(and more)"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:24
+#: www/includes/easyparliament/templates/html/senedd/index.php:26
 msgid "Recently in the Senedd"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/senedd/index.php:32
+#: www/includes/easyparliament/templates/html/senedd/index.php:34
 msgid "What is the Senedd?"
 msgstr ""
 
