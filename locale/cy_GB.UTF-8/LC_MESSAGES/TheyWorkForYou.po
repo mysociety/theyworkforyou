@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 09:03+0000\n"
+"POT-Creation-Date: 2026-04-14 16:01+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -2663,11 +2663,11 @@ msgstr "Mae gan yr etholiad hwn system bleidleisio newydd"
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:38
 msgid "The way you vote has changed. When voting for your Members of the Senedd, you will now vote on one ballot paper, instead of two as previously. You will vote once for a single party or independent candidate, and seats will be allocated using proportional representation. Party candidates will be elected in the order they appear on their party list."
-msgstr "The way you vote has changed. When voting for your Members of the Senedd, you will now vote on one ballot paper, instead of two as previously. You will vote once for a single party or independent candidate, and seats will be allocated using proportional representation. Party candidates will be elected in the order they appear on their party list. (awaiting translation)"
+msgstr "Mae sut rydych chi’n pleidleisio wedi newid. Yn awr, pan fyddwch chi’n pleidleisio dros ymgeisydd i fod yn Aelod o’r Senedd, byddwch yn defnyddio un papur pleidleisio yn hytrach na dau. Byddwch yn bwrw un bleidlais i un blaid neu ymgeisydd annibynnol, a bydd y seddau’n cael eu dyrannu gan ddefnyddio cynrychiolaeth gyfrannol. Bydd ymgeiswyr y pleidiau’n cael eu hethol yn y drefn y maen nhw’n ymddangos ar restr eu plaid."
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:40
 msgid "These changes mean that you will have a new constituency. Each constituency will elect six members, and the overall number of Senedd members is increasing from 60 to 96. Senedd elections will happen every four years."
-msgstr "These changes mean that you will have a new constituency. Each constituency will elect six members, and the overall number of Senedd members is increasing from 60 to 96. Senedd elections will happen every four years. (awaiting translation)"
+msgstr "Mae’r newidiadau hyn yn golygu y bydd gennych chi etholaeth newydd. Bydd pob etholaeth yn ethol chwe aelod, ac mae nifer o aelodau’r Senedd yn cynyddu o 60 i 96. Bydd etholiadau’r Senedd yn digwydd bob pedair blynedd. Dysgwch fwy am y newidiadau i’r Senedd."
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:42
 msgid "Learn more about the Senedd changes."
