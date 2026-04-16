@@ -9,6 +9,12 @@ $current_page = isset($pagetype) && $pagetype ? $pagetype : 'profile';
 $user_identifier = $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . date('Y-m-d') . $current_page . $person_id;
 $hash = crc32($user_identifier);
 $show_banner = ($hash % 100) < 20; // 20% chance
+$auto_expand = strtotime('2026-04-24') >= time(); // Automatically expand until 24 April 2026
+
+// Override auto_expand if user has collapsed it (cookie lasts 1 week)
+if (isset($_COOKIE['donation_banner_collapsed'])) {
+    $auto_expand = false;
+}
 
 // Admin override for testing
 if (isset($_GET['show_donation_banner'])) {
@@ -17,20 +23,20 @@ if (isset($_GET['show_donation_banner'])) {
 ?>
 
 <?php if ($show_banner): ?>
-<div class="panel panel--donation-banner">
+<div class="panel panel--donation-banner" id="donation-banner">
     <div class="donation-banner__content">
         <div class="donation-banner__header">
             <h3 class="donation-banner__title">
                 <span class="donation-banner__icon">💚</span>
                 Help keep TheyWorkForYou free and independent
             </h3>
-            <button class="donation-banner__toggle js-donation-banner-toggle" aria-expanded="false" aria-controls="donation-banner-details">
+            <button class="donation-banner__toggle js-donation-banner-toggle" aria-expanded="<?= $auto_expand ? 'true' : 'false' ?>" aria-controls="donation-banner-details">
                 <span class="donation-banner__toggle-text">Why we need your support</span>
                 <span class="donation-banner__toggle-arrow">↓</span>
             </button>
         </div>
         
-        <div id="donation-banner-details" class="donation-banner__details">
+        <div id="donation-banner-details" class="donation-banner__details<?= $auto_expand ? ' is-open' : '' ?>">
             <div class="donation-banner__message">
                 <p><strong>For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable.</strong></p>
                 <p>We need your support to:</p>
@@ -73,9 +79,17 @@ if (isset($_GET['show_donation_banner'])) {
             if (isExpanded) {
                 details.classList.remove('is-open');
                 toggle.setAttribute('aria-expanded', 'false');
+                
+                // Set cookie to remember collapsed state for 1 week
+                var expires = new Date();
+                expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 days
+                document.cookie = 'donation_banner_collapsed=1;expires=' + expires.toUTCString() + ';path=/';
             } else {
                 details.classList.add('is-open');
                 toggle.setAttribute('aria-expanded', 'true');
+                
+                // Remove the collapsed cookie
+                document.cookie = 'donation_banner_collapsed=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
             }
         });
     }
