@@ -635,7 +635,11 @@ $(function() {
   });
 
   $('#gift-aid-yes').click(function(){
-    fullname_toggle($('#gift-aid-yes').is(':checked'), true);
+    var isChecked = $('#gift-aid-yes').is(':checked');
+    fullname_toggle(isChecked, true);
+    if (isChecked) {
+      trackEvent('gift_aid_expanded', {});
+    }
   });
   fullname_toggle($('#gift-aid-yes').is(':checked'));
   
