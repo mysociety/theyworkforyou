@@ -134,6 +134,8 @@
             the site, and also to remember your postcode. We may also use them
             to record if you've answered one of the survey questions we ask. The
             site will work with cookies disabled, but it won't be as good.</p>
+            <p>We store a small preference cookie to remember if you've minimized
+            the donation message, so we don't show it again on future visits that week.</p>
 
             <h3 id="analytics">Measuring website usage (Google Analytics)</h3>
             <p>We use Google Analytics software to collect information about
