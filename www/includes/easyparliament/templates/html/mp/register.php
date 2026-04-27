@@ -86,6 +86,9 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                             }; ?>
                             <hr>
                             <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?> <?= $category->category_name ?></h2>
+                            <?php $entry_permalink_chamber_slug = $register->chamber; ?>
+                            <?php $entry_permalink_category_id = (string) $category->category_id; ?>
+                            <?php $entry_permalink_date = $register->published_date; ?>
                         
                             <div class="person-items <?php if ($category->only_old_entries($register->published_date)) { ?>old_entry<?php } ?>">
                                 <?php foreach ($category->entries as $entry) { ?>
