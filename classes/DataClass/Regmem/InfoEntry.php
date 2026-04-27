@@ -67,4 +67,17 @@ class InfoEntry extends BaseModel {
         return null;
     }
 
+    /**
+     * Returns the permalink URL to this entry on the category page.
+     * The register date is always fixed so the link remains stable.
+     */
+    public function categoryPageUrl(string $chamber, string $category_id, string $register_date): string {
+        $query = http_build_query([
+            'chamber' => $chamber,
+            'category_id' => $category_id,
+            'date' => $register_date,
+        ]);
+        return '/interests/category.php?' . $query . '#' . urlencode((string) $this->comparable_id);
+    }
+
 }

@@ -72,6 +72,9 @@
                         }; ?> 
                         <div class="person-items <?php if ($person_category->only_old_entries($register->published_date)) { ?>old_entry<?php } ?>">
                         <h3><a href="/mp/<?= $person->intId() ?>/register"><?= $person->person_name ?></a></h3>
+                        <?php $entry_permalink_chamber_slug = $chamber_slug; ?>
+                        <?php $entry_permalink_category_id = (string) $selected_category_id; ?>
+                        <?php $entry_permalink_date = $register->published_date; ?>
                         <?php foreach ($person_category->entries as $entry) { ?>
                                 <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_entry_display.php'; ?>
                         <?php }; ?>
