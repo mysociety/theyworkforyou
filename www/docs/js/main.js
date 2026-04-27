@@ -847,7 +847,21 @@ $(document).ready(function() {
   syncJustNewHeading();
   syncCurrentPageJustNewParam();
   syncJustNewLinks();
+  expandLinkedInterestEntry();
 });
+
+function expandLinkedInterestEntry() {
+  var hash = window.location.hash;
+  if (!hash) { return; }
+
+  var target = document.getElementById(hash.slice(1));
+  if (!target || !target.classList.contains('interest-item')) { return; }
+
+  var details = target.querySelector('details');
+  if (details) {
+    details.open = true;
+  }
+}
 
 // GLOSSARY DRAWER
 class GlossaryDrawer {

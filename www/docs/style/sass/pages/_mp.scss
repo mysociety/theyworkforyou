@@ -1013,6 +1013,13 @@ h6.interest-summary {
     font-weight: bold;
 }
 
+.interest-item:target {
+    background-color: #fffbcc;
+    border-radius: 4px;
+    padding: 0.5em;
+    transition: background-color 1s ease;
+}
+
 .active-comparison-period {
     font-weight: bold;
 }
