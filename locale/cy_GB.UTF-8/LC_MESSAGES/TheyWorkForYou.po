@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 16:08+0000\n"
+"POT-Creation-Date: 2026-04-27 15:01+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -1201,7 +1201,7 @@ msgstr "Addasu’r chwilio"
 #. end of isset($speakers)
 #: www/includes/easyparliament/page.php:641
 #: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:89
-#: www/includes/easyparliament/templates/html/header.php:152
+#: www/includes/easyparliament/templates/html/header.php:161
 #: www/includes/easyparliament/templates/html/mp/header.php:72
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
@@ -2057,15 +2057,15 @@ msgstr[1] "%s areithiau"
 msgid "No data to display."
 msgstr "Dim data i'w arddangos."
 
-#: www/includes/easyparliament/templates/html/header.php:120
+#: www/includes/easyparliament/templates/html/header.php:129
 msgid "Menu"
 msgstr "Dewislen"
 
-#: www/includes/easyparliament/templates/html/header.php:146
+#: www/includes/easyparliament/templates/html/header.php:155
 msgid "Search TheyWorkForYou"
 msgstr "Chwiliwch TheyWorkForYou"
 
-#: www/includes/easyparliament/templates/html/header.php:149
+#: www/includes/easyparliament/templates/html/header.php:158
 msgid "e.g. a postcode, person, or topic"
 msgstr "e.e. côd post, person, neu bwnc"
 
@@ -2708,10 +2708,16 @@ msgstr "Darparwyd y data yma gan <a href=\"%s\">Democracy Club</a>."
 #. * Variables expected:
 #. * - $entry: The entry object
 #. * - $register: The register object (for published_date)
+#. * - $chamber_slug: (optional) chamber slug, available on category pages
+#. * - $selected_category_id: (optional) category ID, available on category pages
 #.
-#: www/includes/easyparliament/templates/html/register/_entry_display.php:11
+#: www/includes/easyparliament/templates/html/register/_entry_display.php:13
 msgid "New entry or subentry"
 msgstr "Mynediad newydd"
+
+#: www/includes/easyparliament/templates/html/register/_entry_display.php:15
+msgid "Permalink to this entry"
+msgstr "Dolen barhaol"
 
 #: www/includes/easyparliament/templates/html/search/by-person.php:10
 #, php-format
