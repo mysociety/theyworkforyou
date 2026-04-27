@@ -40,7 +40,7 @@
       ];
       $og_assembly = $current_assembly ?? 'uk';
       $og_image_suffix = $og_image_assembly_map[$og_assembly] ?? $og_assembly;
-    ?>
+      ?>
     <meta property="og:image" content="https://<?= DOMAIN ?>/images/og/social_<?= $og_image_suffix ?>.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
