@@ -60,7 +60,8 @@ class Register extends BaseModel {
         # sort most recent to least, find the first one before the date
         rsort($files);
         foreach ($files as $file) {
-            $file_date = basename($file, ".json");
+            # filename ends with isodate (10 characters - (while starting chamber is inconsistent length)
+            $file_date = substr(basename($file, ".json"), -10);
             if ($file_date <= $date) {
                 return self::fromFile($file);
             }
