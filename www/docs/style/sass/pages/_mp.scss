@@ -582,6 +582,15 @@
             margin-left: 1em;
             line-height: 1.6;
         }
+
+        a.interest-permalink {
+            text-decoration: none;
+
+            &:hover,
+            &:focus {
+                text-decoration: none;
+            }
+        }
     }
 }
 
