@@ -41,6 +41,7 @@ if (!validate_postcode($pc)) {
 
 # 2026 DEVOLVED ELECTIONS
 
+/*
 $data['address'] = $address = get_http_var('address');
 if ($address) {
     $dc_data = democracy_club_address($address);
@@ -53,6 +54,8 @@ if ($address) {
     }
     $constituencies = mapit_postcode($pc);
 }
+*/
+$constituencies = mapit_postcode($pc);
 if (!$constituencies) {
     postcode_error("Sorry, " . _htmlentities($pc) . " isn't a known postcode");
 }
