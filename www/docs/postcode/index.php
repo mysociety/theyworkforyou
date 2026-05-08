@@ -11,19 +11,12 @@ $errors = [];
 
 $valid_scotland_single_member_mapit_codes = ['SPC', 'SPCF'];
 $valid_scotland_multi_member_mapit_codes = ['SPE', 'SPEF'];
-$valid_wales_single_member_mapit_codes = ['WAC'];
-$valid_wales_multi_member_mapit_codes = ['WAE','WACF'];
+$valid_wales_mapit_codes = ['WAC', 'WACF'];
 $valid_ni_mapit_codes = ['NIE'];
 $valid_wmc_mapit_codes = ['WMC'];
 
 $valid_scotland_mapit_codes = array_merge($valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes);
-$valid_wales_mapit_codes = array_merge($valid_wales_single_member_mapit_codes, $valid_wales_multi_member_mapit_codes);
 $valid_mapit_area_types = array_merge($valid_wmc_mapit_codes, $valid_scotland_mapit_codes, $valid_wales_mapit_codes, $valid_ni_mapit_codes);
-
-$old_single_member_mapit_codes = ['SPC', 'WAC'];
-$new_single_member_mapit_codes = ['SPCF', 'WACF'];
-$old_multi_member_mapit_codes = ['SPE'];
-$new_multi_member_mapit_codes = ['SPEF'];
 
 // handling to switch the GE message based either on time or a query string
 
@@ -105,7 +98,7 @@ if (has_any_area_type($constituencies, $valid_scotland_mapit_codes)) {
 } elseif (has_any_area_type($constituencies, $valid_wales_mapit_codes)) {
     $data['multi'] = "wales";
     $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'WAE', HOUSE_TYPE_WALES);
+    pick_multiple($pc, $constituencies, 'WAC', HOUSE_TYPE_WALES);
 } elseif (has_any_area_type($constituencies, $valid_ni_mapit_codes)) {
     $data['multi'] = "northern-ireland";
     $MEMBER = fetch_mp($pc, $constituencies);
@@ -186,7 +179,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     global $PAGE, $data;
     global $valid_ni_mapit_codes;
     global $valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes;
-    global $valid_wales_single_member_mapit_codes, $valid_wales_multi_member_mapit_codes;
+    global $valid_wales_mapit_codes;
     $db = new ParlDB();
 
     $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
@@ -200,9 +193,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         $member_area_names = array_merge($single_member_areas, $multi_member_areas);
     } elseif ($house == HOUSE_TYPE_WALES) {
         $urlp = 'ms';
-        $single_member_areas = get_area_names_by_type($areas, $valid_wales_single_member_mapit_codes);
-        $multi_member_areas = get_area_names_by_type($areas, $valid_wales_multi_member_mapit_codes);
-        $member_area_names = array_merge($single_member_areas, $multi_member_areas);
+        $member_area_names = get_area_names_by_type($areas, $valid_wales_mapit_codes);
     } elseif ($house == HOUSE_TYPE_NI) {
         $urlp = 'mla';
         $member_area_names = get_area_names_by_type($areas, $valid_ni_mapit_codes);
@@ -258,11 +249,7 @@ function pick_multiple($pc, $areas, $area_type, $house) {
                 $mreg[] = $row;
             }
         } elseif ($house == HOUSE_TYPE_WALES) {
-            if (in_array($cons, $single_member_areas, true)) {
-                $mcon = $row;
-            } elseif (in_array($cons, $multi_member_areas, true)) {
-                $mreg[] = $row;
-            }
+            $mreg[] = $row;
         } else {
             $PAGE->error_message('Odd result returned, please let us know!');
             return;
