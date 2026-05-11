@@ -11,6 +11,7 @@
                 <input type="hidden" name="keyword" value="<?= _htmlspecialchars($keyword) ?>">
                 <input type="hidden" name="exclusions" value="<?= _htmlspecialchars($exclusions) ?>">
                 <input type="hidden" name="representative" value="<?= _htmlspecialchars($representative) ?>">
+                <input type="hidden" name="pid" value="<?= _htmlspecialchars($pid) ?>">
                 <input type="hidden" name="search_section" value="<?= _htmlspecialchars($search_section) ?>">
                 <input type="hidden" name="email" id="email" value="<?= _htmlentities($email) ?>">
                 <input type="hidden" name="match_all" value="<?= $match_all ? 'on' : ''?>">
