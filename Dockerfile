@@ -47,6 +47,7 @@ RUN mkdir -p /usr/local/share/fonts/truetype/merriweather \
 RUN echo "cy_GB.UTF-8 UTF-8" >> /etc/locale.gen
 RUN /usr/sbin/locale-gen
 
+ENV POETRY_VERSION 2.2.1
 RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
