@@ -11,7 +11,7 @@ class MSs extends \MySociety\TheyWorkForYou\People {
     public $type = 'mss';
     public $house = HOUSE_TYPE_WALES;
     public $cons_type = 'WAC';
-    public $reg_cons_type = 'WAE';
+    public $reg_cons_type = 'WAC';
 
     public function __construct() {
         if (LANGUAGE == 'cy') {

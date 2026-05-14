@@ -561,8 +561,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             foreach ($this->data['constituencies'] as $type => $constituency) {
                 try {
                     $house = \MySociety\TheyWorkForYou\Utility\Postcode::mapitTypeToHouse($type);
-                    // regional list reps for wales and scotland
-                    if ($type == 'SPE' || $type == 'WAE') {
+                    // regional list reps for scotland
+                    if ($type == 'SPE') {
                         $db = new \ParlDB();
                         $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
                         foreach ($q as $row) {

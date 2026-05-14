@@ -133,10 +133,7 @@ class SeneddView extends SectionView {
 
         $mreg = [];
         if ($THEUSER->isloggedin() && $THEUSER->postcode() != '' || $THEUSER->postcode_is_set()) {
-            return array_merge(
-                \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 5, 'WAC'),
-                \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 5, 'WAE')
-            );
+            return \MySociety\TheyWorkForYou\Member::getRegionalList($THEUSER->postcode, 5, 'WAC');
         }
 
         return $mreg;

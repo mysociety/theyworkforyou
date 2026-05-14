@@ -120,7 +120,7 @@ function api_getPerson_postcode($pc, $house) {
     } elseif ($house == HOUSE_TYPE_SCOTLAND) {
         $types = ['SPC', 'SPE'];
     } elseif ($house == HOUSE_TYPE_WALES) {
-        $types = ['WAC', 'WAE'];
+        $types = ['WAC'];
     }
     if (validate_postcode($pc)) {
         $constituencies = MySociety\TheyWorkForYou\Utility\Postcode::postcodeToConstituencies($pc);

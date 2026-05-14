@@ -1,5 +1,8 @@
 <?php
 
+$only_multi_member = ($type == 'mlas' || $type == 'mss');
+$has_regional_too = ($type == 'msps');
+
 $dissolution = MySociety\TheyWorkForYou\Dissolution::dates();
 if (!count($data)) {
     if ($type == 'mps' && isset($dissolution[1])) {
@@ -28,7 +31,7 @@ if (!count($data)) {
                           <?= sprintf(gettext('Based on postcode <strong>%s</strong>'), $mp_data['postcode']) ?>
                           <a href="<?= $mp_data['change_url'] ?>"><?= gettext('(Change postcode)') ?></a>
                       </p>
-                    <?php if (isset($mp_data) && $type != 'mlas') { ?>
+                    <?php if (isset($mp_data) && !$only_multi_member) { ?>
                       <h3><?php
                         if ($mp_data['former']) {
                             printf(gettext('Your former %s is'), $rep_name);
@@ -47,18 +50,18 @@ if (!count($data)) {
                     </a>
                     <?php }
                     if (isset($reps)) {
-                        if (isset($mp_data) && $type != 'mlas') { ?>
+                        if (isset($mp_data) && !$only_multi_member) { ?>
                     <div class="people-list__your-mp__replist-header">
                         <?php } ?>
                       <h3><?php
                         if (isset($former)) {
-                            if ($type == 'msps' || $type == 'mss') {
+                            if ($has_regional_too) {
                                 printf(gettext('Your former regional %s are'), $rep_plural);
                             } else {
                                 printf(gettext('Your former %s are'), $rep_plural);
                             }
                         } else {
-                            if ($type == 'msps' || $type == 'mss') {
+                            if ($has_regional_too) {
                                 printf(gettext('Your regional %s are'), $rep_plural);
                             } else {
                                 printf(gettext('Your %s are'), $rep_plural);

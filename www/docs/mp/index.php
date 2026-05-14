@@ -1260,11 +1260,7 @@ function regional_list($pc, $area_type, $rep_type) {
                 $mreg[] = $row;
             }
         } elseif ($house == HOUSE_TYPE_WALES) {
-            if ($cons == $constituencies['WAC']) {
-                $mcon = $row;
-            } elseif ($cons == $constituencies['WAE']) {
-                $mreg[] = $row;
-            }
+            $mreg[] = $row;
         } else {
             throw new MySociety\TheyWorkForYou\MemberException('Odd result returned!' . $house);
         }
@@ -1284,18 +1280,11 @@ function regional_list($pc, $area_type, $rep_type) {
             $data['members_statement'] .= '<p>' . sprintf('Your <strong>%s region MSPs</strong> were:', $reg) . '</p>';
         }
     } elseif ($rep_type == 'ms') {
-        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
-        $cons = gettext($mcon['constituency']);
-        $reg = gettext($constituencies['WAE']);
-        $url = '/ms/?p=' . $mcon['person_id'];
+        $reg = gettext($constituencies['WAC']);
         if ($current) {
-            $data['members_statement'] = '<p>' . gettext('You have one constituency MS (Member of the Senedd) and multiple region MSs.') . '</p>';
-            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>constituency MS</strong> is <a href="%s">%s</a>, MS for %s.'), $url, $name, $cons) . '</p>';
-            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), $reg) . '</p>';
+            $data['members_statement'] = '<p>' . sprintf(gettext('You have multiple MSs (Members of the Senedd) who represent you in %s. They are:'), $reg) . '</p>';
         } else {
-            $data['members_statement'] = '<p>' . gettext('You had one constituency MS (Member of the Senedd) and multiple region MSs.') . '</p>';
-            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>constituency MS</strong> was <a href="%s">%s</a>, MS for %s.'), $url, $name, $cons) . '</p>';
-            $data['members_statement'] .= '<p>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), $reg) . '</p>';
+            $data['members_statement'] = '<p>' . sprintf(gettext('You had multiple MSs (Members of the Senedd) who represented you in %s. They were:'), $reg) . '</p>';
         }
     } else {
         if ($current) {

@@ -82,7 +82,7 @@ class Postcode {
             }
             $name = explode('|', $name);
             if ($country == 'W') {
-                return ['WMC' => $name[0], 'WAC' => $name[1], 'WAE' => $name[2]];
+                return ['WMC' => $name[0], 'WAC' => $name[1]];
             } elseif ($country == 'S' || count($name) == 3) {
                 return ['WMC' => $name[0], 'SPC' => $name[1], 'SPE' => $name[2]];
             } elseif ($country == 'N' || count($name) == 2) {
@@ -129,7 +129,7 @@ class Postcode {
         foreach ($r['areas'] as $row) {
             # Include future constituency types for 2025 Scottish/Welsh elections
             # This can be removed at at future point
-            if (in_array($row['type'], ['WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'WAE', 'SPCF', 'SPEF', 'WACF'])) {
+            if (in_array($row['type'], ['WMC', 'SPC', 'SPE', 'NIE', 'WAC', 'SPCF', 'SPEF', 'WACF'])) {
                 $areas[$row['type']] = $row['name'];
             }
         }
@@ -147,7 +147,7 @@ class Postcode {
             } elseif (isset($areas['NIE'])) {
                 $serialized = "N;$areas[WMC]|$areas[NIE]";
             } elseif (isset($areas['WAC'])) {
-                $serialized = "W;$areas[WMC]|$areas[WAC]|$areas[WAE]";
+                $serialized = "W;$areas[WMC]|$areas[WAC]";
             } else {
                 $serialized = "E;$areas[WMC]";
             }
@@ -192,7 +192,6 @@ class Postcode {
             'SPCF' => HOUSE_TYPE_SCOTLAND,  # Future Scottish constituency
             'SPEF' => HOUSE_TYPE_SCOTLAND,  # Future Scottish regional list
             'WAC' => HOUSE_TYPE_WALES,
-            'WAE' => HOUSE_TYPE_WALES,
             'WACF' => HOUSE_TYPE_WALES,     # Future Welsh Senedd constituency (multi-member)
             'NIE' => HOUSE_TYPE_NI,
         ];
