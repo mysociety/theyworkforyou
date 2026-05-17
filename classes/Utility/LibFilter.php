@@ -43,7 +43,7 @@ class LibFilter {
     ];
 
     #
-    # tags which must always have seperate opening and closing tags (e.g. "<b></b>")
+    # tags which must always have separate opening and closing tags (e.g. "<b></b>")
     #
 
     public $always_close = [
