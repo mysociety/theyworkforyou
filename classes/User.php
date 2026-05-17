@@ -27,7 +27,7 @@ function calculateOptinValue($optin_service, $optin_stream, $optin_org) {
 }
 
 function extractOptinValues($value) {
-    // convert an integer into three seperate optin values ('Yes', 'No')
+    // convert an integer into three separate optin values ('Yes', 'No')
     return [
         'optin_service' => ($value & 1) ? "Yes" : "No",
         'optin_stream' => ($value & 2) ? "Yes" : "No",
