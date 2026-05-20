@@ -176,7 +176,7 @@ class AnnouncementManagement {
         return select_based_on_weight($banners);
     }
 
-    public function get_random_valid_item($location) {
+    public function get_random_valid_item(string $location, string $type = 'announcement') {
         // get announcements stored in json
         $items = $this->get_json("announcements");
 
@@ -192,6 +192,12 @@ class AnnouncementManagement {
         # limit to announcements with the correct location
         $items = array_filter($items, function ($item) use ($location) {
             return in_array($location, $item->location);
+        });
+
+        # limit to announcements with the correct type, treating missing/empty as 'announcement'
+        $items = array_filter($items, function ($item) use ($type) {
+            $item_type = (isset($item->type) && $item->type !== '') ? $item->type : 'announcement';
+            return $item_type === $type;
         });
 
         # if none left return null

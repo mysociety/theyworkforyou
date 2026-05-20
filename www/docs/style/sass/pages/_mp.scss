@@ -437,8 +437,25 @@
             background-color: white;
             padding: 0.5em 1em 1em;
             margin-bottom: 1.11111em;
+            > *:last-child {
+                margin-bottom: 0; 
+            }
             @media (min-width: $medium-screen) {
                 margin-bottom: 2.22222em;
+            }
+        }
+
+        .sidebar__newsletter-form {
+            input[type="email"],
+            .button {
+                height: 36px;
+                font-size: 0.9rem;
+            }
+            .sidebar__newsletter-form__footer {
+                font-size: 0.8rem;
+                > *:last-child {
+                    margin-bottom: 0; 
+                }
             }
         }
 
