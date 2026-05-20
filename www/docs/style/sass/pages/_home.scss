@@ -276,6 +276,10 @@ input.homepage-search__button {
                         vertical-align: middle;
                         font-size: $icon-size;
                     }
+
+                    &.fi-heart {
+                        color: #dc3545;
+                    }
                 }
             }
         }
