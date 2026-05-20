@@ -84,9 +84,7 @@ include('_profile_footer.php'); ?>
 
             <div class="sidebar__unit in-page-nav">
                 <div>
-                    <?php include '_person_navigation.php'; ?>
-                    <?php include '_featured_content.php'; ?>
-                    <?php include '_donation.php'; ?>
+                    <?php include '_sidebar.php'; ?>
                 </div>
             </div>
         </div>
