@@ -1,0 +1,122 @@
+.in-page-nav {
+    & > * {
+        @include radius(3px);
+        margin-bottom: 0px;
+        font-size: em-calc(16);
+        margin-bottom: 2.22222rem;
+        position: sticky;
+        top: 1rem;
+        z-index: 999;
+    }
+
+    .featured_side__mysociety {
+        color: white;
+        background: #333333;
+        padding: 0.75em 1em;
+    }
+
+    .featured_side__content,
+    .sidebar__unit__donation {
+        background-color: white;
+        padding: 0.5em 1em 1em;
+        margin-bottom: 1.11111em;
+        @media (min-width: $medium-screen) {
+            margin-bottom: 2.22222em;
+        }
+    }
+
+    .sidebar__unit__featured_side {
+        display: none;
+
+        @media (min-width: $medium-screen) {
+            display: block;
+        }
+    }
+
+    .content__button {
+        margin-bottom: 0;
+    }
+}
+
+.person-navigation {
+    max-height: 75dvh;
+    overflow-y: auto;
+
+    &--subpage-heading {
+        text-underline-offset: 0.25rem;
+        h2 {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.browse-content,
+.js-toc > a:first-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0.5em 0.75em;
+    background: #9ddc93;
+    font-size: 1.1rem;
+    color: $body-font-color;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.person-navigation ul,
+.js-toc ul {
+    font-size: em-calc(18);
+    margin-left: 0px;
+    background-color: white;
+    margin-left: 0;
+
+    li {
+        list-style-position: inside;
+        list-style: none;
+        padding: 0.5em 0.5em 0.5em 1em;
+        line-height: 1.3em;
+        color: $borders;
+        &.active {
+            color: $primary-color;
+        }
+        &:last-of-type {
+            border-bottom: 0px;
+        }
+        a {
+            color: $body-font-color;
+        }
+    }
+
+    .subpage-content-list {
+        display: none;
+        margin: 1rem 0;
+        margin-bottom: 0;
+        margin-top: 0.25rem;
+        background-color: transparent;
+
+        h3 {
+            margin: 0;
+        }
+
+        li {
+            padding: 0.5rem 0;
+            margin-left: 1em;
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            border-bottom: 1px solid #f3f1eb;
+            width: 90%;
+            margin-right: 0;
+        }
+    }
+
+    .active {
+        .subpage-content-list {
+            @media (min-width: $medium-screen) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

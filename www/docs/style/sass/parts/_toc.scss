@@ -68,11 +68,6 @@ $toc-page-breakpoint: 40em; // 640px
         line-height: 1.3;
     }
 
-    li + li,
-    a + ul {
-        margin-top: 0.666em;
-    }
-
     a {
         display: block;
         color: $light-text;
