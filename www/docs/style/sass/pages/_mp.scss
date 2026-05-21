@@ -363,16 +363,24 @@
 .person-panels {
     padding-top: em-calc(36);
     clear: both;
+    display: flex;
+    flex-direction: column;
+
+    .sidebar__unit {
+        order: 2;
+    }
 
     @media (min-width: $medium-screen) {
-        display: flex;
+        flex-direction: row;
+        .sidebar__unit {
+            order: 1;
+        }
     }
 
     // Recent votes page has sidebar *after* the primary content
     // (so that a list of content sections can be built up in $sidebar_links)
     // but we want to make sure the main content always displays on the right.
     .primary-content__unit {
-        margin-top: -3rem;
 
         @media (min-width: $medium-screen) {
             float: right; // non-flex fallback
@@ -458,15 +466,6 @@
                 }
             }
         }
-
-        .sidebar__unit__featured_side {
-            display: none;
-
-            @media (min-width: $medium-screen) {
-                display: block;
-            }
-        }
-
 
         .content__button {
             margin-bottom: 0;
