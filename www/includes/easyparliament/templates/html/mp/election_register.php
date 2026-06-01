@@ -80,14 +80,14 @@ function humInt(int $num): string {
 
 
 
-                        <?php if ($register->categories->isEmpty()) { ?>
+                        <?php if ($register->getCategories()->isEmpty()) { ?>
                             <div class="panel register">
                                 <p><?= ucfirst($full_name) ?> did not declare any relevant donations or gifts in the September 2024 register. </p>
                                 <p>This means they did not declare any donations above £1,500 in value, or any gifts above £300 in value.</p>
                             </div>
                         <?php }; ?>
 
-                        <?php foreach ($register->categories as $category) { ?>
+                        <?php foreach ($register->getCategories() as $category) { ?>
                             <div class="panel register">    
                             <h2 id="category-<?= $register->chamber . $category->category_id ?>"><?= $category->emoji() ?> <?= $category->category_name ?></h2>
 

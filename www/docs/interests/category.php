@@ -59,13 +59,13 @@ try {
 $categories = [];
 
 foreach ($register->persons as $person) {
-    foreach ($person->categories as $category) {
+    foreach ($person->getCategories() as $category) {
         if (!isset($categories[$category->category_id])) {
             $categories[$category->category_id] = $category->category_name;
         }
     }
     if ($selected_category_id) {
-        $person->categories->limitToCategoryIds([$selected_category_id]);
+        $person->getCategories()->limitToCategoryIds([$selected_category_id]);
     }
 }
 

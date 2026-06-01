@@ -66,7 +66,7 @@
                 <?php } ; ?>
 
                     <?php foreach ($register->persons as $person) { ?>
-                        <?php foreach ($person->categories as $person_category) { ?>
+                        <?php foreach ($person->getCategories() as $person_category) { ?>
                         <?php if ($person_category->category_id != $selected_category_id || $person_category->only_null_entries()) {
                             continue;
                         }; ?> 

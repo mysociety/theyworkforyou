@@ -47,7 +47,7 @@
                                     <th>MP's comment</th>
                                 </tr>
                     <?php foreach ($register->persons as $person) { ?>
-                        <?php foreach($person->categories as $category) { ?>
+                        <?php foreach($person->getCategories() as $category) { ?>
                             <?php if ($category->category_id != $category_id) { ?>
                                 <?php continue; ?>
                             <?php }; ?>
