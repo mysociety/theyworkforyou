@@ -34,7 +34,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                         <a href="#register-<?= $chamber ?>"><?= $register->displayChamber() ?></a>
                                         <span class="register-last-updated">(<?= gettext('Last updated:') ?> <?= $register->published_date ?>)</span>
                                         <ul class="register-submenu">
-                                            <?php foreach ($register->categories as $category) { ?>
+                                            <?php foreach ($register->getCategories() as $category) { ?>
                                                 <?php if ($category->only_null_entries()) {
                                                     continue;
                                                 }; ?>
@@ -80,7 +80,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                         <?php include INCLUDESPATH . 'easyparliament/templates/html/register/_toggle_buttons.php'; ?>
 
-                        <?php foreach ($register->categories as $category) { ?>
+                        <?php foreach ($register->getCategories() as $category) { ?>
                             <?php if ($category->only_null_entries()) {
                                 continue;
                             }; ?>

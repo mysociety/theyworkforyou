@@ -137,7 +137,7 @@
                         <nav class="subpage-content-list js-accordion" aria-label="<?= $register->displayChamber() ?> list">
                             <h3 class="js-accordion-button"><?= $register->displayChamber() ?></h3>
                             <ul class="js-accordion-content">
-                                <?php foreach ($register->categories as $category): ?>
+                                <?php foreach ($register->getCategories() as $category): ?>
                                     <?php if ($category->only_null_entries()): ?>
                                         <?php continue; ?>
                                     <?php endif; ?>
@@ -161,7 +161,7 @@
                 <?php $election_registers = [$register_2024_enriched]; ?>
                 <?php if (!empty($election_registers)): ?>
                      <?php foreach ($election_registers as $register) { ?>
-                                <?php foreach ($register->categories as $category) { ?>
+                                <?php foreach ($register->getCategories() as $category) { ?>
                                     <?php if ($category->only_null_entries()) { ?>
                                         <?php continue; ?>
                                     <?php }; ?>

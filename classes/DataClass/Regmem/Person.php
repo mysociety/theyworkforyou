@@ -21,8 +21,14 @@ class Person extends BaseModel {
     public string $person_id;
     public string $person_name;
     public string $published_date;
-    public CategoryList $categories;
+    public ?CategoryList $categories = null;
 
+    public function getCategories(): CategoryList {
+        if ($this->categories === null) {
+            return new CategoryList();
+        }
+        return $this->categories;
+    }
 
     public function intId(): int {
         // extract the last part of the person_id, which is the integer id
@@ -32,7 +38,7 @@ class Person extends BaseModel {
 
     public function allEntryIds(): array {
         $entryIds = [];
-        foreach ($this->categories as $category) {
+        foreach ($this->getCategories() as $category) {
             foreach ($category->entries as $entry) {
                 $entryIds[] = $entry->id;
                 foreach ($entry->sub_entries as $subEntry) {
@@ -44,7 +50,7 @@ class Person extends BaseModel {
     }
 
     public function getCategoryFromId(string $categoryId): Category {
-        foreach ($this->categories as $category) {
+        foreach ($this->getCategories() as $category) {
             if ($category->category_id === $categoryId) {
                 return $category;
             }
