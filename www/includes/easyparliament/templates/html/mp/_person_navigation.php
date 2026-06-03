@@ -4,12 +4,12 @@
     </button>   
 </div>
 
-<div class="person-navigation js-table-of-content">
-    <h3 class="browse-content"><?= ucfirst($full_name) ?></h3>
+<div class="table-of-content js-table-of-content">
+    <h2 class="browse-content"><?= ucfirst($full_name) ?></h2>
     <ul>
         <li <?php if ($pagetype == ""): ?>class="active"<?php endif; ?>>
-            <a href="<?= $member_url ?>" class="person-navigation--subpage-heading">
-                <h2>📌 <?= gettext('Overview') ?></h2>
+            <a href="<?= $member_url ?>" class="table-of-content--subpage-heading">
+                <h3>📌 <?= gettext('Overview') ?></h3>
             </a>
             <ul class="subpage-content-list">
                 <li><a href="#profile"><?= gettext('Profile') ?></a></li>
@@ -18,8 +18,8 @@
 
         <?php if (count($recent_appearances['appearances'])): ?>
             <li <?php if ($pagetype == "speeches"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/speeches" class="person-navigation--subpage-heading">
-                    <h2>💬 <?= gettext('Speeches and Questions') ?></h2>
+                <a href="<?= $member_url ?>/speeches" class="table-of-content--subpage-heading">
+                    <h3>💬 <?= gettext('Speeches and Questions') ?></h3>
                 </a>
                 
                 <?php if ($pagetype == "speeches"): ?>
@@ -39,8 +39,8 @@
         
         <?php if (!empty($memberships) && (array_key_exists('posts', $memberships) || array_key_exists('previous_posts', $memberships) || array_key_exists('appg_membership', $memberships))): ?>
             <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/memberships" class="person-navigation--subpage-heading">
-                    <h2>👥 <?= gettext('Committees / APPGs') ?></h2>
+                <a href="<?= $member_url ?>/memberships" class="table-of-content--subpage-heading">
+                    <h3>👥 <?= gettext('Committees / APPGs') ?></h3>
                 </a>
 
                 <?php if (!empty($memberships)): ?>
@@ -68,8 +68,8 @@
 
         <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('topics_of_interest', $memberships) || array_key_exists('eu_stance', $memberships)): ?>
             <li <?php if ($pagetype == "signatures"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/signatures" class="person-navigation--subpage-heading">
-                    <h2>✍️ <?= gettext('Signatures') ?></h2>
+                <a href="<?= $member_url ?>/signatures" class="table-of-content--subpage-heading">
+                    <h3>✍️ <?= gettext('Signatures') ?></h3>
                 </a>
 
                 <nav class="subpage-content-list js-accordion" aria-label="Signatures list">
@@ -93,13 +93,13 @@
 
         <?php if ($this_page == "mp"): ?>
             <li <?php if ($pagetype == "votes"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/votes" class="person-navigation--subpage-heading">
-                    <h2>🗳️ <?= gettext('Voting Summary') ?></h2>
+                <a href="<?= $member_url ?>/votes" class="table-of-content--subpage-heading">
+                    <h3>🗳️ <?= gettext('Voting Summary') ?></h3>
                 </a>
 
                 <?php if (!empty($has_voting_record) && !empty($key_votes_segments)): ?>
                     <nav class="subpage-content-list js-accordion" aria-label="Policy groups">
-                        <h3 class="js-accordion-button">Policy areas</h3>
+                        <h4 class="js-accordion-button">Policy areas</h4>
                         <ul class="js-accordion-content">
                             <?php if ($has_voting_record): ?>
                                 <?php foreach ($key_votes_segments as $segment): ?>
@@ -116,8 +116,8 @@
 
         <?php if (in_array($this_page, ["mp", "msp", "ms"])): ?>
             <li <?php if ($pagetype == "recent"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/recent" class="person-navigation--subpage-heading">
-                    <h2>📜 <?= gettext('Recent Votes') ?></h2>
+                <a href="<?= $member_url ?>/recent" class="table-of-content--subpage-heading">
+                    <h3>📜 <?= gettext('Recent Votes') ?></h3>
                 </a>
             </li>
         <?php endif; ?>
@@ -126,8 +126,8 @@
 
         <?php if ($register_interests): ?>
             <li <?php if ($pagetype == "register"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/register" class="person-navigation--subpage-heading">
-                    <h2>📖 <?= gettext('Register of Interests') ?></h2>
+                <a href="<?= $member_url ?>/register" class="table-of-content--subpage-heading">
+                    <h3>📖 <?= gettext('Register of Interests') ?></h3>
                 </a>
 
                 <?php if (!empty($register_interests)): ?>
@@ -135,7 +135,7 @@
                         <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register */ ?>
 
                         <nav class="subpage-content-list js-accordion" aria-label="<?= $register->displayChamber() ?> list">
-                            <h3 class="js-accordion-button"><?= $register->displayChamber() ?></h3>
+                            <h4 class="js-accordion-button"><?= $register->displayChamber() ?></h4>
                             <ul class="js-accordion-content">
                                 <?php foreach ($register->getCategories() as $category): ?>
                                     <?php if ($category->only_null_entries()): ?>
@@ -152,8 +152,8 @@
 
         <?php if ($register_2024_enriched): ?>
             <li <?php if ($pagetype == "election_register"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/election_register" class="person-navigation--subpage-heading">
-                    <h2>🏛️ <?= gettext('2024 Election Donations') ?></h2>
+                <a href="<?= $member_url ?>/election_register" class="table-of-content--subpage-heading">
+                    <h3>🏛️ <?= gettext('2024 Election Donations') ?></h3>
                 </a>
 
                 <ul class="subpage-content-list">
@@ -175,8 +175,8 @@
 
         <?php if (in_array($this_page, ["mp"])): ?>
             <li <?php if ($pagetype == "constituency"): ?>class="active"<?php endif; ?>>
-                <a href="<?= $member_url ?>/constituency" class="person-navigation--subpage-heading">
-                    <h2>🌍 <?= gettext('Constituency information') ?></h2>
+                <a href="<?= $member_url ?>/constituency" class="table-of-content--subpage-heading">
+                    <h3>🌍 <?= gettext('Constituency information') ?></h3>
                 </a>
             </li>
         <?php endif; ?>
