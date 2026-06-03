@@ -11,6 +11,8 @@
                     </div>
                     <div class="js-table-of-content-markdown js-table-of-content table-of-content"></div>
                     <?php } ?>
+
+                    <?php include '_sidebar.php'; ?>
                 </div>
             </div>
 
