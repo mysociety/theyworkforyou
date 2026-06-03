@@ -36,9 +36,9 @@ class Markdown {
             $htitle = $matches[2];
             $slug = slugify($htitle);
             if ($level == 1) {
-                $title_class = "js-toc-title";
+                $title_class = "js-markdown-title browse-content";
             } else {
-                $title_class = "js-toc-item";
+                $title_class = "js-markdown-item";
             }
             return "<h$level id=\"$slug\" class=\"$title_class\">$htitle</h$level>";
         }, $html);
