@@ -380,6 +380,42 @@ $(function(){
       });
   });
 
+  // JS that creates nav menu from markdown to work with js-table-of-content component.
+  $('.js-table-of-content-markdown').each(function(){
+    var $container = $(this);
+    var $title = $('.js-markdown-title');
+    if ( $title.length === 1 ) {
+      $container.append(
+        $('<a>').attr('href', '#' + $title.attr('id')).append(
+          $('<h2 class="browse-content">').text($title.text())
+        )
+      );
+    }
+    var $items = $('.js-markdown-item');
+    var $ul = $('<ul>');
+    $container.append($ul);
+    var levels = [ $ul ];
+    $items.each(function(i){
+      var $item = $(this);
+      var $li = $('<li>').append(
+        $('<a class="table-of-content--subpage-heading">')
+          .attr('href', '#' + $item.attr('id'))
+          .append( $('<h3>').text($item.text()) )
+      );
+      levels[0].append($li);
+      var $next = $items.eq(i + 1);
+      var current = parseInt($item.prop('tagName').substring(1), 10);
+      var next = $next.length ? parseInt($next.prop('tagName').substring(1), 10) : current;
+      if ( next > current ) {
+        var $childrenUl = $('<ul>');
+        $li.append($childrenUl);
+        levels.unshift($childrenUl);
+      } else if ( next < current ) {
+        levels.shift();
+      }
+    });
+  });
+
   // Mobile Sidebar functionality
   $('.js-table-content-button').on('click', function(e) {
     e.preventDefault();
@@ -412,6 +448,7 @@ $(function(){
     $('.js-table-content-button').attr('aria-expanded', 'false');
     $('.js-table-of-content').attr('aria-hidden', 'true').hide();
   }
+
   $('#add-all').on('click', function(e) {
     var $add_all = e.currentTarget;
     var $selected_related = document.querySelectorAll('input[name="selected_related_terms[]"]');
