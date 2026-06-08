@@ -25,9 +25,10 @@ $display_wtt_stats_banner = '2015';
                     <h2 id="signatures"><?= gettext('Signatures') ?></h2>
                 <?php endif; ?>
                 <?php if (array_key_exists('annul_motions_signed', $memberships)): ?>
-                    <h3 id="annul_motions_signed"><?=gettext('Recent motions to annul signed') ?></h3>
-                    <p>Some kinds of government regulations automatically become law if Parliament does not object (negative statutory instrument). A motion to annul/prayer is a request to hold a vote to object. </p>
-                    <p><em>Showing motions to annul signed in the last year.</em></p>
+                    <h3 id="annul_motions_signed"><?=gettext('Recent motions to annul (and similar) signed') ?></h3>
+                     <p>Some kinds of government regulations automatically become law if Parliament does not object (negative statutory instrument). </p>
+                     <p>A motion to annul/prayer is a request to hold a vote to object. This category also covers 'fatal motions' covered under similar legal processes.</p>
+                    <p><em>Showing motions to annul (and similar) signed in the last year.</em></p>
                     <ul class='list-dates'>
                         <?php foreach ($memberships['annul_motions_signed'] as $signature): ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1 ?> others)</li>

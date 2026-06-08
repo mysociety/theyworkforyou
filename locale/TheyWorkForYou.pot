@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 13:56+0000\n"
+"POT-Creation-Date: 2026-06-23 18:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: classes/AlertView/Standard.php:430 www/docs/user/login/index.php:34
+#: classes/AlertView/Standard.php:444 www/docs/user/login/index.php:34
 #: www/docs/user/password/index.php:33
 msgid "Please enter your email address"
 msgstr ""
 
 #. validate_email() is in includes/utilities.php
-#: classes/AlertView/Standard.php:433 www/docs/user/login/index.php:36
+#: classes/AlertView/Standard.php:447 www/docs/user/login/index.php:36
 #: www/docs/user/password/index.php:35
 msgid "Please enter a valid email address"
 msgstr ""
 
-#: classes/AlertView/Standard.php:449
+#: classes/AlertView/Standard.php:463
 msgid "Please enter what you want to be alerted about"
 msgstr ""
 
-#: classes/AlertView/Standard.php:453
+#: classes/AlertView/Standard.php:467
 msgid ""
 "You probably don&rsquo;t want a date range as part of your criteria, as you "
 "won&rsquo;t be alerted to anything new!"
 msgstr ""
 
-#: classes/AlertView/Standard.php:458
+#: classes/AlertView/Standard.php:472
 #, php-format
 msgid "That search appears to be invalid - %s - please check and try again."
 msgstr ""
 
-#: classes/AlertView/Standard.php:462
+#: classes/AlertView/Standard.php:476
 msgid ""
 "That search is too long for our database; please split it up into multiple "
 "smaller alerts."
 msgstr ""
 
-#: classes/AlertView/Standard.php:513 classes/AlertView/Standard.php:531
+#: classes/AlertView/Standard.php:527 classes/AlertView/Standard.php:545
 msgid "No matching representative found"
 msgstr ""
 
-#: classes/AlertView/Standard.php:533
+#: classes/AlertView/Standard.php:547
 msgid "Multiple matching representatives found, please select one."
 msgstr ""
 
@@ -2344,7 +2344,7 @@ msgid "Recent EDMs"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:87
-#: www/includes/easyparliament/templates/html/mp/signatures.php:72
+#: www/includes/easyparliament/templates/html/mp/signatures.php:73
 msgid "Topics of interest"
 msgstr ""
 
@@ -2412,18 +2412,18 @@ msgid "This register last updated on:"
 msgstr ""
 
 #: www/includes/easyparliament/templates/html/mp/signatures.php:28
-msgid "Recent motions to annul signed"
+msgid "Recent motions to annul (and similar) signed"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/signatures.php:39
+#: www/includes/easyparliament/templates/html/mp/signatures.php:40
 msgid "Recent open letters signed"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/signatures.php:50
+#: www/includes/easyparliament/templates/html/mp/signatures.php:51
 msgid "Recent Early Day Motions signed"
 msgstr ""
 
-#: www/includes/easyparliament/templates/html/mp/signatures.php:62
+#: www/includes/easyparliament/templates/html/mp/signatures.php:63
 msgid "All open letters and EDMs signed"
 msgstr ""
 
