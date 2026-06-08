@@ -41,6 +41,7 @@ jobs:
           REDIS_MASTER_SET: mymaster
           REDIS_MASTER_PASSWORD: password
           REDIS_SENTINEL_QUORUM: 1
+          ALLOW_EMPTY_PASSWORD: 'yes'
         ports:
           - 26379:26379
         options: >-
