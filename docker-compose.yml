@@ -82,7 +82,7 @@ services:
     image: memcached:1.6-alpine
 
   redis:
-    image: bitnami/redis
+    image: bitnamisecure/redis
     ports:
       - 6379:6379
     environment:
@@ -94,12 +94,13 @@ services:
       retries: 5
 
   sentinel:
-    image: bitnami/redis-sentinel
+    image: bitnamisecure/redis-sentinel
     environment:
-      REDIS_MASTER_HOST: redis
-      REDIS_MASTER_SET: mymaster
-      REDIS_MASTER_PASSWORD: password
-      REDIS_SENTINEL_QUORUM: 1
+          REDIS_MASTER_HOST: redis
+          REDIS_MASTER_SET: mymaster
+          REDIS_MASTER_PASSWORD: password
+          REDIS_SENTINEL_QUORUM: 1
+          ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - 26379:26379
     healthcheck:
