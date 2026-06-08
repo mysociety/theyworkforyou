@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 13:56+0000\n"
+"POT-Creation-Date: 2026-06-23 18:21+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -11,39 +11,39 @@ msgstr ""
 " Project-Id-Version: 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: classes/AlertView/Standard.php:430 www/docs/user/login/index.php:34
+#: classes/AlertView/Standard.php:444 www/docs/user/login/index.php:34
 #: www/docs/user/password/index.php:33
 msgid "Please enter your email address"
 msgstr "Nodwch eich cyfeiriad e-bost"
 
 #. validate_email() is in includes/utilities.php
-#: classes/AlertView/Standard.php:433 www/docs/user/login/index.php:36
+#: classes/AlertView/Standard.php:447 www/docs/user/login/index.php:36
 #: www/docs/user/password/index.php:35
 msgid "Please enter a valid email address"
 msgstr "Mewnbynnwch gyfeiriad e-bost dilys"
 
-#: classes/AlertView/Standard.php:449
+#: classes/AlertView/Standard.php:463
 msgid "Please enter what you want to be alerted about"
 msgstr "Nodwch yr hyn rydych chi am gael hysbysiadau"
 
-#: classes/AlertView/Standard.php:453
+#: classes/AlertView/Standard.php:467
 msgid "You probably don&rsquo;t want a date range as part of your criteria, as you won&rsquo;t be alerted to anything new!"
 msgstr "Mae'n debyg na fyddwch chi eisiau cynnwys ystod o ddyddiadau fel rhan o'ch meini prawf, gan na fyddwch yn cael eich hysbysu o unrhyw beth newydd!"
 
-#: classes/AlertView/Standard.php:458
+#: classes/AlertView/Standard.php:472
 #, php-format
 msgid "That search appears to be invalid - %s - please check and try again."
 msgstr "Mae'n ymddangos bod y chwiliad hwnnw'n annilys -  %s - gwiriwch a cheisiwch eto."
 
-#: classes/AlertView/Standard.php:462
+#: classes/AlertView/Standard.php:476
 msgid "That search is too long for our database; please split it up into multiple smaller alerts."
 msgstr "Mae'r chwiliad hwnnw'n rhy hir i'n cronfa ddata;  os gwelwch yna dda rhannwch i nifer o hysbysiadau llai."
 
-#: classes/AlertView/Standard.php:513 classes/AlertView/Standard.php:531
+#: classes/AlertView/Standard.php:527 classes/AlertView/Standard.php:545
 msgid "No matching representative found"
 msgstr "Ni ddaethpwyd o hyd i unrhyw gynrychiolydd cyfatebol"
 
-#: classes/AlertView/Standard.php:533
+#: classes/AlertView/Standard.php:547
 msgid "Multiple matching representatives found, please select one."
 msgstr "Daethpwyd o hyd i lawer o gynrychiolwyr cyfatebol. Dewiswch un os gwelwch yn dda."
 
@@ -2274,7 +2274,7 @@ msgid "Recent EDMs"
 msgstr "EDMs diweddar"
 
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:87
-#: www/includes/easyparliament/templates/html/mp/signatures.php:72
+#: www/includes/easyparliament/templates/html/mp/signatures.php:73
 msgid "Topics of interest"
 msgstr "Themau o ddiddordeb"
 
@@ -2338,21 +2338,21 @@ msgid "This register last updated on:"
 msgstr "Diweddarwyd y gofrestr hon ddiwethaf ar:"
 
 #: www/includes/easyparliament/templates/html/mp/signatures.php:28
-msgid "Recent motions to annul signed"
+msgid "Recent motions to annul (and similar) signed"
 msgstr "Cynigion i ddirymu a lofnodwyd (diweddar)"
 
 # google translated
-#: www/includes/easyparliament/templates/html/mp/signatures.php:39
+#: www/includes/easyparliament/templates/html/mp/signatures.php:40
 msgid "Recent open letters signed"
 msgstr "Llythyrau agored diweddar wedi'u llofnodi"
 
 # google translated
-#: www/includes/easyparliament/templates/html/mp/signatures.php:50
+#: www/includes/easyparliament/templates/html/mp/signatures.php:51
 msgid "Recent Early Day Motions signed"
 msgstr "EDMs diweddar wedi'u llofnodi"
 
 # google translated
-#: www/includes/easyparliament/templates/html/mp/signatures.php:62
+#: www/includes/easyparliament/templates/html/mp/signatures.php:63
 msgid "All open letters and EDMs signed"
 msgstr "Pob llythyr agored ac EDM wedi'u llofnodi"
 
