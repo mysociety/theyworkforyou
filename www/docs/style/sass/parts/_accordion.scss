@@ -58,6 +58,20 @@
     color: $body-font-color;
     background-color: $primary-color-200;
 
+    i {
+        margin-right: 0;
+
+        &:before {
+        transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: center;
+        font-size: 1.1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        text-align: center;
+        }
+    }
+
     &[aria-expanded="true"] {
         background-color: lighten($primary-color-100, 6%);
         color: $body-font-color;
@@ -68,7 +82,9 @@
         }
 
         i {
-            transform: rotate(45deg);
+            &:before {
+                transform: rotate(45deg);
+            }
         }
     }
 }
