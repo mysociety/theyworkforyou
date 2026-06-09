@@ -1,12 +1,27 @@
 .in-page-nav {
     & > * {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 1rem;
         @include radius(3px);
         margin-bottom: 0px;
+        margin-top: 1rem;
         font-size: em-calc(16);
         margin-bottom: 2.22222rem;
         position: sticky;
-        top: 1rem;
+        top: 0;
         z-index: 999;
+
+        @media (min-width: $large-screen) {
+            align-items: normal;
+            margin-top: -1rem; // This is for the fist invisible child(.page-mobile-navigation-controller) that gives one extra space thanks to the gap:1rem;
+        }
+
+        > * {
+            max-width: 22rem;
+        }
     }
 
     h2.browse-content {
@@ -53,17 +68,20 @@
     .sidebar__unit__donation {
         background-color: white;
         padding: 0.5em 1em 1em;
-        margin-bottom: 1.11111em;
-        @media (min-width: $medium-screen) {
-            margin-bottom: 2.22222em;
-        }
     }
 
     .sidebar__unit__featured_side {
-        display: none;
+        display: block;
 
-        @media (min-width: $medium-screen) {
-            display: block;
+        input {
+            font-size: 0.9rem;
+        }
+    }
+
+    .sidebar__newsletter-form__footer {
+        font-size: 0.8rem;
+        > *:last-child {
+            margin-bottom: 0; 
         }
     }
 
@@ -128,7 +146,8 @@
 
     ul {
         font-size: em-calc(18);
-        margin-left: 0px;
+        margin-left: 0;
+        margin-bottom: 0;
 
         li {
             position: relative;
