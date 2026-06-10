@@ -1,7 +1,3 @@
-
-
-<?php $featured_item = $announcement_manager->get_random_valid_item("donation"); ?>
-
 <?php if ($featured_item) { ?>
 
 <div class="sidebar__unit__featured_side">

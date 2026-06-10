@@ -1,5 +1,3 @@
-<?php $newsletter_item = $announcement_manager->get_random_valid_item("sidebar", "newsletter"); ?>
-
 <?php if ($newsletter_item) { ?>
 <form method="post" class="sidebar__unit__featured_side sidebar__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
   <?php if (isset($newsletter_item->thumbnail_image_url)) { ?>
