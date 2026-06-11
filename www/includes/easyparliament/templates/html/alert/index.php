@@ -135,7 +135,7 @@
             <div class="alert-section__primary">
               <h1><?= gettext("Create a Representative Alert") ?></h1>
               <?php include '_mp_alert_form.php' ?>
-              </div>
+            </div>
           </div>
       <?php } elseif ($step !== '') { ?>
         <?php include '_alert_form.php';
@@ -331,6 +331,9 @@
                 <?php include '_keyword_alert_list.php'; ?>
               <?php } ?>
 
+          </div>
+          <div class="alert-section__secondary">
+            <?php include '_secondary_section_content.php'; ?>
           </div>
         </div>
         <?php } ?>

@@ -315,12 +315,18 @@
     padding: 1.5em;
 
     @media (min-width: $medium-screen) {
-        padding: 2.5em 3em;
+        padding: 2.5em 2em;
     }
 
     @media (min-width: $large-screen) {
         @include grid-column(4, $collapse: true);
-        padding: 2.5em 3em;
+        padding: 2.5em 2em;
+    }
+
+    a {
+      word-break: normal;
+      overflow-wrap: normal;
+      hyphens: none;
     }
 }
 
