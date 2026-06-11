@@ -1,5 +1,5 @@
 <h2>
-    <img src="/style/img/logo-mysociety-black.svg" alt="<?= gettext('mySociety') ?>" width="225">
+    <img src="/style/img/logo-mysociety-black.svg" alt="<?= gettext('About mySociety') ?>" width="225">
 </h2>
 <h3><?= gettext('Sign up for updates on our democracy and Parliaments work')?></h3>
 <form method="post" class="footer__newsletter-form" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'FooterNewsletterSignup', 'submit', null); return false;">
