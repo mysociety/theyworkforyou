@@ -1,11 +1,60 @@
 .about-page {
     hr {
         max-width: none !important;
-        margin: 3em 0;
+        margin: 2em 0;
     }
 
     h2 {
         max-width: none !important;
+    }
+}
+
+.about-section {
+    @include grid-row(collapse);
+
+    margin-bottom: 2em;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.about-section__primary {
+    @include grid-column(12, $collapse: true);
+    padding: 1em;
+    border-bottom: 1px solid $colour_off_white;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 3em;
+    }
+
+    @media (min-width: $large-screen) {
+        @include grid-column(8, $collapse: true);
+        padding: 2.5em 3em;
+        border-bottom: none;
+        border-right: 1px solid $colour_off_white;
+    }
+}
+
+.about-section__secondary {
+    @include grid-column(12, $collapse: true);
+    padding: 1.5em;
+
+    @media (min-width: $medium-screen) {
+        padding: 2.5em 2em;
+    }
+
+    @media (min-width: $large-screen) {
+        @include grid-column(4, $collapse: true);
+        padding: 2.5em 2em;
+    }
+
+    a {
+        word-break: normal;
+        overflow-wrap: normal;
+        hyphens: none;
+    }
+
+    h3 {
+        margin-bottom: 1rem;
     }
 }
 
@@ -30,12 +79,6 @@
             margin-right: 3%;
         }
     }
-}
-
-.about-page__mysociety {
-    background: #fff url(../img/about-team-patchwork.jpg) 0 0 no-repeat;
-    background-size: 100%;
-    padding-top: 24%;
 }
 
 .about-page__donate {
