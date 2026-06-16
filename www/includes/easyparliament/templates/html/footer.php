@@ -20,6 +20,19 @@
                         <input type="submit" value="<?=gettext('Subscribe') ?>" name="subscribe" class="button prefix">
                     </div>
                 </div>
+                <div class="row collapse">
+                  <div class="small-12 columns">
+                      <?php
+                      // For the API page we add users to the "Data, coding and development" segment
+                      if (strpos($_SERVER['REQUEST_URI'], '/api') === 0):
+                      ?>
+                      <label>
+                          <input type="checkbox" name="group[11745][256]" value="1" checked>
+                          <?= gettext('I’m also interested in data, coding and development emails.') ?>
+                      </label>
+                      <?php endif; ?>
+                  </div>
+                </div>
                 <p><a href="https://www.mysociety.org/privacy#newsletter"><?= gettext('Your data') ?></a></p>
             </form>
         </div>
