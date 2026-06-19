@@ -41,6 +41,15 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         </nav>
                     <?php endif; ?>
 
+                    <?php if ($current_member[HOUSE_TYPE_COMMONS]) {
+                        $available_slugs = array_map(fn($period) => $period->lslug(), $available_periods);
+                        if ($comparison_period->lslug() === 'labour_2024' && in_array('all_time', $available_slugs)) { ?>
+                            <p><a href="?comparison_period=ALL_TIME">Interested in <?= $full_name ?>&rsquo;s all-time voting record?</a></p>
+                        <?php } elseif ($comparison_period->lslug() === 'all_time' && in_array('labour_2024', $available_slugs)) { ?>
+                            <p><a href="?comparison_period=labour_2024">Want a summary just for the current government?</a></p>
+                        <?php }
+                        } ?>
+
                     <p>
                         MPs have many roles, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
                         One of the ways MPs make decisions is by voting.
@@ -66,11 +75,6 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                     <?php endforeach; ?>
                                     </ul>
                                 </nav>
-                    <?php if ($comparison_period->lslug() === 'labour_2024' && in_array('all_time', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
-                        <p>This page shows relevant votes in the current Parliament, you can also view an <a href="?comparison_period=ALL_TIME">all time voting summary</a>.</p>
-                    <?php } elseif ($comparison_period->lslug() === 'all_time' && in_array('labour_2024', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
-                        <p>This page shows relevant votes while <?= ucfirst($full_name) ?> has been in Parliament, you can also view a <a href="?comparison_period=labour_2024">summary just for the current Parliament</a>.</p>
-                    <?php } ?>
                             <?php endif; ?>
 
                             </div>
