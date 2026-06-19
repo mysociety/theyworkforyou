@@ -155,7 +155,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 How <?= $full_name ?> voted on <?= $segment->group_name ?>&nbsp;<small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment->group_slug ?>">#</a></small>
                             </h2>
 
-                            <p>For votes held while they were in office:</p>
+                            <p><?= $comparison_period->votesHeldDescription() ?></p>
 
                             <ul class="vote-descriptions">
                               <?php foreach ($segment->policy_pairs as $policy_pair) {

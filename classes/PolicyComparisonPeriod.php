@@ -26,6 +26,37 @@ class PolicyComparisonPeriod {
         return strtolower($this->slug);
     }
 
+    public function hasStartDate(): bool {
+        return $this->start_date !== '' && $this->start_date !== '1900-01-01';
+    }
+
+    public function hasEndDate(): bool {
+        return $this->end_date !== '' && $this->end_date !== '2100-01-01';
+    }
+
+    /**
+     * A sentence describing which votes a summary covers for this period, e.g.
+     * "For votes held since July 2024:".
+     */
+    public function votesHeldDescription(): string {
+        $base = 'For votes held while they were in office';
+        if ($this->hasStartDate() && $this->hasEndDate()) {
+            return sprintf(
+                '%s between %s and %s:',
+                $base,
+                format_date($this->start_date, '%B %Y'),
+                format_date($this->end_date, '%B %Y'),
+            );
+        }
+        if ($this->hasStartDate()) {
+            return sprintf('%s since %s:', $base, format_date($this->start_date, '%B %Y'));
+        }
+        if ($this->hasEndDate()) {
+            return sprintf('%s up to %s:', $base, format_date($this->end_date, '%B %Y'));
+        }
+        return $base . ':';
+    }
+
     /**
      * Get periods we have information for a given house and person.
      *
