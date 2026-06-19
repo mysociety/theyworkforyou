@@ -422,7 +422,18 @@ switch ($pagetype) {
         }
         $house = HOUSE_TYPE_COMMONS;
         $party = new MySociety\TheyWorkForYou\Party($MEMBER->party());
-        $voting_comparison_period_slug = get_http_var('comparison_period') ?: 'all_time';
+
+        $available_periods = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
+        $available_slugs = array_map(fn($period) => $period->lslug(), $available_periods);
+
+        // Current MPs default to the current Parliament; past MPs (and anyone without
+        // current-Parliament data) default to the all-time summary.
+        $default_period_slug = 'all_time';
+        if ($MEMBER->current_member(HOUSE_TYPE_COMMONS) && in_array('labour_2024', $available_slugs)) {
+            $default_period_slug = 'labour_2024';
+        }
+
+        $voting_comparison_period_slug = get_http_var('comparison_period') ?: $default_period_slug;
         try {
             $voting_comparison_period = new PolicyComparisonPeriod($voting_comparison_period_slug, $house);
         } catch (\Exception $e) {
@@ -440,7 +451,7 @@ switch ($pagetype) {
 
         $data['free_votes'] = $policiesList->getPoliciesWithFreeVote();
         $data["comparison_period"] = $voting_comparison_period;
-        $data['available_periods'] = PolicyComparisonPeriod::getComparisonPeriodsForPerson($MEMBER->person_id(), $house);
+        $data['available_periods'] = $available_periods;
         // shuffle the key_votes_segments for a random order
         shuffle($data['key_votes_segments']);
         $data["sig_diff_policy"] = PolicyDistributionCollection::getSignificantDistributions($data['key_votes_segments']);
