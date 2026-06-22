@@ -767,9 +767,21 @@ class MEMBER {
     }
 
     private function _previous_future_mps_query($direction) {
-        $entered_house = $this->entered_house(HOUSE_TYPE_COMMONS);
-        if (is_null($entered_house)) {
-            return '';
+        $const = null;
+        $entered_house = null;
+        foreach ($this->memberships as $mship) {
+            if ($mship['house'] != HOUSE_TYPE_COMMONS) {
+                continue;
+            }
+            if (!$const) {
+                $const = $mship['constituency'];
+            }
+            if ($const == $mship['constituency']) {
+                $entered_house = $mship['entered_house'];
+            }
+        }
+        if (!$entered_house) {
+            return [];
         }
         if ($direction == '>') {
             $order = '';
@@ -787,7 +799,7 @@ class MEMBER {
                 ':house' => HOUSE_TYPE_COMMONS,
                 ':cons' => $this->constituency(),
                 ':pid' => $this->person_id(),
-                ':date' => $entered_house['date'],
+                ':date' => $entered_house,
             ]
         );
         $mships = [];
