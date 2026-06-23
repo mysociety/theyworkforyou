@@ -20,6 +20,7 @@ class MEMBER {
     public $houses = [];
     public $entered_house = [];
     public $left_house = [];
+    public $grouped_memberships = [];
     public $extra_info = [];
     // Is this MP THEUSERS's MP?
     public $the_users_mp = false;
@@ -173,27 +174,38 @@ class MEMBER {
             $this->memberships[] = $row;
             $const = $row['constituency'] ? gettext($row['constituency']) : '';
             $party = $row['party'] ? gettext($row['party']) : '';
-            $entered_house = $row['entered_house'];
-            $left_house = $row['left_house'];
-            $entered_reason = $row['entered_reason'];
-            $left_reason = $row['left_reason'];
 
-            if (!isset($this->entered_house[$house]) || $entered_house < $this->entered_house[$house]['date']) {
+            $period = $this->membership_period_object($row);
+            if (!isset($this->grouped_memberships[$house])) {
+                $this->grouped_memberships[$house][] = $period;
+            } else {
+                $last = count($this->grouped_memberships[$house]) - 1;
+                $curr = $this->grouped_memberships[$house][$last];
+                $time_between = strtotime($curr['start_date']) - strtotime($period['end_date']);
+                if ($time_between < 86400 * 90) {
+                    $this->grouped_memberships[$house][$last]['start_date'] = $period['start_date'];
+                    $this->grouped_memberships[$house][$last]['start_date_pretty'] = $period['start_date_pretty'];
+                    $this->grouped_memberships[$house][$last]['start_reason'] = $period['start_reason'];
+                } else {
+                    $this->grouped_memberships[$house][] = $period;
+                }
+            }
+
+            if (!isset($this->entered_house[$house]) || $period['start_date'] < $this->entered_house[$house]['date']) {
                 $this->entered_house[$house] = [
-                    'date' => $entered_house,
-                    'date_pretty' => $this->entered_house_text($entered_house),
-                    'reason' => $this->entered_reason_text($entered_reason),
+                    'date' => $period['start_date'],
+                    'date_pretty' => $period['start_date_pretty'],
+                    'reason' => $period['start_reason'],
                     'house' => $house,
                 ];
             }
-
             if (!isset($this->left_house[$house])) {
                 $this->left_house[$house] = [
-                    'date' => $left_house,
-                    'date_pretty' => $this->left_house_text($left_house),
-                    'reason' => $this->left_reason_text($left_reason, $left_house, $house),
-                    'constituency' => $const,
-                    'party' => $this->party_text($party),
+                    'date' => $period['end_date'],
+                    'date_pretty' => $period['end_date_pretty'],
+                    'reason' => $period['end_reason'],
+                    'constituency' => $period['constituency'],
+                    'party' => $period['party'],
                     'house' => $house,
                 ];
             }
@@ -211,10 +223,10 @@ class MEMBER {
                 $this->person_id = $row['person_id'];
             }
 
-            if (($last_party && $party && $party != $last_party) || $left_reason == 'changed_party') {
+            if (($last_party && $party && $party != $last_party) || $period['end_reason'] == 'changed_party') {
                 $this->other_parties[] = [
                     'from' => $this->party_text($party),
-                    'date' => $left_house,
+                    'date' => $period['end_date'],
                 ];
             }
             $last_party = $party;
@@ -231,6 +243,22 @@ class MEMBER {
         // $this->load_extra_info();
 
         $this->set_users_mp();
+    }
+
+    private function membership_period_object($row) {
+        $const = $row['constituency'] ? gettext($row['constituency']) : '';
+        $party = $row['party'] ? gettext($row['party']) : '';
+        return [
+            'start_date' => $row['entered_house'],
+            'start_date_pretty' => $this->entered_house_text($row['entered_house']),
+            'start_reason' => $this->entered_reason_text($row['entered_reason']),
+            'end_date' => $row['left_house'],
+            'end_date_pretty' => $this->left_house_text($row['left_house']),
+            'end_reason' => $this->left_reason_text($row['left_reason'], $row['left_house'], $row['house']),
+            'constituency' => $const,
+            'party' => $this->party_text($party),
+            'house' => $row['house'],
+        ];
     }
 
     public function date_in_memberships($house, $date) {
@@ -668,10 +696,7 @@ class MEMBER {
         }
     }
 
-    public function entered_reason() {
-        return $this->entered_reason;
-    }
-    public function entered_reason_text($entered_reason) {
+    private function entered_reason_text($entered_reason) {
         if (isset($this->reasons()[$entered_reason])) {
             return $this->reasons()[$entered_reason];
         } else {
@@ -679,10 +704,7 @@ class MEMBER {
         }
     }
 
-    public function left_reason() {
-        return $this->left_reason;
-    }
-    public function left_reason_text($left_reason, $left_house, $house) {
+    private function left_reason_text($left_reason, $left_house, $house) {
         if (isset($this->reasons()[$left_reason])) {
             $left_reason = $this->reasons()[$left_reason];
             if (is_array($left_reason)) {
@@ -708,8 +730,8 @@ class MEMBER {
     public function current_member($house = 0) {
         $current = [];
         foreach (array_keys($this->houses_pretty()) as $h) {
-            $lh = $this->left_house($h);
-            $current[$h] = ($lh && $lh['date'] == '9999-12-31');
+            $lh = $this->grouped_memberships[$h][0] ?? null;
+            $current[$h] = ($lh && $lh['end_date'] == '9999-12-31');
         }
         if ($house) {
             return $current[$house];

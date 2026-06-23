@@ -563,7 +563,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             foreach ($this->data['member_constituencies'] as $pid) {
                 try {
                     $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
-                    $cons[] = [ 'member' => $MEMBER, 'constituency' => $MEMBER->constituency, 'rep_name' => $MEMBER->getMostRecentMembership()['rep_name'] ];
+                    $cons[] = [ 'member' => $MEMBER, 'constituency' => $MEMBER->constituency, 'rep_name' => $MEMBER->getMostRecentGroupedMembership()['rep_name'] ];
                 } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
                 }
@@ -581,7 +581,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                         $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
                         foreach ($q as $row) {
                             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $row['person_id'], 'house' => $house]);
-                            $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency, 'rep_name' => $MEMBER->getMostRecentMembership()['rep_name'] ];
+                            $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency, 'rep_name' => $MEMBER->getMostRecentGroupedMembership()['rep_name'] ];
                         }
 
                     } else {

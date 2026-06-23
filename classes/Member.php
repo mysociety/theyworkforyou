@@ -21,42 +21,12 @@ class Member extends \MEMBER {
      */
 
     public function isDead() {
-
-        $left_house = $this->left_house();
-
-        if ($left_house) {
-
-            // This member has left a house, and might be dead. See if they are.
-
-            // Types of house to test for death.
-            $house_types = [
-                HOUSE_TYPE_COMMONS,
-                HOUSE_TYPE_LORDS,
-                HOUSE_TYPE_SCOTLAND,
-                HOUSE_TYPE_NI,
-                HOUSE_TYPE_WALES,
-                HOUSE_TYPE_LONDON_ASSEMBLY,
-            ];
-
-            foreach ($house_types as $house_type) {
-
-                if (in_array($house_type, $left_house) and
-                    $left_house[$house_type]['reason'] and
-                    $left_house[$house_type]['reason'] == 'Died'
-                ) {
-
-                    // This member has left a house because of death.
-                    return true;
-                }
-
+        foreach ($this->grouped_memberships as $house => $data) {
+            if ($data['end_reason'] == 'Died') { # XXX Doesn't work if translated
+                return true;
             }
-
         }
-
-        // If we get this far the member hasn't left a house due to death, and
-        // is presumably alive.
         return false;
-
     }
 
     public function cohortPartyComparisonDirection() {
@@ -172,15 +142,7 @@ class Member extends \MEMBER {
      */
 
     public function getEntryDate($house = HOUSE_TYPE_COMMONS) {
-        $date_entered = '';
-
-        $entered_house = $this->entered_house($house);
-
-        if ($entered_house) {
-            $date_entered = $entered_house['date'];
-        }
-
-        return $date_entered;
+        return $this->grouped_memberships[$house][0]['start_date'] ?? '';
     }
 
     /*
@@ -192,15 +154,7 @@ class Member extends \MEMBER {
      */
 
     public function getLeftDate($house = HOUSE_TYPE_COMMONS) {
-        $date_left = '';
-
-        $left_house = $this->left_house($house);
-
-        if ($left_house) {
-            $date_left = $left_house['date'];
-        }
-
-        return $date_left;
+        return $this->grouped_memberships[$house][0]['end_date'] ?? '';
     }
 
 
@@ -244,27 +198,11 @@ class Member extends \MEMBER {
 
     }
 
-    public function getMostRecentMembership() {
-        $departures = $this->left_house();
-
-        usort(
-            $departures,
-            function ($a, $b) {
-                if ($a['date'] == $b['date']) {
-                    return 0;
-                } elseif ($a['date'] < $b['date']) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        );
-
-        $latest_membership = array_slice($departures, -1)[0];
-        $latest_membership['current'] = ($latest_membership['date'] == '9999-12-31');
-        $latest_entrance = $this->entered_house($latest_membership['house']);
-        $latest_membership['start_date'] = $latest_entrance['date'];
-        $latest_membership['end_date'] = $latest_membership['date'];
+    public function getMostRecentGroupedMembership() {
+        $house = $this->house_disp;
+        $memberships = $this->grouped_memberships[$house];
+        $latest_membership = $memberships[0];
+        $latest_membership['current'] = ($latest_membership['end_date'] == '9999-12-31');
         $latest_membership['rep_name'] = $this->getRepNameForHouse($latest_membership['house']);
 
         return $latest_membership;

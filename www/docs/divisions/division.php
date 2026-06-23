@@ -39,6 +39,7 @@ $data['main_vote_mp'] = $main_vote_mp;
 # We don't want a "Your MP" box on PBC votes
 if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
     $mp_vote = $divisions->getDivisionResultsForMember($vote, $MEMBER->person_id());
+    $left_house = $MEMBER->left_house($division_votes['house_number']);
     if ($mp_vote) {
         $data['mp_vote'] = $mp_vote;
         $data['mp_vote']['with_majority'] = false;
@@ -48,7 +49,7 @@ if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
     } else {
         if ($data['division']['date'] < $MEMBER->entered_house($division_votes['house_number'])['date']) {
             $data['before_mp'] = true;
-        } elseif ($data['division']['date'] > $MEMBER->left_house($division_votes['house_number'])['date']) {
+        } elseif ($data['division']['date'] > $left_house['date']) {
             $data['after_mp'] = true;
         }
     }
@@ -61,8 +62,7 @@ if (isset($MEMBER) && $division_votes['house'] != 'pbc') {
         'mp_url' => $MEMBER->url(),
         'image' => $MEMBER->image()['url'],
     ];
-    $left_house = $MEMBER->left_house();
-    if ($left_house[$division_votes['house_number']]['date'] != '9999-12-31') {
+    if ($left_house['date'] != '9999-12-31') {
         $mp_data['former'] = 'former';
     }
     $data['mp_data'] = $mp_data;

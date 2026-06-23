@@ -9,7 +9,7 @@
               <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
               <input type="hidden" name="pid" value="<?= $constituency['member']->person_id() ?>">
               <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
-              <?= $constituency['member']->full_name() ?> <?= _htmlspecialchars($constituency['member']->getMostRecentMembership()['rep_name']) ?>
+              <?= $constituency['member']->full_name() ?> <?= _htmlspecialchars($constituency['member']->getMostRecentGroupedMembership()['rep_name']) ?>
               (<?= _htmlspecialchars($constituency['constituency']) ?>)
               <input type="submit" class="button small" value="<?= gettext('Subscribe') ?>"></form>
           </li>

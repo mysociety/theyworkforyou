@@ -349,9 +349,9 @@ class User {
         $mp_data['name'] = $member->full_name();
         $mp_data['party'] = $member->party();
         $mp_data['constituency'] = $member->constituency();
-        $left_house = $member->left_house();
+        $membership = $member->grouped_memberships[$mp_house][0];
         $mp_data['former'] = '';
-        if ($left_house[$mp_house]['date'] != '9999-12-31') {
+        if ($membership['end_date'] != '9999-12-31') {
             $mp_data['former'] = 'former';
         }
         $mp_data['postcode'] = $user->postcode();

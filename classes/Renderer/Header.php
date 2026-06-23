@@ -279,7 +279,7 @@ class Header {
         if ($this_page == "alert") {
             if ($pid = get_http_var('pid')) {
                 $person = new \MySociety\TheyWorkForYou\Member(['person_id' => $pid]);
-                $membership = $person->getMostRecentMembership();
+                $membership = $person->getMostRecentGroupedMembership();
                 $parliament = $membership['house'];
                 if ($parliament == 'ni') {
                     $selected_top_link['text'] = 'Northern Ireland';

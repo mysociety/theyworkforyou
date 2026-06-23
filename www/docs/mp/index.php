@@ -323,7 +323,7 @@ $data['person_id'] = $MEMBER->person_id();
 $data['member_id'] = $MEMBER->member_id();
 
 $data['known_for'] = $known_for;
-$data['latest_membership'] = $MEMBER->getMostRecentMembership();
+$data['latest_membership'] = $MEMBER->getMostRecentGroupedMembership();
 
 $data['constituency'] = $MEMBER->constituency();
 $data['party'] = $MEMBER->party_text();
@@ -709,14 +709,13 @@ function person_error_page($message) {
  */
 
 function person_summary_description($MEMBER) {
-    $entered_house = $MEMBER->entered_house();
     $current_member = $MEMBER->current_member();
-    $left_house = $MEMBER->left_house();
+    $memberships = $MEMBER->grouped_memberships;
 
     if (in_array(HOUSE_TYPE_ROYAL, $MEMBER->houses())) {
         # Royal short-circuit
-        if (substr($entered_house[HOUSE_TYPE_ROYAL]['date'], 0, 4) == 1952) {
-            return '<strong>Acceded on ' . $entered_house[HOUSE_TYPE_ROYAL]['date_pretty']
+        if (substr($memberships[HOUSE_TYPE_ROYAL][0]['start_date'], 0, 4) == 1952) {
+            return '<strong>Acceded on ' . $memberships[HOUSE_TYPE_ROYAL][0]['start_date_pretty']
                 . '<br>Coronated on 2 June 1953</strong></li>';
         } else {
             return '';
@@ -724,12 +723,12 @@ function person_summary_description($MEMBER) {
     }
     $desc = '';
     foreach ($MEMBER->houses() as $house) {
-        if ($house == HOUSE_TYPE_COMMONS && isset($entered_house[HOUSE_TYPE_LORDS])) {
+        if ($house == HOUSE_TYPE_COMMONS && isset($memberships[HOUSE_TYPE_LORDS])) {
             # Same info is printed further down
             continue;
         }
 
-        $party = $left_house[$house]['party'];
+        $party = $memberships[$house][0]['party'];
         $party_br = '';
         if (preg_match('#^(.*?)\s*\((.*?)\)$#', $party, $m)) {
             $party_br = " ($m[2])";
@@ -750,6 +749,7 @@ function person_summary_description($MEMBER) {
                 $type = gettext('Member of the London Assembly');
             }
 
+            $const = $memberships[$house][0]['constituency'];
             if ($party == 'Speaker' || $party == 'Deputy Speaker') {
                 # XXX: Might go horribly wrong if something odd happens
                 if ($party == 'Deputy Speaker') {
@@ -759,14 +759,14 @@ function person_summary_description($MEMBER) {
                     $oparty = '';
                 }
                 if ($current_member[$house]) {
-                    $line = sprintf(gettext('%s, and %s %s for %s'), $pparty, $oparty, $type, $left_house[$house]['constituency']);
+                    $line = sprintf(gettext('%s, and %s %s for %s'), $pparty, $oparty, $type, $const);
                 } else {
-                    $line = sprintf(gettext('Former %s, and %s %s for %s'), $pparty, $oparty, $type, $left_house[$house]['constituency']);
+                    $line = sprintf(gettext('Former %s, and %s %s for %s'), $pparty, $oparty, $type, $const);
                 }
             } elseif ($current_member[$house]) {
-                $line = sprintf(gettext('%s %s %s for %s'), $pparty, $type, $party_br, $left_house[$house]['constituency']);
+                $line = sprintf(gettext('%s %s %s for %s'), $pparty, $type, $party_br, $const);
             } else {
-                $line = sprintf(gettext('Former %s %s %s for %s'), $pparty, $type, $party_br, $left_house[$house]['constituency']);
+                $line = sprintf(gettext('Former %s %s %s for %s'), $pparty, $type, $party_br, $const);
             }
         } elseif ($house == HOUSE_TYPE_LORDS && $party != 'Bishop') {
             if ($current_member[$house]) {
