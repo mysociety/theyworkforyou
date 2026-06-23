@@ -25,7 +25,7 @@
                       <?php
                       // For the API page we add users to the "Data, coding and development" segment
                       if (strpos($_SERVER['REQUEST_URI'], '/api') === 0):
-                      ?>
+                          ?>
                       <label>
                           <input type="checkbox" name="group[11745][256]" value="1" checked>
                           <?= gettext('I’m also interested in data, coding and development emails.') ?>
