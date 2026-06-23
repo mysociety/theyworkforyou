@@ -24,13 +24,13 @@
                   <div class="small-12 columns">
                       <?php
                       // For the API page we add users to the "Data, coding and development" segment
-                      if (strpos($_SERVER['REQUEST_URI'], '/api') === 0):
+                      if (strpos($_SERVER['REQUEST_URI'], '/api') === 0) {
                           ?>
                       <label>
                           <input type="checkbox" name="group[11745][256]" value="1" checked>
                           <?= gettext('I’m also interested in data, coding and development emails.') ?>
                       </label>
-                      <?php endif; ?>
+                      <?php } ?>
                   </div>
                 </div>
                 <p><a href="https://www.mysociety.org/privacy#newsletter"><?= gettext('Your data') ?></a></p>
@@ -40,14 +40,14 @@
         <div class="medium-4 columns">
             <nav class="mysoc-footer__links">
                 <ul>
-                  <?php foreach ($footer_links['about'] as $footer_link): ?>
+                  <?php foreach ($footer_links['about'] as $footer_link) { ?>
                     <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                  <?php endforeach; ?>
+                  <?php } ?>
                 </ul>
                 <ul>
-                  <?php foreach ($footer_links['tech'] as $footer_link): ?>
+                  <?php foreach ($footer_links['tech'] as $footer_link) { ?>
                     <li role="presentation"><a href="<?= $footer_link['href'] ?>" title="<?= $footer_link['title'] ?>" class="<?= $footer_link['classes'] ?>"><?= $footer_link['text'] ?></a></li>
-                  <?php endforeach; ?>
+                  <?php } ?>
                 </ul>
             </nav>
         </div>

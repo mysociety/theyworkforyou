@@ -14,11 +14,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php include '_donation_banner.php'; ?>
 
-                <?php if ($profile_message): ?>
+                <?php if ($profile_message) { ?>
                 <div class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
               
                     <div class="panel">
@@ -27,12 +27,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php if (count($recent_appearances['speeches']) > 0) { ?>
 
                         <ul class="appearances speeches">
-                            <?php foreach ($recent_appearances['speeches'] as $speech): ?>
+                            <?php foreach ($recent_appearances['speeches'] as $speech) { ?>
                                 <li>
                                     <h4><a href="<?= $speech['listurl'] ?>"><?= $speech['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($speech['hdate'])) ?></span></h4>
                                     <blockquote><?= $speech['extract'] ?></blockquote>
                                 </li>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </ul>
                         <p><a href="<?= $recent_appearances['more_speeches_href'] ?>"><?= $recent_appearances['more_speeches_text'] ?></a></p>
                     
@@ -47,12 +47,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php if (count($recent_appearances['written_questions']) > 0) { ?>
 
                         <ul class="appearances written-questions">
-                            <?php foreach ($recent_appearances['written_questions'] as $written): ?>
+                            <?php foreach ($recent_appearances['written_questions'] as $written) { ?>
                                 <li>
                                     <h4><a href="<?= $written['listurl'] ?>"><?= $written['parent']['body'] ?></a> <span class="date"><?= date('j M Y', strtotime($written['hdate'])) ?></span></h4>
                                     <blockquote><?= $written['extract'] ?></blockquote>
                                 </li>
-                            <?php endforeach; ?>
+                            <?php } ?>
                         </ul>
                         <p><a href="<?= $recent_appearances['more_questions_href'] ?>"><?= $recent_appearances['more_questions_text'] ?></a></p>
                     <?php } else { ?>

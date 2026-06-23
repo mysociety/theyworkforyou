@@ -20,58 +20,58 @@ $display_wtt_stats_banner = '2015';
 
                 <?php include '_donation_banner.php'; ?>
 
-                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
+                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)) { ?>
                     <div class="panel">
                     <h2 id="signatures"><?= gettext('Signatures') ?></h2>
-                <?php endif; ?>
-                <?php if (array_key_exists('annul_motions_signed', $memberships)): ?>
+                <?php } ?>
+                <?php if (array_key_exists('annul_motions_signed', $memberships)) { ?>
                     <h3 id="annul_motions_signed"><?=gettext('Recent motions to annul signed') ?></h3>
                     <p>Some kinds of government regulations automatically become law if Parliament does not object (negative statutory instrument). A motion to annul/prayer is a request to hold a vote to object. </p>
                     <p><em>Showing motions to annul signed in the last year.</em></p>
                     <ul class='list-dates'>
-                        <?php foreach ($memberships['annul_motions_signed'] as $signature): ?>
+                        <?php foreach ($memberships['annul_motions_signed'] as $signature) { ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1 ?> others)</li>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </ul>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if (array_key_exists('letters_signed', $memberships)): ?>
+                <?php if (array_key_exists('letters_signed', $memberships)) { ?>
                     <h3 id="letters_signed"><?=gettext('Recent open letters signed') ?></h3>
                     <p>We're starting to collect and display when representatives sign open letters - if there are examples we're missing, <a href="https://survey.alchemer.com/s3/8440376/TheyWorkForYou-Open-Letter">please let us know</a>.</p>
                     <p><em>Showing open letters signed in the last year.</em></p>
                     <ul class='list-dates'>
-                        <?php foreach ($memberships['letters_signed'] as $signature): ?>
+                        <?php foreach ($memberships['letters_signed'] as $signature) { ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1 ?> others)</li>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </ul>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if (array_key_exists('edms_signed', $memberships)): ?>
+                <?php if (array_key_exists('edms_signed', $memberships)) { ?>
                     <h3 id="edms_signed"><?=gettext('Recent Early Day Motions signed') ?></h3>
                     <p>Early Day Motions are when MPs can propose and co-sign statements for discussion. In practice, these work as internal petitions where MPs can signal their support for a particular issue or cause.</p>
                     <p><em>Showing Early Day Motions signed in the last 3 months.</em></p>
                     <ul class='list-dates'>
-                        <?php foreach ($memberships['edms_signed'] as $signature): ?>
+                        <?php foreach ($memberships['edms_signed'] as $signature) { ?>
                         <li><?= $signature->date ?>: <a href="<?= $signature->statement->link() ?>"><?= $signature->statement->title ?></a> (+<?= $signature->statement->total_signatures - 1  ?> others)</li>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </ul>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if (array_key_exists('edms_signed', $memberships) || array_key_exists('letters_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
+                <?php if (array_key_exists('edms_signed', $memberships) || array_key_exists('letters_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)) { ?>
                     <p>
                     <a href="https://votes.theyworkforyou.com/person/<?= $person_id ?>/statements"><?= gettext('All open letters and EDMs signed') ?></a>.
                     </p>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)): ?>
+                <?php if (array_key_exists('letters_signed', $memberships) || array_key_exists('edms_signed', $memberships) || array_key_exists('annul_motions_signed', $memberships)) { ?>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if (array_key_exists('topics_of_interest', $memberships) || array_key_exists('eu_stance', $memberships)): ?>
+                <?php if (array_key_exists('topics_of_interest', $memberships) || array_key_exists('eu_stance', $memberships)) { ?>
                     <div class="panel">
                         <h2 id="topics"><?= gettext('Topics of interest') ?></h2>
 
-                        <?php if (array_key_exists('eu_stance', $memberships)): ?>
+                        <?php if (array_key_exists('eu_stance', $memberships)) { ?>
                             <p>
                                 <?php if ($memberships['eu_stance'] == 'Leave' || $memberships['eu_stance'] == 'Remain') { ?>
                                     <strong><?= $full_name ?></strong> campaigned to <?= $memberships['eu_stance'] == 'Leave' ? 'leave' : 'remain in' ?> the European Union
@@ -80,17 +80,17 @@ $display_wtt_stats_banner = '2015';
                                 <?php } ?>
                                 <small>Source: <a href="https://www.bbc.co.uk/news/uk-politics-eu-referendum-35616946">BBC</a></small>
                             </p>
-                        <?php endif; ?>
+                        <?php } ?>
 
-                        <?php if (array_key_exists('topics_of_interest', $memberships)): ?>
+                        <?php if (array_key_exists('topics_of_interest', $memberships)) { ?>
                             <ul class="comma-list">
-                                <?php foreach ($memberships['topics_of_interest'] as $topic): ?>
+                                <?php foreach ($memberships['topics_of_interest'] as $topic) { ?>
                                 <li><?= $topic ?></li>
-                                <?php endforeach; ?>
+                                <?php } ?>
                             </ul>
-                        <?php endif; ?>
+                        <?php } ?>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php include('_profile_footer.php'); ?>
 

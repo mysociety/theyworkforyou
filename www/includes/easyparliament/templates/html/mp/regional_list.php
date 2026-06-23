@@ -6,9 +6,9 @@
 
             <ul>
 
-                <?php foreach ($members as $member): ?>
+                <?php foreach ($members as $member) { ?>
                 <li><a href="<?= $member['url'] ?>"><?= $member['name'] ?></a></li>
-                <?php endforeach; ?>
+                <?php } ?>
 
             </ul>
 

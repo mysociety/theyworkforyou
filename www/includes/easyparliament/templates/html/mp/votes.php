@@ -21,16 +21,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php include '_donation_banner.php'; ?>
 
-                <?php if ($profile_message): ?>
+                <?php if ($profile_message) { ?>
                 <div class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
 
                 <div class="panel">
                     <h2>Voting summaries</h2>
-                    <?php if (!empty($available_periods)): ?>
+                    <?php if (!empty($available_periods)) { ?>
                         <nav class="subpage-content-list js-accordion" aria-label="Comparison periods">
                             <h3 class="js-accordion-button">For period: <?= $comparison_period->description ?></h3>
                             <ul class="js-accordion-content">
@@ -39,7 +39,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 <?php } ?>
                             </ul>
                         </nav>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <p>
                         MPs have many roles, but one of the most important is that they make decisions. These decisions shape the laws that govern us, and can affect every aspect of how we live our lives. 
@@ -54,16 +54,16 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         You can read more about <a href="/voting-information/#voting-summaries">our process</a>, <a href="/voting-information/#what-kind-of-votes-are-included-in-theyworkforyou-s-policies">the kinds of votes we include</a>, <a href="/voting-information/#comparison-to-parties">how we compare MPs to parties</a>, and <a href="/voting-information/#votes-are-not-opinions-but-they-matter">why we think this is important</a>.</a>
                     </p>
 
-                            <?php if ($has_voting_record): ?>
+                            <?php if ($has_voting_record) { ?>
                                 <hr>
                                 <p>Below are summaries of how <?= $full_name ?> has voted on key issues, grouped by policy area (randomly ordered).</p>
                                 <nav aria-label="Key issues navigation">
                                     <ul class="votes-navigation-menu">
-                                    <?php foreach ($key_votes_segments as $segment): ?>
-                                        <?php if (count($segment->policy_pairs) > 0): ?>
+                                    <?php foreach ($key_votes_segments as $segment) { ?>
+                                        <?php if (count($segment->policy_pairs) > 0) { ?>
                                         <li><a href="#<?= $segment->group_slug ?>"><?= $segment->group_name ?></a></li>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                        <?php } ?>
+                                    <?php } ?>
                                     </ul>
                                 </nav>
                     <?php if ($comparison_period->lslug() === 'labour_2024' && in_array('all_time', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
@@ -71,25 +71,25 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                     <?php } elseif ($comparison_period->lslug() === 'all_time' && in_array('labour_2024', array_map(fn($period) => $period->lslug(), $available_periods))) { ?>
                         <p>This page shows relevant votes while <?= ucfirst($full_name) ?> has been in Parliament, you can also view a <a href="?comparison_period=labour_2024">summary just for the current Parliament</a>.</p>
                     <?php } ?>
-                            <?php endif; ?>
+                            <?php } ?>
 
                             </div>
 
-                <?php if ($party_switcher == true): ?>
+                <?php if ($party_switcher == true) { ?>
                     <?php include('_cross_party_mp_panel.php'); ?>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php elseif (isset($is_new_mp) && $is_new_mp && !$has_voting_record): ?>
+                <?php } elseif (isset($is_new_mp) && $is_new_mp && !$has_voting_record) { ?>
                 <div class="panel panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP - elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
                     <p>When <?= $full_name ?> starts to vote on bills, that information will appear on this page.</p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php if ($party_member_count > 1 && $party != "Independent") { ?>
                 <div class="panel">
@@ -136,13 +136,13 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                 </div>
                 <?php } ?>
 
-                <?php if ($has_voting_record): ?>
+                <?php if ($has_voting_record) { ?>
                     
                     <?php $displayed_votes = false; ?>
 
-                    <?php foreach ($key_votes_segments as $segment): ?>
+                    <?php foreach ($key_votes_segments as $segment) { ?>
                         
-                        <?php if (count($segment->policy_pairs) > 0): ?>
+                        <?php if (count($segment->policy_pairs) > 0) { ?>
                         <?php $most_recent = ''; ?>
 
                         <div class="panel">
@@ -171,19 +171,19 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                             <?php $displayed_votes = true; ?>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
-                    <?php if (!$displayed_votes): ?>
+                    <?php if (!$displayed_votes) { ?>
 
                         <div class="panel">
                             <p>This person has not voted on any of the key issues which we keep track of.</p>
                         </div>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                <?php endif; ?>
+                <?php } ?>
                 <?php include('_covid19_panel.php'); ?>
 
                 <?php include('_profile_footer.php'); ?>
