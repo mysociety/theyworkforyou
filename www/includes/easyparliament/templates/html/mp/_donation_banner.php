@@ -6,7 +6,8 @@
 $current_page = isset($pagetype) && $pagetype ? $pagetype : 'profile';
 
 // Show banner to 20% of visitors - use a combination of IP, user agent, date, current page, and MP ID for daily rotation
-$user_identifier = $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT'] . date('Y-m-d') . $current_page . $person_id;
+$ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+$user_identifier = $_SERVER['REMOTE_ADDR'] . $ua . date('Y-m-d') . $current_page . $person_id;
 $hash = crc32($user_identifier);
 $show_banner = ($hash % 100) < 20; // 20% chance
 $auto_expand = strtotime('2026-04-24') >= time(); // Automatically expand until 24 April 2026
