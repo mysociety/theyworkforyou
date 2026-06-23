@@ -358,6 +358,14 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
      */
     private function getRecentResults($text) {
         global $SEARCHENGINE;
+
+        $memcache = new \MySociety\TheyWorkForYou\Memcache();
+        $cache_key = 'recent_alert_results:' . md5($text);
+        $cached = $memcache->get($cache_key);
+        if ($cached !== false) {
+            return $cached;
+        }
+
         $today = date_create();
         $one_week_ago = date_create('7 days ago');
         $restriction = date_format($one_week_ago, 'd/m/Y') . '..' . date_format($today, 'd/m/Y');
@@ -388,11 +396,17 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 $last_mention = date_format($last_mention_date, 'd M Y'); //$se->get_gids()[0];
             }
         }
-        return [
+        $result = [
             "last_mention" => $last_mention,
             "last_week_count" => $last_week_count,
             "all_time_count" => $count,
         ];
+
+        // six hour timeout so it shouldn't be stale
+        // when the new data rolls in in the morning
+        $memcache->set($cache_key, $result, 43200);
+
+        return $result;
     }
 
     private function getSearchSections() {
