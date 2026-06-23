@@ -9,11 +9,11 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
 
                 <?php include '_donation_banner.php'; ?>
 
-                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+                <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <?php $vote_count = isset($divisions) ? count($divisions) : 0;?>
 

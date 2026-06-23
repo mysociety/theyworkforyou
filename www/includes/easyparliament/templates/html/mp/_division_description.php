@@ -7,33 +7,33 @@
     
     <div class="vote-actions vote-actions--inline">
         <a class="vote-action-btn" href="<?= $division['debate_url'] ?? '/divisions/' . $division['division_id'] . '/mp/' . $person_id ?>">Show vote in context</a>
-        <?php if (isset($division['analysis_url'])): ?>
+        <?php if (isset($division['analysis_url'])) { ?>
             <a class="vote-action-btn" href="<?= $division['analysis_url'] ?>">Vote analysis</a>
-        <?php endif; ?>
-        <?php if (isset($division['annotation']) && !empty($division['annotation'])): ?>
+        <?php } ?>
+        <?php if (isset($division['annotation']) && !empty($division['annotation'])) { ?>
             <a class="vote-action-btn" href="<?= $division['annotation'] ?>" title="External link to <?= $division['annotation'] ?>">Public Statement</a>
-        <?php endif; ?>
-        <?php if (isset($division['speeches']) && count($division['speeches']) > 0): ?>
+        <?php } ?>
+        <?php if (isset($division['speeches']) && count($division['speeches']) > 0) { ?>
             <input type="checkbox" id="speeches-toggle-<?= $division['division_id'] ?>" class="vote-speeches-checkbox" hidden>
             <label for="speeches-toggle-<?= $division['division_id'] ?>" class="vote-action-btn vote-speeches-toggle">
                 Related speeches (<?= count($division['speeches']) ?>)
             </label>
-        <?php endif; ?>
+        <?php } ?>
     </div>
     
-    <?php if (isset($division['speeches']) && count($division['speeches']) > 0): ?>
+    <?php if (isset($division['speeches']) && count($division['speeches']) > 0) { ?>
         <div class="vote-speeches-content">
             <ul class="vote-speeches__list">
-                <?php foreach ($division['speeches'] as $speech): ?>
+                <?php foreach ($division['speeches'] as $speech) { ?>
                     <li>
                         <a href="<?= $speech['url'] ?>" class="vote-speech__link">
                             <?= $speech['time'] ? $speech['time'] . ': ' : '' ?><?= $speech['preview'] ?>
                         </a>
                     </li>
-                <?php endforeach; ?>
+                <?php } ?>
             </ul>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 
     <?php
     # remove the current policy from the list of related policies

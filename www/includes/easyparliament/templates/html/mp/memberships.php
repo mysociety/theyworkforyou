@@ -26,38 +26,38 @@ $display_wtt_stats_banner = '2015';
                     <p>
                     In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.</p>
                     <p>Some committees focus on checking the government’s decisions and spending, while others investigate specific topics and proposed legislation.</p>
-                    <?php if (array_key_exists('posts', $memberships)): ?>
+                    <?php if (array_key_exists('posts', $memberships)) { ?>
                     <p><?= $full_name ?> is currently a member of the following committees:</p>
-                    <?php foreach ($memberships['posts'] as $office): ?>
+                    <?php foreach ($memberships['posts'] as $office) { ?>
                     <h4><?= $office ?></h4>
                     <div class="committee-more-info">
                     <?= $office->htmlDesc() ?>
 
-                    <?php if (!empty($office->external_url)): ?>
+                    <?php if (!empty($office->external_url)) { ?>
                         <p><a href="<?= $office->external_url ?>">Learn more about this committee</a></p>
-                    <?php endif; ?>
+                    <?php } ?>
                     </div>
                     <hr/>
-                    <?php endforeach; ?>
+                    <?php } ?>
 
 
-                    <?php endif; ?>
-                    <?php if (array_key_exists('previous_posts', $memberships)): ?>
+                    <?php } ?>
+                    <?php if (array_key_exists('previous_posts', $memberships)) { ?>
 
                     <a ></a>
                     <h3 id="previous_posts"><?=gettext('Committee memberships held in the past') ?></h3>
 
                     <ul class='list-dates'>
 
-                        <?php foreach ($memberships['previous_posts'] as $office): ?>
+                        <?php foreach ($memberships['previous_posts'] as $office) { ?>
                         <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
-                    <?php endif; ?>
+                    <?php } ?>
                 </div>
 
-                    <?php if (array_key_exists('appg_membership', $memberships)): ?>
+                    <?php if (array_key_exists('appg_membership', $memberships)) { ?>
                         <div class="panel">
                         <h2><?=gettext('All-Party Parliamentary Groups (APPGs)') ?></h2>
                         <p>All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject.</p>
@@ -70,13 +70,13 @@ $display_wtt_stats_banner = '2015';
                         ];
                         ?>
 
-                        <?php foreach ($appg_roles as $role_key => $role_title): ?>
+                        <?php foreach ($appg_roles as $role_key => $role_title) { ?>
 
-                            <?php if (!$memberships['appg_membership']->$role_key->isEmpty()): ?>
+                            <?php if (!$memberships['appg_membership']->$role_key->isEmpty()) { ?>
                                 <h3 id="appg_<?= $role_key ?>"><?= $role_title ?></h3>
                                 <?php /** @var MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembership $membership */ ?>
 
-                                <?php foreach ($memberships['appg_membership']->$role_key as $membership): ?>
+                                <?php foreach ($memberships['appg_membership']->$role_key as $membership) { ?>
                                     <hr>
                                     <p>
                                         <span><?= $membership->appg->title ?> <?= $membership->role ? '(' . $membership->role . ')' : '' ?></span>
@@ -92,17 +92,17 @@ $display_wtt_stats_banner = '2015';
                                                             E-mail correspondence with APPG
                                                         <?php } ?>
                                                     </li>
-                                                    <li><span class="appg-property-label">APPG Website:</span> <?php if ($membership->appg->website): ?><a href="<?= $membership->appg->website ?>"><?= $membership->appg->website ?></a><?php else: ?>N/A<?php endif; ?></li>
+                                                    <li><span class="appg-property-label">APPG Website:</span> <?php if ($membership->appg->website) { ?><a href="<?= $membership->appg->website ?>"><?= $membership->appg->website ?></a><?php } else { ?>N/A<?php } ?></li>
                                                     <li><span class="appg-property-label">APPG register:</span> <a href="<?= $membership->appg->source_url ?>">Parliament website</a></li>
                                                 </ul>
                                             </div>
                                         </details>
                                     </p>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
 
                 <?php include('_profile_footer.php'); ?>
 

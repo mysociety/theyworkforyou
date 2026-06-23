@@ -22,7 +22,7 @@ if (isset($_GET['show_donation_banner'])) {
 }
 ?>
 
-<?php if ($show_banner): ?>
+<?php if ($show_banner) { ?>
 <div class="panel panel--donation-banner" id="donation-banner">
     <div class="donation-banner__content">
         <div class="donation-banner__header">
@@ -95,4 +95,4 @@ if (isset($_GET['show_donation_banner'])) {
     }
 })();
 </script>
-<?php endif; ?>
+<?php } ?>

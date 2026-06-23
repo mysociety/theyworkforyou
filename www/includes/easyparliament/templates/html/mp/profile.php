@@ -18,19 +18,19 @@ $display_wtt_stats_banner = '2015';
 
             <div class="primary-content__unit">
 
-              <?php if ($profile_message): ?>
+              <?php if ($profile_message) { ?>
                 <div id="profile-message" class="panel panel--profile-message">
                     <p><?= $profile_message ?></p>
                 </div>
-              <?php else: ?>
+              <?php } else { ?>
                 <?php include '_donation_banner.php'; ?>
-              <?php endif; ?>
+              <?php } ?>
 
-              <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)): ?>
+              <?php if ($party == 'Sinn Féin' && in_array(HOUSE_TYPE_COMMONS, $houses)) { ?>
                 <div class="panel">
                     <p>Sinn F&eacute;in MPs do not take their seats in Parliament.</p>
                 </div>
-              <?php elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0): ?>
+              <?php } elseif (isset($is_new_mp) && $is_new_mp && count($recent_appearances['appearances']) == 0) { ?>
                 <div class="panel panel--secondary">
                     <h3><?= $full_name ?> is a recently elected MP &ndash; elected on <?= format_date($entry_date, LONGDATEFORMAT) ?></h3>
 
@@ -40,7 +40,7 @@ $display_wtt_stats_banner = '2015';
                     <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
                   <?php } ?>
                 </div>
-              <?php endif; ?>
+              <?php } ?>
 
                 <?php include "_whip_removal_panel.php"; ?>
 
@@ -52,21 +52,21 @@ $display_wtt_stats_banner = '2015';
 
                     <p><?= $member_summary ?></p>
 
-                    <?php if (count($enter_leave) > 0): ?>
-                        <?php foreach ($enter_leave as $string): ?>
+                    <?php if (count($enter_leave) > 0) { ?>
+                        <?php foreach ($enter_leave as $string) { ?>
                             <p><?= $string ?></p>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>
 
-                    <?php if ($other_parties): ?>
+                    <?php if ($other_parties) { ?>
                     <p><?= $other_parties ?></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if ($other_constituencies): ?>
+                    <?php if ($other_constituencies) { ?>
                     <p><?= $other_constituencies ?></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($useful_links) > 0): ?>
+                    <?php if (count($useful_links) > 0) { ?>
 
                     <ul class="comma-list">
 
@@ -79,104 +79,104 @@ $display_wtt_stats_banner = '2015';
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($social_links) > 0): ?>
+                    <?php if (count($social_links) > 0) { ?>
                     <h3><?=gettext('Social Media') ?></h3>
                     <ul>
-                        <?php foreach ($social_links as $link): ?>
+                        <?php foreach ($social_links as $link) { ?>
                         <li><a class="fi-social-<?= $link['type'] ?>" href="<?= $link['href'] ?>" onclick="trackLinkClick(this, 'social_link', '<?= $link['type'] ?>', '<?= $link['text'] ?>'); return false;"><?= $link['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </ul>
-                    <?php endif; ?>
+                    <?php } ?>
 
 
-                    <?php if ($has_expenses): ?>
+                    <?php if ($has_expenses) { ?>
                     <h3>Expenses</h3>
 
                     <ul>
-                        <?php if ($pre_2010_expenses): ?>
+                        <?php if ($pre_2010_expenses) { ?>
                         <li><a href="<?= $expenses_url_2004 ?>">Expenses from 2004 to 2009</a></li>
-                        <?php endif; ?>
-                        <?php if ($post_2010_expenses): ?>
+                        <?php } ?>
+                        <?php if ($post_2010_expenses) { ?>
                         <li><a href="https://www.theipsa.org.uk/mp-staffing-business-costs/your-mp/<?=slugify($full_name)?>/<?=$post_2010_expenses?>">Expenses from 2010 onwards</a></li>
-                        <?php endif; ?>
+                        <?php } ?>
                     </ul>
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($current_offices) > 0): ?>
+                    <?php if (count($current_offices) > 0) { ?>
 
                     <h3><?=gettext('Currently held offices') ?></h3>
 
                     <ul class='list-dates'>
 
-                        <?php foreach ($current_offices as $office): ?>
+                        <?php foreach ($current_offices as $office) { ?>
                         <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($previous_offices) > 0): ?>
+                    <?php if (count($previous_offices) > 0) { ?>
 
                     <h3><?=gettext('Other offices held in the past') ?></h3>
 
                     <ul class='list-dates'>
 
-                        <?php foreach ($previous_offices as $office): ?>
+                        <?php foreach ($previous_offices as $office) { ?>
                         <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($constituency_previous_mps) > 0): ?>
+                    <?php if (count($constituency_previous_mps) > 0) { ?>
 
                     <h3>Previous MPs in this constituency</h3>
 
                     <ul class="comma-list">
 
-                        <?php foreach ($constituency_previous_mps as $constituency_previous_mp): ?>
+                        <?php foreach ($constituency_previous_mps as $constituency_previous_mp) { ?>
                         <li><a href="<?= $constituency_previous_mp['href'] ?>"><?= $constituency_previous_mp['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($constituency_future_mps) > 0): ?>
+                    <?php if (count($constituency_future_mps) > 0) { ?>
 
                     <h3>Future MPs in this constituency</h3>
 
                     <ul class="comma-list">
 
-                        <?php foreach ($constituency_future_mps as $constituency_future_mp): ?>
+                        <?php foreach ($constituency_future_mps as $constituency_future_mp) { ?>
                         <li><a href="<?= $constituency_future_mp['href'] ?>"><?= $constituency_future_mp['text'] ?></a></li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                    <?php if (count($public_bill_committees['data']) > 0): ?>
+                    <?php if (count($public_bill_committees['data']) > 0) { ?>
 
                     <h3>Public bill committees <small>(Sittings attended)</small></h3>
 
-                    <?php if ($public_bill_committees['info']): ?>
+                    <?php if ($public_bill_committees['info']) { ?>
                         <p><em><?= $public_bill_committees['info'] ?></em></p>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <ul>
 
-                        <?php foreach ($public_bill_committees['data'] as $committee): ?>
+                        <?php foreach ($public_bill_committees['data'] as $committee) { ?>
                         <li><a href="<?= $committee['href'] ?>"><?= $committee['text'] ?></a> (<?= $committee['attending'] ?>)</li>
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </ul>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
                 </div>
 

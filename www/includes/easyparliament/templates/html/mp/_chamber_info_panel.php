@@ -33,7 +33,7 @@
         <li>Find out <a href="#profile">more about this MP</a>, including:
             <ul class="rep-actions">
                 <?php if ($memberships) { ?>
-                    <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
+                    <li <?php if ($pagetype == "memberships") { ?>class="active"<?php } ?>>
                         <a href="<?= $member_url ?>/memberships"><?= gettext('Committees and groups') ?></a> they are part of.
                     </li>
                 <?php } ?>
@@ -43,7 +43,7 @@
                 <?php } ?>
                 <li><a href="<?= $member_url ?>/speeches">Recent speeches and questions</a></li>
                 <?php if ($memberships) { ?>
-                    <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
+                    <li <?php if ($pagetype == "memberships") { ?>class="active"<?php } ?>>
                         <a href="<?= $member_url ?>/signatures"><?= gettext('Signatures') ?></a> (open letters and EDMs)
                     </li>
                 <?php } ?>
