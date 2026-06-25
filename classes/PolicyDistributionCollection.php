@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Party Cohort Class
+ * Policy Distribution Collection Class
  *
  * @package TheyWorkForYou
  */
@@ -9,7 +9,7 @@
 namespace MySociety\TheyWorkForYou;
 
 /**
- * Policy DistributionCollection
+ * PolicyDistributionCollection
  * This brings together a set of a person's policy distributions for a given period and party.
  * It covers items in the same 'group' (health, social, etc)
  */
@@ -47,6 +47,35 @@ class PolicyDistributionCollection {
         $this->person_id = $person_id;
         $this->party_slug = $party_slug;
         $this->policy_pairs = $policy_pairs;
+    }
+
+    /**
+
+     * @return PolicyDistributionYearGroup[]
+     */
+    public function getPairsByRecencyBucket(int $bucket_size = 5, ?int $person_start_year = null, ?int $person_end_year = null): array {
+        // Votes can't be in the future, and shouldn't extend past when the
+        // person left office.
+        $current_year = (int) date('Y');
+        $cap_high = $person_end_year ? min($person_end_year, $current_year) : $current_year;
+
+        $buckets = [];
+        foreach ($this->policy_pairs as $pair) {
+            $year = $pair->member_distribution->end_year
+                ?: $pair->member_distribution->start_year;
+            $bucket_start_year = intdiv($year, $bucket_size) * $bucket_size;
+            $buckets[$bucket_start_year][] = $pair;
+        }
+        krsort($buckets); // most recent start year first
+
+        $result = [];
+        foreach ($buckets as $bucket_start_year => $pairs) {
+            shuffle($pairs); // keep random order within the bucket
+            $low = $person_start_year ? max($bucket_start_year, $person_start_year) : $bucket_start_year;
+            $high = min($bucket_start_year + $bucket_size - 1, $cap_high);
+            $result[] = new PolicyDistributionYearGroup($low, $high, $pairs);
+        }
+        return $result;
     }
 
     public function latestUpdate(array $latest_dates) {

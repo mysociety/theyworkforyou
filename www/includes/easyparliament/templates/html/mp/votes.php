@@ -151,15 +151,20 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                                 How <?= $full_name ?> voted on <?= $segment->group_name ?>&nbsp;<small><a class="nav-anchor" href="<?= $member_url ?>/votes#<?= $segment->group_slug ?>">#</a></small>
                             </h2>
 
-                            <p>For votes held while they were in office:</p>
+                            <?php
+                            $person_start_year = !empty($entry_date) ? (int) $entry_date : null;
+                            $person_end_year = (!empty($leave_date) && (int) $leave_date !== 9999) ? (int) $leave_date : null;
+                            ?>
+                            <?php foreach ($segment->getPairsByRecencyBucket(5, $person_start_year, $person_end_year) as $bucket) { ?>
+                                <h3 class="vote-recency-heading">Last voted on <?= $bucket->label() ?></h3>
+                                <ul class="vote-descriptions">
+                                  <?php foreach ($bucket->policy_pairs as $policy_pair) {
 
-                            <ul class="vote-descriptions">
-                              <?php foreach ($segment->policy_pairs as $policy_pair) {
+                                      include '_vote_description.php';
 
-                                  include '_vote_description.php';
-
-                              } ?>
-                            </ul>
+                                  } ?>
+                                </ul>
+                            <?php } ?>
 
                             <p class="voting-information-provenance">
 
