@@ -19,7 +19,12 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
             </div>
             <div class="primary-content__unit">
 
-                <?php include '_donation_banner.php'; ?>
+                <?php
+                // During the voting appeal campaign this shows the aggressive 100%
+                // appeal; outside the window it falls back internally to the standard
+                // 20% donation banner.
+                include '_voting_appeal.php';
+?>
 
                 <?php if ($profile_message): ?>
                 <div class="panel panel--profile-message">

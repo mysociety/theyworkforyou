@@ -23,8 +23,26 @@
         );
     }
 
-    @media (min-width: $medium-screen) { 
+    @media (min-width: $medium-screen) {
         padding: 2.5em;
+    }
+}
+
+// More prominent variant used for voting summary appeal.
+.panel--donation-banner--appeal {
+    border-width: 2px;
+    border-color: $primary-color;
+
+    &::before {
+        height: 6px;
+    }
+
+    .donation-banner__title {
+        font-size: 1.3em;
+
+        @media (min-width: $medium-screen) {
+            font-size: 1.5em;
+        }
     }
 }
 
