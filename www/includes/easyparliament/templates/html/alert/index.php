@@ -1,3 +1,8 @@
+<?php
+// TEMP – testing only, remove before commit
+$results = 'alert-added';
+$display_criteria = 'the phrase “climate change” is mentioned';
+?>
 <div class="full-page">
     <div class="full-page__row">
 
@@ -81,10 +86,38 @@
                 </p>
 
               <?php } elseif ($results == 'alert-added') { ?>
-                <h3><?= gettext('Your alert has been added') ?></h3>
+                <h3><?= gettext("Success! You&rsquo;ve set up your alert") ?></h3>
                 <p>
                     <?= sprintf(gettext('You will now receive email alerts on any day when %s in parliament.'), _htmlspecialchars($display_criteria)) ?>
                 </p>
+                <div class="alert-section--feedback-prompts">
+                  <div>
+                    <h4><?= gettext('Support TheyWorkForYou') ?></h4>
+                    <p><?= gettext('We are a charity - donate today to invest in making UK politics more transparent and accessible.<br>♥️ Even £5 goes a long way!') ?></p>
+                    <a href="https://www.mysociety.org/donate/?utm_source=theyworkforyou&utm_medium=website&utm_campaign=theyworkforyou-alert-created-page" class="button content__button button--negative"><?= gettext('Donate Now') ?></a>
+                  </div>
+                  <div>
+                    <h4><?= gettext('Get involved!')?></h4>
+                    <p><?= gettext("TheyWorkForYou is a project from mySociety. We're showing how democracy can work better — and we'd love to tell you all about it.")?></p>
+                    <form method="post" action="//mysociety.us9.list-manage.com/subscribe/post?u=53d0d2026dea615ed488a8834&amp;id=287dc28511" onsubmit="trackFormSubmit(this, 'AlertCreatedNewsletterSignup', 'submit', null); return false;">
+                      <div class="row collapse">
+                        <div class="small-8 columns">
+                          <input type="email" placeholder="<?= gettext('Your email address') ?>" name="EMAIL"/>
+                          <label style="position: absolute; left: -5000px;">
+                            Leave this box empty: <input type="text" name="b_53d0d2026dea615ed488a8834_287dc28511" tabindex="-1" value="" />
+                          </label>
+                        </div>
+                        <div class="small-4 columns">
+                          <!-- Adds the tag: "twfy" -->
+                          <input type="hidden" name="tags" value="11866267">
+                          <!-- Adds the interest groups: "Democracy and Parliaments" -->
+                          <input type="hidden" name="group[11745][4]" value="1">
+                          <input type="submit" value="<?= gettext('Subscribe') ?>" name="subscribe" class="button prefix">
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
               <?php } elseif ($results == 'alert-include-votes') { ?>
                 <h3><?= gettext('Your alert has been updated') ?></h3>
                 <p>
