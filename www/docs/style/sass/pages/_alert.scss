@@ -281,8 +281,8 @@
 }
 
 .alert-section__message {
-  background-color: #FFFCD9; // very light yellow
-  padding: 1rem;
+    padding: 1rem;
+    @include alert-box;
 }
 
 .alert-section__primary {
@@ -331,7 +331,7 @@
 }
 
 .alert-section--feedback {
-    background-color: #FFFCD9; // very light yellow
+    @include alert-box;
 
     .alert-section__primary,
     .alert-section__secondary {
