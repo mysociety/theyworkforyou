@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 18:21+0000\n"
+"POT-Creation-Date: 2026-07-01 14:59+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -68,65 +68,65 @@ msgstr "Nid oes gennych ganiatâd i reoli’r rhestr dermau"
 msgid "Subscribe to our newsletter"
 msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
 
-#: classes/Member.php:435 classes/Member.php:447
-#: www/includes/easyparliament/member.php:33
+#: classes/Member.php:373 classes/Member.php:385
+#: www/includes/easyparliament/member.php:34
 #: www/includes/easyparliament/templates/html/divisions/index.php:63
 msgid "House of Lords"
 msgstr "Tŷ'r Arglwyddi"
 
-#: classes/Member.php:439
+#: classes/Member.php:377
 #, php-format
 msgid "Previously MP for %s until %s"
 msgstr "Yn flaenorol AS am %s tan %s"
 
-#: classes/Member.php:455 classes/Member.php:459
-#: www/includes/easyparliament/member.php:32
+#: classes/Member.php:393 classes/Member.php:397
+#: www/includes/easyparliament/member.php:33
 #: www/includes/easyparliament/templates/html/divisions/index.php:62
 msgid "House of Commons"
 msgstr "Tŷ'r Cyffredin"
 
-#: classes/Member.php:462 classes/Member.php:463
+#: classes/Member.php:400 classes/Member.php:401
 msgid "Assembly"
 msgstr "Cynulliad"
 
-#: classes/Member.php:464 classes/Member.php:465
+#: classes/Member.php:402 classes/Member.php:403
 #: www/includes/easyparliament/hansardlist.php:1227
-#: www/includes/easyparliament/member.php:35
+#: www/includes/easyparliament/member.php:36
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:62
 #: www/includes/easyparliament/templates/html/divisions/index.php:65
 #: www/includes/easyparliament/templates/html/search/form_options.php:68
 msgid "Scottish Parliament"
 msgstr "Senedd yr Alban"
 
-#: classes/Member.php:466 classes/Member.php:467
-#: www/includes/easyparliament/member.php:36
+#: classes/Member.php:404 classes/Member.php:405
+#: www/includes/easyparliament/member.php:37
 #: www/includes/easyparliament/templates/html/divisions/index.php:66
 msgid "Senedd"
 msgstr "Senedd"
 
-#: classes/Member.php:468 classes/Member.php:469
-#: www/includes/easyparliament/member.php:37
+#: classes/Member.php:406 classes/Member.php:407
+#: www/includes/easyparliament/member.php:38
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:76
 msgid "London Assembly"
 msgstr "Cynulliad Llundain"
 
-#: classes/Member.php:479
+#: classes/Member.php:417
 #, php-format
 msgid "Entered the %s in %s"
 msgstr "Aeth i mewn i'r %s yn %s"
 
-#: classes/Member.php:481
+#: classes/Member.php:419
 #, php-format
 msgid "Entered the %s on %s"
 msgstr "Aeth i mewn i'r  %s ar %s"
 
-#: classes/Member.php:495
+#: classes/Member.php:433
 #, php-format
 msgid "Left the %s in %s"
 msgstr "Gadawodd y %s mewn %s"
 
-#: classes/Member.php:497
+#: classes/Member.php:435
 #, php-format
 msgid "Left the %s on %s"
 msgstr "Gadawodd y %s ar %s"
@@ -713,23 +713,23 @@ msgstr "Sori, ni allem wirio'ch côd post ar hyn o bryd, gan fod ein gweinydd sy
 msgid "Sorry, %s isn’t a known postcode"
 msgstr "Sori, nid ydym yn adnabod y côd post %s"
 
-#: www/docs/mp/index.php:742
+#: www/docs/mp/index.php:741
 msgid "<abbr title=\"Member of Parliament\">MP</abbr>"
 msgstr "<abbr title=\"Aelod Seneddol\">MP</abbr>"
 
-#: www/docs/mp/index.php:744
+#: www/docs/mp/index.php:743
 msgid "<abbr title=\"Member of the Legislative Assembly\">MLA</abbr>"
 msgstr "<abbr title=\"Aelod o'r Cynulliad Deddfwriaethol\">MLA</abbr>"
 
-#: www/docs/mp/index.php:746
+#: www/docs/mp/index.php:745
 msgid "<abbr title=\"Member of the Scottish Parliament\">MSP</abbr>"
 msgstr "<abbr title=\"Aelod Senedd yr Alban\">MSP</abbr>"
 
-#: www/docs/mp/index.php:748
+#: www/docs/mp/index.php:747
 msgid "<abbr title=\"Member of the Senedd\">MS</abbr>"
 msgstr "<abbr title=\"Aelod o'r Senedd\">MS</abbr>"
 
-#: www/docs/mp/index.php:750
+#: www/docs/mp/index.php:749
 msgid "Member of the London Assembly"
 msgstr "Aelod Cynulliad Llundain"
 
@@ -891,7 +891,7 @@ msgid "Recent dates"
 msgstr "Dyddiadau diweddar"
 
 #: www/includes/easyparliament/hansardlist.php:1223
-#: www/includes/easyparliament/member.php:34
+#: www/includes/easyparliament/member.php:35
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:59
 #: www/includes/easyparliament/templates/html/search/form_options.php:65
 msgid "Northern Ireland Assembly"
@@ -905,88 +905,88 @@ msgstr "Pwyllgor Mesur Cyhoeddus"
 msgid "See the whole debate"
 msgstr "Gweler yr holl ddadl"
 
-#: www/includes/easyparliament/member.php:31
+#: www/includes/easyparliament/member.php:32
 msgid "Royal Family"
 msgstr "Teulu Brenhinol"
 
-#: www/includes/easyparliament/member.php:44
+#: www/includes/easyparliament/member.php:45
 msgid "Became peer"
 msgstr "Mi ddaeth yn arglwydd"
 
-#: www/includes/easyparliament/member.php:45
+#: www/includes/easyparliament/member.php:46
 msgid "Byelection"
 msgstr "Is-etholiad"
 
-#: www/includes/easyparliament/member.php:46
+#: www/includes/easyparliament/member.php:47
 msgid "Changed party"
 msgstr "Wedi newid plaid"
 
-#: www/includes/easyparliament/member.php:47
+#: www/includes/easyparliament/member.php:48
 msgid "Had whip removed"
 msgstr "Tynnwyd y chwip"
 
-#: www/includes/easyparliament/member.php:48
+#: www/includes/easyparliament/member.php:49
 msgid "Had whip restored"
 msgstr "Adferwyd y chwip"
 
-#: www/includes/easyparliament/member.php:49
+#: www/includes/easyparliament/member.php:50
 msgid "Changed name"
 msgstr "Wedi newid enw"
 
-#: www/includes/easyparliament/member.php:50
+#: www/includes/easyparliament/member.php:51
 msgid "Declared void"
 msgstr "Wedi datgan yn annilys"
 
-#: www/includes/easyparliament/member.php:51
+#: www/includes/easyparliament/member.php:52
 msgid "Died"
 msgstr "Wedi marw"
 
-#: www/includes/easyparliament/member.php:52
+#: www/includes/easyparliament/member.php:53
 msgid "Disqualified"
 msgstr "Wedi'i anghymwyso"
 
-#: www/includes/easyparliament/member.php:53
+#: www/includes/easyparliament/member.php:54
 msgid "General election"
 msgstr "Etholiad cyffredinol"
 
-#: www/includes/easyparliament/member.php:54
+#: www/includes/easyparliament/member.php:55
 msgid "General election (standing again)"
 msgstr "Etholiad cyffredinol (safodd eto)"
 
-#: www/includes/easyparliament/member.php:54
+#: www/includes/easyparliament/member.php:55
 msgid "General election (stood again)"
 msgstr "Etholiad cyffredinol (safodd eto)"
 
-#: www/includes/easyparliament/member.php:55
+#: www/includes/easyparliament/member.php:56
 msgid "did not stand for re-election"
 msgstr "heb sefyll i gael ei hailethol"
 
-#: www/includes/easyparliament/member.php:56
+#: www/includes/easyparliament/member.php:57
 msgid "Reinstated"
 msgstr "Wedi'i adfer"
 
-#: www/includes/easyparliament/member.php:57
+#: www/includes/easyparliament/member.php:58
 msgid "Resigned"
 msgstr "Wedi ymddiswyddo"
 
-#: www/includes/easyparliament/member.php:58
+#: www/includes/easyparliament/member.php:59
 msgid "Removed from office by a recall petition"
 msgstr "Wedi'i dynnu o'r swydd gan ddeiseb adalw"
 
-#: www/includes/easyparliament/member.php:59
+#: www/includes/easyparliament/member.php:60
 msgid "Still in office"
 msgstr "Parhau yn y swydd"
 
-#: www/includes/easyparliament/member.php:60
+#: www/includes/easyparliament/member.php:61
 msgid "Dissolved for election"
 msgstr "Wedi'i ddiddymu ar gyfer etholiad"
 
-#: www/includes/easyparliament/member.php:61
+#: www/includes/easyparliament/member.php:62
 msgid "Election"
 msgstr "Etholiad"
 
 #. Scottish Parliament
-#: www/includes/easyparliament/member.php:62
+#: www/includes/easyparliament/member.php:63
 msgid "Appointed, regional replacement"
 msgstr "Apwyntiwyd, amnewid rhanbarthol"
 
@@ -2842,12 +2842,12 @@ msgstr "Colofn"
 msgid "If you know the actual Hansard column number of the information you are interested in (perhaps you’re looking up a paper reference), you can restrict results to that; you can also use <code>column:123</code> in the main search box."
 msgstr "Pe baech yn gwybod y rhif colofn Hansard cywir o'r wybodaeth y mae gennych ddiddordeb ynddo (efallai eich bod yn edrych ar gyfeiriad papur),  gallwch gyfyngu canlyniadau i hynny ;   Gallwch hefyd ddefnyddio <code>column:123</code> yn y prif flwch chwilio."
 
-#: www/includes/easyparliament/templates/html/search/person.php:11
+#: www/includes/easyparliament/templates/html/search/person.php:12
 #, php-format
 msgid "for %s"
 msgstr "am %s"
 
-#: www/includes/easyparliament/templates/html/search/person.php:13
+#: www/includes/easyparliament/templates/html/search/person.php:18
 msgid "current"
 msgstr "Cyfredol"
 
@@ -3173,126 +3173,126 @@ msgstr "Yn ddiweddar yn Senedd Cymru"
 msgid "What is the Senedd?"
 msgstr "Beth yw hwn?"
 
-#: www/includes/easyparliament/templates/html/static/about.php:5
+#: www/includes/easyparliament/templates/html/static/about.php:7
 msgid "About TheyWorkForYou"
 msgstr "Ynglŷn â TheyWorkForYou"
 
-#: www/includes/easyparliament/templates/html/static/about.php:7
+#: www/includes/easyparliament/templates/html/static/about.php:9
 msgid "TheyWorkForYou was founded <a href=\"https://www.mysociety.org/anniversary/\">twenty years ago</a> to make Parliament more accessible and accountable."
 msgstr "Sefydlwyd TheyWorkForYou ugain mlynedd yn ôl i wneud y Senedd yn San Steffan yn fwy hygyrch."
 
-#: www/includes/easyparliament/templates/html/static/about.php:9
+#: www/includes/easyparliament/templates/html/static/about.php:11
 msgid "We believe that information about our elected representatives should be easily understandable and accessible to everyone, and not just insiders or those who can pay."
 msgstr "Credwn y dylai gwybodaeth am ein cynrychiolwyr etholedig fod yn hawdd ei deall ac yn hygyrch i bawb, nid ond gwleidyddion neu'r rheiny sy'n gallu talu."
 
-#: www/includes/easyparliament/templates/html/static/about.php:11
+#: www/includes/easyparliament/templates/html/static/about.php:13
 msgid "We now work across the UK's Parliaments to bring information together in one place, and make it accessible to both citizens and to civil society."
 msgstr "Rydym bellach yn gweithio yn Seneddau ar draws yr Deyrnas Unedig i ddod â gwybodaeth at ei gilydd mewn un lle, a'i gwneud yn hygyrch i ddinasyddion ac i'r gymdeithas sifil."
 
-#: www/includes/easyparliament/templates/html/static/about.php:13
+#: www/includes/easyparliament/templates/html/static/about.php:15
 msgid ""
 "Through <a href=\"https://www.theyworkforyou.com/\">TheyWorkForYou</a> and <a href=\"https://writetothem.com\">WriteToThem</a>, we want to make it easy to understand what the UK's\n"
-"              different layers of representation do, and make the actions of our\n"
-"            representatives and governments more transparent."
+"                  different layers of representation do, and make the actions of our\n"
+"                representatives and governments more transparent."
 msgstr "Trwy <a href=\"https://www.theyworkforyou.com/\">TheyWorkForYou</a> ac <a href=\"WriteToThem\">WriteToThem</a>, rydym am ei gwneud hi'n hawdd deall beth mae gwahanol haenau cynrychiolaeth y Deyrnas Unedig yn gwneud, a sicrhau bod gweithredoedd ein cynrychiolwyr a'n llywodraethau yn fwy tryloyw."
 
-#: www/includes/easyparliament/templates/html/static/about.php:17
+#: www/includes/easyparliament/templates/html/static/about.php:19
 msgid "We do this by:"
 msgstr "Rydym ni cyflawni hyn drwy:"
 
-#: www/includes/easyparliament/templates/html/static/about.php:20
+#: www/includes/easyparliament/templates/html/static/about.php:22
 msgid "Making parliamentary debates searchable for all Parliaments."
 msgstr "Sicrhau bod dadleuon seneddol yn chwiliadwy ar gyfer pob Senedd."
 
-#: www/includes/easyparliament/templates/html/static/about.php:21
+#: www/includes/easyparliament/templates/html/static/about.php:23
 msgid "Making it easy for people to write to their representatives at any layer of government."
 msgstr "Ei gwneud hi'n hawdd i bobl ysgrifennu at eu cynrychiolwyr ar unrhyw haen o lywodraeth."
 
-#: www/includes/easyparliament/templates/html/static/about.php:22
+#: www/includes/easyparliament/templates/html/static/about.php:24
 msgid "Powering <a href=\"https://www.theyworkforyou.com/alert/\">email alerts</a> that let <a href=\"https://www.mysociety.org/2022/07/28/theyworkforyou-quietly-provides-essential-services-for-civil-society-and-beyond/\">citizens and civil society</a> stay informed about their representatives or areas of interest."
 msgstr "Cynhyrchu hysbysiadau e-bost sy’n caniatáu dinasyddion a chymdeithas sifil i fod yn hyddysg am eu cynrychiolwyr neu feysydd o ddiddordeb."
 
-#: www/includes/easyparliament/templates/html/static/about.php:23
+#: www/includes/easyparliament/templates/html/static/about.php:25
 msgid "Adding new information and summaries that build on the information that Parliament releases (such as voting record summaries and more accessible registers of members interests)."
 msgstr "Ychwanegu gwybodaeth a chrynodebau newydd i’r wybodaeth y mae'r Senedd yn ei rhyddhau (megis crynodebau cofnodion pleidleisio a’r cofrestrau hygyrch o fuddiannau aelodau)."
 
-#: www/includes/easyparliament/templates/html/static/about.php:26
+#: www/includes/easyparliament/templates/html/static/about.php:28
 msgid "If you support TheyWorkForYou's goals, you can help us do more by making a <a href=\"https://www.mysociety.org/donate/?utm_source=theyworkforyou&utm_medium=website&utm_campaign=theyworkforyou-about-page\">donation</a>."
 msgstr "Os ydych chi'n cefnogi amcanion TheyWorkForYou, <a href=\"gallwch ein helpu gwneud mwy drwy wneud rhodd</a>."
 
-#: www/includes/easyparliament/templates/html/static/about.php:28
+#: www/includes/easyparliament/templates/html/static/about.php:30
 msgid "For more information about how we run the site, please read <a href=\"/help\">our FAQs.</a>"
 msgstr "Am fwy o wybodaeth am sut rydyn ni'n rheoli’r safle, <a href=\"/help\">darllenwch ein Cwestiynau Cyffredin.</a>"
 
-#: www/includes/easyparliament/templates/html/static/about.php:33
-msgid "About mySociety"
-msgstr "Ynglŷn â mySociety"
-
-#: www/includes/easyparliament/templates/html/static/about.php:34
-msgid "Sign up for updates on our democracy and Parliaments work"
-msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
-
-#: www/includes/easyparliament/templates/html/static/about.php:58
-msgid "TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</a>, a UK charity that helps people access information and participate in democracy. We enable people across the UK to become changemakers by providing technology, research and data, openly and for free."
-msgstr "Mae TheyWorkForYou yn cael ei reoli gan <a href=\"https://www.mysociety.org/\">mySociety</a>, elusen yn y Deyrnas Unedig sy'n rhoi grym yn nwylo mwy o bobl drwy ddefnyddio data  ac offer digidol."
-
-#: www/includes/easyparliament/templates/html/static/about.php:59
-msgid "Through <strong>TheyWorkForYou</strong> and <strong>WriteToThem</strong> we have made elected representatives more transparent and contactable. Every year, hundreds of thousands of reports are made through <strong>FixMyStreet</strong>, and over a million Freedom of Information requests have been made through <strong>WhatDoTheyKnow</strong>."
-msgstr "Trwy TheyWorkForYou ac WriteToThem rydym wedi gwneud cynrychiolwyr etholedig yn fwy tryloyw a chysylltadwy. Bob blwyddyn, mae cannoedd o filoedd o adroddiadau yn cael eu danfon trwy FixMyStreet, ac mae dros filiwn o geisiadau Rhyddid Gwybodaeth wedi'u codi trwy WhatDoTheyKnow."
-
-#: www/includes/easyparliament/templates/html/static/about.php:61
-msgid "Find out more about how mySociety is funded."
-msgstr "Rhagor o wybodaeth am y modd y mae mySociety yn cael ei ariannu."
-
-#: www/includes/easyparliament/templates/html/static/about.php:71
+#: www/includes/easyparliament/templates/html/static/about.php:38
 msgid "Credits"
 msgstr "Credydau"
 
-#: www/includes/easyparliament/templates/html/static/about.php:73
+#: www/includes/easyparliament/templates/html/static/about.php:39
 msgid "Many thanks to mySociety team members and volunteers alike, past and present, for their work on TheyWorkForYou. Including:"
 msgstr "Diolch o galon i aelodau tîm a gwirfoddolwyr MySociety y presennol ac y gorffennol am eu gwaith ar TheyWorkForYou. Mae hyn yn cynnwys:"
 
-#: www/includes/easyparliament/templates/html/static/about.php:100
+#: www/includes/easyparliament/templates/html/static/about.php:66
 msgid "Image credits:"
 msgstr "Credydau llun"
 
-#: www/includes/easyparliament/templates/html/static/about.php:114
+#: www/includes/easyparliament/templates/html/static/about.php:80
 msgid "The copyright of Hansard remains under <a href=\"https://www.parliament.uk/site-information/copyright/\">Parliamentary Copyright</a>, used under licence. "
 msgstr "Mae copyright Hansard yn parhau dan <a href=\"https://www.parliament.uk/site-information/copyright/\">Hawlfraint Seneddol</a>, a ddefnyddir o dan drwydded."
 
-#: www/includes/easyparliament/templates/html/static/contact.php:4
+#: www/includes/easyparliament/templates/html/static/contact.php:6
 msgid "Who do you want to contact?"
 msgstr "Gya phwy wyt ti eisiau cysylltu?"
 
-#: www/includes/easyparliament/templates/html/static/contact.php:5
+#: www/includes/easyparliament/templates/html/static/contact.php:7
 msgid "I need help"
 msgstr "Dwi angen help"
 
-#: www/includes/easyparliament/templates/html/static/contact.php:7
+#: www/includes/easyparliament/templates/html/static/contact.php:9
 msgid "The politicians we cover on this website have a duty to help their constituents resolve problems."
 msgstr "Mae dyletswydd ar y gwleidyddion rydyn ni'n ymdrin â nhw ar y wefan hon i helpu eu hetholwyr i ddatrys problemau."
 
-#: www/includes/easyparliament/templates/html/static/contact.php:10
+#: www/includes/easyparliament/templates/html/static/contact.php:12
 msgid "Contact your MP, councillors or regional representatives via <a href=\"https://www.writetothem.com\">WriteToThem.com</a>."
 msgstr "Cysylltwch â'ch AS, cynghorwyr neu gynrychiolwyr rhanbarthol drwy <a href=\"https://www.writetothem.com\">WriteToThem.com</a>."
 
-#: www/includes/easyparliament/templates/html/static/contact.php:12
+#: www/includes/easyparliament/templates/html/static/contact.php:14
 msgid "I have feedback about this website"
 msgstr "Mae gen i adborth ar gyfer y wefan hon"
 
-#: www/includes/easyparliament/templates/html/static/contact.php:14
+#: www/includes/easyparliament/templates/html/static/contact.php:16
 msgid "Check our <a href=\"/help/\">FAQs</a> first; your question might be answered there."
 msgstr "Gwiriwch ein <a href=\"/help/\">Cwestiynau Cyffredin</a>  yn gyntaf; efallai bydd eich cwestiwn chi yn cael ei ateb yno."
 
-#: www/includes/easyparliament/templates/html/static/contact.php:17
+#: www/includes/easyparliament/templates/html/static/contact.php:19
 msgid ""
 "If not, TheyWorkForYou's technical support team can be contacted on\n"
-"            <a href=\"mailto:support@theyworkforyou.com\">support@theyworkforyou.com</a>."
+"                <a href=\"mailto:support@theyworkforyou.com\">support@theyworkforyou.com</a>."
 msgstr "Os na, gellir cysylltu â thîm cymorth technegol They WorkForYou ar <a href=\"mailto:support@theyworkforyou.com\">support@theyworkforyou.com</a>. Ni all ein tîm cymorth ddarparu cefnogaeth yn Gymraeg."
 
-#: www/includes/easyparliament/templates/html/static/contact.php:21
+#: www/includes/easyparliament/templates/html/static/contact.php:23
 msgid "We can only help you with this website - <b>this email will not go to your MP</b>."
 msgstr "Gallwn ni ond eich helpu chi gyda'r wefan hon - ni fydd yr e-bost yn mynd at eich AS."
+
+#: www/includes/easyparliament/templates/html/static/_newsletter.php:2
+msgid "About mySociety"
+msgstr "Ynglŷn â mySociety"
+
+#: www/includes/easyparliament/templates/html/static/_newsletter.php:4
+msgid "Sign up for updates on our democracy and Parliaments work"
+msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
+
+#: www/includes/easyparliament/templates/html/static/_newsletter.php:28
+msgid "TheyWorkForYou is run by <a href=\"https://www.mysociety.org/\">mySociety</a>, a UK charity that helps people access information and participate in democracy. We enable people across the UK to become changemakers by providing technology, research and data, openly and for free."
+msgstr "Mae TheyWorkForYou yn cael ei reoli gan <a href=\"https://www.mysociety.org/\">mySociety</a>, elusen yn y Deyrnas Unedig sy'n rhoi grym yn nwylo mwy o bobl drwy ddefnyddio data  ac offer digidol."
+
+#: www/includes/easyparliament/templates/html/static/_newsletter.php:29
+msgid "Through <strong>TheyWorkForYou</strong> and <strong>WriteToThem</strong> we have made elected representatives more transparent and contactable. Every year, hundreds of thousands of reports are made through <strong>FixMyStreet</strong>, and over a million Freedom of Information requests have been made through <strong>WhatDoTheyKnow</strong>."
+msgstr "Trwy TheyWorkForYou ac WriteToThem rydym wedi gwneud cynrychiolwyr etholedig yn fwy tryloyw a chysylltadwy. Bob blwyddyn, mae cannoedd o filoedd o adroddiadau yn cael eu danfon trwy FixMyStreet, ac mae dros filiwn o geisiadau Rhyddid Gwybodaeth wedi'u codi trwy WhatDoTheyKnow."
+
+#: www/includes/easyparliament/templates/html/static/_newsletter.php:31
+msgid "Find out more about how mySociety is funded."
+msgstr "Rhagor o wybodaeth am y modd y mae mySociety yn cael ei ariannu."
 
 #: www/includes/easyparliament/templates/html/user/form.php:20
 #: www/includes/easyparliament/templates/html/user/form.php:110
