@@ -1228,20 +1228,24 @@ function regional_list($pc, $area_type, $rep_type) {
         throw new MySociety\TheyWorkForYou\MemberException(htmlentities($pc) . ' does not appear to be a valid postcode');
     }
     global $PAGE;
-    $a = array_values($constituencies);
+
+    $params = [];
+    foreach ($constituencies as $key => $value) {
+        $params[":const$key"] = $value;
+    }
     $db = new ParlDB();
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
         FROM member, person_names pn
-        WHERE constituency IN ('" . join("','", $a) . "')
+        WHERE constituency IN (" . join(',', array_keys($params)) . ")
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) FROM person_names WHERE person_names.person_id = member.person_id)";
-    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . "," . HOUSE_TYPE_WALES . ")");
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office' AND house in (" . HOUSE_TYPE_NI . "," . HOUSE_TYPE_SCOTLAND . "," . HOUSE_TYPE_WALES . ")", $params);
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
         $q = $db->query(
             $query_base . " AND $dissolution[query]",
-            $dissolution['params']
+            array_merge($dissolution['params'], $params),
         );
     }
     $mcon = [];

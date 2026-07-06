@@ -218,19 +218,23 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
     }
 
+    $params = [];
+    foreach ($member_area_names as $i => $name) {
+        $params[":area$i"] = $name;
+    }
     $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
         FROM member, person_names pn
-        WHERE constituency IN ('" . join("','", $member_area_names) . "')
+        WHERE constituency IN (" . join(',', array_keys($params)) . ")
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
             AND house = $house";
-    $q = $db->query($query_base . " AND left_reason = 'still_in_office'");
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office'", $params);
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
         $q = $db->query(
             $query_base . " AND $dissolution[query]",
-            $dissolution['params']
+            array_merge($dissolution['params'], $params),
         );
     }
 

@@ -70,7 +70,12 @@ class Divisions {
             if (is_string($houses)) {
                 $houses = [ $houses ];
             }
-            $where[] = 'house IN ("' . implode('", "', $houses) . '")';
+            $hp = [];
+            foreach ($houses as $key => $house) {
+                $hp[":house$key"] = $house;
+            }
+            $where[] = 'house IN (' . join(',', array_keys($hp)) . ')';
+            $params += $hp;
         }
         if (!$houses || in_array('senedd', $houses)) {
             if (LANGUAGE == 'cy') {

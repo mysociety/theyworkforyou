@@ -42,10 +42,10 @@ if ($pc) {
 
 if ($pc) {
     if (array_key_exists('SPC', $current)) {
-        $a = [$current['SPC'], $current['SPE']];
+        $a = [":constSPC" => $current['SPC'], ":constSPE" => $current['SPE']];
         $country = 'S';
     } else {
-        $a = [$current['NIE']];
+        $a = [":constNIE" => $current['NIE']];
         $country = 'N';
     }
 }
@@ -68,8 +68,8 @@ if ($pc) {
     $db = new ParlDB();
     # Just left politicians
     $q = $db->query("SELECT person_id, first_name, last_name, constituency, house FROM member
-        WHERE constituency IN ('" . join("','", $a) . "')
-        AND ( ( house = 3 and left_house = '2011-03-24' ) or ( house = 4 and left_house = '2011-03-23') )");
+        WHERE constituency IN (" . join(',', array_keys($a)) . ")
+        AND ( ( house = 3 and left_house = '2011-03-24' ) or ( house = 4 and left_house = '2011-03-23') )", $a);
     $mreg = [];
     foreach ($q as $row) {
         $cons = $row['constituency'];
