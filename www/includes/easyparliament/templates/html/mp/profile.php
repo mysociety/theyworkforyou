@@ -37,7 +37,7 @@ $display_wtt_stats_banner = '2015';
                     <p>When <?= $full_name ?> starts to speak in debates and vote on bills, that information will appear on this page.</p>
 
                   <?php if ($has_email_alerts) { ?>
-                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>#" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
+                    <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>&mp_step=alert_mp#" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;">Sign up for email alerts to be the first to know when that happens.</a>
                   <?php } ?>
                 </div>
               <?php endif; ?>

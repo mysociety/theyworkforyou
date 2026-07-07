@@ -6,7 +6,11 @@
       <li>
           <form action="<?= $actionurl ?>" method="post">
               <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
-              <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+              <?php if ($email) { ?>
+                <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+              <?php } else { ?>
+                <input type="hidden" name="mp_step" value="alert_mp">
+              <?php } ?>
               <input type="hidden" name="pid" value="<?= $constituency['member']->person_id() ?>">
               <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
               <?= $constituency['member']->full_name() ?> <?= _htmlspecialchars($constituency['member']->getMostRecentGroupedMembership()['rep_name']) ?>
@@ -25,7 +29,11 @@
       <li>
           <form action="<?= $actionurl ?>" method="post">
               <input type="hidden" name="t" value="<?= _htmlspecialchars($token) ?>">
-              <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+              <?php if ($email) { ?>
+                <input type="hidden" name="email" value="<?= _htmlspecialchars($email) ?>">
+              <?php } else { ?>
+                <input type="hidden" name="mp_step" value="alert_mp">
+              <?php } ?>
               <input type="hidden" name="pid" value="<?= $row['person_id'] ?>">
               <input type="hidden" name="ignore_speaker_votes" value="<?= $ignore_speaker_votes ?>">
               <?php

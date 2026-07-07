@@ -30,6 +30,13 @@ class AlertsPageTest extends FetchPageTestCase {
         $this->assertStringContainsString('<input type="text" id="words0" name="words[]" aria-required="true" value="elephant"', $page);
     }
 
+    public function testPidOnly() {
+        $page = $this->fetch_page([ 'pid' => '2']);
+        $this->assertStringContainsString('When Mrs Test Current-MP', $page);
+        $this->assertStringContainsString('<input type="hidden" name="pid" value="2"', $page);
+        $this->assertStringContainsString('<input type="hidden" name="mp_step" value="alert_mp"', $page);
+    }
+
     public function testSpeakerId() {
         $page = $this->fetch_page([ 'alertsearch' => 'speaker:2']);
         $this->assertStringContainsString('Mrs Test Current-MP', $page);

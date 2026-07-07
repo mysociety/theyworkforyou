@@ -87,7 +87,7 @@
                 <a href="<?= $wtt_url ?>" class="button" onclick="trackLinkClick(this, 'link_click', 'WriteToThem', 'Person'); return false;"><?= gettext('Send a message') ?></a>
               <?php } ?>
               <?php if ($has_email_alerts) { ?>
-                <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>" class="button tertiary" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;"><?= gettext('Get email updates') ?></a>
+                <a href="<?= WEBPATH ?>alert/?pid=<?= $person_id ?>&mp_step=alert_mp" class="button tertiary" onclick="trackLinkClick(this, 'alert_click', 'Search', 'Person'); return false;"><?= gettext('Get email updates') ?></a>
               <?php } ?>
             </div>
           <?php } ?>
