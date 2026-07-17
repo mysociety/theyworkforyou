@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User Class
  *
@@ -173,14 +174,14 @@ class User {
                     $USER = new \USER();
                     $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
-                    if ($this_page == "useredit" &&
-                        get_http_var("u") == "" &&
-                        $THEUSER->isloggedin()) {
+                    if ($this_page == "useredit"
+                        && get_http_var("u") == ""
+                        && $THEUSER->isloggedin()) {
                         // User is updating their own info.
                         // Check no one else has this email.
 
-                        if ($id_of_user_with_this_addresss &&
-                            $id_of_user_with_this_addresss != $THEUSER->user_id()) {
+                        if ($id_of_user_with_this_addresss
+                            && $id_of_user_with_this_addresss != $THEUSER->user_id()) {
                             $errors["email"] = "Someone else has already joined with this email address";
                         }
 

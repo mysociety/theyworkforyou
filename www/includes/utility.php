@@ -1071,8 +1071,8 @@ function major_summary($data, $echo = true) {
         $q = $db->query('SELECT section_id, body, gid
                 FROM hansard, epobject
                 WHERE hansard.epobject_id = epobject.epobject_id '
-                . ($p_major == 4 ? 'AND subsection_id=0' : 'AND section_id=0') .
-                ' AND hdate = "' . $date . '"
+                . ($p_major == 4 ? 'AND subsection_id=0' : 'AND section_id=0')
+                . ' AND hdate = "' . $date . '"
                 AND major = ' . $p_major . '
                 ORDER BY hpos');
         $out = '';

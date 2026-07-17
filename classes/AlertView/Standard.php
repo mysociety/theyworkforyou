@@ -688,9 +688,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         if (
-            preg_match('#([A-Z]{1,2}\d+[A-Z]? ?\d[A-Z]{2})#i', $this->data['alertsearch'], $m) &&
-            strlen($this->data['alertsearch']) > strlen($m[1]) &&
-            validate_postcode($m[1])
+            preg_match('#([A-Z]{1,2}\d+[A-Z]? ?\d[A-Z]{2})#i', $this->data['alertsearch'], $m)
+            && strlen($this->data['alertsearch']) > strlen($m[1])
+            && validate_postcode($m[1])
         ) {
             $this->data['postcode'] = $m[1];
             $mistakes['postcode_and'] = 1;

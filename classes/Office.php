@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Office Class
  *
@@ -92,8 +93,8 @@ class Office {
         $output = '';
 
         if (
-            !($this->source == 'chgpages/selctee' && $this->from_date == '2004-05-28') and
-            !($this->source == 'chgpages/privsec' && $this->from_date == '2004-05-13')
+            !($this->source == 'chgpages/selctee' && $this->from_date == '2004-05-28')
+            and !($this->source == 'chgpages/privsec' && $this->from_date == '2004-05-13')
         ) {
             if ($this->source == 'chgpages/privsec' && $this->from_date == '2005-11-10') {
                 $output .= 'before ';

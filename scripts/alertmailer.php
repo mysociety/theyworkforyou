@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Name: alertmailer.php
  * Description: Mailer for email alerts

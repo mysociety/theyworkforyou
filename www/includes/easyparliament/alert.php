@@ -95,9 +95,9 @@ class ALERT {
                         deleted,
                         confirmed
                         FROM alerts
-                        WHERE confirmed =" . $confirmed .
-                        " AND deleted=" . $deleted .
-                        ' ORDER BY email');
+                        WHERE confirmed =" . $confirmed
+                        . " AND deleted=" . $deleted
+                        . ' ORDER BY email');
 
         $data = $q->fetchAll();
         $info = "Alert";
@@ -282,9 +282,9 @@ class ALERT {
         // $details is the array we just sent to add(), and which it's
         // passed on to us here.
         // A brief check of the facts...
-        if (!is_numeric($this->alert_id) ||
-            !isset($details['email']) ||
-            $details['email'] == '') {
+        if (!is_numeric($this->alert_id)
+            || !isset($details['email'])
+            || $details['email'] == '') {
             return false;
         }
 

@@ -121,9 +121,9 @@ class User {
 
         $LOGINURL = new \MySociety\TheyWorkForYou\Url('userlogin');
         if ($this->page != 'userlogin') {
-            if ($this->page != "userlogout" &&
-                $this->page != "userpassword" &&
-                $this->page != 'userjoin') {
+            if ($this->page != "userlogout"
+                && $this->page != "userpassword"
+                && $this->page != 'userjoin') {
                 // We don't do this on the logout page, because then the user
                 // will return straight to the logout page and be logged out
                 // immediately!

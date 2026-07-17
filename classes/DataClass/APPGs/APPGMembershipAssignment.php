@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mirrors pydantic model for deseralisation in a PHP context.
  * For adding display related helper functions.

@@ -61,8 +61,8 @@ switch (get_http_var("pg")) {
         // no break
     default:
 
-        if ($THEUSER->isloggedin() &&
-            (get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
+        if ($THEUSER->isloggedin()
+            && (get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
         ) {
             // Logged in user viewing their own details.
             $template = 'user/index';
