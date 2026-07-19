@@ -75,6 +75,14 @@ or
 
 ## Code formatting
 
+[mise](https://mise.jdx.dev/) is available to assist developers in obtaining matching versions of PHP, Python, and Perl. If needed, you can install them with:
+
+```bash
+mise plugin add php
+mise trust
+mise install
+```
+
 `script/lint` will run linters for PHP (php-cs-fixer), Python (ruff), and Perl (perlcritic). PHP and Python issues are auto-fixed where possible.
 
 ## Testing
