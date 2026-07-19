@@ -75,7 +75,7 @@ or
 
 ## Code formatting
 
-`script/lint` will run php-cs-fixer for php files.
+`script/lint` will run linters for PHP (php-cs-fixer), Python (ruff), and Perl (perlcritic). PHP and Python issues are auto-fixed where possible.
 
 ## Testing
 

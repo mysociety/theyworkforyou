@@ -1,5 +1,5 @@
-#!/bin/bash 
-
+#!/bin/bash
+set -e
 
 if [ ! -f tools/php-cs-fixer/vendor/bin/php-cs-fixer ]; then
     php composer.phar install --working-dir=tools/php-cs-fixer
@@ -9,3 +9,6 @@ tools/php-cs-fixer/vendor/bin/php-cs-fixer fix
 
 poetry run ruff check . --fix
 poetry run ruff format .
+
+find . -name '*.pl' -o -name '*.pm' | xargs -I{} perl -c {}
+find . -name '*.pl' -o -name '*.pm' | xargs perlcritic
