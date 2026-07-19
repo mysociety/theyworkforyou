@@ -1,0 +1,4 @@
+[tools]
+php = "7.4"
+python = "3.9"
+perl = "5.40"
