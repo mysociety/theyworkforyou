@@ -753,13 +753,59 @@ $(function() {
   }
 
 // Register of interests toggle functions
-function initRegisterToggles() {
-  if (document.querySelectorAll('details').length > 0) {
-    var detailsButton = document.getElementById('detailsToggleButton');
-    if (detailsButton) {
-      detailsButton.style.display = 'block';
+/**
+ * Set up a toggle button that expands/collapses all <details> elements
+ * matching a given selector. The button is hidden by default and shown
+ * only if matching details exist on the page.
+ *
+ * Options:
+ *   buttonId       - ID of the <button> element
+ *   selector       - CSS selector for the <details> elements (default: 'details')
+ *   expandLabel    - button text when collapsed (default: 'Expand All')
+ *   collapseLabel  - button text when expanded (default: 'Collapse All')
+ *   autoExpand     - if true, expand all on load (default: false)
+ */
+function initDetailsToggle(opts) {
+  var selector = opts.selector || 'details';
+  var expandLabel = opts.expandLabel || 'Expand All';
+  var collapseLabel = opts.collapseLabel || 'Collapse All';
+  var button = document.getElementById(opts.buttonId);
+  if (!button) { return; }
+
+  var details = document.querySelectorAll(selector);
+  if (details.length === 0) { return; }
+
+  button.style.display = '';
+
+  function setAll(open) {
+    var els = document.querySelectorAll(selector);
+    for (var i = 0; i < els.length; i++) {
+      els[i].open = open;
     }
+    button.textContent = open ? collapseLabel : expandLabel;
   }
+
+  button.addEventListener('click', function() {
+    var els = document.querySelectorAll(selector);
+    var allOpen = true;
+    for (var i = 0; i < els.length; i++) {
+      if (!els[i].open) { allOpen = false; break; }
+    }
+    setAll(!allOpen);
+  });
+
+  if (opts.autoExpand) {
+    setAll(true);
+  }
+}
+
+function initRegisterToggles() {
+  initDetailsToggle({
+    buttonId: 'detailsToggleButton',
+    selector: 'details',
+    expandLabel: 'Expand All',
+    collapseLabel: 'Collapse All'
+  });
 
   if (document.querySelectorAll('.new_entry').length > 0) {
     var newButton = document.getElementById('newToggleButton');
@@ -854,28 +900,6 @@ function toggleNewDetails() {
   syncJustNewHeading();
   syncCurrentPageJustNewParam();
   syncJustNewLinks();
-}
-
-function toggleDetails() {
-  const details = document.querySelectorAll('details');
-  
-  // Determine if all details are currently open
-  let allOpen = true;
-  details.forEach(d => {
-    if (!d.open) {
-      allOpen = false;
-    }
-  });
-
-  if (allOpen) {
-    // If all are open, close them
-    details.forEach(d => d.open = false);
-    document.getElementById('detailsToggleButton').textContent = 'Expand All';
-  } else {
-    // If at least one is closed, open them all
-    details.forEach(d => d.open = true);
-    document.getElementById('detailsToggleButton').textContent = 'Collapse All';
-  }
 }
 
 // Initialize register toggles when page loads
