@@ -18,6 +18,10 @@ $valid_wmc_mapit_codes = ['WMC'];
 $valid_scotland_mapit_codes = array_merge($valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes);
 $valid_mapit_area_types = array_merge($valid_wmc_mapit_codes, $valid_scotland_mapit_codes, $valid_wales_mapit_codes, $valid_ni_mapit_codes);
 
+// Local authority area types from MapIt (for councillor section)
+// Two-tier: CTY (county) + DIS (district). Single-tier: UTA, MTD, LBO, LGD, COI.
+$valid_local_authority_types = ['CTY', 'DIS', 'UTA', 'MTD', 'LBO', 'LGD', 'COI'];
+
 $pc = get_http_var('pc');
 if (!$pc) {
     postcode_error('Please supply a postcode!');
@@ -120,10 +124,12 @@ if ($THEUSER->isloggedin()) {
 }
 $data['change_url'] = $CHANGEURL->generate();
 $data['sections'] = build_postcode_sections(
+    $pc,
     $data['mp_data'],
     $rep_data,
     $data['multi'],
-    $data['devolved_anchor']
+    $data['devolved_anchor'],
+    $constituencies
 );
 
 MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
@@ -216,15 +222,48 @@ function fetch_mp_data(string $pc, array $constituencies): ?array {
 }
 
 function build_postcode_sections(
+    string $pc,
     ?array $mp_data,
     array $rep_data,
     string $multi,
-    string $devolved_anchor
+    string $devolved_anchor,
+    array $constituencies
 ): array {
     return [
         build_mp_section($mp_data),
         build_devolved_section($rep_data, $multi, $devolved_anchor),
+        build_council_section($pc, $constituencies),
     ];
+}
+
+function build_council_section(string $pc, array $constituencies): array {
+    return [
+        'id' => 'council',
+        'title' => gettext('Your local councillors'),
+        'writetothem_url' => 'https://www.writetothem.com/who?pc=' . urlencode($pc),
+        'council_names' => local_authority_names($constituencies),
+    ];
+}
+
+/**
+ * Extract local authority names from MapIt areas.
+ * Handles two-tier (county + district) and single-tier (unitary, metropolitan,
+ * London borough, NI district) councils.
+ */
+function local_authority_names(array $areas): array {
+    // Two-tier: both county and district
+    if (isset($areas['CTY']) && isset($areas['DIS'])) {
+        return [$areas['DIS'], $areas['CTY']];
+    }
+
+    // Single-tier authorities
+    foreach (['UTA', 'MTD', 'LBO', 'LGD', 'COI'] as $type) {
+        if (isset($areas[$type])) {
+            return [$areas[$type]];
+        }
+    }
+
+    return [];
 }
 
 function build_mp_section(?array $mp_data): array {
@@ -466,7 +505,7 @@ function mapit_address($address, $pc) {
 }
 
 function mapit_lookup($type, $filename) {
-    global $valid_mapit_area_types;
+    global $valid_mapit_area_types, $valid_local_authority_types;
     $headers = [];
     if (defined('OPTION_MAPIT_API_KEY') && OPTION_MAPIT_API_KEY) {
         $headers[] = 'X-Api-Key: ' . OPTION_MAPIT_API_KEY;
@@ -484,6 +523,9 @@ function mapit_lookup($type, $filename) {
     $areas = [];
     foreach ($input as $row) {
         if (in_array($row->type, $valid_mapit_area_types, true)) {
+            $areas[$row->type] = $row->name;
+        }
+        if (in_array($row->type, $valid_local_authority_types, true)) {
             $areas[$row->type] = $row->name;
         }
     }
