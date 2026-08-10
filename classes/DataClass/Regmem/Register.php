@@ -18,6 +18,15 @@ class Register extends BaseModel {
     public PersonList $persons;
 
 
+    private static function getFileDir(string $chamber): string {
+        $dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
+        // Senedd registers are subdivided by language
+        if ($chamber == "senedd") {
+            $dir .= LANGUAGE . "/";
+        }
+        return $dir;
+    }
+
     private function checkChamberSlug($chamber) {
         if ($chamber && preg_match('[^a-z0-9\-\.]', $chamber)) {
             throw new RegisterNotFoundException("No register found for $chamber");
@@ -36,7 +45,7 @@ class Register extends BaseModel {
     public static function getDate(string $chamber, string $date): Register {
         self::checkChamberSlug($chamber);
 
-        $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
+        $file_dir = self::getFileDir($chamber);
         $file_end = $date . ".json";
         // see if there's a file that matches this - but might have a bit in the middle
         $files = glob($file_dir . "*" . $file_end);
@@ -52,7 +61,7 @@ class Register extends BaseModel {
     public static function latestAsOfDate(string $chamber, string $date): Register {
         self::checkChamberSlug($chamber);
 
-        $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
+        $file_dir = self::getFileDir($chamber);
         $files = glob($file_dir . "*.json");
         if (count($files) === 0) {
             throw new RegisterNotFoundException("No register found for $chamber");
@@ -72,10 +81,7 @@ class Register extends BaseModel {
     public static function getLatest(string $chamber): Register {
         self::checkChamberSlug($chamber);
 
-        $file_dir = RAWDATA . "scrapedjson/universal_format_regmem/" . $chamber . "/";
-        if ($chamber == "senedd") {
-            $file_dir .= LANGUAGE . "/";
-        }
+        $file_dir = self::getFileDir($chamber);
         $files = glob($file_dir . "*.json");
         if (count($files) === 0) {
             throw new RegisterNotFoundException("No register found for $chamber");
