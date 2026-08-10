@@ -2,6 +2,8 @@
 
 # For looking up a postcode and redirecting or displaying appropriately
 
+use MySociety\TheyWorkForYou\Office;
+
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
@@ -21,6 +23,7 @@ if (!$pc) {
     postcode_error('Please supply a postcode!');
 }
 $data['pc'] = $pc;
+$data['expand'] = get_http_var('expand') === '1';
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
@@ -141,6 +144,25 @@ function postcode_error($error) {
 function buildRepData(MySociety\TheyWorkForYou\Member $member, int $house, bool $former = false): array {
     [$image, ] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($member->person_id(), false, true);
 
+    $member->load_extra_info();
+
+    $committees = [];
+    foreach ($member->offices('current', Office::COMMITTEE_TYPES) as $office) {
+        $committees[] = $office->title;
+    }
+
+    $appgs = [];
+    $extra_info = $member->extra_info();
+    if (isset($extra_info['appg_membership'])) {
+        $appg_data = MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembershipAssignment::fromJson($extra_info['appg_membership']);
+        foreach ($appg_data->is_officer_of as $membership) {
+            $appgs[] = ['title' => $membership->appg->shortTitle(), 'role' => $membership->role];
+        }
+        foreach ($appg_data->is_ordinary_member_of as $membership) {
+            $appgs[] = ['title' => $membership->appg->shortTitle(), 'role' => 'Member'];
+        }
+    }
+
     return [
         'name' => $member->full_name(),
         'party' => $member->party(),
@@ -149,6 +171,9 @@ function buildRepData(MySociety\TheyWorkForYou\Member $member, int $house, bool 
         'person_id' => $member->person_id(),
         'image' => $image,
         'former' => $former,
+        'committees' => $committees,
+        'appgs' => $appgs,
+        'appgs_label' => MySociety\TheyWorkForYou\Utility\House::groupsName($house),
     ];
 }
 
