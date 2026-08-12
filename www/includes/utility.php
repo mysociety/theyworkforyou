@@ -521,6 +521,9 @@ function filter_user_input($text, $filter_type) {
 function prepare_comment_for_display($text) {
     $Parsedown = new \Parsedown();
     $Parsedown->setSafeMode(true);
+    // decode entities stored by filter_user_input
+    // so Parsedown doesn't double-encode them
+    $text = html_entity_decode($text, ENT_HTML5, 'UTF-8');
     $text = $Parsedown->text($text);
 
     # parsedown converts plain URLs to links but does not add nofollow and does
