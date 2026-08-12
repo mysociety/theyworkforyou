@@ -68,7 +68,7 @@ class SEARCHENGINE {
             $this->queryparser->set_stemmer($this->stemmer);
             $this->queryparser->set_stemming_strategy(XapianQueryParser::STEM_SOME);
             $this->queryparser->set_database($xapiandb);
-            $this->queryparser->set_default_op(Query_OP_AND);
+            $this->queryparser->set_default_op(XapianQuery::OP_AND);
             $this->queryparser->add_boolean_prefix('speaker', 'S');
             $this->queryparser->add_boolean_prefix('major', 'M');
             $this->queryparser->add_boolean_prefix('date', 'D');
