@@ -14,7 +14,7 @@ class Subscription {
     private static $plans = ['twfy-1k', 'twfy-5k', 'twfy-10k', 'twfy-0k'];
     private static $prices = [2000, 5000, 10000, 30000];
 
-    public function __construct($arg) {
+    public function __construct($arg, $stripe = false, $delete_on_stripe_invalid = true) {
         # User ID
         if (is_int($arg)) {
             $user = new \USER();
@@ -24,10 +24,14 @@ class Subscription {
 
         $this->db = new \ParlDB();
         $this->redis = new Redis();
-        if (defined('TESTING')) {
-            $this->api = new TestStripe("");
+        if ($stripe) {
+            $this->api = $stripe;
         } else {
-            $this->api = new Stripe(STRIPE_SECRET_KEY);
+            if (defined('TESTING')) {
+                $this->api = new TestStripe("");
+            } else {
+                $this->api = new Stripe(STRIPE_SECRET_KEY);
+            }
         }
 
         if (is_a($arg, 'User')) {
@@ -66,8 +70,10 @@ class Subscription {
                 ],
             ]);
         } catch (\Stripe\Exception\InvalidRequestException $e) {
-            $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
-            $this->delete_from_redis();
+            if ($delete_on_stripe_invalid) {
+                $this->db->query('DELETE FROM api_subscription WHERE stripe_id = :stripe_id', [':stripe_id' => $id]);
+                $this->delete_from_redis();
+            }
             return;
         }
 
@@ -330,11 +336,13 @@ class Subscription {
         }
     }
 
-    public function redis_update_max($plan) {
+    public function redis_update_max($plan, $unblock = true) {
         preg_match('#^twfy-(\d+)k#', $plan, $m);
         $max = $m[1] * 1000;
         $this->redis->set("$this->redis_prefix:max", $max);
-        $this->redis->del("$this->redis_prefix:blocked");
+        if ($unblock) {
+            $this->redis->del("$this->redis_prefix:blocked");
+        }
     }
 
     public function redis_reset_quota() {
