@@ -12,15 +12,57 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Office {
+    /** Offices that are a seat on a committee. */
+    public const COMMITTEE_TYPES = ['committee'];
+
+    /** Offices that are a post held in the chamber rather than on a committee. */
+    public const POST_TYPES = ['government', 'opposition', 'parliamentary', 'other'];
+
+    /** Category applied by UK Parliament to public bill committees. */
+    private const PUBLIC_BILL_TAG = '(HC) Public bill committee';
+
+    /** Placeholder used when we have no start date for a membership. */
+    private const UNKNOWN_DATE = '1000-01-01';
+
     public $title;
     public $from_date;
     public $to_date;
     public $source;
     public $position = "";
+    public $position_cy = "";
     public $dept = "";
     public $slug = "";
     public $desc = "";
     public $external_url = "";
+    public $org_id = "";
+    public $post_type = "other";
+    public $parliament = "";
+    public $tags = "";
+
+    /**
+     * Is this office a seat on a committee?
+     */
+    public function isCommittee(): bool {
+        return in_array($this->post_type, self::COMMITTEE_TYPES);
+    }
+
+    /**
+     * Public bill committees are shown separately, from the pbc_members data,
+     * which also knows about the bill being scrutinised.
+     */
+    public function isPublicBillCommittee(): bool {
+        return in_array(self::PUBLIC_BILL_TAG, explode(',', $this->tags));
+    }
+
+    /**
+     * The role held, in the reader's language where we have it.
+     */
+    public function role(): string {
+        if (LANGUAGE == 'cy' && $this->position_cy) {
+            return $this->position_cy;
+        }
+        return $this->position;
+    }
 
 
     /**
@@ -84,6 +126,15 @@ class Office {
      */
 
     public function pretty_dates() {
+
+        // Devolved committee memberships arrive without dates, so say what we
+        // know rather than claiming a start in the year 1000.
+        if ($this->from_date == self::UNKNOWN_DATE) {
+            if ($this->to_date == '9999-12-31') {
+                return gettext('current member');
+            }
+            return sprintf(gettext('until %s'), format_date($this->to_date, SHORTDATEFORMAT));
+        }
 
         if ($this->to_date == '9999-12-31') {
             return 'since ' . format_date($this->from_date, SHORTDATEFORMAT);

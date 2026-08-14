@@ -481,16 +481,34 @@ class MEMBER {
     # DISPLAY is whether it's to be displayed on MP page.
     public function load_extra_info($display = false, $force = false) {
         $memcache = new MySociety\TheyWorkForYou\Memcache();
-        $memcache_key = 'extra_info:' . $this->person_id . ($display ? '' : ':plain');
+        $memcache_key = 'extra_info2:' . $this->person_id . ($display ? '' : ':plain');
         $this->extra_info = $memcache->get($memcache_key);
         if (!DEVSITE && !$force && $this->extra_info) {
             return;
         }
         $this->extra_info = [];
 
+        // The organization row is joined twice: once in the reader's language,
+        // once in English as the fallback. Only Senedd committees have a
+        // non-English row, so for everything else ol is null and the English
+        // values win.
         $q = $this->db->query(
-            'SELECT * FROM moffice WHERE person=:person_id ORDER BY from_date DESC, moffice_id',
-            [':person_id' => $this->person_id]
+            "SELECT moffice.*,
+                    COALESCE(ol.name, oe.name) AS org_name,
+                    COALESCE(ol.description, oe.description) AS org_desc,
+                    COALESCE(ol.url, oe.url) AS org_url,
+                    oe.slug AS org_slug,
+                    oe.parliament AS org_parliament,
+                    oe.classification AS org_classification,
+                    oe.tags AS org_tags
+                FROM moffice
+                LEFT JOIN organization ol
+                    ON ol.org_id = moffice.org_id AND ol.language = :lang
+                LEFT JOIN organization oe
+                    ON oe.org_id = moffice.org_id AND oe.language = 'en'
+                WHERE moffice.person = :person_id
+                ORDER BY moffice.from_date DESC, moffice.moffice_id",
+            [':person_id' => $this->person_id, ':lang' => LANGUAGE]
         );
         $this->extra_info['office'] = $q->fetchAll();
 

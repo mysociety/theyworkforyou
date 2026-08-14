@@ -253,13 +253,13 @@ class Member extends \MEMBER {
     * Return an array of Office objects held (or previously held) by the member.
     *
     * @param string $include_only  Restrict the list to include only "previous" or "current" offices.
-    * @param bool   $ignore_committees Ignore offices that appear to be committee memberships.
-    * @param bool   $committees_only Only return committee memberships.
+    * @param array  $post_types    Restrict the list to these post types, e.g.
+    *                              Office::COMMITTEE_TYPES or Office::POST_TYPES.
     *
     * @return array An array of Office objects.
     */
 
-    public function offices($include_only = null, $ignore_committees = false, $committees_only = false) {
+    public function offices($include_only = null, $post_types = null) {
 
         $out = [];
 
@@ -268,7 +268,7 @@ class Member extends \MEMBER {
             $office = $office['office'];
 
             foreach ($office as $row) {
-                if ($officeObject = $this->getOfficeObject($include_only, $ignore_committees, $committees_only, $row)) {
+                if ($officeObject = $this->getOfficeObject($include_only, $post_types, $row)) {
                     $out[] = $officeObject;
                 }
             }
@@ -278,25 +278,34 @@ class Member extends \MEMBER {
 
     }
 
-    private function getOfficeObject($include_only, $ignore_committees, $committees_only, $row) {
+    private function getOfficeObject($include_only, $post_types, $row) {
         if (!$this->includeOffice($include_only, $row['to_date'])) {
             return null;
         }
-        if ($ignore_committees && strpos($row['moffice_id'], 'Committee')) {
+        if ($post_types !== null && !in_array($row['post_type'], $post_types)) {
             return null;
         }
 
-        if ($committees_only && !strpos($row['moffice_id'], 'Committee')) {
-            return null;
-        }
+        // The organization join supplies the committee name in the reader's
+        // language; the moffice dept is the English fallback.
+        $dept = !empty($row['org_name']) ? $row['org_name'] : $row['dept'];
+        $position = (LANGUAGE == 'cy' && $row['position_cy']) ? $row['position_cy'] : $row['position'];
 
         $officeObject = new Office();
-        $officeObject->title = prettify_office($row['position'], $row['dept']);
+        $officeObject->title = prettify_office($position, $dept);
         $officeObject->position = $row['position'];
-        $officeObject->dept = $row['dept'];
+        $officeObject->position_cy = $row['position_cy'];
+        $officeObject->dept = $dept;
         $officeObject->from_date = $row['from_date'];
         $officeObject->to_date = $row['to_date'];
         $officeObject->source = $row['source'];
+        $officeObject->post_type = $row['post_type'];
+        $officeObject->parliament = $row['parliament'];
+        $officeObject->org_id = $row['org_id'] ?? '';
+        $officeObject->slug = $row['org_slug'] ?? '';
+        $officeObject->desc = $row['org_desc'] ?? '';
+        $officeObject->external_url = $row['org_url'] ?? '';
+        $officeObject->tags = $row['org_tags'] ?? '';
         return $officeObject;
     }
 

@@ -30,6 +30,7 @@
 
 // Disable the old PAGE class.
 
+use MySociety\TheyWorkForYou\Office;
 use MySociety\TheyWorkForYou\PolicyDistributionCollection;
 use MySociety\TheyWorkForYou\PolicyComparisonPeriod;
 
@@ -288,7 +289,7 @@ if ($MEMBER->house(HOUSE_TYPE_WALES)) {
 }
 
 $known_for = '';
-$current_offices_ignoring_committees = $MEMBER->offices('current', true);
+$current_offices_ignoring_committees = $MEMBER->offices('current', Office::POST_TYPES);
 if (count($current_offices_ignoring_committees) > 0) {
     $known_for = $current_offices_ignoring_committees[0];
 }
@@ -354,8 +355,8 @@ $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
 $data['social_links'] = person_social_links($MEMBER);
-$data['current_offices'] = $MEMBER->offices('current', true);
-$data['previous_offices'] = $MEMBER->offices('previous', true);
+$data['current_offices'] = $MEMBER->offices('current', Office::POST_TYPES);
+$data['previous_offices'] = $MEMBER->offices('previous', Office::POST_TYPES);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
@@ -1089,7 +1090,7 @@ function memberships($member) {
         $out['topics'] = $topics;
     }
 
-    $posts = $member->offices('current', false, true);
+    $posts = $member->offices('current', Office::COMMITTEE_TYPES);
     if ($posts) {
         // for each post we want to add the description and external_url from the committee lookup if possible
         foreach ($posts as $post) {
@@ -1102,7 +1103,7 @@ function memberships($member) {
         $out['posts'] = $posts;
     }
 
-    $posts = $member->offices('previous', false, true);
+    $posts = $member->offices('previous', Office::COMMITTEE_TYPES);
     if ($posts) {
         $out['previous_posts'] = $posts;
     }
