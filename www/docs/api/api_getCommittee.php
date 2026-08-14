@@ -4,7 +4,7 @@ function api_getCommittee_front() {
     ?>
 <p><big>Fetch the members of a Select Committee.</big></p>
 
-<p class="informational">We have no information since the 2010 general election, and information before may be inaccurate.</p>
+<p class="informational">Covers UK Parliament committees. Older information may be inaccurate.</p>
 
 <h4>Arguments</h4>
 <dl>
@@ -118,7 +118,7 @@ function api_getCommittee_date($date) {
         $date = 'date(now())';
     }
     $q = $db->query("select distinct(dept) from moffice
-        where source = 'chgpages/selctee'
+        where post_type = 'committee' and parliament = 'uk'
         and from_date <= $date and $date <= to_date");
     if ($q->rows()) {
         $output = [];
