@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "twfy_tools", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 rich-click = "1.7.4"
 pandas = "2.2.1"
 pyarrow = "15.0.2"
@@ -28,6 +28,7 @@ ruff = "^0.6.1"
 [tool.poetry.scripts]
 contact-io = "twfy_tools.utils.contact_io:app"
 personinfo = "twfy_tools.utils.personinfo:app"
+posts = "twfy_tools.utils.posts:app"
 
 [build-system]
 requires = ["poetry-core"]
