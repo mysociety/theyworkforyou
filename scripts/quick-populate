@@ -28,6 +28,9 @@ rsync -az --progress --exclude '.svn' --exclude 'tmp/' --relative data.theyworkf
 echo 'Load people into database'
 scripts/load-people
 
+echo 'Load committee and post memberships'
+scripts/posts load-all
+
 echo 'Load regmem into database'
 scripts/personinfo upload-all-regmem
 scripts/personinfo upload-enhanced-2024-regmem
