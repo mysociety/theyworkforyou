@@ -223,13 +223,37 @@ CREATE TABLE `policyvotedistribution` (
 CREATE TABLE `moffice` (
   `moffice_id` varchar(100) NOT NULL,
   `dept` varchar(255) NOT NULL default '',
-  `position` varchar(200) NOT NULL default '',
+  `position` varchar(255) NOT NULL default '',
+  `position_cy` varchar(255) NOT NULL default '',
   `from_date` date NOT NULL default '1000-01-01',
   `to_date` date NOT NULL default '9999-12-31',
   `person` int(11) default NULL,
   `source` varchar(255) NOT NULL,
+  `org_id` varchar(150) default NULL,
+  `post_type` varchar(30) NOT NULL default 'other',
+  `parliament` varchar(20) NOT NULL default '',
+  `loader` varchar(30) NOT NULL default '',
   PRIMARY KEY  (`moffice_id`),
-  KEY `person` (`person`)
+  KEY `person` (`person`),
+  KEY `org_id` (`org_id`),
+  KEY `post_type_parliament` (`post_type`, `parliament`)
+);
+
+CREATE TABLE `organization` (
+  `org_id` varchar(150) NOT NULL,
+  `language` varchar(5) NOT NULL default 'en',
+  `parliament` varchar(20) NOT NULL default '',
+  `classification` varchar(50) NOT NULL default '',
+  `slug` varchar(150) NOT NULL default '',
+  `name` varchar(255) NOT NULL default '',
+  `description` text NOT NULL,
+  `url` varchar(255) NOT NULL default '',
+  `tags` varchar(255) NOT NULL default '',
+  `parent_org_id` varchar(150) default NULL,
+  `loader` varchar(30) NOT NULL default '',
+  PRIMARY KEY (`org_id`, `language`),
+  UNIQUE KEY `language_parliament_slug` (`language`, `parliament`, `slug`),
+  KEY `parliament` (`parliament`)
 );
 
 CREATE TABLE `personinfo` (
