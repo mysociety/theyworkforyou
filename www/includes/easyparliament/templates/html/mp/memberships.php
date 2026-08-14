@@ -77,7 +77,7 @@ $display_wtt_stats_banner = '2015';
                             'is_officer_of' => sprintf(gettext('%s is an officer of the following groups'), $full_name),
                             'is_ordinary_member_of' => sprintf(gettext('%s is a member of the following groups'), $full_name),
                         ];
-                        ?>
+?>
 
                         <?php foreach ($appg_roles as $role_key => $role_title): ?>
 
