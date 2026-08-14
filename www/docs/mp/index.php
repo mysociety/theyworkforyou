@@ -1083,8 +1083,6 @@ function person_statements($member) {
 function memberships($member) {
     $out = [];
 
-    $committee_lookup = MySociety\TheyWorkForYou\DataClass\Groups\MiniGroupList::uk_committees();
-
     $topics = person_topics($member);
     if ($topics) {
         $out['topics'] = $topics;
@@ -1092,14 +1090,6 @@ function memberships($member) {
 
     $posts = $member->offices('current', Office::COMMITTEE_TYPES);
     if ($posts) {
-        // for each post we want to add the description and external_url from the committee lookup if possible
-        foreach ($posts as $post) {
-            $committee = $committee_lookup->findByName($post->dept);
-            if ($committee) {
-                $post->desc = $committee->description;
-                $post->external_url = $committee->external_url;
-            }
-        }
         $out['posts'] = $posts;
     }
 
