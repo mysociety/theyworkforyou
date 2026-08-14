@@ -40,7 +40,7 @@
         <?php if (!empty($memberships) && (array_key_exists('posts', $memberships) || array_key_exists('previous_posts', $memberships) || array_key_exists('appg_membership', $memberships))): ?>
             <li <?php if ($pagetype == "memberships"): ?>class="active"<?php endif; ?>>
                 <a href="<?= $member_url ?>/memberships" class="table-of-content--subpage-heading">
-                    <h3>👥 <?= gettext('Committees / APPGs') ?></h3>
+                    <h3>👥 <?php if ($memberships['house'] == HOUSE_TYPE_SCOTLAND || $memberships['house'] == HOUSE_TYPE_WALES): ?><?= gettext('Committees / CPGs') ?><?php else: ?><?= gettext('Committees / APPGs') ?><?php endif; ?></h3>
                 </a>
 
                 <?php if (!empty($memberships)): ?>
@@ -54,10 +54,10 @@
                             <?php endif; ?>
                             <?php if (array_key_exists('appg_membership', $memberships)): ?>
                                 <?php if ($memberships['appg_membership']->is_an_officer()): ?>
-                                <li><a href="#appg_is_officer_of"><?= gettext('APPG Offices held') ?></a></li>
+                                <li><a href="#appg_is_officer_of"><?= sprintf(gettext('%s: offices held'), $memberships['groups_name']) ?></a></li>
                                 <?php endif; ?>
                                 <?php if ($memberships['appg_membership']->is_a_member()): ?>
-                                <li><a href="#appg_is_ordinary_member_of"><?= gettext('APPG memberships') ?></a></li>
+                                <li><a href="#appg_is_ordinary_member_of"><?= sprintf(gettext('%s: memberships'), $memberships['groups_name']) ?></a></li>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </ul>

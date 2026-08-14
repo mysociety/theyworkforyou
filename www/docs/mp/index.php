@@ -1048,6 +1048,15 @@ function person_topics($member) {
     return $out;
 }
 
+function person_committees($member, $include_only) {
+    // Public bill committees have their own section, built from the pbc data,
+    // which also knows which bill was being scrutinised.
+    return array_values(array_filter(
+        $member->offices($include_only, Office::COMMITTEE_TYPES),
+        fn($office) => !$office->isPublicBillCommittee()
+    ));
+}
+
 function person_appg_memberships($member) {
     $out = [];
 
@@ -1081,19 +1090,24 @@ function person_statements($member) {
 }
 
 function memberships($member) {
-    $out = [];
+    $house = $member->house_disp;
+    $out = [
+        'house' => $house,
+        'committee_intro' => MySociety\TheyWorkForYou\Utility\House::committeeIntro($house),
+        'groups_name' => MySociety\TheyWorkForYou\Utility\House::groupsName($house),
+    ];
 
     $topics = person_topics($member);
     if ($topics) {
         $out['topics'] = $topics;
     }
 
-    $posts = $member->offices('current', Office::COMMITTEE_TYPES);
+    $posts = person_committees($member, 'current');
     if ($posts) {
         $out['posts'] = $posts;
     }
 
-    $posts = $member->offices('previous', Office::COMMITTEE_TYPES);
+    $posts = person_committees($member, 'previous');
     if ($posts) {
         $out['previous_posts'] = $posts;
     }
