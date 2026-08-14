@@ -52,6 +52,52 @@ class House {
         return $house_to_members[$house];
     }
 
+    /**
+     * Introductory copy for the committees section of a member's page.
+     *
+     * Each parliament calls these bodies something slightly different and
+     * gives them different jobs, so the wording is per house rather than the
+     * Westminster description being shown to everybody.
+     *
+     * @return array A list of paragraphs.
+     */
+    public static function committeeIntro($house) {
+        $intros = [
+            HOUSE_TYPE_COMMONS => [
+                gettext('In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.'),
+                gettext('Some committees focus on checking the government\'s decisions and spending, while others investigate specific topics and proposed legislation.'),
+            ],
+            HOUSE_TYPE_LORDS => [
+                gettext('In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.'),
+                gettext('Some committees focus on checking the government\'s decisions and spending, while others investigate specific topics and proposed legislation.'),
+            ],
+            HOUSE_TYPE_SCOTLAND => [
+                gettext('In the Scottish Parliament, committees are groups of MSPs who scrutinise the work of the Scottish Government, examine proposed legislation and conduct inquiries.'),
+                gettext('Much of the Parliament\'s detailed work happens in committee rather than in the chamber.'),
+            ],
+            HOUSE_TYPE_WALES => [
+                gettext('In the Senedd, committees are groups of Members who scrutinise the work of the Welsh Government, examine proposed legislation and conduct inquiries.'),
+                gettext('Much of the Senedd\'s detailed work happens in committee rather than in the chamber.'),
+            ],
+            HOUSE_TYPE_NI => [
+                gettext('In the Northern Ireland Assembly, statutory committees advise and assist each Minister, and scrutinise the work of their department.'),
+                gettext('Standing and ad hoc committees deal with the running of the Assembly and with particular pieces of business.'),
+            ],
+        ];
+
+        return $intros[$house] ?? [];
+    }
+
+    /**
+     * What this house calls its informal cross-party membership groups.
+     */
+    public static function groupsName($house) {
+        if ($house == HOUSE_TYPE_SCOTLAND || $house == HOUSE_TYPE_WALES) {
+            return gettext('Cross-Party Groups');
+        }
+        return gettext('All-Party Parliamentary Groups');
+    }
+
     public static function getCountryDetails($house) {
         $details = [
             HOUSE_TYPE_COMMONS =>  [
