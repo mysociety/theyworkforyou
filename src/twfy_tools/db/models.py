@@ -292,3 +292,56 @@ class TitlesIgnored(UnmanagedDataclassModel, db_table="titles_ignored"):
 
     def __str__(self):
         return self.title
+
+
+class Organization(
+    UnmanagedDataclassModel,
+    db_table="organization",
+    unique_together=(("org_id", "language"),),
+):
+    """
+    Committees and similar bodies, one row per organisation per language.
+    Senedd committees have an 'en' and a 'cy' row; everything else has a
+    single 'en' row.
+    """
+
+    org_id: str = field(models.CharField, max_length=150, primary_key=True)
+    language: str = field(models.CharField, max_length=5, default="en")
+    parliament: str = field(models.CharField, max_length=20, default="")
+    classification: str = field(models.CharField, max_length=50, default="")
+    slug: str = field(models.CharField, max_length=150, default="")
+    name: str = field(models.CharField, max_length=255, default="")
+    description: str = field(models.TextField, default="")
+    url: str = field(models.CharField, max_length=255, default="")
+    tags: str = field(models.CharField, max_length=255, default="")
+    parent_org_id: Optional[str] = field(
+        models.CharField, max_length=150, null=True, blank=True
+    )
+    loader: str = field(models.CharField, max_length=30, default="")
+
+    def __str__(self):
+        return f"{self.org_id} ({self.language})"
+
+
+class Moffice(UnmanagedDataclassModel, db_table="moffice"):
+    """
+    A post or committee membership held by a person.
+    """
+
+    moffice_id: str = field(models.CharField, max_length=100, primary_key=True)
+    dept: str = field(models.CharField, max_length=255, default="")
+    position: str = field(models.CharField, max_length=255, default="")
+    position_cy: str = field(models.CharField, max_length=255, default="")
+    from_date: datetime.date = field(models.DateField)
+    to_date: datetime.date = field(models.DateField)
+    person: Optional[int] = field(models.IntegerField, null=True)
+    source: str = field(models.CharField, max_length=255, default="")
+    org_id: Optional[str] = field(
+        models.CharField, max_length=150, null=True, blank=True
+    )
+    post_type: str = field(models.CharField, max_length=30, default="other")
+    parliament: str = field(models.CharField, max_length=20, default="")
+    loader: str = field(models.CharField, max_length=30, default="")
+
+    def __str__(self):
+        return f"{self.moffice_id}: {self.position}"
