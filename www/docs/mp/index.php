@@ -31,6 +31,7 @@
 // Disable the old PAGE class.
 
 use MySociety\TheyWorkForYou\Office;
+use MySociety\TheyWorkForYou\Member;
 use MySociety\TheyWorkForYou\PolicyDistributionCollection;
 use MySociety\TheyWorkForYou\PolicyComparisonPeriod;
 
@@ -281,7 +282,7 @@ if ($MEMBER->house(HOUSE_TYPE_WALES)) {
 }
 
 $known_for = '';
-$current_offices_ignoring_committees = $MEMBER->offices(Office::CURRENT, Office::POST_TYPES);
+$current_offices_ignoring_committees = $MEMBER->offices(Office::CURRENT, post_types: Office::NON_COMMITTEE_POSTS);
 if (count($current_offices_ignoring_committees) > 0) {
     $known_for = $current_offices_ignoring_committees[0];
 }
@@ -347,8 +348,8 @@ $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
 $data['social_links'] = person_social_links($MEMBER);
-$data['current_offices'] = $MEMBER->offices(Office::CURRENT, Office::POST_TYPES);
-$data['previous_offices'] = $MEMBER->offices(Office::PREVIOUS, Office::POST_TYPES);
+$data['current_offices'] = $MEMBER->offices(Office::CURRENT, post_types: Office::NON_COMMITTEE_POSTS);
+$data['previous_offices'] = $MEMBER->offices(Office::PREVIOUS, post_types: Office::NON_COMMITTEE_POSTS);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
@@ -1040,7 +1041,7 @@ function person_topics($member) {
     return $out;
 }
 
-function person_appg_memberships($member) {
+function person_appg_memberships(Member $member): MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembershipAssignment|array {
     $out = [];
 
     $extra_info = $member->extra_info();
@@ -1051,7 +1052,7 @@ function person_appg_memberships($member) {
     return $out;
 }
 
-function person_statements($member) {
+function person_statements(Member $member): array {
     $out = [
         "edms" => null,
         "letter" => null,
@@ -1072,20 +1073,28 @@ function person_statements($member) {
     return $out;
 }
 
-function memberships($member) {
-    $out = [];
+function memberships(Member $member): array {
+    $house = $member->house_disp;
+    $out = [
+        'house' => $house,
+        'committee_intro' => MySociety\TheyWorkForYou\Utility\House::committeeIntro($house),
+        'groups_name' => MySociety\TheyWorkForYou\Utility\House::groupsName($house),
+        'groups_navigation' => MySociety\TheyWorkForYou\Utility\House::groupsNavigation($house),
+        'groups_intro' => MySociety\TheyWorkForYou\Utility\House::groupsIntro($house),
+        'groups_show_source' => in_array($house, [HOUSE_TYPE_COMMONS, HOUSE_TYPE_LORDS], true),
+    ];
 
     $topics = person_topics($member);
     if ($topics) {
         $out['topics'] = $topics;
     }
 
-    $posts = $member->offices(Office::CURRENT, Office::COMMITTEE_TYPES);
+    $posts = $member->committees(Office::CURRENT);
     if ($posts) {
         $out['posts'] = $posts;
     }
 
-    $posts = $member->offices(Office::PREVIOUS, Office::COMMITTEE_TYPES);
+    $posts = $member->committees(Office::PREVIOUS);
     if ($posts) {
         $out['previous_posts'] = $posts;
     }
