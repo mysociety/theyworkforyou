@@ -156,7 +156,7 @@ foreach ($q as $sub_row) {
         }
         $sub->redis_update_max($plan, false);  # Update max but don't unblock.
         echo "    Quota max set.\n";
-    } elseif ($status == 'canceled') {
+    } elseif ($status == 'canceled' || $status = 'incomplete_expired') {
         echo "    Deleting quota in Redis and also the sub from DB.\n";
         if (!$commit) {
             echo "    Skipping; dry mode.\n";
