@@ -52,6 +52,91 @@ class House {
         return $house_to_members[$house];
     }
 
+    /**
+     * Introductory copy for the committees section of a member's page.
+     *
+     * Each parliament calls these bodies something slightly different and
+     * gives them different jobs, so the wording is per house rather than the
+     * Westminster description being shown to everybody.
+     *
+     * @return array A list of paragraphs.
+     */
+    public static function committeeIntro(int $house): array {
+        $intros = [
+            HOUSE_TYPE_COMMONS => [
+                gettext('In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.'),
+                gettext('Some committees focus on checking the government\'s decisions and spending, while others investigate specific topics and proposed legislation.'),
+            ],
+            HOUSE_TYPE_LORDS => [
+                gettext('In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.'),
+                gettext('Some committees focus on checking the government\'s decisions and spending, while others investigate specific topics and proposed legislation.'),
+            ],
+            HOUSE_TYPE_SCOTLAND => [
+                gettext('In the Scottish Parliament, committees are groups of MSPs who scrutinise the work of the Scottish Government, examine proposed legislation and conduct inquiries.'),
+                gettext('Much of the Parliament\'s detailed work happens in committee rather than in the chamber.'),
+            ],
+            HOUSE_TYPE_WALES => [
+                gettext('In the Senedd, committees are groups of Members who scrutinise the work of the Welsh Government, examine proposed legislation and conduct inquiries.'),
+                gettext('Much of the Senedd\'s detailed work happens in committee rather than in the chamber.'),
+            ],
+            HOUSE_TYPE_NI => [
+                gettext('In the Northern Ireland Assembly, statutory committees advise and assist each Minister, and scrutinise the work of their department.'),
+                gettext('Standing and ad hoc committees deal with the running of the Assembly and with particular pieces of business.'),
+            ],
+        ];
+
+        return $intros[$house] ?? [];
+    }
+
+    /**
+     * What this house calls its informal cross-party membership groups.
+     */
+    public static function groupsName(int $house): string {
+        if ($house == HOUSE_TYPE_SCOTLAND || $house == HOUSE_TYPE_WALES) {
+            return gettext('Cross-Party Groups');
+        }
+        if ($house == HOUSE_TYPE_NI) {
+            return gettext('All-Party Groups');
+        }
+        return gettext('All-Party Parliamentary Groups');
+    }
+
+    /**
+     * A complete translatable navigation label for each parliament's groups.
+     */
+    public static function groupsNavigation(int $house): string {
+        return match ($house) {
+            HOUSE_TYPE_SCOTLAND, HOUSE_TYPE_WALES => gettext('Committees / CPGs'),
+            HOUSE_TYPE_NI => gettext('Committees / APGs'),
+            default => gettext('Committees / APPGs'),
+        };
+    }
+
+    /**
+     * Describe informal groups without applying Westminster-specific claims
+     * about membership, facilities or data sources to other parliaments.
+     *
+     * @return list<string>
+     */
+    public static function groupsIntro(int $house): array {
+        if ($house == HOUSE_TYPE_SCOTLAND || $house == HOUSE_TYPE_WALES) {
+            return [
+                gettext('Cross-Party Groups are informal groups made up of members from more than one party who share an interest in a particular country or subject.'),
+                gettext('They are not committees of the parliament and have no formal powers, but they are registered and may receive support from outside organisations.'),
+            ];
+        }
+        if ($house == HOUSE_TYPE_NI) {
+            return [
+                gettext('All-Party Groups (APGs) are informal groups of MLAs from different parties who share an interest in a particular country or subject.'),
+                gettext('They are not Assembly committees and have no formal powers.'),
+            ];
+        }
+        return [
+            gettext('All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject.'),
+            gettext('They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies.'),
+        ];
+    }
+
     public static function getCountryDetails($house) {
         $details = [
             HOUSE_TYPE_COMMONS =>  [
