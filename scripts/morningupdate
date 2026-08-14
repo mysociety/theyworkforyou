@@ -37,6 +37,7 @@ print "Loading into database\n" if $verbose;
 chdir $FindBin::Bin;
 # We do these on separate lines, so if one fails, others still run
 system "./load-people";
+system "./posts load-all --quiet";
 system "./xml2db.pl $cronquiet --recent --debates --quiet";
 system "./xml2db.pl $cronquiet --recent --westminhall --quiet";
 system "./xml2db.pl $cronquiet --recent --wrans --quiet";
