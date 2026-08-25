@@ -64,7 +64,6 @@ $q = $db->query(
     status,
     registrationtime,
     registrationip,
-    facebook_id,
     deleted,
     confirmed
 ) VALUES (
@@ -78,7 +77,6 @@ $q = $db->query(
     :status,
     :registrationtime,
     :registrationip,
-    :facebook_id,
     '0',
     :confirmed
 )
@@ -93,7 +91,6 @@ $q = $db->query(
         ":optin" => $details["optin"],
         ":status" => $details["status"],
         ":registrationtime" => $registrationtime,
-        ":facebook_id" => "",
         ":registrationip" => "127.0.0.1",
         ":confirmed" => $details["confirmed"],
     ]

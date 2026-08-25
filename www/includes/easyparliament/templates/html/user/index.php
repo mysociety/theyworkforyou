@@ -17,16 +17,7 @@
           <?php } else { ?>
           <p>
             <strong>This is how other people see you.</strong>
-            <?php if ($facebook_user && !$postcode) { ?>
-            </p>
-
-            <p>
-                <a href="/user/?pg=edit">Update your postcode</a> so we can show you information about your representatives.
-            </p>
-
-            <?php } else { ?>
                 <a href="/user/?pg=edit"><?= gettext('Edit your details') ?></a>.
-            <?php } ?>
           </p>
           <?php } ?>
 
@@ -39,13 +30,6 @@
             <span class="label"><?= gettext('Website') ?></span>
             <span class="formw"><?= $website == '' ? 'none' : '<a rel="nofollow" href="' . _htmlentities($website) . '">' . _htmlentities($website) . '</a>' ?></span>
           </div>
-
-          <?php if ($facebook_user) { ?>
-          <div class="row">
-            <span class="label">Facebook login</span>
-            <span class="formw">Yes</span>
-          </div>
-          <?php } ?>
 
           <div class="row">
             <span class="label"><?= gettext('Status') ?></span>

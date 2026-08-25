@@ -50,7 +50,7 @@ class UserPageTest extends FetchPageTestCase {
             'user_id' => 1,
             'firstname' => 'Example',
             'lastname' => 'User',
-            'email' => 'user@example.org',
+            'em' => 'user@example.org',
             'submitted' => 'true',
         ];
         $page = $this->fetch_user_page($vars);

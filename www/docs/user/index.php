@@ -93,10 +93,6 @@ if (
     $data = $user->getUpdateDetails($this_page, $THEUSER);
     $data['ret'] = get_http_var("ret");
 
-    if ($this_page == 'useredit') {
-        $data['facebook_user'] = $THEUSER->facebook_user();
-    }
-
     // Check the input.
     // If there are any errors with the submission, $errors (an array)
     // will have elements. The keys will be the name of form elements,
