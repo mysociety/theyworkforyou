@@ -2639,9 +2639,8 @@ class SPWRANSLIST extends WRANSLIST {
             "select mentioned_gid from mentions where gid = :gid_from_spid and (type = 4 or type = 6)",
             [':gid_from_spid' => 'uk.org.publicwhip/spq/' . $fixed_spid]
         )->first();
-        $gid = $q['mentioned_gid'];
-        if ($gid) {
-            return $gid;
+        if ($q) {
+            return $q['mentioned_gid'];
         }
         return null;
     }

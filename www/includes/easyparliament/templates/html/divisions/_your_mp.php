@@ -9,7 +9,7 @@
     </div>
   <?php } ?>
     <a href="<?= $data['mp_data']['mp_url'] ?>" class="your-mp__content">
-      <?php if (isset($mp_vote)) { ?>
+      <?php if ($mp_vote ?? '') { ?>
         <span class="your-mp__vote your-mp__vote--<?= $mp_vote['vote'] ?>"><?php
           switch ($mp_vote['vote']) {
               case 'aye':
@@ -46,7 +46,7 @@
             </p>
         </div>
     </a>
-      <?php if (isset($mp_vote) && $mp_vote['annotation']) { ?>
+      <?php if (($mp_vote ?? '') && $mp_vote['annotation']) { ?>
       <div class="your-mp__annotation">
         More info: <a href="<?= $mp_vote['annotation'] ?>" title="External link to <?= $mp_vote['annotation'] ?>">Your MP has made a public statement about their decision in this vote</a>.
       </div>
