@@ -23,7 +23,7 @@ foreach ($q as $row) {
     }
 }
 print '<h3>Missing completely (' . count($out['none']) . ')</h3> <ul>';
-print join($out['none'], "\n");
+print join("\n", $out['none']);
 print '</ul>';
 print '<h3>Large and small</h3> <p>';
 print $out['both'];

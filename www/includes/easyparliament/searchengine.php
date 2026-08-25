@@ -609,7 +609,7 @@ class SEARCHENGINE {
         */
 
         foreach ($this->phrases as $phrase) {
-            $phrasematch = join($phrase, '[^' . $this->wordchars . ']+');
+            $phrasematch = join('[^' . $this->wordchars . ']+', $phrase);
             array_push($findwords, "/\b($phrasematch)\b(?!(?>[^<>]*>))/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
         }
@@ -627,7 +627,7 @@ class SEARCHENGINE {
 
         // look for phrases
         foreach ($this->phrases as $phrase) {
-            $phrasematch = join($phrase, '[^' . $this->wordchars . ']+');
+            $phrasematch = join('[^' . $this->wordchars . ']+', $phrase);
             if (preg_match('/([^' . $this->wordchars . ']' . $phrasematch . '[^A-Za-z0-9])/', $lcbody, $matches)) {
                 $wordpos = strpos($lcbody, $matches[0]);
                 if ($wordpos) {
