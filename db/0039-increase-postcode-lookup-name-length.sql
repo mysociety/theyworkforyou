@@ -1,0 +1,2 @@
+ALTER TABLE `postcode_lookup` MODIFY COLUMN `name` VARCHAR(200) NOT NULL;
+

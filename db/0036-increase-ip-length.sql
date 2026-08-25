@@ -1,0 +1,2 @@
+ALTER TABLE `api_stats` MODIFY COLUMN `ip_address` VARCHAR(50) NOT NULL;
+
