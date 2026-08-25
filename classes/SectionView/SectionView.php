@@ -170,8 +170,11 @@ class SectionView {
 
     protected function display_day($date) {
         global $this_page;
+        if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
+            redirect('/');
+        }
         $this_page = $this->page_base . 'day';
-        $args =  [ 'date' => get_http_var('d') ];
+        $args =  [ 'date' => $date ];
         $data = $this->list->display('date', $args, 'none');
         [$year, $month, $day] = explode('-', $date);
         $args = [ 'year' => $year, 'month' => $month, 'day' => $day];

@@ -528,6 +528,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
         } elseif ($this->data['pid']) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
+            if (!$MEMBER->valid) {
+                redirect('/alert/'); # Shouldn't be possible, and yet
+            }
             $this->data['members'] = [[
                 "person_id" => $MEMBER->person_id,
                 "given_name" => $MEMBER->given_name,
@@ -554,7 +557,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
 
         /*
-         * If member_constituncies is set then it implies there wasn't a postcode match and hence we will have
+         * If member_constituencies is set then it implies there wasn't a postcode match and hence we will have
          * a list of members which we can turn into constituencies, otherwise we have a hash of constituency names
          * keyed by mapit type
          */
