@@ -347,16 +347,20 @@ class Divisions {
 
             if ($vote['vote'] == 'aye' or $vote['vote'] == 'tellaye') {
                 $votes['yes_votes'][] = $detail;
-                @$party_breakdown['yes_votes'][$detail['party']]++;
+                $party_breakdown['yes_votes'][$detail['party']] ??= 0;
+                $party_breakdown['yes_votes'][$detail['party']]++;
             } elseif ($vote['vote'] == 'no' or $vote['vote'] == 'tellno') {
                 $votes['no_votes'][] = $detail;
-                @$party_breakdown['no_votes'][$detail['party']]++;
+                $party_breakdown['no_votes'][$detail['party']] ??= 0;
+                $party_breakdown['no_votes'][$detail['party']]++;
             } elseif ($vote['vote'] == 'absent') {
                 $votes['absent_votes'][] = $detail;
-                @$party_breakdown['absent_votes'][$detail['party']]++;
+                $party_breakdown['absent_votes'][$detail['party']] ??= 0;
+                $party_breakdown['absent_votes'][$detail['party']]++;
             } elseif ($vote['vote'] == 'both') {
                 $votes['both_votes'][] = $detail;
-                @$party_breakdown['both_votes'][$detail['party']]++;
+                $party_breakdown['both_votes'][$detail['party']] ??= 0;
+                $party_breakdown['both_votes'][$detail['party']]++;
             }
         }
 

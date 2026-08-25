@@ -124,7 +124,7 @@ class ALERT {
 
     public function update($id, $details) {
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
-        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
+        $ignore_speaker_votes = ($details['ignore_speaker_votes'] ?? 0) ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE alert_id = :id", [
@@ -157,7 +157,7 @@ class ALERT {
         // )
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
-        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
+        $ignore_speaker_votes = ($details['ignore_speaker_votes'] ?? 0) ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE email = :email

@@ -255,7 +255,7 @@ class SectionView {
             // add section level comments
             $comments = new \COMMENTLIST();
             $comment_data = $comments->display('ep', ['epobject_id' => $this->list->epobject_id], 'none');
-            $data['section_comments'] = $comment_data['comments'];
+            $data['section_comments'] = $comment_data['comments'] ?? null;
         }
 
         if (!isset($data['info'])) {

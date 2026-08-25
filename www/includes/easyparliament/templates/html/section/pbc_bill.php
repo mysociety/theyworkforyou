@@ -46,7 +46,7 @@
                                 <?php } ?>
                             </p>
                             <p class="business-list__excerpt">
-                                <?= trim_characters($row['excerpt'], 0, 200) ?>
+                                <?= trim_characters($row['excerpt'] ?? '', 0, 200) ?>
                             </p>
                     <?php } else { ?>
                     <ul>
