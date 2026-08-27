@@ -260,6 +260,7 @@ class COMMENTLIST {
     public function _get_data_by_recent($args) {
         // $args should contain 'num', indicating how many to get.
         // and perhaps pid too, for a particular person
+        global $PAGE;
 
         twfy_debug(get_class($this), "getting data by recent");
 
@@ -283,7 +284,13 @@ class COMMENTLIST {
         $where = [
             'visible=' => '1',
         ];
+        $MEMBER = null;
         if (isset($args['pid']) && is_numeric($args['pid'])) {
+            $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => $args['pid']]);
+            if (!$MEMBER->valid) {
+                $PAGE->error_message("Sorry, not a valid person id");
+                return $data;
+            }
             $where['person_id='] = $args['pid'];
         }
         $input =  [
@@ -301,13 +308,13 @@ class COMMENTLIST {
         $data['results_per_page'] = $num;
         $data['page'] = $page;
         $params = [];
-        if (isset($args['pid']) && is_numeric($args['pid'])) {
-            $data['pid'] = $args['pid'];
-            $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND left_house="9999-12-31" AND m.person_id = :pid';
-            $q = $this->db->query($q, [':pid' => $args['pid']])->first();
+        if ($MEMBER) {
+            $data['pid'] = $MEMBER->person_id();
+            $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND m.person_id = :pid ORDER BY end_date DESC, left_house DESC LIMIT 1';
+            $q = $this->db->query($q, [':pid' => $MEMBER->person_id()])->first();
             $data['full_name'] = member_full_name($q['house'], $q['title'], $q['given_name'], $q['family_name'], $q['lordofname']);
             $q = 'SELECT COUNT(*) AS count FROM comments,hansard WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.person_id = :pid';
-            $params[':pid'] = $args['pid'];
+            $params[':pid'] = $MEMBER->person_id();
         } else {
             $q = 'SELECT COUNT(*) AS count FROM comments WHERE visible=1';
         }
