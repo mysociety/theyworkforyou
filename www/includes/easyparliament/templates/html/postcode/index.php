@@ -150,7 +150,7 @@ include("repexplain.php");
 <h3><?= gettext('Support TheyWorkForYou') ?></h3>
     <p><?= gettext('After the election we\'ll be working to help you understand and hold your representatives to account.') ?></p>
 <p><?= gettext('Can you help us do that by making a small donation?') ?></p> 
-<a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" style="width:100%"><?= gettext('Donate £5 to TheyWorkForYou') ?></a>
+<a href="<?= donate_link(campaign: 'postcode', how_much: 5, source: 'theyworkforyou.com', content: 'postcode donate', medium: 'link') ?>" class="button" style="width:100%"><?= gettext('Donate £5 to TheyWorkForYou') ?></a>
             </div>
         </div>
     </div>
