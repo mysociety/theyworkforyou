@@ -113,13 +113,8 @@ class SeneddView extends SectionView {
         $search_box->search_section = "senedd";
         $search_box->quick_links = [];
         if (count($data["regional"])) {
-            // get all unique constituencies
-            $constituencies = [];
-            foreach ($data["regional"] as $member) {
-                $constituencies[$member["constituency"]] = 1;
-            }
-            $constituencies = array_keys($constituencies);
-            $search_box->add_quick_link(sprintf(gettext('Find out more about your MSs for %s and %s'), $constituencies[0], $constituencies[1]), '/postcode/?pc=' . $data["mp_data"]['postcode'], 'torso');
+            $constituency = $data["regional"][0]["constituency"];
+            $search_box->add_quick_link(sprintf(gettext('Find out more about your MSs for %s'), $constituency), '/postcode/?pc=' . $data["mp_data"]['postcode'], 'torso');
         }
         $search_box->add_quick_link(gettext('Create and manage email alerts'), '/alert/', 'megaphone');
         $search_box->add_quick_link(gettext('Subscribe to our newsletter'), '/about/#about-mysociety', 'mail');
