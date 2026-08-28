@@ -12,6 +12,19 @@
     ol {
         margin-left: 2em; // restore left padding on ordered list items
     }
+
+}
+
+.markdown-content .panel {
+    ul {
+        margin-left: 2em;
+        list-style-type: disc;
+    }
+
+    ol {
+        margin-left: 2em;
+        list-style-type: decimal;
+    }
 }
 
 // Reset 700px limit on legacy pages (which mostly handle their own layout)
