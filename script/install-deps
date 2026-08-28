@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+# Installs PHP, Python, Perl, and Ruby dependencies for TheyWorkForYou.
+
+echo "Installing PHP dependencies..."
+composer install
+
+echo "Installing Python dependencies..."
+poetry install
+
+echo "Installing Perl dependencies..."
+cpanm --installdeps --with-develop .
+
+echo "Installing Ruby dependencies..."
+bundle install

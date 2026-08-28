@@ -55,3 +55,12 @@ jobs:
           .php-cs-fixer.cache
           tools/php-cs-fixer
         key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer74
+
+    - name: Install Perl dependencies
+      run: cpanm --installdeps --with-develop .
+
+    - name: Check Perl syntax
+      run: find . -name '*.pl' -o -name '*.pm' | xargs -I{} perl -c {}
+
+    - name: Run perlcritic
+      run: find . -name '*.pl' -o -name '*.pm' | xargs perlcritic

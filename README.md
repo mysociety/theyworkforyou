@@ -73,9 +73,25 @@ or
 * `cd www/docs/style`
 * `bundle exec compass compile` for a one-off compilation or `bundle exec compass watch` to recompile on changes
 
+## Dependencies
+
+[mise](https://mise.jdx.dev/) is available to assist developers in obtaining matching versions of PHP, Python, Perl, and Ruby. If needed, you can install them with:
+
+```bash
+mise plugin add php
+mise trust
+mise install
+```
+
+Once mise has set up the correct language versions, install the PHP, Python, Perl, and Ruby dependencies by running:
+
+```bash
+script/install-deps
+```
+
 ## Code formatting
 
-`script/lint` will run php-cs-fixer for php files.
+`script/lint` will run linters for PHP (php-cs-fixer), Python (ruff), and Perl (perlcritic). PHP and Python issues are auto-fixed where possible.
 
 ## Testing
 
