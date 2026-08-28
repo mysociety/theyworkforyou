@@ -15,9 +15,8 @@ if (isset($_GET['show_voting_appeal'])) {
 // Uses a distinct cookie name so collapsing the appeal does not affect the standard
 // donation banner shown on other MP pages, and vice-versa.
 $appeal_expanded = !isset($_COOKIE['voting_appeal_collapsed']);
-
 $current_page = isset($pagetype) && $pagetype ? $pagetype : 'votes';
-$utm = 'utm_source=' . urlencode($current_page) . '&utm_campaign=twfy_voting_appeal';
+
 ?>
 
 <?php if ($voting_appeal_active) { ?>
@@ -45,13 +44,13 @@ $utm = 'utm_source=' . urlencode($current_page) . '&utm_campaign=twfy_voting_app
                 </div>
 
                 <div class="donation-banner__actions">
-                    <a href="/support-us/?<?= $utm ?>#donate-form" class="button tertiary">
+                    <a href="<?= donate_link(campaign: 'twfy_voting_appeal', source: $current_page) ?>" class="button tertiary">
                         Support TheyWorkForYou
                     </a>
-                    <a href="/support-us/?how-often=monthly&how-much=5&<?= $utm ?>#donate-form" class="button button--outline">
+                    <a href="<?= donate_link(campaign: 'twfy_voting_appeal', how_much: 5, how_often: 'monthly', source: $current_page) ?>" class="button button--outline">
                         £5/month
                     </a>
-                    <a href="/support-us/?how-often=one-off&how-much=10&<?= $utm ?>#donate-form" class="button button--outline">
+                    <a href="<?= donate_link(campaign: 'twfy_voting_appeal', how_much: 10, source: $current_page) ?>" class="button button--outline">
                         £10 one-off
                     </a>
                 </div>
