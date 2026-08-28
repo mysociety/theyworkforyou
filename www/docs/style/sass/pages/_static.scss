@@ -13,6 +13,12 @@
         margin-left: 2em; // restore left padding on ordered list items
     }
 
+    .beacon-form {
+        // Reserve some space
+        min-height: 20rem;
+        max-width: none;
+    }
+
 }
 
 .markdown-content .panel {

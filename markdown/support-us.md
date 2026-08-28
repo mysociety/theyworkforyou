@@ -1,5 +1,13 @@
 # Support TheyWorkForYou
 
+[Why we need your support](#why-we-need-your-support)
+
+{{ beacon_form }}
+
+***
+
+## Why we need your support
+
 **For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable.**
 
 We need your support to:
@@ -13,6 +21,8 @@ We don't want to wait for a better political system to be given to us – **we w
 By becoming a TheyWorkForYou Supporter, you ensure that this crucial service not only stays up and running, but gives us the freedom to innovate and be bolder.
 
 We can't offer much beyond what we give to everyone for free — but whatever you can give, you can be part of something that makes a real difference.
+
+[Back to the donation form](#support-theyworkforyou)
 
 ***
 
