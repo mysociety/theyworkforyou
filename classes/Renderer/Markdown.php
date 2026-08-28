@@ -47,6 +47,8 @@ class Markdown {
         $html = preg_replace('/<hr \/>/i', '</div><div class="panel">', $html);
 
         foreach ($extra_vars as $key => $value) {
+            // Avoid wrapping injected content in a p tag
+            $html = str_replace('<p>{{ ' . $key . ' }}</p>', $value, $html);
             $html = str_replace('{{ ' . $key . ' }}', $value, $html);
         };
 

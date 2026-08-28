@@ -68,6 +68,10 @@
 
     <script async src="<?= cache_version("js/loading-attribute-polyfill.min.js") ?>"></script>
 
+    <?php if (!empty($beacon_form)): ?>
+    <script defer id="beacon-js-sdk" src="https://static.beaconproducts.co.uk/js-sdk/production/beaconcrm.min.js"></script>
+    <?php endif; ?>
+
   <?php if (!DEVSITE): ?>
 
     <!-- Google tag (gtag.js) -->
