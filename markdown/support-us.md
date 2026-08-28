@@ -1,17 +1,10 @@
-# Support TheyWorkForYou for {{ verbose_amount }}
+# Support TheyWorkForYou
 
-**Or less, or more.**
- 
+**For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable.**
 
-<button type="button" class="default-donate-button button button-primary button-mobile button--large" style="margin-right: 10px" onclick="restrict_to_default('{{ how_much }}', '{{ payment_type }}')">
-        Donate {{ verbose_amount }}
-</button>
+We need your support to:
 
-<input type="button" value="Donate another amount" class="open-form-button button button-primary button-mobile  button--large">
-
-For over 20 years, TheyWorkForYou has been making our democracy more transparent and our politicians more accountable. We need your support to: 
-
-* **Hold Power to Account** — With your help, we highlight what our representatives are doing – so they know the public is watching. By making votes more visible, the register of interests easier to explore, and sending email alerts on issues you care about, we make politicians more accountable. 
+* **Hold Power to Account** — With your help, we highlight what our representatives are doing – so they know the public is watching. By making votes more visible, the register of interests easier to explore, and sending email alerts on issues you care about, we make politicians more accountable.
 * **Keep It Free and Accessible** — TheyWorkForYou has no paywalls because everyone deserves unbiased and high quality information about decisions made on their behalf. Your support keeps it free for all the organisations and community groups who can’t afford costly political monitoring. Together, we strengthen countless good causes.
 * **Innovate and go further** — We’re always looking for new ways we can do more to improve on official data, or work with our volunteers to create new information and analysis. With you behind us, we’ll keep pioneering new ways of improving our democracy.
 
@@ -19,9 +12,7 @@ We don't want to wait for a better political system to be given to us – **we w
 
 By becoming a TheyWorkForYou Supporter, you ensure that this crucial service not only stays up and running, but gives us the freedom to innovate and be bolder.
 
-We can't offer much beyond what we give to everyone for free - but for **{{ verbose_amount }}** (or whatever you like) you can be part of something that makes a real difference. 
-
-{{ donate_box }}
+We can't offer much beyond what we give to everyone for free — but whatever you can give, you can be part of something that makes a real difference.
 
 ***
 

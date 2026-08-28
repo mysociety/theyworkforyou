@@ -21,8 +21,6 @@ sed -r \
     -e 's!^(.*"OPTION_DEMOCRACYCLUB_TOKEN", *)"[^"]*"!'"\\1'$DEMOCRACYCLUB_TOKEN'!" \
     -e 's!^(.*"OPTION_RECAPTCHA_SITE_KEY", *)"[^"]*"!'"\\1'$RECAPTCHA_SITE_KEY'!" \
     -e 's!^(.*"OPTION_RECAPTCHA_SECRET", *)"[^"]*"!'"\\1'$RECAPTCHA_SECRET'!" \
-    -e 's!^(.*"STRIPE_DONATE_PUBLIC_KEY", *)"[^"]*"!'"\\1'$STRIPE_DONATE_PUBLIC_KEY'!" \
-    -e 's!^(.*"STRIPE_DONATE_SECRET_KEY", *)"[^"]*"!'"\\1'$STRIPE_DONATE_SECRET_KEY'!" \
     -e 's!^(.*"BASEDIR", *)"[^"]*"!'"\\1'/twfy/www/docs'!" \
     -e 's!^(.*"DOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
     -e 's!^(.*"COOKIEDOMAIN", *)"[^"]*"!'"\\1'localhost'!" \
