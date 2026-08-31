@@ -390,3 +390,22 @@ input.form-control {
 .visuallyhidden {
     @include visuallyhidden();
 }
+
+@mixin alert-box {
+    background-color: #FFFCD9; // very light yellow
+    border: 1px solid mix(#000, #FFFCD9, 10%); // To increase the contrast with the light body background.
+    border-radius: 3px;
+}
+
+@mixin inline-email-submit-form {
+    input {
+        &[type=email] {
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+        }
+    
+        &[type=submit] {
+            border-radius: 0 3px 3px 0;
+        }
+    }
+}

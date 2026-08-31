@@ -38,10 +38,8 @@
 
 // Inspired by .search-page__section--your-mp
 .debate-speech__division__your-mp {
-  background-color: #FFFCD9; // very light yellow
-  border: 1px solid mix(#000, #FFFCD9, 10%);
+  @include alert-box;
   padding: 0.5em;
-  border-radius: $global-radius;
   margin: 1em 0;
 
   @media (min-width: $medium-screen) {
