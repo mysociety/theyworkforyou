@@ -573,10 +573,69 @@
 			<field name="moffice_id">1</field>
 			<field name="dept">Department of Tests</field>
 			<field name="position">Test Subject</field>
+			<field name="position_cy"></field>
 			<field name="from_date">2014-01-01</field>
 			<field name="to_date">9999-12-31</field>
 			<field name="person">16</field>
 			<field name="source">Source</field>
+			<field name="org_id"></field>
+			<field name="post_type">government</field>
+			<field name="parliament">uk</field>
+			<field name="loader">posts-uk</field>
+		</row>
+		<row>
+			<field name="moffice_id">2</field>
+			<field name="dept">Test Committee</field>
+			<field name="position">Chair</field>
+			<field name="position_cy">Cadeirydd</field>
+			<field name="from_date">2013-01-01</field>
+			<field name="to_date">9999-12-31</field>
+			<field name="person">16</field>
+			<field name="source">Source</field>
+			<field name="org_id">test-committee</field>
+			<field name="post_type">committee</field>
+			<field name="parliament">wales</field>
+			<field name="loader">posts-wales</field>
+		</row>
+		<row>
+			<field name="moffice_id">3</field>
+			<field name="dept">Test Committee</field>
+			<field name="position">Member</field>
+			<field name="position_cy"></field>
+			<field name="from_date">1000-01-01</field>
+			<field name="to_date">9999-12-31</field>
+			<field name="person">17</field>
+			<field name="source">Source</field>
+			<field name="org_id">test-committee</field>
+			<field name="post_type">committee</field>
+			<field name="parliament">wales</field>
+			<field name="loader">posts-wales</field>
+		</row>
+	</table_data>
+	<table_data name="organization">
+		<row>
+			<field name="org_id">test-committee</field>
+			<field name="language">en</field>
+			<field name="parliament">wales</field>
+			<field name="classification">committee</field>
+			<field name="slug">test-committee</field>
+			<field name="name">Test Committee</field>
+			<field name="description">A committee for testing.</field>
+			<field name="url">https://senedd.wales/committee/1</field>
+			<field name="tags"></field>
+			<field name="loader">posts-wales</field>
+		</row>
+		<row>
+			<field name="org_id">test-committee</field>
+			<field name="language">cy</field>
+			<field name="parliament">wales</field>
+			<field name="classification">committee</field>
+			<field name="slug">pwyllgor-prawf</field>
+			<field name="name">Pwyllgor Prawf</field>
+			<field name="description">Pwyllgor ar gyfer profi.</field>
+			<field name="url">https://senedd.cymru/pwyllgor/1</field>
+			<field name="tags"></field>
+			<field name="loader">posts-wales</field>
 		</row>
 	</table_data>
 	<table_data name="pbc_members">

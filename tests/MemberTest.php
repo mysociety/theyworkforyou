@@ -174,6 +174,17 @@ class MemberTest extends TWFY_Database_TestCase {
         // Have we correctly loaded the office?
         $this->assertEquals(1, $MEMBER->extra_info['office'][0]['moffice_id']);
 
+        // One row per office, even though the committee has two organization
+        // rows (English and Welsh).
+        $this->assertCount(2, $MEMBER->extra_info['office']);
+
+        // The committee row picks up its details from the organization join.
+        $committee = $MEMBER->extra_info['office'][1];
+        $this->assertEquals('committee', $committee['post_type']);
+        $this->assertEquals('Test Committee', $committee['org_name']);
+        $this->assertEquals('A committee for testing.', $committee['org_desc']);
+        $this->assertEquals('https://senedd.wales/committee/1', $committee['org_url']);
+
         // Have we correctly loaded the member arbitrary key/value pair?
         $this->assertEquals('Test Member Value', $MEMBER->extra_info['test_member_key']);
 
@@ -364,4 +375,53 @@ class MemberTest extends TWFY_Database_TestCase {
         $this->assertNull($whip_info);
     }
 
+    /**
+     * Test that offices are split by post type rather than by picking apart
+     * the moffice id.
+     */
+    public function testOfficesByPostType() {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => 16]);
+        $MEMBER->load_extra_info();
+
+        $posts = $MEMBER->offices('current', MySociety\TheyWorkForYou\Office::POST_TYPES);
+        $this->assertCount(1, $posts);
+        $this->assertEquals('Test Subject, Department of Tests', (string) $posts[0]);
+        $this->assertFalse($posts[0]->isCommittee());
+
+        $committees = $MEMBER->offices('current', MySociety\TheyWorkForYou\Office::COMMITTEE_TYPES);
+        $this->assertCount(1, $committees);
+        $this->assertEquals('Chair, Test Committee', (string) $committees[0]);
+        $this->assertTrue($committees[0]->isCommittee());
+        $this->assertEquals('A committee for testing.', $committees[0]->desc);
+        $this->assertEquals('https://senedd.wales/committee/1', $committees[0]->external_url);
+
+        // With no filter, both come back.
+        $this->assertCount(2, $MEMBER->offices('current'));
+    }
+
+    /**
+     * Test that a membership with no known start date says so, rather than
+     * claiming to have begun in the year 1000.
+     */
+    public function testOfficeWithoutStartDate() {
+        $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => 17]);
+        $MEMBER->load_extra_info();
+
+        $committees = $MEMBER->offices('current', MySociety\TheyWorkForYou\Office::COMMITTEE_TYPES);
+        $this->assertCount(1, $committees);
+        $this->assertEquals('current member', $committees[0]->pretty_dates());
+    }
+
+    /**
+     * Test that public bill committees can be told apart by their category, so
+     * they can be left to the section that knows about the bill.
+     */
+    public function testPublicBillCommitteeDetection() {
+        $office = new MySociety\TheyWorkForYou\Office();
+        $office->tags = 'General,(HC) Public bill committee';
+        $this->assertTrue($office->isPublicBillCommittee());
+
+        $office->tags = 'Select,(HC) Public Standing Orders - Departmental';
+        $this->assertFalse($office->isPublicBillCommittee());
+    }
 }

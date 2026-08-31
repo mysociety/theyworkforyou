@@ -23,18 +23,18 @@ $display_wtt_stats_banner = '2015';
                 <div class="panel">
                     <a name="interests"></a>
                     <h2 id="posts"><?=gettext('Committees') ?></h2>
-                    <p>
-                    In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates.</p>
-                    <p>Some committees focus on checking the government’s decisions and spending, while others investigate specific topics and proposed legislation.</p>
+                    <?php foreach ($memberships['committee_intro'] as $paragraph): ?>
+                    <p><?= $paragraph ?></p>
+                    <?php endforeach; ?>
                     <?php if (array_key_exists('posts', $memberships)): ?>
-                    <p><?= $full_name ?> is currently a member of the following committees:</p>
+                    <p><?= sprintf(gettext('%s is currently a member of the following committees:'), $full_name) ?></p>
                     <?php foreach ($memberships['posts'] as $office): ?>
                     <h4><?= $office ?></h4>
                     <div class="committee-more-info">
                     <?= $office->htmlDesc() ?>
 
                     <?php if (!empty($office->external_url)): ?>
-                        <p><a href="<?= $office->external_url ?>">Learn more about this committee</a></p>
+                        <p><a href="<?= $office->external_url ?>"><?=gettext('Learn more about this committee') ?></a></p>
                     <?php endif; ?>
                     </div>
                     <hr/>
@@ -47,28 +47,37 @@ $display_wtt_stats_banner = '2015';
                     <a ></a>
                     <h3 id="previous_posts"><?=gettext('Committee memberships held in the past') ?></h3>
 
-                    <ul class='list-dates'>
+                    <?php foreach ($memberships['previous_posts'] as $office): ?>
+                    <h4><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></h4>
+                    <div class="committee-more-info">
+                    <?= $office->htmlDesc() ?>
 
-                        <?php foreach ($memberships['previous_posts'] as $office): ?>
-                        <li><?= $office ?> <small>(<?= $office->pretty_dates() ?>)</small></li>
-                        <?php endforeach; ?>
-
-                    </ul>
+                    <?php if (!empty($office->external_url)): ?>
+                        <p><a href="<?= $office->external_url ?>"><?=gettext('Learn more about this committee') ?></a></p>
+                    <?php endif; ?>
+                    </div>
+                    <hr/>
+                    <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
 
                     <?php if (array_key_exists('appg_membership', $memberships)): ?>
                         <div class="panel">
-                        <h2><?=gettext('All-Party Parliamentary Groups (APPGs)') ?></h2>
-                        <p>All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject.</p>
-                        <p>They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies.</p>
+                        <h2><?= $memberships['groups_name'] ?></h2>
+                        <?php if ($memberships['house'] == HOUSE_TYPE_SCOTLAND || $memberships['house'] == HOUSE_TYPE_WALES): ?>
+                        <p><?=gettext('Cross-Party Groups are informal groups made up of members from more than one party who share an interest in a particular country or subject.') ?></p>
+                        <p><?=gettext('They are not committees of the parliament and have no formal powers, but they are registered and may receive support from outside organisations.') ?></p>
+                        <?php else: ?>
+                        <p><?=gettext('All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject.') ?></p>
+                        <p><?=gettext('They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies.') ?></p>
                         <p>We source information on APPG memberships from lists on APPG websites or asking APPGs for unpublished lists. Please <a href="https://survey.alchemer.com/s3/8446196/TheyWorkForYou-APPG-data">report any incorrect or outdated information</a>.</p>
+                        <?php endif; ?>
                         <?php
                         $appg_roles = [
                             'is_officer_of' => sprintf(gettext('%s is an officer of the following groups'), $full_name),
                             'is_ordinary_member_of' => sprintf(gettext('%s is a member of the following groups'), $full_name),
                         ];
-                        ?>
+?>
 
                         <?php foreach ($appg_roles as $role_key => $role_title): ?>
 
@@ -89,11 +98,11 @@ $display_wtt_stats_banner = '2015';
                                                         <?php if (!empty($membership->membership_source_url)) { ?>
                                                             <a href="<?= $membership->membership_source_url ?>">Source</a>
                                                         <?php } else { ?>
-                                                            E-mail correspondence with APPG
+                                                            E-mail correspondence with the group
                                                         <?php } ?>
                                                     </li>
-                                                    <li><span class="appg-property-label">APPG Website:</span> <?php if ($membership->appg->website): ?><a href="<?= $membership->appg->website ?>"><?= $membership->appg->website ?></a><?php else: ?>N/A<?php endif; ?></li>
-                                                    <li><span class="appg-property-label">APPG register:</span> <a href="<?= $membership->appg->source_url ?>">Parliament website</a></li>
+                                                    <li><span class="appg-property-label">Website:</span> <?php if ($membership->appg->website): ?><a href="<?= $membership->appg->website ?>"><?= $membership->appg->website ?></a><?php else: ?>N/A<?php endif; ?></li>
+                                                    <li><span class="appg-property-label">Register:</span> <a href="<?= $membership->appg->source_url ?>">Parliament website</a></li>
                                                 </ul>
                                             </div>
                                         </details>

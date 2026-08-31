@@ -30,6 +30,7 @@
 
 // Disable the old PAGE class.
 
+use MySociety\TheyWorkForYou\Office;
 use MySociety\TheyWorkForYou\PolicyDistributionCollection;
 use MySociety\TheyWorkForYou\PolicyComparisonPeriod;
 
@@ -288,7 +289,7 @@ if ($MEMBER->house(HOUSE_TYPE_WALES)) {
 }
 
 $known_for = '';
-$current_offices_ignoring_committees = $MEMBER->offices('current', true);
+$current_offices_ignoring_committees = $MEMBER->offices('current', Office::POST_TYPES);
 if (count($current_offices_ignoring_committees) > 0) {
     $known_for = $current_offices_ignoring_committees[0];
 }
@@ -354,8 +355,8 @@ $data['rebellion_rate'] = person_rebellion_rate($MEMBER);
 $data['recent_appearances'] = person_recent_appearances($MEMBER);
 $data['useful_links'] = person_useful_links($MEMBER);
 $data['social_links'] = person_social_links($MEMBER);
-$data['current_offices'] = $MEMBER->offices('current', true);
-$data['previous_offices'] = $MEMBER->offices('previous', true);
+$data['current_offices'] = $MEMBER->offices('current', Office::POST_TYPES);
+$data['previous_offices'] = $MEMBER->offices('previous', Office::POST_TYPES);
 $data['register_interests'] = person_register_interests($MEMBER, $MEMBER->extra_info);
 $data['register_2024_enriched'] = person_register_interests_from_key('person_regmem_enriched2024_en', $MEMBER->extra_info);
 $data['standing_down_2024'] = $MEMBER->extra_info['standing_down_2024'] ?? '';
@@ -1047,6 +1048,15 @@ function person_topics($member) {
     return $out;
 }
 
+function person_committees($member, $include_only) {
+    // Public bill committees have their own section, built from the pbc data,
+    // which also knows which bill was being scrutinised.
+    return array_values(array_filter(
+        $member->offices($include_only, Office::COMMITTEE_TYPES),
+        fn($office) => !$office->isPublicBillCommittee()
+    ));
+}
+
 function person_appg_memberships($member) {
     $out = [];
 
@@ -1080,29 +1090,24 @@ function person_statements($member) {
 }
 
 function memberships($member) {
-    $out = [];
-
-    $committee_lookup = MySociety\TheyWorkForYou\DataClass\Groups\MiniGroupList::uk_committees();
+    $house = $member->house_disp;
+    $out = [
+        'house' => $house,
+        'committee_intro' => MySociety\TheyWorkForYou\Utility\House::committeeIntro($house),
+        'groups_name' => MySociety\TheyWorkForYou\Utility\House::groupsName($house),
+    ];
 
     $topics = person_topics($member);
     if ($topics) {
         $out['topics'] = $topics;
     }
 
-    $posts = $member->offices('current', false, true);
+    $posts = person_committees($member, 'current');
     if ($posts) {
-        // for each post we want to add the description and external_url from the committee lookup if possible
-        foreach ($posts as $post) {
-            $committee = $committee_lookup->findByName($post->dept);
-            if ($committee) {
-                $post->desc = $committee->description;
-                $post->external_url = $committee->external_url;
-            }
-        }
         $out['posts'] = $posts;
     }
 
-    $posts = $member->offices('previous', false, true);
+    $posts = person_committees($member, 'previous');
     if ($posts) {
         $out['previous_posts'] = $posts;
     }

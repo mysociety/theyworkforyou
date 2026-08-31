@@ -2,12 +2,12 @@
 
 # For looking up a postcode and redirecting or displaying appropriately
 
+use MySociety\TheyWorkForYou\Office;
+
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $data = [];
-$errors = [];
-
 
 $valid_scotland_single_member_mapit_codes = ['SPC', 'SPCF'];
 $valid_scotland_multi_member_mapit_codes = ['SPE', 'SPEF'];
@@ -18,13 +18,16 @@ $valid_wmc_mapit_codes = ['WMC'];
 $valid_scotland_mapit_codes = array_merge($valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes);
 $valid_mapit_area_types = array_merge($valid_wmc_mapit_codes, $valid_scotland_mapit_codes, $valid_wales_mapit_codes, $valid_ni_mapit_codes);
 
-// handling to switch the GE message based either on time or a query string
+// Local authority area types from MapIt (for councillor section)
+// Two-tier: CTY (county) + DIS (district). Single-tier: UTA, MTD, LBO, LGD, COI.
+$valid_local_authority_types = ['CTY', 'DIS', 'UTA', 'MTD', 'LBO', 'LGD', 'COI'];
 
 $pc = get_http_var('pc');
 if (!$pc) {
     postcode_error('Please supply a postcode!');
 }
 $data['pc'] = $pc;
+$data['expand'] = get_http_var('expand') === '1';
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
@@ -93,23 +96,42 @@ if ($senedd_dissolved && (isset($constituencies['WACF'])) && isset($dc_data->dat
 
 if (has_any_area_type($constituencies, $valid_scotland_mapit_codes)) {
     $data['multi'] = "scotland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
+    $data['devolved_anchor'] = 'scotland';
+    $rep_data = pick_multiple($pc, $constituencies, HOUSE_TYPE_SCOTLAND);
 } elseif (has_any_area_type($constituencies, $valid_wales_mapit_codes)) {
     $data['multi'] = "wales";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'WAC', HOUSE_TYPE_WALES);
+    $data['devolved_anchor'] = 'senedd';
+    $rep_data = pick_multiple($pc, $constituencies, HOUSE_TYPE_WALES);
 } elseif (has_any_area_type($constituencies, $valid_ni_mapit_codes)) {
     $data['multi'] = "northern-ireland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
+    $data['devolved_anchor'] = 'ni';
+    $rep_data = pick_multiple($pc, $constituencies, HOUSE_TYPE_NI);
 } else {
-    $data['multi'] = "uk";
     $MEMBER = fetch_mp($pc, $constituencies, 1);
-    member_redirect($MEMBER);
+    if ($MEMBER->valid) {
+        member_redirect($MEMBER);
+    }
+    postcode_error(gettext('Your MP is currently unknown.'));
 }
 
-$data['constituencies'] = $constituencies;
+$data['mp_data'] = fetch_mp_data($pc, $constituencies);
+$data['members'] = $rep_data['members'];
+$data['current'] = $rep_data['current'];
+$data['member_names'] = $rep_data['member_names'];
+$CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
+if ($THEUSER->isloggedin()) {
+    $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
+}
+$data['change_url'] = $CHANGEURL->generate();
+$data['sections'] = build_postcode_sections(
+    $pc,
+    $data['mp_data'],
+    $rep_data,
+    $data['multi'],
+    $data['devolved_anchor'],
+    $constituencies
+);
+
 MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
 
 # ---
@@ -125,14 +147,50 @@ function postcode_error($error) {
     exit;
 }
 
-function fetch_mp($pc, $constituencies, $house = null) {
+function buildRepData(MySociety\TheyWorkForYou\Member $member, int $house, bool $former = false): array {
+    [$image, ] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($member->person_id(), false, true);
+
+    $member->load_extra_info();
+
+    $committees = [];
+    foreach ($member->offices('current', Office::COMMITTEE_TYPES) as $office) {
+        $committees[] = $office->title;
+    }
+
+    $appgs = [];
+    $extra_info = $member->extra_info();
+    if (isset($extra_info['appg_membership'])) {
+        $appg_data = MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembershipAssignment::fromJson($extra_info['appg_membership']);
+        foreach ($appg_data->is_officer_of as $membership) {
+            $appgs[] = ['title' => $membership->appg->shortTitle(), 'role' => $membership->role];
+        }
+        foreach ($appg_data->is_ordinary_member_of as $membership) {
+            $appgs[] = ['title' => $membership->appg->shortTitle(), 'role' => 'Member'];
+        }
+    }
+
+    return [
+        'name' => $member->full_name(),
+        'party' => $member->party(),
+        'constituency' => $member->constituency(),
+        'mp_url' => $member->url(),
+        'person_id' => $member->person_id(),
+        'image' => $image,
+        'former' => $former,
+        'committees' => $committees,
+        'appgs' => $appgs,
+        'appgs_label' => MySociety\TheyWorkForYou\Utility\House::groupsName($house),
+    ];
+}
+
+function fetch_mp(string $pc, array $constituencies, ?int $house = null): MySociety\TheyWorkForYou\Member {
     global $THEUSER;
     $args = ['constituency' => $constituencies['WMC']];
     if ($house) {
         $args['house'] = $house;
     }
     try {
-        $MEMBER = new MEMBER($args);
+        $MEMBER = new MySociety\TheyWorkForYou\Member($args);
     } catch (MySociety\TheyWorkForYou\MemberException $e) {
         postcode_error($e->getMessage());
     }
@@ -142,14 +200,172 @@ function fetch_mp($pc, $constituencies, $house = null) {
     return $MEMBER;
 }
 
+function fetch_mp_data(string $pc, array $constituencies): ?array {
+    $MEMBER = fetch_mp($pc, $constituencies);
+    if (!$MEMBER->valid) {
+        return null;
+    }
+
+    $former = isset($MEMBER->left_house[HOUSE_TYPE_COMMONS])
+        && $MEMBER->left_house[HOUSE_TYPE_COMMONS]['date'] !== '9999-12-31';
+
+    $mp_data = buildRepData($MEMBER, HOUSE_TYPE_COMMONS, $former);
+
+    $db = new ParlDB();
+    $q = $db->query(
+        "SELECT data_value FROM personinfo WHERE person_id = :person_id AND data_key = 'standing_down_2024'",
+        [':person_id' => $MEMBER->person_id()]
+    );
+    $mp_data['standing_down_2024'] = $q['data_value'] ?? 0;
+
+    return $mp_data;
+}
+
+function build_postcode_sections(
+    string $pc,
+    ?array $mp_data,
+    array $rep_data,
+    string $multi,
+    string $devolved_anchor,
+    array $constituencies
+): array {
+    return [
+        build_mp_section($mp_data),
+        build_devolved_section($rep_data, $multi, $devolved_anchor),
+        build_council_section($pc, $constituencies),
+    ];
+}
+
+function build_council_section(string $pc, array $constituencies): array {
+    return [
+        'id' => 'council',
+        'title' => gettext('Your local councillors'),
+        'writetothem_url' => 'https://www.writetothem.com/who?pc=' . urlencode($pc),
+        'council_names' => local_authority_names($constituencies),
+    ];
+}
+
 /**
- * Check whether any of the given area types exist in the areas array.
- *
- * @param array $areas
- * @param array $area_types
- * @return bool
+ * Extract local authority names from MapIt areas.
+ * Handles two-tier (county + district) and single-tier (unitary, metropolitan,
+ * London borough, NI district) councils.
  */
-function has_any_area_type($areas, $area_types) {
+function local_authority_names(array $areas): array {
+    // Two-tier: both county and district
+    if (isset($areas['CTY']) && isset($areas['DIS'])) {
+        return [$areas['DIS'], $areas['CTY']];
+    }
+
+    // Single-tier authorities
+    foreach (['UTA', 'MTD', 'LBO', 'LGD', 'COI'] as $type) {
+        if (isset($areas[$type])) {
+            return [$areas[$type]];
+        }
+    }
+
+    return [];
+}
+
+function build_mp_section(?array $mp_data): array {
+    return [
+        'id' => 'uk',
+        'title' => $mp_data && $mp_data['former']
+            ? gettext('Your former MP')
+            : gettext('Your MP'),
+        'description' => gettext('Your MP represents you in the House of Commons. The House of Commons is responsible for making laws in the UK and for overall scrutiny of all aspects of government.'),
+        'groups' => $mp_data ? [['members' => [$mp_data]]] : [],
+        'empty_message' => $mp_data ? null : gettext('Your MP is currently unknown.'),
+        'footer' => $mp_data && $mp_data['standing_down_2024']
+            ? gettext('They are standing down at the general election.')
+            : null,
+    ];
+}
+
+function build_devolved_section(array $rep_data, string $multi, string $devolved_anchor): array {
+    $title = $rep_data['current']
+        ? sprintf(gettext('Your %s'), $rep_data['member_names']['plural'])
+        : sprintf(gettext('Your former %s'), $rep_data['member_names']['plural']);
+
+    return [
+        'id' => $devolved_anchor,
+        'title' => $title,
+        'description' => devolved_description($multi),
+        'groups' => devolved_groups($multi, $rep_data['members']),
+    ];
+}
+
+function devolved_description(string $multi): string {
+    if ($multi === 'scotland') {
+        return gettext('Your MSPs represent you in the Scottish Parliament. The Scottish Parliament is responsible for a wide range of devolved matters in which it sets policy independently of the London Parliament. Devolved matters include education, health, agriculture, justice and prisons. It also has some tax-raising powers.');
+    }
+
+    if ($multi === 'northern-ireland') {
+        return gettext('Your MLAs represent you in the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over "transferred matters", which include agriculture, education, employment, the environment and health.');
+    }
+
+    return gettext('Your MSs represent you in the Senedd. The Senedd has a wide range of powers over areas including economic development, transport, finance, local government, health, housing and the Welsh Language.');
+}
+
+function devolved_groups(string $multi, array $members): array {
+    if ($multi !== 'scotland') {
+        return [[
+            'title' => null,
+            'members' => shuffle_grouped_by_party($members),
+        ]];
+    }
+
+    $constituency = array_values(array_filter($members, function ($member) {
+        return $member['type'] === 'constituency';
+    }));
+    $regional = array_values(array_filter($members, function ($member) {
+        return $member['type'] === 'regional';
+    }));
+
+    return [
+        [
+            'title' => gettext('Constituency MSP'),
+            'members' => $constituency,
+        ],
+        [
+            'title' => gettext('Regional MSPs'),
+            'members' => shuffle_grouped_by_party($regional),
+        ],
+    ];
+}
+
+/**
+ * Randomise representative order while keeping members of the same party
+ * together. Parties appear in a random order, but all members within each
+ * party are grouped consecutively (sorted alphabetically by name).
+ */
+function shuffle_grouped_by_party(array $members): array {
+    // Group members by party
+    $by_party = [];
+    foreach ($members as $member) {
+        $by_party[$member['party']][] = $member;
+    }
+
+    // Sort members within each party by name
+    foreach ($by_party as &$group) {
+        usort($group, fn($a, $b) => strcmp($a['name'], $b['name']));
+    }
+    unset($group);
+
+    // Shuffle the party order
+    $parties = array_keys($by_party);
+    shuffle($parties);
+
+    // Flatten back into a single list
+    $result = [];
+    foreach ($parties as $party) {
+        foreach ($by_party[$party] as $member) {
+            $result[] = $member;
+        }
+    }
+    return $result;
+}
+
+function has_any_area_type(array $areas, array $area_types): bool {
     foreach ($area_types as $area_type) {
         if (isset($areas[$area_type])) {
             return true;
@@ -158,14 +374,7 @@ function has_any_area_type($areas, $area_types) {
     return false;
 }
 
-/**
- * Return areas for matching area types
- *
- * @param array $areas
- * @param array $area_types
- * @return array
- */
-function get_area_names_by_type($areas, $area_types) {
+function get_area_names_by_type(array $areas, array $area_types): array {
     $values = [];
     foreach ($area_types as $area_type) {
         if (isset($areas[$area_type])) {
@@ -175,8 +384,7 @@ function get_area_names_by_type($areas, $area_types) {
     return $values;
 }
 
-function pick_multiple($pc, $areas, $area_type, $house) {
-    global $PAGE, $data;
+function pick_multiple(string $pc, array $areas, int $house): array {
     global $valid_ni_mapit_codes;
     global $valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes;
     global $valid_wales_mapit_codes;
@@ -187,42 +395,20 @@ function pick_multiple($pc, $areas, $area_type, $house) {
     $multi_member_areas = [];
     $member_area_names = [];
     if ($house == HOUSE_TYPE_SCOTLAND) {
-        $urlp = 'msp';
         $single_member_areas = get_area_names_by_type($areas, $valid_scotland_single_member_mapit_codes);
         $multi_member_areas = get_area_names_by_type($areas, $valid_scotland_multi_member_mapit_codes);
         $member_area_names = array_merge($single_member_areas, $multi_member_areas);
     } elseif ($house == HOUSE_TYPE_WALES) {
-        $urlp = 'ms';
         $member_area_names = get_area_names_by_type($areas, $valid_wales_mapit_codes);
     } elseif ($house == HOUSE_TYPE_NI) {
-        $urlp = 'mla';
         $member_area_names = get_area_names_by_type($areas, $valid_ni_mapit_codes);
-    }
-    $urlpl = $urlp . 's';
-    $urlp = "/$urlp/?p=";
-
-    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, left_house
-        FROM member, person_names pn
-        WHERE constituency = :constituency
-            AND member.person_id = pn.person_id AND pn.type = 'name'
-            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-        AND house = 1 ORDER BY left_house DESC LIMIT 1", [
-        ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC']),
-    ])->first();
-    $mp = [];
-    if ($q) {
-        $mp = $q;
-        $mp['former'] = ($mp['left_house'] != '9999-12-31');
-        $q = $db->query("SELECT * FROM personinfo where person_id=:person_id AND data_key='standing_down_2024'", [':person_id' => $mp['person_id']]);
-        $mp['standing_down_2024'] = $q['data_value'] ?? 0;
-        $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
     }
 
     $params = [];
     foreach ($member_area_names as $i => $name) {
         $params[":area$i"] = $name;
     }
-    $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
+    $query_base = "SELECT member.person_id, constituency, house
         FROM member, person_names pn
         WHERE constituency IN (" . join(',', array_keys($params)) . ")
             AND member.person_id = pn.person_id AND pn.type = 'name'
@@ -238,43 +424,48 @@ function pick_multiple($pc, $areas, $area_type, $house) {
         );
     }
 
-    // in this file we talk about single_member multiple member constituencies
-    // externally this becomes mcon for single, mreg for multiple.
-    $mcon = [];
-    $mreg = [];
+    $members = [];
     foreach ($q as $row) {
         $cons = $row['constituency'];
-        if ($house == HOUSE_TYPE_NI) {
-            $mreg[] = $row;
-        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            if (in_array($cons, $single_member_areas, true)) {
-                $mcon = $row;
-            } elseif (in_array($cons, $multi_member_areas, true)) {
-                $mreg[] = $row;
-            }
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            $mreg[] = $row;
-        } else {
-            $PAGE->error_message('Odd result returned, please let us know!');
-            return;
+        try {
+            $member = new MySociety\TheyWorkForYou\Member(['person_id' => $row['person_id']]);
+        } catch (MySociety\TheyWorkForYou\MemberException $e) {
+            continue;
         }
-    }
-    $data['mcon'] = $mcon;
-    $data['mreg'] = $mreg;
-    $data['house'] = $house;
-    $data['urlp'] = $urlp;
-    $data['current'] = $current;
-    $data['areas'] = $areas;
-    $data['area_type'] = $area_type;
-    $data['member_names'] = $member_names;
-    $data['mp'] = $mp;
+        if (!$member->valid) {
+            continue;
+        }
+        $rep = buildRepData($member, $house, !$current);
 
-    $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
-    $data['REGURL'] = new \MySociety\TheyWorkForYou\Url($urlpl);
-    $data['browse_text'] = sprintf(gettext('Browse all %s'), $member_names['plural']);
+        if ($house == HOUSE_TYPE_SCOTLAND && in_array($cons, $single_member_areas, true)) {
+            $rep['type'] = 'constituency';
+        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
+            $rep['type'] = 'regional';
+        } else {
+            $rep['type'] = 'regional';
+        }
+        $members[] = $rep;
+    }
+
+    // Sort: constituency members first, then regional
+    usort($members, function ($a, $b) {
+        if ($a['type'] === 'constituency' && $b['type'] !== 'constituency') {
+            return -1;
+        }
+        if ($a['type'] !== 'constituency' && $b['type'] === 'constituency') {
+            return 1;
+        }
+        return strcmp($a['name'], $b['name']);
+    });
+
+    return [
+        'members' => $members,
+        'current' => $current,
+        'member_names' => $member_names,
+    ];
 }
 
-function member_redirect(&$MEMBER) {
+function member_redirect(MySociety\TheyWorkForYou\Member &$MEMBER): void {
     if ($MEMBER->valid) {
         $url = $MEMBER->url();
         header("Location: $url");
@@ -314,7 +505,7 @@ function mapit_address($address, $pc) {
 }
 
 function mapit_lookup($type, $filename) {
-    global $valid_mapit_area_types;
+    global $valid_mapit_area_types, $valid_local_authority_types;
     $headers = [];
     if (defined('OPTION_MAPIT_API_KEY') && OPTION_MAPIT_API_KEY) {
         $headers[] = 'X-Api-Key: ' . OPTION_MAPIT_API_KEY;
@@ -332,6 +523,9 @@ function mapit_lookup($type, $filename) {
     $areas = [];
     foreach ($input as $row) {
         if (in_array($row->type, $valid_mapit_area_types, true)) {
+            $areas[$row->type] = $row->name;
+        }
+        if (in_array($row->type, $valid_local_authority_types, true)) {
             $areas[$row->type] = $row->name;
         }
     }
