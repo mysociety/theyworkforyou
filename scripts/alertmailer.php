@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Name: alertmailer.php
  * Description: Mailer for email alerts
@@ -499,7 +500,7 @@ function sort_by_stuff($a, $b) {
     }
 
     # Lastly by speech position within a debate.
-    if ($a['hpos'] == $b['hpos']) {
+    if (($a['hpos'] ?? '') == ($b['hpos'] ?? '')) {
         return 0;
     }
     return ($a['hpos'] > $b['hpos']) ? 1 : -1;

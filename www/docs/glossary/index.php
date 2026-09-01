@@ -12,6 +12,10 @@ $class_path = 'MySociety\\TheyWorkForYou\\GlossaryView\\' . $class;
 $view = new $class_path();
 $data = $view->display();
 
+if ($class == 'TermView' && !$data) {
+    redirect('/glossary/');
+}
+
 $this_page = $data['this_page'];
 $DATA->set_page_metadata($this_page, 'title', $data['page_title']);
 $data['PAGE'] = $PAGE;

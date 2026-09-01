@@ -9,7 +9,7 @@ include_once INCLUDESPATH . 'easyparliament/member.php';
 $rsspath = BASEDIR . '/rss/mp/';
 
 // Make things group writable.
-umask(002);
+umask(0o02);
 
 $HANSARDLIST = new HANSARDLIST();
 $db = $HANSARDLIST->db;

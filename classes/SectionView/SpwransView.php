@@ -76,7 +76,7 @@ class SpwransView extends WransView {
     }
 
     protected function get_question_mentions_html($row_data) {
-        if(count($row_data) == 0) {
+        if (count($row_data) == 0) {
             return '';
         }
         $result = '';
@@ -85,7 +85,7 @@ class SpwransView extends WransView {
         // Keep the references until after the history that's in a timeline:
         $references = [];
         foreach ($row_data as $row) {
-            if(! $row["date"]) {
+            if (! $row["date"]) {
                 // If this mention isn't associated with a date, the difference won't be interesting.
                 $last_date = null;
             }
@@ -95,7 +95,7 @@ class SpwransView extends WransView {
                 $daysdiff = (int) ((strtotime($row["date"]) - strtotime($last_date)) / 86400);
                 $daysstring = ($daysdiff == 1) ? "day" : "days";
                 $further = "";
-                if($first_difference_output) {
+                if ($first_difference_output) {
                     $first_difference_output = false;
                 } else {
                     $further = " a further";
@@ -120,7 +120,7 @@ class SpwransView extends WransView {
                     $inner = "Mentioned in <a class=\"debate-speech__meta__link\" href=\"$url\">tabled written questions on $date</a>";
                     break;
                 case 4:
-                    if(preg_match('/^uk.org.publicwhip\/spq\/(.*)$/', $row['gid'], $m)) {
+                    if (preg_match('/^uk.org.publicwhip\/spq\/(.*)$/', $row['gid'], $m)) {
                         $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                         $URL->insert(['spid' => $m[1]]);
                         $relative_url = $URL->generate("none");
@@ -131,7 +131,7 @@ class SpwransView extends WransView {
                     $inner = "Given a holding answer on $date";
                     break;
                 case 6:
-                    if(preg_match('/^uk.org.publicwhip\/spor\/(.*)$/', $row['mentioned_gid'], $m)) {
+                    if (preg_match('/^uk.org.publicwhip\/spor\/(.*)$/', $row['mentioned_gid'], $m)) {
                         $URL = new \MySociety\TheyWorkForYou\Url("spdebates");
                         $URL->insert(['id' => $m[1]]);
                         $relative_url = $URL->generate("none");
@@ -139,7 +139,7 @@ class SpwransView extends WransView {
                     }
                     break;
                 case 7:
-                    if(preg_match('/^uk.org.publicwhip\/spq\/(.*)$/', $row['mentioned_gid'], $m)) {
+                    if (preg_match('/^uk.org.publicwhip\/spq\/(.*)$/', $row['mentioned_gid'], $m)) {
                         $referencing_spid = $m[1];
                         $URL = new \MySociety\TheyWorkForYou\Url("spwrans");
                         $URL->insert(['spid' => $referencing_spid]);
@@ -149,7 +149,7 @@ class SpwransView extends WransView {
                     }
                     break;
             }
-            if($reference) {
+            if ($reference) {
                 $references[] = "\n<li>$inner.";
             } else {
                 $result .= "\n<li class=\"link-to-hansard\">$description$inner</span>";

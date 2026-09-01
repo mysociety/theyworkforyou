@@ -1,4 +1,5 @@
 <?php
+
 /*
  * SimpleTest tests for the functions in utility.php
  * $Id: utility_test.php,v 1.3 2009-06-25 12:23:58 louise Exp $

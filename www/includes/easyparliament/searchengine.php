@@ -68,7 +68,7 @@ class SEARCHENGINE {
             $this->queryparser->set_stemmer($this->stemmer);
             $this->queryparser->set_stemming_strategy(XapianQueryParser::STEM_SOME);
             $this->queryparser->set_database($xapiandb);
-            $this->queryparser->set_default_op(Query_OP_AND);
+            $this->queryparser->set_default_op(XapianQuery::OP_AND);
             $this->queryparser->add_boolean_prefix('speaker', 'S');
             $this->queryparser->add_boolean_prefix('major', 'M');
             $this->queryparser->add_boolean_prefix('date', 'D');
@@ -100,13 +100,13 @@ class SEARCHENGINE {
         $this->prefixed = [];
 
         // Split words up into individual words, and quoted phrases
-        preg_match_all('/(' .
-            '"|' . # match either a quote, or...
-            '(?:(?<![' . $this->wordchars . '])-)?' . # optionally a - (exclude)
+        preg_match_all('/('
+            . '"|' # match either a quote, or...
+            . '(?:(?<![' . $this->wordchars . '])-)?' # optionally a - (exclude)
             # if at start of word (i.e. not preceded by a word character, in
             # which case it is probably a hyphenated-word)
-            '[' . $this->wordchars . ']+' . # followed by a string of word-characters
-            ')/', $this->query, $all_words);
+            . '[' . $this->wordchars . ']+' # followed by a string of word-characters
+            . ')/', $this->query, $all_words);
         if ($all_words) {
             $all_words = $all_words[0];
         } else {
@@ -222,8 +222,8 @@ class SEARCHENGINE {
         twfy_debug("SEARCH", "prefixed: " . var_export($this->prefixed, true));
 
         twfy_debug("SEARCH", "query -- " . $this->query);
-        $flags = XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_LOVEHATE |
-            XapianQueryParser::FLAG_WILDCARD | XapianQueryParser::FLAG_SPELLING_CORRECTION;
+        $flags = XapianQueryParser::FLAG_BOOLEAN | XapianQueryParser::FLAG_LOVEHATE
+            | XapianQueryParser::FLAG_WILDCARD | XapianQueryParser::FLAG_SPELLING_CORRECTION;
         $flags = $flags | XapianQueryParser::FLAG_PHRASE;
 
         # Without Welsh handling first, for spelling correction
@@ -609,7 +609,7 @@ class SEARCHENGINE {
         */
 
         foreach ($this->phrases as $phrase) {
-            $phrasematch = join($phrase, '[^' . $this->wordchars . ']+');
+            $phrasematch = join('[^' . $this->wordchars . ']+', $phrase);
             array_push($findwords, "/\b($phrasematch)\b(?!(?>[^<>]*>))/i");
             $replacewords[] = "<span class=\"hi\">\\1</span>";
         }
@@ -627,7 +627,7 @@ class SEARCHENGINE {
 
         // look for phrases
         foreach ($this->phrases as $phrase) {
-            $phrasematch = join($phrase, '[^' . $this->wordchars . ']+');
+            $phrasematch = join('[^' . $this->wordchars . ']+', $phrase);
             if (preg_match('/([^' . $this->wordchars . ']' . $phrasematch . '[^A-Za-z0-9])/', $lcbody, $matches)) {
                 $wordpos = strpos($lcbody, $matches[0]);
                 if ($wordpos) {

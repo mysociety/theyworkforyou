@@ -27,8 +27,8 @@ class Register extends BaseModel {
         return $dir;
     }
 
-    private function checkChamberSlug($chamber) {
-        if ($chamber && preg_match('[^a-z0-9\-\.]', $chamber)) {
+    private static function checkChamberSlug($chamber) {
+        if (!$chamber || preg_match('[^a-z0-9\-\.]', $chamber)) {
             throw new RegisterNotFoundException("No register found for $chamber");
         }
     }

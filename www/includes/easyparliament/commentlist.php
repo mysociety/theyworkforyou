@@ -303,7 +303,7 @@ class COMMENTLIST {
         $params = [];
         if (isset($args['pid']) && is_numeric($args['pid'])) {
             $data['pid'] = $args['pid'];
-            $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND left_house="9999-12-31" AND m.person_id = :pid';
+            $q = 'SELECT title, given_name, family_name, lordofname, house FROM member m, person_names p WHERE m.person_id=p.person_id AND p.type="name" AND m.person_id = :pid ORDER BY end_date DESC, left_house DESC LIMIT 1';
             $q = $this->db->query($q, [':pid' => $args['pid']])->first();
             $data['full_name'] = member_full_name($q['house'], $q['title'], $q['given_name'], $q['family_name'], $q['lordofname']);
             $q = 'SELECT COUNT(*) AS count FROM comments,hansard WHERE visible=1 AND comments.epobject_id = hansard.epobject_id and hansard.person_id = :pid';

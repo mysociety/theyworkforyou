@@ -962,8 +962,8 @@ class HANSARDLIST {
                 // Add the parent's body on...
                 $speeches[$n]['parent']['body'] = $speeches[$n]['body_section'] . ' | ' . $thing;
                 if ($speeches[$n]['subsection_id'] != $speeches[$n]['section_id']) {
-                    $speeches[$n]['parent']['body'] = $speeches[$n]['body_subsection'] .
-                        ' | ' . $speeches[$n]['parent']['body'];
+                    $speeches[$n]['parent']['body'] = $speeches[$n]['body_subsection']
+                        . ' | ' . $speeches[$n]['parent']['body'];
                 }
             }
             $data['rows'] = $speeches;
@@ -1113,8 +1113,8 @@ class HANSARDLIST {
                 $itemdata = array_pop($itemdata); # event
 
                 # Ignore past events in places that we cover (we'll have the data from Hansard)
-                if ($itemdata['event_date'] < date('Y-m-d') &&
-                    in_array($itemdata['chamber'], [
+                if ($itemdata['event_date'] < date('Y-m-d')
+                    && in_array($itemdata['chamber'], [
                         'Commons: Main Chamber', 'Lords: Main Chamber',
                         'Commons: Westminster Hall',
                     ])) {
@@ -1685,8 +1685,8 @@ class HANSARDLIST {
             $fieldsarr['hansard'][] = 'person_id';
         }
 
-        if ((isset($amount['body']) && $amount['body'] == true) ||
-            (isset($amount['comment']) && $amount['comment'] == true)
+        if ((isset($amount['body']) && $amount['body'] == true)
+            || (isset($amount['comment']) && $amount['comment'] == true)
         ) {
             $fieldsarr['epobject'] =  ['body'];
             $join = 'LEFT OUTER JOIN epobject ON hansard.epobject_id = epobject.epobject_id';
@@ -1814,9 +1814,9 @@ class HANSARDLIST {
             // subsection. This can then be printed as an excerpt
             // on the daily list pages.
 
-            if ((isset($amount['excerpt']) && $amount['excerpt'] == true) &&
-                ($item['htype'] == '10' ||
-                $item['htype'] == '11')
+            if ((isset($amount['excerpt']) && $amount['excerpt'] == true)
+                && ($item['htype'] == '10'
+                || $item['htype'] == '11')
             ) {
                 $params = [':epobject_id' => $item['epobject_id']];
                 if ($item['htype'] == '10') {
@@ -1891,16 +1891,16 @@ class HANSARDLIST {
             }
 
             // Get the user/anon votes items that have them.
-            if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true) &&
-                $item['htype'] == '12') {
+            if (($this->major == 3 || $this->major == 8) && (isset($amount['votes']) && $amount['votes'] == true)
+                && $item['htype'] == '12') {
                 // Debate speech or written answers (not questions).
 
                 $item['votes'] = $this->_get_votes($item['epobject_id']);
             }
 
             // Get the speaker for this item, if applicable.
-            if ((isset($amount['speaker']) && $amount['speaker'] == true) &&
-                $item['person_id'] != '') {
+            if ((isset($amount['speaker']) && $amount['speaker'] == true)
+                && $item['person_id'] != '') {
 
                 $item['speaker'] = $this->_get_speaker($item['person_id'], $item['hdate'], $item['htime'], $item['major']);
             }
@@ -2305,8 +2305,8 @@ class HANSARDLIST {
         // What it says on the tin.
         // $item_data must have 'htype' and 'epobject_id' elements. TODO: Check for major==4
 
-        if (($hansardmajors[$this->major]['type'] == 'debate') &&
-            ($item_data['htype'] == '10' || $item_data['htype'] == '11')
+        if (($hansardmajors[$this->major]['type'] == 'debate')
+            && ($item_data['htype'] == '10' || $item_data['htype'] == '11')
         ) {
             // We'll be getting a count of the comments on all items
             // within this (sub)section.
@@ -2534,8 +2534,8 @@ class HANSARDLIST {
         }
 
         // Put the section and subsection at the top of the rows array.
-        if (count($subsectionrow) > 0 &&
-            $subsectionrow['gid'] != $sectionrow['gid']) {
+        if (count($subsectionrow) > 0
+            && $subsectionrow['gid'] != $sectionrow['gid']) {
             // If we're looking at a section, there may not be a subsection.
             // And if the subsectionrow and sectionrow aren't the same.
             array_unshift($data['rows'], $subsectionrow);
@@ -2639,9 +2639,8 @@ class SPWRANSLIST extends WRANSLIST {
             "select mentioned_gid from mentions where gid = :gid_from_spid and (type = 4 or type = 6)",
             [':gid_from_spid' => 'uk.org.publicwhip/spq/' . $fixed_spid]
         )->first();
-        $gid = $q['mentioned_gid'];
-        if ($gid) {
-            return $gid;
+        if ($q) {
+            return $q['mentioned_gid'];
         }
         return null;
     }

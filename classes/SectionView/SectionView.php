@@ -170,8 +170,11 @@ class SectionView {
 
     protected function display_day($date) {
         global $this_page;
+        if (!preg_match('#^\d\d\d\d-\d\d-\d\d$#', $date)) {
+            redirect('/');
+        }
         $this_page = $this->page_base . 'day';
-        $args =  [ 'date' => get_http_var('d') ];
+        $args =  [ 'date' => $date ];
         $data = $this->list->display('date', $args, 'none');
         [$year, $month, $day] = explode('-', $date);
         $args = [ 'year' => $year, 'month' => $month, 'day' => $day];
@@ -255,7 +258,7 @@ class SectionView {
             // add section level comments
             $comments = new \COMMENTLIST();
             $comment_data = $comments->display('ep', ['epobject_id' => $this->list->epobject_id], 'none');
-            $data['section_comments'] = $comment_data['comments'];
+            $data['section_comments'] = $comment_data['comments'] ?? null;
         }
 
         if (!isset($data['info'])) {

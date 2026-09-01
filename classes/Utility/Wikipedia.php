@@ -156,31 +156,31 @@ class Wikipedia {
 
     public static function antiTagInTag($content = '', $format = 'htmlhead') {
         $tagend = -1;
-        for($tagstart = strpos($content, '<', $tagend + 1) ; $tagstart !== false && $tagstart < strlen($content); $tagstart = strpos($content, '<', $tagend)) {
+        for ($tagstart = strpos($content, '<', $tagend + 1) ; $tagstart !== false && $tagstart < strlen($content); $tagstart = strpos($content, '<', $tagend)) {
             // got the start of a tag.  Now find the proper end!
             $walker = $tagstart + 1;
             $open = 1;
-            while($open != 0 && $walker < strlen($content)) {
+            while ($open != 0 && $walker < strlen($content)) {
                 $nextopen = strpos($content, '<', $walker);
                 $nextclose = strpos($content, '>', $walker);
-                if($nextclose === false) {
+                if ($nextclose === false) {
                     // ERROR! Open waka without close waka!
                     // echo '<code>Error in antiTagInTag - malformed tag!</code> ';
                     return $content;
                 }
-                if($nextopen === false || $nextopen > $nextclose) {
+                if ($nextopen === false || $nextopen > $nextclose) {
                     // No more opens, but there was a close; or, a close happens before the next open.
                     // walker goes to the close+1, and open decrements
                     $open--;
                     $walker = $nextclose + 1;
-                } elseif($nextopen < $nextclose) {
+                } elseif ($nextopen < $nextclose) {
                     // an open before the next close
                     $open++;
                     $walker = $nextopen + 1;
                 }
             }
             $tagend = $walker;
-            if($tagend > strlen($content)) {
+            if ($tagend > strlen($content)) {
                 $tagend = strlen($content);
             } else {
                 $tagend--;

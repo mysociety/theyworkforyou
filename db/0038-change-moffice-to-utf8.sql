@@ -1,0 +1,2 @@
+ALTER TABLE `moffice` CONVERT TO CHARACTER SET 'utf8mb4';
+

@@ -33,6 +33,10 @@ switch (get_http_var("pg")) {
         if (is_numeric(get_http_var("u")) && $THEUSER->is_able_to("edituser")) {
 
             $data = $user->getUserDetails(get_http_var('u'));
+            if (isset($data['error'])) {
+                $PAGE->error_message($data['error'], true, 404);
+                exit;
+            }
             $data['showall'] = true;
             $data['user_id'] = get_http_var('u');
             $data['statuses'] = $THEUSER->possible_statuses();
@@ -61,8 +65,8 @@ switch (get_http_var("pg")) {
         // no break
     default:
 
-        if ($THEUSER->isloggedin() &&
-            (get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
+        if ($THEUSER->isloggedin()
+            && (get_http_var('u') == '' || get_http_var('u') == $THEUSER->user_id())
         ) {
             // Logged in user viewing their own details.
             $template = 'user/index';
@@ -72,6 +76,10 @@ switch (get_http_var("pg")) {
             // Viewing someone else's details.
             $template = 'user/view_user';
             $data = $user->getUserDetails(get_http_var('u'));
+            if (isset($data['error'])) {
+                $PAGE->error_message($data['error'], true, 404);
+                exit;
+            }
             $this_page = "userview";
         } else {
             // probably want to login
@@ -92,10 +100,6 @@ if (
     // Put all the user-submitted data in an array.
     $data = $user->getUpdateDetails($this_page, $THEUSER);
     $data['ret'] = get_http_var("ret");
-
-    if ($this_page == 'useredit') {
-        $data['facebook_user'] = $THEUSER->facebook_user();
-    }
 
     // Check the input.
     // If there are any errors with the submission, $errors (an array)

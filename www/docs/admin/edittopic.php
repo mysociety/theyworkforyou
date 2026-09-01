@@ -185,9 +185,9 @@ function add_image($topic) {
     $file_info = $_FILES['topic_image'];
 
     if (
-        !isset($file_info['error']) ||
-        is_array($file_info['error']) ||
-        $file_info['error'] != UPLOAD_ERR_OK
+        !isset($file_info['error'])
+        || is_array($file_info['error'])
+        || $file_info['error'] != UPLOAD_ERR_OK
     ) {
         return false;
     }

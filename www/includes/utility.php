@@ -60,10 +60,13 @@ function twfy_debug($header, $text = "") {
 }
 
 function exception_handler($e) {
-    trigger_error($e->getMessage(), E_USER_ERROR);
+    $message = $e->getMessage();
+    $file = $e->getFile();
+    $line = $e->getLine();
+    trigger_error("Exception $message in $file line $line", E_USER_ERROR);
 }
 
-function error_handler($errno, $errmsg, $filename, $linenum, $vars) {
+function error_handler($errno, $errmsg, $filename, $linenum) {
     // Custom error-handling function.
     // Sends an email to BUGSLIST.
     global $PAGE;
@@ -521,6 +524,9 @@ function filter_user_input($text, $filter_type) {
 function prepare_comment_for_display($text) {
     $Parsedown = new \Parsedown();
     $Parsedown->setSafeMode(true);
+    // decode entities stored by filter_user_input
+    // so Parsedown doesn't double-encode them
+    $text = html_entity_decode($text, ENT_HTML5, 'UTF-8');
     $text = $Parsedown->text($text);
 
     # parsedown converts plain URLs to links but does not add nofollow and does
@@ -1071,8 +1077,8 @@ function major_summary($data, $echo = true) {
         $q = $db->query('SELECT section_id, body, gid
                 FROM hansard, epobject
                 WHERE hansard.epobject_id = epobject.epobject_id '
-                . ($p_major == 4 ? 'AND subsection_id=0' : 'AND section_id=0') .
-                ' AND hdate = "' . $date . '"
+                . ($p_major == 4 ? 'AND subsection_id=0' : 'AND section_id=0')
+                . ' AND hdate = "' . $date . '"
                 AND major = ' . $p_major . '
                 ORDER BY hpos');
         $out = '';

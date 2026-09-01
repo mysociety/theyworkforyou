@@ -14,7 +14,7 @@ if (get_http_var('gid')) {
 }
 
 $type = ucfirst(get_http_var('type'));
-$class_name = "MySociety\TheyWorkForYou\SectionView\\${type}View";
+$class_name = "MySociety\TheyWorkForYou\SectionView\\{$type}View";
 if (!$type || !class_exists($class_name)) {
     $PAGE->error_message("No type specified", true);
     exit;

@@ -18,13 +18,16 @@ function api_getMPsInfo_front() {
 function _api_getMPsInfo_id($ids) {
     $fields = preg_split('#\s*,\s*#', get_http_var('fields'), -1, PREG_SPLIT_NO_EMPTY);
     $ids = preg_split('#\s*,\s*#', $ids, -1, PREG_SPLIT_NO_EMPTY);
-    $safe_ids = [0];
+    $safe_ids = [];
     foreach ($ids as $id) {
         if (ctype_digit($id)) {
             $safe_ids[] = $id;
         }
     }
     $ids = join(',', $safe_ids);
+    if (!$ids) {
+        return null;
+    }
 
     $db = new ParlDB();
     $last_mod = 0;

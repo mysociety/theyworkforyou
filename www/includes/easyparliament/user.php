@@ -68,8 +68,6 @@ class USER {
     public $optin = "";            // Int containing multiple binary opt-ins. (See top of User.php)
     public $deleted = "";          // User can't log in or have their info displayed.
     public $confirmed = '';        // boolean - Has the user confirmed via email?
-    public $facebook_id = '';      // Facebook ID for users who login with FB
-    public $facebook_token = '';   // Facebook token for users who login with FB
     public $can_annotate = false;  // Can the user add annotations
     public $organisation = '';     // The organisation the user belongs to
     // Don't use the status to check access privileges - use the is_able_to() function.
@@ -107,8 +105,6 @@ class USER {
                                 status,
                                 deleted,
                                 confirmed,
-                                facebook_id,
-                                facebook_token,
                                 can_annotate,
                                 organisation
                         FROM    users
@@ -126,8 +122,6 @@ class USER {
             $this->password             = $q["password"];
             $this->email                = $q["email"];
             $this->postcode             = $q["postcode"];
-            $this->facebook_id          = $q["facebook_id"];
-            $this->facebook_token       = $q["facebook_token"];
             $this->url                  = $q["url"];
             $this->lastvisit            = $q["lastvisit"];
             $this->registrationtoken    = $q['registrationtoken'];
@@ -172,10 +166,6 @@ class USER {
             $details["status"] = "User";
         }
 
-        if (!isset($details["facebook_id"])) {
-            $details["facebook_id"] = "";
-        }
-
         $q = $this->db->query("INSERT INTO users (
                 firstname,
                 lastname,
@@ -187,7 +177,6 @@ class USER {
                 status,
                 registrationtime,
                 registrationip,
-                facebook_id,
                 deleted
             ) VALUES (
                 :firstname,
@@ -200,7 +189,6 @@ class USER {
                 :status,
                 :registrationtime,
                 :registrationip,
-                :facebook_id,
                 '0'
             )
         ", [
@@ -213,7 +201,6 @@ class USER {
             ':optin' => $details["optin"],
             ':status' => $details["status"],
             ':registrationtime' => $registrationtime,
-            ':facebook_id' => $details["facebook_id"],
             ':registrationip' => $REMOTE_ADDR,
         ]);
 
@@ -223,7 +210,6 @@ class USER {
             // send them an email. So this may not be required.
             $this->user_id = $q->insert_id();
             $this->password = $passwordforDB;
-            $this->facebook_id = $details["facebook_id"];
 
             // We have to set the user's registration token.
             // This will be sent to them via email, so we can confirm they exist.
@@ -292,24 +278,6 @@ class USER {
 
         } else {
             // Couldn't add the user's data to the DB.
-            return false;
-        }
-    }
-
-    public function add_facebook_id($facebook_id) {
-        $q = $this->db->query(
-            "UPDATE users SET facebook_id = :facebook_id WHERE email = :email",
-            [
-                ':facebook_id' => $facebook_id,
-                ':email' => $this->email,
-            ]
-        );
-
-        if ($q->success()) {
-            $this->facebook_id = $facebook_id;
-
-            return $facebook_id;
-        } else {
             return false;
         }
     }
@@ -573,24 +541,6 @@ class USER {
         }
     }
 
-    public function facebook_id_exists($id, $return_id = false) {
-        // Returns true if there's a user with this facebook id.
-
-        if ($id != "") {
-            $q = $this->db->query("SELECT user_id FROM users WHERE facebook_id = :id", [':id' => $id])->first();
-            if ($q) {
-                if ($return_id) {
-                    return $q['user_id'];
-                }
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public function is_able_to($action) {
         // Call this function to find out if a user is allowed to do something.
         // It uses the user's status to return true or false.
@@ -724,15 +674,6 @@ class USER {
     }
     public function lastvisit() {
         return $this->lastvisit;
-    }
-    public function facebook_id() {
-        return $this->facebook_id;
-    }
-    public function facebook_token() {
-        return $this->facebook_token;
-    }
-    public function facebook_user() {
-        return $this->facebook_user;
     }
 
     public function registrationtime() {
@@ -919,7 +860,6 @@ class THEUSER extends USER {
 
     // This will become true if all goes well...
     public $loggedin = false;
-    public $facebook_user = false;
 
 
     public function __construct() {
@@ -941,14 +881,6 @@ class THEUSER extends USER {
         $cookie = get_cookie_var("epuser_id"); // In includes/utility.php.
 
         if ($cookie == '') {
-            $cookie = get_cookie_var("facebook_id");
-            if ($cookie != '') {
-                $this->facebook_user = true;
-                twfy_debug("THEUSER", "is facebook login");
-            }
-        }
-
-        if ($cookie == '') {
             twfy_debug("THEUSER init FAILED", "No cookie set");
             $this->loggedin = false;
 
@@ -964,37 +896,24 @@ class THEUSER extends USER {
                     // But we need to check the password before we log them in.
                     // And make sure the user hasn't been "deleted".
 
-                    if ($this->facebook_user) {
-                        if (md5($this->facebook_token()) == $matches[2] && $this->deleted() == false) {
-                            twfy_debug("THEUSER", "init SUCCESS: setting as logged in");
-                            $this->loggedin = true;
-                        } elseif (md5($this->facebook_token()) != $matches[2]) {
-                            twfy_debug("THEUSER", "init FAILED: Facebook token doesn't match cookie");
-                            $this->loggedin = false;
-                        } else {
-                            twfy_debug("THEUSER", "init FAILED: User is deleted");
-                            $this->loggedin = false;
-                        }
+                    if (md5($this->password()) == $matches[2] && $this->deleted() == false) {
+                        // The correct password is in the cookie,
+                        // and the user isn't deleted, so set the user to be logged in.
+
+                        // This would be an appropriate place to call other functions
+                        // that might set user info that only a logged-in user is going
+                        // to need. Their preferences and saved things or something.
+
+
+                        twfy_debug("THEUSER init SUCCEEDED", "setting as logged in");
+                        $this->loggedin = true;
+
+                    } elseif (md5($this->password()) != $matches[2]) {
+                        twfy_debug("THEUSER init FAILED", "Password doesn't match cookie");
+                        $this->loggedin = false;
                     } else {
-                        if (md5($this->password()) == $matches[2] && $this->deleted() == false) {
-                            // The correct password is in the cookie,
-                            // and the user isn't deleted, so set the user to be logged in.
-
-                            // This would be an appropriate place to call other functions
-                            // that might set user info that only a logged-in user is going
-                            // to need. Their preferences and saved things or something.
-
-
-                            twfy_debug("THEUSER init SUCCEEDED", "setting as logged in");
-                            $this->loggedin = true;
-
-                        } elseif (md5($this->password()) != $matches[2]) {
-                            twfy_debug("THEUSER init FAILED", "Password doesn't match cookie");
-                            $this->loggedin = false;
-                        } else {
-                            twfy_debug("THEUSER init FAILED", "User is deleted");
-                            $this->loggedin = false;
-                        }
+                        twfy_debug("THEUSER init FAILED", "User is deleted");
+                        $this->loggedin = false;
                     }
 
                 } else {
@@ -1113,47 +1032,6 @@ class THEUSER extends USER {
         return $has_postcode;
     }
 
-
-    public function facebook_login($returl, $expire, $accessToken) {
-        global $PAGE;
-
-        twfy_debug("THEUSER", "Faceook login, user_id " . $this->user_id);
-        twfy_debug("THEUSER", "Faceook login, facebook_id " . $this->facebook_id);
-        twfy_debug("THEUSER", "Faceook login, email" . $this->email);
-        if ($this->facebook_id() == "") {
-            $PAGE->error_message("We don't have a facebook id for this user.", true);
-
-            return;
-        }
-
-        twfy_debug("THEUSER", "Faceook login, facebook_token: " . $accessToken);
-
-        $q = $this->db->query(
-            "UPDATE users SET facebook_token = :token WHERE email = :email",
-            [
-                ':token' => $accessToken,
-                ':email' => $this->email,
-            ]
-        );
-
-        if (!$q->success()) {
-            $PAGE->error_message("There was a problem logging you in", true);
-            twfy_debug("THEUSER", "Faceook login, failed to set accessToken");
-
-            return false;
-        }
-
-        // facebook login users probably don't have a password
-        $cookie = $this->user_id() . "." . md5($accessToken);
-        twfy_debug("THEUSER", "Faceook login, cookie: " . $cookie);
-
-        twfy_debug("USER", "logging in user from facebook " . $this->user_id);
-
-        $this->loggedin = true;
-        $this->_login($returl, $expire, $cookie, 'facebook_id');
-        return true;
-    }
-
     public function login($returl, $expire) {
 
         // This is used to log the user in. Duh.
@@ -1235,12 +1113,6 @@ class THEUSER extends USER {
             // They're logged in, so set the cookie to empty.
             header("Location: $returl");
             setcookie('epuser_id', '', time() - 86400, '/', COOKIEDOMAIN);
-        }
-
-        if (get_cookie_var("facebook_id") != "") {
-            // They're logged in, so set the cookie to empty.
-            header("Location: $returl");
-            setcookie('facebook_id', '', time() - 86400, '/', COOKIEDOMAIN);
         }
     }
 
@@ -1413,64 +1285,6 @@ class THEUSER extends USER {
         }
     }
 
-    public function confirm_without_token() {
-        // If we want to confirm login without a token, e.g. during
-        // Facebook registration
-        //
-        // Note that this doesn't login or redirect the user.
-
-        twfy_debug("THEUSER", "Confirming user without token: " . $this->user_id());
-        $q = $this->db->query("SELECT email, password, postcode
-                        FROM    users
-                        WHERE   user_id = :user_id
-                        ", [
-            ':user_id' => $this->user_id,
-        ])->first();
-
-        if ($q) {
-
-            twfy_debug("THEUSER", "User with ID found to confirm: " . $this->user_id());
-            // We'll need these to be set before logging the user in.
-            $this->email    = $q['email'];
-
-            // Set that they're confirmed in the DB.
-            $r = $this->db->query("UPDATE users
-                            SET     confirmed = '1'
-                            WHERE   user_id = :user_id
-                            ", [':user_id' => $this->user_id]);
-
-            if ($q['postcode']) {
-                try {
-                    $MEMBER = new MEMBER(['postcode' => $q['postcode'], 'house' => HOUSE_TYPE_COMMONS]);
-                    $pid = $MEMBER->person_id();
-                    # This should probably be in the ALERT class
-                    $this->db->query('update alerts set confirmed=1 where email = :email and criteria = :criteria', [
-                        ':email' => $this->email,
-                        ':criteria' => 'speaker:' . $pid,
-                    ]);
-                } catch (MySociety\TheyWorkForYou\MemberException $e) {
-                }
-            }
-
-            if ($r->success()) {
-                twfy_debug("THEUSER", "User with ID confirmed: " . $this->user_id());
-                $this->confirmed = true;
-                return true;
-            } else {
-                twfy_debug("THEUSER", "User with ID not confirmed: " . $this->user_id());
-                // Couldn't set them as confirmed in the DB.
-                return false;
-            }
-
-        } else {
-            // Couldn't find this user in the DB. Maybe the token was
-            // wrong or incomplete?
-            twfy_debug("THEUSER", "User with ID not found to confirm: " . $this->user_id());
-            return false;
-        }
-    }
-
-
     public function set_postcode_cookie($pc) {
         // Set the user's postcode.
         // Doesn't change it in the DB, as it's probably mainly for
@@ -1488,51 +1302,6 @@ class THEUSER extends USER {
         if (!headers_sent()) { // if in debug mode
             setcookie(POSTCODE_COOKIE, '', time() - 3600, '/', COOKIEDOMAIN);
         }
-    }
-
-    // mostly here for updating from facebook where we do not need
-    // to confirm the email address
-    public function update_self_no_confirm($details) {
-        global $THEUSER;
-
-        if ($this->isloggedin()) {
-            twfy_debug("THEUSER", "is logged in for update_self");
-
-            // this is checked elsewhere but just in case we check here and
-            // bail out to be on the safe side
-            if (isset($details['email'])) {
-                if ($details['email'] != $this->email() && $this->email_exists($details['email'])) {
-                    return false;
-                }
-            }
-
-            $details["user_id"] = $this->user_id;
-
-            $newdetails = $this->_update($details);
-
-            if ($newdetails) {
-                // The user's data was updated, so we'll change the object
-                // variables accordingly.
-
-                $this->firstname        = $newdetails["firstname"];
-                $this->lastname         = $newdetails["lastname"];
-                $this->postcode         = $newdetails["postcode"];
-                $this->url              = $newdetails["url"];
-                $this->optin            = $newdetails["optin"];
-                $this->email            = $newdetails['email'];
-                if ($newdetails["password"] != "") {
-                    $this->password = $newdetails["password"];
-                }
-
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-
     }
 
     public function update_self($details, $confirm_email = true) {

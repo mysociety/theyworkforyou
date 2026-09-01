@@ -21,7 +21,7 @@ php-json
 php-mbstring
 php-memcache
 php-mysql
-php7-xapian
+php-xapian
 python3-lxml
 python3-mysqldb
 snarf

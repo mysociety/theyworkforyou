@@ -359,36 +359,6 @@ span.hi {
     }
   }
 
-  &.twitter {
-    &:before {
-      background-position: -47px 0;
-
-      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-        background-position: -47px -6px;
-      }
-    }
-
-    &:hover,
-    &:focus {
-      color: #1da1f2;
-    }
-  }
-
-  &.facebook {
-    &:before {
-      background-position: -58px 0;
-
-      @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-        background-position: -58px -6px;
-      }
-    }
-
-    &:hover,
-    &:focus {
-      color: #3b5998;
-    }
-  }
-
   &.internal-link {
     &:before {
       display: none;
