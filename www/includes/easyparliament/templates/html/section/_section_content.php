@@ -137,7 +137,7 @@ foreach ($data['rows'] as $speech) { ?>
                   foreach ($speaker['office'] as $off) {
                       $desc[] = $off['pretty'];
                   }
-                  $speaker_position = join(', ', $desc);
+                  $speaker_position = join(', ', array_unique($desc));
               } else {
                   $speaker_position = _htmlentities($speaker['party']);
                   if ($speaker['house'] == 1
