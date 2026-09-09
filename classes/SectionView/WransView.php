@@ -89,16 +89,13 @@ class WransView extends SectionView {
             $URL = new \MySociety\TheyWorkForYou\Url($this_page);
             $returl = $URL->generate();
             $VOTEURL = new \MySociety\TheyWorkForYou\Url('epvote');
-            $VOTEURL->insert(['v' => '1', 'id' => $id, 'ret' => $returl]);
-            $yes_vote_url = $VOTEURL->generate();
-            $VOTEURL->insert(['v' => '0']);
-            $no_vote_url = $VOTEURL->generate();
+            $VOTEURL->insert(['id' => $id, 'ret' => $returl]);
+            $vote_url = $VOTEURL->generate();
 
             $data = [
+                'voteurl' => $vote_url,
                 'yesvotes' => $yesvotes,
                 'yesplural' => $yesplural,
-                'yesvoteurl' => $yes_vote_url,
-                'novoteurl' => $no_vote_url,
                 'novotes' => $novotes,
                 'noplural' => $noplural,
             ];
