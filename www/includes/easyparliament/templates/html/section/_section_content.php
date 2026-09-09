@@ -225,12 +225,13 @@ foreach ($data['rows'] as $speech) { ?>
                 <div class="debate-speech__question-answered">
                     <div class="debate-speech__question-answered-content">
                         <h3>Does this answer the above question?</h3>
+                        <form method="post" action="<?= $speech['voting_data']['voteurl'] ?>">
                         <p class="debate-speech__question-answered-result">
-                            <a rel="nofollow" class="button" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so</span>
+                            <button type="submit" class="button" name="v" value="1" title="Rate this as answering the question">Yes</button><span class="question-answered-result__vote-text"><?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so</span>
                         </p>
 
                         <p class="debate-speech__question-answered-result">
-                            <a rel="nofollow" class="button" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not</span>
+                            <button type="submit" class="button" name="v" value="0" title="Rate this as NOT answering the question">No</button><span class="question-answered-result__vote-text"><?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not</span>
                         </p>
 
                         <p class="subtle">
