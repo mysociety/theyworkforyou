@@ -186,7 +186,7 @@ class SectionView {
     }
 
     protected function display_section_or_speech($args = []) {
-        global $DATA, $this_page, $THEUSER;
+        global $DATA, $this_page, $PAGE, $THEUSER;
 
         # += as we *don't* want to override any already supplied argument
         $args +=  [
@@ -197,6 +197,12 @@ class SectionView {
 
         if (preg_match('/speaker:(\d+)/', get_http_var('s'), $mmm)) {
             $args['person_id'] = $mmm[1];
+        }
+
+        # Check ID contains valid characters
+        if (preg_match('#[^A-Za-z0-9/. _,\'-]#', $args['gid'])) {
+            $PAGE->error_message("ID not found", true, 404);
+            exit;
         }
 
         try {
