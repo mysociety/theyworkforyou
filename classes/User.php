@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User Class
  *
@@ -66,8 +67,6 @@ class User {
         $data["deleted"] = $user->deleted();
         $data["confirmed"] = $user->confirmed();
         $data["status"] = $user->status();
-        $data["facebook_id"] = $user->facebook_id();
-        $data['facebook_user'] = $user->facebook_user();
         $data['can_annotate'] = $user->can_annotate();
         $data['organisation'] = $user->organisation();
         return $data;
@@ -76,41 +75,36 @@ class User {
     public function getUpdateDetails($this_page, $user) {
         $details = [];
 
-        if ($user->facebook_user) {
-            $details = $this->getUserDetails();
-            $details["password"] = '';
-        } else {
-            $details["firstname"] = trim(get_http_var("firstname"));
-            $details["lastname"] = trim(get_http_var("lastname"));
+        $details["firstname"] = trim(get_http_var("firstname"));
+        $details["lastname"] = trim(get_http_var("lastname"));
 
-            $details["password"] = trim(get_http_var("password"));
-            $details["password2"] = trim(get_http_var("password2"));
+        $details["password"] = trim(get_http_var("password"));
+        $details["password2"] = trim(get_http_var("password2"));
 
-            $details["email"] = trim(get_http_var("em"));
+        $details["email"] = trim(get_http_var("em"));
 
-            $details["url"] = trim(get_http_var("url"));
+        $details["url"] = trim(get_http_var("url"));
 
-            $optin_service = get_http_var("optin_service") == "true" ? true : false;
-            $optin_stream = get_http_var("optin_stream") == "true" ? true : false;
-            $optin_org = get_http_var("optin_org") == "true" ? true : false;
+        $optin_service = get_http_var("optin_service") == "true" ? true : false;
+        $optin_stream = get_http_var("optin_stream") == "true" ? true : false;
+        $optin_org = get_http_var("optin_org") == "true" ? true : false;
 
-            $details["optin"] = calculateOptinValue($optin_service, $optin_stream, $optin_org);
+        $details["optin"] = calculateOptinValue($optin_service, $optin_stream, $optin_org);
 
-            if (get_http_var("remember") != "") {
-                $remember = get_http_var("remember");
-                $details["remember"] = $remember[0] == "true" ? true : false;
-            }
-
-            if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
-                $details['url'] = 'https://' . $details['url'];
-            }
-
-            # these are used when displaying user details
-            $details['name'] = $details["firstname"] . " " . $details["lastname"];
-            $details["website"] = $details["url"];
-            $details['registrationtime'] = $user->registrationtime();
-            $details['status'] = $user->status();
+        if (get_http_var("remember") != "") {
+            $remember = get_http_var("remember");
+            $details["remember"] = $remember[0] == "true" ? true : false;
         }
+
+        if ($details['url'] != '' && !preg_match('/^http/', $details['url'])) {
+            $details['url'] = 'https://' . $details['url'];
+        }
+
+        # these are used when displaying user details
+        $details['name'] = $details["firstname"] . " " . $details["lastname"];
+        $details["website"] = $details["url"];
+        $details['registrationtime'] = $user->registrationtime();
+        $details['status'] = $user->status();
 
         $details['mp_alert'] = get_http_var('mp_alert') == 'true' ? true : false;
         $details["postcode"] = trim(get_http_var("postcode"));
@@ -150,79 +144,76 @@ class User {
         // This will then be used to (a) indicate there were errors and (b) display
         // error messages when we show the form again.
 
-        // facebook user's can only change their postcode so skip all this
-        if (!isset($details['facebook_user'])) {
-            // Check first name.
-            if ($details["firstname"] == "") {
-                $errors["firstname"] = "Please enter a first name";
-            }
+        // Check first name.
+        if ($details["firstname"] == "") {
+            $errors["firstname"] = "Please enter a first name";
+        }
 
-            // They don't need a last name. In case Madonna joins.
+        // They don't need a last name. In case Madonna joins.
 
-            // Check email address is valid and unique.
-            if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
-                if ($details["email"] == "") {
-                    $errors["email"] = "Please enter an email address";
+        // Check email address is valid and unique.
+        if ($this_page == "otheruseredit" || $this_page == 'userjoin' || $this_page == 'useredit') {
+            if ($details["email"] == "") {
+                $errors["email"] = "Please enter an email address";
 
-                } elseif (!validate_email($details["email"])) {
-                    // validate_email() is in includes/utilities.php
-                    $errors["email"] = "Please enter a valid email address";
-
-                } else {
-
-                    $USER = new \USER();
-                    $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
-
-                    if ($this_page == "useredit" &&
-                        get_http_var("u") == "" &&
-                        $THEUSER->isloggedin()) {
-                        // User is updating their own info.
-                        // Check no one else has this email.
-
-                        if ($id_of_user_with_this_addresss &&
-                            $id_of_user_with_this_addresss != $THEUSER->user_id()) {
-                            $errors["email"] = "Someone else has already joined with this email address";
-                        }
-
-                    } else {
-                        // User is joining. Check no one is already here with this email.
-                        if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
-                            $errors["email"] = "There is already a user with this email address";
-                        }
-                    }
-                }
-            }
-
-            // Check passwords.
-            if ($this_page == "userjoin") {
-
-                // Only *must* enter a password if they're joining.
-                if ($details["password"] == "") {
-                    $errors["password"] = gettext("Please enter a password");
-
-                } elseif (strlen($details["password"]) < 6) {
-                    $errors["password"] = gettext("Please enter at least six characters");
-                }
-
-                if ($details["password2"] == "") {
-                    $errors["password2"] = gettext("Please enter a password again");
-                }
-
-                if ($details["password"] != "" && $details["password2"] != "" && $details["password"] != $details["password2"]) {
-                    $errors["password"] = gettext("The passwords did not match. Please try again.");
-                }
+            } elseif (!validate_email($details["email"])) {
+                // validate_email() is in includes/utilities.php
+                $errors["email"] = "Please enter a valid email address";
 
             } else {
 
-                // Update details pages.
+                $USER = new \USER();
+                $id_of_user_with_this_addresss = $USER->email_exists($details["email"], true);
 
-                if ($details["password"] != "" && strlen($details["password"]) < 6) {
-                    $errors["password"] = gettext("Please enter at least six characters");
-                }
+                if ($this_page == "useredit"
+                    && get_http_var("u") == ""
+                    && $THEUSER->isloggedin()) {
+                    // User is updating their own info.
+                    // Check no one else has this email.
 
-                if ($details["password"] != $details["password2"]) {
-                    $errors["password"] = gettext("The passwords did not match. Please try again.");
+                    if ($id_of_user_with_this_addresss
+                        && $id_of_user_with_this_addresss != $THEUSER->user_id()) {
+                        $errors["email"] = "Someone else has already joined with this email address";
+                    }
+
+                } else {
+                    // User is joining. Check no one is already here with this email.
+                    if ($this_page == "userjoin" && $id_of_user_with_this_addresss) {
+                        $errors["email"] = "There is already a user with this email address";
+                    }
                 }
+            }
+        }
+
+        // Check passwords.
+        if ($this_page == "userjoin") {
+
+            // Only *must* enter a password if they're joining.
+            if ($details["password"] == "") {
+                $errors["password"] = gettext("Please enter a password");
+
+            } elseif (strlen($details["password"]) < 6) {
+                $errors["password"] = gettext("Please enter at least six characters");
+            }
+
+            if ($details["password2"] == "") {
+                $errors["password2"] = gettext("Please enter a password again");
+            }
+
+            if ($details["password"] != "" && $details["password2"] != "" && $details["password"] != $details["password2"]) {
+                $errors["password"] = gettext("The passwords did not match. Please try again.");
+            }
+
+        } else {
+
+            // Update details pages.
+
+            if ($details["password"] != "" && strlen($details["password"]) < 6) {
+                $errors["password"] = gettext("Please enter at least six characters");
+            }
+
+            if ($details["password"] != $details["password2"]) {
+                $errors["password"] = gettext("The passwords did not match. Please try again.");
             }
         }
 

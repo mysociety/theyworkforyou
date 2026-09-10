@@ -140,11 +140,11 @@
       <?php } elseif ($step !== '') { ?>
         <?php include '_alert_form.php';
       } elseif ($this_step == '') {
-          if(
+          if (
               !$results && (
-                  $members ||
-                (isset($constituencies) && count($constituencies) > 0) ||
-                ($alertsearch)
+                  $members
+                || (isset($constituencies) && count($constituencies) > 0)
+                || ($alertsearch)
               )
           ) {
               /* We need to disambiguate the user's instructions */

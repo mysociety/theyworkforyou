@@ -102,8 +102,8 @@ function person_drop_down() {
     foreach ($q as $row) {
         $p_id = $row['person_id'];
         $house = $row['house'];
-        $desc = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname']) .
-                " " . $houses[$house];
+        $desc = member_full_name($house, $row['title'], $row['given_name'], $row['family_name'], $row['lordofname'])
+                . " " . $houses[$house];
         if ($row['party']) {
             $desc .= ' (' . $row['party'] . ')';
         }

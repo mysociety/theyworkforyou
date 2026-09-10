@@ -226,11 +226,13 @@ class Search {
             } else {
                 $pagetitle = 'Who says ' . $data['pagetitle'] . ' the most?';
             }
-        } else {
+        } elseif ($data['searchdescription'] ?? '') {
             $pagetitle = 'Search for ' . $data['searchdescription'];
             if (isset($data['info']['page']) && $data['info']['page'] > 1) {
                 $pagetitle .= ", page " . $data['info']['page'];
             }
+        } else {
+            $pagetitle = 'Search';
         }
         $DATA->set_page_metadata($this_page, 'title', $pagetitle);
     }

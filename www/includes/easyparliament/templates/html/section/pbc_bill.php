@@ -46,7 +46,7 @@
                                 <?php } ?>
                             </p>
                             <p class="business-list__excerpt">
-                                <?= trim_characters($row['excerpt'], 0, 200) ?>
+                                <?= trim_characters($row['excerpt'] ?? '', 0, 200) ?>
                             </p>
                     <?php } else { ?>
                     <ul>
@@ -85,13 +85,13 @@
 
             <p><strong>Chairpersons</strong></p>
             <ul>
-            <?php foreach($committee['chairmen'] as $chair) { ?>
+            <?php foreach ($committee['chairmen'] as $chair) { ?>
                 <li><?= $chair['name'] ?> (<?= $chair['attending'] ?>)</li>
             <?php } ?>
             </ul>
             <p><strong>Members</strong></p>
             <ul>
-            <?php foreach($committee['members'] as $chair) { ?>
+            <?php foreach ($committee['members'] as $chair) { ?>
                 <li><?= $chair['name'] ?> (<?= $chair['attending'] ?>)</li>
             <?php } ?>
             </ul>

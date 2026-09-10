@@ -9,39 +9,65 @@ namespace MySociety\TheyWorkForYou\Utility;
  */
 
 class Alert {
-    public static function sectionToTitle($section) {
+    public static function sectionToTitle(string $section) {
+        # Includes variants in slugs allowed by SEARCHENGINE
         $section_map = [
             "uk" => gettext('All UK'),
             "debates" => gettext('House of Commons debates'),
+            "debate" => gettext('House of Commons debates'),
             "whalls" => gettext('Westminster Hall debates'),
+            "whall" => gettext('Westminster Hall debates'),
+            "westminster" => gettext('Westminster Hall debates'),
+            "westminhall" => gettext('Westminster Hall debates'),
             "lords" => gettext('House of Lords debates'),
+            "lordsdebates" => gettext('House of Lords debates'),
             "wrans" => gettext('Written answers'),
+            "wran" => gettext('Written answers'),
             "wms" => gettext('Written ministerial statements'),
+            "statements" => gettext('Written ministerial statements'),
+            "statement" => gettext('Written ministerial statements'),
             "standing" => gettext('Bill Committees'),
+            "pbc" => gettext('Bill Committees'),
             "future" => gettext('Future Business'),
             "ni" => gettext('Northern Ireland Assembly Debates'),
+            "nidebates" => gettext('Northern Ireland Assembly Debates'),
             "scotland" => gettext('All Scotland'),
             "sp" => gettext('Scottish Parliament Debates'),
             "spwrans" => gettext('Scottish Parliament Written answers'),
+            "spwran" => gettext('Scottish Parliament Written answers'),
             "wales" => gettext('Welsh parliament record'),
             "lmqs" => gettext('Questions to the Mayor of London'),
         ];
 
         return $section_map[$section];
     }
-    public static function detailsToCriteria($details) {
+
+    /**
+     * Build search criteria from the alert fields.
+     * @param array $details
+     */
+    public static function detailsToCriteria(array $details): string {
         $criteria = [];
+        $keyword = $details['keyword'] ?? '';
+        $section = $details['search_section'] ?? '';
+        $pid = $details['pid'] ?? false;
 
-        if (!empty($details['keyword'])) {
-            $criteria[] = $details['keyword'];
+        if ($keyword) {
+            // If the keyword contains " OR " and there's going to be additional filters applied
+            // wrap this in brackets so the filters are applied over the top
+            $section_or_person = $pid || $section;
+            if ($section_or_person && strpos($keyword, ' OR ') !== false) {
+                $keyword = '(' . $keyword . ')';
+            }
+            $criteria[] = $keyword;
         }
 
-        if (!empty($details['pid'])) {
-            $criteria[] = 'speaker:' . $details['pid'];
+        if ($pid) {
+            $criteria[] = 'speaker:' . $pid;
         }
 
-        if (!empty($details['search_section'])) {
-            $criteria[] = 'section:' . $details['search_section'];
+        if ($section) {
+            $criteria[] = 'section:' . $section;
         }
 
         $criteria = join(' ', $criteria);

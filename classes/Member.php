@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Member Class
  *
@@ -385,9 +386,9 @@ class Member extends \MEMBER {
         $output[] = $this->left_house_line(HOUSE_TYPE_LORDS, gettext('House of Lords'));
 
         if (isset($this->extra_info['lordbio'])) {
-            $output[] = '<strong>Positions held at time of appointment:</strong> ' . $this->extra_info['lordbio'] .
-                ' <small>(from <a href="' .
-                $this->extra_info['lordbio_from'] . '">Number 10 press release</a>)</small>';
+            $output[] = '<strong>Positions held at time of appointment:</strong> ' . $this->extra_info['lordbio']
+                . ' <small>(from <a href="'
+                . $this->extra_info['lordbio_from'] . '">Number 10 press release</a>)</small>';
         }
 
         $output[] = $this->entered_house_line(HOUSE_TYPE_COMMONS, gettext('House of Commons'));
@@ -487,14 +488,14 @@ class Member extends \MEMBER {
         $score_diff = abs($mp_score - $party_score);
         // if they are on opposite sides of mixture of for and against
         if (
-            ($mp_score < 0.4 && $party_score > 0.6) ||
-            ($mp_score > 0.6 && $party_score < 0.4)
+            ($mp_score < 0.4 && $party_score > 0.6)
+            || ($mp_score > 0.6 && $party_score < 0.4)
         ) {
             $score_diff += 2;
             // if on is mixture of for and against and one is for/against
         } elseif (
-            ($mp_score > 0.4 && $mp_score < 0.6 && ($party_score > 0.6 || $party_score < 0.4)) ||
-            ($party_score > 0.4 && $party_score < 0.6 && ($mp_score > 0.6 || $mp_score < 0.4))
+            ($mp_score > 0.4 && $mp_score < 0.6 && ($party_score > 0.6 || $party_score < 0.4))
+            || ($party_score > 0.4 && $party_score < 0.6 && ($mp_score > 0.6 || $mp_score < 0.4))
         ) {
             $score_diff += 1;
         }

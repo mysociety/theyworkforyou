@@ -528,6 +528,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             }
         } elseif ($this->data['pid']) {
             $MEMBER = new \MySociety\TheyWorkForYou\Member(['person_id' => $this->data['pid']]);
+            if (!$MEMBER->valid) {
+                redirect('/alert/'); # Shouldn't be possible, and yet
+            }
             $this->data['members'] = [[
                 "person_id" => $MEMBER->person_id,
                 "given_name" => $MEMBER->given_name,
@@ -554,7 +557,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
 
         /*
-         * If member_constituncies is set then it implies there wasn't a postcode match and hence we will have
+         * If member_constituencies is set then it implies there wasn't a postcode match and hence we will have
          * a list of members which we can turn into constituencies, otherwise we have a hash of constituency names
          * keyed by mapit type
          */
@@ -576,7 +579,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 try {
                     $house = \MySociety\TheyWorkForYou\Utility\Postcode::mapitTypeToHouse($type);
                     // regional list reps for scotland
-                    if ($type == 'SPE') {
+                    if ($type == 'SPE' || $type == 'WAC' || $type == 'NIE') {
                         $db = new \ParlDB();
                         $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
                         foreach ($q as $row) {
@@ -586,7 +589,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
                     } else {
                         $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => $house]);
-                        $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
+                        $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency, 'rep_name' => $MEMBER->getMostRecentGroupedMembership()['rep_name'] ];
                     }
                 } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
@@ -688,9 +691,9 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
         }
 
         if (
-            preg_match('#([A-Z]{1,2}\d+[A-Z]? ?\d[A-Z]{2})#i', $this->data['alertsearch'], $m) &&
-            strlen($this->data['alertsearch']) > strlen($m[1]) &&
-            validate_postcode($m[1])
+            preg_match('#([A-Z]{1,2}\d+[A-Z]? ?\d[A-Z]{2})#i', $this->data['alertsearch'], $m)
+            && strlen($this->data['alertsearch']) > strlen($m[1])
+            && validate_postcode($m[1])
         ) {
             $this->data['postcode'] = $m[1];
             $mistakes['postcode_and'] = 1;
@@ -745,22 +748,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
      */
     private function setUserData() {
         if (!isset($this->data['criteria'])) {
-            $criteria = $this->data['keyword'];
-            if ($criteria) {
-                if (!$this->data['match_all']) {
-                    $has_or = strpos($criteria, ' OR ') !== false;
-                    $missing_braces = strpos($criteria, '(') === false;
-
-                    if ($has_or && $missing_braces) {
-                        $criteria = "($criteria)";
-                    }
-                }
-                if ($this->data['search_section']) {
-                    $criteria .= " section:" . $this->data['search_section'];
-                }
-                if ($this->data['pid']) {
-                    $criteria .= " speaker:" . $this->data['pid'];
-                }
+            $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($this->data);
+            if ($this->data['keyword']) {
                 $this->data['search_results']  = $this->getRecentResults($criteria);
             }
 

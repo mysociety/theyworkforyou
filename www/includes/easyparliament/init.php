@@ -52,7 +52,7 @@ if (substr($_SERVER['SERVER_NAME'] ?? '', 0, 2) == 'cy') {
 textdomain('TheyWorkForYou');
 
 // Set the default timezone
-if(function_exists('date_default_timezone_set')) {
+if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set(TIMEZONE);
 }
 

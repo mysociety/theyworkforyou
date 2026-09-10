@@ -32,11 +32,11 @@ jobs:
         path: |
           .php-cs-fixer.cache
           tools/php-cs-fixer
-        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer74
+        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer82
 
     - uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 8.2
 
     - name: Install PHP-CS-Fixer
       if: steps.cache-php-cs-fixer.outputs.cache-hit != 'true'
@@ -54,4 +54,4 @@ jobs:
         path: |
           .php-cs-fixer.cache
           tools/php-cs-fixer
-        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer74
+        key: ${{ runner.OS }}-${{ github.repository }}-phpcsfixer82

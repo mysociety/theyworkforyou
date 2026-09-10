@@ -95,9 +95,9 @@ class ALERT {
                         deleted,
                         confirmed
                         FROM alerts
-                        WHERE confirmed =" . $confirmed .
-                        " AND deleted=" . $deleted .
-                        ' ORDER BY email');
+                        WHERE confirmed =" . $confirmed
+                        . " AND deleted=" . $deleted
+                        . ' ORDER BY email');
 
         $data = $q->fetchAll();
         $info = "Alert";
@@ -124,7 +124,7 @@ class ALERT {
 
     public function update($id, $details) {
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
-        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
+        $ignore_speaker_votes = ($details['ignore_speaker_votes'] ?? 0) ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE alert_id = :id", [
@@ -157,7 +157,7 @@ class ALERT {
         // )
 
         $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($details);
-        $ignore_speaker_votes = $details['ignore_speaker_votes'] ? 1 : 0;
+        $ignore_speaker_votes = ($details['ignore_speaker_votes'] ?? 0) ? 1 : 0;
 
         $q = $this->db->query("SELECT * FROM alerts
             WHERE email = :email
@@ -282,9 +282,9 @@ class ALERT {
         // $details is the array we just sent to add(), and which it's
         // passed on to us here.
         // A brief check of the facts...
-        if (!is_numeric($this->alert_id) ||
-            !isset($details['email']) ||
-            $details['email'] == '') {
+        if (!is_numeric($this->alert_id)
+            || !isset($details['email'])
+            || $details['email'] == '') {
             return false;
         }
 

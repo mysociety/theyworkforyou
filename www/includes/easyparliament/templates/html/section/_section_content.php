@@ -225,12 +225,13 @@ foreach ($data['rows'] as $speech) { ?>
                 <div class="debate-speech__question-answered">
                     <div class="debate-speech__question-answered-content">
                         <h3>Does this answer the above question?</h3>
+                        <form method="post" action="<?= $speech['voting_data']['voteurl'] ?>">
                         <p class="debate-speech__question-answered-result">
-                            <a rel="nofollow" class="button" href="<?= $speech['voting_data']['yesvoteurl'] ?>" title="Rate this as answering the question">Yes</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so</span>
+                            <button type="submit" class="button" name="v" value="1" title="Rate this as answering the question">Yes</button><span class="question-answered-result__vote-text"><?= $speech['voting_data']['yesvotes'] ?> <?= $speech['voting_data']['yesplural'] ?> so</span>
                         </p>
 
                         <p class="debate-speech__question-answered-result">
-                            <a rel="nofollow" class="button" href="<?= $speech['voting_data']['novoteurl'] ?>" title="Rate this as NOT answering the question">No</a><span class="question-answered-result__vote-text"><?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not</span>
+                            <button type="submit" class="button" name="v" value="0" title="Rate this as NOT answering the question">No</button><span class="question-answered-result__vote-text"><?= $speech['voting_data']['novotes'] ?> <?= $speech['voting_data']['noplural'] ?> not</span>
                         </p>
 
                         <p class="subtle">
@@ -294,25 +295,6 @@ foreach ($data['rows'] as $speech) { ?>
                     <?php if ($speech['htype'] == '14' && isset($speech['division']['analysis_url'])) { ?>
                         <a href="<?= $speech['division']['analysis_url'] ?>" class="link debate-speech__meta__link"><?= gettext('Vote analysis') ?></a>
                     <?php } ?>
-                </li>
-                <?php
-    }
-    if ($speech['socialteaser'] && $speech['socialurl']) {
-        $twitter_href = sprintf(
-            'https://twitter.com/share?url=%s&text=%s&amp;related=%s',
-            urlencode($speech['socialurl']),
-            urlencode($speech['socialteaser']),
-            urlencode('theyworkforyou,mysociety')
-        );
-        $facebook_href = sprintf(
-            'https://www.facebook.com/dialog/share?app_id=%s&display=popup&href=%s&quote=%s',
-            urlencode(FACEBOOK_APP_ID),
-            urlencode($speech['socialurl']),
-            urlencode($speech['socialteaser'])
-        ); ?>
-                <li class="link-to-speech">
-                    <a href="<?=htmlspecialchars($twitter_href)?>" class="twitter debate-speech__meta__link js-twitter-share" target="_blank"><?= gettext('Tweet') ?></a>
-                    <a href="<?=htmlspecialchars($facebook_href)?>" data-url="<?=htmlspecialchars($speech['socialurl'])?>" data-text="<?=htmlspecialchars($speech['socialteaser'])?>" class="facebook debate-speech__meta__link js-facebook-share"><?= gettext('Share') ?></a>
                 </li>
                 <?php
     }

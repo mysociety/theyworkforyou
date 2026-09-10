@@ -143,8 +143,8 @@ class Header {
 
             if (isset($nextprev[$linktype]['body'])) {
                 $linktitle = _htmlentities(trim_characters($nextprev[$linktype]['body'], 0, 40));
-                if (isset($nextprev[$linktype]['speaker']) &&
-                    count($nextprev[$linktype]['speaker']) > 0) {
+                if (isset($nextprev[$linktype]['speaker'])
+                    && count($nextprev[$linktype]['speaker']) > 0) {
                     $linktitle = $nextprev[$linktype]['speaker']['name'] . ': ' . $linktitle;
                 }
 

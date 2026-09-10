@@ -121,7 +121,7 @@
 
                 <div class="row">
                 <span class="formw"><input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>true" value="true" <?= $optin_value == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="<?= $optin_key ?>true">Yes</label><br>
-                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' : !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
+                <input type="radio" name="<?= $optin_key ?>" id="<?= $optin_key ?>false" value="false" <?= $optin_value == 'No' ? ' checked' : (!isset($mp_alert) ? ' checked' : '') ?>> <label class="option_yesno"  for="<?= $optin_key ?>false">No</label></span>
                 </div>
 
                 <?php } ?>
@@ -133,7 +133,7 @@
 
                 <div class="row">
                 <span class="formw"><input type="radio" name="mp_alert" id="mp_alerttrue" value="true" <?= isset($mp_alert) && $mp_alert == 'Yes' ? ' checked' : '' ?>> <label class="option_yesno" for="mp_alerttrue">Yes</label><br>
-                <input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?= isset($mp_alert) && $mp_alert == 'No' ? ' checked' : !isset($mp_alert) ? ' checked' : '' ?>> <label class="option_yesno" for="mp_alertfalse">No</label></span>
+                <input type="radio" name="mp_alert" id="mp_alertfalse" value="false" <?= isset($mp_alert) && $mp_alert == 'No' ? ' checked' : (!isset($mp_alert) ? ' checked' : '') ?>> <label class="option_yesno" for="mp_alertfalse">No</label></span>
                 </div>
 
                 <div class="row">

@@ -560,8 +560,8 @@ class MEMBER {
                 "sort" => "regexp_replace",
             ];
             $GLOSSARY = new GLOSSARY($args);
-            $this->extra_info['register_member_interests_html'] =
-        $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
+            $this->extra_info['register_member_interests_html']
+        = $GLOSSARY->glossarise($this->extra_info['register_member_interests_html']);
         }
 
         $q = $this->db->query('select count(*) as c from alerts where criteria like "%speaker:' . $this->person_id . '%" and confirmed and not deleted')->first();

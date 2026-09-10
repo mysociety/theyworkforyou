@@ -4,34 +4,31 @@ namespace MySociety\TheyWorkForYou\GlossaryView;
 
 class TermView extends BaseView {
     public function display(): array {
+        $gl = filter_input(INPUT_GET, 'gl', FILTER_VALIDATE_INT);
+        $glossary = new \GLOSSARY(['sort' => 'regexp_replace', 'glossary_id' => $gl]);
+        if (!$glossary->current_term) {
+            return [];
+        }
+
         $data = [
-            'title' => 'Glossary',
-            'page_title' => 'Glossary Index',
-            'this_page' => 'glossary',
+            'title' => $glossary->current_term['title'],
+            'this_page' => 'glossary_item',
             'template_name' => 'term',
         ];
 
-        $gl = filter_input(INPUT_GET, 'gl', FILTER_VALIDATE_INT);
+        $data['notitle'] = 1;
+        $data['definition'] = $this->format_body($glossary->current_term['body']);
 
-        $az = 'A';
-        $glossary = new \GLOSSARY(['sort' => 'regexp_replace', 'glossary_id' => $gl]);
-        if ($glossary->current_term) {
-            $data['notitle'] = 1;
-            $data['title'] = $glossary->current_term['title'];
-            $data['definition'] = $this->format_body($glossary->current_term['body']);
+        $data['contributing_user'] = $glossary->current_term['user_id'] ? $glossary->current_term['firstname'] . " " . $glossary->current_term['lastname'] : '';
+        $az = strtoupper($glossary->current_term['title'][0]);
 
-            $data['contributing_user'] = $glossary->current_term['user_id'] ? $glossary->current_term['firstname'] . " " . $glossary->current_term['lastname'] : '';
-            $az = strtoupper($glossary->current_term['title'][0]);
+        $data['nextprev'] = $this->get_next_prev($glossary);
+        $data['page_title'] = $data['title'] . ': Glossary Item';
 
-            $data['nextprev'] = $this->get_next_prev($glossary);
-            $data['this_page'] = 'glossary_item';
-            $data['page_title'] = $data['title'] . ': Glossary Item';
-
-            if ($this->has_edit_access()) {
-                $url = new \MySociety\TheyWorkForYou\Url('glossary_editterm');
-                $url->insert(['id' => $glossary->glossary_id]);
-                $data['edit_url'] = $url->generate('url');
-            }
+        if ($this->has_edit_access()) {
+            $url = new \MySociety\TheyWorkForYou\Url('glossary_editterm');
+            $url->insert(['id' => $glossary->glossary_id]);
+            $data['edit_url'] = $url->generate('url');
         }
 
         $data = $this->add_management_urls($data);

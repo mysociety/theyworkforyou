@@ -1,5 +1,5 @@
 <div class="calendar">
-  <?php if(isset($month)) {
+  <?php if (isset($month)) {
       // What is the first day of the month in question?
       $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
 
@@ -154,7 +154,7 @@
             </tr>
         </tbody>
     </table>
-  <?php if(!isset($years)) { ?>
+  <?php if (!isset($years)) { ?>
     <div class="calendar__footer">
     <?php
           $y = $urls['day'];

@@ -44,18 +44,17 @@ if (get_http_var('testing') == 'true') {
 
     $ret = get_http_var('ret');
     $id = get_http_var('id');
-    $v = get_http_var('v');
 
     $URL = new \MySociety\TheyWorkForYou\Url($this_page);
     $URL->reset();
     $URL->insert([
-        'v'		=> $v,
         'id'	=> $id,
         'ret' 	=> $ret,
         'testing' => 'true',
     ]);
 
     // Redirect to this same URL with 'testing=true' on the end.
+    header('HTTP/1.0 307 Temporary redirect');
     header("Location: " . $URL->generate('none'));
     exit;
 }
@@ -83,12 +82,10 @@ function voteerror($text) {
     exit;
 }
 
-
-if (is_numeric(get_http_var('id')) && is_numeric(get_http_var('v'))) {
+$epobject_id = get_http_var('id');
+$vote = $_POST['v'] ?? '';
+if (is_numeric($epobject_id) && is_numeric($vote)) {
     // We have the id of a Hansard item and a vote.
-
-    $epobject_id = get_http_var('id');
-    $vote = get_http_var('v');
 
     // Make sure user is allowed to vote.
     if (!$THEUSER->is_able_to('voteonhansard')) {

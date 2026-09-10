@@ -6,34 +6,6 @@
                 <?php } ?>
 
             <div class="main">
-            <?php if ($facebook_user) { ?>
-              <h1>Edit your details</h1>
-              <form method="post" class="edit-form" action="/user/index.php">
-                <?php if (isset($errors['postcode'])) { ?>
-                <p class="error">
-                    <?= $errors['postcode'] ?>
-                </p>
-                <?php } ?>
-
-                <br style="clear: left;">&nbsp;<br>
-                <div class="row">
-                <span class="label"><label for="postcode"><?= gettext('Your UK postcode:') ?></label></span>
-                <span class="formw"><input type="text" name="postcode" id="postcode" value="<?= _htmlentities($postcode) ?>" maxlength="10" size="10" class="form"> <small><?= gettext('Optional and not public') ?></small></span>
-                </div>
-
-                <p>
-                <?= gettext('We use this to show you information about your MP.') ?>
-                </p>
-
-                <div class="row">
-                <span class="formw"><input type="submit" class="submit" value="<?= gettext('Update details') ?>"></span>
-                </div>
-
-                <input type="hidden" name="submitted" value="true">
-
-                <input type="hidden" name="pg" value="edit">
-              </form>
-            <?php } else { ?>
               <?php if (isset($showall) && $showall == true && isset($user_id)) { ?>
               <h1>Edit the user&rsquo;s details</h1>
               <?php } else { ?>
@@ -212,7 +184,6 @@
                 <?php } ?>
 
               </form>
-            <?php } ?>
             </div>
             <div class="sidebar">&nbsp;</div>
             <div class="break"></div>

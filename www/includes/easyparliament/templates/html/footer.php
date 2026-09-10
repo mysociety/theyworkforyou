@@ -116,52 +116,5 @@
 <script src="<?= cache_version("js/accessible-autocomplete.min.js") ?>"></script>
 <script src="<?= cache_version("js/main.js") ?>"></script>
 
-<script>
-window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-  return t;
-}(document, "script", "twitter-wjs"));
-
-twttr.ready(function() {
-  twttr.events.bind('tweet', function() {
-    ga('send', 'social', 'twitter', 'tweet', window.location.href);
-  });
-  twttr.events.bind('follow', function() {
-    ga('send', 'social', 'twitter', 'follow', window.location.href);
-  });
-});
-
-window.fbAsyncInit = function () {
-  FB.init({
-    appId: <?= json_encode(FACEBOOK_APP_ID) ?>,
-    autoLogAppEvents: true,
-    xfbml: true,
-    version: 'v9.0'
-  });
-
-  FB.Event.subscribe('edge.create', function (targetUrl) {
-    ga('send', 'social', 'facebook', 'like', targetUrl);
-  });
-
-  FB.Event.subscribe('edge.remove', function (targetUrl) {
-    ga('send', 'social', 'facebook', 'unlike', targetUrl);
-  });
-
-  FB.Event.subscribe('message.send', function (targetUrl) {
-    ga('send', 'social', 'facebook', 'share', targetUrl);
-  });
-};
-</script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js"></script>
-
 </body>
 </html>

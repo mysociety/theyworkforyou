@@ -1,3 +1,9 @@
 #!/bin/sh
+if [ -e "/etc/php/8.4" ]; then
+    PHP_FCGI_CHILDREN=0 PHPRC=/etc/php/8.4/fcgi exec /usr/bin/php-cgi -d apc.enabled=1 -d apc.stat=0 -d realpath_cache_ttl=86400 -d cgi.check_shebang_line=0 -d pcre.jit=0
+elif [ -e "/etc/php/8.2" ]; then
+    PHP_FCGI_CHILDREN=0 PHPRC=/etc/php/8.2/fcgi exec /usr/bin/php-cgi -d apc.enabled=1 -d apc.stat=0 -d realpath_cache_ttl=86400 -d cgi.check_shebang_line=0 -d pcre.jit=0
+elif [ -e "/etc/php/7.4" ]; then
+    PHP_FCGI_CHILDREN=0 PHPRC=/etc/php/7.4/fcgi exec /usr/bin/php-cgi -d apc.enabled=1 -d apc.stat=0 -d realpath_cache_ttl=86400 -d cgi.check_shebang_line=0 -d pcre.jit=0
+fi
 
-PHP_FCGI_CHILDREN=0 PHPRC=/etc/php/7.4/fcgi exec /usr/bin/php-cgi -d apc.enabled=1 -d apc.stat=0 -d realpath_cache_ttl=86400 -d cgi.check_shebang_line=0 -d extension=xapian.so -d pcre.jit=0

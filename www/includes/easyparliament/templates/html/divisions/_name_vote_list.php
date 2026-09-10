@@ -28,7 +28,7 @@ if (count($votes) > 0) { ?>
     <?php if (count($tellers) > 0) { ?>
       <h4><?= gettext('Tellers') ?></h4>
       <ul class="division-names">
-        <?php foreach($tellers as $teller) {
+        <?php foreach ($tellers as $teller) {
             print_voter($teller);
         } ?>
       </p>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Mirrors pydantic model for deseralisation in a PHP context.
  * For adding display related helper functions.
@@ -10,7 +11,6 @@ declare(strict_types=1);
 namespace MySociety\TheyWorkForYou\DataClass\Regmem;
 
 use MySociety\TheyWorkForYou\DataClass\BaseModel;
-
 use InvalidArgumentException;
 
 class Person extends BaseModel {

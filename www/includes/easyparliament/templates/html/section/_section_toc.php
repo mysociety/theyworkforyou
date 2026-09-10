@@ -1,7 +1,7 @@
 <?php
 
 $divisions_to_link = [];
-foreach($data['rows'] as $speech) {
+foreach ($data['rows'] as $speech) {
 
     # Only care about divisions...
     if ($speech['htype'] != 14) {

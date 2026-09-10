@@ -230,7 +230,7 @@ CREATE TABLE `moffice` (
   `source` varchar(255) NOT NULL,
   PRIMARY KEY  (`moffice_id`),
   KEY `person` (`person`)
-);
+) CHARACTER SET 'utf8';
 
 CREATE TABLE `personinfo` (
   `person_id` int(11) NOT NULL default '0',
@@ -243,9 +243,9 @@ CREATE TABLE `personinfo` (
 
 CREATE TABLE `postcode_lookup` (
   `postcode` varchar(10) NOT NULL default '',
-  `name` varchar(100) NOT NULL default '',
+  `name` varchar(200) NOT NULL default '',
   PRIMARY KEY  (`postcode`)
-);
+) CHARACTER SET 'utf8';
 
 CREATE TABLE `vector_search_suggestions` (
   `search_term` varchar(100) NOT NULL default '',
@@ -429,7 +429,7 @@ CREATE TABLE `search_query_log` (
   `query_time` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `query_time` (`query_time`)
-);
+) CHARACTER SET 'utf8';
 
 CREATE TABLE `users` (
   `user_id` mediumint(9) NOT NULL auto_increment,
@@ -529,7 +529,7 @@ CREATE TABLE `api_key` (
 CREATE TABLE `api_stats` (
   `id` int(11) NOT NULL auto_increment,
   `api_key` char(24) NOT NULL,
-  `ip_address` varchar(16) NOT NULL,
+  `ip_address` varchar(50) NOT NULL,
   `query_time` datetime NOT NULL,
   `query` text NOT NULL,
   PRIMARY KEY (`id`),

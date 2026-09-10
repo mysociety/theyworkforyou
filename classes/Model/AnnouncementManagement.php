@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AnnouncementManagement Model
  *
@@ -38,10 +39,10 @@ function is_valid_item($item) {
         $end_time = "2100-01-01T00:00:00";
     }
 
-    return $published &&
-        $language == LANGUAGE &&
-        $start_time < date("Y-m-d\TH:i:s") &&
-        $end_time > date("Y-m-d\TH:i:s");
+    return $published
+        && $language == LANGUAGE
+        && $start_time < date("Y-m-d\TH:i:s")
+        && $end_time > date("Y-m-d\TH:i:s");
 }
 
 function select_based_on_weight($items) {

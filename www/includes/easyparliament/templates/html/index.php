@@ -121,8 +121,6 @@
                         if ($recess) { ?>
                             <p>
                             Parliament is on holiday until <?= format_date($to, LONGERDATEFORMAT) ?>.
-                            Follow us on <a href="https://twitter.com/theyworkforyou">Twitter</a> and you'll
-                            be the first to know when they're back in session.
                             </p>
                         <?php } else { ?>
                             <p>

@@ -39,7 +39,7 @@ include_once INCLUDESPATH . "easyparliament/templates/html/mp/header.php";
                         <nav class="subpage-content-list js-accordion" aria-label="Comparison periods">
                             <h3 class="js-accordion-button">For period: <?= $comparison_period->description ?></h3>
                             <ul class="js-accordion-content">
-                                <?php foreach($available_periods as $period) { ?>
+                                <?php foreach ($available_periods as $period) { ?>
                                     <li><a href="?comparison_period=<?= $period->lslug() ?>" class="<?= $period->lslug() === $comparison_period->lslug() ? 'active-comparison-period' : '' ?>"><?= $period->description ?></a></li>
                                 <?php } ?>
                             </ul>

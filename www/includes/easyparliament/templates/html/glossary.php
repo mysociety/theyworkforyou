@@ -62,8 +62,8 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
     foreach ($data['comments'] as $n => $comment) {
         $style = $n % 2 == 0 ? '1' : '2';
 
-        if (isset($data['info']['user_id']) &&
-            $comment['user_id'] == $data['info']['user_id']) {
+        if (isset($data['info']['user_id'])
+            && $comment['user_id'] == $data['info']['user_id']) {
             $style .= '-on';
         }
         ?>
@@ -106,9 +106,9 @@ if (isset($data['comments']) && count($data['comments']) > 0) {
             echo "\t\t$time";
         }
 
-        if (($this_page != 'commentreport' &&
-            $this_page != 'addcomment'  &&
-            $this_page != 'admin_commentreport')
+        if (($this_page != 'commentreport'
+            && $this_page != 'addcomment'
+            && $this_page != 'admin_commentreport')
             && $THEUSER->is_able_to('reportcomment')
             && !$comment['modflagged']
         ) {

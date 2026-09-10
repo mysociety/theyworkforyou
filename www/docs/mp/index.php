@@ -661,7 +661,7 @@ function person_list_page($ids) {
 function person_error_page($message) {
     global $this_page;
     $SEARCHURL = '';
-    switch($this_page) {
+    switch ($this_page) {
         case 'peer':
             $people = new MySociety\TheyWorkForYou\People\Peers();
             $MPSURL = new \MySociety\TheyWorkForYou\Url('peers');
@@ -1298,7 +1298,7 @@ function regional_list($pc, $area_type, $rep_type) {
         }
     }
 
-    foreach($mreg as $reg) {
+    foreach ($mreg as $reg) {
         $data['members'][] =  [
             'url' => '/' . $rep_type . '/?p=' . $reg['person_id'],
             'name' => $reg['given_name'] . ' ' . $reg['family_name'],

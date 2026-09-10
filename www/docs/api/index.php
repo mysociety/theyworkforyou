@@ -54,10 +54,10 @@ if ($q_method = get_http_var('method')) {
             }
             if ($match == 1 && (get_http_var('output') || !get_http_var('docs'))) {
                 if ($data['required']) {
-                    api_error('No parameter provided to function "' .
-                    _htmlspecialchars($q_method) .
-                        '". Possible choices are: ' .
-                        join(', ', $data['parameters']));
+                    api_error('No parameter provided to function "'
+                    . _htmlspecialchars($q_method)
+                        . '". Possible choices are: '
+                        . join(', ', $data['parameters']));
                 } else {
                     include_once 'api_' . $method . '.php';
                     api_call_user_func_or_error('api_' . $method, [], 'API call not yet functional', 'api');
@@ -69,9 +69,9 @@ if ($q_method = get_http_var('method')) {
     }
     if (!$match) {
         api_log_call($key);
-        $msg = 'Unknown function "' . _htmlspecialchars($q_method) .
-            '". Possible functions are: ' .
-            join(', ', array_keys($methods));
+        $msg = 'Unknown function "' . _htmlspecialchars($q_method)
+            . '". Possible functions are: '
+            . join(', ', array_keys($methods));
         if (get_http_var('output')) {
             api_error($msg);
         } else {

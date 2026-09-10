@@ -63,8 +63,8 @@ if ($subheading != '') {
     foreach ($data['comments'] as $n => $comment) {
         $style = $n % 2 != 0 ? '1' : '2';
 
-        if (isset($data['info']['user_id']) &&
-            $comment['user_id'] == $data['info']['user_id']) {
+        if (isset($data['info']['user_id'])
+            && $comment['user_id'] == $data['info']['user_id']) {
             $style .= '-on';
         }
 
@@ -83,9 +83,9 @@ if ($subheading != '') {
 
         if (!$comment['visible']) {
             $reporthtml = '';
-        } elseif (($this_page != 'commentreport' &&
-            $this_page != 'addcomment'  &&
-            $this_page != 'admin_commentreport')
+        } elseif (($this_page != 'commentreport'
+            && $this_page != 'addcomment'
+            && $this_page != 'admin_commentreport')
             && $THEUSER->is_able_to('reportcomment')
             && $THEUSER->user_id() != $comment['user_id']
             && !$comment['modflagged']

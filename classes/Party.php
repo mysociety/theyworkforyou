@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Party Class
  *

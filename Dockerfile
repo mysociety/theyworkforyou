@@ -1,4 +1,4 @@
-FROM mysocietyorg/debian:bullseye
+FROM mysocietyorg/debian:bookworm
 
 # Apache.
 RUN apt-get -qq update && apt-get -qq install \
@@ -10,6 +10,7 @@ RUN apt-get -qq update && apt-get -qq install \
 # Build dependencies that weren't in `conf/packages`
 RUN apt-get -qq update && apt-get -qq install \
       bundler \
+      fontconfig \
       gcc \
       libc6-dev \
       libffi-dev \

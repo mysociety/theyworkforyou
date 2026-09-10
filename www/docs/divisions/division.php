@@ -14,11 +14,18 @@ if (!$vote) {
 
 $divisions = new MySociety\TheyWorkForYou\Divisions();
 $division_votes = $divisions->getDivisionResults($vote);
+if (!$division_votes) {
+    $PAGE->error_message("Bad vote specified", true);
+    exit();
+}
 [$country, $location, $assembly, $cons_type, $assembly_name] = MySociety\TheyWorkForYou\Utility\House::getCountryDetails($division_votes['house_number']);
 
 $main_vote_mp = false;
 if ($mp = get_http_var('p')) {
-    $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => $mp, 'house' => $division_votes['house_number']]);
+    $MEMBER = new MySociety\TheyWorkForYou\Member(['person_id' => $mp]);
+    if (!$MEMBER->valid || !$MEMBER->house($division_votes['house_number'])) {
+        redirect("/divisions/$vote");
+    }
     $main_vote_mp = true;
 } elseif ($THEUSER->postcode_is_set() && $cons_type == 'WMC') {
     $MEMBER = new MySociety\TheyWorkForYou\Member(['postcode' => $THEUSER->postcode(), 'house' => HOUSE_TYPE_COMMONS]);

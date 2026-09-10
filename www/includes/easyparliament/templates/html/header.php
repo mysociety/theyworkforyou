@@ -48,7 +48,6 @@
   <?php } ?>
 
     <meta property="og:description" content="<?= _htmlentities($meta_description) ?>">
-    <meta property="fb:app_id" content="<?= FACEBOOK_APP_ID ?>">
 
     <script>document.documentElement.className = 'js';</script>
 

@@ -10,17 +10,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php_version: ["7.4", "8.2", "8.3", "8.4"]
+        php_version: ["8.2", "8.3", "8.4"]
 
     services:
       mariadb:
-        image: mariadb:10.5
+        image: mariadb:11.8
         ports:
           - 3306:3306
+        command: '--sql_mode=ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
         env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: twfy_test
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+          MARIADB_RANDOM_ROOT_PASSWORD: '1'
+          MARIADB_USER: twfy
+          MARIADB_PASSWORD: password
+          MARIADB_DATABASE: twfy
+          MARIADB_AUTO_UPGRADE: '1'
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-start-period=60s
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
       redis:
         image: bitnamisecure/redis
@@ -29,10 +38,10 @@ jobs:
         env:
           REDIS_PASSWORD: password
         options: >-
-          --health-cmd "redis-cli -a password ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="redis-cli -a password ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
       redis-sentinel:
         image: bitnamisecure/redis-sentinel
@@ -45,62 +54,59 @@ jobs:
         ports:
           - 26379:26379
         options: >-
-          --health-cmd "redis-cli -p 26379 ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="redis-cli -p 26379 ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-#    - name: Stop any running MySQL
-#      run: sudo systemctl stop mysql.service
-#    - uses: chhsiung/github-actions-mysql@0f348ad54f14038adafed5914b5ce775806768ab
-#      with:
-#        rootPassword: 'password'
-#        sqlMode: 'ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
+      - uses: niden/actions-memcached@v8
 
-    - uses: niden/actions-memcached@v8
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php_version }}
+          extensions: memcached
 
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php_version }}
-        extensions: memcached
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
 
-    - uses: actions/checkout@v4
-      with:
-        submodules: true
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(php composer.phar config cache-files-dir)" >> $GITHUB_OUTPUT
 
-    - name: Get Composer Cache Directory
-      id: composer-cache
-      run: echo "dir=$(php composer.phar config cache-files-dir)" >> $GITHUB_OUTPUT
-    - uses: actions/cache@v3
-      with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-php-composer-
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-php-composer-
 
-    - name: Verify MariaDB connection
-      run: |
-        while ! mysqladmin ping -h"127.0.0.1" --silent; do
-          sleep 1
-        done
+      - name: Verify MariaDB connection
+        run: |
+          while ! mysqladmin ping \
+            -h 127.0.0.1 \
+            -u twfy \
+            -ppassword \
+            --silent; do
+            sleep 1
+          done
 
-    - name: Set up database and code
-      run: |
-        mysql -h 127.0.0.1 -u root -ppassword twfy_test < db/schema.sql
-        php composer.phar install --no-interaction
+      - name: Set up database and code
+        run: |
+          mysql \
+            -h 127.0.0.1 \
+            -u twfy \
+            -ppassword \
+            twfy < db/schema.sql
 
-    - name: Run tests
-      env:
-        TWFY_TEST_DB_HOST: "127.0.0.1"
-        TWFY_TEST_DB_USER: "root"
-        TWFY_TEST_DB_PASS: "password"
-        TWFY_TEST_DB_NAME: "twfy_test"
-      run: |
-        mkdir -p build/logs
-        vendor/bin/phpunit --exclude-group xapian
+          php composer.phar install --no-interaction
 
-#    - name: Afterwards
-#      if: matrix.php_version == '7.4'
-#      run: |
-#        wget https://scrutinizer-ci.com/ocular.phar
-#        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+      - name: Run tests
+        env:
+          TWFY_TEST_DB_HOST: "127.0.0.1"
+          TWFY_TEST_DB_USER: "twfy"
+          TWFY_TEST_DB_PASS: "password"
+          TWFY_TEST_DB_NAME: "twfy"
+        run: |
+          mkdir -p build/logs
+          vendor/bin/phpunit --exclude-group xapian

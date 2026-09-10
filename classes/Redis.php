@@ -10,9 +10,9 @@ class Redis extends \Predis\Client {
             foreach (explode(",", REDIS_SENTINELS) as $sentinel) {
                 // Wrap IPv6 addresses in square brackets
                 if (filter_var($sentinel, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-                    $sentinel = "[${sentinel}]";
+                    $sentinel = "[{$sentinel}]";
                 }
-                $sentinels[] = "tcp://${sentinel}:{$sentinel_port}?timeout=0.100";
+                $sentinels[] = "tcp://{$sentinel}:{$sentinel_port}?timeout=0.100";
             }
             $options = [
                 'replication' => 'sentinel',

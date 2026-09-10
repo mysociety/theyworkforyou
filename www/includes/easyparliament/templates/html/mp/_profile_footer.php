@@ -5,9 +5,9 @@
 
     <p><?= gettext('For an explanation of the vote descriptions please see our page about <a href="/voting-information">voting information on TheyWorkForYou</a>.') ?></p>
 
-  <?php if(isset($data['photo_attribution_text'])) { ?>
+  <?php if (isset($data['photo_attribution_text'])) { ?>
     <p>
-      <?php if(isset($data['photo_attribution_link'])) { ?>
+      <?php if (isset($data['photo_attribution_link'])) { ?>
         <?= gettext('Profile photo:') ?>
         <a href="<?= $data['photo_attribution_link'] ?>"><?= $data['photo_attribution_text'] ?></a>
       <?php } else { ?>
@@ -15,7 +15,7 @@
       <?php } ?>
     </p>
   <?php } ?>
-  <?php if(!$image || !$image['exists']) { ?>
+  <?php if (!$image || !$image['exists']) { ?>
     <p>
         We&rsquo;re missing a photo of <?= $full_name ?>.
         If you have a photo <em>that you can release under
