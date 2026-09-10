@@ -18,7 +18,7 @@
                 <h3 class="search-result__title"><a href="https://www.theyworkforyou.com/debates/?id=2024-10-30a.811.0#g811.2">Read the Budget speech</a></h3>
               <?php } ?>
 
-              <?php if ($cons) { ?>
+              <?php if ($cons ?? '') { ?>
                 <?php if (count($cons) > 1) {
                     if ($mp_types['mp'] > 0 && $mp_types['former'] > 0) {
                         $desc = gettext('MPs and former MPs');
@@ -39,7 +39,7 @@
                 <?php } ?>
               <?php } ?>
 
-              <?php if ($members) { ?>
+              <?php if ($members ?? '') { ?>
                 <h2><?= sprintf(gettext('People matching <em class="current-search-term">%s</em>'), _htmlentities($searchstring)) ?></h2>
                 <?php foreach ($members as $member) { ?>
                     <?php include('person.php'); ?>
@@ -47,7 +47,7 @@
                 <hr>
               <?php } ?>
 
-              <?php if ($glossary) { ?>
+              <?php if ($glossary ?? '') { ?>
                 <h2>Glossary items matching <em class="current-search-term"><?= _htmlentities($searchstring) ?></em></h2>
                 <?php foreach ($glossary as $item) { ?>
                     <?php include('glossary.php'); ?>
