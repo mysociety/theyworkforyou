@@ -589,7 +589,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
 
                     } else {
                         $MEMBER = new \MySociety\TheyWorkForYou\Member(['constituency' => $constituency, 'house' => $house]);
-                        $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency ];
+                        $cons[] = [ 'member' => $MEMBER, 'constituency' => $constituency, 'rep_name' => $MEMBER->getMostRecentGroupedMembership()['rep_name'] ];
                     }
                 } catch (\MySociety\TheyWorkForYou\MemberException $e) {
                     // do nothing
