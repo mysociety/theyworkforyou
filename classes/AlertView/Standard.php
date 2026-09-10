@@ -472,7 +472,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
             $errors['alertsearch'] = sprintf(gettext('That search appears to be invalid - %s - please check and try again.'), $se->error);
         }
 
-        if (strlen($text) > 255) {
+        // query can be up to 1000 - leaving some headroom
+        if (strlen($text) > 900) {
             $errors['alertsearch'] = gettext('That search is too long for our database; please split it up into multiple smaller alerts.');
         }
 
