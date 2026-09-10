@@ -2208,7 +2208,9 @@ class HANSARDLIST {
         $q = $this->db->query(
             "SELECT dept, position, source FROM moffice
             WHERE person=:person_id
-            AND from_date <= :hdate and :hdate <= to_date",
+            AND from_date <= :hdate and :hdate <= to_date
+            AND position NOT IN ('', 'Chairman', 'Member')
+            GROUP BY dept, position", # MySQL lets you do this even if >1 source (which I don't think there is)
             [':person_id' => $speaker['person_id'], ':hdate' => $hdate]
         );
         foreach ($q as $row) {
@@ -2216,9 +2218,6 @@ class HANSARDLIST {
             $pos = $row['position'];
             $source = $row['source'];
             if ($source == 'chgpages/libdem' && $hdate > '2009-01-15') {
-                continue;
-            }
-            if (!$pos || $pos == 'Chairman' || $pos == 'Member') {
                 continue;
             }
             $offices[] = [
