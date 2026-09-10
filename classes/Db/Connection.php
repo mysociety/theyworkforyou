@@ -62,7 +62,7 @@ class Connection {
         // These vars come from config.php.
 
         if (!$global_connection) {
-            $dsn = 'mysql:charset=utf8;dbname=' . $db_name;
+            $dsn = 'mysql:charset=utf8mb4;dbname=' . $db_name;
             if ($db_host) {
                 $dsn .= ';host=' . $db_host;
             }
