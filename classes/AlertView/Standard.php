@@ -745,22 +745,8 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
      */
     private function setUserData() {
         if (!isset($this->data['criteria'])) {
-            $criteria = $this->data['keyword'];
-            if ($criteria) {
-                if (!$this->data['match_all']) {
-                    $has_or = strpos($criteria, ' OR ') !== false;
-                    $missing_braces = strpos($criteria, '(') === false;
-
-                    if ($has_or && $missing_braces) {
-                        $criteria = "($criteria)";
-                    }
-                }
-                if ($this->data['search_section']) {
-                    $criteria .= " section:" . $this->data['search_section'];
-                }
-                if ($this->data['pid']) {
-                    $criteria .= " speaker:" . $this->data['pid'];
-                }
+            $criteria = \MySociety\TheyWorkForYou\Utility\Alert::detailsToCriteria($this->data);
+            if ($this->data['keyword']) {
                 $this->data['search_results']  = $this->getRecentResults($criteria);
             }
 

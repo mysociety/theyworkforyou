@@ -29,19 +29,33 @@ class Alert {
 
         return $section_map[$section];
     }
-    public static function detailsToCriteria($details) {
+
+    /**
+     * Build search criteria from the alert fields.
+     * @param array $details
+     */
+    public static function detailsToCriteria(array $details): string {
         $criteria = [];
+        $keyword = $details['keyword'] ?? '';
+        $section = $details['search_section'] ?? '';
+        $pid = $details['pid'] ?? false;
 
-        if (!empty($details['keyword'])) {
-            $criteria[] = $details['keyword'];
+        if ($keyword) {
+            // If the keyword contains " OR " and there's going to be additional filters applied
+            // wrap this in brackets so the filters are applied over the top
+            $section_or_person = $pid || $section;
+            if ($section_or_person && strpos($keyword, ' OR ') !== false) {
+                $keyword = '(' . $keyword . ')';
+            }
+            $criteria[] = $keyword;
         }
 
-        if (!empty($details['pid'])) {
-            $criteria[] = 'speaker:' . $details['pid'];
+        if ($pid) {
+            $criteria[] = 'speaker:' . $pid;
         }
 
-        if (!empty($details['search_section'])) {
-            $criteria[] = 'section:' . $details['search_section'];
+        if ($section) {
+            $criteria[] = 'section:' . $section;
         }
 
         $criteria = join(' ', $criteria);
