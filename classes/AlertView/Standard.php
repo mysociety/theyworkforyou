@@ -579,7 +579,7 @@ class Standard extends \MySociety\TheyWorkForYou\AlertView {
                 try {
                     $house = \MySociety\TheyWorkForYou\Utility\Postcode::mapitTypeToHouse($type);
                     // regional list reps for scotland
-                    if ($type == 'SPE') {
+                    if ($type == 'SPE' || $type == 'WAC' || $type == 'NIE') {
                         $db = new \ParlDB();
                         $q = $db->query("SELECT person_id FROM member WHERE constituency = :constituency AND house = :house and left_reason = 'still_in_office'", [':constituency' => $constituency, ':house' => $house]);
                         foreach ($q as $row) {
