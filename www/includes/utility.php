@@ -10,6 +10,49 @@ include_once INCLUDESPATH . '../../commonlib/phplib/datetime.php';
 include_once INCLUDESPATH . '../../commonlib/phplib/validate.php';
 use PHPMailer\PHPMailer\PHPMailer;
 
+/**
+ * Build a link to the support page, optionally preselecting a donation.
+ *
+ * @param 'single'|'monthly'|'annually'|null $how_often
+ */
+function donate_link(
+    ?string $campaign = null,
+    ?int $how_much = null,
+    ?string $how_often = null,
+    ?string $source = null,
+    ?string $content = null,
+    ?string $medium = null,
+): string {
+    if ($how_much !== null && $how_often === null) {
+        $how_often = 'single';
+    }
+
+    if ($how_often !== null && !in_array($how_often, ['single', 'monthly', 'annually'], true)) {
+        throw new InvalidArgumentException(
+            'Donation frequency must be single, monthly, or annually'
+        );
+    }
+
+    $parameters = array_filter([
+        'utm_campaign' => $campaign,
+        'utm_source'   => $source,
+        'utm_content'  => $content,
+        'utm_medium'   => $medium,
+        'bcn_donation_amount' => $how_much,
+        'bcn_donation_frequency' => $how_often,
+    ], static fn($value) => $value !== null);
+
+    $query = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
+
+    if ($query) {
+        $query = "?$query";
+    }
+
+    return htmlspecialchars(
+        '/support-us/' . $query
+    );
+}
+
 # Pass it a brief header word and some debug text and it'll be output.
 # If TEXT is an array, call the user function, assuming it's a class.
 function twfy_debug($header, $text = "") {

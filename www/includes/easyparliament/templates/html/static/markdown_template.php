@@ -16,7 +16,7 @@
                 </div>
             </div>
 
-            <div class="primary-content__unit">
+            <div class="primary-content__unit markdown-content">
                 <div class="panel">
                     <?= $html ?>
                 </div>
