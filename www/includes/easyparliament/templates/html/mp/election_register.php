@@ -45,10 +45,10 @@ function humInt(int $num): string {
 
             <div class="primary-content__unit">
 
-                <?php if ($register_interests) { ?>
+                <?php if ($election_registers ?? '') { ?>
 
                     <?php /** @var MySociety\TheyWorkForYou\DataClass\Regmem\Person $register */ ?>
-                    <?php foreach ($election_registers as $register) { ?>                        
+                    <?php foreach ($election_registers as $register) { ?>
                     <div class="panel register">
                     <a name="register"></a>
                     <h2>🏛️ Enriched Election Register</h2>
