@@ -130,14 +130,6 @@ if (array_key_exists($name, $name_fix)) {
     }
 }
 
-// Fixes for Ynys Mon, and a Unicode URL
-if ($constituency == 'ynys mon') {
-    $constituency = "ynys m\xf4n";
-}
-if (preg_match("#^ynys m\xc3\xb4n#i", $constituency)) {
-    $constituency = "ynys m\xf4n";
-}
-
 // If this is a request for recent appearances, redirect to search results
 if (get_http_var('recent')) {
     if ($THEUSER->postcode_is_set() && !$pid) {
