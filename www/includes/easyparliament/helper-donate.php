@@ -161,7 +161,7 @@ function verify_recaptcha() {
     $url = "https://www.google.com/recaptcha/api/siteverify";
     $data = [
         "secret" => OPTION_RECAPTCHA_SECRET,
-        "response" => $_POST["g-recaptcha-response"],
+        "response" => $_POST["g-recaptcha-response"] ?? '',
     ];
     $headers = ["Content-Type: application/x-www-form-urlencoded"];
 
