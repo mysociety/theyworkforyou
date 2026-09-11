@@ -1,41 +1,10 @@
-<style>
-.postcode-rep-list__item, .postcode-rep-list__sub-item {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    align-items: center;
-}
-.postcode-rep-list__item {
-    margin-bottom: 0.5em;
-}
-.postcode-rep-list__link {
-    flex-shrink: 0;
-    margin-right: 0.5em;
-}
-</style>
+<div class="full-page">
+<div class="full-page__row search-page">
 
-<div class="full-page static-page legacy-page">
-<div class="full-page__row">
-<div class="panel">
-    <div class="stripe-side">
-        <div class="main">
 <?php
-
-function image_from_person_id(int $person_id): ?string {
-    // Use utility method rather than member object to avoid loading full object
-    // Using the same image and not using the placeholder
-    [$image, $size] = MySociety\TheyWorkForYou\Utility\Member::findMemberImage($person_id, true, false);
-    return $image;
-}
-
-function member_image_box(string $person_id, string $person_url, string $person_name): void {
-    // Render a small image box for a person with a link to the person page
-    // If image_url is null, render nothing
-    $image_url = image_from_person_id($person_id);
-    if ($image_url) {
-        echo '<a class="postcode-rep-list__link" href="' . $person_url . '"><img src="' . $image_url . '" height=80 width=60 alt="' . $person_name . '"></a>';
-    }
-}
+/** @var string $pc */
+/** @var string $change_url */
+/** @var array $sections */
 
 // Include Scottish Parliament election template if there are SP ballots
 if (!empty($sp_ballots)) {
@@ -46,114 +15,99 @@ if (!empty($sp_ballots)) {
 if (!empty($senedd_ballot)) {
     include "senedd2026.php";
 }
-
 ?>
 
-<div id="current">
-    <h2><?= gettext('Your representatives') ?></h2>
+<div class="search-page__section">
+    <div class="search-page__section__primary">
+
+<h1><?= gettext('Your representatives') ?></h1>
+<p><?= sprintf(gettext('Based on postcode <strong>%s</strong>'), $pc) ?>
+    (<a href="<?= $change_url ?>"><?= gettext('Change postcode') ?></a>)
+</p>
+
+<nav class="rep-toc" aria-label="<?= gettext('Jump to section') ?>">
     <ul>
-<?php if ($mp) { ?>
-        <li><span class="postcode-rep-list__item"><span>
-            <?php if ($mp['former']) {
-                printf(gettext('Your former <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
-            } else {
-                printf(gettext('Your <strong>MP</strong> (Member of Parliament) is <a href="%s">%s</a>, %s'), '/mp/?p=' . $mp['person_id'], $mp['name'], gettext($mp['constituency']));
-            } ?>.
-            <?php if ($mp['standing_down_2024']) {
-                echo 'They are standing down at the general election.';
-            } ?>
-            </span>
-            <?php member_image_box($mp["person_id"], '/mp/?p=' . $mp['person_id'], $mp['name']) ?>
-        </span></li>
-<?php } else { ?>
-        <li>Your MP is currently unknown.</li>
+        <?php foreach ($sections as $section) { ?>
+            <li><a href="#<?= $section['id'] ?>"><?= $section['title'] ?></a></li>
+        <?php } ?>
+    </ul>
+</nav>
+
+<?php foreach ($sections as $section) {
+    // Count total members across all groups in this section
+    $total_members = 0;
+    foreach ($section['groups'] ?? [] as $group) {
+        $total_members += count($group['members']);
+    }
+    ?>
+<div id="<?= $section['id'] ?>">
+    <h2><?= $section['title'] ?></h2>
+
+    <?php if (!empty($section['description'])) { ?>
+        <p><?= $section['description'] ?></p>
+    <?php } ?>
+
+    <?php if (!empty($section['council_names'])) { ?>
+        <?php
+                $bold_names = array_map(fn($name) => '<strong>' . htmlspecialchars($name) . '</strong>', $section['council_names']);
+        $names_html = implode(' and ', $bold_names);
+        ?>
+        <?php if (count($section['council_names']) === 1) { ?>
+            <p><?= sprintf(gettext('Your local council is %s.'), $names_html) ?></p>
+        <?php } else { ?>
+            <p><?= sprintf(gettext('Your local councils are %s.'), $names_html) ?></p>
+        <?php } ?>
+    <?php } ?>
+
+    <?php if (!empty($section['writetothem_url'])) { ?>
+        <p><?= sprintf(gettext('Find your local councillors and write to any of your representatives through <a href="%s">WriteToThem.com</a>.'), $section['writetothem_url']) ?></p>
+    <?php } ?>
+
+    <?php if (!empty($section['empty_message'])) { ?>
+        <p><?= $section['empty_message'] ?></p>
+    <?php } ?>
+
+    <?php if ($total_members > 1) { ?>
+        <?php $toggle_id = 'expand-toggle-' . $section['id']; ?>
+        <button id="<?= $toggle_id ?>" style="display:none"><?= gettext('Expand all') ?></button>
+    <?php } ?>
+
+    <?php foreach ($section['groups'] ?? [] as $group) { ?>
+        <?php if (!empty($group['title'])) { ?>
+            <h3><?= $group['title'] ?></h3>
+        <?php } ?>
+
+        <?php foreach ($group['members'] as $rep) { ?>
+            <?php include "_rep_card.php"; ?>
+        <?php } ?>
+    <?php } ?>
+
+    <?php if ($total_members > 1) { ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initDetailsToggle({
+                buttonId: <?= json_encode($toggle_id) ?>,
+                selector: '#<?= $section['id'] ?> details.rep-detail',
+                expandLabel: <?= json_encode(gettext('Expand all')) ?>,
+                collapseLabel: <?= json_encode(gettext('Collapse all')) ?>,
+                autoExpand: new URLSearchParams(window.location.search).get('expand') === '1'
+            });
+        });
+        </script>
+    <?php } ?>
+
+    <?php if (!empty($section['footer'])) { ?>
+        <p><?= $section['footer'] ?></p>
+    <?php } ?>
+</div>
 <?php } ?>
 
-<?php
-    if (isset($mcon) && !empty($mcon)) {
-        $name = $mcon['given_name'] . ' ' . $mcon['family_name'];
-        echo '<li><span class="postcode-rep-list__item"><span>';
-        if ($house == HOUSE_TYPE_SCOTLAND) {
-            $url = $urlp . $mcon['person_id'];
-            $cons = $mcon['constituency'];
-            if ($current) {
-                printf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            } else {
-                printf(gettext('Your <strong>constituency MSP</strong> (Member of the Scottish Parliament) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            }
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            $url = $urlp . $mcon['person_id'];
-            $cons = gettext($mcon['constituency']);
-            if ($current) {
-                # First %s is URL, second %s is name, third %s is constituency
-                printf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) is <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            } else {
-                # First %s is URL, second %s is name, third %s is constituency
-                printf(gettext('Your <strong>constituency MS</strong> (Member of the Senedd) was <a href="%s">%s</a>, %s'), $url, $name, $cons);
-            }
-        }
-        echo '</span>';
-        member_image_box($mcon["person_id"], $url, $name);
-        echo '</span></li>';
-    }
-if (isset($mreg)) {
-    if ($current) {
-        if ($house == HOUSE_TYPE_NI) {
-            echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) are:'), $areas[$area_type]);
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> are:'), gettext($areas[$area_type]));
-        } else {
-            echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> are:'), gettext($areas[$area_type]), $member_names['plural']);
-        }
-    } else {
-        if ($house == HOUSE_TYPE_NI) {
-            echo '<li>' . sprintf(gettext('Your <strong>%s MLAs</strong> (Members of the Legislative Assembly) were:'), $areas[$area_type]);
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            echo '<li>' . sprintf(gettext('Your <strong>%s region MSs</strong> were:'), gettext($areas[$area_type]));
-        } else {
-            echo '<li>' . sprintf(gettext('Your <strong>%s %s</strong> were:'), gettext($areas[$area_type]), $member_names['plural']);
-        }
-    }
-    echo '<ul>';
-    foreach ($mreg as $reg) {
-        $url = $urlp . $reg['person_id'];
-        $name = $reg['given_name'] . ' ' . $reg['family_name'];
-        echo '<li><span class="postcode-rep-list__sub-item"><a href="' . $url . '">' . $name . '</a>';
-        member_image_box($reg["person_id"], $url, $name);
-        echo '</span></li>';
-    }
-    echo '</ul>';
-}
-echo '</ul>';
+    </div>
 
-echo '</div>';
-
-?>
-
-        </div>
-        <div class="sidebar">
-            <div class="block">
-
-<?php
-
-include("repexplain.php");
-
-?>
-                <h3><?= gettext('Browse people') ?></h3>
-                <ul>
-                    <li><a href="<?= $MPSURL->generate() ?>"><?= gettext('Browse all MPs') ?></a></li>
-                  <?php if (isset($REGURL)) { ?>
-                    <li><a href="<?= $REGURL->generate() ?>"><?= $browse_text ?></a></li>
-                  <?php } ?>
-                </ul>
-
-<h3><?= gettext('Support TheyWorkForYou') ?></h3>
-    <p><?= gettext('After the election we\'ll be working to help you understand and hold your representatives to account.') ?></p>
-<p><?= gettext('Can you help us do that by making a small donation?') ?></p> 
-<a href="/support-us/?utm_source=theyworkforyou.com&utm_content=postcode+donate&utm_medium=link&utm_campaign=postcode&how-much=5#donate-form" class="button" style="width:100%"><?= gettext('Donate £5 to TheyWorkForYou') ?></a>
-            </div>
-        </div>
+    <div class="search-page__section__secondary search-page-sidebar">
+        <?php include dirname(__FILE__) . '/../announcements/_sidebar_right_announcements.php'; ?>
     </div>
 </div>
+
 </div>
 </div>

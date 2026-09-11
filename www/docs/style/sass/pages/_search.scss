@@ -622,6 +622,42 @@ table.search-results-grouped {
   }
 }
 
+.rep-detail {
+  margin: 0 0 0.5em 0;
+  padding-left: 60px;
+
+  h4 {
+    margin: 0.5em 0 0.2em 0;
+  }
+
+  ul {
+    margin: 0 0 0.5em 0;
+    padding-left: 1.2em;
+  }
+
+  & > p {
+    margin: 0.5em 0;
+  }
+}
+
+.rep-toc {
+  margin: 0.5em 0 1em 0;
+
+  ul {
+    margin: 0;
+    padding-left: 1.2em;
+  }
+
+  a {
+    font-size: 0.9em;
+  }
+}
+
+.search-page__section__primary > div + div {
+  border-top: 1px solid $body-bg;
+  padding-top: 1em;
+}
+
 .search-page__section--your-mp {
   background-color: #FFFCD9; // very light yellow
 }
