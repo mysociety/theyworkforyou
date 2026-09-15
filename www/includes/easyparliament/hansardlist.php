@@ -614,15 +614,15 @@ class HANSARDLIST {
         }
 
         if (!preg_match("/^(\d\d\d\d)-(\d{1,2})-(\d{1,2})$/", $date, $matches)) {
-            $PAGE->error_message("Sorry, '" . _htmlentities($date) . "' isn't of the right format (YYYY-MM-DD).");
-            return false;
+            $PAGE->error_message("Sorry, '" . _htmlentities($date) . "' isn't of the right format (YYYY-MM-DD).", true, 404);
+            exit;
         }
 
         [, $year, $month, $day] = $matches;
 
         if (!checkdate($month, $day, $year)) {
-            $PAGE->error_message("Sorry, '" . _htmlentities($date) . "' isn't a valid date.");
-            return false;
+            $PAGE->error_message("Sorry, '" . _htmlentities($date) . "' isn't a valid date.", true, 404);
+            exit;
         }
 
         $day = substr("0$day", -2);
