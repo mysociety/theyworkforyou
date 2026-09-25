@@ -13,15 +13,82 @@ namespace MySociety\TheyWorkForYou;
  */
 
 class Office {
+    public const CURRENT = OfficeStatus::CURRENT;
+    public const PREVIOUS = OfficeStatus::PREVIOUS;
+
+    /** Offices that are a seat on a committee. */
+    public const COMMITTEE_POSTS = [PostType::COMMITTEE];
+
+    /** Offices that are a post held in the chamber rather than on a committee. */
+    public const NON_COMMITTEE_POSTS = [
+        PostType::GOVERNMENT,
+        PostType::OPPOSITION,
+        PostType::PARLIAMENTARY,
+        PostType::OTHER,
+    ];
+
+    public const ALL_POSTS = [...self::COMMITTEE_POSTS, ...self::NON_COMMITTEE_POSTS];
+
+    /** Category applied by UK Parliament to public bill committees. */
+    private const PUBLIC_BILL_TAG = '(HC) Public bill committee';
+
+    /**
+     * Unknown start date in schema.sql and the posts importer. Popolo uses
+     * year 1, which the importer converts to the MySQL-compatible year 1000.
+     */
+    private const UNKNOWN_DATE = '1000-01-01';
+
     public $title;
     public $from_date;
     public $to_date;
     public $source;
     public $position = "";
+    // A deliberate Welsh special case in the legacy office schema, rather
+    // than a separate translated row for each membership.
+    public $position_cy = "";
     public $dept = "";
     public $slug = "";
     public $desc = "";
     public $external_url = "";
+    public $org_id = "";
+    public PostType $post_type = PostType::OTHER;
+    public $parliament = "";
+    public $tags = "";
+
+    /**
+     * Is this office a seat on a committee?
+     */
+    public function isCommittee(): bool {
+        return in_array($this->post_type, self::COMMITTEE_POSTS, true);
+    }
+
+    /**
+     * Public bill committees are shown separately, from the pbc_members data,
+     * which also knows about the bill being scrutinised.
+     */
+    public function isPublicBillCommittee(): bool {
+        return in_array(self::PUBLIC_BILL_TAG, explode(',', $this->tags));
+    }
+
+    /**
+     * The role held, in the reader's language where we have it.
+     * Popolo calls this role; the importer stores it in the existing position
+     * column (and position_cy) to preserve the database's naming convention.
+     */
+    public function role(): string {
+        if (LANGUAGE == 'cy' && $this->position_cy) {
+            return $this->position_cy;
+        }
+        return $this->position;
+    }
+
+    /**
+     * The office title followed by the representative's role, when available.
+     */
+    public function displayName(): string {
+        $role = $this->role();
+        return $role !== '' ? "$this->title ($role)" : (string) $this;
+    }
 
 
     /**
@@ -85,6 +152,15 @@ class Office {
      */
 
     public function pretty_dates() {
+
+        // Devolved committee memberships arrive without dates, so say what we
+        // know rather than claiming a start in the year 1000.
+        if ($this->from_date == self::UNKNOWN_DATE) {
+            if ($this->to_date == '9999-12-31') {
+                return gettext('current member');
+            }
+            return sprintf(gettext('until %s'), format_date($this->to_date, SHORTDATEFORMAT));
+        }
 
         if ($this->to_date == '9999-12-31') {
             return 'since ' . format_date($this->from_date, SHORTDATEFORMAT);
