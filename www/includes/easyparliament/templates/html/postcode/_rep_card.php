@@ -3,6 +3,7 @@
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeData;
 
 /** @var RepresentativeData $rep */
+/** @var bool $expand */
 ?>
 <a href="<?= $rep->representative_url ?>" class="people-list__person">
     <?php if ($rep->image) { ?>
@@ -14,3 +15,24 @@ use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeData;
         <span class="people-list__person__party <?= slugify($rep->party) ?>"><?= $rep->party ?></span>
     </p>
 </a>
+<?php if ($rep->hasDetails()) { ?>
+<details class="rep-detail"<?= !empty($expand) ? ' open' : '' ?>>
+    <summary><?= gettext('More details') ?></summary>
+    <?php if (!empty($rep->committee_posts)) { ?>
+        <h4><?= gettext('Committees') ?></h4>
+        <ul>
+        <?php foreach ($rep->committee_posts as $committee_post) { ?>
+            <li><?= htmlspecialchars($committee_post->displayName()) ?></li>
+        <?php } ?>
+        </ul>
+    <?php } ?>
+    <?php if (!empty($rep->appgs)) { ?>
+        <h4><?= $rep->appgs_label ?></h4>
+        <ul>
+        <?php foreach ($rep->appgs as $appg) { ?>
+            <li><?= htmlspecialchars($appg->displayName()) ?></li>
+        <?php } ?>
+        </ul>
+    <?php } ?>
+</details>
+<?php } ?>
