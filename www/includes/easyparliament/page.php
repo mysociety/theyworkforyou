@@ -357,7 +357,7 @@ class PAGE {
         global $THEUSER;
 
         echo '<br>';
-        $this->block_start(['id' => 'mp', 'title' => 'Find out about your MP/MSPs/MLAs']);
+        $this->block_start(['id' => 'mp', 'title' => 'Find out about your representatives']);
         echo '<form action="/postcode/" method="get">';
         if ($THEUSER->postcode_is_set()) {
             $FORGETURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
