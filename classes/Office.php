@@ -82,6 +82,14 @@ class Office {
         return $this->position;
     }
 
+    /**
+     * The office title followed by the representative's role, when available.
+     */
+    public function displayName(): string {
+        $role = $this->role();
+        return $role !== '' ? "$this->title ($role)" : (string) $this;
+    }
+
 
     /**
      * To String

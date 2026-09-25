@@ -6,6 +6,7 @@
 use MySociety\TheyWorkForYou\DataClass\Postcode\SectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
 
+/** @var bool $expand */
 /** @var string $pc */
 /** @var string $change_postcode_url */
 /** @var list<SectionData> $sections */
