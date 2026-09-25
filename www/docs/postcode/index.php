@@ -7,6 +7,8 @@ use MySociety\TheyWorkForYou\DataClass\Postcode\SectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeGroupData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\DevolvedRepresentativesData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\GroupMembershipData;
+use MySociety\TheyWorkForYou\Office;
 use MySociety\TheyWorkForYou\MapItAreaType;
 use MySociety\TheyWorkForYou\PostcodeSection;
 use MySociety\TheyWorkForYou\HouseType;
@@ -15,6 +17,7 @@ use MySociety\TheyWorkForYou\Member;
 use MySociety\TheyWorkForYou\MemberException;
 use MySociety\TheyWorkForYou\Utility\House;
 use MySociety\TheyWorkForYou\Utility\Member as MemberUtility;
+use MySociety\TheyWorkForYou\DataClass\APPGs\APPGMembershipAssignment;
 
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
@@ -26,6 +29,8 @@ if (!$pc) {
     postcode_error('Please supply a postcode!');
 }
 $data['pc'] = $pc;
+// Pre-expand representative post and membership details when requested.
+$data['expand'] = get_http_var('expand') === '1';
 
 $pc = preg_replace('#[^a-z0-9]#i', '', $pc);
 if (!validate_postcode($pc)) {
@@ -141,6 +146,8 @@ function postcode_error($error) {
 function buildRepData(Member $member, HouseType $house, bool $former = false): RepresentativeData {
     [$image, ] = MemberUtility::findMemberImage($member->person_id(), smallonly: false, substitute_missing: true);
 
+    $member->load_extra_info();
+
     $rep = new RepresentativeData();
     $rep->name = $member->full_name();
     $rep->party = $member->party();
@@ -149,6 +156,27 @@ function buildRepData(Member $member, HouseType $house, bool $former = false): R
     $rep->person_id = $member->person_id();
     $rep->image = $image;
     $rep->former = $former;
+    $rep->appgs_label = House::groupsName($house->int_id());
+
+    $rep->committee_posts = $member->offices(Office::CURRENT, post_types: Office::COMMITTEE_POSTS);
+
+    $extra_info = $member->extra_info();
+    if (isset($extra_info['appg_membership'])) {
+        $appg_data = APPGMembershipAssignment::fromJson($extra_info['appg_membership']);
+        foreach ($appg_data->is_officer_of as $membership) {
+            $group = new GroupMembershipData();
+            $group->title = $membership->appg->shortTitle();
+            $group->role = $membership->role;
+            $rep->appgs[] = $group;
+        }
+        foreach ($appg_data->is_ordinary_member_of as $membership) {
+            $group = new GroupMembershipData();
+            $group->title = $membership->appg->shortTitle();
+            $group->role = 'Member';
+            $rep->appgs[] = $group;
+        }
+    }
+
     return $rep;
 }
 
