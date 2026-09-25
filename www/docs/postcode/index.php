@@ -2,23 +2,24 @@
 
 # For looking up a postcode and redirecting or displaying appropriately
 
+use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\SectionData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeGroupData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\DevolvedRepresentativesData;
+use MySociety\TheyWorkForYou\MapItAreaType;
+use MySociety\TheyWorkForYou\PostcodeSection;
+use MySociety\TheyWorkForYou\HouseType;
+use MySociety\TheyWorkForYou\RepresentativeType;
+use MySociety\TheyWorkForYou\Member;
+use MySociety\TheyWorkForYou\MemberException;
+use MySociety\TheyWorkForYou\Utility\House;
+use MySociety\TheyWorkForYou\Utility\Member as MemberUtility;
+
 include_once '../../includes/easyparliament/init.php';
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
 $data = [];
-$errors = [];
-
-
-$valid_scotland_single_member_mapit_codes = ['SPC', 'SPCF'];
-$valid_scotland_multi_member_mapit_codes = ['SPE', 'SPEF'];
-$valid_wales_mapit_codes = ['WAC', 'WACF'];
-$valid_ni_mapit_codes = ['NIE'];
-$valid_wmc_mapit_codes = ['WMC'];
-
-$valid_scotland_mapit_codes = array_merge($valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes);
-$valid_mapit_area_types = array_merge($valid_wmc_mapit_codes, $valid_scotland_mapit_codes, $valid_wales_mapit_codes, $valid_ni_mapit_codes);
-
-// handling to switch the GE message based either on time or a query string
 
 $pc = get_http_var('pc');
 if (!$pc) {
@@ -91,25 +92,34 @@ if ($senedd_dissolved && (isset($constituencies['WACF'])) && isset($dc_data->dat
 }
 
 
-if (has_any_area_type($constituencies, $valid_scotland_mapit_codes)) {
-    $data['multi'] = "scotland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'SPE', HOUSE_TYPE_SCOTLAND);
-} elseif (has_any_area_type($constituencies, $valid_wales_mapit_codes)) {
-    $data['multi'] = "wales";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'WAC', HOUSE_TYPE_WALES);
-} elseif (has_any_area_type($constituencies, $valid_ni_mapit_codes)) {
-    $data['multi'] = "northern-ireland";
-    $MEMBER = fetch_mp($pc, $constituencies);
-    pick_multiple($pc, $constituencies, 'NIE', HOUSE_TYPE_NI);
+if (has_any_area_type($constituencies, area_types: MapItAreaType::SCOTLAND)) {
+    $rep_data = pick_multiple($pc, areas: $constituencies, house: HouseType::SCOTLAND);
+} elseif (has_any_area_type($constituencies, area_types: MapItAreaType::WALES)) {
+    $rep_data = pick_multiple($pc, areas: $constituencies, house: HouseType::WALES);
+} elseif (has_any_area_type($constituencies, area_types: [MapItAreaType::NIE])) {
+    $rep_data = pick_multiple($pc, areas: $constituencies, house: HouseType::NI);
 } else {
-    $data['multi'] = "uk";
-    $MEMBER = fetch_mp($pc, $constituencies, 1);
-    member_redirect($MEMBER);
+    $MEMBER = fetch_mp($pc, constituencies: $constituencies, house: HouseType::COMMONS);
+    if ($MEMBER?->valid) {
+        member_redirect($MEMBER);
+    }
+    postcode_error(gettext('We were unable to find your MP.'));
 }
 
-$data['constituencies'] = $constituencies;
+$mp_data = fetch_mp_data($pc, constituencies: $constituencies);
+if ($THEUSER->isloggedin()) {
+    $CHANGEURL = new \MySociety\TheyWorkForYou\Url('useredit');
+} else {
+    $CHANGEURL = new \MySociety\TheyWorkForYou\Url('userchangepc');
+}
+$data['change_postcode_url'] = $CHANGEURL->generate();
+$data['sections'] = build_postcode_sections(
+    $pc,
+    mp_data: $mp_data,
+    rep_data: $rep_data,
+    constituencies: $constituencies
+);
+
 MySociety\TheyWorkForYou\Renderer::output('postcode/index', $data);
 
 # ---
@@ -125,16 +135,33 @@ function postcode_error($error) {
     exit;
 }
 
-function fetch_mp($pc, $constituencies, $house = null) {
+/**
+ * Build the representative card data shared by MP and devolved sections.
+ */
+function buildRepData(Member $member, HouseType $house, bool $former = false): RepresentativeData {
+    [$image, ] = MemberUtility::findMemberImage($member->person_id(), smallonly: false, substitute_missing: true);
+
+    $rep = new RepresentativeData();
+    $rep->name = $member->full_name();
+    $rep->party = $member->party();
+    $rep->constituency = $member->constituency();
+    $rep->mp_url = $member->url();
+    $rep->person_id = $member->person_id();
+    $rep->image = $image;
+    $rep->former = $former;
+    return $rep;
+}
+
+/**
+ * @param array<string, string> $constituencies MapIt area types mapped to names.
+ */
+function fetch_mp(string $pc, array $constituencies, HouseType $house = HouseType::COMMONS): ?Member {
     global $THEUSER;
-    $args = ['constituency' => $constituencies['WMC']];
-    if ($house) {
-        $args['house'] = $house;
-    }
+    $args = ['constituency' => $constituencies['WMC'], 'house' => $house->int_id()];
     try {
-        $MEMBER = new MEMBER($args);
-    } catch (MySociety\TheyWorkForYou\MemberException $e) {
-        postcode_error($e->getMessage());
+        $MEMBER = new Member($args);
+    } catch (MemberException $e) {
+        return null;
     }
     if ($MEMBER->person_id()) {
         $THEUSER->set_postcode_cookie($pc);
@@ -143,138 +170,253 @@ function fetch_mp($pc, $constituencies, $house = null) {
 }
 
 /**
- * Check whether any of the given area types exist in the areas array.
+ * Returns null when no valid MP can be found.
  *
- * @param array $areas
- * @param array $area_types
- * @return bool
+ * @param array<string, string> $constituencies MapIt area types mapped to names.
  */
-function has_any_area_type($areas, $area_types) {
+function fetch_mp_data(string $pc, array $constituencies): ?RepresentativeData {
+    $MEMBER = fetch_mp($pc, constituencies: $constituencies);
+    if (!$MEMBER?->valid) {
+        return null;
+    }
+
+    $former = isset($MEMBER->left_house[HOUSE_TYPE_COMMONS])
+        && $MEMBER->left_house[HOUSE_TYPE_COMMONS]['date'] !== '9999-12-31';
+
+    $mp_data = buildRepData($MEMBER, house: HouseType::COMMONS, former: $former);
+
+    // Keep the election lookup in place so its data key can be updated for the next election.
+    $db = new ParlDB();
+    $q = $db->query(
+        "SELECT data_value FROM personinfo WHERE person_id = :person_id AND data_key = 'standing_down_2024'",
+        params: [':person_id' => $MEMBER->person_id()]
+    );
+    $mp_data->standing_down_upcoming_election = (bool) ($q->first()['data_value'] ?? false);
+
+    return $mp_data;
+}
+
+/**
+ * @return list<SectionData>
+ */
+function build_postcode_sections(
+    string $pc,
+    ?RepresentativeData $mp_data,
+    DevolvedRepresentativesData $rep_data,
+    array $constituencies
+): array {
+    return [
+        build_mp_section($mp_data),
+        build_devolved_section($rep_data),
+    ];
+}
+
+function build_mp_section(?RepresentativeData $mp_data): RepresentativeSectionData {
+    $section = new RepresentativeSectionData();
+    $section->id = PostcodeSection::COMMONS;
+    $section->title = $mp_data?->former
+        ? gettext('Your former MP')
+        : gettext('Your MP');
+    $section->house = HouseType::COMMONS;
+    if ($mp_data === null) {
+        $section->data_available = false;
+        $section->empty_message = gettext('We were unable to find your MP.');
+        return $section;
+    }
+    $group = new RepresentativeGroupData();
+    $group->members = [$mp_data];
+    $section->groups = [$group];
+    if ($mp_data->standing_down_upcoming_election) {
+        $section->footer = gettext('They are standing down at the general election.');
+    }
+    return $section;
+}
+
+function build_devolved_section(DevolvedRepresentativesData $rep_data): RepresentativeSectionData {
+    $section = new RepresentativeSectionData();
+    $section->id = PostcodeSection::fromHouse($rep_data->house);
+    $section->title = $rep_data->current
+        ? sprintf(gettext('Your %s'), $rep_data->member_name_plural)
+        : sprintf(gettext('Your former %s'), $rep_data->member_name_plural);
+    $section->house = $rep_data->house;
+    if (!$rep_data->members) {
+        $section->data_available = false;
+        $section->empty_message = sprintf(gettext('We were unable to find your %s.'), $rep_data->member_name_plural);
+        return $section;
+    }
+    $section->groups = devolved_groups($rep_data->house, members: $rep_data->members);
+    return $section;
+}
+
+
+/**
+ * @param list<RepresentativeData> $members
+ * @return list<RepresentativeGroupData>
+ */
+function devolved_groups(HouseType $house, array $members): array {
+    if ($house !== HouseType::SCOTLAND) {
+        $group = new RepresentativeGroupData();
+        $group->members = shuffle_grouped_by_party($members);
+        return [$group];
+    }
+
+    // Only Scotland remains: show the single constituency MSP separately from
+    // the regional list MSPs, rather than treating them as one electoral group.
+    $constituency = array_values(array_filter($members, function (RepresentativeData $member): bool {
+        return $member->type === RepresentativeType::CONSTITUENCY;
+    }));
+    $regional = array_values(array_filter($members, function (RepresentativeData $member): bool {
+        return $member->type === RepresentativeType::REGIONAL;
+    }));
+
+    $constituency_group = new RepresentativeGroupData();
+    $constituency_group->title = gettext('Constituency MSP');
+    $constituency_group->members = $constituency;
+
+    $regional_group = new RepresentativeGroupData();
+    $regional_group->title = gettext('Regional MSPs');
+    $regional_group->members = shuffle_grouped_by_party($regional);
+
+    return [$constituency_group, $regional_group];
+}
+
+/**
+ * Randomise representative order while keeping members of the same party
+ * together. Parties appear in a random order, but all members within each
+ * party are grouped consecutively (sorted alphabetically by name).
+ *
+ * @param list<RepresentativeData> $members
+ * @return list<RepresentativeData>
+ */
+function shuffle_grouped_by_party(array $members): array {
+    // Group members by party
+    $by_party = [];
+    foreach ($members as $member) {
+        $by_party[$member->party][] = $member;
+    }
+
+    // Sort members within each party by name
+    foreach ($by_party as &$group) {
+        usort($group, fn(RepresentativeData $a, RepresentativeData $b): int => strcmp($a->name, $b->name));
+    }
+    unset($group);
+
+    // Shuffle the party order
+    $parties = array_keys($by_party);
+    shuffle($parties);
+
+    // Flatten back into a single list
+    $result = [];
+    foreach ($parties as $party) {
+        foreach ($by_party[$party] as $member) {
+            $result[] = $member;
+        }
+    }
+    return $result;
+}
+
+function has_any_area_type(array $areas, array $area_types): bool {
     foreach ($area_types as $area_type) {
-        if (isset($areas[$area_type])) {
+        if (isset($areas[$area_type->value])) {
             return true;
         }
     }
     return false;
 }
 
-/**
- * Return areas for matching area types
- *
- * @param array $areas
- * @param array $area_types
- * @return array
- */
-function get_area_names_by_type($areas, $area_types) {
+function get_area_names_by_type(array $areas, array $area_types): array {
     $values = [];
     foreach ($area_types as $area_type) {
-        if (isset($areas[$area_type])) {
-            $values[] = $areas[$area_type];
+        if (isset($areas[$area_type->value])) {
+            $values[] = $areas[$area_type->value];
         }
     }
     return $values;
 }
 
-function pick_multiple($pc, $areas, $area_type, $house) {
-    global $PAGE, $data;
-    global $valid_ni_mapit_codes;
-    global $valid_scotland_single_member_mapit_codes, $valid_scotland_multi_member_mapit_codes;
-    global $valid_wales_mapit_codes;
+function pick_multiple(string $pc, array $areas, HouseType $house): DevolvedRepresentativesData {
     $db = new ParlDB();
 
-    $member_names = \MySociety\TheyWorkForYou\Utility\House::house_to_members($house);
+    $member_names = House::house_to_members($house->int_id());
     $single_member_areas = [];
     $multi_member_areas = [];
     $member_area_names = [];
-    if ($house == HOUSE_TYPE_SCOTLAND) {
-        $urlp = 'msp';
-        $single_member_areas = get_area_names_by_type($areas, $valid_scotland_single_member_mapit_codes);
-        $multi_member_areas = get_area_names_by_type($areas, $valid_scotland_multi_member_mapit_codes);
+    if ($house === HouseType::SCOTLAND) {
+        $single_member_areas = get_area_names_by_type($areas, area_types: MapItAreaType::SCOTLAND_CONSTITUENCIES);
+        $multi_member_areas = get_area_names_by_type($areas, area_types: MapItAreaType::SCOTLAND_REGIONS);
         $member_area_names = array_merge($single_member_areas, $multi_member_areas);
-    } elseif ($house == HOUSE_TYPE_WALES) {
-        $urlp = 'ms';
-        $member_area_names = get_area_names_by_type($areas, $valid_wales_mapit_codes);
-    } elseif ($house == HOUSE_TYPE_NI) {
-        $urlp = 'mla';
-        $member_area_names = get_area_names_by_type($areas, $valid_ni_mapit_codes);
-    }
-    $urlpl = $urlp . 's';
-    $urlp = "/$urlp/?p=";
-
-    $q = $db->query("SELECT member.person_id, given_name, family_name, constituency, left_house
-        FROM member, person_names pn
-        WHERE constituency = :constituency
-            AND member.person_id = pn.person_id AND pn.type = 'name'
-            AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-        AND house = 1 ORDER BY left_house DESC LIMIT 1", [
-        ':constituency' => MySociety\TheyWorkForYou\Utility\Constituencies::normaliseConstituencyName($areas['WMC']),
-    ])->first();
-    $mp = [];
-    if ($q) {
-        $mp = $q;
-        $mp['former'] = ($mp['left_house'] != '9999-12-31');
-        $q = $db->query("SELECT * FROM personinfo where person_id=:person_id AND data_key='standing_down_2024'", [':person_id' => $mp['person_id']]);
-        $mp['standing_down_2024'] = $q['data_value'] ?? 0;
-        $mp['name'] = $mp['given_name'] . ' ' . $mp['family_name'];
+    } elseif ($house === HouseType::WALES) {
+        $member_area_names = get_area_names_by_type($areas, area_types: MapItAreaType::WALES);
+    } elseif ($house === HouseType::NI) {
+        $member_area_names = get_area_names_by_type($areas, area_types: [MapItAreaType::NIE]);
     }
 
-    $params = [];
+    $params = [':house' => $house->int_id()];
+    $area_placeholders = [];
     foreach ($member_area_names as $i => $name) {
-        $params[":area$i"] = $name;
+        $placeholder = ":area$i";
+        $area_placeholders[] = $placeholder;
+        $params[$placeholder] = $name;
     }
-    $query_base = "SELECT member.person_id, given_name, family_name, constituency, house
+    // Only generated placeholder names form the IN clause; values are bound.
+    $query_base = "SELECT member.person_id, constituency, house
         FROM member, person_names pn
-        WHERE constituency IN (" . join(',', array_keys($params)) . ")
+        WHERE constituency IN (" . join(',', $area_placeholders) . ")
             AND member.person_id = pn.person_id AND pn.type = 'name'
             AND pn.end_date = (SELECT MAX(end_date) from person_names where person_names.person_id = member.person_id)
-            AND house = $house";
-    $q = $db->query($query_base . " AND left_reason = 'still_in_office'", $params);
+            AND house = :house";
+    $q = $db->query($query_base . " AND left_reason = 'still_in_office'", params: $params);
     $current = true;
     if (!$q->rows() && ($dissolution = MySociety\TheyWorkForYou\Dissolution::db())) {
         $current = false;
+        // Dissolution::db() supplies SQL structure with bound date values.
         $q = $db->query(
-            $query_base . " AND $dissolution[query]",
-            array_merge($dissolution['params'], $params),
+            $query_base . ' AND ' . $dissolution['query'],
+            params: array_merge($dissolution['params'], $params),
         );
     }
 
-    // in this file we talk about single_member multiple member constituencies
-    // externally this becomes mcon for single, mreg for multiple.
-    $mcon = [];
-    $mreg = [];
+    $members = [];
     foreach ($q as $row) {
         $cons = $row['constituency'];
-        if ($house == HOUSE_TYPE_NI) {
-            $mreg[] = $row;
-        } elseif ($house == HOUSE_TYPE_SCOTLAND) {
-            if (in_array($cons, $single_member_areas, true)) {
-                $mcon = $row;
-            } elseif (in_array($cons, $multi_member_areas, true)) {
-                $mreg[] = $row;
-            }
-        } elseif ($house == HOUSE_TYPE_WALES) {
-            $mreg[] = $row;
-        } else {
-            $PAGE->error_message('Odd result returned, please let us know!');
-            return;
+        try {
+            $member = new Member(['person_id' => $row['person_id']]);
+        } catch (MemberException $e) {
+            continue;
         }
-    }
-    $data['mcon'] = $mcon;
-    $data['mreg'] = $mreg;
-    $data['house'] = $house;
-    $data['urlp'] = $urlp;
-    $data['current'] = $current;
-    $data['areas'] = $areas;
-    $data['area_type'] = $area_type;
-    $data['member_names'] = $member_names;
-    $data['mp'] = $mp;
+        if (!$member->valid) {
+            continue;
+        }
+        $rep = buildRepData($member, house: $house, former: !$current);
 
-    $data['MPSURL'] = new \MySociety\TheyWorkForYou\Url('mps');
-    $data['REGURL'] = new \MySociety\TheyWorkForYou\Url($urlpl);
-    $data['browse_text'] = sprintf(gettext('Browse all %s'), $member_names['plural']);
+        if ($house === HouseType::SCOTLAND && in_array($cons, $single_member_areas, true)) {
+            $rep->type = RepresentativeType::CONSTITUENCY;
+        } else {
+            $rep->type = RepresentativeType::REGIONAL;
+        }
+        $members[] = $rep;
+    }
+
+    // Sort: constituency members first, then regional
+    usort($members, function (RepresentativeData $a, RepresentativeData $b): int {
+        if ($a->type === RepresentativeType::CONSTITUENCY && $b->type !== RepresentativeType::CONSTITUENCY) {
+            return -1;
+        }
+        if ($a->type !== RepresentativeType::CONSTITUENCY && $b->type === RepresentativeType::CONSTITUENCY) {
+            return 1;
+        }
+        return strcmp($a->name, $b->name);
+    });
+
+    $result = new DevolvedRepresentativesData();
+    $result->house = $house;
+    $result->members = $members;
+    $result->current = $current;
+    $result->member_name_plural = $member_names['plural'];
+    return $result;
 }
 
-function member_redirect(&$MEMBER) {
+function member_redirect(Member &$MEMBER): void {
     if ($MEMBER->valid) {
         $url = $MEMBER->url();
         header("Location: $url");
@@ -298,28 +440,27 @@ function democracy_club_address($address) {
 
 function mapit_postcode($postcode) {
     $filename = 'postcode/' . rawurlencode($postcode);
-    return mapit_lookup('postcode', $filename);
+    return mapit_lookup('postcode', filename: $filename);
 }
 
 function mapit_address($address, $pc) {
     $address = urlencode($address);
-    $url = str_replace('{s}', $address, OPTION_MAPIT_UPRN_LOOKUP);
+    $url = str_replace('{s}', replace: $address, subject: OPTION_MAPIT_UPRN_LOOKUP);
     $file = web_lookup($url);
     $r = json_decode($file);
     if (isset($r->error)) {
         return mapit_postcode($pc);
     }
     $filename = 'point/4326/' . $r->wgs84_lon . ',' . $r->wgs84_lat;
-    return mapit_lookup('point', $filename);
+    return mapit_lookup('point', filename: $filename);
 }
 
 function mapit_lookup($type, $filename) {
-    global $valid_mapit_area_types;
     $headers = [];
     if (defined('OPTION_MAPIT_API_KEY') && OPTION_MAPIT_API_KEY) {
         $headers[] = 'X-Api-Key: ' . OPTION_MAPIT_API_KEY;
     }
-    $file = web_lookup(OPTION_MAPIT_URL . $filename, $headers);
+    $file = web_lookup(OPTION_MAPIT_URL . $filename, headers: $headers);
     $r = json_decode($file);
     if (isset($r->error)) {
         return '';
@@ -331,7 +472,7 @@ function mapit_lookup($type, $filename) {
     $input = ($type == 'postcode') ? $r->areas : $r;
     $areas = [];
     foreach ($input as $row) {
-        if (in_array($row->type, $valid_mapit_area_types, true)) {
+        if (MapItAreaType::tryFrom($row->type) !== null) {
             $areas[$row->type] = $row->name;
         }
     }
