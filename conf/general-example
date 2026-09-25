@@ -33,13 +33,6 @@ if (!defined('OPTION_TWFY_MEMCACHED_PORT')) {
   define ("OPTION_TWFY_MEMCACHED_PORT", 11211);
 }
 
-// Parliamentary video database (we use PostgreSQL for this)
-define ('OPTION_BBC_DB_HOST', 'host');
-define ('OPTION_BBC_DB_PORT', 'port');
-define ('OPTION_BBC_DB_USER', 'user');
-define ('OPTION_BBC_DB_NAME', 'name');
-define ('OPTION_BBC_DB_PASS', '');
-
 // *******************************************************************************
 // Domains.
 // Set this to the domain you are hosting on. If you're running locally, this will be "localhost"
