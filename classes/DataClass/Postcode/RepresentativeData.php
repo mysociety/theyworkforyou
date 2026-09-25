@@ -2,6 +2,7 @@
 
 namespace MySociety\TheyWorkForYou\DataClass\Postcode;
 
+use MySociety\TheyWorkForYou\Office;
 use MySociety\TheyWorkForYou\RepresentativeType;
 
 /**
@@ -38,6 +39,24 @@ class RepresentativeData {
      */
     public bool $former = false;
 
+    /**
+     * Current committee posts
+     *
+     * @var list<Office>
+     */
+    public array $committee_posts = [];
+
+    /**
+     * Parliamentary group memberships
+     *
+     * @var list<GroupMembershipData>
+     */
+    public array $appgs = [];
+
+    /**
+     * House-specific heading for the group list, such as APPGs/Cross-Party Groups.
+     */
+    public string $appgs_label;
     /**
      * Whether to show the standing-down notice beneath the MP section.
      */
