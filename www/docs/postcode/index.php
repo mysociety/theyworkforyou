@@ -5,6 +5,7 @@
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\SectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\CouncilSectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeGroupData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\DevolvedRepresentativesData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\GroupMembershipData;
@@ -236,7 +237,38 @@ function build_postcode_sections(
     return [
         build_mp_section($mp_data),
         build_devolved_section($rep_data),
+        build_council_section($pc, constituencies: $constituencies),
     ];
+}
+
+function build_council_section(string $pc, array $constituencies): CouncilSectionData {
+    $section = new CouncilSectionData();
+    $section->id = PostcodeSection::COUNCIL;
+    $section->title = gettext('Your local councillors');
+    $section->writetothem_url = 'https://www.writetothem.com/who?pc=' . urlencode($pc);
+    $section->council_names = local_authority_names($constituencies);
+    return $section;
+}
+
+/**
+ * Extract local authority names from MapIt areas.
+ * Handles two-tier (county + district) and single-tier (unitary, metropolitan,
+ * London borough, NI district) councils.
+ */
+function local_authority_names(array $areas): array {
+    // Two-tier: both county and district
+    if (isset($areas[MapItAreaType::CTY->value]) && isset($areas[MapItAreaType::DIS->value])) {
+        return [$areas[MapItAreaType::DIS->value], $areas[MapItAreaType::CTY->value]];
+    }
+
+    // Single-tier authorities
+    foreach (MapItAreaType::SINGLE_TIER_AUTHORITIES as $type) {
+        if (isset($areas[$type->value])) {
+            return [$areas[$type->value]];
+        }
+    }
+
+    return [];
 }
 
 function build_mp_section(?RepresentativeData $mp_data): RepresentativeSectionData {

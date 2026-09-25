@@ -4,6 +4,7 @@
 <?php
 
 use MySociety\TheyWorkForYou\DataClass\Postcode\SectionData;
+use MySociety\TheyWorkForYou\DataClass\Postcode\CouncilSectionData;
 use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
 
 /** @var bool $expand */
@@ -46,6 +47,9 @@ if (!empty($senedd_ballot)) {
     switch (true) {
         case $section instanceof RepresentativeSectionData:
             include "_representative_section.php";
+            break;
+        case $section instanceof CouncilSectionData:
+            include "_council_section.php";
             break;
     }
     ?>
