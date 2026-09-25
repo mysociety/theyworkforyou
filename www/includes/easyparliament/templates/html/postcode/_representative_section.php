@@ -4,7 +4,15 @@ use MySociety\TheyWorkForYou\DataClass\Postcode\RepresentativeSectionData;
 use MySociety\TheyWorkForYou\HouseType;
 
 /** @var RepresentativeSectionData $section */
+/** @var bool $expand */
 
+// Count members with expandable details across all groups in this section
+$members_with_details = 0;
+foreach ($section->groups as $group) {
+    foreach ($group->members as $member) {
+        $members_with_details += $member->hasDetails() ? 1 : 0;
+    }
+}
 ?>
 
     <p><?= match ($section->house) {
@@ -19,6 +27,10 @@ use MySociety\TheyWorkForYou\HouseType;
         <?php return; ?>
     <?php } ?>
 
+    <?php if ($members_with_details > 1) { ?>
+        <?php $toggle_id = 'expand-toggle-' . $section->id->value; ?>
+        <button id="<?= $toggle_id ?>" style="display:none"><?= gettext('Expand all') ?></button>
+    <?php } ?>
 
     <?php foreach ($section->groups as $group) { ?>
         <?php if (!empty($group->title)) { ?>
@@ -30,6 +42,19 @@ use MySociety\TheyWorkForYou\HouseType;
         <?php } ?>
     <?php } ?>
 
+    <?php if ($members_with_details > 1) { ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initDetailsToggle({
+                buttonId: <?= json_encode($toggle_id) ?>,
+                selector: '#<?= $section->id->value ?> details.rep-detail',
+                expandLabel: <?= json_encode(gettext('Expand all')) ?>,
+                collapseLabel: <?= json_encode(gettext('Collapse all')) ?>,
+                autoExpand: new URLSearchParams(window.location.search).get('expand') === '1'
+            });
+        });
+        </script>
+    <?php } ?>
 
     <?php if (!empty($section->footer)) { ?>
         <p><?= $section->footer ?></p>

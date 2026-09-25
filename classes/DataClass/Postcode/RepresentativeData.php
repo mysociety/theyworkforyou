@@ -2,6 +2,7 @@
 
 namespace MySociety\TheyWorkForYou\DataClass\Postcode;
 
+use MySociety\TheyWorkForYou\Office;
 use MySociety\TheyWorkForYou\RepresentativeType;
 
 /**
@@ -39,6 +40,24 @@ class RepresentativeData {
     public bool $former = false;
 
     /**
+     * Current committee posts
+     *
+     * @var list<Office>
+     */
+    public array $committee_posts = [];
+
+    /**
+     * Parliamentary group memberships
+     *
+     * @var list<GroupMembershipData>
+     */
+    public array $appgs = [];
+
+    /**
+     * House-specific heading for the group list, such as APPGs/Cross-Party Groups.
+     */
+    public string $appgs_label;
+    /**
      * Whether to show the standing-down notice beneath the MP section.
      */
     public bool $standing_down_upcoming_election = false;
@@ -48,4 +67,12 @@ class RepresentativeData {
      * Defaults to constituency for MPs; the devolved lookup assigns its grouping.
      */
     public RepresentativeType $type = RepresentativeType::CONSTITUENCY;
+
+    /**
+     * Whether there are committee posts or group memberships to show in the
+     * card's expandable details.
+     */
+    public function hasDetails(): bool {
+        return $this->committee_posts || $this->appgs;
+    }
 }
