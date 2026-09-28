@@ -102,7 +102,7 @@ $methods = [
         'new' => true,
         'parameters' => ['name', 'date'],
         'required' => false,
-        'help' => 'Returns members of Select Committee',
+        'help' => 'Returns members of a parliamentary committee (UK by default)',
     ],
     'getDebates' => [
         'new' => true,

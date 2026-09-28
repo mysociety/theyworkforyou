@@ -26,6 +26,7 @@ app = Typer(pretty_exceptions_enable=False)
 
 class AppgDetails(BaseModel):
     slug: str
+    parliament: str
     title: str
     purpose: str
     website: Optional[str]
@@ -228,16 +229,16 @@ def load_appg_membership(quiet: bool = False, include_ai_sources: bool = True):
     """
     appg_lookup = pd.read_parquet(appg_names_url)
 
-    # limit to just uk parl APPGS for the moment
-    appg_lookup = appg_lookup[appg_lookup["parliament"] == "uk"]
-    appg_lookup = appg_lookup.set_index("slug")
+    included_parliaments = ["uk", "scottish-parliament", "senedd-en"]
+    appg_lookup = appg_lookup[appg_lookup["parliament"].isin(included_parliaments)]
+    appg_lookup = appg_lookup.set_index(["slug", "parliament"])
 
     id_to_person: defaultdict[int, APPGMembershipAssignment] = defaultdict(
         APPGMembershipAssignment
     )
     df = pd.read_parquet(appg_membership_url)
-    # restrict to just APPGS included in the lookup
-    df = df[df["appg"].isin(appg_lookup.index)]
+    # restrict to just APPGs included in the lookup by slug and parliament
+    df = df[df["parliament"].isin(included_parliaments)]
     # skip this by default while we validate the results
     if not include_ai_sources:
         df = df[df["source"] != "ai_search"]
@@ -247,9 +248,10 @@ def load_appg_membership(quiet: bool = False, include_ai_sources: bool = True):
             continue
 
         int_id = int(row["twfy_id"].split("/")[-1])
-        appg_details = appg_lookup.loc[row["appg"]]
+        appg_details = appg_lookup.loc[(row["appg"], row["parliament"])]
         appg = AppgDetails(
             slug=row["appg"],
+            parliament=row["parliament"],
             title=appg_details["title"],
             purpose=appg_details["purpose"],
             website=appg_details["website"],
