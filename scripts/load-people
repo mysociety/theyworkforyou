@@ -46,8 +46,6 @@ my $pwmembers = mySociety::Config::get('PWMEMBERS');
 verbose("People and Constituencies");
 load_people_json();
 if (!$from) {
-    verbose("Offices");
-    load_moffices();
     check_member_ids();
 }
 verbose("End");
@@ -85,25 +83,6 @@ sub db_connect {
 
 my %organizations;
 my %posts;
-
-sub load_moffices {
-    my $moffreplace = $dbh->prepare("replace into moffice (moffice_id, dept, position, from_date, to_date, person, source) values (?, ?, ?, ?, ?, ?, ?)");
-    foreach ('ministers.json', 'ministers-2010.json') {
-        my $j = decode_json(scalar read_file($pwmembers . $_));
-        foreach (@{$j->{organizations}}) {
-            $organizations{$_->{id}} = $_->{name};
-        }
-        foreach (@{$j->{memberships}}) {
-            (my $person = $_->{person_id}) =~ s#uk.org.publicwhip/person/##;
-            my $pos = $_->{role} || 'Member';
-            my $dept = $organizations{$_->{organization_id}} || die $!;
-            $dept = '' if $dept eq 'House of Commons';
-            my $end_date = $_->{end_date} || '9999-12-31';
-            next unless $end_date ge $from;
-            $moffreplace->execute($_->{id}, $dept, $pos, $_->{start_date}, $end_date, $person, '');
-        }
-    }
-}
 
 sub load_constituencies {
     my $j = shift;
