@@ -297,7 +297,8 @@ class SectionView {
         if (isset($THEUSER) && $THEUSER->postcode_is_set()) {
             $user = new \MySociety\TheyWorkForYou\User();
             $house = \MySociety\TheyWorkForYou\Utility\House::majorToHouse($this->major)[0];
-            $data['mp_data'] = $user->getRep($this->majorToConsType(), $house);
+            $details = \MySociety\TheyWorkForYou\Utility\House::getCountryDetails($house);
+            $data['mp_data'] = $user->getRep($details[3], $house);
         }
 
         $DATA->set_page_metadata($this_page, 'meta_description', sprintf(
@@ -536,24 +537,6 @@ class SectionView {
 
         $detail = $details[$this->major];
         return [$detail['country'], $detail['location'], $detail['assembly']];
-    }
-
-    private function majorToConsType() {
-        $major_to_cons_type = [
-            1 => 'WMC',
-            2 => 'WMC',
-            3 => 'WMC',
-            4 => 'WMC',
-            5 => 'NIE',
-            6 => 'WMC',
-            7 => 'SPC',
-            8 => 'SPC',
-            10 => 'WAC',
-            11 => 'WAC',
-            101 => '',
-        ];
-
-        return $major_to_cons_type[$this->major];
     }
 
     protected function display_front() {
