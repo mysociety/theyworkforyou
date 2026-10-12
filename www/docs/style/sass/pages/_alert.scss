@@ -281,8 +281,8 @@
 }
 
 .alert-section__message {
-  background-color: #FFFCD9; // very light yellow
-  padding: 1rem;
+    padding: 1rem;
+    @include alert-box;
 }
 
 .alert-section__primary {
@@ -331,7 +331,7 @@
 }
 
 .alert-section--feedback {
-    background-color: #FFFCD9; // very light yellow
+    @include alert-box;
 
     .alert-section__primary,
     .alert-section__secondary {
@@ -343,10 +343,61 @@
 
     h3 {
         margin-top: 0;
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    h4 {
+      font-weight: 600;
     }
 
     p:last-child {
         margin-bottom: 0;
+    }
+
+    &:has(.alert-section--feedback-prompts) {
+      .alert-section__primary {
+        width: 100%;
+      }
+    }
+
+    &-prompts {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 2rem;
+
+      .row {
+        max-width: 320px;
+        margin-left: 0;
+      }
+
+      @media #{$medium} {
+        margin: 0 -2rem;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      > * {
+        max-width: 32.5rem;
+
+        @media #{$medium} {
+          padding:0 2rem;
+
+          &:first-child {
+              border-right: 1px solid #e5e2c3;
+          }
+        }
+      }
+
+      @include inline-email-submit-form;
+
+      input {
+        height: 2.75em;
+        margin-bottom: 0;
+      }
+
+      .button--negative {
+        margin-bottom: 0;
+      }
     }
 }
 
