@@ -188,6 +188,8 @@ define('FACEBOOK_APP_SECRET', '');
 define('OPTION_RECAPTCHA_SITE_KEY', '');
 define('OPTION_RECAPTCHA_SECRET', '');
 
+define('SLACK_POST_TOKEN', '');
+
 define('STRIPE_PUBLIC_KEY', '');
 define('STRIPE_SECRET_KEY', '');
 define('STRIPE_ENDPOINT_SECRET', '');

@@ -10,7 +10,7 @@ function mlog($message) {
     print $message;
 }
 
-include_once '../www/includes/easyparliament/init.php';
+include_once __DIR__ . '/../www/includes/easyparliament/init.php';
 ini_set('memory_limit', -1);
 include_once INCLUDESPATH . 'easyparliament/member.php';
 
