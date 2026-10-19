@@ -38,7 +38,7 @@ $rows = [];
 foreach ($q as $row) {
     $id = $row['alert_id'];
     $criteria = $row['criteria'];
-    $rows[] = [$id, $critera];
+    $rows[] = [$id, $criteria];
 }
 $data = [ 'rows' => $rows ];
 $PAGE->display_table($data);
