@@ -71,8 +71,14 @@ class PolicyDistributionCollection {
         $result = [];
         foreach ($buckets as $bucket_start_year => $pairs) {
             shuffle($pairs); // keep random order within the bucket
-            $low = $person_start_year ? max($bucket_start_year, $person_start_year) : $bucket_start_year;
             $high = min($bucket_start_year + $bucket_size - 1, $cap_high);
+            // Only clamp to the person's start year if it falls within this
+            // bucket; someone who left and returned can have votes from
+            // before their most recent start date.
+            $low = $bucket_start_year;
+            if ($person_start_year && $person_start_year <= $high) {
+                $low = max($bucket_start_year, $person_start_year);
+            }
             $result[] = new PolicyDistributionYearGroup($low, $high, $pairs);
         }
         return $result;

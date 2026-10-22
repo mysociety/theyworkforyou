@@ -25,4 +25,13 @@ class VotesTest extends FetchPageTestCase {
         $page = $this->fetch_votes_page();
         $this->assertStringContainsString('Last updated:  1 January 2013', $page);
     }
+
+    public function testVoteRecencyHeadingsForReturningMember() {
+        // Person 7 was an MP 2001-2010 and again 2015-2017, so has votes
+        // from before the start of their most recent membership.
+        $page = $this->fetch_page([ 'pagetype' => 'votes', 'pid' => 7, 'url' => '/mp/7/test_returning-mp/test_westminster_constituency/votes' ]);
+        $this->assertStringContainsString('Last voted on between 2015 and 2017', $page);
+        $this->assertStringContainsString('Last voted on between 2005 and 2009', $page);
+        $this->assertStringNotContainsString('between 2015 and 2009', $page);
+    }
 }

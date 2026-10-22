@@ -37,6 +37,54 @@
         <field name="end_year">2013</field>
         <field name="distance_score">1</field>
     </row>
+    <row>
+        <field name="id">2</field>
+        <field name="policy_id">363</field>
+        <field name="person_id">7</field>
+        <field name="period_id">1</field>
+        <field name="chamber_id">1</field>
+        <field name="party_id">1</field>
+        <field name="is_target">1</field>
+        <field name="num_votes_same">0</field>
+        <field name="num_strong_votes_same">2</field>
+        <field name="num_votes_different">0</field>
+        <field name="num_strong_votes_different">0</field>
+        <field name="num_votes_absent">0</field>
+        <field name="num_strong_votes_absent">0</field>
+        <field name="num_votes_abstain">0</field>
+        <field name="num_strong_votes_abstain">0</field>
+        <field name="num_agreements_same">0</field>
+        <field name="num_strong_agreements_same">0</field>
+        <field name="num_agreements_different">0</field>
+        <field name="num_strong_agreements_different">0</field>
+        <field name="start_year">2008</field>
+        <field name="end_year">2008</field>
+        <field name="distance_score">0</field>
+    </row>
+    <row>
+        <field name="id">3</field>
+        <field name="policy_id">811</field>
+        <field name="person_id">7</field>
+        <field name="period_id">1</field>
+        <field name="chamber_id">1</field>
+        <field name="party_id">1</field>
+        <field name="is_target">1</field>
+        <field name="num_votes_same">0</field>
+        <field name="num_strong_votes_same">2</field>
+        <field name="num_votes_different">0</field>
+        <field name="num_strong_votes_different">0</field>
+        <field name="num_votes_absent">0</field>
+        <field name="num_strong_votes_absent">0</field>
+        <field name="num_votes_abstain">0</field>
+        <field name="num_strong_votes_abstain">0</field>
+        <field name="num_agreements_same">0</field>
+        <field name="num_strong_agreements_same">0</field>
+        <field name="num_agreements_different">0</field>
+        <field name="num_strong_agreements_different">0</field>
+        <field name="start_year">2016</field>
+        <field name="end_year">2016</field>
+        <field name="distance_score">0</field>
+    </row>
     </table_data>
 
 	<table_data name="policycomparisonperiod">
@@ -117,6 +165,30 @@
 			<field name="person_id">6</field>
 			<field name="lastupdate">2013-08-07 15:06:22</field>
 		</row>
+		<row>
+			<field name="member_id">6</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Labour</field>
+			<field name="entered_house">2001-06-07</field>
+			<field name="left_house">2010-04-12</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">general_election_standing</field>
+			<field name="person_id">7</field>
+			<field name="lastupdate">2013-08-07 15:06:22</field>
+		</row>
+		<row>
+			<field name="member_id">7</field>
+			<field name="house">1</field>
+			<field name="constituency">Test Westminster Constituency</field>
+			<field name="party">Labour</field>
+			<field name="entered_house">2015-05-07</field>
+			<field name="left_house">2017-05-03</field>
+			<field name="entered_reason">general_election</field>
+			<field name="left_reason">dissolution</field>
+			<field name="person_id">7</field>
+			<field name="lastupdate">2013-08-07 15:06:22</field>
+		</row>
 	</table_data>
 	<table_data name="person_names">
 		<row>
@@ -158,6 +230,14 @@
 			<field name="end_date">2015-01-01</field>
 			<field name="person_id">6</field>
 			<field name="title">Mrs</field>
+		</row>
+		<row>
+			<field name="given_name">Test</field>
+			<field name="family_name">Returning-MP</field>
+			<field name="start_date">2001-06-07</field>
+			<field name="end_date">9999-12-31</field>
+			<field name="person_id">7</field>
+			<field name="title">Mr</field>
 		</row>
 	</table_data>
 	<table_data name="persondivisionvotes">
