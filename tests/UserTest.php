@@ -136,4 +136,11 @@ class UserTest extends TWFY_Database_TestCase {
         $this->assertEquals(1, $tokenCount, 'correct number of email confirm tokens');
     }
 
+    public function testTokenWithoutSeparator() {
+        $u = new THEUSER();
+
+        $this->assertFalse($u->confirm_email('lkdsjafhsadjhf', false), 'email token without separator is rejected');
+        $this->assertFalse($u->confirm('lkdsjafhsadjhf'), 'registration token without separator is rejected');
+    }
+
 }
