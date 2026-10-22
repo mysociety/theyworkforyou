@@ -1124,6 +1124,9 @@ class THEUSER extends USER {
         if (strstr($token, '-')) {
             $arg = '-';
         }
+        if ($arg === '') {
+            return false;
+        }
         [$user_id, $registrationtoken] = explode($arg, $token);
 
         if (!is_numeric($user_id) || $registrationtoken == '') {
@@ -1216,6 +1219,9 @@ class THEUSER extends USER {
         }
         if (strstr($token, '-')) {
             $arg = '-';
+        }
+        if ($arg === '') {
+            return false;
         }
         [$user_id, $registrationtoken] = explode($arg, $token);
 
