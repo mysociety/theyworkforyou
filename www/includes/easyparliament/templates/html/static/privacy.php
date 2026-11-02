@@ -64,6 +64,11 @@
             <p>Your personal information is never shared, or used for purposes
             other than the above.</p>
 
+            <p id="mentioned"><strong>If you are an elected representative,
+            or have been mentioned in a debate</strong>, your personal
+            information may be published on this site as part of our copy of
+            the parliamentary record.</p>
+
             <h3 id="unsubscribe-alerts">How to unsubscribe from TheyWorkForYou
             email alerts</h3>
 
@@ -108,6 +113,15 @@
             and scrutiny of the actions of elected representatives.</p>
             <p>For API users, our legal basis for processing information is in
             the fulfillment of a contract.</p>
+            <p>If your personal information is published on the site because
+            you are a representative or have been mentioned in a debate, our
+            legal basis for processing it is legitimate interests, as described
+            in section 6(1)(f) of the UK General Data Protection Regulation.
+            We believe there is is a societal benefit in maintaining an accurate copy of
+            parliamentary proceedings. It enables public access to, and
+            research on, the historic parliamentary record and information
+            about democratic representatives, and provides civic redundancy
+            that helps protect future access to the official record.</p>
 
             <h3 id="access">Your right to access</h3>
             <p>You may contact us at any time to ask to see what personal data
