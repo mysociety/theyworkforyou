@@ -32,7 +32,7 @@ jobs:
           --health-retries=5
 
       redis:
-        image: bitnamisecure/redis
+        image: bitnamisecure/redis@sha256:92cda02bcb0a917f0344c9479f8b989270bf4ceebe896aa3af60504d45611776
         ports:
           - 6379:6379
         env:
@@ -44,7 +44,7 @@ jobs:
           --health-retries=5
 
       redis-sentinel:
-        image: bitnamisecure/redis-sentinel
+        image: bitnamisecure/redis-sentinel@sha256:0bc4e182e99eb7a898a4ab0cc02041d8ed2ec06f075aec0943a5cc4e6195f42e
         env:
           REDIS_MASTER_HOST: redis
           REDIS_MASTER_SET: mymaster
@@ -60,22 +60,23 @@ jobs:
           --health-retries=5
 
     steps:
-      - uses: niden/actions-memcached@v8
+      - uses: niden/actions-memcached@9ff2b102979272958682d09bf262563039bea69c # v8
 
-      - uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
         with:
           php-version: ${{ matrix.php_version }}
           extensions: memcached
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           submodules: true
+          persist-credentials: false
 
       - name: Get Composer Cache Directory
         id: composer-cache
         run: echo "dir=$(php composer.phar config cache-files-dir)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-php-composer-${{ hashFiles('**/composer.lock') }}
