@@ -109,10 +109,12 @@ function exception_handler($e) {
     trigger_error("Exception $message in $file line $line", E_USER_ERROR);
 }
 
+$already_emailed = [];
+
 function error_handler($errno, $errmsg, $filename, $linenum) {
     // Custom error-handling function.
     // Sends an email to BUGSLIST.
-    global $PAGE;
+    global $PAGE, $already_emailed;
 
     # Ignore errors we've asked to ignore
     if (error_reporting() == 0) {
@@ -232,7 +234,11 @@ function error_handler($errno, $errmsg, $filename, $linenum) {
             print "<p>Oops, sorry, an error has occurred!</p>\n";
         }
         if (!($errno & E_USER_NOTICE) && strpos($errmsg, 'pg_connect') === false && strpos($errmsg, 'mysql_connect') === false) {
-            mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n" . "X-Mailer: PHP/" . phpversion());
+            if ($already_emailed[$err] ?? 0 < 3) {
+                mail(BUGSLIST, "[TWFYBUG]: $errmsg", $err, "From: Bug <" . CONTACTEMAIL . ">\n" . "X-Mailer: PHP/" . phpversion());
+                $already_emailed[$err] ??= 0;
+                $already_emailed[$err]++;
+            }
         }
     }
 
