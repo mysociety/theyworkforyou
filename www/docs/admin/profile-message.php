@@ -1,7 +1,7 @@
 <?php
 
 include_once '../../includes/easyparliament/init.php';
-$this_page = 'profile_message';
+$this_page = 'admin_profile_message';
 $db = new ParlDB();
 
 $PAGE->page_start();

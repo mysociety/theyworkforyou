@@ -46,7 +46,8 @@ class PAGE {
     private function checkForAdmin() {
         global $DATA, $this_page, $THEUSER;
         $parent = $DATA->page_metadata($this_page, "parent");
-        if ($parent == 'admin' && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
+        $admin_section = ($parent == 'admin' || preg_match('#/admin#', $_SERVER['REQUEST_URI']));
+        if ($admin_section && (!$THEUSER->isloggedin() || !$THEUSER->is_able_to('viewadminsection'))) {
             if (!$THEUSER->isloggedin()) {
                 $THISPAGE = new \MySociety\TheyWorkForYou\Url($this_page);
 
