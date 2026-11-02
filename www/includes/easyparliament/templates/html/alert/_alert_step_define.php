@@ -49,7 +49,7 @@
                       <optgroup label="<?= gettext('UK Parliament') ?>">
                           <option value="uk"<?= $search_section == 'uk' ? ' selected' : '' ?>><?= gettext('All UK') ?></option>
                           <option value="debates"<?= $search_section == 'debates' ? ' selected' : '' ?>><?= gettext('House of Commons debates') ?></option>
-                          <option value="whalls"<?= $search_section == 'whalls' ? ' selected' : '' ?>><?= gettext('Westminster Hall debates') ?></option>
+                          <option value="whall"<?= $search_section == 'whall' ? ' selected' : '' ?>><?= gettext('Westminster Hall debates') ?></option>
                           <option value="lords"<?= $search_section == 'lords' ? ' selected' : '' ?>><?= gettext('House of Lords debates') ?></option>
                           <option value="wrans"<?= $search_section == 'wrans' ? ' selected' : '' ?>><?= gettext('Written answers') ?></option>
                           <option value="wms"<?= $search_section == 'wms' ? ' selected' : '' ?>><?= gettext('Written ministerial statements') ?></option>
