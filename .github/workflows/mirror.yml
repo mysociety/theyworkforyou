@@ -16,14 +16,15 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         fetch-depth: '0'
+        persist-credentials: false
 
     - name: Push branch to git.mysociety.org
       id: push_to_mirror
       if: ${{ github.event.inputs.force_push == 'false' || !github.event.inputs.force_push }}
-      uses: mysociety/action-git-pusher@v1.3.0
+      uses: mysociety/action-git-pusher@f14fa9e98fe817016fc9f41d9a530f316df2735b # v1.3.0
       with:
         git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
         ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
@@ -34,7 +35,7 @@ jobs:
     - name: Push branch to git.mysociety.org (force)
       id: push_to_mirror_force
       if: ${{ github.event.inputs.force_push == 'true' }}
-      uses: mysociety/action-git-pusher@v1.3.0
+      uses: mysociety/action-git-pusher@f14fa9e98fe817016fc9f41d9a530f316df2735b # v1.3.0
       with:
         git_ssh_key: ${{ secrets.PUBLICCVS_GIT_KEY }}
         ssh_known_hosts: ${{ secrets.GIT_KNOWN_HOSTS }}
