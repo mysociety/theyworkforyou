@@ -238,7 +238,7 @@ class SEARCHENGINE {
         }
 
         # Now stick in an 'exclude other language' if needed
-        if (!preg_match('#major:#', $this->query)) {
+        if (!preg_match('#(^|[^-])major:#', $this->query)) {
             if ($lang == 'cy' || LANGUAGE == 'cy') {
                 $this->query = "($this->query) -major:10";
             } else {
