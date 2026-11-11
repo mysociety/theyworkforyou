@@ -336,7 +336,7 @@ class GLOSSARY {
 
             $URL->update(["gl" => $glossary_id]);
             # The regex here ensures that the phrase is only matched if it's not already within <a> tags, preventing double-linking. Kudos to http://stackoverflow.com/questions/7798829/php-regular-expression-to-match-keyword-outside-html-tag-a
-            $findwords[$glossary_id] = "/\b(" . $term_title . ")\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)<\/a>)/i";
+            $findwords[$glossary_id] = "/\b(" . preg_quote($term_title) . ")\b(?!(?>[^<]*(?:<(?!\/?a\b)[^<]*)*)<\/a>)/i";
             // catch glossary terms within their own definitions
             if ($glossary_id == $this->glossary_id) {
                 $replacewords[] = "<strong>\\1</strong>";
