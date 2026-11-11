@@ -33,6 +33,11 @@ RUN  apt-get update -qq && \
       xargs -a /tmp/packages apt-get install -qq --no-install-recommends && \
       rm -r /var/lib/apt/lists/*
 
+# php-xapian ships the extension without PHP module configuration.
+RUN printf 'extension=xapian.so\n' > /etc/php/8.2/mods-available/xapian.ini && \
+      phpenmod -v 8.2 -s ALL xapian && \
+      php -r 'exit(class_exists("XapianDatabase") ? 0 : 1);'
+
 # Apache - enable some modules redirect output to STDOUT/STDERR
 RUN /usr/sbin/a2enmod expires rewrite && \
       ln -sfT /proc/self/fd/2 /var/log/apache2/error.log && \
