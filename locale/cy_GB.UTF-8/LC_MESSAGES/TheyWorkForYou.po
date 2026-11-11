@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-14 11:42+0000\n"
+"POT-Creation-Date: 2026-11-11 10:28+0000\n"
 "PO-Revision-Date: 2023-03-20 17:59-0000\n"
 "Language-Team: mySociety\n"
 "Language: fr\n"
@@ -39,20 +39,20 @@ msgstr "Mae'n ymddangos bod y chwiliad hwnnw'n annilys -  %s - gwiriwch a cheisi
 msgid "That search is too long for our database; please split it up into multiple smaller alerts."
 msgstr "Mae'r chwiliad hwnnw'n rhy hir i'n cronfa ddata;  os gwelwch yna dda rhannwch i nifer o hysbysiadau llai."
 
-#: classes/AlertView/Standard.php:527 classes/AlertView/Standard.php:545
+#: classes/AlertView/Standard.php:527 classes/AlertView/Standard.php:548
 msgid "No matching representative found"
 msgstr "Ni ddaethpwyd o hyd i unrhyw gynrychiolydd cyfatebol"
 
-#: classes/AlertView/Standard.php:547
+#: classes/AlertView/Standard.php:550
 msgid "Multiple matching representatives found, please select one."
 msgstr "Daethpwyd o hyd i lawer o gynrychiolwyr cyfatebol. Dewiswch un os gwelwch yn dda."
 
-#: classes/Divisions.php:489
+#: classes/Divisions.php:494
 #, php-format
 msgid "voted %s"
 msgstr "wedi pleidleisio %s"
 
-#: classes/Divisions.php:491
+#: classes/Divisions.php:496
 #, php-format
 msgid "voted %s on <em>%s</em>"
 msgstr "Fe wnaeth pleidleisio  % s ar <em>%s</EM>"
@@ -61,35 +61,107 @@ msgstr "Fe wnaeth pleidleisio  % s ar <em>%s</EM>"
 #: classes/GlossaryView/AddTermView.php:13
 #: classes/GlossaryView/EditTermView.php:13
 msgid "You don't have permission to manage the glossary"
-msgstr "Nid oes gennych ganiatâd i reoli’r rhestr dermau"
+msgstr "Nid oes gennych ganiatâd i reoli'r rhestr dermau"
 
 #: classes/Homepage.php:74 classes/SectionView/NiView.php:119
-#: classes/SectionView/SeneddView.php:125 classes/SPHomepage.php:33
+#: classes/SectionView/SeneddView.php:120 classes/SPHomepage.php:33
 msgid "Subscribe to our newsletter"
 msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
 
-#: classes/Member.php:382 classes/Member.php:394
+#: classes/MapItAreaType.php:34
+msgid "Westminster constituency"
+msgstr "Etholaeth San Steffan"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:35
+msgid "Scottish Parliament constituency"
+msgstr "Scottish Parliament constituency"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:36
+msgid "Future Scottish Parliament constituency"
+msgstr "Future Scottish Parliament constituency"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:37
+msgid "Scottish Parliament region"
+msgstr "Scottish Parliament region"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:38
+msgid "Future Scottish Parliament region"
+msgstr "Future Scottish Parliament region"
+
+#: classes/MapItAreaType.php:39
+msgid "Senedd constituency"
+msgstr "Etholaeth y Senedd"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:40
+msgid "Future Senedd constituency"
+msgstr "Future Senedd constituency"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:41
+msgid "Northern Ireland Assembly constituency"
+msgstr "Northern Ireland Assembly constituency"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:42
+msgid "County council"
+msgstr "County council"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:43
+msgid "District council"
+msgstr "District council"
+
+#: classes/MapItAreaType.php:44
+msgid "Unitary authority"
+msgstr "Awdurdod unedol"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:45
+msgid "Metropolitan district"
+msgstr "Metropolitan district"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:46
+msgid "London borough"
+msgstr "London borough"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:47
+msgid "Northern Ireland local government district"
+msgstr "Northern Ireland local government district"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/MapItAreaType.php:48
+msgid "Council of the Isles of Scilly"
+msgstr "Council of the Isles of Scilly"
+
+#: classes/Member.php:392 classes/Member.php:404
 #: www/includes/easyparliament/member.php:34
 #: www/includes/easyparliament/templates/html/divisions/index.php:63
 msgid "House of Lords"
 msgstr "Tŷ'r Arglwyddi"
 
-#: classes/Member.php:386
+#: classes/Member.php:396
 #, php-format
 msgid "Previously MP for %s until %s"
 msgstr "Yn flaenorol AS am %s tan %s"
 
-#: classes/Member.php:402 classes/Member.php:406
+#: classes/Member.php:412 classes/Member.php:416
 #: www/includes/easyparliament/member.php:33
 #: www/includes/easyparliament/templates/html/divisions/index.php:62
 msgid "House of Commons"
 msgstr "Tŷ'r Cyffredin"
 
-#: classes/Member.php:409 classes/Member.php:410
+#: classes/Member.php:419 classes/Member.php:420
 msgid "Assembly"
 msgstr "Cynulliad"
 
-#: classes/Member.php:411 classes/Member.php:412
+#: classes/Member.php:421 classes/Member.php:422
 #: www/includes/easyparliament/hansardlist.php:1227
 #: www/includes/easyparliament/member.php:36
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:62
@@ -98,87 +170,87 @@ msgstr "Cynulliad"
 msgid "Scottish Parliament"
 msgstr "Senedd yr Alban"
 
-#: classes/Member.php:413 classes/Member.php:414
+#: classes/Member.php:423 classes/Member.php:424
 #: www/includes/easyparliament/member.php:37
 #: www/includes/easyparliament/templates/html/divisions/index.php:66
 msgid "Senedd"
 msgstr "Senedd"
 
-#: classes/Member.php:415 classes/Member.php:416
+#: classes/Member.php:425 classes/Member.php:426
 #: www/includes/easyparliament/member.php:38
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:70
 #: www/includes/easyparliament/templates/html/search/form_options.php:76
 msgid "London Assembly"
 msgstr "Cynulliad Llundain"
 
-#: classes/Member.php:426
+#: classes/Member.php:436
 #, php-format
 msgid "Entered the %s in %s"
 msgstr "Aeth i mewn i'r %s yn %s"
 
-#: classes/Member.php:428
+#: classes/Member.php:438
 #, php-format
 msgid "Entered the %s on %s"
 msgstr "Aeth i mewn i'r  %s ar %s"
 
-#: classes/Member.php:442
+#: classes/Member.php:452
 #, php-format
 msgid "Left the %s in %s"
 msgstr "Gadawodd y %s mewn %s"
 
-#: classes/Member.php:444
+#: classes/Member.php:454
 #, php-format
 msgid "Left the %s on %s"
 msgstr "Gadawodd y %s ar %s"
 
-#: classes/Office.php:134
+#: classes/Office.php:160
 msgid "current member"
-msgstr ""
+msgstr "aelod cyfredol"
 
-#: classes/Office.php:136
+#: classes/Office.php:162
 #, php-format
 msgid "until %s"
-msgstr ""
+msgstr "tan %s"
 
-#: classes/People.php:93
+#: classes/People.php:94
 #, php-format
 msgid "%s, as on %s"
 msgstr "%s, fel ar %s"
 
-#: classes/People.php:95
+#: classes/People.php:96
 #, php-format
 msgid "All %s, including former ones"
 msgstr "Pob %s, gan gynnwys cyn-aelodau"
 
-#: classes/People.php:97
+#: classes/People.php:98
 #: www/includes/easyparliament/templates/html/people/index.php:141
 #, php-format
 msgid "All %s"
 msgstr "Pob %s"
 
-#: classes/People.php:102
+#: classes/People.php:103
 msgid "Person ID"
 msgstr "URI"
 
-#: classes/People.php:102
+#: classes/People.php:103
 #: www/includes/easyparliament/templates/html/people/index.php:160
-#: www/includes/easyparliament/templates/html/user/index.php:34
+#: www/includes/easyparliament/templates/html/user/index.php:25
 #: www/includes/easyparliament/templates/html/user/view_user.php:5
 msgid "Name"
 msgstr "Enw"
 
-#: classes/People.php:102
+#: classes/People.php:103
 #: www/includes/easyparliament/templates/html/people/index.php:147
 #: www/includes/easyparliament/templates/html/people/index.php:153
 #: www/includes/easyparliament/templates/html/people/index.php:163
 msgid "Party"
 msgstr "Plaid"
 
-#: classes/People.php:102
+#: classes/People.php:103
 msgid "Constituency"
 msgstr "URI"
 
-#: classes/People.php:102
+#: classes/People.php:103
 msgid "URI"
 msgstr "URI"
 
@@ -209,72 +281,74 @@ msgstr "Yr hyd term mwyaf yw 255 nod."
 msgid "Senedd / Welsh Parliament"
 msgstr "Senedd Cymru"
 
-#: classes/SectionView/SeneddView.php:122
+#: classes/SectionView/SeneddView.php:117
 #, php-format
-msgid "Find out more about your MSs for %s and %s"
-msgstr "Darganfod mwy am eich Aelodau Cynulliad dros %s a %s"
+msgid "Find out more about your MSs for %s"
+msgstr "Darganfyddwch fwy am eich Aelodau o'r Senedd ar gyfer %s"
 
-#: classes/SectionView/SeneddView.php:124
+#: classes/SectionView/SeneddView.php:119
 msgid "Create and manage email alerts"
 msgstr "Creu hysbysiad"
 
-#: classes/SectionView/SeneddView.php:126
+#: classes/SectionView/SeneddView.php:121
 msgid "Donate to support our work"
 msgstr "Cyfrannu"
 
-#: classes/SectionView/SeneddView.php:127
+#: classes/SectionView/SeneddView.php:122
 msgid "Learn more about TheyWorkForYou"
 msgstr "Ynglŷn â TheyWorkForYou"
 
-#: classes/User.php:201
+#: classes/User.php:193
 msgid "Please enter a password"
 msgstr "Rhowch eich cyfrinair"
 
-#: classes/User.php:204 classes/User.php:220
+#: classes/User.php:196 classes/User.php:212
 msgid "Please enter at least six characters"
 msgstr "Mae angen o leiaf chwe mewnbwn"
 
-#: classes/User.php:208
+#: classes/User.php:200
 msgid "Please enter a password again"
 msgstr "Nodwch eich cyfrinair eto"
 
-#: classes/User.php:212 classes/User.php:224
+#: classes/User.php:204 classes/User.php:216
 msgid "The passwords did not match. Please try again."
-msgstr "Mae’n rhaid i’r cyfrineiriau fod yr un fath. Ceisiwch eto os gwelwch yn dda."
+msgstr "Mae'n rhaid i'r cyfrineiriau fod yr un fath. Ceisiwch eto os gwelwch yn dda."
 
-#: classes/User.php:232
+#: classes/User.php:223
 msgid "Sorry, this isn't a valid UK postcode."
 msgstr "Mae'n ddrwg gennym, nid yw hwn yn gôd post dilys"
 
-#: classes/User.php:240
+#: classes/User.php:231
 msgid "Sorry, we could not find an MP for that postcode."
 msgstr "Mae'n ddrwg gennym, ni allwn ddod o hyd i AS ar gyfer y côd post hwnnw."
 
-#: classes/Utility/Alert.php:14
+#: classes/Utility/Alert.php:15
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:50
 #: www/includes/easyparliament/templates/html/search/form_options.php:56
 msgid "All UK"
 msgstr "Y Deyrnas Unedig cyfan"
 
-#: classes/Utility/Alert.php:15
+#: classes/Utility/Alert.php:16 classes/Utility/Alert.php:17
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:51
 #: www/includes/easyparliament/templates/html/search/form_options.php:57
 msgid "House of Commons debates"
 msgstr "Dadleuon Tŷ'r Cyffredin"
 
-#: classes/Utility/Alert.php:16 scripts/alertmailer.php:153
+#: classes/Utility/Alert.php:18 classes/Utility/Alert.php:19
+#: classes/Utility/Alert.php:20 classes/Utility/Alert.php:21
+#: scripts/alertmailer.php:154
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:52
 #: www/includes/easyparliament/templates/html/search/form_options.php:58
 msgid "Westminster Hall debates"
 msgstr "Dadleuon Neuadd San Steffan"
 
-#: classes/Utility/Alert.php:17
+#: classes/Utility/Alert.php:22 classes/Utility/Alert.php:23
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:53
 #: www/includes/easyparliament/templates/html/search/form_options.php:59
 msgid "House of Lords debates"
 msgstr "Dadleuon Tŷ'r Arglwyddi"
 
-#: classes/Utility/Alert.php:18
+#: classes/Utility/Alert.php:24 classes/Utility/Alert.php:25
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:54
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:65
 #: www/includes/easyparliament/templates/html/search/form_options.php:60
@@ -282,51 +356,52 @@ msgstr "Dadleuon Tŷ'r Arglwyddi"
 msgid "Written answers"
 msgstr "Atebion ysgrifenedig"
 
-#: classes/Utility/Alert.php:19
+#: classes/Utility/Alert.php:26 classes/Utility/Alert.php:27
+#: classes/Utility/Alert.php:28
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:55
 #: www/includes/easyparliament/templates/html/search/form_options.php:61
 msgid "Written ministerial statements"
 msgstr "Datganiadau gweinidogol  ysgrifenedig"
 
-#: classes/Utility/Alert.php:20
+#: classes/Utility/Alert.php:29 classes/Utility/Alert.php:30
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:56
 #: www/includes/easyparliament/templates/html/search/form_options.php:62
 msgid "Bill Committees"
 msgstr "Pwyllgorau"
 
-#: classes/Utility/Alert.php:21
+#: classes/Utility/Alert.php:31
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:57
 #: www/includes/easyparliament/templates/html/search/form_options.php:63
 msgid "Future Business"
 msgstr "Busnes y Dyfodol"
 
-#: classes/Utility/Alert.php:22
+#: classes/Utility/Alert.php:32 classes/Utility/Alert.php:33
 msgid "Northern Ireland Assembly Debates"
 msgstr "Dadleuon Cynulliad Gogledd Iwerddon"
 
-#: classes/Utility/Alert.php:23
+#: classes/Utility/Alert.php:34
 #: www/includes/easyparliament/templates/html/alert/_alert_step_define.php:63
 #: www/includes/easyparliament/templates/html/search/form_options.php:69
 msgid "All Scotland"
 msgstr "Alban i gyd"
 
-#: classes/Utility/Alert.php:24
+#: classes/Utility/Alert.php:35
 msgid "Scottish Parliament Debates"
 msgstr "Dadleuon Senedd yr Alban"
 
-#: classes/Utility/Alert.php:25
+#: classes/Utility/Alert.php:36 classes/Utility/Alert.php:37
 msgid "Scottish Parliament Written answers"
 msgstr "atebion ysgrifenedig Senedd yr Alban"
 
-#: classes/Utility/Alert.php:26
+#: classes/Utility/Alert.php:38
 msgid "Welsh parliament record"
 msgstr "Y Cofnod"
 
-#: classes/Utility/Alert.php:27
+#: classes/Utility/Alert.php:39
 msgid "Questions to the Mayor of London"
 msgstr "Cwestiynau i'r Maer"
 
-#: classes/Utility/Alert.php:67
+#: classes/Utility/Alert.php:93
 #, php-format
 msgid "+ %d more keyword"
 msgid_plural "+ %d more keywords"
@@ -341,46 +416,97 @@ msgstr "AS"
 msgid "MSs"
 msgstr "ASau"
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:67 classes/Utility/House.php:71
 msgid "In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates."
-msgstr ""
+msgstr "In the UK Parliament, committees are groups of MPs or Peers who examine specific issues in more detail than can be done in debates."
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:68 classes/Utility/House.php:72
 msgid "Some committees focus on checking the government's decisions and spending, while others investigate specific topics and proposed legislation."
-msgstr ""
+msgstr "Some committees focus on checking the government's decisions and spending, while others investigate specific topics and proposed legislation."
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:75
 msgid "In the Scottish Parliament, committees are groups of MSPs who scrutinise the work of the Scottish Government, examine proposed legislation and conduct inquiries."
-msgstr ""
+msgstr "In the Scottish Parliament, committees are groups of MSPs who scrutinise the work of the Scottish Government, examine proposed legislation and conduct inquiries."
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:76
 msgid "Much of the Parliament's detailed work happens in committee rather than in the chamber."
-msgstr ""
+msgstr "Much of the Parliament's detailed work happens in committee rather than in the chamber."
 
 #: classes/Utility/House.php:79
 msgid "In the Senedd, committees are groups of Members who scrutinise the work of the Welsh Government, examine proposed legislation and conduct inquiries."
-msgstr ""
+msgstr "Yn y Senedd, mae pwyllgorau yn grwpiau o Aelodau sy'n gwyntyllu gwaith Llywodraeth Cymru, yn archwilio deddfwriaeth arfaethedig ac yn cynnal ymchwiliadau."
 
 #: classes/Utility/House.php:80
 msgid "Much of the Senedd's detailed work happens in committee rather than in the chamber."
-msgstr ""
+msgstr "Mae llawer o waith manwl y Senedd yn digwydd yn y pwyllgor yn hytrach nag yn y siambr."
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:83
 msgid "In the Northern Ireland Assembly, statutory committees advise and assist each Minister, and scrutinise the work of their department."
-msgstr ""
+msgstr "In the Northern Ireland Assembly, statutory committees advise and assist each Minister, and scrutinise the work of their department."
 
+# English fallback: only used for non-Senedd parliaments/councils
 #: classes/Utility/House.php:84
 msgid "Standing and ad hoc committees deal with the running of the Assembly and with particular pieces of business."
-msgstr ""
+msgstr "Standing and ad hoc committees deal with the running of the Assembly and with particular pieces of business."
 
 #: classes/Utility/House.php:96
 msgid "Cross-Party Groups"
-msgstr ""
+msgstr "Grwpiau Trawsbleidiol"
 
-#: classes/Utility/House.php:98
-#, fuzzy
+#: classes/Utility/House.php:99
+msgid "All-Party Groups"
+msgstr "Grwpiau Hollbleidiol"
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/Utility/House.php:101
 msgid "All-Party Parliamentary Groups"
-msgstr "APPGs"
+msgstr "All-Party Parliamentary Groups"
+
+# google translated
+#: classes/Utility/House.php:109
+msgid "Committees / CPGs"
+msgstr "Pwyllgorau / Grwpiau Trawsbleidiol"
+
+# google translated
+#: classes/Utility/House.php:110
+msgid "Committees / APGs"
+msgstr "Pwyllgorau / APGs"
+
+# google translated
+#: classes/Utility/House.php:111
+msgid "Committees / APPGs"
+msgstr "Pwyllgorau / APPGs"
+
+#: classes/Utility/House.php:124
+msgid "Cross-Party Groups are informal groups made up of members from more than one party who share an interest in a particular country or subject."
+msgstr "Mae Grwpiau Trawsbleidiol yn grwpiau anffurfiol sy'n cynnwys aelodau o fwy nag un blaid sy'n rhannu diddordeb mewn gwlad neu bwnc penodol."
+
+#: classes/Utility/House.php:125
+msgid "They are not committees of the parliament and have no formal powers, but they are registered and may receive support from outside organisations."
+msgstr "Nid ydynt yn bwyllgorau o'r Senedd ac nid oes ganddynt unrhyw bwerau ffurfiol, ond maent wedi'u cofrestru ac efallai y byddant yn derbyn cefnogaeth gan sefydliadau allanol."
+
+#: classes/Utility/House.php:130
+msgid "All-Party Groups (APGs) are informal groups of MLAs from different parties who share an interest in a particular country or subject."
+msgstr "Mae Grwpiau Hollbleidiol (APGs) yn grwpiau anffurfiol o Aelodau'r Cynulliad o wahanol bleidiau sy'n rhannu diddordeb mewn gwlad neu bwnc penodol."
+
+#: classes/Utility/House.php:131
+msgid "They are not Assembly committees and have no formal powers."
+msgstr "Nid ydynt yn bwyllgorau'r Cynulliad ac nid oes ganddynt bwerau ffurfiol."
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/Utility/House.php:135
+msgid "All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject."
+msgstr "All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject."
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: classes/Utility/House.php:136
+msgid "They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies."
+msgstr "They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies."
 
 #: locale/welsh-constituencies.php:3
 msgid "Aberavon"
@@ -582,140 +708,140 @@ msgstr "Democratiaid Rhyddfrydol"
 msgid "Plaid Cymru"
 msgstr "Plaid Cymru"
 
-#: scripts/alertmailer.php:136
+#: scripts/alertmailer.php:137
 msgid "Commons debate"
 msgstr "Dadl Tŷ'r Cyffredin"
 
-#: scripts/alertmailer.php:137
+#: scripts/alertmailer.php:138
 msgid "Westminster Hall debate"
 msgstr "Dadl Neuadd San Steffan"
 
-#: scripts/alertmailer.php:138
+#: scripts/alertmailer.php:139
 msgid "Written Answer"
 msgstr "Ateb ysgrifenedig"
 
-#: scripts/alertmailer.php:139
+#: scripts/alertmailer.php:140
 msgid "Written Ministerial Statement"
 msgstr "Datganiad Gweinidogol Ysgrifenedig"
 
-#: scripts/alertmailer.php:140
+#: scripts/alertmailer.php:141
 msgid "Northern Ireland Assembly debate"
 msgstr "Dadl Cynulliad Gogledd Iwerddon"
 
-#: scripts/alertmailer.php:141
+#: scripts/alertmailer.php:142
 msgid "Public Bill committee"
 msgstr "Pwyllgor Mesur Cyhoeddus"
 
-#: scripts/alertmailer.php:142
+#: scripts/alertmailer.php:143
 msgid "Scottish Parliament debate"
 msgstr "Dadl Senedd yr Alban"
 
-#: scripts/alertmailer.php:143
+#: scripts/alertmailer.php:144
 msgid "Scottish Parliament written answer"
 msgstr "ateb ysgrifenedig Senedd yr Alban"
 
-#: scripts/alertmailer.php:144
+#: scripts/alertmailer.php:145
 msgid "London Mayoral question"
 msgstr "Cwestiwn Maer Llundain"
 
-#: scripts/alertmailer.php:145 scripts/alertmailer.php:146
+#: scripts/alertmailer.php:146 scripts/alertmailer.php:147
 msgid "Senedd debate"
 msgstr "dadl y Senedd"
 
-#: scripts/alertmailer.php:147
-msgid "Lords debate"
-msgstr "dadl Tŷ’r Arglwyddi"
-
 #: scripts/alertmailer.php:148
+msgid "Lords debate"
+msgstr "dadl Tŷ'r Arglwyddi"
+
+#: scripts/alertmailer.php:149
 msgid "event"
 msgstr "digwyddiad"
 
-#: scripts/alertmailer.php:149
+#: scripts/alertmailer.php:150
 msgid "vote"
 msgstr "Pleidlais"
 
-#: scripts/alertmailer.php:152
+#: scripts/alertmailer.php:153
 msgid "Commons debates"
 msgstr "Dadleuon Tŷ'r Cyffredin"
 
-#: scripts/alertmailer.php:154
+#: scripts/alertmailer.php:155
 msgid "Written Answers"
 msgstr "Atebion ysgrifenedig"
 
-#: scripts/alertmailer.php:155
+#: scripts/alertmailer.php:156
 msgid "Written Ministerial Statements"
 msgstr "Datganiadau Gweinidogol Ysgrifenedig"
 
-#: scripts/alertmailer.php:156
+#: scripts/alertmailer.php:157
 msgid "Northern Ireland Assembly debates"
 msgstr "Dadleuon Cynulliad Gogledd Iwerddon"
 
-#: scripts/alertmailer.php:157
+#: scripts/alertmailer.php:158
 #: www/includes/easyparliament/templates/html/divisions/index.php:64
 msgid "Public Bill committees"
 msgstr "Pwyllgorau Mesur Cyhoeddus"
 
-#: scripts/alertmailer.php:158
+#: scripts/alertmailer.php:159
 msgid "Scottish Parliament debates"
 msgstr "Dadleuon Senedd yr Alban"
 
-#: scripts/alertmailer.php:159
+#: scripts/alertmailer.php:160
 msgid "Scottish Parliament written answers"
 msgstr "atebion ysgrifenedig Senedd yr Alban"
 
-#: scripts/alertmailer.php:160
+#: scripts/alertmailer.php:161
 msgid "London Mayoral questions"
 msgstr "Cwestiynau Maer Llundain"
 
-#: scripts/alertmailer.php:161 scripts/alertmailer.php:162
+#: scripts/alertmailer.php:162 scripts/alertmailer.php:163
 #: www/includes/easyparliament/metadata.php:1217
 #: www/includes/easyparliament/metadata.php:1220
 msgid "Senedd debates"
 msgstr "Dadleuon y Senedd"
 
-#: scripts/alertmailer.php:163
-msgid "Lords debates"
-msgstr "dadl Tŷ’r Arglwyddi"
-
 #: scripts/alertmailer.php:164
+msgid "Lords debates"
+msgstr "dadl Tŷ'r Arglwyddi"
+
+#: scripts/alertmailer.php:165
 msgid "events"
 msgstr "digwyddiadau"
 
-#: scripts/alertmailer.php:165
+#: scripts/alertmailer.php:166
 msgid "votes"
 msgstr "pleidleisiau"
 
-#: scripts/alertmailer.php:304
+#: scripts/alertmailer.php:305
 msgid "as a teller"
 msgstr "fel rhifwr"
 
-#: scripts/alertmailer.php:315
+#: scripts/alertmailer.php:316
 msgid "Voted aye"
 msgstr "Pleidleisiodd ie"
 
-#: scripts/alertmailer.php:317
+#: scripts/alertmailer.php:318
 msgid "Voted no"
 msgstr "Pleidleisio na"
 
-#: scripts/alertmailer.php:319
+#: scripts/alertmailer.php:320
 msgid "Voted abstain"
 msgstr "Wedi ymatal pleidlais"
 
-#: scripts/alertmailer.php:321
+#: scripts/alertmailer.php:322
 #, php-format
 msgid "Voted %s"
 msgstr "Pleidleisiodd %s"
 
-#: scripts/alertmailer.php:323
+#: scripts/alertmailer.php:324
 #, php-format
 msgid "(division #%s; result was <b>%s</b> aye, <b>%s</b> no)"
 msgstr "(adran #%s;  canlyniad oedd <b>%s</b> aye, <b>%s</b> na)"
 
-#: scripts/alertmailer.php:403 scripts/alertmailer.php:410
+#: scripts/alertmailer.php:404 scripts/alertmailer.php:411
 msgid "There are more results than we have shown here."
 msgstr "Gweld mwy"
 
-#: scripts/alertmailer.php:403 scripts/alertmailer.php:410
+#: scripts/alertmailer.php:404 scripts/alertmailer.php:411
 msgid "See more"
 msgstr "Gweld mwy"
 
@@ -741,122 +867,122 @@ msgstr "Rhannwch hyn"
 msgid "Register of Interests"
 msgstr "Cofrestr Buddiannau"
 
-#: www/docs/mp/index.php:203
+#: www/docs/mp/index.php:196
 msgid "Sorry, but we can’t tell which representative to display."
 msgstr "Sori, ond nid ydym yn gwybod pa gynrychiolwr i arddangos."
 
-#: www/docs/mp/index.php:206
+#: www/docs/mp/index.php:199
 msgid "You haven’t provided a way of identifying which representative you want"
 msgstr "Dydych chi ddim wedi darparu ffordd o nodi pa gynrychiolydd rydych chi ei eisiau"
 
-#: www/docs/mp/index.php:558
+#: www/docs/mp/index.php:551
 #, php-format
 msgid "Sorry, %s isn’t a valid postcode"
 msgstr "Sori, nid yw %s yn gôd post dilys"
 
-#: www/docs/mp/index.php:563
+#: www/docs/mp/index.php:556
 msgid "Sorry, we couldn’t check your postcode right now, as our postcode lookup server is under quite a lot of load."
 msgstr "Sori, ni allem wirio'ch côd post ar hyn o bryd, gan fod ein gweinydd sy'n chwilio amdanynt dan dipyn o lwyth gwaith."
 
-#: www/docs/mp/index.php:566
+#: www/docs/mp/index.php:559
 #, php-format
 msgid "Sorry, %s isn’t a known postcode"
 msgstr "Sori, nid ydym yn adnabod y côd post %s"
 
-#: www/docs/mp/index.php:742
+#: www/docs/mp/index.php:735
 msgid "<abbr title=\"Member of Parliament\">MP</abbr>"
 msgstr "<abbr title=\"Aelod Seneddol\">MP</abbr>"
 
-#: www/docs/mp/index.php:744
+#: www/docs/mp/index.php:737
 msgid "<abbr title=\"Member of the Legislative Assembly\">MLA</abbr>"
 msgstr "<abbr title=\"Aelod o'r Cynulliad Deddfwriaethol\">MLA</abbr>"
 
-#: www/docs/mp/index.php:746
+#: www/docs/mp/index.php:739
 msgid "<abbr title=\"Member of the Scottish Parliament\">MSP</abbr>"
 msgstr "<abbr title=\"Aelod Senedd yr Alban\">MSP</abbr>"
 
-#: www/docs/mp/index.php:748
+#: www/docs/mp/index.php:741
 msgid "<abbr title=\"Member of the Senedd\">MS</abbr>"
 msgstr "<abbr title=\"Aelod o'r Senedd\">MS</abbr>"
 
-#: www/docs/mp/index.php:750
+#: www/docs/mp/index.php:743
 msgid "Member of the London Assembly"
 msgstr "Aelod Cynulliad Llundain"
 
-#: www/docs/mp/index.php:763
+#: www/docs/mp/index.php:756
 #, php-format
 msgid "%s, and %s %s for %s"
 msgstr "%s, a %s %s ar gyfer %s"
 
-#: www/docs/mp/index.php:765
+#: www/docs/mp/index.php:758
 #, php-format
 msgid "Former %s, and %s %s for %s"
 msgstr "Cyn %s, a %s %s am  %s"
 
-#: www/docs/mp/index.php:768
+#: www/docs/mp/index.php:761
 #, php-format
 msgid "%s %s %s for %s"
 msgstr "%s %s  %s ar gyfer %s"
 
-#: www/docs/mp/index.php:770
+#: www/docs/mp/index.php:763
 #, php-format
 msgid "Former %s %s %s for %s"
 msgstr "Cyn %s  %s %s am %  s"
 
-#: www/docs/mp/index.php:774
+#: www/docs/mp/index.php:767
 #, php-format
 msgid "%s Peer"
 msgstr "%s Arglwydd"
 
-#: www/docs/mp/index.php:776
+#: www/docs/mp/index.php:769
 #, php-format
 msgid "Former %s Peer"
 msgstr "Cyn Arglwydd %s"
 
-#: www/docs/mp/index.php:782
+#: www/docs/mp/index.php:775
 #, php-format
 msgid "Former %s"
 msgstr "Cyn %s"
 
-#: www/docs/mp/index.php:897
+#: www/docs/mp/index.php:890
 #, php-format
 msgid "More of %s’s recent appearances"
 msgstr "Mwy o ymddangosiadau diweddar %s"
 
-#: www/docs/mp/index.php:903
+#: www/docs/mp/index.php:896
 #, php-format
 msgid "More of %s's speeches and debates"
 msgstr "Mwy o ymddangosiadau diweddar %s"
 
-#: www/docs/mp/index.php:908
+#: www/docs/mp/index.php:901
 #, php-format
 msgid "More of %s's written questions"
 msgstr "Mwy o cwestiynau ysgrifenedig %s"
 
-#: www/docs/mp/index.php:1294
+#: www/docs/mp/index.php:1281
 #, php-format
 msgid "You have multiple MSs (Members of the Senedd) who represent you in %s. They are:"
 msgstr "Mae gennych nifer o ASau (Aelodau Senedd Cymru) sy'n eich cynrychioli yn %s. Dyma nhw:"
 
-#: www/docs/mp/index.php:1296
+#: www/docs/mp/index.php:1283
 #, php-format
 msgid "You had multiple MSs (Members of the Senedd) who represented you in %s. They were:"
 msgstr "Roedd gennych nifer o ASau (Aelodau Senedd Cymru) oedd yn eich cynrychioli yn %s. Roedden nhw:"
 
-#: www/docs/postcode/index.php:114 www/docs/postcode/index.php:277
-msgid "Your MP is currently unknown."
-msgstr ""
+# English fallback: translation not required
+#: www/docs/postcode/index.php:113 www/docs/postcode/index.php:283
+msgid "We were unable to find your MP."
+msgstr "We were unable to find your MP."
 
-#: www/docs/postcode/index.php:242
+#: www/docs/postcode/index.php:248
 msgid "Your local councillors"
-msgstr ""
+msgstr "Eich cynghorwyr lleol"
 
-#: www/docs/postcode/index.php:273
-#, fuzzy
+#: www/docs/postcode/index.php:279
 msgid "Your former MP"
-msgstr "Eich cyn %s yw"
+msgstr "Eich cyn AS"
 
-#: www/docs/postcode/index.php:274
+#: www/docs/postcode/index.php:280
 #: www/includes/easyparliament/metadata.php:1333
 #: www/includes/easyparliament/metadata.php:1337
 #: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:104
@@ -864,56 +990,45 @@ msgstr "Eich cyn %s yw"
 msgid "Your MP"
 msgstr "Eich AS"
 
-#: www/docs/postcode/index.php:275
-msgid "Your MP represents you in the House of Commons. The House of Commons is responsible for making laws in the UK and for overall scrutiny of all aspects of government."
-msgstr "Mae eich Aelod Senddol yn eich cynrychioli yn Nhŷ'r Cyffredin. Tŷ'r Cyffredin sy'n gyfrifol am lunio cyfreithiau yn y Deyrnas Unedig ac am graffu ar bob agwedd o lywodraeth y DU yn gyffredinol."
-
-#: www/docs/postcode/index.php:279
+# English fallback: translation not required
+#: www/docs/postcode/index.php:290
 msgid "They are standing down at the general election."
-msgstr ""
-
-#: www/docs/postcode/index.php:286
-#, fuzzy, php-format
-msgid "Your %s"
-msgstr "Eich %s yw"
-
-#: www/docs/postcode/index.php:287
-#, fuzzy, php-format
-msgid "Your former %s"
-msgstr "Eich cyn %s yw"
+msgstr "They are standing down at the general election."
 
 #: www/docs/postcode/index.php:299
-#, fuzzy
-msgid "Your MSPs represent you in the Scottish Parliament. The Scottish Parliament is responsible for a wide range of devolved matters in which it sets policy independently of the London Parliament. Devolved matters include education, health, agriculture, justice and prisons. It also has some tax-raising powers."
-msgstr "Mae eich ASAu yn eich cynrychioli yn Senedd yr Alban. Mae Senedd yr Alban yn gyfrifol am ystod eang o faterion datganoledig lle mae'n gosod polisi yn annibynnol o San Steffan. Ymhlith y materion datganoledig y mae addysg, iechyd, amaethyddiaeth, cyfiawnder a charchardai. Mae ganddi hefyd rai grymoedd codi trethi."
+#, php-format
+msgid "Your %s"
+msgstr "Eich %s"
 
+#: www/docs/postcode/index.php:300
+#, php-format
+msgid "Your former %s"
+msgstr "Eich cyn %s"
+
+# English fallback: translation not required
 #: www/docs/postcode/index.php:303
-#, fuzzy
-msgid "Your MLAs represent you in the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over \"transferred matters\", which include agriculture, education, employment, the environment and health."
-msgstr "Mae eich ACD yn eich cynrychioli yng Nghynulliad Gogledd Iwerddon. Mae gan Gynulliad Gogledd Iwerddon awdurdod llawn dros “faterion a drosglwyddwyd”, sy'n cynnwys amaeth, addysg, cyflogaeth, yr amgylchedd ac iechyd."
+#, php-format
+msgid "We were unable to find your %s."
+msgstr "We were unable to find your %s."
 
-#: www/docs/postcode/index.php:306
-#, fuzzy
-msgid "Your MSs represent you in the Senedd. The Senedd has a wide range of powers over areas including economic development, transport, finance, local government, health, housing and the Welsh Language."
-msgstr "Mae eich Aelodau o’r Senedd yn eich cynrychioli chi yn Y Senedd. Mae gan Y Senedd ystod eang o rymoedd dros feysydd gan gynnwys datblygu economaidd, trafnidiaeth, cyllid, llywodraeth leol, iechyd, tai a'r iaith Gymraeg."
-
-#: www/docs/postcode/index.php:326
-#, fuzzy
+# English fallback: only used for non-Senedd parliaments/councils
+#: www/docs/postcode/index.php:329
 msgid "Constituency MSP"
-msgstr "URI"
+msgstr "Constituency MSP"
 
-#: www/docs/postcode/index.php:330
+# English fallback: only used for non-Senedd parliaments/councils
+#: www/docs/postcode/index.php:333
 msgid "Regional MSPs"
-msgstr ""
+msgstr "Regional MSPs"
 
 #: www/docs/regmem/index.php:94
 #, php-format
 msgid "This page shows how %s's entry in the Register of Members' Interests has changed over time, starting at the most recent and working back to the earliest we have managed to parse."
-msgstr "Mae'r dudalen hon yn dangos sut mae cofnod %s yn y Gofrestr o Fuddiannau Aelodau wedi newid dros amser. Mae’n dechrau ar yr un mwyaf diweddar ac yn gweithio'n ôl i'r un cynharaf rydyn ni wedi llwyddo i'w ddosrannu."
+msgstr "Mae'r dudalen hon yn dangos sut mae cofnod %s yn y Gofrestr o Fuddiannau Aelodau wedi newid dros amser. Mae'n dechrau ar yr un mwyaf diweddar ac yn gweithio'n ôl i'r un cynharaf rydyn ni wedi llwyddo i'w ddosrannu."
 
 #: www/docs/regmem/index.php:96
 msgid "Please be aware that changes in typography/styling at the source might mean something is marked as changed (ie. removed and added) when it hasn't; sorry about that, but we do our best with the source material."
-msgstr "Cofiwch y gallai newidiadau mewn teipograffi/steilio yn y deunydd gwreiddiol olygu bod rhywbeth wedi cael ei farcio fel ‘cofnod a newidiwyd’ (h.y. wedi'i dynnu a'i ychwanegu) pan nad yw. Mae'n ddrwg gennym am hynny, ond rydyn ni’n gwneud ein gorau gyda'r deunydd gwreiddiol."
+msgstr "Cofiwch y gallai newidiadau mewn teipograffi/steilio yn y deunydd gwreiddiol olygu bod rhywbeth wedi cael ei farcio fel ‘cofnod a newidiwyd’ (h.y. wedi'i dynnu a'i ychwanegu) pan nad yw. Mae'n ddrwg gennym am hynny, ond rydyn ni'n gwneud ein gorau gyda'r deunydd gwreiddiol."
 
 #: www/docs/regmem/index.php:99
 msgid "Removed"
@@ -933,7 +1048,7 @@ msgstr "Rhowch eich cyfrinair"
 
 #: www/docs/user/login/index.php:86
 msgid "Confirmation email resent"
-msgstr "E-bost cadarnhau wedi’i anfon eto"
+msgstr "E-bost cadarnhau wedi'i anfon eto"
 
 #: www/docs/user/login/index.php:87
 #: www/includes/easyparliament/templates/html/user/welcome.php:7
@@ -1009,7 +1124,7 @@ msgstr "Cynulliad Gogledd Iwerddon"
 msgid "Public Bill Committee"
 msgstr "Pwyllgor Mesur Cyhoeddus"
 
-#: www/includes/easyparliament/hansardlist.php:2463
+#: www/includes/easyparliament/hansardlist.php:2462
 msgid "See the whole debate"
 msgstr "Gweler yr holl ddadl"
 
@@ -1216,7 +1331,7 @@ msgstr "Ddadleuon y Senedd"
 
 #: www/includes/easyparliament/metadata.php:1175
 msgid "Find your MS"
-msgstr "Dewch o hyd i'ch Aelod o’r Senedd"
+msgstr "Dewch o hyd i'ch Aelod o'r Senedd"
 
 #: www/includes/easyparliament/metadata.php:1180
 #: www/includes/easyparliament/metadata.php:1185
@@ -1275,14 +1390,14 @@ msgstr "Tynnu uwch-oleuo"
 
 #: www/includes/easyparliament/page.php:641
 msgid "Modify search"
-msgstr "Addasu’r chwilio"
+msgstr "Addasu'r chwilio"
 
 #. skip heading count for WTT lords list
 #. no $pid
 #. end of isset($speakers)
 #: www/includes/easyparliament/page.php:641
 #: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:97
-#: www/includes/easyparliament/templates/html/header.php:161
+#: www/includes/easyparliament/templates/html/header.php:160
 #: www/includes/easyparliament/templates/html/mp/header.php:72
 #: www/includes/easyparliament/templates/html/search/form_main.php:5
 #: www/includes/easyparliament/templates/html/search/form_options.php:96
@@ -1350,13 +1465,13 @@ msgid "Search all speeches"
 msgstr "Chwiliwch bob araith"
 
 #: www/includes/easyparliament/page.php:725
-#: www/includes/easyparliament/templates/html/user/form.php:73
+#: www/includes/easyparliament/templates/html/user/form.php:45
 #: www/includes/easyparliament/templates/html/user/join.php:55
 msgid "Email address:"
 msgstr "Cyfeiriad e-bost:"
 
 #: www/includes/easyparliament/page.php:738
-#: www/includes/easyparliament/templates/html/user/form.php:87
+#: www/includes/easyparliament/templates/html/user/form.php:59
 #: www/includes/easyparliament/templates/html/user/join.php:66
 msgid "Password:"
 msgstr "Cyfrinair:"
@@ -1452,7 +1567,7 @@ msgstr "Rhoi'r gorau i newidiadau"
 
 #: www/includes/easyparliament/templates/html/alert/_alert_form_abandon_button.php:6
 msgid "Abandon new alert"
-msgstr "Rhoi’r gorau i rybudd newydd"
+msgstr "Rhoi'r gorau i rybudd newydd"
 
 #: www/includes/easyparliament/templates/html/alert/_alert_form.php:4
 msgid "Edit Alert"
@@ -1611,7 +1726,7 @@ msgstr "Termau Cysylltiedig"
 
 #: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:77
 msgid "Add all related terms"
-msgstr "Ychwanegu’r holl dermau cysylltiedig"
+msgstr "Ychwanegu'r holl dermau cysylltiedig"
 
 #: www/includes/easyparliament/templates/html/alert/_alert_step_vector.php:85
 msgid "← Previous"
@@ -1671,12 +1786,12 @@ msgstr "Mae'n ymddangos bod y ddolen a ddilynoch i gyrraedd y dudalen hon yn ang
 
 #: www/includes/easyparliament/templates/html/alert/index.php:77
 msgid "If you clicked a link in your alert email you may need to manually copy and paste the entire link to the ‘Location’ bar of the web browser and try again."
-msgstr "Pe baech wedi clicio dolen yn hysbysiad dros e-bost efallai y bydd angen i chi gopïo a gludo'r  ddolen gyfan i’r porwr gwe a rhoi cynnig arall arni."
+msgstr "Pe baech wedi clicio dolen yn hysbysiad dros e-bost efallai y bydd angen i chi gopïo a gludo'r  ddolen gyfan i'r porwr gwe a rhoi cynnig arall arni."
 
 #: www/includes/easyparliament/templates/html/alert/index.php:80
 #, php-format
 msgid "If you still get this message, please do <a href=\"mailto:%s\">email us</a> and let us know, and we’ll help out!"
-msgstr "Pe baech yn parhau i dderbyn y neges hon, <a href=\"mailto:%s\">ebostiwch ni</a> i’n hysbysu, a byddwn yn ceisio eich helpu!"
+msgstr "Pe baech yn parhau i dderbyn y neges hon, <a href=\"mailto:%s\">ebostiwch ni</a> i'n hysbysu, a byddwn yn ceisio eich helpu!"
 
 #: www/includes/easyparliament/templates/html/alert/index.php:84
 msgid "Your alert has been added"
@@ -1749,7 +1864,7 @@ msgstr "Creu hysbysiad"
 #: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:24
 #, php-format
 msgid "Sign up for alerts when people matching <i>%s</i> speaks"
-msgstr "Cofrestrwch am hysbysiadau pan fydd pobl sy’n gweddu <i>%s</i> siarad"
+msgstr "Cofrestrwch am hysbysiadau pan fydd pobl sy'n gweddu <i>%s</i> siarad"
 
 #: www/includes/easyparliament/templates/html/alert/index.php:178
 #: www/includes/easyparliament/templates/html/alert/_mp_alert_form.php:44
@@ -1870,7 +1985,7 @@ msgstr "Nid ydych wedi creu unrhyw rybuddion allweddair."
 # auto 
 #: www/includes/easyparliament/templates/html/alert/index.php:329
 msgid "You have a large number of alerts, so preview counts are disabled. Click on an alert to see its full search results."
-msgstr "Mae gennych nifer fawr o rybuddion, felly mae cyfrifon rhagolwg wedi’u hanalluogi. Cliciwch ar rybudd i weld canlyniadau llawn ei chwiliad."
+msgstr "Mae gennych nifer fawr o rybuddion, felly mae cyfrifon rhagolwg wedi'u hanalluogi. Cliciwch ar rybudd i weld canlyniadau llawn ei chwiliad."
 
 #: www/includes/easyparliament/templates/html/alert/_keyword_alert_list.php:8
 #, php-format
@@ -1983,7 +2098,7 @@ msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o'r Senedd yr Alban"
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:57
 msgid "This list contains votes from the House of Commons, House of Lords, Public Bill Committees, Senedd, and the Scottish Parliament."
-msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Dŷ'r Cyffredin, Tŷ'r Arglwyddi, Pwyllgorau Cyhoeddus, Seneddau Cymru a’r Alban."
+msgstr "Mae'r rhestr hon yn cynnwys pleidleisiau o Dŷ'r Cyffredin, Tŷ'r Arglwyddi, Pwyllgorau Cyhoeddus, Seneddau Cymru a'r Alban."
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:60
 msgid "Only show votes from:"
@@ -1992,7 +2107,7 @@ msgstr "Dangos y pleidleisiau o:"
 # auto
 #: www/includes/easyparliament/templates/html/divisions/index.php:70
 msgid "Votes appear here the day after they happened - but will be available on <a href=\"https://votes.theyworkforyou.com/decisions\">TheyWorkForYou Votes</a> within half an hour of the vote, and posted on our <a href=\"https://bsky.app/profile/theyworkforyou.com\">BlueSky feed</a>."
-msgstr "Mae pleidleisiau’n ymddangos yma’r diwrnod ar ôl iddynt ddigwydd — ond byddant ar gael ar <a href=\"https://votes.theyworkforyou.com/decisions\">Pleidleisiau TheyWorkForYou</a> o fewn hanner awr i’r bleidlais, ac yn cael eu postio ar ein <a href=\"https://bsky.app/profile/theyworkforyou.com\">ffrwd BlueSky</a>."
+msgstr "Mae pleidleisiau'n ymddangos yma'r diwrnod ar ôl iddynt ddigwydd — ond byddant ar gael ar <a href=\"https://votes.theyworkforyou.com/decisions\">Pleidleisiau TheyWorkForYou</a> o fewn hanner awr i'r bleidlais, ac yn cael eu postio ar ein <a href=\"https://bsky.app/profile/theyworkforyou.com\">ffrwd BlueSky</a>."
 
 #: www/includes/easyparliament/templates/html/divisions/index.php:74
 msgid "Learn more about our voting records and what they mean."
@@ -2035,8 +2150,8 @@ msgid "%s’s full voting record"
 msgstr "%s's record pleidleisio llawn"
 
 #: www/includes/easyparliament/templates/html/divisions/vote.php:77
-#: www/includes/easyparliament/templates/html/section/_section_content.php:281
-#: www/includes/easyparliament/templates/html/section/_section_content.php:295
+#: www/includes/easyparliament/templates/html/section/_section_content.php:282
+#: www/includes/easyparliament/templates/html/section/_section_content.php:296
 msgid "Vote analysis"
 msgstr "Dadansoddiad o bleidleisiau"
 
@@ -2087,7 +2202,7 @@ msgstr "Cofrestrwch am y newyddion diweddaraf gan mySociety"
 
 #: www/includes/easyparliament/templates/html/footer.php:31
 msgid "I’m also interested in data, coding and development emails."
-msgstr "I’m also interested in data, coding and development emails."
+msgstr "I'm also interested in data, coding and development emails."
 
 #: www/includes/easyparliament/templates/html/footer.php:36
 msgid "Your data"
@@ -2108,7 +2223,7 @@ msgstr "Adeiladwyd gan"
 #: www/includes/easyparliament/templates/html/footer.php:81
 #, php-format
 msgid "%s is a registered charity in England and Wales (1076346) and a limited company (03277032). We provide commercial services through our wholly owned subsidiary %s (05798215)."
-msgstr "Elusen gofrestredig yng Nghymru a Lloegr (1076346) a chwmni cyfyngedig (03277032) yw %s. Rydym yn darparu gwasanaethau masnachol trwy is-gwmni o’n heiddo llwyr %s (05798215)."
+msgstr "Elusen gofrestredig yng Nghymru a Lloegr (1076346) a chwmni cyfyngedig (03277032) yw %s. Rydym yn darparu gwasanaethau masnachol trwy is-gwmni o'n heiddo llwyr %s (05798215)."
 
 #: www/includes/easyparliament/templates/html/glossary/addterm_matches.php:12
 msgid "match"
@@ -2133,7 +2248,7 @@ msgstr[1] "nhw"
 #: www/includes/easyparliament/templates/html/hansard_person.php:31
 #: www/includes/easyparliament/templates/html/section/_business_list_item.php:12
 #: www/includes/easyparliament/templates/html/section/day.php:47
-#: www/includes/easyparliament/templates/html/section/_section_content.php:363
+#: www/includes/easyparliament/templates/html/section/_section_content.php:345
 #, php-format
 msgid "%s speech"
 msgid_plural "%s speeches"
@@ -2145,15 +2260,15 @@ msgstr[1] "%s areithiau"
 msgid "No data to display."
 msgstr "Dim data i'w arddangos."
 
-#: www/includes/easyparliament/templates/html/header.php:129
+#: www/includes/easyparliament/templates/html/header.php:128
 msgid "Menu"
 msgstr "Dewislen"
 
-#: www/includes/easyparliament/templates/html/header.php:155
+#: www/includes/easyparliament/templates/html/header.php:154
 msgid "Search TheyWorkForYou"
 msgstr "Chwiliwch TheyWorkForYou"
 
-#: www/includes/easyparliament/templates/html/header.php:158
+#: www/includes/easyparliament/templates/html/header.php:157
 msgid "e.g. a postcode, person, or topic"
 msgstr "e.e. côd post, person, neu bwnc"
 
@@ -2184,7 +2299,7 @@ msgstr "Mae pleidleisiau mwy diweddar ar gael ar <a href=\"https://votes.theywor
 
 #: www/includes/easyparliament/templates/html/interests/category.php:29
 msgid "Back to categories list"
-msgstr "Yn ôl i’r rhestr o gategorïau"
+msgstr "Yn ôl i'r rhestr o gategorïau"
 
 #: www/includes/easyparliament/templates/html/interests/category.php:42
 msgid "Register of interests"
@@ -2292,45 +2407,30 @@ msgid "Browse all MPs"
 msgstr "Pori pob AS"
 
 #: www/includes/easyparliament/templates/html/mp/memberships.php:25
-#: www/includes/easyparliament/templates/html/postcode/_rep_card.php:14
+#: www/includes/easyparliament/templates/html/postcode/_rep_card.php:22
 msgid "Committees"
 msgstr "Pwyllgorau"
 
 #: www/includes/easyparliament/templates/html/mp/memberships.php:30
+#, php-format
 msgid "%s is currently a member of the following committees:"
-msgstr ""
+msgstr "Mae %s yn aelod o'r pwyllgorau canlynol ar hyn o bryd:"
 
 #: www/includes/easyparliament/templates/html/mp/memberships.php:37
 #: www/includes/easyparliament/templates/html/mp/memberships.php:56
 msgid "Learn more about this committee"
-msgstr ""
+msgstr "Dysgu mwy am y pwyllgor hwn"
 
 #: www/includes/easyparliament/templates/html/mp/memberships.php:48
 msgid "Committee memberships held in the past"
 msgstr "Aelodaeth o bwyllgorau yn y gorffennol"
 
-#: www/includes/easyparliament/templates/html/mp/memberships.php:68
-msgid "Cross-Party Groups are informal groups made up of members from more than one party who share an interest in a particular country or subject."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/memberships.php:69
-msgid "They are not committees of the parliament and have no formal powers, but they are registered and may receive support from outside organisations."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/memberships.php:71
-msgid "All-Party Parliamentary Groups (APPGs) are informal cross-party groups made up of MPs and Peers who share an interest in a particular country or subject."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/memberships.php:72
-msgid "They do not have formal powers or funding, but can book rooms on the parliamentary estate and may receive funding from outside organisations and companies."
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/mp/memberships.php:77
+#: www/includes/easyparliament/templates/html/mp/memberships.php:75
 #, php-format
 msgid "%s is an officer of the following groups"
 msgstr "Mae %s yn swyddog yn y grwpiau canlynol"
 
-#: www/includes/easyparliament/templates/html/mp/memberships.php:78
+#: www/includes/easyparliament/templates/html/mp/memberships.php:76
 #, php-format
 msgid "%s is a member of the following groups"
 msgstr "Mae %s yn aelod o'r grwpiau canlynol"
@@ -2359,16 +2459,6 @@ msgstr "Areithiau"
 msgid "Written Questions"
 msgstr "Cwestiynau Ysgrifenedig"
 
-# google translated
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:43
-msgid "Committees / CPGs"
-msgstr ""
-
-# google translated
-#: www/includes/easyparliament/templates/html/mp/_person_navigation.php:43
-msgid "Committees / APPGs"
-msgstr "Pwyllgorau / APPGs"
-
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:50
 msgid "Memberships"
 msgstr "Aelodaethau"
@@ -2379,13 +2469,15 @@ msgstr "Aelodaethau Blaenorol"
 
 # google translated
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:57
+#, php-format
 msgid "%s: offices held"
-msgstr ""
+msgstr "%s: swydd"
 
 # google translated
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:60
+#, php-format
 msgid "%s: memberships"
-msgstr ""
+msgstr "%s: aelodaeth"
 
 #: www/includes/easyparliament/templates/html/mp/_person_navigation.php:78
 msgid "Recent motions to annul"
@@ -2503,18 +2595,18 @@ msgstr "Dim ymddangosiadau diweddar i'w harddangos."
 #: www/includes/easyparliament/templates/html/mp/_whip_removal_panel.php:3
 #, php-format
 msgid "Why is %s listed as an independent %s?"
-msgstr "Pam mae %s wedi’i restru fel %s annibynnol?"
+msgstr "Pam mae %s wedi'i restru fel %s annibynnol?"
 
 # auto
 #: www/includes/easyparliament/templates/html/mp/_whip_removal_panel.php:5
 #, php-format
 msgid "%s is listed as an independent %s because their party (%s) suspended them from the parliamentary party (\"removed the whip\")."
-msgstr "Mae %s wedi’i restru fel %s annibynnol oherwydd bod eu plaid (%s) wedi’u hatal o’r blaid seneddol (\"wedi tynnu’r chwip\")."
+msgstr "Mae %s wedi'i restru fel %s annibynnol oherwydd bod eu plaid (%s) wedi'u hatal o'r blaid seneddol (\"wedi tynnu'r chwip\")."
 
 # auto
 #: www/includes/easyparliament/templates/html/mp/_whip_removal_panel.php:8
 msgid "The whip can be removed for various reasons, including voting against the party on key issues, breaches of party rules, or other disciplinary matters."
-msgstr "Gellir tynnu’r chwip am amryw resymau, gan gynnwys pleidleisio yn erbyn y blaid ar faterion allweddol, torri rheolau’r blaid, neu faterion disgyblu eraill."
+msgstr "Gellir tynnu'r chwip am amryw resymau, gan gynnwys pleidleisio yn erbyn y blaid ar faterion allweddol, torri rheolau'r blaid, neu faterion disgyblu eraill."
 
 # auto
 #: www/includes/easyparliament/templates/html/mp/_whip_removal_panel.php:12
@@ -2523,7 +2615,7 @@ msgid "Read more about the circumstances %s had the whip removed."
 msgstr "Darllenwch fwy am yr amgylchiadau pan gafodd %s y chwip ei dynnu."
 
 #: www/includes/easyparliament/templates/html/people/index.php:31
-#: www/includes/easyparliament/templates/html/postcode/index.php:24
+#: www/includes/easyparliament/templates/html/postcode/index.php:30
 #, php-format
 msgid "Based on postcode <strong>%s</strong>"
 msgstr "Yn seiliedig ar gôd post <strong>%s</strong>"
@@ -2608,7 +2700,7 @@ msgstr "Cyfenw"
 #: www/includes/easyparliament/templates/html/people/index.php:149
 #: www/includes/easyparliament/templates/html/people/index.php:159
 msgid "<strong>Sorted by</strong> Party"
-msgstr "<strong>Wedi’i didoli fesul</strong> plaid"
+msgstr "<strong>Wedi'i didoli fesul</strong> plaid"
 
 #: www/includes/easyparliament/templates/html/people/index.php:150
 #: www/includes/easyparliament/templates/html/people/index.php:153
@@ -2640,51 +2732,65 @@ msgstr "addas ar gyfer Excel"
 msgid "Historical list of all %s"
 msgstr "Rhestr hanesyddol o bob %s"
 
-#: www/includes/easyparliament/templates/html/postcode/index.php:23
-msgid "Your representatives"
-msgstr "Eich cynrychiolwyr"
-
-#: www/includes/easyparliament/templates/html/postcode/index.php:25
-msgid "Change postcode"
-msgstr "Newid côd post"
-
-#: www/includes/easyparliament/templates/html/postcode/index.php:28
-msgid "Jump to section"
-msgstr ""
-
-#: www/includes/easyparliament/templates/html/postcode/index.php:56
+#: www/includes/easyparliament/templates/html/postcode/_council_section.php:13
 #, php-format
 msgid "Your local council is %s."
-msgstr ""
+msgstr "Eich cyngor lleol yw %s."
 
-#: www/includes/easyparliament/templates/html/postcode/index.php:58
+#: www/includes/easyparliament/templates/html/postcode/_council_section.php:15
 #, php-format
 msgid "Your local councils are %s."
-msgstr ""
+msgstr "Eich cynghorau lleol yw %s."
 
-#: www/includes/easyparliament/templates/html/postcode/index.php:63
-#, fuzzy, php-format
+#: www/includes/easyparliament/templates/html/postcode/_council_section.php:19
+#, php-format
 msgid "Find your local councillors and write to any of your representatives through <a href=\"%s\">WriteToThem.com</a>."
 msgstr "Gallwch ysgrifennu at unrhyw gynrychiolydd, neu'ch cynghorwyr lleol drwy <a href=\"%s\">WriteToThem.com</a>."
 
-#: www/includes/easyparliament/templates/html/postcode/index.php:72
-#: www/includes/easyparliament/templates/html/postcode/index.php:91
-msgid "Expand all"
-msgstr ""
+#: www/includes/easyparliament/templates/html/postcode/index.php:29
+msgid "Your representatives"
+msgstr "Eich cynrychiolwyr"
 
-#: www/includes/easyparliament/templates/html/postcode/index.php:92
-msgid "Collapse all"
-msgstr ""
+#: www/includes/easyparliament/templates/html/postcode/index.php:31
+msgid "Change postcode"
+msgstr "Newid côd post"
 
-#: www/includes/easyparliament/templates/html/postcode/_rep_card.php:12
-#, fuzzy
+#: www/includes/easyparliament/templates/html/postcode/index.php:34
+msgid "Jump to section"
+msgstr "Symud i'r adran"
+
+#. * @var RepresentativeData $rep
+#. * @var bool $expand
+#: www/includes/easyparliament/templates/html/postcode/_rep_card.php:20
 msgid "More details"
-msgstr "Eich manylion"
+msgstr "Mwy o fanylion"
 
-#: www/includes/easyparliament/templates/html/postcode/_rep_card.php:30
-#, php-format
-msgid "No group memberships available, see their <a href=\"%s\">whole profile</a>."
-msgstr ""
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:19
+msgid "Your MP represents you in the House of Commons. The House of Commons is responsible for making laws in the UK and for overall scrutiny of all aspects of government."
+msgstr "Mae eich Aelod Senddol yn eich cynrychioli yn Nhŷ'r Cyffredin. Tŷ'r Cyffredin sy'n gyfrifol am lunio cyfreithiau yn y Deyrnas Unedig ac am graffu ar bob agwedd o lywodraeth y DU yn gyffredinol."
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:20
+msgid "Your MSPs represent you in the Scottish Parliament. The Scottish Parliament is responsible for a wide range of devolved matters in which it sets policy independently of the London Parliament. Devolved matters include education, health, agriculture, justice and prisons. It also has some tax-raising powers."
+msgstr "Your MSPs represent you in the Scottish Parliament. The Scottish Parliament is responsible for a wide range of devolved matters in which it sets policy independently of the London Parliament. Devolved matters include education, health, agriculture, justice and prisons. It also has some tax-raising powers."
+
+# English fallback: only used for non-Senedd parliaments/councils
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:21
+msgid "Your MLAs represent you in the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over \"transferred matters\", which include agriculture, education, employment, the environment and health."
+msgstr "Your MLAs represent you in the Northern Ireland Assembly. The Northern Ireland Assembly has full authority over \"transferred matters\", which include agriculture, education, employment, the environment and health."
+
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:22
+msgid "Your MSs represent you in the Senedd. The Senedd has a wide range of powers over areas including economic development, transport, finance, local government, health, housing and the Welsh Language."
+msgstr "Mae eich Aelodau o'r Senedd yn eich cynrychioli chi yn Y Senedd. Mae gan Y Senedd ystod eang o rymoedd dros feysydd gan gynnwys datblygu economaidd, trafnidiaeth, cyllid, llywodraeth leol, iechyd, tai a'r iaith Gymraeg."
+
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:32
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:51
+msgid "Expand all"
+msgstr "Ehangu'r cyfan"
+
+#: www/includes/easyparliament/templates/html/postcode/_representative_section.php:52
+msgid "Collapse all"
+msgstr "Dad-ehangu'r cyfan"
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:4
 msgid "Senedd Election"
@@ -2728,11 +2834,11 @@ msgstr "Mae gan yr etholiad hwn system bleidleisio newydd"
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:38
 msgid "The way you vote has changed. When voting for your Members of the Senedd, you will now vote on one ballot paper, instead of two as previously. You will vote once for a single party or independent candidate, and seats will be allocated using proportional representation. Party candidates will be elected in the order they appear on their party list."
-msgstr "Mae sut rydych chi’n pleidleisio wedi newid. Yn awr, pan fyddwch chi’n pleidleisio dros ymgeisydd i fod yn Aelod o’r Senedd, byddwch yn defnyddio un papur pleidleisio yn hytrach na dau. Byddwch yn bwrw un bleidlais i un blaid neu ymgeisydd annibynnol, a bydd y seddau’n cael eu dyrannu gan ddefnyddio cynrychiolaeth gyfrannol. Bydd ymgeiswyr y pleidiau’n cael eu hethol yn y drefn y maen nhw’n ymddangos ar restr eu plaid."
+msgstr "Mae sut rydych chi'n pleidleisio wedi newid. Yn awr, pan fyddwch chi'n pleidleisio dros ymgeisydd i fod yn Aelod o'r Senedd, byddwch yn defnyddio un papur pleidleisio yn hytrach na dau. Byddwch yn bwrw un bleidlais i un blaid neu ymgeisydd annibynnol, a bydd y seddau'n cael eu dyrannu gan ddefnyddio cynrychiolaeth gyfrannol. Bydd ymgeiswyr y pleidiau'n cael eu hethol yn y drefn y maen nhw'n ymddangos ar restr eu plaid."
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:40
 msgid "These changes mean that you will have a new constituency. Each constituency will elect six members, and the overall number of Senedd members is increasing from 60 to 96. Senedd elections will happen every four years."
-msgstr "Mae’r newidiadau hyn yn golygu y bydd gennych chi etholaeth newydd. Bydd pob etholaeth yn ethol chwe aelod, ac mae nifer o aelodau’r Senedd yn cynyddu o 60 i 96. Bydd etholiadau’r Senedd yn digwydd bob pedair blynedd. Dysgwch fwy am y newidiadau i’r Senedd."
+msgstr "Mae'r newidiadau hyn yn golygu y bydd gennych chi etholaeth newydd. Bydd pob etholaeth yn ethol chwe aelod, ac mae nifer o aelodau'r Senedd yn cynyddu o 60 i 96. Bydd etholiadau'r Senedd yn digwydd bob pedair blynedd. Dysgwch fwy am y newidiadau i'r Senedd."
 
 #: www/includes/easyparliament/templates/html/postcode/senedd2026.php:42
 msgid "Learn more about the Senedd changes."
@@ -2796,7 +2902,7 @@ msgstr "ASau yn unig"
 
 #: www/includes/easyparliament/templates/html/search/by-person.php:86
 msgid "Ungroup results"
-msgstr "Dad-grwpio’r canlyniadau"
+msgstr "Dad-grwpio'r canlyniadau"
 
 #: www/includes/easyparliament/templates/html/search/by-person.php:95
 msgid "Occurences"
@@ -2855,7 +2961,7 @@ msgstr "Dod o hyd i'r union air neu ymadrodd hwn"
 
 #: www/includes/easyparliament/templates/html/search/form_options.php:11
 msgid "You can also do this from the main search box by putting exact words in quotes: like <code>\"cycling\"</code> or <code>\"hutton report\"</code>"
-msgstr "Gallwch hefyd wneud hyn o'r prif flwch chwilio drwy roi’r union eiriau mewn dyfyniadau: megis <code>\"seiclo\"</code> neu <code>\"adroddiad Hutton\"</code >"
+msgstr "Gallwch hefyd wneud hyn o'r prif flwch chwilio drwy roi'r union eiriau mewn dyfyniadau: megis <code>\"seiclo\"</code> neu <code>\"adroddiad Hutton\"</code >"
 
 #: www/includes/easyparliament/templates/html/search/form_options.php:12
 msgid "By default, we show words related to your search term, like “cycle” and “cycles” in a search for <code>cycling</code>. Putting the word in quotes, like <code>\"cycling\"</code>, will stop this."
@@ -2929,7 +3035,7 @@ msgstr "Cyn Aelodau Seneddol"
 #: www/includes/easyparliament/templates/html/search/results.php:31
 #, php-format
 msgid "%s in constituencies matching <em class=\"current-search-term\">%s</em>"
-msgstr "%s mewn etholaetholau sy’n gweddu <em class=\"current-search-term\">%s</em>"
+msgstr "%s mewn etholaetholau sy'n gweddu <em class=\"current-search-term\">%s</em>"
 
 #. count($cons) <= 1
 #: www/includes/easyparliament/templates/html/search/results.php:33
@@ -3114,63 +3220,55 @@ msgid "(Not translated)"
 msgstr "(Ddim wedi ei gyfieithu)"
 
 #. End of voting HTML
-#: www/includes/easyparliament/templates/html/section/_section_content.php:250
+#: www/includes/easyparliament/templates/html/section/_section_content.php:251
 #, php-format
 msgid "Submitted by %s"
 msgstr "Cyflwynwyd gan %s"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:252
+#: www/includes/easyparliament/templates/html/section/_section_content.php:253
 msgid "See any annotations posted about this"
 msgstr "Gweld unrhyw anodiadau wedi'u postio am hyn"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:264
+#: www/includes/easyparliament/templates/html/section/_section_content.php:265
 msgid "See this speech in context"
 msgstr "Gweler yr araith hon yn ei chyd-destun"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:265
+#: www/includes/easyparliament/templates/html/section/_section_content.php:266
 msgid "Link to this speech"
 msgstr "Dolen i'r araith hon"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:267
+#: www/includes/easyparliament/templates/html/section/_section_content.php:268
 msgid "See this vote in context"
 msgstr "Gweler y bleidlais hon yn ei chyd-destun"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:268
+#: www/includes/easyparliament/templates/html/section/_section_content.php:269
 msgid "Link to this vote"
 msgstr "Dolen i'r bleidlais hon"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:270
-#: www/includes/easyparliament/templates/html/section/_section_content.php:273
+#: www/includes/easyparliament/templates/html/section/_section_content.php:271
+#: www/includes/easyparliament/templates/html/section/_section_content.php:274
 msgid "See this item in context"
 msgstr "Gweler yr eitem hon yn ei chyd-destun"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:271
-#: www/includes/easyparliament/templates/html/section/_section_content.php:274
+#: www/includes/easyparliament/templates/html/section/_section_content.php:272
+#: www/includes/easyparliament/templates/html/section/_section_content.php:275
 msgid "Link to this item"
 msgstr "Dolen i'r eitem hon"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:289
+#: www/includes/easyparliament/templates/html/section/_section_content.php:290
 msgid "In context"
 msgstr "Yn ei gyd-destun"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:290
+#: www/includes/easyparliament/templates/html/section/_section_content.php:291
 msgid "Individually"
 msgstr "Yn unigol"
 
 # auto
-#: www/includes/easyparliament/templates/html/section/_section_content.php:292
+#: www/includes/easyparliament/templates/html/section/_section_content.php:293
 msgid "Annotate!"
 msgstr "Anodi!"
 
-#: www/includes/easyparliament/templates/html/section/_section_content.php:314
-msgid "Tweet"
-msgstr "Trydar"
-
-#: www/includes/easyparliament/templates/html/section/_section_content.php:315
-msgid "Share"
-msgstr "Rhannu"
-
-#: www/includes/easyparliament/templates/html/section/_section_content.php:366
+#: www/includes/easyparliament/templates/html/section/_section_content.php:348
 #, php-format
 msgid "%s annotation"
 msgid_plural "%s annotations"
@@ -3273,11 +3371,11 @@ msgstr "Ei gwneud hi'n hawdd i bobl ysgrifennu at eu cynrychiolwyr ar unrhyw hae
 
 #: www/includes/easyparliament/templates/html/static/about.php:24
 msgid "Powering <a href=\"https://www.theyworkforyou.com/alert/\">email alerts</a> that let <a href=\"https://www.mysociety.org/2022/07/28/theyworkforyou-quietly-provides-essential-services-for-civil-society-and-beyond/\">citizens and civil society</a> stay informed about their representatives or areas of interest."
-msgstr "Cynhyrchu hysbysiadau e-bost sy’n caniatáu dinasyddion a chymdeithas sifil i fod yn hyddysg am eu cynrychiolwyr neu feysydd o ddiddordeb."
+msgstr "Cynhyrchu hysbysiadau e-bost sy'n caniatáu dinasyddion a chymdeithas sifil i fod yn hyddysg am eu cynrychiolwyr neu feysydd o ddiddordeb."
 
 #: www/includes/easyparliament/templates/html/static/about.php:25
 msgid "Adding new information and summaries that build on the information that Parliament releases (such as voting record summaries and more accessible registers of members interests)."
-msgstr "Ychwanegu gwybodaeth a chrynodebau newydd i’r wybodaeth y mae'r Senedd yn ei rhyddhau (megis crynodebau cofnodion pleidleisio a’r cofrestrau hygyrch o fuddiannau aelodau)."
+msgstr "Ychwanegu gwybodaeth a chrynodebau newydd i'r wybodaeth y mae'r Senedd yn ei rhyddhau (megis crynodebau cofnodion pleidleisio a'r cofrestrau hygyrch o fuddiannau aelodau)."
 
 #: www/includes/easyparliament/templates/html/static/about.php:28
 msgid "If you support TheyWorkForYou's goals, you can help us do more by making a <a href=\"https://www.mysociety.org/donate/?utm_source=theyworkforyou&utm_medium=website&utm_campaign=theyworkforyou-about-page\">donation</a>."
@@ -3285,7 +3383,7 @@ msgstr "Os ydych chi'n cefnogi amcanion TheyWorkForYou, <a href=\"gallwch ein he
 
 #: www/includes/easyparliament/templates/html/static/about.php:30
 msgid "For more information about how we run the site, please read <a href=\"/help\">our FAQs.</a>"
-msgstr "Am fwy o wybodaeth am sut rydyn ni'n rheoli’r safle, <a href=\"/help\">darllenwch ein Cwestiynau Cyffredin.</a>"
+msgstr "Am fwy o wybodaeth am sut rydyn ni'n rheoli'r safle, <a href=\"/help\">darllenwch ein Cwestiynau Cyffredin.</a>"
 
 #: www/includes/easyparliament/templates/html/static/about.php:38
 msgid "Credits"
@@ -3357,96 +3455,89 @@ msgstr "Trwy TheyWorkForYou ac WriteToThem rydym wedi gwneud cynrychiolwyr ethol
 msgid "Find out more about how mySociety is funded."
 msgstr "Rhagor o wybodaeth am y modd y mae mySociety yn cael ei ariannu."
 
-#: www/includes/easyparliament/templates/html/user/form.php:20
-#: www/includes/easyparliament/templates/html/user/form.php:110
-#: www/includes/easyparliament/templates/html/user/join.php:89
-msgid "Your UK postcode:"
-msgstr "Eich côd post yn y Deyrnas Unedig:"
-
-#: www/includes/easyparliament/templates/html/user/form.php:21
-#: www/includes/easyparliament/templates/html/user/form.php:111
-#: www/includes/easyparliament/templates/html/user/join.php:90
-msgid "Optional and not public"
-msgstr "Dewisol ac nid yn gyhoeddus"
-
-#: www/includes/easyparliament/templates/html/user/form.php:25
-msgid "We use this to show you information about your MP."
-msgstr "Rydym yn defnyddio hyn i ddangos gwybodaeth i chi am eich AS."
-
-#: www/includes/easyparliament/templates/html/user/form.php:29
-#: www/includes/easyparliament/templates/html/user/form.php:204
-msgid "Update details"
-msgstr "Diweddaru manylion"
-
-#: www/includes/easyparliament/templates/html/user/form.php:40
-#: www/includes/easyparliament/templates/html/user/index.php:28
+#: www/includes/easyparliament/templates/html/user/form.php:12
+#: www/includes/easyparliament/templates/html/user/index.php:20
 msgid "Edit your details"
 msgstr "Golygu eich manylion"
 
-#: www/includes/easyparliament/templates/html/user/form.php:51
+#: www/includes/easyparliament/templates/html/user/form.php:23
 #: www/includes/easyparliament/templates/html/user/join.php:33
 msgid "Your first name:"
 msgstr "Eich enw cyntaf:"
 
-#: www/includes/easyparliament/templates/html/user/form.php:62
+#: www/includes/easyparliament/templates/html/user/form.php:34
 #: www/includes/easyparliament/templates/html/user/join.php:44
 msgid "Your last name:"
 msgstr "Eich cyfenw:"
 
-#: www/includes/easyparliament/templates/html/user/form.php:84
+#: www/includes/easyparliament/templates/html/user/form.php:56
 msgid "To change your password enter a new one twice below (otherwise, leave blank)."
 msgstr "I newid eich cyfrinair nodwch un newydd ddwywaith isod (fel arall, gadewch yn wag)."
 
-#: www/includes/easyparliament/templates/html/user/form.php:88
+#: www/includes/easyparliament/templates/html/user/form.php:60
 #: www/includes/easyparliament/templates/html/user/join.php:67
 msgid "At least six characters"
 msgstr "O leiaf chwe mewnbwn"
 
-#: www/includes/easyparliament/templates/html/user/form.php:98
+#: www/includes/easyparliament/templates/html/user/form.php:70
 #: www/includes/easyparliament/templates/html/user/join.php:77
 msgid "Repeat password:"
 msgstr "Ailadrodd cyfrinair:"
 
-#: www/includes/easyparliament/templates/html/user/form.php:121
+#: www/includes/easyparliament/templates/html/user/form.php:82
+#: www/includes/easyparliament/templates/html/user/join.php:89
+msgid "Your UK postcode:"
+msgstr "Eich côd post yn y Deyrnas Unedig:"
+
+#: www/includes/easyparliament/templates/html/user/form.php:83
+#: www/includes/easyparliament/templates/html/user/join.php:90
+msgid "Optional and not public"
+msgstr "Dewisol ac nid yn gyhoeddus"
+
+#: www/includes/easyparliament/templates/html/user/form.php:93
 msgid "Your website:"
 msgstr "Eich gwefan:"
 
-#: www/includes/easyparliament/templates/html/user/form.php:122
+#: www/includes/easyparliament/templates/html/user/form.php:94
 msgid "Optional and public"
 msgstr "Dewisol a chyhoeddus"
 
-#: www/includes/easyparliament/templates/html/user/form.php:152
+#: www/includes/easyparliament/templates/html/user/form.php:124
 msgid "Organisation:"
 msgstr "Sefydliad"
 
-#: www/includes/easyparliament/templates/html/user/form.php:175
+#: www/includes/easyparliament/templates/html/user/form.php:147
 msgid "Can we send you occasional emails about TheyWorkForYou.com?"
 msgstr "A ydych chi am dderbyn e-byst achlysurol ynglŷn â TheyWorkForYou.com?"
 
-#: www/includes/easyparliament/templates/html/user/form.php:176
+#: www/includes/easyparliament/templates/html/user/form.php:148
 msgid "Do you want to receive our newsletter about our wider democracy work, including our research and campaigns?"
 msgstr "A ydych chi am dderbyn ein cylchlythyr am ein gwaith democratiaeth ehangach, gan gynnwys ein hymchwil a'n hymgyrchoedd?"
 
-#: www/includes/easyparliament/templates/html/user/form.php:177
+#: www/includes/easyparliament/templates/html/user/form.php:149
 #: www/includes/easyparliament/templates/html/user/join.php:103
 msgid "Do you want to receive the monthly newsletter from mySociety, with news on TheyWorkForYou and our other projects?"
 msgstr "Ydych chi am dderbyn y cylchlythyr misol gan mySociety, gyda newyddion am TheyWorkForYou a'n prosiectau eraill?"
+
+#: www/includes/easyparliament/templates/html/user/form.php:176
+msgid "Update details"
+msgstr "Diweddaru manylion"
 
 #: www/includes/easyparliament/templates/html/user/index.php:12
 msgid "Your details"
 msgstr "Eich manylion"
 
-#: www/includes/easyparliament/templates/html/user/index.php:39
+#: www/includes/easyparliament/templates/html/user/index.php:30
 #: www/includes/easyparliament/templates/html/user/view_user.php:10
 msgid "Website"
 msgstr "Gwefan"
 
-#: www/includes/easyparliament/templates/html/user/index.php:51
+#: www/includes/easyparliament/templates/html/user/index.php:35
 #: www/includes/easyparliament/templates/html/user/view_user.php:15
 msgid "Status"
 msgstr "Statws"
 
-#: www/includes/easyparliament/templates/html/user/index.php:56
+#: www/includes/easyparliament/templates/html/user/index.php:40
 #: www/includes/easyparliament/templates/html/user/view_user.php:19
 msgid "Joined"
 msgstr "Wedi ymuno"
@@ -3471,13 +3562,22 @@ msgstr "(Os ydych eisoes yn derbyn hysbysiadau e-bost, peidiwch â phoeni am hyn
 msgid "User details"
 msgstr "Manylion defnyddiwr"
 
-#: www/includes/utility.php:178
+#: www/includes/utility.php:181
 msgid "Sorry, an error has occurred"
 msgstr "Ymddiheuriadau, mae gwall wedi digwydd"
 
-#: www/includes/utility.php:179
+#: www/includes/utility.php:182
 msgid "We've been notified by email and will try to fix the problem soon!"
 msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y broblem yn fuan!"
+
+#~ msgid "Tweet"
+#~ msgstr "Trydar"
+
+#~ msgid "Share"
+#~ msgstr "Rhannu"
+
+#~ msgid "We use this to show you information about your MP."
+#~ msgstr "Rydym yn defnyddio hyn i ddangos gwybodaeth i chi am eich AS."
 
 #, fuzzy
 #~ msgid "Register"
@@ -3657,7 +3757,7 @@ msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y b
 #~ msgstr "Argymhellion chwilio"
 
 #~ msgid "To be alerted on an exact <strong>phrase</strong>, be sure to put it in quotes. Also use quotes around a word to avoid stemming (where ‘horse’ would also match ‘horses’)."
-#~ msgstr "I dderbyn hysbysiad ar <strong>ymadrodd</strong> unigryw, sicrhewch i’w osod mewn dyfyniadau.  Hefyd, rhowch ddyfyniadau o gwmpas gair i osgoi stemio (ble buasai 'ceffyl' hefyd yn  cyfateb i 'ceffylau')."
+#~ msgstr "I dderbyn hysbysiad ar <strong>ymadrodd</strong> unigryw, sicrhewch i'w osod mewn dyfyniadau.  Hefyd, rhowch ddyfyniadau o gwmpas gair i osgoi stemio (ble buasai 'ceffyl' hefyd yn  cyfateb i 'ceffylau')."
 
 #~ msgid "You should only enter <strong>one term per alert</strong> – if you wish to receive alerts on more than one thing, or for more than one person, simply fill in this form as many times as you need, or use boolean OR."
 #~ msgstr "Dim ond <strong>un term i bob hysbysiad</strong> y dylech chi nodi – pe baech yn dymuno derbyn hysbysiadau am fwy nag un peth, neu am fwy nag un person, y cyfan sydd angen i chi wneud yw llenwi y ffurflen hon gymaint o weithiau ag sydd ei angen, neu defnyddiwch NEU Boolean."
@@ -3698,7 +3798,7 @@ msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y b
 #~ msgstr "Pleidleisiau"
 
 #~ msgid "Find out more about your MSs"
-#~ msgstr "Mwy o wybodaeth am eich Aelodau o’r Senedd"
+#~ msgstr "Mwy o wybodaeth am eich Aelodau o'r Senedd"
 
 #~ msgid "Your MSs:"
 #~ msgstr "Eich ASau:"
@@ -3741,20 +3841,3 @@ msgstr "Rydym wedi derbyn y wybodaeth trwy e-bost, a byddwn yn ceisio datrys y b
 
 #~ msgid "Get insights on TheyWorkForYou and other mySociety sites, in our popular newsletter"
 #~ msgstr "Derbyn mewnwelediadau TheyWorkForYou a safleoedd mySociety eraill, yn ein cylchlythyr poblogaidd"
-
-#: classes/Utility/House.php:99
-msgid "All-Party Groups"
-msgstr "Grwpiau Hollbleidiol"
-
-# google translated
-#: classes/Utility/House.php:110
-msgid "Committees / APGs"
-msgstr "Pwyllgorau / APGs"
-
-#: classes/Utility/House.php:130
-msgid "All-Party Groups (APGs) are informal groups of MLAs from different parties who share an interest in a particular country or subject."
-msgstr "Mae Grwpiau Hollbleidiol (APGs) yn grwpiau anffurfiol o Aelodau’r Cynulliad o wahanol bleidiau sy’n rhannu diddordeb mewn gwlad neu bwnc penodol."
-
-#: classes/Utility/House.php:131
-msgid "They are not Assembly committees and have no formal powers."
-msgstr "Nid ydynt yn bwyllgorau’r Cynulliad ac nid oes ganddynt bwerau ffurfiol."
