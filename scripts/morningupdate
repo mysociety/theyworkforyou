@@ -37,7 +37,6 @@ print "Loading into database\n" if $verbose;
 chdir $FindBin::Bin;
 # We do these on separate lines, so if one fails, others still run
 system "./load-people";
-system "./posts load-all --quiet";
 system "./xml2db.pl $cronquiet --recent --debates --quiet";
 system "./xml2db.pl $cronquiet --recent --westminhall --quiet";
 system "./xml2db.pl $cronquiet --recent --wrans --quiet";
@@ -51,6 +50,10 @@ system "./xml2db.pl $cronquiet --recent --scotqs --quiet";
 system "./xml2db.pl $cronquiet --recent --standing --quiet";
 system "./xml2db.pl $cronquiet --recent --lmqs --quiet";
 system "../.venv/bin/python future-fetch.py";
+
+# Import posts (government positions, committees, cross party groups)
+# sources in parlparse/members/posts, see scripts/posts --help
+system "../.venv/bin/python -m twfy_tools.utils.posts load-all --quiet";
 
 # Update division names from Parliament
 print "Updating division names\n" if $verbose;
